@@ -1,0 +1,50 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "removeComments": true, //컴파일시 주석제거
+    "esModuleInterop": true, //기본값 - false, CommonJS에서 존재하지 않는 기본 내보내기 설정
+    "noImplicitAny": true,
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true, //함수에서 return 빼먹으면 에러내기
+    "baseUrl": "./", // baseUrl을 기준으로 관련된 위치에 모듈 이름의 경로 매핑 목록을 나열합니다.
+    "paths": {
+      "@/*": ["src/*"],
+      "pages/*": ["src/pages/*"],
+      "components/*": ["src/components/*"],
+      "types/*": ["src/types/*"],
+      "api/*": ["src/api/*"],
+      "styles/*": ["src/styles/*"],
+      "assets/*": ["src/public/*"],
+      "constants/*": ["src/constants/*"],
+      "utils/*": ["src/utils/*"],
+      "atoms/*": ["src/atoms/*"],
+      "hooks/*": ["src/hooks/*"]
+    }
+  },
+  "include": [
+    "src",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.js",
+    "src/**/*.d.ts",
+    "src/**/*.svg"
+  ],
+  "exclude": ["node_modules"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
