@@ -21,10 +21,13 @@ dependencies:
 devDependencies:
   '@pandacss/dev':
     specifier: ^0.18.3
-    version: 0.18.3(@types/react-dom@18.2.17)(@types/react@18.2.42)(typescript@5.3.2)
+    version: 0.18.3(@types/node@20.10.4)(@types/react-dom@18.2.17)(@types/react@18.2.42)(typescript@5.3.2)
   '@tanstack/react-query':
     specifier: ^4.35.3
     version: 4.36.1(react-dom@18.2.0)(react@18.2.0)
+  '@types/node':
+    specifier: ^20.10.4
+    version: 20.10.4
   '@types/react':
     specifier: ^18.2.37
     version: 18.2.42
@@ -78,7 +81,7 @@ devDependencies:
     version: 5.3.2
   vite:
     specifier: ^5.0.0
-    version: 5.0.6
+    version: 5.0.6(@types/node@20.10.4)
   vite-plugin-remove-console:
     specifier: ^2.1.1
     version: 2.2.0
@@ -134,7 +137,7 @@ packages:
       astro: ^2.5.0
     dependencies:
       '@astrojs/prism': 2.1.2
-      astro: 2.9.6
+      astro: 2.9.6(@types/node@20.10.4)
       github-slugger: 1.5.0
       import-meta-resolve: 2.2.2
       rehype-raw: 6.1.1
@@ -1203,7 +1206,7 @@ packages:
       ts-pattern: 5.0.5
     dev: true
 
-  /@pandacss/dev@0.18.3(@types/react-dom@18.2.17)(@types/react@18.2.42)(typescript@5.3.2):
+  /@pandacss/dev@0.18.3(@types/node@20.10.4)(@types/react-dom@18.2.17)(@types/react@18.2.42)(typescript@5.3.2):
     resolution: {integrity: sha512-YEesW9kQH2ua9MjkJjACjBqAS2yzTBtb+QYOSHkArpGEU20oISP/lcMBWrfl8ZIH94sFHv7lfifbdYrW8KPhHA==}
     hasBin: true
     dependencies:
@@ -1215,7 +1218,7 @@ packages:
       '@pandacss/postcss': 0.18.3(typescript@5.3.2)
       '@pandacss/preset-panda': 0.18.3
       '@pandacss/shared': 0.18.3
-      '@pandacss/studio': 0.18.3(@types/react-dom@18.2.17)(@types/react@18.2.42)(typescript@5.3.2)
+      '@pandacss/studio': 0.18.3(@types/node@20.10.4)(@types/react-dom@18.2.17)(@types/react@18.2.42)(typescript@5.3.2)
       '@pandacss/token-dictionary': 0.18.3
       '@pandacss/types': 0.18.3
       cac: 6.7.14
@@ -1364,7 +1367,7 @@ packages:
     resolution: {integrity: sha512-BRk97D2hb/n4YrDYpBetsNuvVeF4i+XYdRBxtBl4SRe+ux9fSnQv0hmrEyCvR+gqbnC1FnQw7UQa/1ZjmTdWgQ==}
     dev: true
 
-  /@pandacss/studio@0.18.3(@types/react-dom@18.2.17)(@types/react@18.2.42)(typescript@5.3.2):
+  /@pandacss/studio@0.18.3(@types/node@20.10.4)(@types/react-dom@18.2.17)(@types/react@18.2.42)(typescript@5.3.2):
     resolution: {integrity: sha512-c6Sij4iEeKlItzNCKKkBJuydT2VcKd4h6SXgiNe6/TkG2jcefvWLmcGD/u9GvHpWozGe3MCiBZn9bnVIVtI1xg==}
     dependencies:
       '@astrojs/react': 2.2.1(@types/react-dom@18.2.17)(@types/react@18.2.42)(react-dom@18.2.0)(react@18.2.0)
@@ -1374,11 +1377,11 @@ packages:
       '@pandacss/shared': 0.18.3
       '@pandacss/token-dictionary': 0.18.3
       '@pandacss/types': 0.18.3
-      astro: 2.9.6
+      astro: 2.9.6(@types/node@20.10.4)
       javascript-stringify: 2.1.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-      vite: 4.4.11
+      vite: 4.4.11(@types/node@20.10.4)
     transitivePeerDependencies:
       - '@types/node'
       - '@types/react'
@@ -1734,7 +1737,7 @@ packages:
   /@types/keyv@3.1.4:
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
     dependencies:
-      '@types/node': 17.0.45
+      '@types/node': 20.10.4
     dev: true
 
   /@types/mdast@3.0.15:
@@ -1755,6 +1758,12 @@ packages:
 
   /@types/node@17.0.45:
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
+    dev: true
+
+  /@types/node@20.10.4:
+    resolution: {integrity: sha512-D08YG6rr8X90YB56tSIuBaddy/UXAA9RKJoFvrsnogAum/0pmjkgi4+2nx96A330FmioegBWmEYQ+syqCFaveg==}
+    dependencies:
+      undici-types: 5.26.5
     dev: true
 
   /@types/parse5@6.0.3:
@@ -1786,7 +1795,7 @@ packages:
   /@types/responselike@1.0.3:
     resolution: {integrity: sha512-H/+L+UkTV33uf49PH5pCAUBVPNj2nDBXTN+qS1dOwyyg24l3CcicicCA7ca+HMvJBZcFgl5r8e+RR6elsb4Lyw==}
     dependencies:
-      '@types/node': 17.0.45
+      '@types/node': 20.10.4
     dev: true
 
   /@types/scheduler@0.16.8:
@@ -1951,7 +1960,7 @@ packages:
       fs-extra: 11.1.1
       imagemin: 8.0.1
       is-apng: 1.0.1
-      vite: 5.0.6
+      vite: 5.0.6(@types/node@20.10.4)
     dev: true
 
   /@vitejs/plugin-react-swc@3.5.0(vite@5.0.6):
@@ -1960,7 +1969,7 @@ packages:
       vite: ^4 || ^5
     dependencies:
       '@swc/core': 1.3.100
-      vite: 5.0.6
+      vite: 5.0.6(@types/node@20.10.4)
     transitivePeerDependencies:
       - '@swc/helpers'
     dev: true
@@ -2141,7 +2150,7 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
-  /astro@2.9.6:
+  /astro@2.9.6(@types/node@20.10.4):
     resolution: {integrity: sha512-yvbZQ6YOWYLejyQ4nAcgZLDYQ34enQJ5/LWlXKtUzXzpsUHB75vJMj+XmEq5Q2eVlZOlQrp0lU+nhSRGaOsOUQ==}
     engines: {node: '>=16.12.0', npm: '>=6.14.0'}
     hasBin: true
@@ -2204,7 +2213,7 @@ packages:
       typescript: 5.3.2
       unist-util-visit: 4.1.2
       vfile: 5.3.7
-      vite: 4.4.11
+      vite: 4.4.11(@types/node@20.10.4)
       vitefu: 0.2.5(vite@4.4.11)
       which-pm: 2.1.1
       yargs-parser: 21.1.1
@@ -6389,6 +6398,10 @@ packages:
       through: 2.3.8
     dev: true
 
+  /undici-types@5.26.5:
+    resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
+    dev: true
+
   /undici@5.28.2:
     resolution: {integrity: sha512-wh1pHJHnUeQV5Xa8/kyQhO7WFa8M34l026L5P/+2TYiakvGy5Rdc8jWZVyG7ieht/0WgJLEd3kcU5gKx+6GC8w==}
     engines: {node: '>=14.0'}
@@ -6575,13 +6588,13 @@ packages:
       debug: 4.3.4
       globrex: 0.1.2
       tsconfck: 2.1.2(typescript@5.3.2)
-      vite: 5.0.6
+      vite: 5.0.6(@types/node@20.10.4)
     transitivePeerDependencies:
       - supports-color
       - typescript
     dev: true
 
-  /vite@4.4.11:
+  /vite@4.4.11(@types/node@20.10.4):
     resolution: {integrity: sha512-ksNZJlkcU9b0lBwAGZGGaZHCMqHsc8OpgtoYhsQ4/I2v5cnpmmmqe5pM4nv/4Hn6G/2GhTdj0DhZh2e+Er1q5A==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -6609,6 +6622,7 @@ packages:
       terser:
         optional: true
     dependencies:
+      '@types/node': 20.10.4
       esbuild: 0.18.20
       postcss: 8.4.32
       rollup: 3.29.4
@@ -6616,7 +6630,7 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vite@5.0.6:
+  /vite@5.0.6(@types/node@20.10.4):
     resolution: {integrity: sha512-MD3joyAEBtV7QZPl2JVVUai6zHms3YOmLR+BpMzLlX2Yzjfcc4gTgNi09d/Rua3F4EtC8zdwPU8eQYyib4vVMQ==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -6644,6 +6658,7 @@ packages:
       terser:
         optional: true
     dependencies:
+      '@types/node': 20.10.4
       esbuild: 0.19.8
       postcss: 8.4.32
       rollup: 4.6.1
@@ -6659,7 +6674,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 4.4.11
+      vite: 4.4.11(@types/node@20.10.4)
     dev: true
 
   /vscode-css-languageservice@6.2.11:
