@@ -7,5 +7,6 @@ export const ROUTES = [
   'Post',
   'Posts',
   'Search',
-  'Profile'
+  'Profile',
+  'Coffee'
 ];
