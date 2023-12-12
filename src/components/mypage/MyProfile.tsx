@@ -65,14 +65,6 @@ const MyProfile = () => {
             </IconArea>
           </>
         )}
-
-        {/* <Span>{userNickName.user1}</Span>
-        <InputButton>
-          <Icon
-            id="icon-edit"
-            size="24"
-          />
-        </InputButton> */}
       </EditArea>
       <UserInfo className={FlexCenter}>
         <Span>{userName.loginName}</Span>
