@@ -15,7 +15,10 @@ const Layout = () => {
 };
 
 const Container = styled.main`
+  position: relative;
   max-width: 500px;
+  min-width: 375px;
+  height: 100%;
 `;
 
 export default Layout;
