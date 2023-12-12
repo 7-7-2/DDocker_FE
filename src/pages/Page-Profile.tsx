@@ -3,7 +3,7 @@ import ProfileDetail from '@/components/profile/ProfileDetail';
 import ProfileImg from '@/components/profile/ProfileImg';
 import Follow from '@/pages/Page-Follow';
 import { styled } from 'styled-system/jsx';
-import { Flex, Full, PY } from '@/styles/layout';
+import { Flex, PY } from '@/styles/layout';
 import { cx } from 'styled-system/css';
 
 const Profile = () => {
@@ -11,14 +11,14 @@ const Profile = () => {
     <>
       <Container className={cx(Flex, PY)}>
         <Wrapper>
-          <ProfileHeader>
+          <ProfileHeader className={Flex}>
             <ProfileImg />
             <Follow />
           </ProfileHeader>
         </Wrapper>
         <ProfileDetail />
       </Container>
-      <Border className={Full} />
+      <Border className={Flex} />
       <PostsGrid />
     </>
   );
@@ -39,13 +39,11 @@ const Container = styled.div`
 `;
 
 const ProfileHeader = styled.div`
-  display: flex;
   flex-direction: row;
   justify-content: space-between;
 `;
 
 const Border = styled.div`
   border-top: 1px solid #e6e4e4;
-  display: flex;
   padding-top: 10px;
 `;
