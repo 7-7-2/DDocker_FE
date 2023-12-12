@@ -1,6 +1,17 @@
-const Icon = ({ id, ...props }: { id: string }) => {
+const Icon = ({
+  id,
+  size,
+  onTouchEnd
+}: {
+  id: string;
+  size: string;
+  onTouchEnd?: () => void;
+}) => {
   return (
-    <svg {...props}>
+    <svg
+      width={size}
+      height={size}
+      onTouchEnd={onTouchEnd}>
       <use href={`/sprite.svg#${id}`} />
     </svg>
   );
