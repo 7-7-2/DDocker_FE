@@ -72,5 +72,33 @@ const SignIn = () => {
 
 export default SignIn;
 
+const AppLogoContainer = styled.div`
+  margin: 166px 0;
+`;
 
+const AppLogo = styled.div`
+  width: 161px;
+  height: 161px;
+  margin: auto;
+  background-color: var(--colors-main);
+  border-radius: 16px;
+  text-align: center;
+`;
+
+const SignInBtnContainer = styled.div`
+  gap: 12px;
+`;
+
+const KakaoBtn = styled.button`
+  background-color: #fee500;
+`;
+
+const GoogleBtn = styled.button`
+  border: 1px solid #d9d9d9;
+  background-color: #ffffff;
+`;
+
+const NoneBtn = styled.button`
+  font-size: var(--font-sizes-sm);
+  line-height: 18px;
 `;
