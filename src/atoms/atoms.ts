@@ -1,4 +1,5 @@
 import { atom } from 'recoil';
+import { AuthTypes } from '@/types/types';
 
 export const activeState = atom({
   key: 'activeState',
@@ -21,4 +22,17 @@ export const headerIconsState = atom({
 export const footerShowState = atom({
   key: 'footerShowState',
   default: true
+});
+
+export const authState = atom<AuthTypes>({
+  key: 'authState',
+  default: {
+    initialized: false,
+    user: {
+      userId: '',
+      email: '',
+      name: ''
+    },
+    signIn: false
+  }
 });
