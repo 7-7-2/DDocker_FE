@@ -44,6 +44,15 @@ export const Full = css`
   height: 100%;
 `;
 
+export const MarginAuto = css`
+  margin: auto;
+`
+
 export const Grid = css`
   display: grid;
 `;
+
+export const PY = css`
+    padding-top: 30px;
+    padding-bottom: 20px;
+    `
