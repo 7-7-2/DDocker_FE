@@ -6,15 +6,26 @@ import {
 } from 'react-router-dom';
 import Layout from '@/pages/Layout';
 import { ROUTES } from '@/constants/routes';
+import { LazyRouteType } from '@/types/types';
 
 const LazyRoutes = ROUTES.map(route => {
-  const ifHome = route === 'Home';
+  const routeConfig: { [key: string]: LazyRouteType } = {
+    Home: { index: true, path: '' },
+    Start: { index: false, path: 'start/:id' },
+    Post: { index: false, path: 'post/:postid' }
+  };
+
+  const { index, path } = routeConfig[route] || {
+    index: false,
+    path: route.toLowerCase()
+  };
   const LazyComponent = React.lazy(() => import(`./Page-${route}.tsx`));
+
   return (
     <Route
       key={route}
-      index={ifHome}
-      path={ifHome ? '' : route.toLocaleLowerCase()}
+      index={index}
+      path={path}
       element={<LazyComponent />}
     />
   );
