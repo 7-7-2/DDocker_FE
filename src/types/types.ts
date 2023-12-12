@@ -10,16 +10,21 @@ export interface HeaderType {
   icon?: string;
 }
 
-export interface UserProfile {
-    id?: number
-    loginName: string
-    caffeine: number
+export interface AuthTypes {
+  initialized: boolean;
+  user: User | null;
+  signIn: boolean;
 }
 
-export interface FollowCountProps {
-    icons: {
-      number?: number;
-      label: string;
-      onTouchEnd?: (event: TouchEvent<HTMLDivElement>) => void;
-    }[];
-  }
+export interface User {
+  userId: string | undefined;
+  email: string | null;
+  name: string | null;
+  profileUrl?: string;
+}
+
+export enum Collections {
+  USERS = 'users',
+  CHATS = 'chats',
+  MESSAGES = 'message'
+}
