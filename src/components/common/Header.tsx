@@ -41,6 +41,8 @@ const Container = styled.header`
   top: 0;
   margin: 0 20px;
   height: 46px;
+  background-color: #fff;
+  z-index: 99;
 `;
 
 const Nav = styled.nav`
