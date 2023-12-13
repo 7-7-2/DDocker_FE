@@ -15,14 +15,14 @@ const ProfileImg = () => {
       <Box className={cx(FlexCenter, MarginAuto)}>
         <User>
           <Icon
-            id="icon-users"
-            size="70"
+            id="icon-user"
+            size="100"
           />
         </User>
         <Edit>
           <Icon
             id="icon-edit"
-            size="15"
+            size="32"
             onTouchEnd={handleProfileClick}
           />
         </Edit>
@@ -39,7 +39,6 @@ const Container = styled.div`
   width: 94px;
   height: 94px;
   border-radius: 9999px;
-  background-color: #d9d9d9;
 `;
 
 const Box = styled.div`
@@ -53,12 +52,8 @@ const Edit = styled.div`
   position: absolute;
   width: 30px;
   height: 30px;
-  padding: 5px;
-  background-color: #d9d9d9;
   bottom: -15px;
   right: -25px;
-  border: 1px solid #fff;
-  border-radius: 50%;
   z-index: 1;
   cursor: pointer;
 `;

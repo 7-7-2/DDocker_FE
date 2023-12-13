@@ -72,24 +72,24 @@
 </clipPath>
 </defs>
 </symbol>
-<symbol id='icon-user' width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M27 6.75C30.7125 6.75 33.75 9.7875 33.75 13.5C33.75 17.2125 30.7125 20.25 27 20.25C23.2875 20.25 20.25 17.2125 20.25 13.5C20.25 9.7875 23.2875 6.75 27 6.75ZM27 40.5C36.1125 40.5 46.575 44.8537 47.25 47.25H6.75C7.52625 44.82 17.9212 40.5 27 40.5ZM27 0C19.5412 0 13.5 6.04125 13.5 13.5C13.5 20.9588 19.5412 27 27 27C34.4588 27 40.5 20.9588 40.5 13.5C40.5 6.04125 34.4588 0 27 0ZM27 33.75C17.9887 33.75 0 38.2725 0 47.25V54H54V47.25C54 38.2725 36.0113 33.75 27 33.75Z" fill="black"/>
+
+<symbol id="icon-user" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" fill="none">
+<mask id="mask0_853_2764" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
+<circle cx="50" cy="50" r="50" fill="#D9D9D9"/>
+</mask>
+<g mask="url(#mask0_853_2764)">
+<circle cx="50" cy="50" r="50" fill="#D9D9D9"/>
+<path d="M13 78.6333C13 67.7901 22.1142 59 33.3571 59H67.6429C78.8858 59 88 67.7901 88 78.6333C88 84.911 82.7234 90 76.2143 90H50.5H24.7857C18.2766 90 13 84.911 13 78.6333Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M34 37C34 28.1634 41.1634 21 50 21C58.8366 21 66 28.1634 66 37C66 45.8366 58.8366 53 50 53C41.1634 53 34 45.8366 34 37Z" fill="white"/>
+</g>
+<circle cx="50" cy="50" r="45" stroke="#D9D9D9" stroke-width="10"/>
 </symbol>
 
-<symbol id="icon-users" xmlns="http://www.w3.org/2000/svg" width="71" height="69" viewBox="0 0 71 69" fill="none">
-  <path fill-rule="evenodd" clip-rule="evenodd" d="M0.20282 48.7411C3.56625 42.3666 10.433 38 18.3572 38H52.6429C60.1893 38 66.7766 41.9602 70.2925 47.8433C63.5559 60.4343 50.2783 69 35 69C20.0877 69 7.0814 60.8397 0.20282 48.7411Z" fill="white"/>
-  <path fill-rule="evenodd" clip-rule="evenodd" d="M19 16C19 7.16344 26.1634 0 35 0C43.8366 0 51 7.16344 51 16C51 24.8366 43.8366 32 35 32C26.1634 32 19 24.8366 19 16Z" fill="white"/>
-</symbol>
-
-<symbol id="icon-mini-user" xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 71 69" fill="none">
-  <path fill-rule="evenodd" clip-rule="evenodd" d="M0.20282 48.7411C3.56625 42.3666 10.433 38 18.3572 38H52.6429C60.1893 38 66.7766 41.9602 70.2925 47.8433C63.5559 60.4343 50.2783 69 35 69C20.0877 69 7.0814 60.8397 0.20282 48.7411Z" fill="white"/>
-  <path fill-rule="evenodd" clip-rule="evenodd" d="M19 16C19 7.16344 26.1634 0 35 0C43.8366 0 51 7.16344 51 16C51 24.8366 43.8366 32 35 32C26.1634 32 19 24.8366 19 16Z" fill="white"/>
-</symbol>
-
-<symbol id="icon-edit" width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M1.88235 11.4706L1 15L4.52941 14.1176L14.6765 3.97059C15.4074 3.23962 15.4074 2.05449 14.6765 1.32353C13.9455 0.592564 12.7604 0.592565 12.0294 1.32353L1.88235 11.4706Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M11 3L13 5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M9 15H16" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<symbol id="icon-edit" width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="16" cy="16" r="15.5" fill="#D9D9D9" stroke="white"/>
+<path d="M9.88235 19.4706L9 23L12.5294 22.1176L22.6765 11.9706C23.4074 11.2396 23.4074 10.0545 22.6765 9.32353C21.9455 8.59256 20.7604 8.59257 20.0294 9.32353L9.88235 19.4706Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M19 11L21 13" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M17 23H24" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </symbol>
 
 <symbol id="icon-brand" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
