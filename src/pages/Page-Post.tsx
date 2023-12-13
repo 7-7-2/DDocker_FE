@@ -1,5 +1,26 @@
+import { useParams } from 'react-router-dom';
+import { useComposeHeader } from '@/hooks/useComposeHeader';
+import { lazy } from 'react';
+
+const PostRegister = lazy(() => import('../components/post/PostRegister'));
+const PostDetail = lazy(() => import('../components/post/PostDetail'));
+
 const Post = () => {
-  return <>POST</>;
+  const { postid } = useParams();
+  const register = postid === 'register';
+  if (register) {
+    useComposeHeader(false, '커피 등록 추가', 'close');
+  }
+  if (!register) {
+    useComposeHeader(false, '게시물', 'close');
+  }
+
+  return (
+    <>
+      {register && <PostRegister />}
+      {!register && <PostDetail />}
+    </>
+  );
 };
 
-export default Post
+export default Post;

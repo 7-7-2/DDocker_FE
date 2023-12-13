@@ -1,21 +1,21 @@
-import Icon from '@/components/common/Icon';
-import { ICON_NOTIFICATION, ICON_SEARCH } from '@/constants/icons';
-import { useNavigateTo } from '@/hooks/useNavigateTo';
+import HeaderIcon from '@/components/common/HeaderIcon';
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+
+const routeMap = new Map();
+routeMap.set('search', '/search');
+routeMap.set('notification', '/notification');
+
+const icons = ['search', 'notification'];
 
 const HeaderIcons = () => {
-  const toSearch = useNavigateTo('/search');
-  const toNotification = useNavigateTo('/notification');
-
   return (
     <>
-      <Icon
-        {...ICON_SEARCH}
-        onTouchEnd={toSearch}
-      />
-      <Icon
-        {...ICON_NOTIFICATION}
-        onTouchEnd={toNotification}
-      />
+      {icons.map(item => (
+        <HeaderIcon
+          {...iconPropsGenerator(item)}
+          icon={item}
+        />
+      ))}
     </>
   );
 };
