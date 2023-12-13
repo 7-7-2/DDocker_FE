@@ -2,9 +2,8 @@ export interface LazyRouteType {
   index: boolean;
   path: string;
 }
-
 export interface HeaderType {
-  logo?: React.ReactNode;
+  logo?: boolean;
   text?: string;
-  icons?: React.ReactNode;
+  icon?: string;
 }

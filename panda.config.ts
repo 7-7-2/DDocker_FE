@@ -24,6 +24,7 @@ export default defineConfig({
           tertiary: { value: '#EDECEC' }
         },
         fontSizes: {
+          xxs: { value: '10px' },
           xs: { value: '12px' },
           sm: { value: '14px' },
           base: { value: '16px' },
