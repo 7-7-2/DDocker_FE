@@ -1,14 +1,37 @@
+import { lazy, Suspense } from 'react';
+import { useRecoilValue } from 'recoil';
 import { styled } from 'styled-system/jsx';
+import { cx, css } from 'styled-system/css';
+import {
+  headerTextState,
+  headerLogoState,
+  headerIconsState
+} from '@/atoms/atoms';
 import { Between, Flex, Align } from '@/styles/layout';
-import { cx } from 'styled-system/css';
-import { HeaderType } from '@/types/types';
 
-const Header = ({ logo, text, icons }: HeaderType) => {
+const HeaderIcons = lazy(() => import('./HeaderIcons'));
+const HeaderCloseIcon = lazy(() => import('./HeaderCloseIcon'));
+
+const Header = () => {
+  const logo = useRecoilValue(headerLogoState);
+  const text = useRecoilValue(headerTextState);
+  const icon = useRecoilValue(headerIconsState);
+
+  const icons = icon === 'icons';
+  const close = icon === 'close';
+
   return (
     <Container className={cx(Flex, Between, Align)}>
-      <Left>{logo}</Left>
-      <Center>{text}</Center>
-      <Right className={Flex}>{icons}</Right>
+      <Left>{logo && <>LOGO</>}</Left>
+      <Center className={icons ? IconsSpace : close ? CloseSpace : ''}>
+        {text}
+      </Center>
+      <Right className={Flex}>
+        <Suspense>
+          {icons && <HeaderIcons />}
+          {close && <HeaderCloseIcon />}
+        </Suspense>
+      </Right>
     </Container>
   );
 };
@@ -33,6 +56,13 @@ const Center = styled.h2`
 
 const Right = styled.span`
   gap: 15px;
+`;
+
+const IconsSpace = css`
+  padding-left: 63px;
+`;
+const CloseSpace = css`
+  padding-left: 24px;
 `;
 
 export default Header;
