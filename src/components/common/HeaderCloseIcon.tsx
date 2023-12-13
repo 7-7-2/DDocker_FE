@@ -1,14 +1,15 @@
 import Icon from '@/components/common/Icon';
-import { ICON_CLOSE } from '@/constants/icons';
 import { useClose } from '@/hooks/useClose';
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
+//기능 추가필요(useClose수정)
 const HeaderCloseIcon = () => {
   const { handleTouch } = useClose();
 
   return (
     <>
       <Icon
-        {...ICON_CLOSE}
+        {...iconPropsGenerator('close')}
         onTouchEnd={handleTouch}></Icon>
     </>
   );
