@@ -1,17 +1,19 @@
-export const userName = {
-    loginName: 'zzzz'
+export const userNickName = {
+    loginName: '커피좋아',
+    loginName1: '커피커피마셔'
 }
 
-export const userNickName = {
-    user1: '김감자'
+export const userName = {
+    user1: '신개굴'
 }
 
 export const userEmail = {
-    eMail: 'asd@asdasd.com'
+    eMail: 'sjdjfjfk@gmail.com'
 }
 
 export const addedCoffee = {
-    cafein: 1111
+    cafein: 26730,
+    cafein1: 34054
 }
 
 export const brand = {

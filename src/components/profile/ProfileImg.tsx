@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import Icon from 'components/common/Icon';
 import { styled } from 'styled-system/jsx';
-import { FlexCenter, Center, MarginAuto } from '@/styles/layout';
+import { FlexCenter, MarginAuto } from '@/styles/layout';
 import { cx } from 'styled-system/css';
 
 const ProfileImg = () => {
@@ -11,27 +11,31 @@ const ProfileImg = () => {
   };
 
   return (
-    <Wrapper>
-      <Container className={FlexCenter}>
-        <Box className={cx(Center, MarginAuto)}>
+    <Container className={FlexCenter}>
+      <Box className={cx(FlexCenter, MarginAuto)}>
+        <User>
           <Icon
-            id="icon-user"
-            size="54"
+            id="icon-users"
+            size="70"
           />
-        </Box>
-        <Edit onTouchEnd={handleProfileClick} />
-      </Container>
-    </Wrapper>
+        </User>
+        <Edit>
+          <Icon
+            id="icon-edit"
+            size="15"
+            onTouchEnd={handleProfileClick}
+          />
+        </Edit>
+      </Box>
+    </Container>
   );
 };
 
 export default ProfileImg;
 
-const Wrapper = styled.div`
-  position: relative;
-`;
-
 const Container = styled.div`
+  position: relative;
+  margin: auto;
   width: 94px;
   height: 94px;
   border-radius: 9999px;
@@ -41,15 +45,19 @@ const Container = styled.div`
 const Box = styled.div`
   width: 54px;
   height: 54px;
+  position: relative;
 `;
+
+const User = styled.div``;
 const Edit = styled.div`
   position: absolute;
-  width: 10px;
-  height: 10px;
-  padding: 10px;
-  background-color: red;
-  bottom: 10px;
-  right: -2px;
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  background-color: #d9d9d9;
+  bottom: -15px;
+  right: -25px;
+  border: 1px solid #fff;
   border-radius: 50%;
   z-index: 1;
   cursor: pointer;
