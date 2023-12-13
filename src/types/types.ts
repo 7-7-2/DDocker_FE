@@ -1,3 +1,5 @@
+import { SetStateAction } from 'react';
+import { SetterOrUpdater } from 'recoil';
 import { TouchEvent } from 'react';
 
 export interface LazyRouteType {
@@ -23,8 +25,16 @@ export interface User {
   profileUrl?: string;
 }
 
-export enum Collections {
-  USERS = 'users',
-  CHATS = 'chats',
-  MESSAGES = 'message'
+export interface AlretMessageProps {
+  inputValue: string | undefined;
+  type: string | undefined;
+  isAlret: boolean;
+}
+
+export interface InputProps {
+  type: string;
+  handleEvent: () => void;
+  setInputValue: SetterOrUpdater<string>;
+  inputValue: string | undefined;
+  btn?: boolean;
 }
