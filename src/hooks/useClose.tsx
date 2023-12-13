@@ -9,11 +9,12 @@ export const useClose = () => {
     mypage: '/profile',
     default: '/'
   };
+  const routesMap = Object.keys(routeMap);
 
   const handleTouch = () => {
-    const routesMap = Object.keys(routeMap);
     const targetRoute =
       routesMap.find(key => location.includes(key)) || routeMap['default'];
+
     useNavigateTo(targetRoute);
   };
   return { handleTouch };
