@@ -1,22 +1,27 @@
-import { FOLLOW } from '@/constants/Follow';
-import { Flex, FlexCenter } from '@/styles/layout';
+import { FollowCountProps } from '@/types/types';
+import { FlexCenter } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
+import { useNavigate } from 'react-router-dom';
 
-const FollowCount = () => {
+const FollowCount: React.FC<FollowCountProps> = ({ icons }) => {
+  const navigate = useNavigate();
+
+  const handleStatClick = (label: string) => {
+    label === '게시물'
+      ? console.log('1')
+      : (label === '팔로잉' || label === '팔로워') && navigate('/FOLLOW');
+  };
   return (
     <Container className={FlexCenter}>
-      <Stat className={Flex}>
-        <StatNumber>{FOLLOW.post}</StatNumber>
-        <StatLabel>게시물</StatLabel>
-      </Stat>
-      <Stat>
-        <StatNumber>{FOLLOW.following}</StatNumber>
-        <StatLabel>팔로잉</StatLabel>
-      </Stat>
-      <Stat className="lastStat">
-        <StatNumber>{FOLLOW.followed}</StatNumber>
-        <StatLabel>팔로워</StatLabel>
-      </Stat>
+      {icons.map((icon, index) => (
+        <Stat
+          key={index}
+          className={index === icons.length - 1 ? 'lastStat' : ''}
+          onTouchEnd={() => handleStatClick(icon.label)}>
+          <StatNumber>{icon.number}</StatNumber>
+          <StatLabel>{icon.label}</StatLabel>
+        </Stat>
+      ))}
     </Container>
   );
 };
