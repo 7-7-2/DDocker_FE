@@ -18,7 +18,7 @@ export const INPUT_TEXTS = {
   }
 };
 
-export const ALRETMESSAGE_TEXTS = {
+export const LABEL_TEXTS = {
   nickname: {
     label: '닉네임',
     message: '사용가능한 닉네임 입니다'

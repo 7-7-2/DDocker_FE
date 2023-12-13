@@ -25,16 +25,19 @@ export interface User {
   profileUrl?: string;
 }
 
-export interface AlretMessageProps {
+export interface LabelProps {
   inputValue: string | undefined;
-  type: string | undefined;
-  isAlret: boolean;
+  isAlert: boolean | undefined;
+  label: string | undefined;
+  message: string | undefined;
 }
 
 export interface InputProps {
   type: string;
   handleEvent: () => void;
   setInputValue: SetterOrUpdater<string>;
+  setIsAlert?: React.Dispatch<React.SetStateAction<boolean>>;
   inputValue: string | undefined;
+  isAlert?: boolean | undefined;
   btn?: boolean;
 }
