@@ -1,18 +1,25 @@
 import { GRID } from '@/constants/PostsGrid';
 import { styled } from 'styled-system/jsx';
-import { Full, Flex, Justify, Grid, Center } from '@/styles/layout';
+import { Flex, Justify, Grid, Center } from '@/styles/layout';
 import { cx } from 'styled-system/css';
 
 const PostsGrid = () => {
+  const handleClick = () => {
+    console.log('1');
+  };
+
   return (
-    <div className={cx(Full, Justify)}>
+    <div className={Justify}>
       <div className={cx(Grid, Center)}>
         {Array.from({ length: GRID.numberOfItems }).map((_, index) => (
           <div
             className={Flex}
             key={index}>
             {Array.from({ length: GRID.columns }).map((__, colIndex) => (
-              <Container key={colIndex} />
+              <Container
+                key={colIndex}
+                onTouchEnd={handleClick}
+              />
             ))}
           </div>
         ))}
@@ -24,10 +31,9 @@ const PostsGrid = () => {
 export default PostsGrid;
 
 const Container = styled.div`
-  width: 100px;
-  height: 100px;
-  margin: 15px;
-  padding: 10px;
+  width: 109px;
+  height: 109px;
+  margin: 2px;
   background-color: #ddd;
   cursor: pointer;
 `;
