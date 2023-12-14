@@ -1,6 +1,6 @@
 import { GRID } from '@/constants/PostsGrid';
-import { styled } from 'styled-system/jsx';
 import { Flex, Justify, Grid, Center } from '@/styles/layout';
+import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
 const PostsGrid = () => {
@@ -34,6 +34,6 @@ const Container = styled.div`
   width: 109px;
   height: 109px;
   margin: 2px;
-  background-color: #ddd;
+  background-color: var(--colors-tertiary);
   cursor: pointer;
 `;
