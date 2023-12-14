@@ -12,7 +12,7 @@ const ProfileImg = () => {
   };
 
   return (
-    <Container className={FlexCenter}>
+    <Container className={cx(FlexCenter, MarginAuto)}>
       <Box className={cx(FlexCenter, MarginAuto)}>
         <User>
           <Icon {...iconPropsGenerator('user', '100')} />
@@ -32,7 +32,6 @@ export default ProfileImg;
 
 const Container = styled.div`
   position: relative;
-  margin: auto;
   width: 94px;
   height: 94px;
   border-radius: 9999px;

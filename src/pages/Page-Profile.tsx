@@ -1,14 +1,14 @@
+import FollowCount from '@/components/profile/FollowCount';
 import PostsGrid from '@/components/profile/PostsGrid';
 import ProfileDetail from '@/components/profile/ProfileDetail';
 import ProfileImg from '@/components/profile/ProfileImg';
-import { styled } from 'styled-system/jsx';
-import { Flex } from '@/styles/layout';
-import Header from '@/components/common/Header';
-import HeaderIcons from '@/components/common/HeaderIcons';
-import FollowCount from '@/components/profile/FollowCount';
 import { FOLLOW } from '@/constants/Follow';
+import { useComposeHeader } from '@/hooks/useComposeHeader';
+import { Column } from '@/styles/layout';
+import { styled } from 'styled-system/jsx';
 
 const Profile = () => {
+  useComposeHeader(true, '', 'icons');
   const icons = [
     { number: FOLLOW.post, label: '게시물' },
     { number: FOLLOW.following, label: '팔로잉' },
@@ -17,15 +17,10 @@ const Profile = () => {
 
   return (
     <>
-      <Header
-        logo={<>APPLOGO</>}
-        icons={<HeaderIcons />}
-      />
-      <Container className={Flex}>
-        <ProfileHeader className={Flex}>
+      <Container className={Column}>
+        <ProfileHeader className={Column}>
           <ProfileImg />
           <ProfileDetail />
-
           <FollowCount icons={icons} />
         </ProfileHeader>
       </Container>
@@ -41,11 +36,9 @@ const Container = styled.div`
   gap: 4px;
   width: auto;
   margin: 20px 32px;
-  flex-direction: column;
   font-size: var(--font-sizes-xs);
 `;
 
 const ProfileHeader = styled.div`
-  flex-direction: column;
   justify-content: space-between;
 `;
