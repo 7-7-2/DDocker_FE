@@ -10,7 +10,7 @@ const routeMap = new Map();
 routeMap.set('home', '/');
 routeMap.set('feed', '/posts');
 routeMap.set('coffee', '/coffee');
-routeMap.set('mypage', '/mypage');
+routeMap.set('my', '/profile');
 
 const FooterIcon = ({ icon }: { icon: string }) => {
   const [active, setActive] = useRecoilState(activeState);
@@ -31,7 +31,7 @@ const FooterIcon = ({ icon }: { icon: string }) => {
             {...iconPropsGenerator(active === icon ? `${icon}-active` : icon)}
           />
           <span className={active === icon ? Selected : Text}>
-            {icon === 'mypage' ? 'MY' : icon.toUpperCase()}
+            {icon.toUpperCase()}
           </span>
         </div>
       )}
