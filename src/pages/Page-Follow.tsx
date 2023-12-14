@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import UserListItem from '@/components/follow/UserListItem';
+import { Text } from '@/constants/commonTexts';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { FollowCountProps, UserProfile } from '@/types/types';
 import { Column, FlexCenter, Full } from '@/styles/layout';
@@ -50,13 +51,13 @@ const Follow: React.FC<FollowCountProps> = () => {
           className={cx(FlexCenter, isActiveBtn === '팔로워' ? ' active' : '')}
           onTouchEnd={handleButtonClick}
           value="팔로워">
-          팔로워
+          {Text.ToggleFollowedBtn}
         </ToggleButton>
         <ToggleButton
           className={cx(FlexCenter, isActiveBtn === '팔로잉' ? 'active' : '')}
           onTouchEnd={handleButtonClick}
           value="팔로잉">
-          팔로잉
+          {Text.toggleFollowingBtn}
         </ToggleButton>
       </ToggleArea>
       <UserListItem users={usersToShow} />
