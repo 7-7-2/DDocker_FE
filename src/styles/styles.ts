@@ -17,3 +17,23 @@ export const SignInBtn = cx(
     line-height: 20px;
   `
 );
+
+export const InputFontSm = css`
+  font-family: Pretendard;
+  font-size: var(--font-sizes-sm);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+`;
+
+export const InputFontBase = css`
+  font-family: Pretendard;
+  font-size: var(--font-sizes-base);
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  background-color: transparent;
+  &:focus {
+    outline: none;
+  }
+`;
