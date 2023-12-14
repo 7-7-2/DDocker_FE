@@ -1,4 +1,3 @@
-import { SetStateAction } from 'react';
 import { SetterOrUpdater } from 'recoil';
 import { TouchEvent } from 'react';
 
