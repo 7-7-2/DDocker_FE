@@ -36,3 +36,13 @@ export const authState = atom<AuthTypes>({
     signIn: false
   }
 });
+
+export const inputNicknameState = atom({
+  key: 'inputNicknameState',
+  default: ''
+});
+
+export const inputNicknameAlertState = atom({
+  key: 'inputNicknameAlertState',
+  default: false
+});
