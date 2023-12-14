@@ -1,5 +1,5 @@
 import Icon from '@/components/common/Icon';
-import { Text } from '@/constants/texts';
+import { TEXT } from '@/constants/texts';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import {
@@ -43,14 +43,14 @@ const MyProfile = () => {
       <ExitButton
         className={cx(Cursor, LineH18, TextGray)}
         onTouchEnd={handleExitedUser}>
-        {Text.ExitButtonText}
+        {TEXT.exitButtonText}
       </ExitButton>
 
       <ButtonArea className={Justify}>
         <SaveButton
           className={cx(FlexCenter, Cursor, Border16)}
           onTouchEnd={handleFormSubmit}>
-          {Text.SaveButton}
+          {TEXT.saveButton}
         </SaveButton>
       </ButtonArea>
     </>
