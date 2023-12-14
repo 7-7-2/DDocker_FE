@@ -1,5 +1,5 @@
 import MiniProfile from '@/components/common/MiniProfile';
-import { Text } from '@/constants/texts';
+import { TEXT } from '@/constants/texts';
 import { UserProfile } from '@/types/types';
 import { FlexCenter, Between, LineH18, Cursor } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
@@ -17,7 +17,7 @@ const UserListItem: React.FC<{ users: UserProfile[] }> = ({ users }) => {
             caffeine={caffeine}
           />
           <DeleteBtn className={cx(Cursor, LineH18)}>
-            {Text.DeleteBtn}
+            {TEXT.deleteBtn}
           </DeleteBtn>
         </Container>
       ))}
