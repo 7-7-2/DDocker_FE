@@ -2,17 +2,19 @@ import { useRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { GoogleAuthProvider } from 'firebase/auth';
 import { signInWithGoogle } from '@/api/firebase';
+import Icon from '@/components/common/Icon';
 import { authState } from '@/atoms/atoms';
 import { SIGININ_TEXTS } from '@/constants/start';
 import { AuthTypes } from '@/types/types';
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { styled } from 'styled-system/jsx';
-import { Column, Center, Justify } from '@/styles/layout';
+import { Column, Center, Justify, FlexCenter } from '@/styles/layout';
 import { ButtonFont, SignInBtn } from '@/styles/styles';
 import { cx } from 'styled-system/css';
 
 const SignIn = () => {
   const [userAuthState, setUserAuthState] = useRecoilState(authState);
-  const { signInBtn } = SIGININ_TEXTS;
+  const { signInBtn, startText } = SIGININ_TEXTS;
   const navigate = useNavigate();
 
   const handleSignIn = async () => {
@@ -48,16 +50,30 @@ const SignIn = () => {
         <div className={cx(Justify, Column)}>
           <AppLogoContainer>
             <AppLogo className={Center}>AppLogo</AppLogo>
+            <StartText className={ButtonFont}>
+              {startText.first}
+              <br />
+              {startText.second}
+            </StartText>
           </AppLogoContainer>
           <SignInBtnContainer className={cx(Justify, Column)}>
-            <KakaoBtn className={SignInBtn}>{signInBtn.kakao}</KakaoBtn>
+            <KakaoBtn className={SignInBtn}>
+              <IconContiner>
+                <Icon {...iconPropsGenerator('kakao', '18')} />
+              </IconContiner>
+              {signInBtn.kakao}
+            </KakaoBtn>
             <GoogleBtn
               type="button"
-              className={SignInBtn}
+              className={cx(SignInBtn, FlexCenter)}
               onClick={handleSignIn}>
-              {signInBtn.google}
+              <IconContiner>
+                <Icon {...iconPropsGenerator('google', '18')} />
+              </IconContiner>
+              <div>{signInBtn.google}</div>
             </GoogleBtn>
             <NoneBtn
+              type="button"
               className={ButtonFont}
               onClick={clickDoneBtn}
               onTouchEnd={clickDoneBtn}>
@@ -73,7 +89,7 @@ const SignIn = () => {
 export default SignIn;
 
 const AppLogoContainer = styled.div`
-  margin: 166px 0;
+  margin: 166px 0 24px;
 `;
 
 const AppLogo = styled.div`
@@ -101,5 +117,17 @@ const GoogleBtn = styled.button`
 
 const NoneBtn = styled.button`
   font-size: var(--font-sizes-sm);
+  color: #767676;
   line-height: 18px;
+`;
+
+const IconContiner = styled.div`
+  position: absolute;
+  left: 15px;
+`;
+
+const StartText = styled.div`
+  margin-top: 150px;
+  text-align: center;
+  font-size: var(--font-sizes-sm);
 `;

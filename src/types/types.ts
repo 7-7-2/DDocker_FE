@@ -1,5 +1,4 @@
 import { SetterOrUpdater } from 'recoil';
-import { TouchEvent } from 'react';
 
 export interface LazyRouteType {
   index: boolean;
@@ -25,18 +24,16 @@ export interface User {
 }
 
 export interface LabelProps {
-  inputValue: string | undefined;
-  isAlert: boolean | undefined;
   label: string | undefined;
   message: string | undefined;
+  inputValue?: string | undefined;
+  isAlert?: boolean | undefined;
 }
 
 export interface InputProps {
   type: string;
-  handleEvent: () => void;
+  handleEvent?: () => void;
   setInputValue: SetterOrUpdater<string>;
-  setIsAlert?: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsAlert?: SetterOrUpdater<boolean>;
   inputValue: string | undefined;
-  isAlert?: boolean | undefined;
-  btn?: boolean;
 }

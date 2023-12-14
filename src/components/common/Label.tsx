@@ -1,7 +1,7 @@
 import Icon from '@/components/common/Icon';
-import { ICON_CHECK } from '@/constants/icons';
 import { LABEL_TEXTS } from '@/constants/common';
 import { LabelProps } from '@/types/types';
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Align, Between } from '@/styles/layout';
@@ -9,12 +9,12 @@ import { Align, Between } from '@/styles/layout';
 export const Label = ({ inputValue, isAlert, label, message }: LabelProps) => {
   const { nickname } = LABEL_TEXTS;
 
-  const nicknameCheckIcon = (
-    <Icon
-      {...ICON_CHECK}
-      fill={isAlert && message === nickname.message ? '#FF701E' : '#CCC'}
-    />
-  );
+  const nicknameCheckIcon =
+    isAlert && message === nickname.message ? (
+      <Icon {...iconPropsGenerator('check-done', '14')} />
+    ) : (
+      <Icon {...iconPropsGenerator('check', '14')} />
+    );
 
   const alretMessage = (
     <LabelMessage
