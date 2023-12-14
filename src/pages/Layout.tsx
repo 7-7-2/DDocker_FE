@@ -16,7 +16,9 @@ const Layout = () => {
       <Container>
         {pathname !== '/start/0' && <Header />}
         <Suspense fallback={<></>}>
-          <Outlet />
+          <Contents>
+            <Outlet />
+          </Contents>
         </Suspense>
         {footerState && <Footer />}
       </Container>
@@ -29,6 +31,11 @@ const Container = styled.main`
   max-width: 500px;
   min-width: 375px;
   height: 100%;
+`;
+
+const Contents = styled.section`
+  height: calc(100vh - 46px - 44px);
+  margin: 0 20px;
 `;
 
 export default Layout;
