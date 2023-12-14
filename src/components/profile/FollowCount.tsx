@@ -1,6 +1,16 @@
 import { useNavigate } from 'react-router-dom';
 import { FollowCountProps } from '@/types/types';
-import { FlexCenter, MarginAuto } from '@/styles/layout';
+import {
+  Align,
+  Border16,
+  Column,
+  Cursor,
+  FlexCenter,
+  LineH18,
+  MarginAuto,
+  TextBlack,
+  TextGray
+} from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
@@ -14,54 +24,48 @@ const FollowCount: React.FC<FollowCountProps> = ({ icons }) => {
   };
 
   return (
-    <Container className={FlexCenter}>
+    <Container className={cx(FlexCenter, Cursor, Border16)}>
       {icons.map((icon, index) => (
         <Stat
           key={index}
           className={cx(
+            Align,
+            Column,
             MarginAuto,
+            LineH18,
             index === icons.length - 1 ? 'lastStat' : ''
           )}
           onTouchEnd={() => handleStatClick(icon.label)}>
-          <StatNumber>{icon.number}</StatNumber>
-          <StatLabel>{icon.label}</StatLabel>
+          <StatNumber className={TextBlack}>{icon.number}</StatNumber>
+          <StatLabel className={cx(TextGray, LineH18)}>{icon.label}</StatLabel>
         </Stat>
       ))}
     </Container>
   );
 };
 
-export default FollowCount;
-
 const Container = styled.div`
   width: 335px;
   height: 74px;
   padding: 20px;
-  flex-direction: row;
   background-color: var(--colors-tertiary);
-  border-radius: 16px;
 `;
-
 const Stat = styled.div`
-  text-align: center;
   padding: 0px 25px;
-  flex-direction: column;
   border-right: 1px solid #dbdbdb;
   &.lastStat {
     border-right: none;
   }
 `;
-
-const StatLabel = styled.li`
-  font-weight: 400;
-  font-size: var(--font-sizes-xs);
-  margin: 0px 10px;
-  list-style-type: none;
-`;
-
 const StatNumber = styled.li`
   font-size: var(--font-sizes-base);
   font-weight: 600;
   margin: 0px 18px;
   list-style-type: none;
 `;
+const StatLabel = styled.li`
+  font-size: var(--font-sizes-xs);
+  margin: 0px 10px;
+  list-style-type: none;
+`;
+export default FollowCount;

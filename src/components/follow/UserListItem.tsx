@@ -1,35 +1,33 @@
 import MiniProfile from '@/components/common/MiniProfile';
-import { Text } from '@/constants/commonTexts';
+import { Text } from '@/constants/texts';
 import { UserProfile } from '@/types/types';
-import { FlexCenter } from '@/styles/layout';
+import { FlexCenter, Between, LineH18, Cursor } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
+import { cx } from 'styled-system/css';
 
 const UserListItem: React.FC<{ users: UserProfile[] }> = ({ users }) => {
   return (
     <>
-      {users.map(({ id, loginName, cafein }: UserProfile) => (
+      {users.map(({ id, loginName, caffeine }: UserProfile) => (
         <Container
           key={id}
-          className={FlexCenter}>
+          className={cx(FlexCenter, Between)}>
           <MiniProfile
             loginName={loginName}
-            cafein={cafein}
+            caffeine={caffeine}
           />
-          <DeleteBtn>{Text.DeleteBtn}</DeleteBtn>
+          <DeleteBtn className={cx(Cursor, LineH18)}>
+            {Text.DeleteBtn}
+          </DeleteBtn>
         </Container>
       ))}
     </>
   );
 };
 
-export default UserListItem;
-
 const Container = styled.div`
-  flex-direction: row;
-  justify-content: space-between;
   margin: 10px 13px;
 `;
-
 const DeleteBtn = styled.button`
   width: 50px;
   height: 30px;
@@ -37,5 +35,6 @@ const DeleteBtn = styled.button`
   background-color: var(--colors-tertiary);
   font-size: var(--font-sizes-xs);
   font-weight: 500;
-  line-height: 20px;
 `;
+
+export default UserListItem;

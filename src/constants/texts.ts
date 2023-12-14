@@ -5,5 +5,5 @@ export const Text = {
     MG_LABEL: 'mg',
     DeleteBtn: '삭제',
     ToggleFollowedBtn: '팔로워',
-    toggleFollowingBtn: '팔로잉,'
+    toggleFollowingBtn: '팔로잉'
 }

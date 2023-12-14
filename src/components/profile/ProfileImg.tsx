@@ -1,26 +1,23 @@
-import { useNavigate } from 'react-router-dom';
 import Icon from '@/components/common/Icon';
+import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import { FlexCenter, MarginAuto } from '@/styles/layout';
+import { FlexCenter, MarginAuto, Cursor } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
 const ProfileImg = () => {
-  const navigate = useNavigate();
-  const handleProfileClick = () => {
-    navigate('/MyPage');
-  };
+  const handleProfile = useNavigateTo('/MyPage');
 
   return (
     <Container className={cx(FlexCenter, MarginAuto)}>
       <Box className={cx(FlexCenter, MarginAuto)}>
-        <User>
+        <div>
           <Icon {...iconPropsGenerator('user', '100')} />
-        </User>
-        <Edit>
+        </div>
+        <Edit className={Cursor}>
           <Icon
             {...iconPropsGenerator('edit', '32')}
-            onTouchEnd={handleProfileClick}
+            onTouchEnd={handleProfile}
           />
         </Edit>
       </Box>
@@ -28,22 +25,16 @@ const ProfileImg = () => {
   );
 };
 
-export default ProfileImg;
-
 const Container = styled.div`
   position: relative;
-  width: 94px;
-  height: 94px;
-  border-radius: 9999px;
+  height: 100px;
+  border-radius: 100%;
 `;
-
 const Box = styled.div`
   width: 54px;
   height: 54px;
   position: relative;
 `;
-
-const User = styled.div``;
 const Edit = styled.div`
   position: absolute;
   width: 30px;
@@ -51,5 +42,6 @@ const Edit = styled.div`
   bottom: -15px;
   right: -25px;
   z-index: 1;
-  cursor: pointer;
 `;
+
+export default ProfileImg;
