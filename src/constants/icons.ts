@@ -14,3 +14,7 @@ export const ICON_UPLOAD = {
   id: 'icon-upload',
   size: '24'
 };
+export const ICON_CHECK = {
+  id: 'icon-check',
+  size: '14'
+};
