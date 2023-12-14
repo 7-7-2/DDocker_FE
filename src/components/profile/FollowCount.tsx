@@ -1,7 +1,8 @@
-import { FollowCountProps } from '@/types/types';
-import { FlexCenter } from '@/styles/layout';
-import { styled } from 'styled-system/jsx';
 import { useNavigate } from 'react-router-dom';
+import { FollowCountProps } from '@/types/types';
+import { FlexCenter, MarginAuto } from '@/styles/layout';
+import { styled } from 'styled-system/jsx';
+import { cx } from 'styled-system/css';
 
 const FollowCount: React.FC<FollowCountProps> = ({ icons }) => {
   const navigate = useNavigate();
@@ -11,12 +12,16 @@ const FollowCount: React.FC<FollowCountProps> = ({ icons }) => {
       ? console.log('1')
       : (label === '팔로잉' || label === '팔로워') && navigate('/FOLLOW');
   };
+
   return (
     <Container className={FlexCenter}>
       {icons.map((icon, index) => (
         <Stat
           key={index}
-          className={index === icons.length - 1 ? 'lastStat' : ''}
+          className={cx(
+            MarginAuto,
+            index === icons.length - 1 ? 'lastStat' : ''
+          )}
           onTouchEnd={() => handleStatClick(icon.label)}>
           <StatNumber>{icon.number}</StatNumber>
           <StatLabel>{icon.label}</StatLabel>
@@ -32,15 +37,13 @@ const Container = styled.div`
   width: 335px;
   height: 74px;
   padding: 20px;
-  margin-bottom: 20px;
   flex-direction: row;
-  background-color: #f5f5f5;
+  background-color: var(--colors-tertiary);
   border-radius: 16px;
 `;
 
 const Stat = styled.div`
   text-align: center;
-  margin: auto;
   padding: 0px 25px;
   flex-direction: column;
   border-right: 1px solid #dbdbdb;
