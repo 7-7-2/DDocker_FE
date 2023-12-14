@@ -1,4 +1,4 @@
-import { styled } from 'styled-system/jsx';
+import Icon from '@/components/common/Icon';
 import {
   userName,
   userNickName,
@@ -6,8 +6,9 @@ import {
   addedCoffee,
   brand
 } from '@/constants/Profile';
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { Flex, FlexCenter } from '@/styles/layout';
-import Icon from '../common/Icon';
+import { styled } from 'styled-system/jsx';
 
 const ProfileDetail = () => {
   return (
@@ -19,17 +20,11 @@ const ProfileDetail = () => {
       </UserText>
       <Info className={FlexCenter}>
         <UserBrand className={Flex}>
-          <Icon
-            id="icon-brand"
-            size="24"
-          />
+          <Icon {...iconPropsGenerator('brand')} />
           <TextArea>{brand.brand1}</TextArea>
         </UserBrand>
         <UserSubTitle className={Flex}>
-          <Icon
-            id="icon-coffeebean"
-            size="24"
-          />
+          <Icon {...iconPropsGenerator('coffeebean')} />
           <TextArea>카페인 누적 {addedCoffee.cafein}mg</TextArea>
         </UserSubTitle>
       </Info>
@@ -65,12 +60,13 @@ const Info = styled.div`
 
 const UserSubTitle = styled.span`
   width: auto;
-  border: 1px solid #ccc;
+  border: 1px solid var(--colors-tertiary);
   padding: 5px 12px 5px 5px;
-  color: var(--colors-sub);
+  color: var(--colors-tertiary);
   font-size: var(--font-sizes-xs);
+  font-weight: 500;
   border-radius: 16px;
-  background-color: #ccc;
+  background-color: var(--colors-sub);
 `;
 
 const TextArea = styled.div`

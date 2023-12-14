@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import Icon from 'components/common/Icon';
-import { styled } from 'styled-system/jsx';
+import Icon from '@/components/common/Icon';
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { FlexCenter, MarginAuto } from '@/styles/layout';
+import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
 const ProfileImg = () => {
@@ -14,15 +15,11 @@ const ProfileImg = () => {
     <Container className={FlexCenter}>
       <Box className={cx(FlexCenter, MarginAuto)}>
         <User>
-          <Icon
-            id="icon-user"
-            size="100"
-          />
+          <Icon {...iconPropsGenerator('user', '100')} />
         </User>
         <Edit>
           <Icon
-            id="icon-edit"
-            size="32"
+            {...iconPropsGenerator('edit', '32')}
             onTouchEnd={handleProfileClick}
           />
         </Edit>
