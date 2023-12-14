@@ -16,7 +16,7 @@ const MyProfile = () => {
   return (
     <>
       <Wrapper className={FlexCenter}>
-        <Container className={Flex}>
+        <Container className={cx(Flex, MarginAuto)}>
           <Box className={cx(FlexCenter, MarginAuto)}>
             <User>
               <Icon {...iconPropsGenerator('user', '100')} />
@@ -53,7 +53,6 @@ const Wrapper = styled.div`
 
 const Container = styled.div`
   position: relative;
-  margin: auto;
   width: 94px;
   height: 94px;
   border-radius: 9999px;
@@ -80,7 +79,7 @@ const Edit = styled.div`
 const InputArea = styled.div`
   width: 335px;
   height: 50px;
-  background-color: red;
+  background-color: var(--colors-main);
 `;
 
 const ExitButton = styled.span`
@@ -102,7 +101,7 @@ const ButtonArea = styled.div`
 const SaveButton = styled.button`
   width: 335px;
   height: 60px;
-  background-color: #555;
+  background-color: var(--colors-main);
   border-radius: 16px;
   font-size: var(--font-sizes-base);
   color: var(--colors-tertiary);

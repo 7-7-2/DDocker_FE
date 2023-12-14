@@ -2,7 +2,7 @@ import { useState } from 'react';
 import UserListItem from '@/components/follow/UserListItem';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { FollowCountProps, UserProfile } from '@/types/types';
-import { Flex, FlexCenter, Full } from '@/styles/layout';
+import { Column, FlexCenter, Full } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
@@ -44,7 +44,7 @@ const Follow: React.FC<FollowCountProps> = () => {
   const usersToShow = isActiveBtn === '팔로워' ? followers : followings;
 
   return (
-    <Container className={Flex}>
+    <Container className={Column}>
       <ToggleArea className={cx(FlexCenter, Full)}>
         <ToggleButton
           className={cx(FlexCenter, isActiveBtn === '팔로워' ? ' active' : '')}
@@ -65,7 +65,6 @@ const Follow: React.FC<FollowCountProps> = () => {
 };
 
 const Container = styled.div`
-  flex-direction: column;
   margin-top: 17px;
 `;
 

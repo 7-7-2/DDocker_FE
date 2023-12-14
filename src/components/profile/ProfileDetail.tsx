@@ -80,5 +80,5 @@ const UserBrand = styled.span`
   border: 1px solid;
   border-radius: 16px;
   padding: 5px 12px 5px 5px;
-  background-color: #555;
+  background-color: var(--colors-main);
 `;
