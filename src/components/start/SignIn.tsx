@@ -21,7 +21,7 @@ const SignIn = () => {
       if (res) {
         const credential = GoogleAuthProvider.credentialFromResult(res);
         const userInfo: AuthTypes = {
-          initialized: true,
+          initialized: false,
           user: {
             userId: credential?.accessToken,
             email: res.user?.displayName,
@@ -49,7 +49,7 @@ const SignIn = () => {
           <AppLogoContainer>
             <AppLogo className={Center}>AppLogo</AppLogo>
           </AppLogoContainer>
-          <SignInBtnContainer className={Column}>
+          <SignInBtnContainer className={cx(Justify, Column)}>
             <KakaoBtn className={SignInBtn}>{signInBtn.kakao}</KakaoBtn>
             <GoogleBtn
               type="button"
@@ -87,6 +87,7 @@ const AppLogo = styled.div`
 
 const SignInBtnContainer = styled.div`
   gap: 12px;
+  margin: auto;
 `;
 
 const KakaoBtn = styled.button`
