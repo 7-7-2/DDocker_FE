@@ -1,11 +1,12 @@
-import Header from '../common/Header';
-import HeaderCloseIcon from '@/components/common/HeaderCloseIcon';
-import Icon from 'components/common/Icon';
+import Icon from '@/components/common/Icon';
+import { useComposeHeader } from '@/hooks/useComposeHeader';
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+import { FlexCenter, MarginAuto, Flex, Justify } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
-import { FlexCenter, MarginAuto, Flex } from '@/styles/layout';
 import { cx } from 'styled-system/css';
 
 const MyProfile = () => {
+  useComposeHeader(false, '프로필 수정', 'close');
   const handleFormSubmit = () => {
     console.log('저장하기');
   };
@@ -14,25 +15,14 @@ const MyProfile = () => {
   };
   return (
     <>
-      <Header
-        logo={<></>}
-        text={'프로필 수정'}
-        icons={<HeaderCloseIcon />}
-      />
       <Wrapper className={FlexCenter}>
         <Container className={Flex}>
           <Box className={cx(FlexCenter, MarginAuto)}>
             <User>
-              <Icon
-                id="icon-user"
-                size="100"
-              />
+              <Icon {...iconPropsGenerator('user', '100')} />
             </User>
             <Edit>
-              <Icon
-                id="icon-edit"
-                size="32"
-              />
+              <Icon {...iconPropsGenerator('edit-photo', '32')} />
             </Edit>
           </Box>
         </Container>
@@ -41,11 +31,13 @@ const MyProfile = () => {
 
       <ExitButton onTouchEnd={handleExitedUser}>회원 탈퇴</ExitButton>
 
-      <SaveButton
-        className={FlexCenter}
-        onTouchEnd={handleFormSubmit}>
-        저장하기
-      </SaveButton>
+      <ButtonArea className={Justify}>
+        <SaveButton
+          className={cx(FlexCenter)}
+          onTouchEnd={handleFormSubmit}>
+          저장하기
+        </SaveButton>
+      </ButtonArea>
     </>
   );
 };
@@ -56,6 +48,7 @@ const Wrapper = styled.div`
   margin-top: 20px;
   gap: 80px;
   flex-direction: column;
+  position: relative;
 `;
 
 const Container = styled.div`
@@ -101,8 +94,12 @@ const ExitButton = styled.span`
   cursor: pointer;
 `;
 
+const ButtonArea = styled.div`
+  height: 100%;
+  align-items: end;
+`;
+
 const SaveButton = styled.button`
-  margin: auto;
   width: 335px;
   height: 60px;
   background-color: #555;

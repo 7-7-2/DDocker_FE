@@ -1,22 +1,18 @@
-import Icon from 'components/common/Icon';
-import { userNickName, addedCoffee } from '@/constants/Profile';
+import Icon from '@/components/common/Icon';
+import { UserProfile } from '@/types/types';
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+import { Flex, FlexCenter, Justify } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
-import { Flex, FlexCenter } from '@/styles/layout';
 
-const MiniProfile = () => {
+const MiniProfile: React.FC<UserProfile> = ({ loginName, cafein }) => {
   return (
     <Container className={Flex}>
       <User className={FlexCenter}>
-        <Icon
-          id="icon-mini-user"
-          size="44"
-        />
+        <Icon {...iconPropsGenerator('mini-user', '44')} />
       </User>
-      <OtherUserInfo>
-        <UserTitle>{userNickName.loginName1}</UserTitle>
-        <UserCafein className={Flex}>
-          누적 카페인 {addedCoffee.cafein1}mg
-        </UserCafein>
+      <OtherUserInfo className={Justify}>
+        <UserTitle>{loginName}</UserTitle>
+        <UserCafein className={Flex}>누적 카페인 {cafein}mg</UserCafein>
       </OtherUserInfo>
     </Container>
   );
@@ -26,6 +22,7 @@ export default MiniProfile;
 
 const Container = styled.div`
   flex-direction: row;
+  gap: 6px;
 `;
 const User = styled.div`
   width: 60px;
@@ -34,7 +31,6 @@ const User = styled.div`
 `;
 const OtherUserInfo = styled.div`
   flex-direction: column;
-  display: inline-block;
 `;
 const UserTitle = styled.span`
   font-size: var(--font-sizes-sm);
