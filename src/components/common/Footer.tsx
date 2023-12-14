@@ -4,7 +4,7 @@ import { cx } from 'styled-system/css';
 import FooterIcon from '@/components/common/FooterIcon';
 import { Flex, Between } from '@/styles/layout';
 
-const icons = ['home', 'feed', 'coffee', 'mypage'];
+const icons = ['home', 'feed', 'coffee', 'my'];
 
 // LOGIC += if(INPUT FOCUS){DISPLAY NONE}
 const Footer = () => {
