@@ -1,10 +1,10 @@
 import MiniProfile from '@/components/common/MiniProfile';
+import { Text } from '@/constants/commonTexts';
 import { UserProfile } from '@/types/types';
 import { FlexCenter } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
 
 const UserListItem: React.FC<{ users: UserProfile[] }> = ({ users }) => {
-  // map 이 들어갈 자리
   return (
     <>
       {users.map(({ id, loginName, cafein }: UserProfile) => (
@@ -15,7 +15,7 @@ const UserListItem: React.FC<{ users: UserProfile[] }> = ({ users }) => {
             loginName={loginName}
             cafein={cafein}
           />
-          <DeleteBtn>삭제</DeleteBtn>
+          <DeleteBtn>{Text.DeleteBtn}</DeleteBtn>
         </Container>
       ))}
     </>

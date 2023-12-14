@@ -1,4 +1,5 @@
 import Icon from '@/components/common/Icon';
+import { Text } from '@/constants/commonTexts';
 import { UserProfile } from '@/types/types';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { Flex, FlexCenter, Justify } from '@/styles/layout';
@@ -12,7 +13,10 @@ const MiniProfile: React.FC<UserProfile> = ({ loginName, cafein }) => {
       </User>
       <OtherUserInfo className={Justify}>
         <UserTitle>{loginName}</UserTitle>
-        <UserCafein className={Flex}>누적 카페인 {cafein}mg</UserCafein>
+        <UserCafein
+          className={
+            Flex
+          }>{`${Text.Addedcaffeine} ${cafein} ${Text.MG_LABEL}`}</UserCafein>
       </OtherUserInfo>
     </Container>
   );

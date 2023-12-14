@@ -1,4 +1,5 @@
 import Icon from '@/components/common/Icon';
+import { Text } from '@/constants/commonTexts';
 import {
   userName,
   userNickName,
@@ -25,7 +26,7 @@ const ProfileDetail = () => {
         </UserBrand>
         <UserSubTitle className={Flex}>
           <Icon {...iconPropsGenerator('coffeebean')} />
-          <TextArea>카페인 누적 {addedCoffee.cafein}mg</TextArea>
+          <TextArea>{`${Text.Addedcaffeine} ${addedCoffee.cafein} ${Text.MG_LABEL}`}</TextArea>
         </UserSubTitle>
       </Info>
     </Container>

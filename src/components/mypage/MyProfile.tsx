@@ -1,4 +1,5 @@
 import Icon from '@/components/common/Icon';
+import { Text } from '@/constants/commonTexts';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { FlexCenter, MarginAuto, Flex, Justify } from '@/styles/layout';
@@ -29,13 +30,15 @@ const MyProfile = () => {
         <InputArea />
       </Wrapper>
 
-      <ExitButton onTouchEnd={handleExitedUser}>회원 탈퇴</ExitButton>
+      <ExitButton onTouchEnd={handleExitedUser}>
+        {Text.ExitButtonText}
+      </ExitButton>
 
       <ButtonArea className={Justify}>
         <SaveButton
           className={cx(FlexCenter)}
           onTouchEnd={handleFormSubmit}>
-          저장하기
+          {Text.SaveButton}
         </SaveButton>
       </ButtonArea>
     </>
