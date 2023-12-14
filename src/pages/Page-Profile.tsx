@@ -4,8 +4,9 @@ import ProfileDetail from '@/components/profile/ProfileDetail';
 import ProfileImg from '@/components/profile/ProfileImg';
 import { FOLLOW } from '@/constants/Follow';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
-import { Column } from '@/styles/layout';
+import { Between, Column } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
+import { cx } from 'styled-system/css';
 
 const Profile = () => {
   useComposeHeader(true, '', 'icons');
@@ -18,18 +19,16 @@ const Profile = () => {
   return (
     <>
       <Container className={Column}>
-        <ProfileHeader className={Column}>
+        <div className={cx(Column, Between)}>
           <ProfileImg />
           <ProfileDetail />
           <FollowCount icons={icons} />
-        </ProfileHeader>
+        </div>
       </Container>
       <PostsGrid />
     </>
   );
 };
-
-export default Profile;
 
 const Container = styled.div`
   position: relative;
@@ -39,6 +38,4 @@ const Container = styled.div`
   font-size: var(--font-sizes-xs);
 `;
 
-const ProfileHeader = styled.div`
-  justify-content: space-between;
-`;
+export default Profile;

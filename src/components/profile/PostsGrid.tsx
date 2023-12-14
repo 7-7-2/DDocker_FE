@@ -1,5 +1,5 @@
 import { GRID } from '@/constants/PostsGrid';
-import { Flex, Justify, Grid, Center } from '@/styles/layout';
+import { Flex, Justify, Grid, Center, Cursor } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
@@ -17,6 +17,7 @@ const PostsGrid = () => {
             key={index}>
             {Array.from({ length: GRID.columns }).map((__, colIndex) => (
               <Container
+                className={Cursor}
                 key={colIndex}
                 onTouchEnd={handleClick}
               />
@@ -28,12 +29,11 @@ const PostsGrid = () => {
   );
 };
 
-export default PostsGrid;
-
 const Container = styled.div`
   width: 109px;
   height: 109px;
   margin: 2px;
   background-color: var(--colors-tertiary);
-  cursor: pointer;
 `;
+
+export default PostsGrid;

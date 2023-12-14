@@ -1,8 +1,18 @@
 import Icon from '@/components/common/Icon';
-import { Text } from '@/constants/commonTexts';
+import { Text } from '@/constants/texts';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import { FlexCenter, MarginAuto, Flex, Justify } from '@/styles/layout';
+import {
+  FlexCenter,
+  MarginAuto,
+  Flex,
+  Justify,
+  Cursor,
+  LineH18,
+  TextGray,
+  Column,
+  Border16
+} from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
@@ -16,13 +26,13 @@ const MyProfile = () => {
   };
   return (
     <>
-      <Wrapper className={FlexCenter}>
+      <Wrapper className={cx(FlexCenter, Column)}>
         <Container className={cx(Flex, MarginAuto)}>
           <Box className={cx(FlexCenter, MarginAuto)}>
-            <User>
+            <div>
               <Icon {...iconPropsGenerator('user', '100')} />
-            </User>
-            <Edit>
+            </div>
+            <Edit className={Cursor}>
               <Icon {...iconPropsGenerator('edit-photo', '32')} />
             </Edit>
           </Box>
@@ -30,13 +40,15 @@ const MyProfile = () => {
         <InputArea />
       </Wrapper>
 
-      <ExitButton onTouchEnd={handleExitedUser}>
+      <ExitButton
+        className={cx(Cursor, LineH18, TextGray)}
+        onTouchEnd={handleExitedUser}>
         {Text.ExitButtonText}
       </ExitButton>
 
       <ButtonArea className={Justify}>
         <SaveButton
-          className={cx(FlexCenter)}
+          className={cx(FlexCenter, Cursor, Border16)}
           onTouchEnd={handleFormSubmit}>
           {Text.SaveButton}
         </SaveButton>
@@ -45,30 +57,20 @@ const MyProfile = () => {
   );
 };
 
-export default MyProfile;
-
 const Wrapper = styled.div`
   margin-top: 20px;
   gap: 80px;
-  flex-direction: column;
-  position: relative;
 `;
-
 const Container = styled.div`
   position: relative;
   width: 94px;
   height: 94px;
-  border-radius: 9999px;
-  background-color: #d9d9d9;
 `;
-
 const Box = styled.div`
   width: 54px;
   height: 54px;
   position: relative;
 `;
-
-const User = styled.div``;
 const Edit = styled.div`
   position: absolute;
   width: 30px;
@@ -76,37 +78,29 @@ const Edit = styled.div`
   bottom: -15px;
   right: -25px;
   z-index: 1;
-  cursor: pointer;
 `;
-
 const InputArea = styled.div`
   width: 335px;
   height: 50px;
   background-color: var(--colors-main);
 `;
-
 const ExitButton = styled.span`
   font-size: var(--font--sizes-sm);
-  font-weight: 400;
-  line-height: 22px;
-  color: #767676;
   margin: 16px 20px;
   display: inline-block;
   text-decoration-line: underline;
-  cursor: pointer;
 `;
-
 const ButtonArea = styled.div`
   height: 100%;
   align-items: end;
 `;
-
 const SaveButton = styled.button`
   width: 335px;
   height: 60px;
   background-color: var(--colors-main);
-  border-radius: 16px;
   font-size: var(--font-sizes-base);
-  color: var(--colors-tertiary);
-  cursor: pointer;
+  font-weight: 500;
+  color: #fff;
 `;
+
+export default MyProfile;

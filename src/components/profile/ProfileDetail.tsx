@@ -1,5 +1,5 @@
 import Icon from '@/components/common/Icon';
-import { Text } from '@/constants/commonTexts';
+import { Text } from '@/constants/texts';
 import {
   userName,
   userNickName,
@@ -8,23 +8,34 @@ import {
   brand
 } from '@/constants/Profile';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import { Flex, FlexCenter } from '@/styles/layout';
+import {
+  Between,
+  Column,
+  Flex,
+  FlexCenter,
+  TextBlack,
+  TextGray,
+  Border16
+} from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
+import { cx } from 'styled-system/css';
 
 const ProfileDetail = () => {
   return (
-    <Container className={FlexCenter}>
-      <UserTitle className={FlexCenter}>{userNickName.loginName}</UserTitle>
+    <Container className={cx(Column, FlexCenter)}>
+      <UserTitle className={cx(FlexCenter, TextBlack)}>
+        {userNickName.loginName}
+      </UserTitle>
       <UserText className={FlexCenter}>
-        <span className={FlexCenter}>{userName.user1}</span>
-        <span className={FlexCenter}>{userEmail.eMail}</span>
+        <span className={TextBlack}>{userName.user1}</span>
+        <span className={TextGray}>{userEmail.eMail}</span>
       </UserText>
-      <Info className={FlexCenter}>
-        <UserBrand className={Flex}>
+      <Info className={cx(FlexCenter, Between)}>
+        <UserBrand className={cx(Flex, Border16)}>
           <Icon {...iconPropsGenerator('brand')} />
           <TextArea>{brand.brand1}</TextArea>
         </UserBrand>
-        <UserSubTitle className={Flex}>
+        <UserSubTitle className={cx(Flex, Border16)}>
           <Icon {...iconPropsGenerator('coffeebean')} />
           <TextArea>{`${Text.Addedcaffeine} ${addedCoffee.cafein} ${Text.MG_LABEL}`}</TextArea>
         </UserSubTitle>
@@ -33,53 +44,37 @@ const ProfileDetail = () => {
   );
 };
 
-export default ProfileDetail;
-
 const Container = styled.div`
-  flex-direction: column;
   margin-bottom: 16px;
 `;
-
 const UserTitle = styled.span`
   width: 200px;
   font-size: var(--font-sizes-xxl);
   font-weight: 700;
   margin: 22px 0px 2px 0px;
 `;
-
 const UserText = styled.div`
-  flex-direction: row;
   font-size: var(--font-sizes-sm);
   margin-bottom: 16px;
   gap: 4px;
 `;
 const Info = styled.div`
-  justify-content: space-between;
-  flex-direction: row;
   gap: 8px;
-`;
-
-const UserSubTitle = styled.span`
   width: auto;
-  border: 1px solid var(--colors-tertiary);
-  padding: 5px 12px 5px 5px;
-  color: var(--colors-tertiary);
-  font-size: var(--font-sizes-xs);
-  font-weight: 500;
-  border-radius: 16px;
-  background-color: var(--colors-sub);
 `;
-
 const TextArea = styled.div`
   margin: 3px 0px 3px 0px;
+  color: #fff;
+  font-size: var(--font-sizes-xs);
+  font-weight: 500;
 `;
 const UserBrand = styled.span`
-  width: auto;
-  color: var(--colors-tertiary);
-  font-size: var(--colors-sub);
-  font-weight: 700;
-  border: 1px solid;
-  border-radius: 16px;
   padding: 5px 12px 5px 5px;
   background-color: var(--colors-main);
 `;
+const UserSubTitle = styled.span`
+  padding: 5px 12px 5px 5px;
+  background-color: var(--colors-sub);
+`;
+
+export default ProfileDetail;

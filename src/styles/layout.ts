@@ -53,6 +53,26 @@ export const Grid = css`
 `;
 
 export const PY = css`
-    padding-top: 30px;
-    padding-bottom: 20px;
-    `
+  padding-top: 30px;
+  padding-bottom: 20px;
+`;
+    
+export const Cursor = css`
+  cursor: pointer;
+`;
+
+export const LineH18 = css`
+  line-height: 18px;
+`;
+
+export const TextBlack = css`
+  color: #313131;
+`;
+
+export const TextGray = css`
+  color: #767676;
+`;
+
+export const Border16 = css`
+  border-radius: 16px;
+`
