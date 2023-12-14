@@ -13,7 +13,7 @@ export interface HeaderType {
 export interface UserProfile {
     id?: number
     loginName: string
-    cafein: number
+    caffeine: number
 }
 
 export interface FollowCountProps {

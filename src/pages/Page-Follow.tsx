@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import UserListItem from '@/components/follow/UserListItem';
-import { Text } from '@/constants/commonTexts';
+import { Text } from '@/constants/texts';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { FollowCountProps, UserProfile } from '@/types/types';
-import { Column, FlexCenter, Full } from '@/styles/layout';
+import { Column, FlexCenter, Full, TextGray } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
@@ -20,12 +20,12 @@ const Follow: React.FC<FollowCountProps> = () => {
     {
       id: 1,
       loginName: '커피마셔마셔',
-      cafein: 34054
+      caffeine: 34054
     },
     {
       id: 2,
       loginName: '커피안마셔안마셔',
-      cafein: 12345
+      caffeine: 12345
     }
   ];
 
@@ -33,12 +33,12 @@ const Follow: React.FC<FollowCountProps> = () => {
     {
       id: 1,
       loginName: '커피안마셔안마셔',
-      cafein: 12345
+      caffeine: 12345
     },
     {
       id: 2,
       loginName: '커피마셔마셔',
-      cafein: 34054
+      caffeine: 34054
     }
   ];
 
@@ -54,7 +54,11 @@ const Follow: React.FC<FollowCountProps> = () => {
           {Text.ToggleFollowedBtn}
         </ToggleButton>
         <ToggleButton
-          className={cx(FlexCenter, isActiveBtn === '팔로잉' ? 'active' : '')}
+          className={cx(
+            FlexCenter,
+            TextGray,
+            isActiveBtn === '팔로잉' ? 'active' : ''
+          )}
           onTouchEnd={handleButtonClick}
           value="팔로잉">
           {Text.toggleFollowingBtn}
@@ -68,22 +72,19 @@ const Follow: React.FC<FollowCountProps> = () => {
 const Container = styled.div`
   margin-top: 17px;
 `;
-
 const ToggleArea = styled.div`
   border-bottom: 1px solid #ccc;
 `;
-
 const ToggleButton = styled.button`
   width: 170px;
   height: 40px;
-  color: #a6a6a6;
   border: 1px solid transparent;
   border-left: none;
   border-right: none;
   cursor: pointer;
   &.active {
-    color: #ff701e;
-    border-bottom: 2px solid #ff701e;
+    color: var(--colors-main);
+    border-bottom: 2px solid var(--colors-main);
   }
 `;
 
