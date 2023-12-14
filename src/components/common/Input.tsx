@@ -1,8 +1,8 @@
 import { ChangeEvent } from 'react';
 import Icon from '@/components/common/Icon';
 import { INPUT_TEXTS } from '@/constants/common';
-import { ICON_UPLOAD } from '@/constants/icons';
 import { InputProps } from '@/types/types';
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { styled } from 'styled-system/jsx';
 import { Align, Between } from '@/styles/layout';
 import { css, cx } from 'styled-system/css';
@@ -13,8 +13,7 @@ export const Input = ({
   handleEvent,
   setInputValue,
   inputValue,
-  setIsAlert,
-  btn
+  setIsAlert
 }: InputProps) => {
   const { nickname, comment, title, search } = INPUT_TEXTS.type;
   let submitBtn;
@@ -30,12 +29,27 @@ export const Input = ({
 
   switch (type) {
     case nickname.typeName:
-      submitBtn = nickname.btnText;
+      submitBtn = (
+        <button
+          className={cx(nicknameBtn, InputFontSm)}
+          type="button"
+          onClick={handleEvent}
+          onTouchEnd={handleEvent}>
+          {nickname.btnText}
+        </button>
+      );
       inputLength = 8;
       inputPlaceholder = nickname.placeholder;
       break;
     case comment.typeName:
-      submitBtn = <Icon {...ICON_UPLOAD} />;
+      submitBtn = (
+        <button
+          type="button"
+          onClick={handleEvent}
+          onTouchEnd={handleEvent}>
+          <Icon {...iconPropsGenerator('upload')} />
+        </button>
+      );
       inputPlaceholder = comment.placeholder;
       break;
     case title.typeName:
@@ -70,19 +84,7 @@ export const Input = ({
             <LengthLimit>/{inputLength}</LengthLimit>
           </InpoutLength>
         )}
-        {btn && (
-          <button
-            className={
-              type === nickname.typeName
-                ? cx(nicknameBtn, InputFontSm)
-                : InputFontSm
-            }
-            type="button"
-            onClick={handleEvent}
-            onTouchEnd={handleEvent}>
-            {submitBtn}
-          </button>
-        )}
+        {submitBtn}
       </InputBox>
     </InputContainer>
   );
