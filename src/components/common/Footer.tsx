@@ -21,6 +21,23 @@ const Footer = () => {
 
 const Container = styled.footer`
   margin: 0 20px;
+  padding: 8px 9px 0;
+  &::before {
+    content: '';
+    right: 0;
+    border-top: 1px solid #edecec;
+    position: absolute;
+    bottom: 47px;
+    width: 50%;
+  }
+  &::after {
+    content: '';
+    border-top: 1px solid #edecec;
+    position: absolute;
+    left: 0;
+    bottom: 47px;
+    width: 50%;
+  }
 `;
 
 export default Footer;

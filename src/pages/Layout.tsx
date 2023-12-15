@@ -29,13 +29,14 @@ const Layout = () => {
 const Container = styled.main`
   position: relative;
   max-width: 500px;
-  min-width: 375px;
+  min-width: 360px;
   height: 100%;
 `;
 
 const Contents = styled.section`
-  height: calc(100vh - 46px - 44px);
+  height: calc(100vh - 46px - 52px);
   margin: 0 20px;
+  overflow-y: scroll;
 `;
 
 export default Layout;
