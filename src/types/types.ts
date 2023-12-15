@@ -1,4 +1,5 @@
 import { SetterOrUpdater } from 'recoil';
+import { TouchEventHandler } from 'react';
 
 export interface LazyRouteType {
   index: boolean;
@@ -36,4 +37,11 @@ export interface InputProps {
   setInputValue: SetterOrUpdater<string>;
   setIsAlert?: SetterOrUpdater<boolean>;
   inputValue: string | undefined;
+}
+
+export interface ButtonProps {
+  value?: string;
+  text: string;
+  onTouchEnd: TouchEventHandler<HTMLButtonElement>;
+  className: string;
 }
