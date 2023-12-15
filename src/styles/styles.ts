@@ -146,3 +146,31 @@ export const StartPageContainer = css`
   overflow-x: visible;
   overflow-y: auto;
 `;
+
+export const Cursor = css`
+  cursor: pointer;
+`;
+
+export const LineH18 = css`
+  line-height: 18px;
+`;
+
+export const TextBlack = css`
+  color: #313131;
+`;
+
+export const TextGray = css`
+  color: #767676;
+`;
+
+export const Border16 = css`
+  border-radius: 16px;
+`
+
+export const TextArea = cx(
+    Regular,
+    css`
+      margin: 3px 0px 3px 0px;
+      color: #fff;
+      font-size: var(--font-sizes-xs);`   
+)

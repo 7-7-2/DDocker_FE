@@ -3,7 +3,8 @@ import UserListItem from '@/components/follow/UserListItem';
 import { TEXT } from '@/constants/texts';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { FollowCountProps, SimplifyUser } from '@/types/types';
-import { Column, FlexCenter, Full, TextGray } from '@/styles/layout';
+import { Column, FlexCenter, Full } from '@/styles/layout';
+import { TextGray, Semibold } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
@@ -48,7 +49,11 @@ const Follow: React.FC<FollowCountProps> = () => {
     <Container className={Column}>
       <ToggleArea className={cx(FlexCenter, Full)}>
         <ToggleButton
-          className={cx(FlexCenter, isActiveBtn === '팔로워' ? ' active' : '')}
+          className={cx(
+            FlexCenter,
+            Semibold,
+            isActiveBtn === '팔로워' ? ' active' : ''
+          )}
           onTouchEnd={handleButtonClick}
           value="팔로워">
           {TEXT.toggleFollowedBtn}
@@ -57,6 +62,7 @@ const Follow: React.FC<FollowCountProps> = () => {
           className={cx(
             FlexCenter,
             TextGray,
+            Semibold,
             isActiveBtn === '팔로잉' ? 'active' : ''
           )}
           onTouchEnd={handleButtonClick}
