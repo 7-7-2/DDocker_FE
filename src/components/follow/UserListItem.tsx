@@ -1,19 +1,20 @@
 import MiniProfile from '@/components/common/MiniProfile';
 import { TEXT } from '@/constants/texts';
-import { UserProfile } from '@/types/types';
+import { SimplifyUser } from '@/types/types';
 import { FlexCenter, Between, LineH18, Cursor } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
-const UserListItem: React.FC<{ users: UserProfile[] }> = ({ users }) => {
+const UserListItem: React.FC<{ users: SimplifyUser[] }> = ({ users }) => {
   return (
     <>
-      {users.map(({ id, loginName, caffeine }: UserProfile) => (
+      {users.map(({ userId, NickName, caffeine }: SimplifyUser) => (
         <Container
-          key={id}
+          key={userId}
           className={cx(FlexCenter, Between)}>
           <MiniProfile
-            loginName={loginName}
+            userId={userId}
+            NickName={NickName}
             caffeine={caffeine}
           />
           <DeleteBtn className={cx(Cursor, LineH18)}>
