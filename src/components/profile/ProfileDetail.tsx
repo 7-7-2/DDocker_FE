@@ -8,36 +8,39 @@ import {
   brand
 } from '@/constants/Profile';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+import { Between, Column, Flex, FlexCenter } from '@/styles/layout';
 import {
-  Between,
-  Column,
-  Flex,
-  FlexCenter,
   TextBlack,
   TextGray,
-  Border16
-} from '@/styles/layout';
+  Border16,
+  Bold,
+  Regular,
+  TextArea
+} from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
 const ProfileDetail = () => {
   return (
     <Container className={cx(Column, FlexCenter)}>
-      <UserTitle className={cx(FlexCenter, TextBlack)}>
+      <UserTitle className={cx(FlexCenter, TextBlack, Bold)}>
         {userNickName.loginName}
       </UserTitle>
-      <UserText className={FlexCenter}>
+      <UserText className={cx(FlexCenter, Regular)}>
         <span className={TextBlack}>{userName.user1}</span>
         <span className={TextGray}>{userEmail.eMail}</span>
       </UserText>
       <Info className={cx(FlexCenter, Between)}>
         <UserBrand className={cx(Flex, Border16)}>
           <Icon {...iconPropsGenerator('brand')} />
-          <TextArea>{brand.brand1}</TextArea>
+          <div className={TextArea}>{brand.brand1}</div>
         </UserBrand>
         <UserSubTitle className={cx(Flex, Border16)}>
           <Icon {...iconPropsGenerator('coffeebean')} />
-          <TextArea>{`${TEXT.addedcaffeine} ${addedCoffee.cafein} ${TEXT.mgLabel}`}</TextArea>
+          <div
+            className={
+              TextArea
+            }>{`${TEXT.addedcaffeine} ${addedCoffee.cafein} ${TEXT.mgLabel}`}</div>
         </UserSubTitle>
       </Info>
     </Container>
@@ -50,7 +53,6 @@ const Container = styled.div`
 const UserTitle = styled.span`
   width: 200px;
   font-size: var(--font-sizes-xxl);
-  font-weight: 700;
   margin: 22px 0px 2px 0px;
 `;
 const UserText = styled.div`
@@ -61,12 +63,6 @@ const UserText = styled.div`
 const Info = styled.div`
   gap: 8px;
   width: auto;
-`;
-const TextArea = styled.div`
-  margin: 3px 0px 3px 0px;
-  color: #fff;
-  font-size: var(--font-sizes-xs);
-  font-weight: 500;
 `;
 const UserBrand = styled.span`
   padding: 5px 12px 5px 5px;
