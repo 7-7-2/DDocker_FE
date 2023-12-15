@@ -32,10 +32,7 @@ const Profile = () => {
 
 const Container = styled.div`
   position: relative;
-  gap: 4px;
   width: auto;
-  margin: 20px 32px;
-  font-size: var(--font-sizes-xs);
 `;
 
 export default Profile;

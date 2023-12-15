@@ -1,7 +1,8 @@
 import Icon from '@/components/common/Icon';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import { FlexCenter, MarginAuto, Cursor } from '@/styles/layout';
+import { FlexCenter, MarginAuto } from '@/styles/layout';
+import { Cursor } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 

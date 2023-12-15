@@ -1,16 +1,14 @@
 import { useNavigate } from 'react-router-dom';
 import { FollowCountProps } from '@/types/types';
+import { Align, Column, FlexCenter, MarginAuto } from '@/styles/layout';
 import {
-  Align,
+  Semibold,
   Border16,
-  Column,
   Cursor,
-  FlexCenter,
   LineH18,
-  MarginAuto,
   TextBlack,
   TextGray
-} from '@/styles/layout';
+} from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
@@ -36,7 +34,9 @@ const FollowCount: React.FC<FollowCountProps> = ({ icons }) => {
             index === icons.length - 1 ? 'lastStat' : ''
           )}
           onTouchEnd={() => handleStatClick(icon.label)}>
-          <StatNumber className={TextBlack}>{icon.number}</StatNumber>
+          <StatNumber className={cx(TextBlack, Semibold)}>
+            {icon.number}
+          </StatNumber>
           <StatLabel className={cx(TextGray, LineH18)}>{icon.label}</StatLabel>
         </Stat>
       ))}
@@ -59,7 +59,6 @@ const Stat = styled.div`
 `;
 const StatNumber = styled.li`
   font-size: var(--font-sizes-base);
-  font-weight: 600;
   margin: 0px 18px;
   list-style-type: none;
 `;

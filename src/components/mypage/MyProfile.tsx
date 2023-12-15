@@ -2,17 +2,8 @@ import Icon from '@/components/common/Icon';
 import { TEXT } from '@/constants/texts';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import {
-  FlexCenter,
-  MarginAuto,
-  Flex,
-  Justify,
-  Cursor,
-  LineH18,
-  TextGray,
-  Column,
-  Border16
-} from '@/styles/layout';
+import { FlexCenter, MarginAuto, Flex, Justify, Column } from '@/styles/layout';
+import { Cursor, LineH18, TextGray, Border16, Medium } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
@@ -48,7 +39,7 @@ const MyProfile = () => {
 
       <ButtonArea className={Justify}>
         <SaveButton
-          className={cx(FlexCenter, Cursor, Border16)}
+          className={cx(FlexCenter, Cursor, Border16, Medium)}
           onTouchEnd={handleFormSubmit}>
           {TEXT.saveButton}
         </SaveButton>
@@ -99,7 +90,6 @@ const SaveButton = styled.button`
   height: 60px;
   background-color: var(--colors-main);
   font-size: var(--font-sizes-base);
-  font-weight: 500;
   color: #fff;
 `;
 
