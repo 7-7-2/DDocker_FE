@@ -2,7 +2,7 @@ import { useState } from 'react';
 import UserListItem from '@/components/follow/UserListItem';
 import { TEXT } from '@/constants/texts';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
-import { FollowCountProps, UserProfile } from '@/types/types';
+import { FollowCountProps, SimplifyUser } from '@/types/types';
 import { Column, FlexCenter, Full, TextGray } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
@@ -16,28 +16,28 @@ const Follow: React.FC<FollowCountProps> = () => {
     setIsActiveBtn(e.currentTarget?.value || '팔로워');
   };
 
-  const followers: UserProfile[] = [
+  const followers: SimplifyUser[] = [
     {
-      id: 1,
-      loginName: '커피마셔마셔',
+      userId: 'asd',
+      NickName: '커피마셔마셔',
       caffeine: 34054
     },
     {
-      id: 2,
-      loginName: '커피안마셔안마셔',
+      userId: 'zxc',
+      NickName: '커피안마셔안마셔',
       caffeine: 12345
     }
   ];
 
-  const followings: UserProfile[] = [
+  const followings: SimplifyUser[] = [
     {
-      id: 1,
-      loginName: '커피안마셔안마셔',
+      userId: 'zxc',
+      NickName: '커피안마셔안마셔',
       caffeine: 12345
     },
     {
-      id: 2,
-      loginName: '커피마셔마셔',
+      userId: 'asd',
+      NickName: '커피마셔마셔',
       caffeine: 34054
     }
   ];

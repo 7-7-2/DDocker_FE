@@ -1,19 +1,19 @@
 import Icon from '@/components/common/Icon';
 import { TEXT } from '@/constants/texts';
-import { UserProfile } from '@/types/types';
+import { SimplifyUser } from '@/types/types';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { Column, Flex, FlexCenter, Justify, LineH18 } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
-const MiniProfile: React.FC<UserProfile> = ({ loginName, caffeine }) => {
+const MiniProfile: React.FC<SimplifyUser> = ({ NickName, caffeine }) => {
   return (
     <Container className={Flex}>
       <div className={FlexCenter}>
         <Icon {...iconPropsGenerator('mini-user', '44')} />
       </div>
       <div className={cx(Column, Justify)}>
-        <UserTitle className={LineH18}>{loginName}</UserTitle>
+        <UserTitle className={LineH18}>{NickName}</UserTitle>
         <UserCafein
           className={cx(
             Flex,

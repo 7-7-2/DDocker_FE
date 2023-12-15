@@ -28,6 +28,20 @@ export interface User {
   gender?: string;
 }
 
+export interface SimplifyUser {
+    userId: string | undefined;
+    NickName: string | undefined;
+    caffeine?: number;
+}
+
+export interface FollowCountProps {
+    icons: {
+      number?: number;
+      label: string;
+      onTouchEnd?: (event: TouchEventHandler<HTMLDivElement>) => void;
+    }[];
+  }
+  
 export interface LabelProps {
   label: string | undefined;
   message?: string | undefined;
