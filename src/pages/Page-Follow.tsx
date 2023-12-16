@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import EmptyUser from '@/components/follow/EmptyUser';
 import UserListItem from '@/components/follow/UserListItem';
 import { TEXT } from '@/constants/texts';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
+import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { FollowCountProps, SimplifyUser } from '@/types/types';
-import { Column, FlexCenter, Full } from '@/styles/layout';
-import { TextGray, Semibold } from '@/styles/styles';
+import { Column, FlexCenter, Flex } from '@/styles/layout';
+import { TextGray, ToggleButton } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
@@ -18,60 +20,75 @@ const Follow: React.FC<FollowCountProps> = () => {
   };
 
   const followers: SimplifyUser[] = [
-    {
-      userId: 'asd',
-      NickName: '커피마셔마셔',
-      caffeine: 34054
-    },
-    {
-      userId: 'zxc',
-      NickName: '커피안마셔안마셔',
-      caffeine: 12345
-    }
+    // {
+    //   userId: 'asd',
+    //   NickName: '커피마셔마셔',
+    //   caffeine: 34054
+    // },
+    // {
+    //   userId: 'zxc',
+    //   NickName: '커피안마셔안마셔',
+    //   caffeine: 12345
+    // }
   ];
 
   const followings: SimplifyUser[] = [
-    {
-      userId: 'zxc',
-      NickName: '커피안마셔안마셔',
-      caffeine: 12345
-    },
-    {
-      userId: 'asd',
-      NickName: '커피마셔마셔',
-      caffeine: 34054
-    }
+    // {
+    //   userId: 'zxc',
+    //   NickName: '커피안마셔안마셔',
+    //   caffeine: 12345
+    // },
+    // {
+    //   userId: 'asd',
+    //   NickName: '커피마셔마셔',
+    //   caffeine: 34054
+    // }
   ];
 
   const usersToShow = isActiveBtn === '팔로워' ? followers : followings;
 
+  //   const userId: string = 'exampleUserId'; // useParams 를 위한 것
+
+  const handleMoveBtn = useNavigateTo('/search');
   return (
-    <Container className={Column}>
-      <ToggleArea className={cx(FlexCenter, Full)}>
-        <ToggleButton
-          className={cx(
-            FlexCenter,
-            Semibold,
-            isActiveBtn === '팔로워' ? ' active' : ''
-          )}
-          onTouchEnd={handleButtonClick}
-          value="팔로워">
-          {TEXT.toggleFollowedBtn}
-        </ToggleButton>
-        <ToggleButton
-          className={cx(
-            FlexCenter,
-            TextGray,
-            Semibold,
-            isActiveBtn === '팔로잉' ? 'active' : ''
-          )}
-          onTouchEnd={handleButtonClick}
-          value="팔로잉">
-          {TEXT.toggleFollowingBtn}
-        </ToggleButton>
-      </ToggleArea>
-      <UserListItem users={usersToShow} />
-    </Container>
+    <>
+      <Container className={cx(FlexCenter, Column)}>
+        <ToggleArea className={cx(FlexCenter)}>
+          <button
+            className={cx(
+              ToggleButton,
+              FlexCenter,
+              isActiveBtn === '팔로워' ? ' active' : ''
+            )}
+            onTouchEnd={handleButtonClick}
+            value="팔로워">
+            {TEXT.toggleFollowedBtn}
+          </button>
+          <button
+            className={cx(
+              ToggleButton,
+              FlexCenter,
+              TextGray,
+              isActiveBtn === '팔로잉' ? 'active' : ''
+            )}
+            onTouchEnd={handleButtonClick}
+            value="팔로잉">
+            {TEXT.toggleFollowingBtn}
+          </button>
+        </ToggleArea>
+      </Container>
+
+      {usersToShow.length > 0 && <UserListItem users={usersToShow} />}
+      {isActiveBtn === '팔로워' && !usersToShow.length && (
+        <EmptyUser label="팔로워" />
+      )}
+      {isActiveBtn === '팔로잉' && !usersToShow.length && (
+        <EmptyUser
+          label="팔로잉"
+          onTouchEnd={handleMoveBtn}
+        />
+      )}
+    </>
   );
 };
 
@@ -79,19 +96,8 @@ const Container = styled.div`
   margin-top: 17px;
 `;
 const ToggleArea = styled.div`
+  width: 100%;
   border-bottom: 1px solid #ccc;
-`;
-const ToggleButton = styled.button`
-  width: 170px;
-  height: 40px;
-  border: 1px solid transparent;
-  border-left: none;
-  border-right: none;
-  cursor: pointer;
-  &.active {
-    color: var(--colors-main);
-    border-bottom: 2px solid var(--colors-main);
-  }
 `;
 
 export default Follow;

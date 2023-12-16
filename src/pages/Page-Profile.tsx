@@ -33,6 +33,7 @@ const Profile = () => {
 const Container = styled.div`
   position: relative;
   width: auto;
+  margin: 20px 0;
 `;
 
 export default Profile;
