@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { FollowCountProps } from '@/types/types';
 import { Align, Column, FlexCenter, MarginAuto } from '@/styles/layout';
 import {
@@ -13,12 +13,12 @@ import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
 const FollowCount: React.FC<FollowCountProps> = ({ icons }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigateTo('/FOLLOW');
 
   const handleStatClick = (label: string) => {
     label === '게시물'
       ? console.log('1')
-      : (label === '팔로잉' || label === '팔로워') && navigate('/FOLLOW');
+      : (label === '팔로잉' || label === '팔로워') && navigate();
   };
 
   return (

@@ -68,3 +68,8 @@ export interface ButtonProps {
   onTouchEnd: TouchEventHandler<HTMLButtonElement>;
   className: string;
 }
+
+export interface EmptyUserProps {
+  label: string;
+  onTouchEnd?: () => void;
+}
