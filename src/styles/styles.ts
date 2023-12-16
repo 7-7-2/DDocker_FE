@@ -174,3 +174,30 @@ export const TextArea = cx(
       color: #fff;
       font-size: var(--font-sizes-xs);`   
 )
+
+export const ButtonArea = cx(
+    Medium,
+    css`
+      width: auto;
+      height: 40px;
+      padding: 9px 35px;
+      margin-top: 16px;
+      background-color: red;
+      border: 1px solid #ccc;
+      border-radius: 50px;
+      background: #fff;`
+    
+)
+
+export const ToggleButton = cx(
+    Semibold,
+    css`
+      width: 100%;
+      height: 40px;
+      cursor: pointer;
+      &.active {
+        color: var(--colors-main);
+        border-bottom: 1px solid var(--colors-main);
+      }
+    `
+)
