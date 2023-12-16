@@ -53,12 +53,12 @@ const Follow: React.FC<FollowCountProps> = () => {
   return (
     <>
       <Container className={cx(FlexCenter, Column)}>
-        <ToggleArea className={cx(FlexCenter)}>
+        <ToggleArea className={cx(Flex)}>
           <button
             className={cx(
               ToggleButton,
               FlexCenter,
-              isActiveBtn === '팔로워' ? ' active' : ''
+              isActiveBtn === '팔로워' && 'active'
             )}
             onTouchEnd={handleButtonClick}
             value="팔로워">
@@ -69,7 +69,7 @@ const Follow: React.FC<FollowCountProps> = () => {
               ToggleButton,
               FlexCenter,
               TextGray,
-              isActiveBtn === '팔로잉' ? 'active' : ''
+              isActiveBtn === '팔로잉' && 'active'
             )}
             onTouchEnd={handleButtonClick}
             value="팔로잉">
