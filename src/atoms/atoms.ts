@@ -31,9 +31,21 @@ export const authState = atom<AuthTypes>({
     user: {
       userId: '',
       email: '',
-      name: ''
+      name: '',
+      nickname: '',
+      brand: '',
+      gender: ''
     },
     signIn: false
+  }
+});
+
+export const initialInfoState = atom({
+  key: 'initialInfoState',
+  default: {
+    nickname: '',
+    brand: '',
+    gender: ''
   }
 });
 
