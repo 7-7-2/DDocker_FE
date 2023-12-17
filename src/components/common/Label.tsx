@@ -7,7 +7,7 @@ import { styled } from 'styled-system/jsx';
 import { Align, Between } from '@/styles/layout';
 
 export const Label = ({ inputValue, isAlert, label, message }: LabelProps) => {
-  const { nickname } = LABEL_TEXTS;
+  const { nickname, gender } = LABEL_TEXTS;
 
   const nicknameCheckIcon =
     isAlert && message === nickname.message ? (
@@ -16,9 +16,18 @@ export const Label = ({ inputValue, isAlert, label, message }: LabelProps) => {
       <Icon {...iconPropsGenerator('check', '14')} />
     );
 
+  const genderCheckIcon =
+    inputValue?.length !== 0 ? (
+      <Icon {...iconPropsGenerator('check-done', '14')} />
+    ) : (
+      <Icon {...iconPropsGenerator('check', '14')} />
+    );
+
   const alretMessage = (
     <LabelMessage
-      className={message === nickname.error ? ErrorMessage : DefaltMessage}>
+      className={
+        message && message === nickname.error ? ErrorMessage : DefaltMessage
+      }>
       {message}
     </LabelMessage>
   );
@@ -28,6 +37,7 @@ export const Label = ({ inputValue, isAlert, label, message }: LabelProps) => {
       <div className={Align}>
         <LabelText>{label}</LabelText>
         {label === nickname.label && nicknameCheckIcon}
+        {label === gender.label && genderCheckIcon}
       </div>
       {isAlert && inputValue && alretMessage}
     </LabelContainer>
@@ -37,6 +47,7 @@ export const Label = ({ inputValue, isAlert, label, message }: LabelProps) => {
 export const LabelContainer = styled.div`
   font-family: Pretendard;
   font-style: normal;
+  margin-bottom: 9px;
 `;
 
 export const LabelText = styled.div`
