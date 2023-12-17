@@ -14,7 +14,7 @@ const Layout = () => {
   return (
     <>
       <Container>
-        {pathname !== '/start/0' && <Header />}
+        {pathname !== '/Start/1' && <Header />}
         <Suspense fallback={<></>}>
           <Contents>
             <Outlet />
