@@ -1,5 +1,4 @@
 import { useRecoilState } from 'recoil';
-import { useNavigate } from 'react-router-dom';
 import { GoogleAuthProvider } from 'firebase/auth';
 import { signInWithGoogle } from '@/api/firebase';
 import Icon from '@/components/common/Icon';
@@ -7,31 +6,45 @@ import { authState } from '@/atoms/atoms';
 import { SIGININ_TEXTS } from '@/constants/start';
 import { AuthTypes } from '@/types/types';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { styled } from 'styled-system/jsx';
-import { Column, Center, Justify, FlexCenter } from '@/styles/layout';
-import { ButtonFont, SignInBtn } from '@/styles/styles';
 import { cx } from 'styled-system/css';
+import { Column, Center, Justify, FlexCenter } from '@/styles/layout';
+import { Btn, SignInBtn } from '@/styles/styles';
 
 const SignIn = () => {
-  const [userAuthState, setUserAuthState] = useRecoilState(authState);
+  const [userAuthState, setUserAuthState] =
+    useRecoilState<AuthTypes>(authState);
   const { signInBtn, startText } = SIGININ_TEXTS;
-  const navigate = useNavigate();
+  const navToSignUp = useNavigateTo('/Start/2');
+  const navToHome = useNavigateTo('/');
+
+  const saveAccessToken = (accessToken: string | undefined) => {
+    accessToken && localStorage.setItem('accessToken', accessToken);
+  };
 
   const handleSignIn = async () => {
     try {
       const res = await signInWithGoogle();
-      if (res) {
+      if (res.operationType === 'signIn') {
         const credential = GoogleAuthProvider.credentialFromResult(res);
         const userInfo: AuthTypes = {
           initialized: false,
           user: {
             userId: credential?.accessToken,
             email: res.user?.displayName,
-            name: res.user?.email
+            name: res.user?.email,
+            nickname: '',
+            brand: '',
+            gender: ''
           },
           signIn: true
         };
-        setUserAuthState(userInfo);
+        setUserAuthState({ ...userInfo });
+        saveAccessToken(credential?.accessToken);
+        {
+          !userAuthState.initialized ? navToSignUp() : navToHome();
+        }
       }
     } catch {
       (error: string) => {
@@ -40,17 +53,13 @@ const SignIn = () => {
     }
   };
 
-  const clickDoneBtn = () => {
-    navigate('/');
-  };
-
   return (
     <>
       {!userAuthState.signIn && (
         <div className={cx(Justify, Column)}>
           <AppLogoContainer>
             <AppLogo className={Center}>AppLogo</AppLogo>
-            <StartText className={ButtonFont}>
+            <StartText className={Btn}>
               {startText.first}
               <br />
               {startText.second}
@@ -74,9 +83,9 @@ const SignIn = () => {
             </GoogleBtn>
             <NoneBtn
               type="button"
-              className={ButtonFont}
-              onClick={clickDoneBtn}
-              onTouchEnd={clickDoneBtn}>
+              className={Btn}
+              onClick={useNavigateTo('/')}
+              onTouchEnd={useNavigateTo('/')}>
               {signInBtn.none}
             </NoneBtn>
           </SignInBtnContainer>
@@ -89,7 +98,7 @@ const SignIn = () => {
 export default SignIn;
 
 const AppLogoContainer = styled.div`
-  margin: 166px 0 24px;
+  margin: 120px 0 24px;
 `;
 
 const AppLogo = styled.div`
@@ -104,6 +113,7 @@ const AppLogo = styled.div`
 const SignInBtnContainer = styled.div`
   gap: 12px;
   margin: auto;
+  width: 100%;
 `;
 
 const KakaoBtn = styled.button`
