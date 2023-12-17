@@ -8,7 +8,7 @@ import { authState } from '@/atoms/atoms';
 import { AuthTypes } from '@/types/types';
 import { styled } from 'styled-system/jsx';
 import { Grid } from '@/styles/layout';
-import { DefaultBtn, StartPageContiner } from '@/styles/styles';
+import { DefaultBtn, StartPageContainer } from '@/styles/styles';
 import { BUTTON_TEXTS } from '@/constants/common';
 
 export const SelectFavBrand = () => {
@@ -39,7 +39,7 @@ export const SelectFavBrand = () => {
 
   return (
     <>
-      <div className={StartPageContiner}>
+      <div className={StartPageContainer}>
         <InitialFormText>
           <span>{message.first}</span>
           <br />

@@ -9,7 +9,7 @@ import {
   DefaultBtn,
   Regular,
   Semibold,
-  StartPageContiner
+  StartPageContainer
 } from '@/styles/styles';
 import { BUTTON_TEXTS } from '@/constants/common';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
@@ -20,7 +20,7 @@ const InitialForm = () => {
 
   return (
     <div className={Column}>
-      <div className={StartPageContiner}>
+      <div className={StartPageContainer}>
         <InitialFormText className={Regular}>
           {message.first}
           <br />

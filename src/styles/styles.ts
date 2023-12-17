@@ -141,8 +141,8 @@ export const InputFontBase = cx(
   `
 );
 
-export const StartPageContiner = css`
-  height: calc(100vh - 106px);
+export const StartPageContainer = css`
+  height: calc(100vh - 152px);
   overflow-x: visible;
   overflow-y: auto;
 `;
