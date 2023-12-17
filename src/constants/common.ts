@@ -23,5 +23,18 @@ export const LABEL_TEXTS = {
     label: '닉네임',
     message: '사용가능한 닉네임입니다.',
     error: '이미 존재하는 닉네임입니다.'
+  },
+  gender: {
+    label: '성별'
   }
+};
+
+export const BUTTON_TEXTS = {
+  start: '시작하기',
+  regist: '등록하기',
+  next: '다음으로',
+  signin: '로그인',
+  following: '팔로잉',
+  follow2: '팔로우',
+  follow1: '팔로우 하기'
 };
