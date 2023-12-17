@@ -1,3 +1,4 @@
+import { TouchEventHandler } from 'react';
 import { SetterOrUpdater } from 'recoil';
 import { TouchEventHandler } from 'react';
 
@@ -13,7 +14,7 @@ export interface HeaderType {
 
 export interface AuthTypes {
   initialized: boolean;
-  user: User | null;
+  user: User;
   signIn: boolean;
 }
 
@@ -22,11 +23,14 @@ export interface User {
   email: string | null;
   name: string | null;
   profileUrl?: string;
+  nickname?: string;
+  brand?: string;
+  gender?: string;
 }
 
 export interface LabelProps {
   label: string | undefined;
-  message: string | undefined;
+  message?: string | undefined;
   inputValue?: string | undefined;
   isAlert?: boolean | undefined;
 }
@@ -37,6 +41,11 @@ export interface InputProps {
   setInputValue: SetterOrUpdater<string>;
   setIsAlert?: SetterOrUpdater<boolean>;
   inputValue: string | undefined;
+}
+
+export interface BrnadItemProps {
+  brand: string;
+  icon: string;
 }
 
 export interface ButtonProps {

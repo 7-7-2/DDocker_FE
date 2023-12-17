@@ -6,11 +6,12 @@ import {
   setPersistence,
   browserSessionPersistence
 } from 'firebase/auth';
+
+const auth = getAuth(app);
 import { app } from '@/firebase.config';
+setPersistence(auth, browserSessionPersistence);
 
 export const signInWithGoogle = async () => {
-  const auth = getAuth(app);
-  setPersistence(auth, browserSessionPersistence);
   const googleProvider = new GoogleAuthProvider();
   return await signInWithPopup(auth, googleProvider);
 };
