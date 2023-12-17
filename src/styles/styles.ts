@@ -149,6 +149,8 @@ export const InputFontBase = cx(
   `
 );
 
+
+
 export const Cafe = css`
   font-size: var(--font-sizes-xs);
   line-height: 20px;
@@ -193,6 +195,14 @@ export const CaffeineDetail = styled.div`
   font-size: var(--font-sizes-sm);
 `;
 
+export const SearchInput = cx(
+    Regular,
+    css`
+      font-size: var(--font-sizes-sm);
+      line-height: 22px;
+      background-color: transparent;
+    `
+  );
 export const StartPageContainer = css`
   height: calc(100vh - 162px);
   overflow-x: visible;
