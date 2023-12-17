@@ -1,18 +1,27 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { Input } from '@/components/common/Input';
 import { Label } from '@/components/common/Label';
 import { INPUT_TEXTS } from '@/constants/common';
 import { LABEL_TEXTS } from '@/constants/common';
-import { inputNicknameState, inputNicknameAlertState } from '@/atoms/atoms';
+import {
+  inputNicknameState,
+  inputNicknameAlertState,
+  authState
+} from '@/atoms/atoms';
+import useSetUserInitialInfo from '@/hooks/useSetUserInitialInfo';
 
-export const CheckNickname = () => {
+const CheckNickname = () => {
   const { nickname } = INPUT_TEXTS.type;
+  const { user } = useRecoilValue(authState);
   const [inputValue, setInputValue] = useRecoilState(inputNicknameState);
   const [isAlert, setIsAlert] = useRecoilState(inputNicknameAlertState);
+  const setInitialInfo = useSetUserInitialInfo();
+
   const cilckIdCheckBtn = () => {
-    console.log('check', inputValue);
+    setInitialInfo(inputValue, user.brand, user.gender);
     setIsAlert(true);
   };
+
   return (
     <div>
       <Label
@@ -31,3 +40,5 @@ export const CheckNickname = () => {
     </div>
   );
 };
+
+export default CheckNickname;
