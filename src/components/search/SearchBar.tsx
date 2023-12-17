@@ -1,6 +1,7 @@
 import Button from '@/components/common/Button';
 import Icon from '@/components/common/Icon';
 import SearchListItem from '@/components/search/SearchListItem';
+import { SEARCH_TEXTS } from '@/constants/search';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { Between, Flex, FlexCenter } from '@/styles/layout';
@@ -21,13 +22,13 @@ const SearchBar = () => {
             <input
               className={SearchInput}
               type="text"
-              placeholder="검색어를 입력해주세요."
+              placeholder={SEARCH_TEXTS.placeHolder}
             />
           </Area>
         </Container>
         <Button
           className={FlexCenter}
-          text="취소"
+          text={SEARCH_TEXTS.moveToHome}
           onTouchEnd={handleHome}
         />
       </div>
