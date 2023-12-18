@@ -11,7 +11,7 @@ import { Flex, Grid } from '@/styles/layout';
 
 const CoffeeMenuSelection = () => {
   const brandList = BRANDLIST;
-  const { coffeeMenuSelection } = CAFFEINE_FILTER_TEXTS;
+  const { coffeeMenu } = CAFFEINE_FILTER_TEXTS;
   const { user } = useRecoilValue(authState);
   const [selectedBrand, setSelectedBrand] = useState('');
   const [selectedMenu, setSelectedMenu] = useState('');
@@ -26,13 +26,13 @@ const CoffeeMenuSelection = () => {
 
   return (
     <div className={MarginTop}>
-      <span className={cx(Medium)}>{coffeeMenuSelection.title}</span>
+      <span className={cx(Medium)}>{coffeeMenu.title}</span>
       <CoffeeSelectContainer className={cx(Flex, Grid)}>
-        <SelectBox className={selectedMenu ? seletedBorder : defaultBorder}>
+        <SelectBox className={selectedBrand ? seletedBorder : defaultBorder}>
           <select
             className={cx(SelectInput, Medium)}
-            name={coffeeMenuSelection.brand}
-            id={coffeeMenuSelection.brand}
+            name={coffeeMenu.brand}
+            id={coffeeMenu.brand}
             value={selectedBrand}
             onChange={selectBrand}>
             <option
@@ -40,7 +40,7 @@ const CoffeeMenuSelection = () => {
               disabled
               selected
               hidden>
-              {(user.brand && user.brand) || coffeeMenuSelection.brand}
+              {(user.brand && user.brand) || coffeeMenu.brand}
             </option>
             {brandList.map(item => (
               <option value={item.brand}>{item.brand}</option>
@@ -50,8 +50,8 @@ const CoffeeMenuSelection = () => {
         <SelectBox className={selectedMenu ? seletedBorder : defaultBorder}>
           <select
             className={cx(SelectInput, Medium)}
-            name={coffeeMenuSelection.menu}
-            id={coffeeMenuSelection.menu}
+            name={coffeeMenu.menu}
+            id={coffeeMenu.menu}
             value={selectedMenu}
             onChange={selectMenu}>
             <option
@@ -59,7 +59,7 @@ const CoffeeMenuSelection = () => {
               disabled
               selected
               hidden>
-              {coffeeMenuSelection.menu}
+              {coffeeMenu.menu}
             </option>
             {brandList.map(item => (
               <option value={item.brand}>{item.brand}</option>
