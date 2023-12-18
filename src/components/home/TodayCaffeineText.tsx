@@ -5,7 +5,8 @@ import { TODAY_CAFFEINE_INFO_TEXTS } from '@/constants/home';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { Align, Between, Column, Flex, Justify } from '@/styles/layout';
+import { Align, Between, Column, Flex } from '@/styles/layout';
+import { Regular } from '@/styles/styles';
 
 const TodayCaffeineText = ({ accessToken }: { accessToken: string | null }) => {
   const { anonymous, signedIn } = TODAY_CAFFEINE_INFO_TEXTS;
@@ -52,9 +53,9 @@ const TodayCaffeineText = ({ accessToken }: { accessToken: string | null }) => {
           alt="coffee"
         />
       </div>
-      <MessageContainer className={cx(Align, Justify)}>
+      <MessageContainer className={cx(Align)}>
         <Icon {...iconPropsGenerator('message', '15')} />
-        <MessageText>
+        <MessageText className={Regular}>
           {accessToken ? signedInMessage : anonymous.messageText}
         </MessageText>
       </MessageContainer>
@@ -73,6 +74,7 @@ const CaffeineInfo = styled.span`
   color: var(--colors-main);
 `;
 const MessageContainer = styled.div`
+  padding: 0 16px;
   margin-top: 10px;
   height: 54px;
   background-color: var(--colors-main);
