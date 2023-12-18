@@ -60,7 +60,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
           onTouchEnd={handleHome}
         />
       </div>
-
       <Divider />
     </>
   );
@@ -74,12 +73,15 @@ const Container = styled.div`
   background-color: var(--colors-tertiary);
   border-radius: 6px;
 `;
+
 const Area = styled.div`
   height: 32px;
 `;
+
 const IconContainer = styled.div`
   padding: 10px;
 `;
+
 const Divider = styled.div`
   position: relative;
   &::after {
@@ -89,6 +91,7 @@ const Divider = styled.div`
     left: -20px;
     width: calc(50% + 20px);
   }
+
   &::before {
     content: '';
     position: absolute;

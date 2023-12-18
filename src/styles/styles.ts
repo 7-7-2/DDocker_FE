@@ -198,7 +198,7 @@ export const CaffeineDetail = styled.div`
 export const SearchInput = cx(
     Regular,
     css`
-    color: #313131;
+    color: #A6A6A6;
       font-size: var(--font-sizes-sm);
       line-height: 22px;
       background-color: transparent;
@@ -300,8 +300,8 @@ export const ToggleRight = css`
   &::after {
     border-bottom: 1px solid #767676;
     right: -20px;
-  }
-`;
+  }`;
+
 export const PaddingTB10 = css`
   padding: 10px 0;
 `;
@@ -313,20 +313,4 @@ export const SearchBtn = cx(
     font-size: var(--font-sizes-sm);
     line-height: 22px;
   `
-)
-
-export const RecentSearch = cx(
-  Semibold,
-  css`
-  font-size: var(--font-sizes-base);
-  color: #313131;
-  line-height: 24px;`
-)
-
-export const DeleteAllBtn = cx(
-  Semibold,
-  css`
-  font-size: var(--font-sizes-xs);
-  color: #767676;
-  line-height: 20px;`
-)
+);
