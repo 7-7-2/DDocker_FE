@@ -1,6 +1,5 @@
 import Button from '@/components/common/Button';
 import Icon from '@/components/common/Icon';
-import SearchListItem from '@/components/search/SearchListItem';
 import { SEARCH_TEXTS } from '@/constants/search';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
@@ -32,8 +31,7 @@ const SearchBar = () => {
           onTouchEnd={handleHome}
         />
       </div>
-      <Border />
-      <SearchListItem />
+      <Divider />
     </>
   );
 };
@@ -44,15 +42,32 @@ const Container = styled.div`
   padding: 5px 0px;
   margin: 7px 0;
   background-color: var(--colors-tertiary);
+  border-radius: 6px;
 `;
 const Area = styled.div`
   height: 32px;
-  border-radius: 6px;
 `;
 const IconContainer = styled.div`
   padding: 10px;
 `;
-const Border = styled.div`
-  border-bottom: 1px solid #edecec;
+
+const Divider = styled.div`
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    border-top: 1px solid #edecec;
+    left: -20px;
+    width: calc(50% + 20px);
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    border-top: 1px solid #edecec;
+    right: -20px;
+    width: calc(50% + 20px);
+  }
 `;
 export default SearchBar;

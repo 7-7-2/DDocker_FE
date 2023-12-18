@@ -191,6 +191,7 @@ export const CaffeineDetail = styled.div`
 export const SearchInput = cx(
     Regular,
     css`
+    color: #A6A6A6;
       font-size: var(--font-sizes-sm);
       line-height: 22px;
       background-color: transparent;
@@ -298,3 +299,13 @@ export const ToggleRight = css`
 export const PaddingTB10 = css`
   padding: 10px 0;
 `;
+
+  
+  export const SearchBtn = cx(
+    Regular,
+    css`
+      color: #313131;
+      font-size: var(--font-sizes-sm);
+      line-height: 22px;
+    `
+  )

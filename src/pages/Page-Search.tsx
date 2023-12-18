@@ -1,11 +1,11 @@
 import SearchBar from '@/components/search/SearchBar';
-import { styled } from 'styled-system/jsx';
-
+import SearchListItem from '@/components/search/SearchListItem';
 const Search = () => {
   return (
-    <div>
+    <>
       <SearchBar />
-    </div>
+      <SearchListItem />
+    </>
   );
 };
 
