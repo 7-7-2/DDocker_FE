@@ -16,7 +16,7 @@ const SearchBar = () => {
         <Container className={Flex}>
           <Area className={Flex}>
             <IconContainer className={FlexCenter}>
-              <Icon {...iconPropsGenerator('search', '24')} />
+              <Icon {...iconPropsGenerator('mini-search', '12')} />
             </IconContainer>
             <input
               className={SearchInput}
