@@ -41,3 +41,7 @@ export const CAFFEINE_FILTER_TEXTS = {
   },
   coffeeOption: { size: '사이즈', shot: { title: '추가선택', input: '샷추가' } }
 };
+
+export const CAFFEINE_INFO_TEXTS = {
+  title: '총 카페인 함량'
+};
