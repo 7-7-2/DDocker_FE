@@ -189,15 +189,54 @@ export const ButtonArea = cx(
     
 )
 
-export const ToggleButton = cx(
-    Semibold,
+export const ToggleButton = 
     css`
       width: 100%;
       height: 40px;
       cursor: pointer;
+      position: relative;
+      font-weight: 500;
       &.active {
+        position: relative;
+        font-weight: 600;
         color: var(--colors-main);
-        border-bottom: 1px solid var(--colors-main);
+        &::after {
+            content: '';
+                position: absolute;
+                bottom: 0;
+                width: calc(100% + 20px);   
+        }
+      }
+      &::after {          
+        content: '';
+                position: absolute;
+                bottom: 0;
+                width: calc(100% + 20px);   
       }
     `
-)
+
+export const ToggleLeft = css`
+&.active {
+            &::after {
+                left: -20px;
+                border-bottom: 2px solid var(--colors-main);
+    }
+        }
+        &::after {
+                border-bottom: 1px solid #767676;
+                left: -20px;
+    }
+`
+export const ToggleRight = css`
+&.active {
+            &::after {
+                right: -20px;
+                border-bottom: 2px solid var(--colors-main);
+    }
+        }
+        &::after {
+                border-bottom: 1px solid #767676;
+                right: -20px;
+
+    }
+`
