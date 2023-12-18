@@ -1,5 +1,5 @@
 import Button from '@/components/common/Button';
-import CaffeineInfo from '@/components/common/CaffeineInfo';
+import CaffeineInfo from '@/components/home/CaffeineInfo';
 import CoffeeSelection from '@/components/home/CoffeeSelection';
 import { BUTTON_TEXTS } from '@/constants/common';
 import { RegistBtn } from '@/styles/styles';
