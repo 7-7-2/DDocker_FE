@@ -20,7 +20,7 @@ export default Home;
 
 const Container = styled.div`
   position: relative;
-  height: 100%;
+  height: calc(100vh+ 126px);
   &:before {
     content: '';
     position: absolute;
