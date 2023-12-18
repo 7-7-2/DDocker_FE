@@ -121,6 +121,13 @@ export const LoginBtn = cx(
   `
 );
 
+export const SizeBtn = cx(
+  LoginBtn,
+  css`
+    width: 106px;
+  `
+);
+
 // Input
 export const InputFontSm = cx(
   Regular,
@@ -301,27 +308,27 @@ export const PaddingTB10 = css`
 `;
 
   
-  export const SearchBtn = cx(
-    Regular,
-    css`
-      color: #313131;
-      font-size: var(--font-sizes-sm);
-      line-height: 22px;
-    `
-  )
-  
-  export const RecentSearch = cx(
-    Semibold,
-    css`
-    font-size: var(--font-sizes-base);
+export const SearchBtn = cx(
+  Regular,
+  css`
     color: #313131;
-    line-height: 24px;`
-  )
-  
-  export const DeleteAllBtn = cx(
-    Semibold,
-    css`
-    font-size: var(--font-sizes-xs);
-    color: #767676;
-    line-height: 20px;`
-  )
+    font-size: var(--font-sizes-sm);
+    line-height: 22px;
+  `
+)
+
+export const RecentSearch = cx(
+  Semibold,
+  css`
+  font-size: var(--font-sizes-base);
+  color: #313131;
+  line-height: 24px;`
+)
+
+export const DeleteAllBtn = cx(
+  Semibold,
+  css`
+  font-size: var(--font-sizes-xs);
+  color: #767676;
+  line-height: 20px;`
+)
