@@ -1,19 +1,14 @@
 import PostSocialCount from '@/components/post/PostSocialCount';
+import Icon from '@/components/common/Icon';
+import PostedAt from '@/components/post/PostedAt';
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+import { PostContainer, PostsContainer } from '@/styles/styles';
 import { Flex, Between } from '@/styles/layout';
 import { cx } from 'styled-system/css';
-import Icon from '@/components/common/Icon';
-import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import PostedAt from '@/components/post/PostedAt';
-import { PostContainer, PostsContainer } from '@/styles/styles';
 
 const PostSocial = ({ posts = false }: { posts?: boolean }) => {
   return (
-    <div
-      className={
-        posts
-          ? cx(Flex, Between, PostsContainer)
-          : cx(Flex, Between, PostContainer)
-      }>
+    <div className={cx(Flex, Between, posts ? PostsContainer : PostContainer)}>
       <div className={Flex}>
         <PostSocialCount
           count={0}

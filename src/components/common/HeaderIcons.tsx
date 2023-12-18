@@ -1,6 +1,6 @@
+import React from 'react';
 import HeaderIcon from '@/components/common/HeaderIcon';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import React from 'react';
 
 const routeMap = new Map();
 routeMap.set('search', '/search');
