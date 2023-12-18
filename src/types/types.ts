@@ -84,3 +84,8 @@ export interface EmptyUserProps {
   label: string;
   onTouchEnd?: () => void;
 }
+
+export interface WeeklyPopularTypes {
+  ranking: number;
+  brand: { icon: string; brand: string };
+}
