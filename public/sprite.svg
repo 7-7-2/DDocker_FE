@@ -33,6 +33,10 @@
 </g>
 </symbol>
 
+<symbol id="icon-input-delete" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M4 12C4 7.58172 7.58172 4 12 4C16.4183 4 20 7.58172 20 12C20 16.4183 16.4183 20 12 20C7.58172 20 4 16.4183 4 12ZM14.9657 9.0351C15.2781 9.34752 15.2781 9.85405 14.9657 10.1665L13.1314 12.0008L14.9657 13.8351C15.2781 14.1475 15.2781 14.654 14.9657 14.9665C14.6533 15.2789 14.1467 15.2789 13.8343 14.9665L12 13.1322L10.1657 14.9665C9.85327 15.2789 9.34673 15.2789 9.03431 14.9665C8.7219 14.654 8.72189 14.1475 9.03431 13.8351L10.8686 12.0008L9.03431 10.1665C8.7219 9.85405 8.7219 9.34752 9.03431 9.0351C9.34673 8.72268 9.85327 8.72268 10.1657 9.0351L12 10.8694L13.8343 9.0351C14.1467 8.72268 14.6533 8.72268 14.9657 9.0351Z" fill="#767676"/>
+</symbol>
+
 
     <symbol
       id="icon-notification"
@@ -82,17 +86,11 @@
       </defs>
     </symbol>
 
-    <svg id="icon-user" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" fill="none">
-    <mask id="mask0_1167_5906" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
-    <circle cx="50" cy="50" r="50" fill="#D9D9D9"/>
-    </mask>
-    <g mask="url(#mask0_1167_5906)">
-    <circle cx="50" cy="50" r="50" fill="#D9D9D9"/>
-    <path d="M13 78.6333C13 67.7901 22.1142 59 33.3571 59H67.6429C78.8858 59 88 67.7901 88 78.6333C88 84.911 82.7234 90 76.2143 90H50.5H24. 7857C18.2766 90 13 84.911 13 78.6333Z" fill="white"/>
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M34 37C34 28.1634 41.1634 21 50 21C58.8366 21 66 28.1634 66 37C66 45.8366 58.8366 53 50    53C41.1634 53 34 45.8366 34 37Z" fill="white"/>
-    </g>
-    <circle cx="50" cy="50" r="45" stroke="#D9D9D9" stroke-width="10"/>
-    </svg>
+    <symbol id="icon-user" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100" fill="none">
+<circle cx="50" cy="50" r="50" fill="#D9D9D9"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M34.2944 37C34.2944 28.1634 41.4579 21 50.2944 21C59.131 21 66.2944 28.1634 66.2944 37C66.2944 45.8366 59.131 53 50.2944 53C41.4579 53 34.2944 45.8366 34.2944 37Z" fill="white"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M15.9999 70.6001C19.0558 63.7622 25.893 59 33.8373 59H66.7516C74.6959 59 81.5331 63.7622 84.589 70.6001C77.5915 82.2244 64.851 90 50.2944 90C35.7379 90 22.9974 82.2244 15.9999 70.6001Z" fill="white"/>
+</symbol>
     
     <symbol id="icon-mini-user" xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
     <mask id="mask0_853_3721" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="40" height="40">
