@@ -31,3 +31,13 @@ export const CAFFEINE_PER_WATER_TEXTS = {
     subTitle: '일일 섭취 권장량'
   }
 };
+
+export const CAFFEINE_FILTER_TEXTS = {
+  title: { title: '카페인 함량조회', resetBtn: '초기화' },
+  coffeeMenu: {
+    title: '커피 정보 입력',
+    brand: '커피 브랜드',
+    menu: '커피 메뉴'
+  },
+  coffeeOption: { size: '사이즈', shot: { title: '추가선택', input: '샷추가' } }
+};
