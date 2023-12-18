@@ -191,7 +191,7 @@ export const CaffeineDetail = styled.div`
 export const SearchInput = cx(
     Regular,
     css`
-    color: #A6A6A6;
+    color: #313131;
       font-size: var(--font-sizes-sm);
       line-height: 22px;
       background-color: transparent;
