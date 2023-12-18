@@ -1,5 +1,4 @@
 import { SetterOrUpdater } from 'recoil';
-import { TouchEventHandler } from 'react';
 
 export interface LazyRouteType {
   index: boolean;
