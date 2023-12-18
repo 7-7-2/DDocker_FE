@@ -58,3 +58,13 @@ export const inputNicknameAlertState = atom({
   key: 'inputNicknameAlertState',
   default: false
 });
+
+export const caffeineInfoState = atom({
+  key: 'caffeineInfoState',
+  default: {
+    brand: '',
+    menu: '',
+    size: '',
+    shot: 0
+  }
+});

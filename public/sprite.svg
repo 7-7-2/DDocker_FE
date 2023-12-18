@@ -212,6 +212,25 @@
       <path fill-rule="evenodd" clip-rule="evenodd" d="M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12ZM12 8.00098C12.5523 8.00098 13 8.44869 13 9.00098V11.001H15C15.5523 11.001 16 11.4487 16 12.001C16 12.5533 15.5523 13.001 15 13.001H13V15.001C13 15.5533 12.5523 16.001 12 16.001C11.4477 16.001 11 15.5533 11 15.001V13.001H9C8.44772 13.001 8 12.5533 8 12.001C8 11.4487 8.44772 11.001 9 11.001H11V9.00098C11 8.44869 11.4477 8.00098 12 8.00098Z" fill="#6AB5FB"/>
     </symbol>
 
+    <symbol id='icon-input-plus' xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="11.999" r="9" stroke="#313131" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 9V15" stroke="#313131" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M9 12H15" stroke="#313131" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol id='icon-input-minus' xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M2 11.999C2 6.47618 6.47715 1.99902 12 1.99902C17.5228 1.99902 22 6.47618 22 11.999C22 17.5219 17.5228 21.999 12 21.999C6.47715 21.999 2 17.5219 2 11.999ZM9 11C8.44772 11 8 11.4477 8 12C8 12.5523 8.44772 13 9 13H15C15.5523 13 16 12.5523 16 12C16 11.4477 15.5523 11 15 11H9Z" fill="#F5F5F5"/>
+    </symbol>
+
+    <symbol id='icon-input-minus:active' xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="11.999" r="9" stroke="#313131" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M9 12H15" stroke="#313131" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol id='icon-reset' xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <path d="M7 1C10.3137 1 13 3.68629 13 7C13 10.3137 10.3137 13 7 13C3.68629 13 1 10.3137 1 7C1 5.11516 1.86911 3.4333 3.22844 2.33333" stroke="#313131" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M1 2H4V5" stroke="#313131" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
     <symbol id='icon-user-more' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g clip-path="url(#clip0_964_5369)">
       <path fill-rule="evenodd" clip-rule="evenodd" d="M6.51 11.999C6.51 11.1706 5.83843 10.499 5.01 10.499H5C4.17157 10.499 3.5 11.1706 3.5 11.999V12.009C3.5 12.8375 4.17157 13.509 5 13.509H5.01C5.83843 13.509 6.51 12.8375 6.51 12.009V11.999ZM12.01 10.499C12.8384 10.499 13.51 11.1706 13.51 11.999V12.009C13.51 12.8375 12.8384 13.509 12.01 13.509H12C11.1716 13.509 10.5 12.8375 10.5 12.009V11.999C10.5 11.1706 11.1716 10.499 12 10.499H12.01ZM19.01 10.499C19.8384 10.499 20.51 11.1706 20.51 11.999V12.009C20.51 12.8375 19.8384 13.509 19.01 13.509H19C18.1716 13.509 17.5 12.8375 17.5 12.009V11.999C17.5 11.1706 18.1716 10.499 19 10.499H19.01Z" fill="#767676"/>
