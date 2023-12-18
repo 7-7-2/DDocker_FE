@@ -21,7 +21,7 @@ export default defineConfig({
         colors: {
           main: { value: '#FF701E' },
           sub: { value: '#3D2D1E' },
-          tertiary: { value: '#EDECEC' }
+          tertiary: { value: '#f5f5f5' }
         },
         fontSizes: {
           xxs: { value: '10px' },
