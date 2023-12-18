@@ -18,7 +18,13 @@ const Post = () => {
   return (
     <>
       {register && <PostRegister />}
-      {!register && <PostDetail />}
+      {!register && (
+        <PostDetail
+          userId="zxc"
+          NickName="커피안마셔안마셔"
+          caffeine={12345}
+        />
+      )}
     </>
   );
 };
