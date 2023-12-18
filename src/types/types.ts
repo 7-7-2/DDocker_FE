@@ -1,4 +1,3 @@
-import { TouchEventHandler } from 'react';
 import { SetterOrUpdater } from 'recoil';
 import { TouchEventHandler } from 'react';
 
@@ -29,19 +28,19 @@ export interface User {
 }
 
 export interface SimplifyUser {
-    userId: string | undefined;
-    NickName: string | undefined;
-    caffeine?: number;
+  userId: string | undefined;
+  NickName: string | undefined;
+  caffeine?: number;
 }
 
 export interface FollowCountProps {
-    icons: {
-      number?: number;
-      label: string;
-      onTouchEnd?: (event: TouchEventHandler<HTMLDivElement>) => void;
-    }[];
-  }
-  
+  icons: {
+    number?: number;
+    label: string;
+    onTouchEnd?: (event: TouchEventHandler<HTMLDivElement>) => void;
+  }[];
+}
+
 export interface LabelProps {
   label: string | undefined;
   message?: string | undefined;
@@ -67,6 +66,18 @@ export interface ButtonProps {
   text: string;
   onTouchEnd: TouchEventHandler<HTMLButtonElement>;
   className: string;
+}
+
+export interface testData {
+  Allcaffeine: number;
+  coffee: number;
+  menu: testMenu[];
+}
+export interface testMenu {
+  icon: string;
+  brand: string;
+  caffeine: number;
+  menuName: string;
 }
 
 export interface EmptyUserProps {
