@@ -1,23 +1,41 @@
+import { useRecoilState } from 'recoil';
+
 import MiniProfile from '@/components/common/MiniProfile';
-import { styled } from 'styled-system/jsx';
-import { Flex, Between, Align } from '@/styles/layout';
-import { cx } from 'styled-system/css';
-import Icon from '@/components/common/Icon';
-import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import PostSocial from '@/components/post/PostSocial';
 import PostComments from '@/components/post/PostComments';
 import CaffeineInfo from '@/components/post/CaffeineInfo';
-import { PostContent } from '@/styles/styles';
 import PostedAt from '@/components/post/PostedAt';
+import Icon from '@/components/common/Icon';
+import { Input } from '@/components/common/Input';
+
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+import { INPUT_TEXTS } from '@/constants/common';
+import { styled } from 'styled-system/jsx';
+import { Flex, Between, Align } from '@/styles/layout';
+import { cx } from 'styled-system/css';
+import { PaddingTB10, PostContent } from '@/styles/styles';
+import { SimplifyUser } from '@/types/types';
+import { inputNicknameState } from '@/atoms/atoms';
+
 // POST 정보를 수신 => 하위 props에 전달
 // 1. PostSocial => 좋아요, 댓글 수
 // 2. CaffeineInfo => 카페인 정보
 // 3. PostedAt => 게시글 작성 시간
-const PostDetail = () => {
+const { type } = INPUT_TEXTS;
+const { comment } = type;
+
+const PostDetail = ({ userId, NickName, caffeine }: SimplifyUser) => {
+  const [nicknameState, setNicknameState] = useRecoilState(inputNicknameState);
+  const handleTouch = () => console.log();
+
   return (
     <>
       <UserProfile className={cx(Flex, Between, Align)}>
-        <MiniProfile />
+        <MiniProfile
+          userId={userId}
+          NickName={NickName}
+          caffeine={caffeine}
+        />
         <Icon {...iconPropsGenerator('user-more')} />
       </UserProfile>
       <DetailImg src="https://i.namu.wiki/i/d1A_wD4kuLHmOOFqJdVlOXVt1TWA9NfNt_HA0CS0Y_N0zayUAX8olMuv7odG2FiDLDQZIRBqbPQwBSArXfEJlQ.webp" />
@@ -28,7 +46,14 @@ const PostDetail = () => {
       <Divider />
       <PostComments length={5} />
       <Divider />
-      <div>Input</div>
+      <div className={PaddingTB10}>
+        <Input
+          type={comment.typeName}
+          handleEvent={handleTouch}
+          inputValue={nicknameState}
+          setInputValue={setNicknameState}
+        />
+      </div>
     </>
   );
 };
