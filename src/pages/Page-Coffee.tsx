@@ -1,8 +1,13 @@
+import MyCoffeeSum from '@/components/coffee/MyCoffeeSum';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 
 const Coffee = () => {
   useComposeHeader(true, '', 'icons');
-  return <>Page-Coffee</>;
+  return (
+    <>
+      <MyCoffeeSum />
+    </>
+  );
 };
 
 export default Coffee;
