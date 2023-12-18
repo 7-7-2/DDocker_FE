@@ -29,7 +29,7 @@ const TodayCaffeineText = ({ accessToken }: { accessToken: string | null }) => {
         {signedIn.first}
       </span>
       <div>
-        총<CaffeineInfo>27,689mg</CaffeineInfo>
+        <CaffeineInfo>총 27,689mg</CaffeineInfo>
         {signedIn.second}
       </div>
       <span>{signedIn.third}</span>
