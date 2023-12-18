@@ -1,3 +1,5 @@
+import { useRecoilState } from 'recoil';
+import { searchKeywordState } from '@/atoms/atoms';
 import Button from '@/components/common/Button';
 import Icon from '@/components/common/Icon';
 import { SEARCH_TEXTS } from '@/constants/search';
@@ -9,7 +11,19 @@ import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
 const SearchBar = () => {
+  const [inputValue, setInputValue] = useRecoilState(searchKeywordState);
+
   const handleHome = useNavigateTo('/');
+
+  const searchInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleInputDelete = () => {
+    // console.log('1');
+    setInputValue('');
+  };
+
   return (
     <>
       <div className={cx(Flex, Between)}>
@@ -21,9 +35,18 @@ const SearchBar = () => {
             <input
               className={SearchInput}
               type="text"
+              value={inputValue}
+              onChange={searchInputHandler}
               placeholder={SEARCH_TEXTS.placeHolder}
             />
           </Area>
+          {inputValue && (
+            <div
+              className={FlexCenter}
+              onTouchEnd={handleInputDelete}>
+              <Icon {...iconPropsGenerator('input-delete', '24')} />
+            </div>
+          )}
         </Container>
         <Button
           className={FlexCenter}
@@ -31,6 +54,7 @@ const SearchBar = () => {
           onTouchEnd={handleHome}
         />
       </div>
+
       <Divider />
     </>
   );
@@ -50,10 +74,8 @@ const Area = styled.div`
 const IconContainer = styled.div`
   padding: 10px;
 `;
-
 const Divider = styled.div`
   position: relative;
-
   &::after {
     content: '';
     position: absolute;
@@ -61,7 +83,6 @@ const Divider = styled.div`
     left: -20px;
     width: calc(50% + 20px);
   }
-
   &::before {
     content: '';
     position: absolute;

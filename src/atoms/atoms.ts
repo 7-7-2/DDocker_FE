@@ -58,3 +58,8 @@ export const inputNicknameAlertState = atom({
   key: 'inputNicknameAlertState',
   default: false
 });
+
+export const searchKeywordState = atom({
+    key: 'searchKeywordState',
+    default: '',
+  });
