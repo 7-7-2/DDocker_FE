@@ -1,34 +1,45 @@
+import { TouchEvent, useState } from 'react';
 import Button from '@/components/common/Button';
 import Icon from '@/components/common/Icon';
-import { Align, Between, Column, Flex, Grid } from '@/styles/layout';
-import { LoginBtn, Medium, SizeBtn } from '@/styles/styles';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import { useState } from 'react';
+
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
+import { BtnColorWhite, Medium } from '@/styles/styles';
+import { Align, Between, Column, Flex } from '@/styles/layout';
+import { CAFFEINE_FILTER_TEXTS } from '@/constants/home';
 
 const CoffeeOptionSelection = () => {
+  const { coffeeOption } = CAFFEINE_FILTER_TEXTS;
   const size: string[] = ['Tall', 'Grande', 'Venti'];
   const [inputValue, setInputValue] = useState(0);
+  const [sizeValue, setSizeValue] = useState('');
+
+  const selectSize = (e: TouchEvent<HTMLButtonElement>) => {
+    setSizeValue(e.currentTarget.value);
+  };
 
   return (
     <Container className={cx(Column, Medium)}>
-      <span className={BottomMargin6}>사이즈</span>
+      <span className={BottomMargin6}>{coffeeOption.size}</span>
       <div className={cx(Flex, Between, BottomMargin8)}>
         {size.map(item => (
           <Button
+            value={item}
             text={item}
-            onTouchEnd={() => {
-              console.log('size');
-            }}
-            className={SizeBtn}
+            onTouchEnd={selectSize}
+            className={cx(
+              sizeValue === item ? SelectSizeBtn : BtnColorWhite,
+              Medium,
+              SizeBtn
+            )}
           />
         ))}
       </div>
-      <span className={BottomMargin6}>추가선택</span>
+      <span className={BottomMargin6}>{coffeeOption.shot.title}</span>
       <ShotOptionInputContainer
         className={cx(Flex, Align, Between, BottomMargin8)}>
-        <span>샷 추가</span>
+        <span>{coffeeOption.shot.input}</span>
         <div className={cx(Flex, Align)}>
           <Icon
             {...iconPropsGenerator(
@@ -83,5 +94,16 @@ const BottomMargin6 = css`
 const BottomMargin8 = css`
   margin-bottom: 8px;
 `;
+const SelectSizeBtn = css`
+  background-color: var(--colors-main);
+  color: #fff;
+`;
 
+const SizeBtn = css`
+  width: 106px;
+  height: 40px;
+  border-radius: 50px;
+  font-size: var(--font-sizes-sm);
+  line-height: 22px;
+`;
 export default CoffeeOptionSelection;
