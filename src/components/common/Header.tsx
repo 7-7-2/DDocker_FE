@@ -22,7 +22,15 @@ const Header = () => {
 
   return (
     <Container className={cx(Flex, Between, Align)}>
-      <Left>{logo && <>LOGO</>}</Left>
+      <Left>
+        {logo && (
+          <svg
+            width={'80'}
+            height={'15'}>
+            <use href={`/sprite.svg#icon-ddocker`} />
+          </svg>
+        )}
+      </Left>
       <Center className={icons ? IconsSpace : close ? CloseSpace : ''}>
         {text}
       </Center>

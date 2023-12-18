@@ -1,5 +1,6 @@
 import HeaderIcon from '@/components/common/HeaderIcon';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+import React from 'react';
 
 const routeMap = new Map();
 routeMap.set('search', '/search');
@@ -11,10 +12,12 @@ const HeaderIcons = () => {
   return (
     <>
       {icons.map(item => (
-        <HeaderIcon
-          {...iconPropsGenerator(item)}
-          icon={item}
-        />
+        <React.Fragment key={item}>
+          <HeaderIcon
+            {...iconPropsGenerator(item)}
+            icon={item}
+          />
+        </React.Fragment>
       ))}
     </>
   );
