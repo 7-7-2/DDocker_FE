@@ -6,7 +6,12 @@ import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { FollowCountProps, SimplifyUser } from '@/types/types';
 import { Column, FlexCenter, Flex } from '@/styles/layout';
-import { TextGray, ToggleButton } from '@/styles/styles';
+import {
+  TextGray,
+  ToggleButton,
+  ToggleLeft,
+  ToggleRight
+} from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
@@ -20,29 +25,29 @@ const Follow: React.FC<FollowCountProps> = () => {
   };
 
   const followers: SimplifyUser[] = [
-    // {
-    //   userId: 'asd',
-    //   NickName: '커피마셔마셔',
-    //   caffeine: 34054
-    // },
-    // {
-    //   userId: 'zxc',
-    //   NickName: '커피안마셔안마셔',
-    //   caffeine: 12345
-    // }
+    {
+      userId: 'asd',
+      NickName: '커피마셔마셔',
+      caffeine: 34054
+    },
+    {
+      userId: 'zxc',
+      NickName: '커피안마셔안마셔',
+      caffeine: 12345
+    }
   ];
 
   const followings: SimplifyUser[] = [
-    // {
-    //   userId: 'zxc',
-    //   NickName: '커피안마셔안마셔',
-    //   caffeine: 12345
-    // },
-    // {
-    //   userId: 'asd',
-    //   NickName: '커피마셔마셔',
-    //   caffeine: 34054
-    // }
+    {
+      userId: 'zxc',
+      NickName: '커피안마셔안마셔',
+      caffeine: 12345
+    },
+    {
+      userId: 'asd',
+      NickName: '커피마셔마셔',
+      caffeine: 34054
+    }
   ];
 
   const usersToShow = isActiveBtn === '팔로워' ? followers : followings;
@@ -58,6 +63,8 @@ const Follow: React.FC<FollowCountProps> = () => {
             className={cx(
               ToggleButton,
               FlexCenter,
+              TextGray,
+              ToggleLeft,
               isActiveBtn === '팔로워' && 'active'
             )}
             onTouchEnd={handleButtonClick}
@@ -69,6 +76,7 @@ const Follow: React.FC<FollowCountProps> = () => {
               ToggleButton,
               FlexCenter,
               TextGray,
+              ToggleRight,
               isActiveBtn === '팔로잉' && 'active'
             )}
             onTouchEnd={handleButtonClick}
@@ -97,7 +105,7 @@ const Container = styled.div`
 `;
 const ToggleArea = styled.div`
   width: 100%;
-  border-bottom: 1px solid #ccc;
+  padding-bottom: 4px;
 `;
 
 export default Follow;

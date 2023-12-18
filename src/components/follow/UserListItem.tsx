@@ -29,7 +29,7 @@ const UserListItem: React.FC<{ users: SimplifyUser[] }> = ({ users }) => {
 };
 
 const Container = styled.div`
-  margin: 10px 13px;
+  padding-top: 20px;
 `;
 const DeleteBtn = styled.button`
   width: 50px;

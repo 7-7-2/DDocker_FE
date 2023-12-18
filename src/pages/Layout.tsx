@@ -35,7 +35,7 @@ const Container = styled.main`
 
 const Contents = styled.section`
   height: calc(100vh - 46px - 47px);
-  margin: 0 20px;
+  padding: 0 20px;
   overflow-y: scroll;
 `;
 
