@@ -121,6 +121,13 @@ export const LoginBtn = cx(
   `
 );
 
+export const SizeBtn = cx(
+  LoginBtn,
+  css`
+    width: 106px;
+  `
+);
+
 // Input
 export const InputFontSm = cx(
   Regular,
@@ -283,8 +290,4 @@ export const ToggleRight = css`
     border-bottom: 1px solid #767676;
     right: -20px;
   }
-`;
-
-export const PaddingTB10 = css`
-  padding: 10px 0;
 `;
