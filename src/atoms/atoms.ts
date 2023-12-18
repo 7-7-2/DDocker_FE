@@ -59,12 +59,22 @@ export const inputNicknameAlertState = atom({
   default: false
 });
 
+export const caffeineInfoState = atom({
+  key: 'caffeineInfoState',
+  default: {
+    brand: '',
+    menu: '',
+    size: '',
+    shot: 0
+  }
+});
+  
 export const searchKeywordState = atom<string>({
   key: 'searchKeywordState',
   default: '',
 });
-  
-  export const searchResultsState = atom<SimplifyUser[]>({
+    
+export const searchResultsState = atom<SimplifyUser[]>({
   key: 'searchResultsState',
   default: [],
 });
