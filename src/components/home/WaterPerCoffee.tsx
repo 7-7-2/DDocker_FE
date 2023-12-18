@@ -3,14 +3,24 @@ import CoffeeIntake from '@/components/home/CoffeeIntake';
 import TodayMenuItem from '@/components/home/TodayMenuItem';
 import WaterIntake from '@/components/home/WaterIntake';
 import { BUTTON_TEXTS } from '@/constants/common';
+import { TODAY_CAFFEINE_INFO_TEXTS } from '@/constants/home';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
-import { Column } from '@/styles/layout';
-import { LoginBtn } from '@/styles/styles';
+import {
+  Align,
+  Between,
+  Center,
+  Column,
+  Flex,
+  MarginAuto
+} from '@/styles/layout';
+import { LoginBtn, Medium, Regular } from '@/styles/styles';
 import { testData } from '@/types/types';
+import { css, cx } from 'styled-system/css';
+import { styled } from 'styled-system/jsx';
 
 const data: testData = {
   Allcaffeine: 185,
-  coffee: 1,
+  coffee: 0,
   menu: [
     {
       icon: '',
@@ -29,50 +39,97 @@ const data: testData = {
 
 const WaterPerCoffee = ({ accessToken }: { accessToken: string | null }) => {
   const dataList = data.menu;
+  const { anonymous, signedIn } = TODAY_CAFFEINE_INFO_TEXTS;
+
   const anonymousCard = (
-    <div>
-      <span>
-        원활한 서비스 이용을 위해 <br /> 로그인을 해주세요.
+    <div className={cx(Column, Center, MarginAuto)}>
+      <span className={cx(AlertMessage, Regular)}>
+        {anonymous.card.first} <br /> {anonymous.card.second}
       </span>
       <Button
         text={BUTTON_TEXTS.signin}
         onTouchEnd={useNavigateTo('/Start/1')}
-        className={LoginBtn}
+        className={cx(LoginBtn, MarginTop)}
       />
     </div>
   );
+
   const notConsumedCoffee = (
-    <div className={Column}>
-      <span>오늘 아직 드신 커피가 없어요!</span>
+    <div className={cx(Column, Center, MarginAuto)}>
+      <span className={cx(AlertMessage, Regular)}>
+        {signedIn.card.notConsumed}
+      </span>
       <Button
-        text="커피등록하기+"
+        text={signedIn.btn}
         onTouchEnd={() => {
           console.log('등록');
         }}
-        className={LoginBtn}
+        className={cx(RegistCoffeeBtn, Medium)}
       />
     </div>
   );
 
   const consumedCoffee = (
     <div>
-      <div>
+      <div className={cx(Flex, Between)}>
         <CoffeeIntake data={data} />
         <WaterIntake />
       </div>
-      {dataList.map(item => (
-        <TodayMenuItem data={item} />
-      ))}
+      <TodayMenuList className={Flex}>
+        {dataList.map(item => (
+          <TodayMenuItem data={item} />
+        ))}
+      </TodayMenuList>
     </div>
   );
 
   return (
-    <div>
+    <Containere className={cx(data.coffee ? CosumedCoffee : Default, Align)}>
       {!accessToken && anonymousCard}
-      {!data.coffee && notConsumedCoffee}
-      {data.coffee && consumedCoffee}
-    </div>
+      {accessToken && !data.coffee && notConsumedCoffee}
+      {data.coffee >= 1 && consumedCoffee}
+    </Containere>
   );
 };
 
 export default WaterPerCoffee;
+
+const Containere = styled.div`
+  height: 220px;
+  border-radius: 16px;
+  margin-top: 16px;
+`;
+
+const CosumedCoffee = css`
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.1);
+  color: #313131;
+`;
+
+const Default = css`
+  border: 1px solid #ccc;
+  background: #ebebeb;
+  text-align: center;
+`;
+
+const TodayMenuList = styled.div`
+  margin-top: 25px;
+  overflow-x: scroll;
+`;
+
+const AlertMessage = css`
+  font-size: var(--font-sizes-sm);
+  color: #a6a6a6;
+  line-height: 22px;
+`;
+
+const RegistCoffeeBtn = css`
+  color: #767676;
+  font-size: var(--font-sizes-xxl);
+  line-height: 32px;
+`;
+
+const MarginTop = css`
+  margin-top: 16px;
+`;

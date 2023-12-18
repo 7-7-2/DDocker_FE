@@ -57,7 +57,7 @@ const ItemContainer = styled.div`
   padding: 14px 0;
   text-align: center;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 20px;
 `;
 
