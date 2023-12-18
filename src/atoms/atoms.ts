@@ -68,3 +68,8 @@ export const caffeineInfoState = atom({
     shot: 0
   }
 });
+  
+export const searchKeywordState = atom({
+  key: 'searchKeywordState',
+  default: '',
+});
