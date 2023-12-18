@@ -9,7 +9,7 @@ const EmptyUser: React.FC<EmptyUserProps> = ({ label, onTouchEnd }) => {
   return (
     <Container className={cx(FlexCenter)}>
       <div className={cx(Column, Center)}>
-        <span className={Flex}>{`아직 ${label}이(가) 없어요 😭`}</span>
+        <span className={Flex}>{`아직 ${label}이(가) 없어요.`}</span>
         {onTouchEnd && (
           <Button
             onTouchEnd={onTouchEnd}
