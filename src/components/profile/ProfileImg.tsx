@@ -7,7 +7,7 @@ import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
 const ProfileImg = ({ edit }: { edit: boolean }) => {
-  const handleProfile = useNavigateTo('/MyPage');
+  const handleProfile = useNavigateTo('/mypage');
 
   return (
     <Container className={cx(FlexCenter, MarginAuto)}>
