@@ -3,6 +3,7 @@ import { searchKeywordState, searchResultsState } from '@/atoms/atoms';
 import Icon from '@/components/common/Icon';
 import MiniProfile from '@/components/common/MiniProfile';
 import { SEARCH_TEXTS } from '@/constants/search';
+import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { SimplifyUser } from '@/types/types';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { Align, Between, Flex } from '@/styles/layout';
@@ -22,9 +23,8 @@ const SearchListItem: React.FC<{ users: SimplifyUser[] }> = ({ users }) => {
   const handleDeleteAll = () => {
     setSearchResults([]);
   };
-  const handleInUsers = () => {
-    console.log('1');
-  };
+  const handleInUsers = useNavigateTo('/profile');
+
   const handleDeleteBtn = (userId: string | undefined) => {
     setSearchResults(prevResults =>
       prevResults.filter(user => user.userId !== userId)
