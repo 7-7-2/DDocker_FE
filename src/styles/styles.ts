@@ -307,7 +307,6 @@ export const PaddingTB10 = css`
   padding: 10px 0;
 `;
 
-  
 export const SearchBtn = cx(
   Regular,
   css`
