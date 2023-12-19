@@ -60,11 +60,11 @@ export const inputNicknameAlertState = atom({
 });
 
 export const searchKeywordState = atom<string>({
-    key: 'searchKeywordState',
-    default: '',
-  });
+  key: 'searchKeywordState',
+  default: '',
+});
   
   export const searchResultsState = atom<SimplifyUser[]>({
-    key: 'searchResultsState',
-    default: [],
-  });
+  key: 'searchResultsState',
+  default: [],
+});
