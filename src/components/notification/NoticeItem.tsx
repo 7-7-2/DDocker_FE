@@ -20,7 +20,7 @@ const NoticeItem = () => {
         <Button
           text="팔로잉"
           onTouchEnd={() => console.log('clicked')}
-          className={cx(FollowBtnCommon, FollowingBtnStyle)}
+          className={cx(FollowingBtnStyle, FollowBtnCommon)}
         />
       </Right>
     </Container>
