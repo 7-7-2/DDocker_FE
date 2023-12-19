@@ -6,7 +6,7 @@ import { Cursor } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
-const ProfileImg = ({ edit }: { edit: boolean }) => {
+const ProfileImg = ({ edit = false }: { edit?: boolean }) => {
   const handleProfile = useNavigateTo('/mypage');
 
   return (

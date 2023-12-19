@@ -42,10 +42,10 @@ const FollowBtnCommon = css`
   line-height: 20px;
 `;
 
-const FollowBtnStyle = css`
-  background-color: var(--colors-main);
-  color: #fff;
-`;
+// const FollowBtnStyle = css`
+//   background-color: var(--colors-main);
+//   color: #fff;
+// `;
 
 const FollowingBtnStyle = css`
   background-color: var(--colors-tertiary);

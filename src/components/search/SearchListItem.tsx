@@ -12,6 +12,7 @@ import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
 const SearchListItem: React.FC<{ users: SimplifyUser[] }> = ({ users }) => {
+  console.log('🚀 ~ file: SearchListItem.tsx:15 ~ users:', users);
   const inputValue = useRecoilValue(searchKeywordState);
   const searchResults = useRecoilValue(searchResultsState);
   const setSearchResults = useSetRecoilState(searchResultsState);

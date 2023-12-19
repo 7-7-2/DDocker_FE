@@ -20,6 +20,7 @@ const Layout = () => {
   const startPredi = pathname !== '/start/1';
 
   let PagesHeight;
+  console.log('🚀 ~ file: Layout.tsx:47 ~ Layout ~ PagesHeight:', PagesHeight);
   const getHeight = () => {
     if (searchPredi) {
       return (PagesHeight = GeneralHeight);
