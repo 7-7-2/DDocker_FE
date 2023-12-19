@@ -5,6 +5,7 @@
   "display": "standalone",
   "name": "DDocker",
   "orientation": "any",
+  "type": "image/png",
   "scope": "https://ddocker.netlify.app/",
   "short_name": "DDocker",
   "start_url": "https://ddocker.netlify.app/",
@@ -332,22 +333,26 @@
     {
       "src": "windows11/Square44x44Logo.altform-lightunplated_targetsize-256.png",
       "sizes": "256x256",
-      "purpose": "any"
+      "purpose": "any",
+      "type": "image/png"
     },
     {
       "src": "android/android-launchericon-512-512.png",
       "sizes": "512x512",
-      "purpose": "any"
+      "purpose": "any",
+      "type": "image/png"
     },
     {
       "src": "android/android-launchericon-192-192.png",
       "sizes": "192x192",
-      "purpose": "any"
+      "purpose": "any",
+      "type": "image/png"
     },
     {
       "src": "android/android-launchericon-144-144.png",
       "sizes": "144x144",
-      "purpose": "any"
+      "purpose": "any",
+      "type": "image/png"
     },
     {
       "src": "android/android-launchericon-96-96.png",
@@ -452,22 +457,26 @@
     {
       "src": "ios/192.png",
       "sizes": "192x192",
-      "purpose": "any"
+      "purpose": "any",
+      "type": "image/png"
     },
     {
       "src": "ios/256.png",
       "sizes": "256x256",
-      "purpose": "any"
+      "purpose": "any",
+      "type": "image/png"
     },
     {
       "src": "ios/512.png",
       "sizes": "512x512",
-      "purpose": "any"
+      "purpose": "any",
+      "type": "image/png"
     },
     {
       "src": "ios/1024.png",
       "sizes": "1024x1024",
-      "purpose": "any"
+      "purpose": "any",
+      "type": "image/png"
     }
   ],
   "shortcuts": [],
