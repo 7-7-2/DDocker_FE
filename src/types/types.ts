@@ -1,4 +1,5 @@
 import { SetterOrUpdater } from 'recoil';
+import { TouchEventHandler } from 'react';
 
 export interface LazyRouteType {
   index: boolean;
@@ -30,6 +31,10 @@ export interface SimplifyUser {
   userId: string | undefined;
   NickName: string | undefined;
   caffeine?: number;
+}
+
+export interface SearchBarProps {
+  onSearch: () => void;
 }
 
 export interface FollowCountProps {

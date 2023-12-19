@@ -1,3 +1,5 @@
+import { useRecoilValue } from 'recoil';
+import { searchKeywordState, searchResultsState } from '@/atoms/atoms';
 import Icon from '@/components/common/Icon';
 import MiniProfile from '@/components/common/MiniProfile';
 import { SEARCH_TEXTS } from '@/constants/search';
@@ -8,9 +10,17 @@ import { RecentSearch, DeleteAllBtn } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
-// Feat: 검색 필터링
+// Feat: 검색 필터링 clear
+// Feat: Delete 기능 추가해야함
 
 const SearchListItem: React.FC<{ users: SimplifyUser[] }> = ({ users }) => {
+  const inputValue = useRecoilValue(searchKeywordState);
+  const searchResults = useRecoilValue(searchResultsState);
+
+  const filteredResults = searchResults.filter(
+    user => user.NickName?.toLowerCase().includes(inputValue.toLowerCase())
+  );
+
   const handleDeleteAll = () => {
     console.log('1');
   };
@@ -23,15 +33,17 @@ const SearchListItem: React.FC<{ users: SimplifyUser[] }> = ({ users }) => {
 
   return (
     <>
-      <Wrapper className={cx(Flex, Align, Between)}>
-        <span className={RecentSearch}>{SEARCH_TEXTS.recentSearch}</span>
-        <span
-          className={DeleteAllBtn}
-          onTouchEnd={handleDeleteAll}>
-          {SEARCH_TEXTS.deleteAllBtn}
-        </span>
-      </Wrapper>
-      {users.map(({ userId, NickName, caffeine }: SimplifyUser) => (
+      {filteredResults.length > 0 && !inputValue && (
+        <Wrapper className={cx(Flex, Align, Between)}>
+          <span className={RecentSearch}>{SEARCH_TEXTS.recentSearch}</span>
+          <span
+            className={DeleteAllBtn}
+            onTouchEnd={handleDeleteAll}>
+            {SEARCH_TEXTS.deleteAllBtn}
+          </span>
+        </Wrapper>
+      )}
+      {filteredResults.map(({ userId, NickName, caffeine }: SimplifyUser) => (
         <Container
           key={userId}
           className={cx(Flex, Align, Between)}>
