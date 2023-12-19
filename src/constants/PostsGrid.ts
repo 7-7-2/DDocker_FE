@@ -1,4 +1,4 @@
 export const GRID = {
-    numberOfItems: 15,
+    numberOfItems: 99,
     columns: 3
 }

@@ -1,5 +1,5 @@
 import { GRID } from '@/constants/PostsGrid';
-import { Flex, Justify, Grid, Center } from '@/styles/layout';
+import { Flex, Justify, Grid, Center, Full } from '@/styles/layout';
 import { Cursor } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
@@ -10,30 +10,41 @@ const PostsGrid = () => {
   };
 
   return (
-    <div className={Justify}>
-      <div className={cx(Grid, Center)}>
-        {Array.from({ length: GRID.numberOfItems }).map((_, index) => (
-          <div
-            className={Flex}
-            key={index}>
-            {Array.from({ length: GRID.columns }).map((__, colIndex) => (
-              <Container
-                className={Cursor}
-                key={colIndex}
-                onTouchEnd={handleClick}
-              />
-            ))}
-          </div>
-        ))}
-      </div>
-    </div>
+    <GridContainer className={cx(Grid, Center)}>
+      {Array.from({ length: GRID.numberOfItems }).map((_, index) => (
+        <GridItemContainer>
+          <GridItem
+            className={Cursor}
+            key={index}
+            onTouchEnd={handleClick}
+            src="https://img.kbs.co.kr/kbs/620/news.kbs.co.kr/data/fckeditor/new/image/2022/09/15/332631663220505444.jpg"
+          />
+        </GridItemContainer>
+      ))}
+    </GridContainer>
   );
 };
 
-const Container = styled.div`
-  width: 109px;
-  height: 109px;
-  margin: 2px;
+const GridContainer = styled.div`
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+`;
+
+const GridItemContainer = styled.div`
+  width: 100%;
+  position: relative;
+  &::after {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
+  }
+`;
+
+const GridItem = styled.img`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   background-color: var(--colors-tertiary);
 `;
 
