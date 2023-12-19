@@ -1,5 +1,7 @@
 import { useRecoilValue } from 'recoil';
 import { ChangeEvent, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
 import { CAFFEINE_FILTER_TEXTS } from '@/constants/home';
 import { BRANDLIST } from '@/constants/start';
 import { authState } from '@/atoms/atoms';
@@ -7,9 +9,13 @@ import { authState } from '@/atoms/atoms';
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Medium } from '@/styles/styles';
-import { Flex, Grid } from '@/styles/layout';
+import { Column, Flex, Grid } from '@/styles/layout';
+import RegisterLabel from '@/components/post/RegisterLabel';
 
 const CoffeeMenuSelection = () => {
+  const { postid } = useParams();
+  const register = postid === 'register';
+
   const brandList = BRANDLIST;
   const { coffeeMenu } = CAFFEINE_FILTER_TEXTS;
   const { user } = useRecoilValue(authState);
@@ -26,8 +32,15 @@ const CoffeeMenuSelection = () => {
 
   return (
     <div className={MarginTop}>
-      <span className={cx(Medium)}>{coffeeMenu.title}</span>
-      <CoffeeSelectContainer className={cx(Flex, Grid)}>
+      {!register && <span className={cx(Medium)}>{coffeeMenu.title}</span>}
+      {/* 기능 구현시 data 형식이 확정후 map함수로 수정 예정 */}
+      <CoffeeSelectContainer className={cx(register ? Column : Flex, Grid)}>
+        {register && (
+          <RegisterLabel
+            label={coffeeMenu.brand}
+            essential
+          />
+        )}
         <SelectBox className={selectedBrand ? seletedBorder : defaultBorder}>
           <select
             className={cx(SelectInput, Medium)}
@@ -47,6 +60,12 @@ const CoffeeMenuSelection = () => {
             ))}
           </select>
         </SelectBox>
+        {register && (
+          <RegisterLabel
+            label={coffeeMenu.menu}
+            essential
+          />
+        )}
         <SelectBox className={selectedMenu ? seletedBorder : defaultBorder}>
           <select
             className={cx(SelectInput, Medium)}
@@ -72,7 +91,7 @@ const CoffeeMenuSelection = () => {
 };
 
 const SelectBox = styled.div`
-  width: 164px;
+  width: 100%;
   height: 46px;
   padding: 12px 16px;
   border-radius: 10px;
