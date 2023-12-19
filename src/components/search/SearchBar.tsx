@@ -3,25 +3,30 @@ import { searchKeywordState } from '@/atoms/atoms';
 import Button from '@/components/common/Button';
 import Icon from '@/components/common/Icon';
 import { SEARCH_TEXTS } from '@/constants/search';
-import { useNavigateTo } from '@/hooks/useNavigateTo';
+import { SearchBarProps } from '@/types/types';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { Between, Flex, FlexCenter } from '@/styles/layout';
 import { SearchInput } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
-const SearchBar = () => {
+const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   const [inputValue, setInputValue] = useRecoilState(searchKeywordState);
 
-  const handleHome = useNavigateTo('/');
+  const handleHome = () => {
+    window.history.back();
+  };
 
   const searchInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
   const handleInputDelete = () => {
-    // console.log('1');
     setInputValue('');
+  };
+
+  const handleSearch = () => {
+    onSearch();
   };
 
   return (
@@ -38,6 +43,7 @@ const SearchBar = () => {
               value={inputValue}
               onChange={searchInputHandler}
               placeholder={SEARCH_TEXTS.placeHolder}
+              onTouchEnd={handleSearch}
             />
           </Area>
           {inputValue && (
