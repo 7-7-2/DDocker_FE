@@ -149,8 +149,6 @@ export const InputFontBase = cx(
   `
 );
 
-
-
 export const Cafe = css`
   font-size: var(--font-sizes-xs);
   line-height: 20px;
@@ -196,14 +194,14 @@ export const CaffeineDetail = styled.div`
 `;
 
 export const SearchInput = cx(
-    Regular,
-    css`
-    color: #A6A6A6;
-      font-size: var(--font-sizes-sm);
-      line-height: 22px;
-      background-color: transparent;
-    `
-  );
+  Regular,
+  css`
+    color: #a6a6a6;
+    font-size: var(--font-sizes-sm);
+    line-height: 22px;
+    background-color: transparent;
+  `
+);
 export const StartPageContainer = css`
   height: calc(100vh - 162px);
   overflow-x: visible;
@@ -300,7 +298,8 @@ export const ToggleRight = css`
   &::after {
     border-bottom: 1px solid #767676;
     right: -20px;
-  }`;
+  }
+`;
 
 export const PaddingTB10 = css`
   padding: 10px 0;
@@ -314,19 +313,33 @@ export const SearchBtn = cx(
     line-height: 22px;
   `
 );
-  
-  export const RecentSearch = cx(
-    Semibold,
-    css`
+
+export const RecentSearch = cx(
+  Semibold,
+  css`
     font-size: var(--font-sizes-base);
     color: #313131;
-    line-height: 24px;`
-  )
-  
-  export const DeleteAllBtn = cx(
-    Semibold,
-    css`
+    line-height: 24px;
+  `
+);
+
+export const DeleteAllBtn = cx(
+  Semibold,
+  css`
     font-size: var(--font-sizes-xs);
     color: #767676;
-    line-height: 20px;`
-  )
+    line-height: 20px;
+  `
+);
+
+export const SearchPageHeight = css`
+  height: calc(100vh - 52px);
+`;
+
+export const GeneralHeight = css`
+  height: calc(100vh - 46px - 52px);
+`;
+
+export const StartPageHeight = css`
+  height: 100vh;
+`;
