@@ -23,9 +23,28 @@
     <meta
       name="og:type"
       content="website" />
+    <meta
+      name="apple-mobile-web-app-capable"
+      content="yes" />
+    <link
+      rel="manifest"
+      href="/manifest.json" />
+    <link
+      rel="apple-touch-icon"
+      sizes="192x192"
+      href="/192.png" />
+    <link
+      rel="apple-touch-icon"
+      sizes="512x512"
+      href="/512.png" />
     <!-- OpenGraph 이미지 메타태그 추가필요 -->
     <!-- <meta name="og:image" content="./example.jpg"> -->
     <title>DDocker</title>
+    <script type="module">
+      import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+      const el = document.createElement('pwa-update');
+      document.body.appendChild(el);
+    </script>
   </head>
   <body>
     <div id="root"></div>

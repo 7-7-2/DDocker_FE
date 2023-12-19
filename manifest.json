@@ -1,0 +1,28 @@
+{
+  "background_color": "#ffffff",
+  "description": "모임, 일상, 취미가 된 커피를, 카페인에 구애 받지 않고 건강하고 즐겁게 마실수 있는 방법을 제공하는 서비스",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "DDocker",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "DDocker",
+  "start_url": "/",
+  "theme_color": "#ffffff",
+  "categories": [],
+  "screenshots": [],
+  "icons": [
+    {
+      "src": "192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [],
+  "id": "ahnjoonghooleesiwoosimsangwon"
+}
