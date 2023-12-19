@@ -1,22 +1,33 @@
 import { useRecoilState } from 'recoil';
 import { GoogleAuthProvider } from 'firebase/auth';
 import { signInWithGoogle } from '@/api/firebase';
+
 import Icon from '@/components/common/Icon';
-import { authState } from '@/atoms/atoms';
 import { SIGININ_TEXTS } from '@/constants/start';
 import { AuthTypes } from '@/types/types';
+import { authState } from '@/atoms/atoms';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
+
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
-import { Column, Center, Justify, FlexCenter } from '@/styles/layout';
+import {
+  Column,
+  Center,
+  Justify,
+  FlexCenter,
+  Flex,
+  MarginAuto
+} from '@/styles/layout';
 import { Btn, SignInBtn } from '@/styles/styles';
+
+const { signInBtn, startText } = SIGININ_TEXTS;
 
 const SignIn = () => {
   const [userAuthState, setUserAuthState] =
     useRecoilState<AuthTypes>(authState);
-  const { signInBtn, startText } = SIGININ_TEXTS;
-  const navToSignUp = useNavigateTo('/Start/2');
+
+  const navToSignUp = useNavigateTo('/start/2');
   const navToHome = useNavigateTo('/');
 
   const saveAccessToken = (accessToken: string | undefined) => {
@@ -54,66 +65,69 @@ const SignIn = () => {
   };
 
   return (
-    <>
-      {!userAuthState.signIn && (
-        <div className={cx(Justify, Column)}>
-          <AppLogoContainer>
-            <AppLogo className={Center}>AppLogo</AppLogo>
-            <StartText className={Btn}>
-              {startText.first}
-              <br />
-              {startText.second}
-            </StartText>
-          </AppLogoContainer>
-          <SignInBtnContainer className={cx(Justify, Column)}>
-            <KakaoBtn className={SignInBtn}>
-              <IconContiner>
-                <Icon {...iconPropsGenerator('kakao', '18')} />
-              </IconContiner>
-              {signInBtn.kakao}
-            </KakaoBtn>
-            <GoogleBtn
-              type="button"
-              className={cx(SignInBtn, FlexCenter)}
-              onClick={handleSignIn}>
-              <IconContiner>
-                <Icon {...iconPropsGenerator('google', '18')} />
-              </IconContiner>
-              <div>{signInBtn.google}</div>
-            </GoogleBtn>
-            <NoneBtn
-              type="button"
-              className={Btn}
-              onClick={useNavigateTo('/')}
-              onTouchEnd={useNavigateTo('/')}>
-              {signInBtn.none}
-            </NoneBtn>
-          </SignInBtnContainer>
-        </div>
-      )}
-    </>
+    <Container>
+      <AppLogoContainer
+        className={cx(Flex, Justify, Column, Center, MarginAuto)}>
+        <AppLogo className={FlexCenter}>
+          <svg
+            width={'115'}
+            height={'154'}>
+            <use href={`/sprite.svg#icon-ddocker-logo`} />
+          </svg>
+        </AppLogo>
+        <StartText className={Btn}>
+          {startText.first}
+          <br />
+          {startText.second}
+        </StartText>
+      </AppLogoContainer>
+      <SignInBtnContainer className={cx(Justify, Column)}>
+        <KakaoBtn className={SignInBtn}>
+          <IconContiner>
+            <Icon {...iconPropsGenerator('kakao', '18')} />
+          </IconContiner>
+          {signInBtn.kakao}
+        </KakaoBtn>
+        <GoogleBtn
+          type="button"
+          className={cx(SignInBtn, FlexCenter)}
+          onClick={handleSignIn}>
+          <IconContiner>
+            <Icon {...iconPropsGenerator('google', '18')} />
+          </IconContiner>
+          <div>{signInBtn.google}</div>
+        </GoogleBtn>
+        <NoneBtn
+          type="button"
+          className={Btn}
+          onClick={useNavigateTo('/')}
+          onTouchEnd={useNavigateTo('/')}>
+          {signInBtn.none}
+        </NoneBtn>
+      </SignInBtnContainer>
+    </Container>
   );
 };
 
 export default SignIn;
 
+const Container = styled.div`
+  align-items: space-between;
+`;
+
 const AppLogoContainer = styled.div`
-  margin: 120px 0 24px;
+  align-items: space-between;
+  height: 62vh;
+  padding-bottom: 24px;
 `;
 
 const AppLogo = styled.div`
-  width: 161px;
-  height: 161px;
-  margin: auto;
-  background-color: var(--colors-main);
-  border-radius: 16px;
-  text-align: center;
+  min-height: 300px;
+  margin: auto 0;
 `;
 
 const SignInBtnContainer = styled.div`
-  gap: 12px;
-  margin: auto;
-  width: 100%;
+  margin: auto 0 35px 0;
 `;
 
 const KakaoBtn = styled.button`
@@ -123,12 +137,14 @@ const KakaoBtn = styled.button`
 const GoogleBtn = styled.button`
   border: 1px solid #d9d9d9;
   background-color: #ffffff;
+  margin-top: 13px;
 `;
 
 const NoneBtn = styled.button`
   font-size: var(--font-sizes-sm);
   color: #767676;
   line-height: 18px;
+  margin-top: 13px;
 `;
 
 const IconContiner = styled.div`
@@ -137,7 +153,6 @@ const IconContiner = styled.div`
 `;
 
 const StartText = styled.div`
-  margin-top: 150px;
   text-align: center;
   font-size: var(--font-sizes-sm);
 `;
