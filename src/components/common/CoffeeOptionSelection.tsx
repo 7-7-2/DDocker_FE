@@ -1,16 +1,21 @@
 import { TouchEvent, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Button from '@/components/common/Button';
 import Icon from '@/components/common/Icon';
+import { CAFFEINE_FILTER_TEXTS } from '@/constants/home';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { BtnColorWhite, Medium } from '@/styles/styles';
 import { Align, Between, Column, Flex } from '@/styles/layout';
-import { CAFFEINE_FILTER_TEXTS } from '@/constants/home';
+import RegisterLabel from '@/components/post/RegisterLabel';
+
+const { coffeeOption } = CAFFEINE_FILTER_TEXTS;
 
 const CoffeeOptionSelection = () => {
-  const { coffeeOption } = CAFFEINE_FILTER_TEXTS;
+  const { postid } = useParams();
+  const register = postid === 'register';
   const size: string[] = ['Tall', 'Grande', 'Venti'];
   const [inputValue, setInputValue] = useState(0);
   const [sizeValue, setSizeValue] = useState('');
@@ -21,7 +26,13 @@ const CoffeeOptionSelection = () => {
 
   return (
     <Container className={cx(Column, Medium)}>
-      <span className={BottomMargin6}>{coffeeOption.size}</span>
+      <span className={BottomMargin6}>
+        {!register ? (
+          coffeeOption.size
+        ) : (
+          <RegisterLabel label={coffeeOption.size} />
+        )}
+      </span>
       <div className={cx(Flex, Between, BottomMargin8)}>
         {size.map(item => (
           <Button
@@ -36,7 +47,13 @@ const CoffeeOptionSelection = () => {
           />
         ))}
       </div>
-      <span className={BottomMargin6}>{coffeeOption.shot.title}</span>
+      <span className={BottomMargin6}>
+        {!register ? (
+          coffeeOption.shot.title
+        ) : (
+          <RegisterLabel label={coffeeOption.shot.title} />
+        )}
+      </span>
       <ShotOptionInputContainer
         className={cx(Flex, Align, Between, BottomMargin8)}>
         <span>{coffeeOption.shot.input}</span>
@@ -100,7 +117,7 @@ const SelectSizeBtn = css`
 `;
 
 const SizeBtn = css`
-  width: 106px;
+  min-width: 104px;
   height: 40px;
   border-radius: 50px;
   font-size: var(--font-sizes-sm);
