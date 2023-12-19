@@ -15,13 +15,13 @@
   "lang": "ko",
   "icons": [
     {
-      "src": "/512.png",
+      "src": "/icons/512.png",
       "sizes": "512x512",
       "purpose": "any",
       "type": "image/png"
     },
     {
-      "src": "/192.png",
+      "src": "/icons/192.png",
       "sizes": "192x192",
       "purpose": "any",
       "type": "image/png"
