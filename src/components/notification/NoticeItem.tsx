@@ -20,7 +20,7 @@ const NoticeItem = () => {
         <Button
           text="팔로잉"
           onTouchEnd={() => console.log('clicked')}
-          className={cx(FollowingBtnStyle, FollowBtnCommon)}
+          className={cx(FollowBtnCommon)}
         />
       </Right>
     </Container>
@@ -47,8 +47,8 @@ const FollowBtnCommon = css`
 //   color: #fff;
 // `;
 
-const FollowingBtnStyle = css`
-  background-color: var(--colors-tertiary);
-`;
+// const FollowingBtnStyle = css`
+//   background-color: var(--colors-tertiary);
+// `;
 
 export default NoticeItem;
