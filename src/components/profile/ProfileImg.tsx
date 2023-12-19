@@ -4,9 +4,9 @@ import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { FlexCenter, MarginAuto } from '@/styles/layout';
 import { Cursor } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
-import { cx } from 'styled-system/css';
+import { css, cx } from 'styled-system/css';
 
-const ProfileImg = () => {
+const ProfileImg = ({ edit }: { edit: boolean }) => {
   const handleProfile = useNavigateTo('/MyPage');
 
   return (
@@ -17,7 +17,7 @@ const ProfileImg = () => {
         </div>
         <Edit className={Cursor}>
           <Icon
-            {...iconPropsGenerator('edit', '32')}
+            {...iconPropsGenerator(!edit ? 'edit' : 'edit-photo', '32')}
             onTouchEnd={handleProfile}
           />
         </Edit>
