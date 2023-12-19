@@ -47,6 +47,13 @@
     </script>
   </head>
   <body>
+    <script>
+      (function () {
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('/pwabuilder-sw.js');
+        }
+      })();
+    </script>
     <div id="root"></div>
     <script
       type="module"
