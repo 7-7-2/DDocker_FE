@@ -1,5 +1,5 @@
 import { atom } from 'recoil';
-import { AuthTypes } from '@/types/types';
+import { AuthTypes, SimplifyUser } from '@/types/types';
 
 export const activeState = atom({
   key: 'activeState',
@@ -59,7 +59,12 @@ export const inputNicknameAlertState = atom({
   default: false
 });
 
-export const searchKeywordState = atom({
+export const searchKeywordState = atom<string>({
     key: 'searchKeywordState',
     default: '',
+  });
+  
+  export const searchResultsState = atom<SimplifyUser[]>({
+    key: 'searchResultsState',
+    default: [],
   });
