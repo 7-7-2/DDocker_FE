@@ -315,7 +315,14 @@
       <path fill-rule="evenodd" clip-rule="evenodd" d="M2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12ZM12 8.00098C12.5523 8.00098 13 8.44869 13 9.00098V11.001H15C15.5523 11.001 16 11.4487 16 12.001C16 12.5533 15.5523 13.001 15 13.001H13V15.001C13 15.5533 12.5523 16.001 12 16.001C11.4477 16.001 11 15.5533 11 15.001V13.001H9C8.44772 13.001 8 12.5533 8 12.001C8 11.4487 8.44772 11.001 9 11.001H11V9.00098C11 8.44869 11.4477 8.00098 12 8.00098Z" fill="#6AB5FB"/>
     </symbol>
 
+    <symbol id='icon-essential' xmlns="http://www.w3.org/2000/svg" width="7" height="7" viewBox="0 0 7 7" fill="none">
+      <path d="M3.73828 6.56348H2.55664L2.6748 4.10352L0.59082 5.43555L0 4.41504L2.19141 3.28711L0 2.15918L0.59082 1.12793L2.6748 2.45996L2.55664 0H3.73828L3.62012 2.45996L5.7041 1.12793L6.29492 2.15918L4.10352 3.28711L6.29492 4.41504L5.7041 5.43555L3.62012 4.10352L3.73828 6.56348Z" fill="#FF701E"/>
+    </symbol>
 
+    <symbol  id='icon-regist-photo' xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M12 6V18" stroke="#A6A6A6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M6 12H18" stroke="#A6A6A6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
   </defs>
 </svg>
 
