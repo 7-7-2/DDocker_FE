@@ -13,6 +13,7 @@ import {
 } from '@/styles/styles';
 import { BUTTON_TEXTS } from '@/constants/common';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
+import ProfileImg from '@/components/profile/ProfileImg';
 
 const InitialForm = () => {
   const { message } = INITIAL_FORM_TEXTS;
@@ -27,7 +28,9 @@ const InitialForm = () => {
           <span className={Semibold}>{message.profile}</span>
           {message.second}
         </InitialFormText>
-        <div>ProfileContainer</div>
+        <ProfileContainer>
+          <ProfileImg edit />
+        </ProfileContainer>
         <CheckNickname />
         <SelectGender />
       </div>
@@ -41,11 +44,15 @@ const InitialForm = () => {
   );
 };
 
-export default InitialForm;
-
 const InitialFormText = styled.div`
   margin-top: 28px;
   color: #313131;
   font-size: var(--font-sizes-xxl);
   line-height: 32px;
 `;
+
+const ProfileContainer = styled.div`
+  margin: 50px 36px;
+`;
+
+export default InitialForm;
