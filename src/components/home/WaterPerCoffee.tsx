@@ -48,7 +48,7 @@ const WaterPerCoffee = ({ accessToken }: { accessToken: string | null }) => {
       </span>
       <Button
         text={BUTTON_TEXTS.signin}
-        onTouchEnd={useNavigateTo('/Start/1')}
+        onTouchEnd={useNavigateTo('/start/1')}
         className={cx(LoginBtn, MarginTop)}
       />
     </div>
@@ -77,7 +77,9 @@ const WaterPerCoffee = ({ accessToken }: { accessToken: string | null }) => {
       </div>
       <TodayMenuList className={Flex}>
         {dataList.map(item => (
-          <TodayMenuItem data={item} />
+          <div key={item.brand}>
+            <TodayMenuItem data={item} />
+          </div>
         ))}
       </TodayMenuList>
     </div>
