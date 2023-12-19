@@ -1,4 +1,5 @@
 import Icon from '@/components/common/Icon';
+import CheckNickname from '@/components/start/CheckNickname';
 import { TEXT } from '@/constants/texts';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
@@ -28,8 +29,8 @@ const MyProfile = () => {
             </Edit>
           </Box>
         </Container>
-        <InputArea />
       </Wrapper>
+      <CheckNickname />
 
       <ExitButton
         className={cx(Cursor, LineH18, TextGray)}
@@ -49,8 +50,8 @@ const MyProfile = () => {
 };
 
 const Wrapper = styled.div`
-  margin-top: 20px;
-  gap: 80px;
+  padding: 20px 0 40px;
+  gap: 40px;
 `;
 const Container = styled.div`
   position: relative;
@@ -70,23 +71,19 @@ const Edit = styled.div`
   right: -25px;
   z-index: 1;
 `;
-const InputArea = styled.div`
-  width: 335px;
-  height: 50px;
-  background-color: var(--colors-main);
-`;
 const ExitButton = styled.span`
   font-size: var(--font--sizes-sm);
-  margin: 16px 20px;
+  padding: 16px 0;
   display: inline-block;
   text-decoration-line: underline;
 `;
 const ButtonArea = styled.div`
-  height: 100%;
+  width: auto;
+  height: calc(100% - 307px);
   align-items: end;
 `;
 const SaveButton = styled.button`
-  width: 335px;
+  width: 100%;
   height: 60px;
   background-color: var(--colors-main);
   font-size: var(--font-sizes-base);
