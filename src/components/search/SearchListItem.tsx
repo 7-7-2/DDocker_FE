@@ -1,4 +1,4 @@
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { searchKeywordState, searchResultsState } from '@/atoms/atoms';
 import Icon from '@/components/common/Icon';
 import MiniProfile from '@/components/common/MiniProfile';
@@ -10,25 +10,25 @@ import { RecentSearch, DeleteAllBtn } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
-// Feat: 검색 필터링 clear
-// Feat: Delete 기능 추가해야함
-
 const SearchListItem: React.FC<{ users: SimplifyUser[] }> = ({ users }) => {
   const inputValue = useRecoilValue(searchKeywordState);
   const searchResults = useRecoilValue(searchResultsState);
+  const setSearchResults = useSetRecoilState(searchResultsState);
 
   const filteredResults = searchResults.filter(
     user => user.NickName?.toLowerCase().includes(inputValue.toLowerCase())
   );
 
   const handleDeleteAll = () => {
-    console.log('1');
+    setSearchResults([]);
   };
   const handleInUsers = () => {
     console.log('1');
   };
-  const handleDeleteBtn = () => {
-    console.log('2');
+  const handleDeleteBtn = (userId: string | undefined) => {
+    setSearchResults(prevResults =>
+      prevResults.filter(user => user.userId !== userId)
+    );
   };
 
   return (
@@ -56,7 +56,7 @@ const SearchListItem: React.FC<{ users: SimplifyUser[] }> = ({ users }) => {
           </div>
           <div
             className={Flex}
-            onTouchEnd={handleDeleteBtn}>
+            onTouchEnd={() => handleDeleteBtn(userId)}>
             <Icon {...iconPropsGenerator('cancel', '24')} />
           </div>
         </Container>
