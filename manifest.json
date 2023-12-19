@@ -9,7 +9,7 @@
   "short_name": "DDocker",
   "start_url": "/",
   "theme_color": "#ffffff",
-  "categories": [],
+  "categories": ["coffee", "cafe", "caffeine"],
   "screenshots": [],
   "icons": [
     {
