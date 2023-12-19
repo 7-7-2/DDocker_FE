@@ -47,11 +47,13 @@ export const SelectFavBrand = () => {
           <SecondLine>{message.second}</SecondLine>
         </InitialFormText>
         <BrandItemContainer className={Grid}>
-          {BRANDLIST.map(item => (
-            <BrandItem
-              brand={item.brand}
-              icon={item.icon}
-            />
+          {BRANDLIST.map((item, idx) => (
+            <div key={idx}>
+              <BrandItem
+                brand={item.brand}
+                icon={item.icon}
+              />
+            </div>
           ))}
         </BrandItemContainer>
       </div>

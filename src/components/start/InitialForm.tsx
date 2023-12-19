@@ -1,8 +1,13 @@
-import { INITIAL_FORM_TEXTS } from '@/constants/start';
+import Button from '@/components/common/Button';
 import SelectGender from '@/components/start/SelectGender';
 import CheckNickname from '@/components/start/CheckNickname';
+import ProfileImg from '@/components/profile/ProfileImg';
+
+import { INITIAL_FORM_TEXTS } from '@/constants/start';
+import { BUTTON_TEXTS } from '@/constants/common';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
-import Button from '@/components/common/Button';
+import { useComposeHeader } from '@/hooks/useComposeHeader';
+
 import { styled } from 'styled-system/jsx';
 import { Column } from '@/styles/layout';
 import {
@@ -11,12 +16,10 @@ import {
   Semibold,
   StartPageContainer
 } from '@/styles/styles';
-import { BUTTON_TEXTS } from '@/constants/common';
-import { useComposeHeader } from '@/hooks/useComposeHeader';
-import ProfileImg from '@/components/profile/ProfileImg';
+
+const { message } = INITIAL_FORM_TEXTS;
 
 const InitialForm = () => {
-  const { message } = INITIAL_FORM_TEXTS;
   useComposeHeader(false, '기본정보', 'close');
 
   return (

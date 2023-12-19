@@ -7,7 +7,6 @@ const TodayCaffeineInfo = () => {
   };
 
   const accessToken = getAccessToken();
-  console.log(accessToken);
 
   return (
     <div>

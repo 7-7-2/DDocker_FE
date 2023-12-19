@@ -36,7 +36,9 @@ const WeeklyPopular = () => {
       <div className={Semibold}>{weeklyPopular}</div>
       <WeeklyPopularList className={cx(Grid, Medium)}>
         {data.map(item => (
-          <WeeklyPopularItem data={item} />
+          <div key={item.ranking}>
+            <WeeklyPopularItem data={item} />
+          </div>
         ))}
       </WeeklyPopularList>
     </Container>
