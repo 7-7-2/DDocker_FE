@@ -26,7 +26,9 @@ export const LABEL_TEXTS = {
   },
   gender: {
     label: '성별'
-  }
+  },
+  title: '제목',
+  photo: '사진'
 };
 
 export const BUTTON_TEXTS = {
