@@ -75,6 +75,6 @@ export const searchKeywordState = atom<string>({
 });
   
   export const searchResultsState = atom<SimplifyUser[]>({
-    key: 'searchResultsState',
-    default: [],
-  });
+  key: 'searchResultsState',
+  default: [],
+});
