@@ -36,6 +36,7 @@ const CoffeeOptionSelection = () => {
       <div className={cx(Flex, Between, BottomMargin8)}>
         {size.map(item => (
           <Button
+            key={item}
             value={item}
             text={item}
             onTouchEnd={selectSize}

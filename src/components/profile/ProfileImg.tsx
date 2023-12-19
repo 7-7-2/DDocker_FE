@@ -4,7 +4,7 @@ import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { FlexCenter, MarginAuto } from '@/styles/layout';
 import { Cursor } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
-import { css, cx } from 'styled-system/css';
+import { cx } from 'styled-system/css';
 
 const ProfileImg = ({ edit }: { edit: boolean }) => {
   const handleProfile = useNavigateTo('/MyPage');
@@ -31,11 +31,13 @@ const Container = styled.div`
   height: 100px;
   border-radius: 100%;
 `;
+
 const Box = styled.div`
   width: 54px;
   height: 54px;
   position: relative;
 `;
+
 const Edit = styled.div`
   position: absolute;
   width: 30px;

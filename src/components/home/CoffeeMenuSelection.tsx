@@ -51,12 +51,16 @@ const CoffeeMenuSelection = () => {
             <option
               value={user.brand}
               disabled
-              selected
+              defaultValue={coffeeMenu.brand}
               hidden>
               {(user.brand && user.brand) || coffeeMenu.brand}
             </option>
-            {brandList.map(item => (
-              <option value={item.brand}>{item.brand}</option>
+            {brandList.map((item, idx) => (
+              <option
+                key={idx}
+                value={item.brand}>
+                {item.brand}
+              </option>
             ))}
           </select>
         </SelectBox>
@@ -76,12 +80,16 @@ const CoffeeMenuSelection = () => {
             <option
               value=""
               disabled
-              selected
+              defaultValue={coffeeMenu.menu}
               hidden>
               {coffeeMenu.menu}
             </option>
-            {brandList.map(item => (
-              <option value={item.brand}>{item.brand}</option>
+            {brandList.map((item, idx) => (
+              <option
+                key={idx}
+                value={item.brand}>
+                {item.brand}
+              </option>
             ))}
           </select>
         </SelectBox>
