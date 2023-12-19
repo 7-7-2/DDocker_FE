@@ -15,8 +15,14 @@
   "lang": "ko",
   "icons": [
     {
-      "src": "512.png",
+      "src": "/512.png",
       "sizes": "512x512",
+      "purpose": "any",
+      "type": "image/png"
+    },
+    {
+      "src": "/192.png",
+      "sizes": "192x192",
       "purpose": "any",
       "type": "image/png"
     }
