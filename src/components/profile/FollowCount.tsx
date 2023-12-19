@@ -17,7 +17,9 @@ const FollowCount: React.FC<FollowCountProps> = ({ icons }) => {
 
   const handleStatClick = (label: string) => {
     label === '게시물'
-      ? console.log('1')
+      ? () => {
+          console.log('1');
+        }
       : (label === '팔로잉' || label === '팔로워') && navigate();
   };
 

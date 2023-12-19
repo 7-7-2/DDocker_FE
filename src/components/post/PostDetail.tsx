@@ -26,7 +26,9 @@ const { comment } = type;
 
 const PostDetail = ({ userId, NickName, caffeine }: SimplifyUser) => {
   const [nicknameState, setNicknameState] = useRecoilState(inputNicknameState);
-  const handleTouch = () => console.log();
+  const handleTouch = () => {
+    console.log();
+  };
 
   return (
     <>

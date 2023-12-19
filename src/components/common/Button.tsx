@@ -1,11 +1,10 @@
 import { ButtonProps } from '@/types/types';
 
-const Button = ({ value, text, onTouchEnd, className }: ButtonProps) => {
+const Button = ({ value, text, onTouchEnd }: ButtonProps) => {
   return (
     <button
       value={value}
-      onTouchEnd={onTouchEnd}
-      className={className}>
+      onTouchEnd={onTouchEnd}>
       {text}
     </button>
   );

@@ -69,7 +69,7 @@ export interface ButtonProps {
   value?: string;
   text: string;
   onTouchEnd: TouchEventHandler<HTMLButtonElement>;
-  className: string;
+  className?: string;
 }
 
 export interface testData {

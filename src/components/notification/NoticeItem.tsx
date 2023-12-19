@@ -3,7 +3,7 @@ import Notice from '@/components/notification/Notice';
 import ProfileIcon from '@/components/notification/ProfileIcon';
 import { Align } from '@/styles/layout';
 import Button from '@/components/common/Button';
-import { css, cx } from 'styled-system/css';
+// import { css } from 'styled-system/css';
 import { NOTICE_TEXTS } from '@/constants/notification';
 
 // DB사용시 데이터 형식에 맞춰 PROPS 전달받게 수정
@@ -19,8 +19,7 @@ const NoticeItem = () => {
       <Right>
         <Button
           text="팔로잉"
-          onTouchEnd={() => console.log('clicked')}
-          className={FollowBtnCommon}
+          onTouchEnd={() => {}}
         />
       </Right>
     </Container>
@@ -33,14 +32,14 @@ const Container = styled.div`
 
 const Right = styled.div``;
 
-const FollowBtnCommon = css`
-  width: 80px;
-  height: 30px;
-  border-radius: 6px;
-  font-size: var(--font-sizes-xs);
-  font-weight: 500;
-  line-height: 20px;
-`;
+// const FollowBtnCommon = css`
+//   width: 80px;
+//   height: 30px;
+//   border-radius: 6px;
+//   font-size: var(--font-sizes-xs);
+//   font-weight: 500;
+//   line-height: 20px;
+// `;
 
 // const FollowBtnStyle = css`
 //   background-color: var(--colors-main);
