@@ -45,7 +45,7 @@ const FollowCount: React.FC<FollowCountProps> = ({ icons }) => {
 };
 
 const Container = styled.div`
-  width: 335px;
+  width: auto;
   height: 74px;
   padding: 20px;
   background-color: var(--colors-tertiary);
