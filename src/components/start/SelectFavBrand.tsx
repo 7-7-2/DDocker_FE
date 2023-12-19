@@ -11,9 +11,10 @@ import { Grid } from '@/styles/layout';
 import { DefaultBtn, StartPageContainer } from '@/styles/styles';
 import { BUTTON_TEXTS } from '@/constants/common';
 
+const { message } = SELECTFAVBRAND_TEXTS;
+
 export const SelectFavBrand = () => {
   useComposeHeader(false, '기본정보', 'close');
-  const { message } = SELECTFAVBRAND_TEXTS;
   const { user } = useRecoilValue(authState);
 
   const setAuthState = useSetRecoilState(authState);

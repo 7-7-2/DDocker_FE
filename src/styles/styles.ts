@@ -291,3 +291,6 @@ export const ToggleRight = css`
     right: -20px;
   }
 `;
+export const PaddingTB10 = css`
+  padding: 10px 0;
+`;
