@@ -93,3 +93,9 @@ export interface WeeklyPopularTypes {
   ranking: number;
   brand: { icon: string; brand: string };
 }
+
+export enum Collections {
+  USERS = 'users',
+  CHATS = 'chats',
+  MESSAGES = 'message'
+}
