@@ -21,8 +21,10 @@ export const INPUT_TEXTS = {
 export const LABEL_TEXTS = {
   nickname: {
     label: '닉네임',
-    message: '사용가능한 닉네임입니다.',
-    error: '이미 존재하는 닉네임입니다.'
+    message: {
+      approval: '사용가능한 닉네임입니다.',
+      disapproval: '이미 존재하는 닉네임입니다.'
+    }
   },
   gender: {
     label: '성별'
