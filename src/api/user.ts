@@ -41,12 +41,6 @@ export const getUserId = () => {
   return userId;
 };
 
-// 프로필 설정 후 DB저장
-export const setInitialInfo = async (userInfo: AuthTypes) => {
-  const userDocRef = getUserDocRef();
-  await setDoc(userDocRef, { ...userInfo }, { merge: true });
-};
-
 // User 정보 가져오는 함수
 export const getUserInfo = async () => {
   const userDocRef = getUserDocRef();
@@ -60,7 +54,15 @@ export const getUserInfo = async () => {
   return data;
 };
 
-export const getNicknameList = async (inputValue: string) => {
+// 프로필 설정 후 DB저장
+export const setInitialInfo = async (userInfo: AuthTypes) => {
+  const userDocRef = getUserDocRef();
+  await setDoc(userDocRef, { ...userInfo }, { merge: true });
+  await getUserInfo();
+};
+
+// 닉네임 중복 체크
+export const getNicknameList = async () => {
   const fieldValues: User[] = [];
   const nicknameList: string[] = [];
 
@@ -77,6 +79,5 @@ export const getNicknameList = async (inputValue: string) => {
     (item: User) => item.nickname && nicknameList.push(item.nickname)
   );
 
-  // nicknameList && nicknameList.includes(inputValue);
-  return nicknameList && !nicknameList.includes(inputValue);
+  return nicknameList;
 };
