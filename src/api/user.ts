@@ -9,10 +9,12 @@ import {
   doc,
   setDoc,
   getDoc,
-  DocumentData
+  DocumentData,
+  collection,
+  getDocs
 } from 'firebase/firestore';
 import { app } from '@/firebase.config';
-import { AuthTypes, Collections } from '@/types/types';
+import { AuthTypes, Collections, User } from '@/types/types';
 
 // Auth
 export const auth = getAuth(app);
@@ -56,4 +58,25 @@ export const getUserInfo = async () => {
     data && saveUserInfo(data);
   }
   return data;
+};
+
+export const getNicknameList = async (inputValue: string) => {
+  const fieldValues: User[] = [];
+  const nicknameList: string[] = [];
+
+  const userListDocRef = collection(getFirestore(), Collections.USERS);
+  const data = await getDocs(userListDocRef);
+
+  data &&
+    data.forEach((doc: DocumentData) => {
+      const fieldValue = doc.data()['user'];
+      fieldValue && fieldValues.push(fieldValue);
+    });
+
+  fieldValues.map(
+    (item: User) => item.nickname && nicknameList.push(item.nickname)
+  );
+
+  // nicknameList && nicknameList.includes(inputValue);
+  return nicknameList && !nicknameList.includes(inputValue);
 };
