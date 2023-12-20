@@ -332,28 +332,19 @@ export const DeleteAllBtn = cx(
   `
 );
 
-export const SearchPageHeight = css`
-  height: calc(100vh - 52px - env(safe-area-inset-bottom));
+const vh = window.innerHeight * 0.01;
+document.documentElement.style.setProperty(`--vh`, `${vh}`);
 
-  @supports (-webkit-touch-callout: none) {
-    height: calc(-webkit-fill-available - 52px - env(safe-area-inset-bottom));
-  }
+export const SearchPageHeight = css`
+  height: calc(var(--vh, 1vh) * 100 - 52px - env(safe-area-inset-bottom));
 `;
 
 export const GeneralHeight = css`
-  height: calc(100vh - 46px - 52px - env(safe-area-inset-bottom));
-
-  @supports (-webkit-touch-callout: none) {
-    height: calc(
-      -webkit-fill-available - 46px - 52px - env(safe-area-inset-bottom)
-    );
-  }
+  height: calc(
+    var(--vh, 1vh) * 100 - 46px - 52px - env(safe-area-inset-bottom)
+  );
 `;
 
 export const StartPageHeight = css`
-  height: calc(100vh - env(safe-area-inset-bottom));
-
-  @supports (-webkit-touch-callout: none) {
-    height: calc(-webkit-fill-available - env(safe-area-inset-bottom));
-  }
+  height: calc(var(--vh, 1vh) * 100 - env(safe-area-inset-bottom));
 `;
