@@ -1,31 +1,20 @@
-import { ChangeEvent } from 'react';
 import Icon from '@/components/common/Icon';
 import { INPUT_TEXTS } from '@/constants/common';
 import { InputProps } from '@/types/types';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+
 import { styled } from 'styled-system/jsx';
 import { Align, Between } from '@/styles/layout';
 import { css, cx } from 'styled-system/css';
 import { InputFontSm, InputFontBase } from '@/styles/styles';
+import { useInput } from '@/hooks/useInput';
 
-export const Input = ({
-  type,
-  handleEvent,
-  setInputValue,
-  inputValue,
-  setIsAlert
-}: InputProps) => {
+export const Input = ({ type, handleEvent }: InputProps) => {
   const { nickname, comment, title, search } = INPUT_TEXTS.type;
+  const { value: inputValue, onChange: handleInputBox } = useInput('');
   let submitBtn;
   let inputLength;
   let inputPlaceholder;
-
-  const handleInputBox = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-    {
-      e.target.value && setIsAlert && setIsAlert(false);
-    }
-  };
 
   switch (type) {
     case nickname.typeName:
@@ -45,7 +34,7 @@ export const Input = ({
       submitBtn = (
         <button
           type="button"
-          onClick={handleEvent}
+          // onClick={handleEvent}
           onTouchEnd={handleEvent}>
           <Icon {...iconPropsGenerator('upload')} />
         </button>
@@ -75,7 +64,7 @@ export const Input = ({
         placeholder={inputPlaceholder}
         value={inputValue}
         onChange={handleInputBox}
-        maxLength={inputLength && inputLength - 1}
+        maxLength={inputLength}
       />
       <InputBox className={Align}>
         {inputLength && (
