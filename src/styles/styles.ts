@@ -333,13 +333,27 @@ export const DeleteAllBtn = cx(
 );
 
 export const SearchPageHeight = css`
-  height: calc(100vh - 52px);
+  height: calc(100vh - 52px - env(safe-area-inset-bottom));
+
+  @supports (-webkit-touch-callout: none) {
+    height: calc(-webkit-fill-available - 52px - env(safe-area-inset-bottom));
+  }
 `;
 
 export const GeneralHeight = css`
-  height: calc(100vh - 46px - 52px);
+  height: calc(100vh - 46px - 52px - env(safe-area-inset-bottom));
+
+  @supports (-webkit-touch-callout: none) {
+    height: calc(
+      -webkit-fill-available - 46px - 52px - env(safe-area-inset-bottom)
+    );
+  }
 `;
 
 export const StartPageHeight = css`
-  height: calc(100vh);
+  height: calc(100vh - env(safe-area-inset-bottom));
+
+  @supports (-webkit-touch-callout: none) {
+    height: calc(-webkit-fill-available - env(safe-area-inset-bottom));
+  }
 `;
