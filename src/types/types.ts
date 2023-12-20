@@ -55,9 +55,6 @@ export interface LabelProps {
 export interface InputProps {
   type: string;
   handleEvent?: () => void;
-  setInputValue: SetterOrUpdater<string>;
-  setIsAlert?: SetterOrUpdater<boolean>;
-  inputValue: string | undefined;
 }
 
 export interface BrnadItemProps {
@@ -95,7 +92,5 @@ export interface WeeklyPopularTypes {
 }
 
 export enum Collections {
-  USERS = 'users',
-  CHATS = 'chats',
-  MESSAGES = 'message'
+  USERS = 'users'
 }
