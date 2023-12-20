@@ -1,27 +1,27 @@
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
+import { setInitialInfo } from '@/api/user';
 import BrandItem from '@/components/start/BrandItem';
 import Button from '@/components/common/Button';
+
 import { SELECTFAVBRAND_TEXTS, BRANDLIST } from '@/constants/start';
+import { BUTTON_TEXTS } from '@/constants/common';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { authState } from '@/atoms/atoms';
 import { AuthTypes } from '@/types/types';
+
 import { styled } from 'styled-system/jsx';
 import { Grid } from '@/styles/layout';
 import { DefaultBtn, StartPageContainer } from '@/styles/styles';
-import { BUTTON_TEXTS } from '@/constants/common';
 
 const { message } = SELECTFAVBRAND_TEXTS;
 
 export const SelectFavBrand = () => {
   useComposeHeader(false, '기본정보', 'close');
   const { user } = useRecoilValue(authState);
-
-  const setAuthState = useSetRecoilState(authState);
   const navigateToHome = useNavigateTo('/');
 
   const handleStartBtn = () => {
-    // fireBase 연결 후 로직 변경
     const userInfo: AuthTypes = {
       initialized: true,
       user: {
@@ -34,7 +34,7 @@ export const SelectFavBrand = () => {
       },
       signIn: true
     };
-    setAuthState({ ...userInfo });
+    setInitialInfo(userInfo);
     navigateToHome();
   };
 
