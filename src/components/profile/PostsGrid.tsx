@@ -1,5 +1,5 @@
 import { GRID } from '@/constants/PostsGrid';
-import { Flex, Justify, Grid, Center, Full } from '@/styles/layout';
+import { Grid, Center } from '@/styles/layout';
 import { Cursor } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';

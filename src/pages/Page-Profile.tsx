@@ -20,7 +20,7 @@ const Profile = () => {
     <>
       <Container className={Column}>
         <div className={cx(Column, Between)}>
-          <ProfileImg />
+          <ProfileImg edit={true} />
           <ProfileDetail />
           <FollowCount icons={icons} />
         </div>
