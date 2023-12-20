@@ -48,8 +48,8 @@ const SignIn = () => {
           initialized: false,
           user: {
             userId: res.user.uid,
-            email: res.user?.displayName,
-            name: res.user?.email,
+            email: res.user?.email,
+            name: res.user?.displayName,
             nickname: '',
             brand: '',
             gender: ''
@@ -114,8 +114,6 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
-
 const Container = styled.div`
   align-items: space-between;
 `;
@@ -161,3 +159,5 @@ const StartText = styled.div`
   text-align: center;
   font-size: var(--font-sizes-sm);
 `;
+
+export default SignIn;

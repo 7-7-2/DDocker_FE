@@ -1,20 +1,22 @@
 import { useRecoilValue } from 'recoil';
-import { authState } from '@/atoms/atoms';
-import { BrnadItemProps } from '@/types/types';
+import Icon from '@/components/common/Icon';
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import useSetUserInitialInfo from '@/hooks/useSetUserInitialInfo';
+import { BrnadItemProps } from '@/types/types';
+import { authState } from '@/atoms/atoms';
+
 import { styled } from 'styled-system/jsx';
 import { css, cx } from 'styled-system/css';
 import { Center, Column } from '@/styles/layout';
-import Icon from '@/components/common/Icon';
-import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
 const BrandItem = (brandInfo: BrnadItemProps) => {
   const { user } = useRecoilValue(authState);
   const setFavBrand = useSetUserInitialInfo();
+
   const selectBrand: React.TouchEventHandler<HTMLDivElement> = e => {
-    console.log(e.currentTarget.id);
     setFavBrand(user.nickname, e.currentTarget.id, user.gender);
   };
+
   const selectedIcon = user.brand === brandInfo.brand && (
     <SelectedIconContainer>
       <Icon {...iconPropsGenerator('check-brand', '20')} />
@@ -38,7 +40,6 @@ const BrandItem = (brandInfo: BrnadItemProps) => {
     </ItemContainer>
   );
 };
-export default BrandItem;
 
 const IconContainer = styled.button`
   width: 46px;
@@ -78,3 +79,5 @@ const DefaltBrandContainer = css`
   border: 1px solid #edecec;
   background: #fff;
 `;
+
+export default BrandItem;
