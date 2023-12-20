@@ -12,15 +12,20 @@ import { styled } from 'styled-system/jsx';
 import { Column } from '@/styles/layout';
 import {
   DefaultBtn,
+  DisabledBtn,
   Regular,
   Semibold,
   StartPageContainer
 } from '@/styles/styles';
+import { authState } from '@/atoms/atoms';
+import { useRecoilValue } from 'recoil';
+import { cx } from 'styled-system/css';
 
 const { message } = INITIAL_FORM_TEXTS;
 
 const InitialForm = () => {
   useComposeHeader(false, '기본정보', 'close');
+  const { user } = useRecoilValue(authState);
 
   return (
     <div className={Column}>
@@ -40,8 +45,16 @@ const InitialForm = () => {
 
       <Button
         text={BUTTON_TEXTS.next}
-        onTouchEnd={useNavigateTo('/Start/3')}
-        className={DefaultBtn}
+        onTouchEnd={
+          user.nickname && user?.nickname?.length >= 0 && user?.gender
+            ? useNavigateTo('/start/3')
+            : useNavigateTo('/start/2')
+        }
+        className={
+          user?.nickname && user?.gender
+            ? DefaultBtn
+            : cx(DefaultBtn, DisabledBtn)
+        }
       />
     </div>
   );

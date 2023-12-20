@@ -55,6 +55,10 @@ export const SignInBtn = cx(
     color: #202020;
   `
 );
+export const DisabledBtn = css`
+  background: #ccc;
+  color: #fff;
+`;
 
 export const DefaultBtn = cx(
   Btn,
