@@ -333,13 +333,17 @@ export const DeleteAllBtn = cx(
 );
 
 export const SearchPageHeight = css`
-  height: calc(100vh - 52px - env(safe-area-inset-bottom));
+  height: calc(
+    100vh - 52px - env(safe-area-inset-bottom) - env(safe-area-inset-top)
+  );
 `;
 
 export const GeneralHeight = css`
-  height: calc(100vh - 46px - 52px - env(safe-area-inset-bottom));
+  height: calc(
+    100vh - 46px - 52px - env(safe-area-inset-bottom) - env(safe-area-inset-top)
+  );
 `;
 
 export const StartPageHeight = css`
-  height: calc(100vh - env(safe-area-inset-bottom));
+  height: calc(100vh - env(safe-area-inset-bottom) - env(safe-area-inset-top));
 `;
