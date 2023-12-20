@@ -332,19 +332,14 @@ export const DeleteAllBtn = cx(
   `
 );
 
-const vh = window.innerHeight * 0.01;
-document.documentElement.style.setProperty(`--vh`, `${vh}`);
-
 export const SearchPageHeight = css`
-  height: calc(var(--vh, 1vh) * 100 - 52px - env(safe-area-inset-bottom));
+  height: calc(100vh - 52px - env(safe-area-inset-bottom));
 `;
 
 export const GeneralHeight = css`
-  height: calc(
-    var(--vh, 1vh) * 100 - 46px - 52px - env(safe-area-inset-bottom)
-  );
+  height: calc(100vh - 46px - 52px - env(safe-area-inset-bottom));
 `;
 
 export const StartPageHeight = css`
-  height: calc(var(--vh, 1vh) * 100 - env(safe-area-inset-bottom));
+  height: calc(100vh - env(safe-area-inset-bottom));
 `;
