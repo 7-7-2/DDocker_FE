@@ -21,7 +21,7 @@ const Footer = () => {
 
 const Container = styled.footer`
   margin: 0 20px;
-  padding: 8px 9px 0;
+  padding: 8px 9px env(safe-area-inset-bottom);
   &::before {
     content: '';
     right: 0;
