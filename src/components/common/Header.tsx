@@ -47,8 +47,9 @@ const Header = () => {
 const Container = styled.header`
   position: sticky;
   top: 0;
+  margin-top: calc(env(safe-area-inset-bottom) + env(safe-area-inset-top));
   padding: 0 20px;
-  height: 46px;
+  height: calc(46px);
   background-color: #fff;
   z-index: 99;
 `;
