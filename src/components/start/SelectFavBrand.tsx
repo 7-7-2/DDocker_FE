@@ -12,7 +12,8 @@ import { AuthTypes } from '@/types/types';
 
 import { styled } from 'styled-system/jsx';
 import { Grid } from '@/styles/layout';
-import { DefaultBtn, StartPageContainer } from '@/styles/styles';
+import { DefaultBtn, DisabledBtn, StartPageContainer } from '@/styles/styles';
+import { cx } from 'styled-system/css';
 
 const { message } = SELECTFAVBRAND_TEXTS;
 
@@ -20,6 +21,7 @@ export const SelectFavBrand = () => {
   useComposeHeader(false, '기본정보', 'close');
   const { user } = useRecoilValue(authState);
   const navigateToHome = useNavigateTo('/');
+  const navigateToMe = useNavigateTo('/start/3');
 
   const handleStartBtn = () => {
     const userInfo: AuthTypes = {
@@ -34,6 +36,7 @@ export const SelectFavBrand = () => {
       },
       signIn: true
     };
+    console.log(userInfo);
     setInitialInfo(userInfo);
     navigateToHome();
   };
@@ -57,10 +60,11 @@ export const SelectFavBrand = () => {
           ))}
         </BrandItemContainer>
       </div>
+
       <Button
         text={BUTTON_TEXTS.start}
-        onTouchEnd={handleStartBtn}
-        className={DefaultBtn}
+        onTouchEnd={user.brand ? handleStartBtn : navigateToMe}
+        className={user.brand ? DefaultBtn : cx(DefaultBtn, DisabledBtn)}
       />
     </>
   );
