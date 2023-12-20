@@ -1,6 +1,7 @@
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { GoogleAuthProvider } from 'firebase/auth';
-import { signInWithGoogle } from '@/api/firebase';
+import { getUserInfo, signInWithGoogle } from '@/api/user';
+import { DocumentData } from 'firebase/firestore';
 
 import Icon from '@/components/common/Icon';
 import { SIGININ_TEXTS } from '@/constants/start';
@@ -24,25 +25,29 @@ import { Btn, SignInBtn } from '@/styles/styles';
 const { signInBtn, startText } = SIGININ_TEXTS;
 
 const SignIn = () => {
-  const [userAuthState, setUserAuthState] =
-    useRecoilState<AuthTypes>(authState);
-
+  const setUserAuthState = useSetRecoilState<AuthTypes>(authState);
   const navToSignUp = useNavigateTo('/start/2');
   const navToHome = useNavigateTo('/');
 
-  const saveAccessToken = (accessToken: string | undefined) => {
+  const saveAccessToken = (accessToken: string | undefined, userId: string) => {
     accessToken && localStorage.setItem('accessToken', accessToken);
+    userId && localStorage.setItem('userId', userId);
   };
 
   const handleSignIn = async () => {
     try {
+      //sign in
       const res = await signInWithGoogle();
-      if (res.operationType === 'signIn') {
-        const credential = GoogleAuthProvider.credentialFromResult(res);
+      const credential = GoogleAuthProvider.credentialFromResult(res);
+      saveAccessToken(credential?.accessToken, res.user.uid);
+      // UserInfo 가져오는 로직
+      const userInfo: DocumentData | undefined = await getUserInfo();
+      // 초기 프로필 미설정 &&
+      if (!userInfo?.initialized) {
         const userInfo: AuthTypes = {
           initialized: false,
           user: {
-            userId: credential?.accessToken,
+            userId: res.user.uid,
             email: res.user?.displayName,
             name: res.user?.email,
             nickname: '',
@@ -52,10 +57,10 @@ const SignIn = () => {
           signIn: true
         };
         setUserAuthState({ ...userInfo });
-        saveAccessToken(credential?.accessToken);
-        {
-          !userAuthState.initialized ? navToSignUp() : navToHome();
-        }
+      }
+      // 프로필 설정 여부로 페이지 이동
+      {
+        !userInfo?.initialized ? navToSignUp() : navToHome();
       }
     } catch {
       (error: string) => {
