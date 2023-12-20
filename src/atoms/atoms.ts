@@ -83,3 +83,8 @@ export const searchResultsState = atom<SimplifyUser[]>({
   key: 'searchResultsState',
   default: []
 });
+
+export const imageState = atom({
+    key: 'imageState',
+    default: ''
+  })
