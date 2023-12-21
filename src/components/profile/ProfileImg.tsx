@@ -17,7 +17,7 @@ const ProfileImg = ({ edit }: { edit: boolean }) => {
         </div>
         <Edit className={Cursor}>
           <Icon
-            {...iconPropsGenerator(!edit ? 'edit' : 'edit-photo', '32')}
+            {...iconPropsGenerator('edit', '32')}
             onTouchEnd={handleProfile}
           />
         </Edit>

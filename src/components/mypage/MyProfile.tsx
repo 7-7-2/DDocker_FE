@@ -185,8 +185,8 @@ const Edit = styled.div`
   position: absolute;
   width: 30px;
   height: 30px;
-  bottom: 5px;
-  right: -5px;
+  bottom: 9px;
+  right: -2px;
   z-index: 1;
 `;
 const ExitButton = styled.span`
