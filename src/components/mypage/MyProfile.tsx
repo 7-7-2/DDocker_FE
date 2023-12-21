@@ -4,6 +4,7 @@ import Icon from '@/components/common/Icon';
 import CheckNickname from '@/components/start/CheckNickname';
 import { TEXT } from '@/constants/texts';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
+import { useFileReader } from '@/hooks/useFileReader';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { FlexCenter, MarginAuto, Flex, Justify, Column } from '@/styles/layout';
 import { Cursor, LineH18, TextGray, Border16, Medium } from '@/styles/styles';
@@ -14,6 +15,7 @@ const MyProfile = () => {
   useComposeHeader(false, '프로필 수정', 'close');
 
   const { uploadFile } = useStorage();
+  const { readFile } = useFileReader();
 
   const [profileImage, setProfileImage] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -22,19 +24,16 @@ const MyProfile = () => {
     console.log('회원 탈퇴');
   };
 
-  const handleLoadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleLoadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files?.length) {
       return;
     }
-    const reader = new FileReader();
-    reader.readAsDataURL(e.target.files[0]);
+    const file = e.target.files[0];
+    const base64 = await readFile(file);
 
-    reader.onloadend = () => {
-      const base64 = reader.result;
-      if (base64) {
-        setProfileImage(base64?.toString());
-      }
-    };
+    if (base64) {
+      setProfileImage(base64);
+    }
   };
 
   const handleImageChange = async () => {
