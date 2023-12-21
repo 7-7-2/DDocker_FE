@@ -5,6 +5,12 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@pqina/pintura':
+    specifier: ^8.70.1
+    version: 8.70.1
+  '@pqina/react-pintura':
+    specifier: ^9.0.2
+    version: 9.0.2(@pqina/pintura@8.70.1)
   firebase:
     specifier: ^10.7.1
     version: 10.7.1
@@ -1885,6 +1891,18 @@ packages:
       picocolors: 1.0.0
       tslib: 2.6.2
     dev: true
+
+  /@pqina/pintura@8.70.1:
+    resolution: {integrity: sha512-yduKeL3KIURFrPDW1hi7TdlQDixpP8Lf3AafyGd/4IHVADQR1kMToQryY6E/lSp87vT9nZ1FXOrYV0iDsQLpJA==}
+    dev: false
+
+  /@pqina/react-pintura@9.0.2(@pqina/pintura@8.70.1):
+    resolution: {integrity: sha512-X3KS2ZeIyCnYUAAzg2gmi/50rd+p1lbJPLzSj+5cZXqRXr4+XRrqic5Ki4CQkvu8dHXk0TEZ4Tn8wsPYyPlaIQ==}
+    peerDependencies:
+      '@pqina/pintura': ^8.x
+    dependencies:
+      '@pqina/pintura': 8.70.1
+    dev: false
 
   /@protobufjs/aspromise@1.1.2:
     resolution: {integrity: sha512-j+gKExEuLmKwvz3OgROXtrJ2UG2x8Ch2YZUxahh+s1F2HZ+wAceUNLkvy6zKCPVRkU++ZWQrdxsUeQXmcg4uoQ==}
