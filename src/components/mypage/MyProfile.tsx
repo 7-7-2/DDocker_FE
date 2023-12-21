@@ -1,12 +1,33 @@
+import '@pqina/pintura/pintura.css';
+import { useRef, useState } from 'react';
+import { PinturaEditorModal } from '@pqina/react-pintura';
+import { getEditorDefaults, createDefaultImageWriter } from '@pqina/pintura';
+import locale_ko_KR from '@pqina/pintura/locale/ko_KR';
+// _PINTURA IMPORTS
 import Icon from '@/components/common/Icon';
 import CheckNickname from '@/components/start/CheckNickname';
 import { TEXT } from '@/constants/texts';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import { FlexCenter, MarginAuto, Flex, Justify, Column } from '@/styles/layout';
+import { FlexCenter, Justify, Column } from '@/styles/layout';
 import { Cursor, LineH18, TextGray, Border16, Medium } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
+
+const editorDefaults = getEditorDefaults({
+  cropImageSelectionCornerStyle: 'hook',
+  locale: {
+    ...locale_ko_KR
+  },
+  imageWriter: createDefaultImageWriter({
+    targetSize: {
+      width: 100,
+      height: 100,
+      fit: 'contain',
+      upscale: true
+    }
+  })
+});
 
 const MyProfile = () => {
   useComposeHeader(false, '프로필 수정', 'close');
@@ -16,19 +37,54 @@ const MyProfile = () => {
   const handleExitedUser = () => {
     console.log('회원 탈퇴');
   };
+
+  const [editorEnabled, setEditorEnabled] = useState(false);
+  const [editorSrc, setEditorSrc] = useState<File>();
+  const [imageUrl, setImageUrl] = useState<string>();
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleInputChange = () => {
+    if (!fileInputRef?.current?.files?.length) return;
+    if (fileInputRef?.current?.files) {
+      setEditorEnabled(true);
+      setEditorSrc(fileInputRef?.current?.files[0]);
+    }
+  };
+
+  const handleEditorHide = () => setEditorEnabled(false);
+
+  const handleEditorProcess = ({ dest }: { dest: File }) => {
+    const url = URL.createObjectURL(dest);
+    setImageUrl(url);
+  };
+
   return (
     <>
       <Wrapper className={cx(FlexCenter, Column)}>
-        <Container className={cx(Flex, MarginAuto)}>
-          <Box className={cx(FlexCenter, MarginAuto)}>
-            <div>
-              <Icon {...iconPropsGenerator('user', '100')} />
-            </div>
-            <Edit className={Cursor}>
+        <ImgContainer>
+          {imageUrl && (
+            <ImgRound>
+              <img
+                src={imageUrl}
+                alt="profile image"
+              />
+            </ImgRound>
+          )}
+          {!imageUrl && <Icon {...iconPropsGenerator('user', '100')} />}
+          <Edit className={Cursor}>
+            <label>
               <Icon {...iconPropsGenerator('edit-photo', '32')} />
-            </Edit>
-          </Box>
-        </Container>
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleInputChange}
+                style={{ display: 'none' }}
+              />
+            </label>
+          </Edit>
+        </ImgContainer>
       </Wrapper>
       <CheckNickname />
 
@@ -37,6 +93,42 @@ const MyProfile = () => {
         onTouchEnd={handleExitedUser}>
         {TEXT.exitButtonText}
       </ExitButton>
+
+      {editorEnabled && (
+        <PinturaEditorModal
+          {...editorDefaults}
+          src={editorSrc}
+          imageCropAspectRatio={1}
+          onHide={handleEditorHide}
+          onProcess={handleEditorProcess}
+          willRenderCanvas={(shapes, state) => {
+            const { utilVisibility, selectionRect, lineColor } = state;
+
+            if (utilVisibility.crop <= 0) return shapes;
+
+            const { x, y, width, height } = selectionRect;
+
+            return {
+              ...shapes,
+
+              interfaceShapes: [
+                {
+                  x: x + width * 0.5,
+                  y: y + height * 0.5,
+                  rx: width * 0.5,
+                  ry: height * 0.5,
+                  opacity: utilVisibility.crop,
+                  inverted: true,
+                  backgroundColor: [0, 0, 0, 0.1],
+                  strokeWidth: 0.4,
+                  strokeColor: [...lineColor]
+                },
+                ...shapes.interfaceShapes
+              ]
+            };
+          }}
+        />
+      )}
 
       <ButtonArea className={Justify}>
         <SaveButton
@@ -53,22 +145,13 @@ const Wrapper = styled.div`
   padding: 20px 0 40px;
   gap: 40px;
 `;
-const Container = styled.div`
-  position: relative;
-  width: 94px;
-  height: 94px;
-`;
-const Box = styled.div`
-  width: 54px;
-  height: 54px;
-  position: relative;
-`;
+
 const Edit = styled.div`
   position: absolute;
   width: 30px;
   height: 30px;
-  bottom: -15px;
-  right: -25px;
+  bottom: 5px;
+  right: -5px;
   z-index: 1;
 `;
 const ExitButton = styled.span`
@@ -90,4 +173,13 @@ const SaveButton = styled.button`
   color: #fff;
 `;
 
+const ImgContainer = styled.div`
+  position: relative;
+`;
+const ImgRound = styled.div`
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+  overflow: hidden;
+`;
 export default MyProfile;
