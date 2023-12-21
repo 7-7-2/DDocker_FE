@@ -13,13 +13,14 @@ import {
 const Header = lazy(() => import('../components/common/Header'));
 const Footer = lazy(() => import('../components/common/Footer'));
 
+let PagesHeight;
+
 const Layout = () => {
   const { pathname } = useLocation();
   const footerState = useRecoilValue(footerShowState);
   const searchPredi = pathname !== '/search';
   const startPredi = pathname !== '/start/1';
 
-  let PagesHeight;
   const getHeight = () => {
     if (searchPredi) {
       return (PagesHeight = GeneralHeight);
