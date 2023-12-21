@@ -20,7 +20,7 @@ const Footer = () => {
 };
 
 const Container = styled.footer`
-  margin: 0 20px;
+  margin: 0 20px calc(env(safe-area-inset-bottom));
   padding: 8px 9px 0;
   &::before {
     content: '';
