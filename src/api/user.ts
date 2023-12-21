@@ -14,14 +14,15 @@ import {
   getDocs
 } from 'firebase/firestore';
 import { app } from '@/firebase.config';
-import { AuthTypes, Collections, User } from '@/types/types';
+import { AuthTypes, CachedData, Collections, User } from '@/types/types';
+import useGetCacheData from '@/hooks/useGetCacheData';
 
 // Auth
 export const auth = getAuth(app);
 
 // UserDocRef
-export const getUserDocRef = () => {
-  const userId = getUserId() as string;
+export const getUserDocRef = async () => {
+  const userId = (await getUserId()) as string;
   return doc(getFirestore(), Collections.USERS, userId);
 };
 
@@ -35,15 +36,23 @@ export const signOutAuth = async () => {
   await signOut(auth);
 };
 
+const getcacheUserId = async () => {
+  const userId: CachedData = await useGetCacheData('user', '/userId');
+  return userId.cacheData;
+};
+
 // 소셜 로그인후 uid 가져오는 함수
-export const getUserId = () => {
-  const userId = localStorage.getItem('userId') as string;
+export const getUserId = async () => {
+  const web = localStorage.getItem('userId');
+  const userId = web
+    ? (localStorage.getItem('userId') as string)
+    : await getcacheUserId();
   return userId;
 };
 
 // User 정보 가져오는 함수
 export const getUserInfo = async () => {
-  const userDocRef = getUserDocRef();
+  const userDocRef = await getUserDocRef();
   const data = (await getDoc(userDocRef)).data();
   const saveUserInfo = (data: DocumentData) => {
     localStorage.setItem('userInfo', JSON.stringify(data));
@@ -56,7 +65,7 @@ export const getUserInfo = async () => {
 
 // 프로필 설정 후 DB저장
 export const setInitialInfo = async (userInfo: AuthTypes) => {
-  const userDocRef = getUserDocRef();
+  const userDocRef = await getUserDocRef();
   await setDoc(userDocRef, { ...userInfo }, { merge: true });
   await getUserInfo();
 };
