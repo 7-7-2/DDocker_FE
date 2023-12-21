@@ -18,7 +18,7 @@
     "noImplicitAny": true,
     /* Linting */
     "strict": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true, //함수에서 return 빼먹으면 에러내기
