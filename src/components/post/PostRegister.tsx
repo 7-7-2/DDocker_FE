@@ -36,8 +36,6 @@ const PostRegister = () => {
           <Input
             type={INPUT_TEXTS.type.title.typeName}
             handleEvent={writeTitle}
-            inputValue={inputValue}
-            setInputValue={setInputValue}
           />
         </div>
         <RegisterLabel
