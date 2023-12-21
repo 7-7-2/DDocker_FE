@@ -34,7 +34,7 @@ const Layout = () => {
     <>
       <Container>
         <Suspense>{startPredi && searchPredi && <Header />}</Suspense>
-        <Suspense fallback={<></>}>
+        <Suspense fallback={<div className={getHeight()}></div>}>
           <Contents className={getHeight()}>
             <Outlet />
           </Contents>
