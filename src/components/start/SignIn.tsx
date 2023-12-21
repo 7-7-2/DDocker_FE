@@ -9,6 +9,7 @@ import { AuthTypes } from '@/types/types';
 import { authState } from '@/atoms/atoms';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
+import useSetCacheData from '@/hooks/useSetCacheData';
 
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
@@ -40,8 +41,13 @@ const SignIn = () => {
       const res = await signInWithGoogle();
       const credential = GoogleAuthProvider.credentialFromResult(res);
       saveAccessToken(credential?.accessToken, res.user.uid);
+      const cacheData = credential?.accessToken as string;
+      await useSetCacheData('user', '/accessToken', cacheData);
+      await useSetCacheData('user', '/userId', res.user.uid);
+
       // UserInfo 가져오는 로직
       const userInfo: DocumentData | undefined = await getUserInfo();
+
       // 초기 프로필 미설정 &&
       if (!userInfo?.initialized) {
         const userInfo: AuthTypes = {
