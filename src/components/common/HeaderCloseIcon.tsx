@@ -1,16 +1,14 @@
 import Icon from '@/components/common/Icon';
-import { useClose } from '@/hooks/useClose';
+import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
 //기능 추가필요(useClose수정)
 const HeaderCloseIcon = () => {
-  const { handleTouch } = useClose();
-
   return (
     <>
       <Icon
         {...iconPropsGenerator('close')}
-        onTouchEnd={handleTouch}></Icon>
+        onTouchEnd={useNavigateTo('-1')}></Icon>
     </>
   );
 };
