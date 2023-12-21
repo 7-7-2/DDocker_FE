@@ -1,6 +1,6 @@
-import { useRef } from 'react';
-import { useRecoilState } from 'recoil';
-import { imageState } from '@/atoms/atoms';
+import { useState, useRef } from 'react';
+import { ref, uploadBytes } from 'firebase/storage';
+import { storage } from '@/firebase.config';
 import Icon from '@/components/common/Icon';
 import CheckNickname from '@/components/start/CheckNickname';
 import { TEXT } from '@/constants/texts';
@@ -13,17 +13,16 @@ import { cx } from 'styled-system/css';
 
 const MyProfile = () => {
   useComposeHeader(false, '프로필 수정', 'close');
-  const handleFormSubmit = () => {
-    console.log('저장하기');
-  };
+  const Storage = storage;
+
+  const [profileImage, setProfileImage] = useState<string | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const handleExitedUser = () => {
     console.log('회원 탈퇴');
   };
 
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const [profileImage, setProfileImage] = useRecoilState(imageState);
-
-  const handleLoadImage = (e: any) => {
+  const handleLoadImage = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files?.length) {
       return;
     }
@@ -36,6 +35,20 @@ const MyProfile = () => {
         setProfileImage(base64?.toString());
       }
     };
+  };
+
+  const handleImageChange = async () => {
+    if (profileImage) {
+      const fileInput = inputRef.current;
+      if (fileInput?.files?.length) {
+        const file = fileInput.files[0];
+
+        const storageRef = ref(Storage, `profiles/${file}/profileImage.jpg`);
+        await uploadBytes(storageRef, file);
+
+        console.log('File uploaded successfully!');
+      }
+    }
   };
 
   return (
@@ -59,7 +72,7 @@ const MyProfile = () => {
                 <InputBtn
                   type="file"
                   accept="image/*"
-                  ref={fileInputRef}
+                  ref={inputRef}
                   onChange={handleLoadImage}
                 />
               </label>
@@ -78,7 +91,7 @@ const MyProfile = () => {
       <ButtonArea className={Justify}>
         <SaveButton
           className={cx(FlexCenter, Cursor, Border16, Medium)}
-          onTouchEnd={handleFormSubmit}>
+          onTouchEnd={handleImageChange}>
           {TEXT.saveButton}
         </SaveButton>
       </ButtonArea>
