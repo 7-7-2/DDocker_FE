@@ -34,16 +34,6 @@
       rel="apple-touch-icon"
       sizes="512x512"
       href="/ios/512.png" />
-
-    <!-- OpenGraph 이미지 메타태그 추가필요 -->
-
-    <!-- <meta name="og:image" content="./example.jpg"> -->
-    <title>DDocker</title>
-    <script type="module">
-      import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
-      const el = document.createElement('pwa-update');
-      document.body.appendChild(el);
-    </script>
     <meta
       name="apple-mobile-web-app-capable"
       content="yes" />
@@ -167,6 +157,13 @@
       rel="apple-touch-startup-image"
       href="/assets/apple-splash-1136-640.jpg"
       media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" />
+
+    <title>DDocker</title>
+    <script type="module">
+      import 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate';
+      const el = document.createElement('pwa-update');
+      document.body.appendChild(el);
+    </script>
   </head>
   <body>
     <script>
