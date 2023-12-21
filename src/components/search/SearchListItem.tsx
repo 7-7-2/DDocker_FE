@@ -11,7 +11,7 @@ import { RecentSearch, DeleteAllBtn } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
-const SearchListItem: React.FC<{ users: SimplifyUser[] }> = ({ users }) => {
+const SearchListItem: React.FC<{ users: SimplifyUser[] }> = () => {
   const inputValue = useRecoilValue(searchKeywordState);
   const searchResults = useRecoilValue(searchResultsState);
   const setSearchResults = useSetRecoilState(searchResultsState);

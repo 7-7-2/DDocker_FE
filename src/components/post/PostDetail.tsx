@@ -1,5 +1,3 @@
-import { useRecoilState } from 'recoil';
-
 import MiniProfile from '@/components/common/MiniProfile';
 import PostSocial from '@/components/post/PostSocial';
 import PostComments from '@/components/post/PostComments';
@@ -15,7 +13,6 @@ import { Flex, Between, Align } from '@/styles/layout';
 import { cx } from 'styled-system/css';
 import { PaddingTB10, PostContent } from '@/styles/styles';
 import { SimplifyUser } from '@/types/types';
-import { inputNicknameState } from '@/atoms/atoms';
 
 // POST 정보를 수신 => 하위 props에 전달
 // 1. PostSocial => 좋아요, 댓글 수
@@ -25,8 +22,7 @@ const { type } = INPUT_TEXTS;
 const { comment } = type;
 
 const PostDetail = ({ userId, NickName, caffeine }: SimplifyUser) => {
-  const [nicknameState, setNicknameState] = useRecoilState(inputNicknameState);
-  const handleTouch = () => console.log();
+  const handleTouch = () => {};
 
   return (
     <>
@@ -50,8 +46,6 @@ const PostDetail = ({ userId, NickName, caffeine }: SimplifyUser) => {
         <Input
           type={comment.typeName}
           handleEvent={handleTouch}
-          inputValue={nicknameState}
-          setInputValue={setNicknameState}
         />
       </div>
     </>
