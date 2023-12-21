@@ -7,6 +7,9 @@ export const useShowFooter = (show: boolean) => {
 
   useLayoutEffect(() => {
     setFooterState(show);
-  });
+    return () => {
+      setFooterState(!show);
+    };
+  }, []);
   return null;
 };
