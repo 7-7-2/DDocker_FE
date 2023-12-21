@@ -1,6 +1,5 @@
 import { useState, useRef } from 'react';
-import { ref, uploadBytes } from 'firebase/storage';
-import { storage } from '@/firebase.config';
+import { useStorage } from '@/api/profile';
 import Icon from '@/components/common/Icon';
 import CheckNickname from '@/components/start/CheckNickname';
 import { TEXT } from '@/constants/texts';
@@ -13,7 +12,8 @@ import { cx } from 'styled-system/css';
 
 const MyProfile = () => {
   useComposeHeader(false, '프로필 수정', 'close');
-  const Storage = storage;
+
+  const { uploadFile } = useStorage();
 
   const [profileImage, setProfileImage] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -43,8 +43,8 @@ const MyProfile = () => {
       if (fileInput?.files?.length) {
         const file = fileInput.files[0];
 
-        const storageRef = ref(Storage, `profiles/${file}/profileImage.jpg`);
-        await uploadBytes(storageRef, file);
+        const filePath = `profiles/${file}/profileImage.jpg`;
+        await uploadFile(filePath, file);
 
         console.log('File uploaded successfully!');
       }
