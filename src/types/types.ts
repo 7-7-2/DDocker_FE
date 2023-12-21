@@ -90,6 +90,10 @@ export interface WeeklyPopularTypes {
   brand: { icon: string; brand: string };
 }
 
+export interface CachedData {
+  cacheData: string;
+}
+
 export enum Collections {
   USERS = 'users'
 }
