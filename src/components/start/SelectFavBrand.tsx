@@ -32,7 +32,8 @@ export const SelectFavBrand = () => {
         name: user.name,
         nickname: user.nickname,
         brand: user.brand,
-        gender: user.gender
+        gender: user.gender,
+        profileUrl: user.profileUrl
       },
       signIn: true
     };

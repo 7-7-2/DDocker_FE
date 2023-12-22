@@ -12,15 +12,15 @@ export interface HeaderType {
 
 export interface AuthTypes {
   initialized: boolean;
-  user: User;
+  user: UserTypes;
   signIn: boolean;
 }
 
-export interface User {
+export interface UserTypes {
   userId: string | undefined;
   email: string | null;
   name: string | null;
-  profileUrl?: string;
+  profileUrl?: string | null;
   nickname?: string;
   brand?: string;
   gender?: string;
@@ -92,6 +92,25 @@ export interface WeeklyPopularTypes {
 
 export interface CachedData {
   cacheData: string;
+}
+
+export interface UserCachedData {
+  cacheData: UserTypes;
+}
+
+export interface CoffeeItem {
+  brand: string;
+  name: string;
+  caffeine: string;
+}
+
+export interface CoffeeData {
+  [brand: string]: CoffeeItem[];
+}
+
+export interface caffeineFilterTypes {
+  caffeine: string;
+  menuCaffeine: string;
 }
 
 export enum Collections {
