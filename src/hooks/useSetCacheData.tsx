@@ -1,7 +1,9 @@
+import { DocumentData } from 'firebase/firestore';
+
 const useSetCacheData = async (
   cacheName: string,
   url: string,
-  cacheData: string
+  cacheData: string | DocumentData
 ) => {
   const cacheStorage = await caches.open(cacheName);
   try {

@@ -14,8 +14,9 @@ import {
   getDocs
 } from 'firebase/firestore';
 import { app } from '@/firebase.config';
-import { AuthTypes, CachedData, Collections, User } from '@/types/types';
+import { AuthTypes, CachedData, Collections, UserTypes } from '@/types/types';
 import useGetCacheData from '@/hooks/useGetCacheData';
+import useSetCacheData from '@/hooks/useSetCacheData';
 
 // Auth
 export const auth = getAuth(app);
@@ -36,7 +37,7 @@ export const signOutAuth = async () => {
   await signOut(auth);
 };
 
-const getcacheUserId = async () => {
+const getCacheUserId = async () => {
   const userId: CachedData = await useGetCacheData('user', '/userId');
   return userId.cacheData;
 };
@@ -46,7 +47,7 @@ export const getUserId = async () => {
   const web = localStorage.getItem('userId');
   const userId = web
     ? (localStorage.getItem('userId') as string)
-    : await getcacheUserId();
+    : await getCacheUserId();
   return userId;
 };
 
@@ -57,8 +58,12 @@ export const getUserInfo = async () => {
   const saveUserInfo = (data: DocumentData) => {
     localStorage.setItem('userInfo', JSON.stringify(data));
   };
+  const cacheUserInfo = async (data: DocumentData) => {
+    await useSetCacheData('user', '/user', data);
+  };
   {
     data && saveUserInfo(data);
+    data && cacheUserInfo(data);
   }
   return data;
 };
@@ -72,7 +77,7 @@ export const setInitialInfo = async (userInfo: AuthTypes) => {
 
 // 닉네임 중복 체크
 export const getNicknameList = async () => {
-  const fieldValues: User[] = [];
+  const fieldValues: UserTypes[] = [];
   const nicknameList: string[] = [];
 
   const userListDocRef = collection(getFirestore(), Collections.USERS);
@@ -85,7 +90,7 @@ export const getNicknameList = async () => {
     });
 
   fieldValues.map(
-    (item: User) => item.nickname && nicknameList.push(item.nickname)
+    (item: UserTypes) => item.nickname && nicknameList.push(item.nickname)
   );
 
   return nicknameList;
