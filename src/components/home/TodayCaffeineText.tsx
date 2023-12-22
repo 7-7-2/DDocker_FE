@@ -1,18 +1,28 @@
-import { useRecoilValue } from 'recoil';
-import { authState } from '@/atoms/atoms';
 import Icon from '@/components/common/Icon';
 import { TODAY_CAFFEINE_INFO_TEXTS } from '@/constants/home';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+import useGetCacheData from '@/hooks/useGetCacheData';
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Align, Between, Column, Flex } from '@/styles/layout';
 import { Regular } from '@/styles/styles';
 
-const TodayCaffeineText = ({ accessToken }: { accessToken: string | null }) => {
-  const { anonymous, signedIn } = TODAY_CAFFEINE_INFO_TEXTS;
-  const { user } = useRecoilValue(authState);
+const { anonymous, signedIn } = TODAY_CAFFEINE_INFO_TEXTS;
 
+const TodayCaffeineText = ({ accessToken }: { accessToken: string | null }) => {
   const testdata = 2;
+  // const { user } = useRecoilValue(authState);
+
+  const getLocalUserInfo = () => {
+    const userInfo = localStorage.getItem('userInfo');
+    return userInfo && JSON.parse(userInfo);
+  };
+
+  // const getCachedUserInfo = async () => {
+  //   const data = await useGetCacheData('user', '/user');
+  // };
+
+  const user = getLocalUserInfo();
 
   const anonymousText = (
     <div className={Column}>
@@ -25,7 +35,7 @@ const TodayCaffeineText = ({ accessToken }: { accessToken: string | null }) => {
   const signedInText = (
     <div className={Column}>
       <span>
-        {user.nickname}
+        {user?.user.nickname}
         {signedIn.first}
       </span>
       <div>
@@ -63,16 +73,16 @@ const TodayCaffeineText = ({ accessToken }: { accessToken: string | null }) => {
   );
 };
 
-export default TodayCaffeineText;
-
 const TodayCaffeineInfoContainer = styled.div`
   font-size: var(--font-size-xl);
   font-weight: 500;
   line-height: 28px;
 `;
+
 const CaffeineInfo = styled.span`
   color: var(--colors-main);
 `;
+
 const MessageContainer = styled.div`
   padding: 0 16px;
   margin-top: 10px;
@@ -82,6 +92,9 @@ const MessageContainer = styled.div`
   border-radius: 16px;
   font-size: var(--font-sizes-sm);
 `;
+
 const MessageText = styled.div`
   margin-left: 12px;
 `;
+
+export default TodayCaffeineText;
