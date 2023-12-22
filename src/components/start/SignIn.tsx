@@ -58,7 +58,8 @@ const SignIn = () => {
             name: res.user?.displayName,
             nickname: '',
             brand: '',
-            gender: ''
+            gender: '',
+            profileUrl: res.user.photoURL
           },
           signIn: true
         };
