@@ -8,23 +8,29 @@ import { Align, Between, Column, Flex } from '@/styles/layout';
 import { Regular } from '@/styles/styles';
 import { useRecoilValue } from 'recoil';
 import { authState } from '@/atoms/atoms';
+import { useEffect, useState } from 'react';
+import { UserCachedData, UserTypes } from '@/types/types';
 
 const { anonymous, signedIn } = TODAY_CAFFEINE_INFO_TEXTS;
 
-const TodayCaffeineText = ({ accessToken }: { accessToken: string | null }) => {
+const TodayCaffeineText = ({
+  accessToken
+}: {
+  accessToken: string | undefined;
+}) => {
   const testdata = 2;
-  const { user: userState } = useRecoilValue(authState);
+  const [cachedUser, setCachedUser] = useState<UserCachedData>();
 
-  const getLocalUserInfo = () => {
-    const userInfo = localStorage.getItem('userInfo');
-    return userInfo && JSON.parse(userInfo);
+  const getCachedUserInfo = async () => {
+    const data = await useGetCacheData('user', '/user');
+    setCachedUser(data);
   };
 
-  // const getCachedUserInfo = async () => {
-  //   const data = await useGetCacheData('user', '/user');
-  // };
+  const user = cachedUser?.cacheData.user;
 
-  const user = getLocalUserInfo() || userState;
+  useEffect(() => {
+    getCachedUserInfo();
+  }, []);
 
   const anonymousText = (
     <div className={Column}>
@@ -37,7 +43,7 @@ const TodayCaffeineText = ({ accessToken }: { accessToken: string | null }) => {
   const signedInText = (
     <div className={Column}>
       <span>
-        {user?.user.nickname}
+        {user?.nickname}
         {signedIn.first}
       </span>
       <div>

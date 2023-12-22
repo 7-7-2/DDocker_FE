@@ -1,5 +1,5 @@
 import '@pqina/pintura/pintura.css';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { PinturaEditorModal } from '@pqina/react-pintura';
 import { getEditorDefaults, createDefaultImageWriter } from '@pqina/pintura';
 import locale_ko_KR from '@pqina/pintura/locale/ko_KR';
@@ -17,6 +17,8 @@ import { FlexCenter, Justify, Column } from '@/styles/layout';
 import { Cursor, LineH18, TextGray, Border16, Medium } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
+import { CachedData } from '@/types/types';
+import useGetCacheData from '@/hooks/useGetCacheData';
 
 const editorDefaults = getEditorDefaults({
   cropImageSelectionCornerStyle: 'hook',
@@ -63,9 +65,20 @@ const MyProfile = () => {
     setImageUrl(url);
   };
 
-  const handleFormSubmit = async () => {
-    const userId = localStorage.getItem('userId');
+  const [cachedData, setCachedData] = useState<CachedData>();
 
+  const getCachedUserInfo = async () => {
+    const data = await useGetCacheData('user', '/userId');
+    setCachedData(data);
+  };
+
+  const userId = cachedData?.cacheData;
+
+  useEffect(() => {
+    getCachedUserInfo();
+  }, []);
+
+  const handleFormSubmit = async () => {
     if (userId) {
       const fileInput = fileInputRef.current;
 

@@ -37,32 +37,20 @@ export const signOutAuth = async () => {
   await signOut(auth);
 };
 
-const getCacheUserId = async () => {
+// 소셜 로그인후 uid 가져오는 함수
+const getUserId = async () => {
   const userId: CachedData = await useGetCacheData('user', '/userId');
   return userId.cacheData;
-};
-
-// 소셜 로그인후 uid 가져오는 함수
-export const getUserId = async () => {
-  const web = localStorage.getItem('userId');
-  const userId = web
-    ? (localStorage.getItem('userId') as string)
-    : await getCacheUserId();
-  return userId;
 };
 
 // User 정보 가져오는 함수
 export const getUserInfo = async () => {
   const userDocRef = await getUserDocRef();
   const data = (await getDoc(userDocRef)).data();
-  const saveUserInfo = (data: DocumentData) => {
-    localStorage.setItem('userInfo', JSON.stringify(data));
-  };
   const cacheUserInfo = async (data: DocumentData) => {
     await useSetCacheData('user', '/user', data);
   };
   {
-    data && saveUserInfo(data);
     data && cacheUserInfo(data);
   }
   return data;
