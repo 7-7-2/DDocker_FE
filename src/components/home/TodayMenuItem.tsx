@@ -5,7 +5,6 @@ import { css } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 
 const TodayMenuItem = (data: { data: testMenu }) => {
-  console.log(data.data.brand);
   return (
     <Container className={Flex}>
       <IconCotainer>{data.data.icon}</IconCotainer>

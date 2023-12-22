@@ -5,14 +5,11 @@ const useGetCacheData = async (cacheName: string, url: string) => {
 
     if (cachedResponse) {
       const data = await cachedResponse.json();
-      console.log('Cached Data:', data);
       return data;
     } else {
-      console.log('Data not found in cache.');
       return null;
     }
   } catch (error) {
-    console.error('Error retrieving data from cache:', error);
     return null;
   }
 };

@@ -61,9 +61,7 @@ const WaterPerCoffee = ({ accessToken }: { accessToken: string | null }) => {
       </span>
       <Button
         text={signedIn.btn}
-        onTouchEnd={() => {
-          console.log('등록');
-        }}
+        onTouchEnd={useNavigateTo('/start/1')}
         className={cx(RegistCoffeeBtn, Medium)}
       />
     </div>

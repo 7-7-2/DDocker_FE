@@ -88,8 +88,6 @@ const MyProfile = () => {
         await updateDoc(userDocRef, {
           'user.profileUrl': downloadURL
         });
-
-        console.log('File uploaded successfully!');
       }
     }
   };
