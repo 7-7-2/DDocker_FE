@@ -1,11 +1,15 @@
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { Input } from '@/components/common/Input';
 import CoffeeOptionSelection from '@/components/common/CoffeeOptionSelection';
 import CoffeeMenuSelection from '@/components/home/CoffeeMenuSelection';
 import RegisterLabel from '@/components/post/RegisterLabel';
 
 import { BUTTON_TEXTS, INPUT_TEXTS, LABEL_TEXTS } from '@/constants/common';
-import { inputNicknameState } from '@/atoms/atoms';
+import {
+  inputNicknameState,
+  registPostState,
+  useInputState
+} from '@/atoms/atoms';
 import { useShowFooter } from '@/hooks/useShowFooter';
 
 import { css, cx } from 'styled-system/css';
@@ -17,26 +21,31 @@ import Button from '@/components/common/Button';
 import { DefaultBtn } from '@/styles/styles';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 
-// CLOSE ICON + REGISTER BTN => useShowFooter(true) hook call required
 const PostRegister = () => {
   useShowFooter(false);
-  const [inputValue, setInputValue] = useRecoilState(inputNicknameState);
+  const inputState = useRecoilValue(useInputState);
+  const [registInfo, setRegistInfo] = useRecoilState(registPostState);
 
-  const writeTitle = () => {
-    setInputValue(inputValue);
+  const newRegistData = {
+    ...registInfo,
+    title: inputState
+  };
+
+  const navigateToDetail = useNavigateTo('/Post/1');
+
+  const clickRegisterBtn = () => {
+    navigateToDetail;
+    setRegistInfo(newRegistData);
   };
 
   return (
-    <Container>
-      <PostRegisterContainer>
+    <>
+      <Container>
         <CoffeeMenuSelection />
         <CoffeeOptionSelection />
         <RegisterLabel label={LABEL_TEXTS.title} />
         <div className={MarginTop6}>
-          <Input
-            type={INPUT_TEXTS.type.title.typeName}
-            handleEvent={writeTitle}
-          />
+          <Input type={INPUT_TEXTS.type.title.typeName} />
         </div>
         <RegisterLabel
           label={LABEL_TEXTS.photo}
@@ -47,13 +56,13 @@ const PostRegister = () => {
             <Icon {...iconPropsGenerator('regist-photo', '24')} />
           </RegistPhoto>
         </div>
-      </PostRegisterContainer>
+      </Container>
       <Button
         text={BUTTON_TEXTS.regist}
-        onTouchEnd={useNavigateTo('/Post/1')}
+        onTouchEnd={clickRegisterBtn}
         className={cx(DefaultBtn, BtnContainer)}
       />
-    </Container>
+    </>
   );
 };
 
@@ -69,19 +78,18 @@ const RegistPhoto = styled.button`
 `;
 
 const Container = styled.div`
-  height: calc(100vh - 106px);
+  padding-bottom: 22px;
   overflow-x: visible;
   overflow-y: auto;
 `;
 
 const BtnContainer = css`
-  position: absolute;
+  position: sticky;
   bottom: 0;
-  right: 0;
-  left: 0;
 `;
+
 const PostRegisterContainer = styled.div`
-  height: calc(100vh + 4vh);
+  height: inherit;
 `;
 
 export default PostRegister;
