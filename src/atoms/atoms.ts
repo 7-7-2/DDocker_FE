@@ -1,5 +1,11 @@
 import { atom } from 'recoil';
-import { AuthTypes, SimplifyUser } from '@/types/types';
+import {
+  AuthTypes,
+  CoffeeItem,
+  SimplifyUser,
+  UserTypes,
+  caffeineFilterTypes
+} from '@/types/types';
 
 export const activeState = atom({
   key: 'activeState',
@@ -34,19 +40,56 @@ export const authState = atom<AuthTypes>({
       name: '',
       nickname: '',
       brand: '',
-      gender: ''
+      gender: '',
+      profileUrl: ''
     },
     signIn: false
   }
 });
 
-export const initialInfoState = atom({
-  key: 'initialInfoState',
+export const userInfoState = atom<UserTypes>({
+  key: 'userInfoState',
   default: {
+    userId: '',
+    email: '',
+    name: '',
     nickname: '',
     brand: '',
-    gender: ''
+    gender: '',
+    profileUrl: ''
   }
+});
+
+export const selectedMenuState = atom({
+  key: 'selectedMenuState',
+  default: ''
+});
+
+export const selectedMenuInfoState = atom<CoffeeItem>({
+  key: 'selectedMenuInfo',
+  default: {
+    brand: '',
+    name: '',
+    caffeine: '0'
+  }
+});
+
+export const registPostState = atom({
+  key: 'registPostState',
+  default: {
+    brand: '',
+    name: '',
+    size: '',
+    shot: 0,
+    caffeine: ``,
+    title: '',
+    photo: ''
+  }
+});
+
+export const caffeineFilterState = atom<caffeineFilterTypes>({
+  key: 'caffeineFilterState',
+  default: { caffeine: '', menuCaffeine: '' }
 });
 
 export const inputNicknameState = atom({
@@ -85,6 +128,6 @@ export const searchResultsState = atom<SimplifyUser[]>({
 });
 
 export const imageState = atom({
-    key: 'imageState',
-    default: ''
-  })
+  key: 'imageState',
+  default: ''
+});
