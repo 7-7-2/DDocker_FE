@@ -78,7 +78,6 @@ const CoffeeMenuSelection = () => {
       item => item.name === selectedMenu
     );
     setSelectedMenuInfo(selectedCaffeineInfo[0]);
-    console.log('umm', selectedCaffeineInfo);
   };
 
   const selectBrand = (e: ChangeEvent<HTMLSelectElement>) => {
