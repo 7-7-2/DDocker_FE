@@ -14,6 +14,7 @@ import { Column, Flex, Grid } from '@/styles/layout';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import {
   registPostState,
+  selectedBrandState,
   selectedMenuInfoState,
   selectedMenuState,
   userInfoState
@@ -24,8 +25,8 @@ const { coffeeMenu } = CAFFEINE_FILTER_TEXTS;
 const CoffeeMenuSelection = () => {
   const { postid } = useParams();
   const register = postid === 'register';
-  const [userInfo, setUserInfo] = useRecoilState(userInfoState);
-  const [selectedBrand, setSelectedBrand] = useState('');
+  const [cachedUser, setCachedUser] = useState<UserCachedData>();
+  const [selectedBrand, setSelectedBrand] = useRecoilState(selectedBrandState);
   const [selectedMenu, setSelectedMenu] = useRecoilState(selectedMenuState);
   const setSelectedMenuInfo = useSetRecoilState(selectedMenuInfoState);
   const [menuList, setMenuList] = useState<string[]>([]);
@@ -37,26 +38,22 @@ const CoffeeMenuSelection = () => {
     name: selectedMenu
   };
 
-  const getUserInfo = () => {
-    const userInfo = localStorage.getItem('userInfo');
-    return userInfo && JSON.parse(userInfo);
-  };
-
-  const getcachedUserInfo = async () => {
-    const userInfo: UserCachedData = await useGetCacheData('user', '/user');
-    const user = userInfo && userInfo.cacheData;
-    setUserInfo(user);
-    return userInfo?.cacheData;
-  };
-
-  const localUserInfo = getUserInfo();
-  const user = localUserInfo?.user || userInfo;
-
   useEffect(() => {
-    user ? setSelectedBrand(user?.brand) : setSelectedBrand('');
-    user ? getMenuList(user?.brand) : '';
-    getcachedUserInfo();
+    getCachedUserInfo();
   }, []);
+
+  const getCachedUserInfo = async () => {
+    try {
+      const data = await useGetCacheData('user', '/user');
+      setCachedUser(data);
+      setSelectedBrand(data.cacheData.user.brand);
+      getMenuList(data.cacheData.user.brand);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const user = cachedUser?.cacheData.user;
 
   const setbrnadList = () => {
     const list = Object.keys(coffeeData);
@@ -96,7 +93,6 @@ const CoffeeMenuSelection = () => {
   return (
     <div className={MarginTop}>
       {!register && <span className={cx(Medium)}>{coffeeMenu.title}</span>}
-      {/* 기능 구현시 data 형식이 확정후 map함수로 수정 예정 */}
       <CoffeeSelectContainer className={cx(register ? Column : Flex, Grid)}>
         {register && (
           <RegisterLabel
@@ -112,11 +108,11 @@ const CoffeeMenuSelection = () => {
             value={selectedBrand}
             onChange={selectBrand}>
             <option
-              value={selectedBrand !== null ? selectedBrand : coffeeMenu.brand}
+              value={selectedBrand ? user?.brand : coffeeMenu.brand}
               disabled
               defaultValue={coffeeMenu.brand}
               hidden>
-              {selectedBrand || coffeeMenu.brand}
+              {selectedBrand ? user?.brand : coffeeMenu.brand}
             </option>
             {brandList.map((item, idx) => (
               <option
