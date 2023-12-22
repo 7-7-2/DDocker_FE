@@ -9,8 +9,9 @@ import { styled } from 'styled-system/jsx';
 import { Align, Between, Flex } from '@/styles/layout';
 import { Medium, Semibold } from '@/styles/styles';
 
+const { title } = CAFFEINE_FILTER_TEXTS;
+
 const CoffeeSelection = () => {
-  const { title } = CAFFEINE_FILTER_TEXTS;
   return (
     <Container>
       <Title className={cx(Semibold, Flex, Between)}>

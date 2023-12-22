@@ -20,7 +20,7 @@ import { styled } from 'styled-system/jsx';
 
 const data: testData = {
   Allcaffeine: 185,
-  coffee: 0,
+  coffee: 2,
   menu: [
     {
       icon: '',
@@ -89,7 +89,7 @@ const WaterPerCoffee = ({ accessToken }: { accessToken: string | null }) => {
     <Containere className={cx(data.coffee ? CosumedCoffee : Default, Align)}>
       {!accessToken && anonymousCard}
       {accessToken && !data.coffee && notConsumedCoffee}
-      {data.coffee >= 1 && consumedCoffee}
+      {accessToken && data.coffee >= 1 && consumedCoffee}
     </Containere>
   );
 };
