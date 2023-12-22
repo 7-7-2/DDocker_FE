@@ -3,8 +3,8 @@ import CaffeineInfo from '@/components/home/CaffeineInfo';
 import CoffeeSelection from '@/components/home/CoffeeSelection';
 import { BUTTON_TEXTS } from '@/constants/common';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
-import { RegistBtn } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
+import { RegistBtn } from '@/styles/styles';
 
 const CaffeineFilter = () => {
   return (

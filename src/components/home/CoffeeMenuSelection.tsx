@@ -5,7 +5,7 @@ import RegisterLabel from '@/components/post/RegisterLabel';
 import { CAFFEINE_FILTER_TEXTS } from '@/constants/home';
 import useGetCacheData from '@/hooks/useGetCacheData';
 import { CoffeeData, UserCachedData } from '@/types/types';
-import { coffeeData } from '@/data/cofffeeInfo';
+import coffeeData from '@/datas/coffees';
 
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
@@ -13,6 +13,7 @@ import { Medium } from '@/styles/styles';
 import { Column, Flex, Grid } from '@/styles/layout';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import {
+  registPostState,
   selectedMenuInfoState,
   selectedMenuState,
   userInfoState
@@ -28,6 +29,13 @@ const CoffeeMenuSelection = () => {
   const [selectedMenu, setSelectedMenu] = useRecoilState(selectedMenuState);
   const setSelectedMenuInfo = useSetRecoilState(selectedMenuInfoState);
   const [menuList, setMenuList] = useState<string[]>([]);
+  const [registInfo, setRegistInfo] = useRecoilState(registPostState);
+
+  const newRegistData = {
+    ...registInfo,
+    brand: selectedBrand,
+    name: selectedMenu
+  };
 
   const getUserInfo = () => {
     const userInfo = localStorage.getItem('userInfo');
@@ -46,7 +54,6 @@ const CoffeeMenuSelection = () => {
 
   useEffect(() => {
     user ? setSelectedBrand(user?.brand) : setSelectedBrand('');
-    console.log('brand', selectedBrand);
     user ? getMenuList(user?.brand) : '';
     getcachedUserInfo();
   }, []);
@@ -58,7 +65,7 @@ const CoffeeMenuSelection = () => {
 
   const brandList = setbrnadList();
 
-  const selectedBrandData: CoffeeData | undefined = coffeeData;
+  const selectedBrandData: CoffeeData = coffeeData;
 
   const getMenuList = (selectedBrand: string) => {
     const selectedBrandMenu =
@@ -78,11 +85,13 @@ const CoffeeMenuSelection = () => {
     setSelectedBrand(e.target.value);
     getMenuList(e.target.value);
     setSelectedMenu('');
+    setRegistInfo(newRegistData);
   };
-  console.log(selectedMenu);
+
   const selectMenu = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedMenu(e.target.value);
     getMenuInfo(e.target.value);
+    setRegistInfo(newRegistData);
   };
 
   return (
@@ -177,7 +186,7 @@ const CoffeeSelectContainer = styled.div`
 `;
 
 const MarginTop = css`
-  margin-top: 12px;
+  padding-top: 12px;
 `;
 
 const defaultBorder = css`

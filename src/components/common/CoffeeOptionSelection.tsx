@@ -10,7 +10,7 @@ import { styled } from 'styled-system/jsx';
 import { BtnColorWhite, Medium } from '@/styles/styles';
 import { Align, Between, Column, Flex, Grid } from '@/styles/layout';
 import RegisterLabel from '@/components/post/RegisterLabel';
-import { caffeineFilterState } from '@/atoms/atoms';
+import { caffeineFilterState, registPostState } from '@/atoms/atoms';
 import { useRecoilState } from 'recoil';
 
 const { coffeeOption } = CAFFEINE_FILTER_TEXTS;
@@ -22,7 +22,14 @@ const CoffeeOptionSelection = () => {
   const [inputValue, setInputValue] = useState(0);
   const [sizeValue, setSizeValue] = useState('Regular');
   const [caffeine, setCaffeine] = useRecoilState(caffeineFilterState);
-  // const [registInfo, setRegistInfo] = useRecoilState(registPostState);
+  const [registInfo, setRegistInfo] = useRecoilState(registPostState);
+
+  const newRegistData = {
+    ...registInfo,
+    size: sizeValue,
+    shot: inputValue + 1,
+    caffeine: caffeine.caffeine
+  };
 
   const largeSize = () => {
     setCaffeine({
@@ -30,6 +37,7 @@ const CoffeeOptionSelection = () => {
       menuCaffeine: caffeine.menuCaffeine
     });
   };
+
   const VentiSize = () => {
     setCaffeine({
       caffeine: String(Number(caffeine.caffeine) + 150),
@@ -37,40 +45,49 @@ const CoffeeOptionSelection = () => {
     });
   };
 
+  const caffeineValue = Number(caffeine.caffeine);
+  const menuCaffeineValue = Number(caffeine.menuCaffeine);
+
   const selectSize = (e: TouchEvent<HTMLButtonElement>) => {
     setSizeValue(e.currentTarget.value);
+    const plusedCaffeine = caffeineValue - menuCaffeineValue;
 
-    const plusCaffeine =
-      Number(caffeine.caffeine) - Number(caffeine.menuCaffeine);
-
-    caffeine.caffeine !== caffeine.menuCaffeine &&
+    caffeineValue !== menuCaffeineValue &&
       setCaffeine({
-        caffeine: String(Number(caffeine.caffeine) - plusCaffeine),
-        menuCaffeine: caffeine.menuCaffeine
+        caffeine: String(caffeineValue - plusedCaffeine),
+        menuCaffeine: String(menuCaffeineValue)
       });
+    setRegistInfo(newRegistData);
   };
 
   const selectMinusBtn = () => {
     inputValue >= 1 && setInputValue(inputValue - 1);
     inputValue >= 1 &&
       setCaffeine({
-        caffeine: String(Number(caffeine.caffeine) - 75),
-        menuCaffeine: caffeine.menuCaffeine
+        caffeine: String(caffeineValue - 75),
+        menuCaffeine: String(menuCaffeineValue)
       });
+    setRegistInfo(newRegistData);
   };
 
   const selectPlusBtn = () => {
     setInputValue(inputValue + 1);
     setCaffeine({
-      caffeine: String(Number(caffeine.caffeine) + 75),
-      menuCaffeine: caffeine.menuCaffeine
+      caffeine: String(caffeineValue + 75),
+      menuCaffeine: String(menuCaffeineValue)
     });
+    setRegistInfo(newRegistData);
   };
 
   useEffect(() => {
     sizeValue === 'Large' && largeSize();
     sizeValue === 'Venti' && VentiSize();
   }, [sizeValue]);
+
+  useEffect(() => {
+    setSizeValue(registInfo.size);
+    setInputValue(registInfo.shot);
+  }, []);
 
   return (
     <Container className={cx(Column, Medium)}>
