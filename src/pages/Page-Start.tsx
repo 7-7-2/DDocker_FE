@@ -17,12 +17,6 @@ const Start = () => {
   const [cachedData, setCachedData] = useState('');
   const { id } = useParams();
 
-  //WEB
-  const getAccessToken = () => {
-    return localStorage.getItem('accessToken');
-  };
-  const accessToken = getAccessToken();
-
   // PWA
   const getCachedAccessToken = async () => {
     const data = await useGetCacheData('user', '/accessToken');
@@ -30,7 +24,7 @@ const Start = () => {
   };
 
   const notAllowedPages = id && !allowedPages.includes(id);
-  const notSignUp = !cachedData && !accessToken && (id === '2' || '3');
+  const notSignUp = !cachedData && (id === '2' || '3');
   const goToStartPage = useNavigateTo('/start/1');
 
   useEffect(() => {
@@ -42,12 +36,8 @@ const Start = () => {
   return (
     <div>
       {!signIn && id === '1' && <SignIn />}
-      {(cachedData || accessToken) && id === '2' && !initialized && (
-        <InitialForm />
-      )}
-      {(cachedData || accessToken) && id === '3' && !initialized && (
-        <SelectFavBrand />
-      )}
+      {cachedData && id === '2' && !initialized && <InitialForm />}
+      {cachedData && id === '3' && !initialized && <SelectFavBrand />}
     </div>
   );
 };

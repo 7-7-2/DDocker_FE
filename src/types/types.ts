@@ -95,7 +95,7 @@ export interface CachedData {
 }
 
 export interface UserCachedData {
-  cacheData: UserTypes;
+  cacheData: AuthTypes;
 }
 
 export interface CoffeeItem {

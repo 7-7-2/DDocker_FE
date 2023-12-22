@@ -37,7 +37,11 @@ const data: testData = {
   ]
 };
 
-const WaterPerCoffee = ({ accessToken }: { accessToken: string | null }) => {
+const WaterPerCoffee = ({
+  accessToken
+}: {
+  accessToken: string | undefined;
+}) => {
   const dataList = data.menu;
   const { anonymous, signedIn } = TODAY_CAFFEINE_INFO_TEXTS;
 

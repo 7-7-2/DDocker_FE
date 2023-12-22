@@ -30,17 +30,11 @@ const SignIn = () => {
   const navToSignUp = useNavigateTo('/start/2');
   const navToHome = useNavigateTo('/');
 
-  const saveAccessToken = (accessToken: string | undefined, userId: string) => {
-    accessToken && localStorage.setItem('accessToken', accessToken);
-    userId && localStorage.setItem('userId', userId);
-  };
-
   const handleSignIn = async () => {
     try {
       //sign in
       const res = await signInWithGoogle();
       const credential = GoogleAuthProvider.credentialFromResult(res);
-      saveAccessToken(credential?.accessToken, res.user.uid);
       const cacheData = credential?.accessToken as string;
       await useSetCacheData('user', '/accessToken', cacheData);
       await useSetCacheData('user', '/userId', res.user.uid);

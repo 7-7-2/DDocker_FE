@@ -59,6 +59,10 @@ export const userInfoState = atom<UserTypes>({
     profileUrl: ''
   }
 });
+export const selectedBrandState = atom({
+  key: 'selectedBrandState',
+  default: ''
+});
 
 export const selectedMenuState = atom({
   key: 'selectedMenuState',
@@ -79,7 +83,7 @@ export const registPostState = atom({
   default: {
     brand: '',
     name: '',
-    size: '',
+    size: 'Regular',
     shot: 0,
     caffeine: ``,
     title: '',
