@@ -1,14 +1,33 @@
+import { useEffect } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { CAFFEINE_INFO_TEXTS } from '@/constants/home';
+import {
+  caffeineFilterState,
+  selectedMenuInfoState,
+  selectedMenuState
+} from '@/atoms/atoms';
+
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Medium, Semibold } from '@/styles/styles';
 import { Align, Between, Flex } from '@/styles/layout';
 
 const CaffeineInfo = () => {
+  const selectedMenu = useRecoilValue(selectedMenuState);
+  const seledctedCaffeineInfo = useRecoilValue(selectedMenuInfoState);
+  const [caffeine, setCaffeine] = useRecoilState(caffeineFilterState);
+
+  useEffect(() => {
+    setCaffeine({
+      caffeine: seledctedCaffeineInfo.caffeine,
+      menuCaffeine: seledctedCaffeineInfo.caffeine
+    });
+  }, [selectedMenu]);
+
   return (
     <Container className={cx(Flex, Between, Medium, Align)}>
       <span>{CAFFEINE_INFO_TEXTS.title}</span>
-      <Caffeine className={Semibold}>0mg</Caffeine>
+      <Caffeine className={Semibold}>{caffeine.caffeine}mg</Caffeine>
     </Container>
   );
 };
