@@ -6,12 +6,14 @@ import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Align, Between, Column, Flex } from '@/styles/layout';
 import { Regular } from '@/styles/styles';
+import { useRecoilValue } from 'recoil';
+import { authState } from '@/atoms/atoms';
 
 const { anonymous, signedIn } = TODAY_CAFFEINE_INFO_TEXTS;
 
 const TodayCaffeineText = ({ accessToken }: { accessToken: string | null }) => {
   const testdata = 2;
-  // const { user } = useRecoilValue(authState);
+  const { user: userState } = useRecoilValue(authState);
 
   const getLocalUserInfo = () => {
     const userInfo = localStorage.getItem('userInfo');
@@ -22,7 +24,7 @@ const TodayCaffeineText = ({ accessToken }: { accessToken: string | null }) => {
   //   const data = await useGetCacheData('user', '/user');
   // };
 
-  const user = getLocalUserInfo();
+  const user = getLocalUserInfo() || userState;
 
   const anonymousText = (
     <div className={Column}>

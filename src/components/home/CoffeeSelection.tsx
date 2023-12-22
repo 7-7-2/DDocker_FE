@@ -4,6 +4,8 @@ import CoffeeMenuSelection from '@/components/home/CoffeeMenuSelection';
 import { CAFFEINE_FILTER_TEXTS } from '@/constants/home';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
+import { useResetRecoilState } from 'recoil';
+import { registPostState } from '@/atoms/atoms';
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Align, Between, Flex } from '@/styles/layout';
@@ -12,15 +14,19 @@ import { Medium, Semibold } from '@/styles/styles';
 const { title } = CAFFEINE_FILTER_TEXTS;
 
 const CoffeeSelection = () => {
+  const resetState = useResetRecoilState(registPostState);
+
+  const touchResetBtn = () => {
+    resetState();
+  };
+
   return (
     <Container>
       <Title className={cx(Semibold, Flex, Between)}>
         <span>{title.title}</span>
         <ResetBtn
           className={cx(Flex, Align, Medium)}
-          onTouchEnd={() => {
-            console.log('reset');
-          }}>
+          onTouchEnd={touchResetBtn}>
           <Icon {...iconPropsGenerator('reset', '14')} />
           {title.resetBtn}
         </ResetBtn>

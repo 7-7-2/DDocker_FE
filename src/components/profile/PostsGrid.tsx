@@ -5,9 +5,7 @@ import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
 const PostsGrid = () => {
-  const handleClick = () => {
-    console.log('1');
-  };
+  const handleClick = () => {};
 
   return (
     <GridContainer className={cx(Grid, Center)}>

@@ -33,11 +33,11 @@ export const SelectFavBrand = () => {
         nickname: user.nickname,
         brand: user.brand,
         gender: user.gender,
-        profileUrl: user.profileUrl
+        profileUrl: user.profileUrl || ''
       },
       signIn: true
     };
-    console.log(userInfo);
+
     setInitialInfo(userInfo);
     navigateToHome();
   };
