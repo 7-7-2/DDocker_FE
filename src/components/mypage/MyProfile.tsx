@@ -1,5 +1,7 @@
 import '@pqina/pintura/pintura.css';
 import { useEffect, useRef, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { imageState } from '@/atoms/atoms';
 import { PinturaEditorModal } from '@pqina/react-pintura';
 import { getEditorDefaults, createDefaultImageWriter } from '@pqina/pintura';
 import locale_ko_KR from '@pqina/pintura/locale/ko_KR';
@@ -46,7 +48,7 @@ const MyProfile = () => {
 
   const [editorEnabled, setEditorEnabled] = useState(false);
   const [editorSrc, setEditorSrc] = useState<File>();
-  const [imageUrl, setImageUrl] = useState<string>();
+  const [imageUrl, setImageUrl] = useRecoilState(imageState);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 

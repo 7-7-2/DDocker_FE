@@ -6,11 +6,13 @@ import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { Column, Center } from '@/styles/layout';
 
+const userId = localStorage.getItem('userId');
+
 const routeMap = new Map();
 routeMap.set('home', '/');
 routeMap.set('feed', '/posts');
 routeMap.set('coffee', '/coffee');
-routeMap.set('my', '/profile');
+routeMap.set('my', `/profile/${userId}`);
 
 const FooterIcon = ({ icon }: { icon: string }) => {
   const [active, setActive] = useRecoilState(activeState);
