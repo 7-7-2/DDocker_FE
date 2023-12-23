@@ -6,10 +6,12 @@ import { PinturaEditorModal } from '@pqina/react-pintura';
 import { getEditorDefaults, createDefaultImageWriter } from '@pqina/pintura';
 import locale_ko_KR from '@pqina/pintura/locale/ko_KR';
 // _PINTURA IMPORTS
-import { collection, doc, updateDoc } from 'firebase/firestore';
-import { getDownloadURL, ref } from 'firebase/storage';
-import { firestore, storage } from '@/firebase.config';
-import { useStorage } from '@/api/profile';
+import {
+  getStorageImg,
+  getUserDocRef,
+  setProfileImg,
+  setStorageImg
+} from '@/api/profile';
 import Icon from '@/components/common/Icon';
 import CheckNickname from '@/components/start/CheckNickname';
 import { TEXT } from '@/constants/texts';
@@ -39,8 +41,6 @@ const editorDefaults = getEditorDefaults({
 
 const MyProfile = () => {
   useComposeHeader(false, '프로필 수정', 'close');
-
-  const { uploadFile } = useStorage();
 
   const handleExitedUser = () => {
     console.log('회원 탈퇴');
@@ -86,27 +86,14 @@ const MyProfile = () => {
 
       if (fileInput?.files?.length) {
         const file = fileInput.files[0];
-
-        const collectionRef = collection(firestore, 'users');
-        const userDocRef = doc(collectionRef, userId);
-
-        // storage 에 저장하는 이미지
+        const userDocRef = await getUserDocRef();
         const filePath = `users/${userId}/profileImage.jpg`;
-        await uploadFile(filePath, file);
-
-        // 이미지가 저장되어있는 storage 를 참조하여
-        const storageRef = ref(storage, `users/${userId}/profileImage.jpg`);
-        // 해당 이미지를 다운로드
-        const downloadURL = await getDownloadURL(storageRef);
-
-        // 기존에 존재하는 collection 을 업데이트
-        await updateDoc(userDocRef, {
-          'user.profileUrl': downloadURL
-        });
+        await setStorageImg(filePath, file);
+        await getStorageImg(filePath);
+        await setProfileImg(userDocRef, filePath);
       }
     }
   };
-
   return (
     <>
       <Wrapper className={cx(FlexCenter, Column)}>
