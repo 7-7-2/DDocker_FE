@@ -6,18 +6,25 @@ import { Cursor } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
-const ProfileImg = ({ edit }: { edit: boolean }) => {
+const ProfileImg = ({ imageUrl }: { imageUrl?: string }) => {
   const handleProfile = useNavigateTo('/mypage');
 
   return (
     <Container className={cx(FlexCenter, MarginAuto)}>
       <Box className={cx(FlexCenter, MarginAuto)}>
         <div>
-          <Icon {...iconPropsGenerator('user', '100')} />
+          {imageUrl ? (
+            <ImgRound
+              src={imageUrl}
+              alt="Profile"
+            />
+          ) : (
+            <Icon {...iconPropsGenerator('user', '100')} />
+          )}
         </div>
         <Edit className={Cursor}>
           <Icon
-            {...iconPropsGenerator(!edit ? 'edit' : 'edit-photo', '32')}
+            {...iconPropsGenerator('edit', '32')}
             onTouchEnd={handleProfile}
           />
         </Edit>
@@ -33,8 +40,6 @@ const Container = styled.div`
 `;
 
 const Box = styled.div`
-  width: 54px;
-  height: 54px;
   position: relative;
 `;
 
@@ -42,9 +47,15 @@ const Edit = styled.div`
   position: absolute;
   width: 30px;
   height: 30px;
-  bottom: -15px;
-  right: -25px;
+  bottom: 9px;
+  right: -2px;
   z-index: 1;
+`;
+const ImgRound = styled.img`
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+  overflow: hidden;
 `;
 
 export default ProfileImg;
