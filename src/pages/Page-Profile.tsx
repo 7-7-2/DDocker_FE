@@ -1,13 +1,12 @@
-import { useRecoilState } from 'recoil';
-import { doc, getDoc } from 'firebase/firestore';
 import { imageState } from '@/atoms/atoms';
+import { useRecoilState } from 'recoil';
 import FollowCount from '@/components/profile/FollowCount';
 import PostsGrid from '@/components/profile/PostsGrid';
 import ProfileDetail from '@/components/profile/ProfileDetail';
 import ProfileImg from '@/components/profile/ProfileImg';
 import { FOLLOW } from '@/constants/Follow';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
-import { firestore } from '@/firebase.config';
+import { useGetProfileImg } from '@/hooks/useGetProfileImg';
 import { Between, Column } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
@@ -22,33 +21,7 @@ const Profile = () => {
 
   const [profileUrl, setProfileUrl] = useRecoilState(imageState);
 
-  const userId = localStorage.getItem('userId');
-
-  const fetchUserProfile = async () => {
-    if (!userId) {
-      console.error('User ID is null or undefined');
-      return;
-    }
-    const userDocRef = doc(firestore, 'users', userId);
-    try {
-      const userDocSnapshot = await getDoc(userDocRef);
-
-      if (userDocSnapshot.exists()) {
-        const userData = userDocSnapshot.data();
-        const userProfileUrl = userData?.user?.profileUrl || '';
-
-        setProfileUrl(userProfileUrl);
-      } else {
-        console.error('User document not found');
-      }
-    } catch (error) {
-      console.error('Error fetching user profile:', error);
-    }
-  };
-
-  fetchUserProfile();
-
-  console.log('Profile URL:', profileUrl);
+  useGetProfileImg();
 
   return (
     <>
