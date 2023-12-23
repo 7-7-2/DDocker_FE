@@ -5,8 +5,9 @@ import Icon from '@/components/common/Icon';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { Column, Center } from '@/styles/layout';
+import useGetCacheData from '@/hooks/useGetCacheData';
 
-const userId = localStorage.getItem('userId');
+const userId = useGetCacheData('user', '/userId');
 
 const routeMap = new Map();
 routeMap.set('home', '/');
