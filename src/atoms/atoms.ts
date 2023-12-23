@@ -132,6 +132,11 @@ export const searchResultsState = atom<SimplifyUser[]>({
 });
 
 export const imageState = atom({
-  key: 'imageState',
-  default: ''
+    key: 'imageState',
+    default: ''
+  })
+  
+export const userIdState = atom({
+  key: 'userIdState',
+  default: localStorage.getItem('userId') || null,
 });
