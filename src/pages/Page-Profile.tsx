@@ -1,17 +1,16 @@
-import { useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { doc, getDoc } from 'firebase/firestore';
+import { imageState } from '@/atoms/atoms';
 import FollowCount from '@/components/profile/FollowCount';
 import PostsGrid from '@/components/profile/PostsGrid';
 import ProfileDetail from '@/components/profile/ProfileDetail';
 import ProfileImg from '@/components/profile/ProfileImg';
 import { FOLLOW } from '@/constants/Follow';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
+import { firestore } from '@/firebase.config';
 import { Between, Column } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
-import { collection, doc, getDoc, updateDoc } from 'firebase/firestore';
-import { firestore, storage } from '@/firebase.config';
-import { useRecoilState } from 'recoil';
-import { imageState } from '@/atoms/atoms';
 
 const Profile = () => {
   useComposeHeader(true, '', 'icons');
@@ -36,7 +35,7 @@ const Profile = () => {
 
       if (userDocSnapshot.exists()) {
         const userData = userDocSnapshot.data();
-        const userProfileUrl = userData?.user?.profileUrl || ''; // Adjust the path according to your data structure
+        const userProfileUrl = userData?.user?.profileUrl || '';
 
         setProfileUrl(userProfileUrl);
       } else {
