@@ -1,22 +1,12 @@
-import { useEffect, useState } from 'react';
-import {
-  getStorageImg,
-  getUserDocRef,
-  setProfileImg,
-  setStorageImg
-} from '@/api/profile';
 import EditProfileImg from '@/components/mypage/EditProfileImg';
 import CheckNickname from '@/components/start/CheckNickname';
 import { TEXT } from '@/constants/texts';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
+import { useImgSubmit } from '@/hooks/useImgSubmit';
 import { FlexCenter, Justify } from '@/styles/layout';
 import { Cursor, LineH18, TextGray, Border16, Medium } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
-import { CachedData } from '@/types/types';
-import useGetCacheData from '@/hooks/useGetCacheData';
-import { useRecoilState } from 'recoil';
-import { imageState } from '@/atoms/atoms';
 
 const MyProfile = () => {
   useComposeHeader(false, '프로필 수정', 'close');
@@ -25,41 +15,7 @@ const MyProfile = () => {
     console.log('회원 탈퇴');
   };
 
-  const [cachedData, setCachedData] = useState<CachedData>();
-
-  const getCachedUserInfo = async () => {
-    const data = await useGetCacheData('user', '/userId');
-    setCachedData(data);
-  };
-
-  const userId = cachedData?.cacheData;
-
-  useEffect(() => {
-    getCachedUserInfo();
-  }, []);
-
-  const [imageUrl, setImageUrl] = useRecoilState(imageState);
-
-  const handleFormSubmit = async () => {
-    if (userId && imageUrl) {
-      try {
-        const userDocRef = await getUserDocRef();
-        const filePath = `users/${userId}/profileImage.jpg`;
-
-        const response = await fetch(imageUrl);
-        const blob = await response.blob();
-
-        const file = new File([blob], 'profileImage.jpg', {
-          type: 'image/jpeg'
-        });
-        await setStorageImg(filePath, file);
-        await getStorageImg(filePath);
-        await setProfileImg(userDocRef, filePath);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-  };
+  const { handleFormSubmit, setImageUrl } = useImgSubmit();
 
   const handleImageSelect = (selectedImage: File) => {
     setImageUrl(URL.createObjectURL(selectedImage));
