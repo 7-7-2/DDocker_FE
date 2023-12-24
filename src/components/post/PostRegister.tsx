@@ -1,7 +1,7 @@
 import '@pqina/pintura/pintura.css';
 import { useRef, useState } from 'react';
 import { PinturaEditorModal } from '@pqina/react-pintura';
-import { getEditorDefaults, createDefaultImageWriter } from '@pqina/pintura';
+import { getEditorDefaults } from '@pqina/pintura';
 import locale_ko_KR from '@pqina/pintura/locale/ko_KR';
 // _PINTURA
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -11,12 +11,7 @@ import CoffeeMenuSelection from '@/components/home/CoffeeMenuSelection';
 import RegisterLabel from '@/components/post/RegisterLabel';
 
 import { BUTTON_TEXTS, INPUT_TEXTS, LABEL_TEXTS } from '@/constants/common';
-import {
-  inputNicknameState,
-  registPostState,
-  useInputState
-} from '@/atoms/atoms';
-import { useStorage } from '@/api/profile';
+import { registPostState, useInputState } from '@/atoms/atoms';
 
 import { useShowFooter } from '@/hooks/useShowFooter';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
@@ -45,7 +40,6 @@ const PostRegister = () => {
   const [editorSrc, setEditorSrc] = useState<File>();
   const [imageUrl, setImageUrl] = useState<string>();
 
-  const { uploadFile } = useStorage();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleInputChange = () => {
