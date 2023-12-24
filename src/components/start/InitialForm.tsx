@@ -1,13 +1,13 @@
+import { useRecoilValue, useRecoilState } from 'recoil';
+import { authState, imageState } from '@/atoms/atoms';
 import Button from '@/components/common/Button';
+import EditProfileImg from '@/components/mypage/EditProfileImg';
 import SelectGender from '@/components/start/SelectGender';
 import CheckNickname from '@/components/start/CheckNickname';
-import ProfileImg from '@/components/profile/ProfileImg';
-
 import { INITIAL_FORM_TEXTS } from '@/constants/start';
 import { BUTTON_TEXTS } from '@/constants/common';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
-
 import { styled } from 'styled-system/jsx';
 import { Column } from '@/styles/layout';
 import {
@@ -17,8 +17,6 @@ import {
   Semibold,
   StartPageContainer
 } from '@/styles/styles';
-import { authState } from '@/atoms/atoms';
-import { useRecoilValue } from 'recoil';
 import { cx } from 'styled-system/css';
 
 const { message } = INITIAL_FORM_TEXTS;
@@ -26,6 +24,11 @@ const { message } = INITIAL_FORM_TEXTS;
 const InitialForm = () => {
   useComposeHeader(false, '기본정보', 'close');
   const { user } = useRecoilValue(authState);
+  const [imageUrl, setImageUrl] = useRecoilState(imageState);
+
+  const handleImageSelect = (selectedImage: File) => {
+    setImageUrl(URL.createObjectURL(selectedImage));
+  };
 
   return (
     <div className={Column}>
@@ -37,7 +40,7 @@ const InitialForm = () => {
           {message.second}
         </InitialFormText>
         <ProfileContainer>
-          <ProfileImg edit />
+          <EditProfileImg onImageSelect={handleImageSelect} />
         </ProfileContainer>
         <CheckNickname />
         <SelectGender />

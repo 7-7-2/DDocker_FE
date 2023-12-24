@@ -1,13 +1,12 @@
 import { useEffect } from 'react';
-import { getDoc } from 'firebase/firestore';
-import useGetCacheData from '@/hooks/useGetCacheData';
 import { useRecoilState } from 'recoil';
-import { imageState } from '@/atoms/atoms';
+import { getDoc } from 'firebase/firestore';
 import { getUserDocRef } from '@/api/profile';
+import { imageState } from '@/atoms/atoms';
+import useGetCacheData from '@/hooks/useGetCacheData';
 
 export const useGetProfileImg = () => {
   const [profileUrl, setProfileUrl] = useRecoilState(imageState);
-
   const userId = useGetCacheData('user', '/userId');
 
   useEffect(() => {
