@@ -30,8 +30,10 @@ export const getStorageImg = async (path: string): Promise<string | void> => {
 
 // 생성된 문서에 다운로드 받은 이미지를 업데이트(수정, 추가) 하는 함수
 export const setProfileImg = async (getUserDocRef: DocumentReference, filePath: string): Promise<void> => {
-    const downloadURL = await getStorageImg(filePath);
-    await updateDoc(getUserDocRef, {
-      'user.profileUrl': downloadURL
-    }).catch(error => console.log(error));
-  };
+    const downloadURL = await getStorageImg(filePath)
+    if (downloadURL) {
+        await updateDoc(getUserDocRef, {
+            'user.profileUrl': downloadURL
+        })    
+    }
+}
