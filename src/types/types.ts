@@ -116,3 +116,7 @@ export interface caffeineFilterTypes {
 export enum Collections {
   USERS = 'users'
 }
+
+export interface EditProfileImgProps {
+  onImageSelect: (setProfileImg: File) => void
+}
