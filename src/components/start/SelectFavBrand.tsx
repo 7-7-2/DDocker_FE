@@ -1,15 +1,14 @@
 import { useRecoilValue } from 'recoil';
 import { setInitialInfo } from '@/api/user';
+import { authState } from '@/atoms/atoms';
 import BrandItem from '@/components/start/BrandItem';
 import Button from '@/components/common/Button';
-
 import { SELECTFAVBRAND_TEXTS, BRANDLIST } from '@/constants/start';
 import { BUTTON_TEXTS } from '@/constants/common';
-import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
-import { authState } from '@/atoms/atoms';
+import { useImgSubmit } from '@/hooks/useImgSubmit';
+import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { AuthTypes } from '@/types/types';
-
 import { styled } from 'styled-system/jsx';
 import { Grid } from '@/styles/layout';
 import { DefaultBtn, DisabledBtn, StartPageContainer } from '@/styles/styles';
@@ -20,6 +19,8 @@ const { message } = SELECTFAVBRAND_TEXTS;
 export const SelectFavBrand = () => {
   useComposeHeader(false, '기본정보', 'close');
   const { user } = useRecoilValue(authState);
+  const { handleFormSubmit, setImageUrl } = useImgSubmit();
+
   const navigateToHome = useNavigateTo('/');
   const navigateToMe = useNavigateTo('/start/3');
 
@@ -37,8 +38,9 @@ export const SelectFavBrand = () => {
       },
       signIn: true
     };
-
+    console.log(userInfo);
     setInitialInfo(userInfo);
+    handleFormSubmit();
     navigateToHome();
   };
 
