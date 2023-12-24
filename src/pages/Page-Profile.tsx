@@ -11,13 +11,14 @@ import { Between, Column } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
+const icons = [
+  { number: FOLLOW.post, label: '게시물' },
+  { number: FOLLOW.following, label: '팔로잉' },
+  { number: FOLLOW.followed, label: '팔로워' }
+];
+
 const Profile = () => {
   useComposeHeader(true, '', 'icons');
-  const icons = [
-    { number: FOLLOW.post, label: '게시물' },
-    { number: FOLLOW.following, label: '팔로잉' },
-    { number: FOLLOW.followed, label: '팔로워' }
-  ];
 
   const [profileUrl, setProfileUrl] = useRecoilState(imageState);
 

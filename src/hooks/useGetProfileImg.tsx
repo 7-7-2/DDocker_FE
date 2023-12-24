@@ -17,11 +17,11 @@ export const useGetProfileImg = () => {
       const userDocRef = await getUserDocRef();
       try {
         const fetchedImg = await getDoc(userDocRef);
-        if (fetchedImg.exists()) {
-          const userData = fetchedImg.data();
-          const userProfileUrl = userData?.user?.profileUrl || '';
-          setProfileUrl(userProfileUrl);
-        }
+        if (!fetchedImg.exists())
+          throw new Error('이미지가 존재하지 않습니다.');
+        const userData = fetchedImg.data();
+        const userProfileUrl = userData?.user?.profileUrl || '';
+        setProfileUrl(userProfileUrl);
       } catch (err) {
         console.log(err);
       }

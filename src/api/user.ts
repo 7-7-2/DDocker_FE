@@ -38,7 +38,7 @@ export const signOutAuth = async () => {
 };
 
 // 소셜 로그인후 uid 가져오는 함수
-const getUserId = async () => {
+export const getUserId = async () => {
   const userId: CachedData = await useGetCacheData('user', '/userId');
   return userId.cacheData;
 };
