@@ -1,16 +1,15 @@
-import { lazy, Suspense } from 'react';
 import { useRecoilValue } from 'recoil';
-import { styled } from 'styled-system/jsx';
-import { cx, css } from 'styled-system/css';
+
+import HeaderCloseIcon from '@/components/common/HeaderCloseIcon';
+import HeaderIcons from '@/components/common/HeaderIcons';
 import {
   headerTextState,
   headerLogoState,
   headerIconsState
 } from '@/atoms/atoms';
+import { styled } from 'styled-system/jsx';
+import { cx, css } from 'styled-system/css';
 import { Between, Flex, Align } from '@/styles/layout';
-
-const HeaderIcons = lazy(() => import('./HeaderIcons'));
-const HeaderCloseIcon = lazy(() => import('./HeaderCloseIcon'));
 
 const Header = () => {
   const logo = useRecoilValue(headerLogoState);
@@ -35,10 +34,8 @@ const Header = () => {
         {text}
       </Center>
       <Right className={Flex}>
-        <Suspense>
-          {icons && <HeaderIcons />}
-          {close && <HeaderCloseIcon />}
-        </Suspense>
+        {icons && <HeaderIcons />}
+        {close && <HeaderCloseIcon />}
       </Right>
     </Container>
   );
