@@ -1,11 +1,12 @@
-import { useRecoilValue, useRecoilState } from 'recoil';
-import { authState, imageState } from '@/atoms/atoms';
+import { useRecoilValue } from 'recoil';
+import { authState } from '@/atoms/atoms';
 import Button from '@/components/common/Button';
 import EditProfileImg from '@/components/mypage/EditProfileImg';
 import SelectGender from '@/components/start/SelectGender';
 import CheckNickname from '@/components/start/CheckNickname';
 import { INITIAL_FORM_TEXTS } from '@/constants/start';
 import { BUTTON_TEXTS } from '@/constants/common';
+import { useImgSubmit } from '@/hooks/useImgSubmit';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { styled } from 'styled-system/jsx';
@@ -24,8 +25,7 @@ const { message } = INITIAL_FORM_TEXTS;
 const InitialForm = () => {
   useComposeHeader(false, '기본정보', 'close');
   const { user } = useRecoilValue(authState);
-  const [imageUrl, setImageUrl] = useRecoilState(imageState);
-
+  const { handleFormSubmit, setImageUrl } = useImgSubmit();
   const handleImageSelect = (selectedImage: File) => {
     setImageUrl(URL.createObjectURL(selectedImage));
   };
