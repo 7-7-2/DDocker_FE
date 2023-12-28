@@ -11,6 +11,7 @@ export interface HeaderType {
 }
 
 export interface AuthTypes {
+  accumualted?: number;
   initialized: boolean;
   user: UserTypes;
   signIn: boolean;
@@ -87,7 +88,7 @@ export interface EmptyUserProps {
 
 export interface WeeklyPopularTypes {
   ranking: number;
-  brand: { icon: string; brand: string };
+  brand: string;
 }
 
 export interface CachedData {
@@ -104,17 +105,28 @@ export interface CoffeeItem {
   caffeine: string;
 }
 
+export interface TodayPostTypes {
+  brand: string;
+  name: string;
+  size: string;
+  shot: number;
+  caffeine: number;
+  title: string;
+  photo: string;
+}
+
 export interface CoffeeData {
   [brand: string]: CoffeeItem[];
 }
 
 export interface caffeineFilterTypes {
-  caffeine: string;
-  menuCaffeine: string;
+  caffeine: number;
+  menuCaffeine: number;
 }
 
 export enum Collections {
-  USERS = 'users'
+  USERS = 'users',
+  POSTS = 'posts'
 }
 
 export interface EditProfileImgProps {
