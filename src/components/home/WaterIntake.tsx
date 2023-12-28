@@ -9,7 +9,7 @@ const WaterIntake = () => {
     <Container className={cx(Align, Justify)}>
       <div className={cx(progress, Justify, Align)}>
         <img
-          src="/waterCup.png"
+          src="/png/waterCup.png"
           alt="water"
         />
         <IconContainer>
