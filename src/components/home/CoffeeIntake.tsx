@@ -1,18 +1,22 @@
 import { CAFFEINE_PER_WATER_TEXTS } from '@/constants/home';
 import { Align, Flex } from '@/styles/layout';
 import { Bold, Regular, Semibold } from '@/styles/styles';
-import { testData } from '@/types/types';
+import { DocumentData } from 'firebase/firestore';
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 
-const CoffeeIntake = ({ data }: { data: testData }) => {
-  const { coffeeIntake } = CAFFEINE_PER_WATER_TEXTS;
+const { coffeeIntake } = CAFFEINE_PER_WATER_TEXTS;
+
+const CoffeeIntake = ({ data }: { data: DocumentData[] }) => {
+  const todayCaffeine = data.map(item => item.caffeine);
+  const allCaffeine = todayCaffeine.reduce((acc, cur) => acc + cur);
+
   return (
     <div>
       <Title className={Regular}>{coffeeIntake.title}</Title>
       <ContentContainer className={Semibold}>
-        <CaffeineNum className={Bold}>{data.Allcaffeine}</CaffeineNum>mg
-        <CoffeeNum> /{data.coffee}잔</CoffeeNum>
+        <CaffeineNum className={Bold}>{allCaffeine}</CaffeineNum>mg
+        <CoffeeNum> /{data.length}잔</CoffeeNum>
       </ContentContainer>
       <div className={CaffeineProgress}>{coffeeIntake.subTitle}</div>
       <div className={cx(Flex, Align)}>
