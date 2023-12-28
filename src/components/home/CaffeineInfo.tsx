@@ -19,8 +19,8 @@ const CaffeineInfo = () => {
 
   useEffect(() => {
     setCaffeine({
-      caffeine: seledctedCaffeineInfo.caffeine,
-      menuCaffeine: seledctedCaffeineInfo.caffeine
+      caffeine: Number(seledctedCaffeineInfo.caffeine),
+      menuCaffeine: Number(seledctedCaffeineInfo.caffeine)
     });
   }, [selectedMenu]);
 
