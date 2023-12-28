@@ -9,6 +9,7 @@ import { authState } from '@/atoms/atoms';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import useSetCacheData from '@/hooks/useSetCacheData';
+import useGetCacheData from '@/hooks/useGetCacheData';
 
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
@@ -21,7 +22,6 @@ import {
   MarginAuto
 } from '@/styles/layout';
 import { Btn, SignInBtn } from '@/styles/styles';
-import useGetCacheData from '@/hooks/useGetCacheData';
 
 const { signInBtn, startText } = SIGININ_TEXTS;
 
