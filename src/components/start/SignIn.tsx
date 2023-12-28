@@ -1,7 +1,6 @@
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { GoogleAuthProvider } from 'firebase/auth';
 import { getUserInfo, signInWithGoogle } from '@/api/user';
-import { DocumentData } from 'firebase/firestore';
 
 import Icon from '@/components/common/Icon';
 import { SIGININ_TEXTS } from '@/constants/start';
@@ -22,11 +21,12 @@ import {
   MarginAuto
 } from '@/styles/layout';
 import { Btn, SignInBtn } from '@/styles/styles';
+import useGetCacheData from '@/hooks/useGetCacheData';
 
 const { signInBtn, startText } = SIGININ_TEXTS;
 
 const SignIn = () => {
-  const setUserAuthState = useSetRecoilState<AuthTypes>(authState);
+  const [userInfo, setUserAuthState] = useRecoilState<AuthTypes>(authState);
   const navToSignUp = useNavigateTo('/start/2');
   const navToHome = useNavigateTo('/');
 
@@ -35,15 +35,16 @@ const SignIn = () => {
       //sign in
       const res = await signInWithGoogle();
       const credential = GoogleAuthProvider.credentialFromResult(res);
-      const cacheData = credential?.accessToken as string;
-      await useSetCacheData('user', '/accessToken', cacheData);
+      const accessToken = credential?.accessToken as string;
+      await useSetCacheData('user', '/accessToken', accessToken);
       await useSetCacheData('user', '/userId', res.user.uid);
 
       // UserInfo 가져오는 로직
-      const userInfo: DocumentData | undefined = await getUserInfo();
+      const userData = (await getUserInfo()) as AuthTypes | undefined;
+      // const data = await useGetCacheData('user', '/user');
 
       // 초기 프로필 미설정 &&
-      if (!userInfo?.initialized) {
+      if (!userData) {
         const userInfo: AuthTypes = {
           initialized: false,
           user: {
@@ -60,12 +61,10 @@ const SignIn = () => {
         setUserAuthState({ ...userInfo });
       }
       // 프로필 설정 여부로 페이지 이동
-      {
-        !userInfo?.initialized ? navToSignUp() : navToHome();
-      }
+      !userData?.initialized ? navToSignUp() : navToHome();
     } catch {
       (error: string) => {
-        console.error(error);
+        console.log(error);
       };
     }
   };

@@ -11,7 +11,8 @@ import {
   getDoc,
   DocumentData,
   collection,
-  getDocs
+  getDocs,
+  onSnapshot
 } from 'firebase/firestore';
 import { app } from '@/firebase.config';
 import { AuthTypes, CachedData, Collections, UserTypes } from '@/types/types';
@@ -33,33 +34,46 @@ export const signInWithGoogle = async () => {
   return await signInWithPopup(auth, googleProvider);
 };
 
+// 로그아웃
 export const signOutAuth = async () => {
   await signOut(auth);
 };
 
 // 소셜 로그인후 uid 가져오는 함수
 export const getUserId = async () => {
-  const userId: CachedData = await useGetCacheData('user', '/userId');
-  return userId.cacheData;
+  try {
+    const userId: CachedData = await useGetCacheData('user', '/userId');
+    return userId.cacheData;
+  } catch (error) {
+    console.log('Failed to load userID');
+    return undefined;
+  }
+};
+
+//  userInfo를 cache storage에 caching 하는 함수
+export const cacheUserInfo = async (data: DocumentData) => {
+  await useSetCacheData('user', '/user', data);
 };
 
 // User 정보 가져오는 함수
 export const getUserInfo = async () => {
   const userDocRef = await getUserDocRef();
+  onSnapshot(userDocRef, doc => {
+    if (doc.exists()) {
+      const data = doc.data();
+      data && cacheUserInfo(data);
+    }
+  });
   const data = (await getDoc(userDocRef)).data();
-  const cacheUserInfo = async (data: DocumentData) => {
-    await useSetCacheData('user', '/user', data);
-  };
-  {
-    data && cacheUserInfo(data);
-  }
   return data;
 };
 
 // 프로필 설정 후 DB저장
 export const setInitialInfo = async (userInfo: AuthTypes) => {
   const userDocRef = await getUserDocRef();
-  await setDoc(userDocRef, { ...userInfo }, { merge: true });
+  await setDoc(userDocRef, { ...userInfo }, { merge: true }).catch(error =>
+    console.log('Failed to save user initial info on DB', error)
+  );
   await getUserInfo();
 };
 
@@ -67,19 +81,21 @@ export const setInitialInfo = async (userInfo: AuthTypes) => {
 export const getNicknameList = async () => {
   const fieldValues: UserTypes[] = [];
   const nicknameList: string[] = [];
-
   const userListDocRef = collection(getFirestore(), Collections.USERS);
-  const data = await getDocs(userListDocRef);
-
-  data &&
-    data.forEach((doc: DocumentData) => {
-      const fieldValue = doc.data()['user'];
-      fieldValue && fieldValues.push(fieldValue);
-    });
-
-  fieldValues.map(
-    (item: UserTypes) => item.nickname && nicknameList.push(item.nickname)
-  );
-
-  return nicknameList;
+  try {
+    const data = await getDocs(userListDocRef);
+    if (data) {
+      data.forEach((doc: DocumentData) => {
+        const fieldValue = doc.data()['user'];
+        fieldValue && fieldValues.push(fieldValue);
+      });
+      fieldValues.map(
+        (item: UserTypes) => item.nickname && nicknameList.push(item.nickname)
+      );
+      return nicknameList;
+    }
+    throw new ReferenceError('Failed to push the nickname List');
+  } catch (error) {
+    return console.log(error);
+  }
 };
