@@ -9,23 +9,23 @@ import { TODAY_CAFFEINE_INFO_TEXTS } from '@/constants/home';
 const data: WeeklyPopularTypes[] = [
   {
     ranking: 1,
-    brand: { icon: 'icon', brand: '스타벅스' }
+    brand: 'starbucks'
   },
   {
     ranking: 2,
-    brand: { icon: 'icon', brand: '이디야' }
+    brand: 'compose'
   },
   {
     ranking: 3,
-    brand: { icon: 'icon', brand: '할리스' }
+    brand: 'hollys'
   },
   {
     ranking: 4,
-    brand: { icon: 'icon', brand: '빽다방' }
+    brand: 'ediya'
   },
   {
     ranking: 5,
-    brand: { icon: 'icon', brand: '투썸플레이스' }
+    brand: 'megacoffee'
   }
 ];
 
@@ -36,9 +36,10 @@ const WeeklyPopular = () => {
       <div className={Semibold}>{weeklyPopular}</div>
       <WeeklyPopularList className={cx(Grid, Medium)}>
         {data.map(item => (
-          <div key={item.ranking}>
-            <WeeklyPopularItem data={item} />
-          </div>
+          <WeeklyPopularItem
+            data={item}
+            key={item.ranking}
+          />
         ))}
       </WeeklyPopularList>
     </Container>
