@@ -8,6 +8,7 @@ import { authState } from '@/atoms/atoms';
 import { styled } from 'styled-system/jsx';
 import { css, cx } from 'styled-system/css';
 import { Center, Column } from '@/styles/layout';
+import convertBrandName from '@/utils/convertBrandName';
 
 const BrandItem = (brandInfo: BrnadItemProps) => {
   const { user } = useRecoilValue(authState);
@@ -23,6 +24,8 @@ const BrandItem = (brandInfo: BrnadItemProps) => {
     </SelectedIconContainer>
   );
 
+  const icon = `/png/${brandInfo.brand}.png`;
+
   return (
     <ItemContainer
       id={brandInfo.brand}
@@ -35,8 +38,13 @@ const BrandItem = (brandInfo: BrnadItemProps) => {
         Center
       )}>
       {selectedIcon}
-      <IconContainer>{brandInfo.icon}</IconContainer>
-      <span>{brandInfo.brand}</span>
+      <IconContainer>
+        <img
+          src={icon}
+          alt={brandInfo.brand}
+        />
+      </IconContainer>
+      <span>{convertBrandName(brandInfo.brand)}</span>
     </ItemContainer>
   );
 };
@@ -45,7 +53,6 @@ const IconContainer = styled.button`
   width: 46px;
   height: 46px;
   border-radius: 46px;
-  background-color: bisque;
   color: transparent;
   margin-bottom: 9px;
 `;
