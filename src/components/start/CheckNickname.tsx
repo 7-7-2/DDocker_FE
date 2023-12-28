@@ -21,18 +21,24 @@ const CheckNickname = () => {
   const [isApproval, setIsapproval] = useState(false);
   const setInitialInfo = useSetUserInitialInfo();
 
+  const checkIsApproval = async () => {
+    try {
+      const nicknameList: string[] = await getNicknameList();
+      const isApproval: boolean =
+        nicknameList && !nicknameList.includes(inputValue);
+      setIsapproval(isApproval);
+      isApproval && setInitialInfo(inputValue, user.brand, user.gender);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const cilckIdCheckBtn = async () => {
     setTimeout(async () => {
+      await checkIsApproval();
       setIsAlert(true);
     }, 500);
     clearTimeout;
-    const checkIsApproval = async () => {
-      const nicknameList = await getNicknameList();
-      return nicknameList && !nicknameList.includes(inputValue);
-    };
-
-    setIsapproval(await checkIsApproval());
-    !isApproval && setInitialInfo(inputValue, user.brand, user.gender);
   };
 
   const allertMessage = isApproval

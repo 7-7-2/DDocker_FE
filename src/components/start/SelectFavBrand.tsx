@@ -41,12 +41,11 @@ export const SelectFavBrand = () => {
       },
       signIn: true
     };
-    console.log(userInfo);
     setInitialInfo(userInfo);
     handleFormSubmit();
     navigateToHome();
   };
-  console.log(brandList);
+
   return (
     <>
       <div className={StartPageContainer}>

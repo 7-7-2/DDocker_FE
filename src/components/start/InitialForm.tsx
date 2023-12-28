@@ -29,7 +29,6 @@ const InitialForm = () => {
   const handleImageSelect = (selectedImage: File) => {
     setImageUrl(URL.createObjectURL(selectedImage));
   };
-
   return (
     <div className={Column}>
       <div className={StartPageContainer}>

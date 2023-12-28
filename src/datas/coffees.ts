@@ -1,5 +1,5 @@
 const coffeeData = {
-  엔젤리너스: [
+  angelinus: [
     {
       brand: '엔제리너스',
       name: '돌체라떼',
@@ -56,7 +56,7 @@ const coffeeData = {
       caffeine: '221'
     }
   ],
-  빽다방: [
+  bbak: [
     {
       brand: '빽다방',
       name: '더블에스프레소',
@@ -123,7 +123,7 @@ const coffeeData = {
       caffeine: '195'
     }
   ],
-  컴포즈커피: [
+  compose: [
     {
       brand: '컴포즈커피',
       name: '아메리카노',
@@ -185,7 +185,7 @@ const coffeeData = {
       caffeine: '156'
     }
   ],
-  이디야: [
+  ediya: [
     {
       brand: '이디야',
       name: '바닐라 라떼',
@@ -277,7 +277,7 @@ const coffeeData = {
       caffeine: '93'
     }
   ],
-  할리스: [
+  hollys: [
     {
       brand: '할리스',
       name: '프리미엄 블렌드 아메리카노',
@@ -339,7 +339,7 @@ const coffeeData = {
       caffeine: '93'
     }
   ],
-  메가커피: [
+  megacoffee: [
     {
       brand: '메가커피',
       name: '아메리카노',
@@ -423,7 +423,7 @@ const coffeeData = {
       caffeine: '313'
     }
   ],
-  파스쿠찌: [
+  pascucci: [
     {
       brand: '파스쿠찌',
       name: '헤이오트라떼',
@@ -480,7 +480,7 @@ const coffeeData = {
       caffeine: '160'
     }
   ],
-  폴바셋: [
+  paulbassett: [
     {
       brand: '폴바셋',
       name: '룽고',
@@ -602,7 +602,7 @@ const coffeeData = {
       caffeine: '170'
     }
   ],
-  스타벅스: [
+  starbucks: [
     {
       brand: '스타벅스',
       name: '나이트로 바닐라 크림',
@@ -834,7 +834,7 @@ const coffeeData = {
       caffeine: '150'
     }
   ],
-  더벤티: [
+  theventi: [
     {
       brand: '더벤티',
       name: '아인슈페너',

@@ -82,20 +82,14 @@ export const getNicknameList = async () => {
   const fieldValues: UserTypes[] = [];
   const nicknameList: string[] = [];
   const userListDocRef = collection(getFirestore(), Collections.USERS);
-  try {
-    const data = await getDocs(userListDocRef);
-    if (data) {
-      data.forEach((doc: DocumentData) => {
-        const fieldValue = doc.data()['user'];
-        fieldValue && fieldValues.push(fieldValue);
-      });
-      fieldValues.map(
-        (item: UserTypes) => item.nickname && nicknameList.push(item.nickname)
-      );
-      return nicknameList;
-    }
-    throw new ReferenceError('Failed to push the nickname List');
-  } catch (error) {
-    return console.log(error);
-  }
+  const data = await getDocs(userListDocRef);
+  data &&
+    data.forEach((doc: DocumentData) => {
+      const fieldValue = doc.data()['user'];
+      fieldValue && fieldValues.push(fieldValue);
+    });
+  fieldValues.map(
+    (item: UserTypes) => item.nickname && nicknameList.push(item.nickname)
+  );
+  return nicknameList;
 };
