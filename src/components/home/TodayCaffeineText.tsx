@@ -1,38 +1,47 @@
+import { useRecoilValue } from 'recoil';
+import { useLayoutEffect, useState } from 'react';
+import { DocumentData } from 'firebase/firestore';
+
+import { authState } from '@/atoms/atoms';
 import Icon from '@/components/common/Icon';
 import { TODAY_CAFFEINE_INFO_TEXTS } from '@/constants/home';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import useGetCacheData from '@/hooks/useGetCacheData';
+import { getUserInfo } from '@/api/user';
+import { getTodayCoffeeInfo } from '@/api/post';
+import { UserCachedData } from '@/types/types';
+
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Align, Between, Column, Flex } from '@/styles/layout';
 import { Regular } from '@/styles/styles';
-import { useRecoilValue } from 'recoil';
-import { authState } from '@/atoms/atoms';
-import { useEffect, useState } from 'react';
-import { UserCachedData, UserTypes } from '@/types/types';
 
 const { anonymous, signedIn } = TODAY_CAFFEINE_INFO_TEXTS;
 
-const TodayCaffeineText = ({
-  accessToken
-}: {
-  accessToken: string | undefined;
-}) => {
-  const testdata = 2;
+const TodayCaffeineText = () => {
   const [cachedUser, setCachedUser] = useState<UserCachedData>();
+  const [dataList, setDataList] = useState<DocumentData[]>([]);
+  const userInfo = useRecoilValue(authState);
 
   const getCachedUserInfo = async () => {
     const data = await useGetCacheData('user', '/user');
     setCachedUser(data);
   };
 
-  const user = cachedUser?.cacheData.user;
+  const getDataList = async () => {
+    const dataList = await getTodayCoffeeInfo();
+    setDataList(dataList);
+  };
 
-  useEffect(() => {
+  const user = cachedUser?.cacheData;
+
+  useLayoutEffect(() => {
+    getUserInfo();
     getCachedUserInfo();
+    getDataList();
   }, []);
 
-  const anonymousText = (
+  const anonymousText = !user && (
     <div className={Column}>
       <span>{anonymous.first}</span>
       <span>{anonymous.second}</span>
@@ -43,11 +52,11 @@ const TodayCaffeineText = ({
   const signedInText = (
     <div className={Column}>
       <span>
-        {user?.nickname}
+        {user ? user?.user.nickname : userInfo.user.nickname}
         {signedIn.first}
       </span>
       <div>
-        <CaffeineInfo>총 27,689mg</CaffeineInfo>
+        <CaffeineInfo>총 {user?.accumualted || 0}mg</CaffeineInfo>
         {signedIn.second}
       </div>
       <span>{signedIn.third}</span>
@@ -57,7 +66,7 @@ const TodayCaffeineText = ({
   const signedInMessage = (
     <div>
       {signedIn.messageText.first}
-      {testdata}
+      {dataList && dataList.length * 2}
       {signedIn.messageText.second}
     </div>
   );
@@ -65,16 +74,18 @@ const TodayCaffeineText = ({
   return (
     <TodayCaffeineInfoContainer>
       <div className={cx(Flex, Align, Between)}>
-        {accessToken ? signedInText : anonymousText}
+        {user?.signIn ? signedInText : anonymousText}
         <img
-          src="/coffee_mainimg.png"
+          src="/png/coffee_mainimg.png"
           alt="coffee"
         />
       </div>
       <MessageContainer className={cx(Align)}>
         <Icon {...iconPropsGenerator('message', '15')} />
         <MessageText className={Regular}>
-          {accessToken ? signedInMessage : anonymous.messageText}
+          {dataList && dataList.length >= 1
+            ? signedInMessage
+            : anonymous.messageText}
         </MessageText>
       </MessageContainer>
     </TodayCaffeineInfoContainer>

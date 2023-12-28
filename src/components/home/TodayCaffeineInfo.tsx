@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useLayoutEffect, useState, Suspense } from 'react';
 import TodayCaffeineText from '@/components/home/TodayCaffeineText';
 import WaterPerCoffee from '@/components/home/WaterPerCoffee';
 import useGetCacheData from '@/hooks/useGetCacheData';
 import { CachedData, UserCachedData } from '@/types/types';
+import { getTodayCoffeeInfo } from '@/api/post';
+import { styled } from 'styled-system/jsx';
 
 const TodayCaffeineInfo = () => {
   const [cachedData, setCachedData] = useState<CachedData>();
@@ -14,16 +16,25 @@ const TodayCaffeineInfo = () => {
 
   const accessToken = cachedData?.cacheData;
 
-  useEffect(() => {
-    getCachedUserInfo();
+  useLayoutEffect(() => {
+    const getData = async () => {
+      await getCachedUserInfo();
+      await getTodayCoffeeInfo();
+    };
+    getData();
   }, []);
 
   return (
-    <div>
-      <TodayCaffeineText accessToken={accessToken} />
-      <WaterPerCoffee accessToken={accessToken} />
-    </div>
+    <Container>
+      <Suspense>
+        <TodayCaffeineText />
+        <WaterPerCoffee accessToken={accessToken} />
+      </Suspense>
+    </Container>
   );
 };
 
+const Container = styled.div`
+  width: 100%;
+`;
 export default TodayCaffeineInfo;

@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react';
+import { DocumentData } from 'firebase/firestore';
+import { getTodayCoffeeInfo } from '@/api/post';
 import Button from '@/components/common/Button';
 import CoffeeIntake from '@/components/home/CoffeeIntake';
 import TodayMenuItem from '@/components/home/TodayMenuItem';
@@ -5,6 +8,9 @@ import WaterIntake from '@/components/home/WaterIntake';
 import { BUTTON_TEXTS } from '@/constants/common';
 import { TODAY_CAFFEINE_INFO_TEXTS } from '@/constants/home';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
+
+import { css, cx } from 'styled-system/css';
+import { styled } from 'styled-system/jsx';
 import {
   Align,
   Between,
@@ -14,36 +20,24 @@ import {
   MarginAuto
 } from '@/styles/layout';
 import { LoginBtn, Medium, Regular } from '@/styles/styles';
-import { testData } from '@/types/types';
-import { css, cx } from 'styled-system/css';
-import { styled } from 'styled-system/jsx';
 
-const data: testData = {
-  Allcaffeine: 185,
-  coffee: 2,
-  menu: [
-    {
-      icon: '',
-      brand: '스타벅스',
-      caffeine: 185,
-      menuName: '아이스아메리카노'
-    },
-    {
-      icon: '',
-      brand: '이디야',
-      caffeine: 200,
-      menuName: '아이스아메리카노'
-    }
-  ]
-};
+const { anonymous, signedIn } = TODAY_CAFFEINE_INFO_TEXTS;
 
 const WaterPerCoffee = ({
   accessToken
 }: {
   accessToken: string | undefined;
 }) => {
-  const dataList = data.menu;
-  const { anonymous, signedIn } = TODAY_CAFFEINE_INFO_TEXTS;
+  const [dataList, setDataList] = useState<DocumentData[]>([]);
+
+  const consumedCoffeList = async () => {
+    const dataList = await getTodayCoffeeInfo();
+    setDataList(dataList);
+  };
+
+  useEffect(() => {
+    consumedCoffeList();
+  }, []);
 
   const anonymousCard = (
     <div className={cx(Column, Center, MarginAuto)}>
@@ -65,40 +59,47 @@ const WaterPerCoffee = ({
       </span>
       <Button
         text={signedIn.btn}
-        onTouchEnd={useNavigateTo('/start/1')}
+        onTouchEnd={useNavigateTo('/post/register')}
         className={cx(RegistCoffeeBtn, Medium)}
       />
     </div>
   );
 
   const consumedCoffee = (
-    <div>
+    <div className={Column}>
       <div className={cx(Flex, Between)}>
-        <CoffeeIntake data={data} />
+        <CoffeeIntake data={dataList} />
         <WaterIntake />
       </div>
       <TodayMenuList className={Flex}>
-        {dataList.map(item => (
-          <div key={item.brand}>
-            <TodayMenuItem data={item} />
-          </div>
+        {dataList.map((item, idx) => (
+          <TodayMenuItem
+            data={item}
+            key={idx}
+          />
         ))}
       </TodayMenuList>
     </div>
   );
 
   return (
-    <Containere className={cx(data.coffee ? CosumedCoffee : Default, Align)}>
+    <Container
+      className={cx(
+        dataList.length >= 1 ? CosumedCoffee : Default,
+        Align,
+        Between
+      )}>
       {!accessToken && anonymousCard}
-      {accessToken && !data.coffee && notConsumedCoffee}
-      {accessToken && data.coffee >= 1 && consumedCoffee}
-    </Containere>
+      {accessToken && dataList.length === 0 && notConsumedCoffee}
+      {accessToken && dataList.length >= 1 && consumedCoffee}
+    </Container>
   );
 };
 
 export default WaterPerCoffee;
 
-const Containere = styled.div`
+const Container = styled.div`
+  width: inherit;
   height: 220px;
   border-radius: 16px;
   margin-top: 16px;
@@ -106,20 +107,21 @@ const Containere = styled.div`
 
 const CosumedCoffee = css`
   background: #fff;
-  padding: 20px;
   box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.1);
   color: #313131;
+  padding: 20px;
+`;
+
+const TodayMenuList = styled.div`
+  width: calc(100vw - 80px);
+  margin-top: 25px;
+  overflow-x: scroll;
 `;
 
 const Default = css`
   border: 1px solid #ccc;
   background: #ebebeb;
   text-align: center;
-`;
-
-const TodayMenuList = styled.div`
-  margin-top: 25px;
-  overflow-x: scroll;
 `;
 
 const AlertMessage = css`
