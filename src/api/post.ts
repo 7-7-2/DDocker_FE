@@ -21,17 +21,20 @@ export const getSubCollecton = async (SubCollection: string) => {
 // Post 등록
 export const setPostRegist = async (postInfo: TodayPostTypes) => {
   const userDocRef = await getUserDocRef();
-  const postCollection = await getSubCollecton(Collections.POSTS);
-  await setDoc(doc(postCollection), {
-    ...postInfo,
-    timestamp: serverTimestamp()
-  }).catch(error => console.log('Failed to regist post', error));
-
-  const data = (await getDoc(userDocRef)).data();
-  const caffeineData = data?.accumualted;
-  await updateDoc(userDocRef, {
-    accumualted: caffeineData + postInfo.caffeine
-  });
+  try {
+    const postCollection = await getSubCollecton(Collections.POSTS);
+    await setDoc(doc(postCollection), {
+      ...postInfo,
+      timestamp: serverTimestamp()
+    });
+    const data = (await getDoc(userDocRef)).data();
+    const caffeineData = data?.accumualted;
+    await updateDoc(userDocRef, {
+      accumualted: caffeineData + postInfo.caffeine
+    });
+  } catch (error) {
+    console.log('Failed to regist post', error);
+  }
 };
 
 export const getTodayCoffeeInfo = async () => {

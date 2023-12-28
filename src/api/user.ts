@@ -71,10 +71,12 @@ export const getUserInfo = async () => {
 // 프로필 설정 후 DB저장
 export const setInitialInfo = async (userInfo: AuthTypes) => {
   const userDocRef = await getUserDocRef();
-  await setDoc(userDocRef, { ...userInfo }, { merge: true }).catch(error =>
-    console.log('Failed to save user initial info on DB', error)
-  );
-  await getUserInfo();
+  try {
+    await setDoc(userDocRef, { ...userInfo }, { merge: true });
+    await getUserInfo();
+  } catch (error) {
+    console.log('Failed to save user initial info on DB', error);
+  }
 };
 
 // 닉네임 중복 체크
