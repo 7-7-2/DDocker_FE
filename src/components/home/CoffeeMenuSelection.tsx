@@ -1,24 +1,25 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 
 import RegisterLabel from '@/components/post/RegisterLabel';
 import { CAFFEINE_FILTER_TEXTS } from '@/constants/home';
 import useGetCacheData from '@/hooks/useGetCacheData';
 import { CoffeeData, UserCachedData } from '@/types/types';
+import { setBrnadList } from '@/utils/setBrandList';
 import coffeeData from '@/datas/coffees';
 
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Medium } from '@/styles/styles';
 import { Column, Flex, Grid } from '@/styles/layout';
-import { useRecoilState, useSetRecoilState } from 'recoil';
 import {
   registPostState,
   selectedBrandState,
   selectedMenuInfoState,
-  selectedMenuState,
-  userInfoState
+  selectedMenuState
 } from '@/atoms/atoms';
+import convertBrandName from '@/utils/convertBrandName';
 
 const { coffeeMenu } = CAFFEINE_FILTER_TEXTS;
 
@@ -28,14 +29,17 @@ const CoffeeMenuSelection = () => {
   const [cachedUser, setCachedUser] = useState<UserCachedData>();
   const [selectedBrand, setSelectedBrand] = useRecoilState(selectedBrandState);
   const [selectedMenu, setSelectedMenu] = useRecoilState(selectedMenuState);
-  const setSelectedMenuInfo = useSetRecoilState(selectedMenuInfoState);
+  const [selectedMenuInfo, setSelectedMenuInfo] = useRecoilState(
+    selectedMenuInfoState
+  );
   const [menuList, setMenuList] = useState<string[]>([]);
   const [registInfo, setRegistInfo] = useRecoilState(registPostState);
 
   const newRegistData = {
     ...registInfo,
     brand: selectedBrand,
-    name: selectedMenu
+    name: selectedMenuInfo.name,
+    caffeine: Number(selectedMenuInfo.caffeine)
   };
 
   useEffect(() => {
@@ -49,18 +53,13 @@ const CoffeeMenuSelection = () => {
       setSelectedBrand(data.cacheData.user.brand);
       getMenuList(data.cacheData.user.brand);
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
   };
 
   const user = cachedUser?.cacheData.user;
 
-  const setbrnadList = () => {
-    const list = Object.keys(coffeeData);
-    return list;
-  };
-
-  const brandList = setbrnadList();
+  const brandList = setBrnadList();
 
   const selectedBrandData: CoffeeData = coffeeData;
 
@@ -75,19 +74,19 @@ const CoffeeMenuSelection = () => {
       item => item.name === selectedMenu
     );
     setSelectedMenuInfo(selectedCaffeineInfo[0]);
+    setRegistInfo(newRegistData);
   };
 
   const selectBrand = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedBrand(e.target.value);
     getMenuList(e.target.value);
-    setSelectedMenu('');
     setRegistInfo(newRegistData);
+    setSelectedMenu('');
   };
 
   const selectMenu = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedMenu(e.target.value);
     getMenuInfo(e.target.value);
-    setRegistInfo(newRegistData);
   };
 
   return (
@@ -108,7 +107,11 @@ const CoffeeMenuSelection = () => {
             value={selectedBrand}
             onChange={selectBrand}>
             <option
-              value={selectedBrand ? user?.brand : coffeeMenu.brand}
+              value={
+                selectedBrand
+                  ? convertBrandName(selectedBrand)
+                  : coffeeMenu.brand
+              }
               disabled
               defaultValue={coffeeMenu.brand}
               hidden>
@@ -118,7 +121,7 @@ const CoffeeMenuSelection = () => {
               <option
                 key={idx}
                 value={item}>
-                {item}
+                {convertBrandName(item)}
               </option>
             ))}
           </select>

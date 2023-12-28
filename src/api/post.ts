@@ -10,7 +10,7 @@ import {
   setDoc,
   updateDoc
 } from 'firebase/firestore';
-import { getUserDocRef, getUserId } from '@/api/user';
+import { getUserDocRef } from '@/api/user';
 
 // getSubCollection
 export const getSubCollecton = async (SubCollection: string) => {
@@ -29,7 +29,6 @@ export const setPostRegist = async (postInfo: TodayPostTypes) => {
 
   const data = (await getDoc(userDocRef)).data();
   const caffeineData = data?.accumualted;
-  console.log(caffeineData);
   await updateDoc(userDocRef, {
     accumualted: caffeineData + postInfo.caffeine
   });
@@ -40,6 +39,5 @@ export const getTodayCoffeeInfo = async () => {
   const dataList: DocumentData[] = [];
   const data = (await getDocs(postCollection)).docs;
   data.map(item => dataList.push(item.data()));
-  console.log(dataList);
   return dataList;
 };
