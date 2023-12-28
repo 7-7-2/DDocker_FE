@@ -12,6 +12,7 @@ import RegisterLabel from '@/components/post/RegisterLabel';
 
 import { BUTTON_TEXTS, INPUT_TEXTS, LABEL_TEXTS } from '@/constants/common';
 import { registPostState, useInputState } from '@/atoms/atoms';
+import { setPostRegist } from '@/api/post';
 
 import { useShowFooter } from '@/hooks/useShowFooter';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
@@ -67,6 +68,7 @@ const PostRegister = () => {
   const clickRegisterBtn = () => {
     navigateToDetail;
     setRegistInfo(newRegistData);
+    setPostRegist(registInfo);
   };
 
   return (
