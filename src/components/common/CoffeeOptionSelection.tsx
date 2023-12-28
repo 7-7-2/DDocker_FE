@@ -33,14 +33,14 @@ const CoffeeOptionSelection = () => {
 
   const largeSize = () => {
     setCaffeine({
-      caffeine: String(Number(caffeine.caffeine) + 75),
+      caffeine: Number(caffeine.caffeine) + 75,
       menuCaffeine: caffeine.menuCaffeine
     });
   };
 
   const VentiSize = () => {
     setCaffeine({
-      caffeine: String(Number(caffeine.caffeine) + 150),
+      caffeine: Number(caffeine.caffeine) + 150,
       menuCaffeine: caffeine.menuCaffeine
     });
   };
@@ -54,8 +54,8 @@ const CoffeeOptionSelection = () => {
 
     caffeineValue !== menuCaffeineValue &&
       setCaffeine({
-        caffeine: String(caffeineValue - plusedCaffeine),
-        menuCaffeine: String(menuCaffeineValue)
+        caffeine: caffeineValue - plusedCaffeine,
+        menuCaffeine: menuCaffeineValue
       });
     setRegistInfo(newRegistData);
   };
@@ -64,8 +64,8 @@ const CoffeeOptionSelection = () => {
     inputValue >= 1 && setInputValue(inputValue - 1);
     inputValue >= 1 &&
       setCaffeine({
-        caffeine: String(caffeineValue - 75),
-        menuCaffeine: String(menuCaffeineValue)
+        caffeine: caffeineValue - 75,
+        menuCaffeine: menuCaffeineValue
       });
     setRegistInfo(newRegistData);
   };
@@ -73,8 +73,8 @@ const CoffeeOptionSelection = () => {
   const selectPlusBtn = () => {
     setInputValue(inputValue + 1);
     setCaffeine({
-      caffeine: String(caffeineValue + 75),
-      menuCaffeine: String(menuCaffeineValue)
+      caffeine: caffeineValue + 75,
+      menuCaffeine: menuCaffeineValue
     });
     setRegistInfo(newRegistData);
   };
