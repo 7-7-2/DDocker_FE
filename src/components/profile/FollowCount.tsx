@@ -1,14 +1,7 @@
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { FollowCountProps } from '@/types/types';
-import { Align, Column, FlexCenter, MarginAuto } from '@/styles/layout';
-import {
-  Semibold,
-  Border16,
-  Cursor,
-  LineH18,
-  TextBlack,
-  TextGray
-} from '@/styles/styles';
+import { Center, Column, Flex, MarginAuto } from '@/styles/layout';
+import { Border16, Cursor, RecentSearch, SumType } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
@@ -22,22 +15,19 @@ const FollowCount: React.FC<FollowCountProps> = ({ icons }) => {
   };
 
   return (
-    <Container className={cx(FlexCenter, Cursor, Border16)}>
+    <Container className={cx(Flex, Cursor, Border16)}>
       {icons.map((icon, index) => (
         <Stat
           key={index}
           className={cx(
-            Align,
+            Center,
             Column,
             MarginAuto,
-            LineH18,
             index === icons.length - 1 ? 'lastStat' : ''
           )}
           onTouchEnd={() => handleStatClick(icon.label)}>
-          <StatNumber className={cx(TextBlack, Semibold)}>
-            {icon.number}
-          </StatNumber>
-          <StatLabel className={cx(TextGray, LineH18)}>{icon.label}</StatLabel>
+          <StatNumber className={RecentSearch}>{icon.number}</StatNumber>
+          <StatLabel className={SumType}>{icon.label}</StatLabel>
         </Stat>
       ))}
     </Container>
@@ -51,20 +41,16 @@ const Container = styled.div`
   background-color: var(--colors-tertiary);
 `;
 const Stat = styled.div`
-  padding: 0px 25px;
+  padding: 0px 39px;
   border-right: 1px solid #dbdbdb;
   &.lastStat {
     border-right: none;
   }
 `;
 const StatNumber = styled.li`
-  font-size: var(--font-sizes-base);
-  margin: 0px 18px;
   list-style-type: none;
 `;
 const StatLabel = styled.li`
-  font-size: var(--font-sizes-xs);
-  margin: 0px 10px;
   list-style-type: none;
 `;
 export default FollowCount;

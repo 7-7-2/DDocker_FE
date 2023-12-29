@@ -1,13 +1,17 @@
 import Icon from '@/components/common/Icon';
 import { INPUT_TEXTS } from '@/constants/common';
-import { InputProps } from '@/types/types';
+import { useInput } from '@/hooks/useInput';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-
+import { InputProps } from '@/types/types';
 import { styled } from 'styled-system/jsx';
 import { Align, Between } from '@/styles/layout';
 import { css, cx } from 'styled-system/css';
-import { InputFontSm, InputFontBase } from '@/styles/styles';
-import { useInput } from '@/hooks/useInput';
+import {
+  InputFontSm,
+  InputFontBase,
+  InputByteCheck,
+  BgF5
+} from '@/styles/styles';
 
 export const Input = ({ type, handleEvent }: InputProps) => {
   const { nickname, comment, title, search } = INPUT_TEXTS.type;
@@ -54,9 +58,7 @@ export const Input = ({ type, handleEvent }: InputProps) => {
     <InputContainer
       tabIndex={0}
       className={
-        type === title.typeName
-          ? cx(Align, Between, TitleInput)
-          : cx(Align, Between)
+        type === title.typeName ? cx(Align, Between, BgF5) : cx(Align, Between)
       }>
       <input
         className={InputFontBase}
@@ -68,10 +70,10 @@ export const Input = ({ type, handleEvent }: InputProps) => {
       />
       <InputBox className={Align}>
         {inputLength && (
-          <InpoutLength className={Align}>
+          <div className={cx(Align, InputByteCheck)}>
             {inputValue?.length}
             <LengthLimit>/{inputLength}</LengthLimit>
-          </InpoutLength>
+          </div>
         )}
         {submitBtn}
       </InputBox>
@@ -93,19 +95,6 @@ const InputContainer = styled.div`
 const InputBox = styled.div`
   height: 50px;
   gap: 8px;
-`;
-
-const TitleInput = css`
-  background-color: #f5f5f5;
-`;
-
-const InpoutLength = styled.div`
-  color: #313131;
-  font-family: Pretendard;
-  font-size: var(--font-sizes-xs);
-  font-style: normal;
-  font-weight: 400;
-  line-height: 20px;
 `;
 
 const LengthLimit = styled.div`

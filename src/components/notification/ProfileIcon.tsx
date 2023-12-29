@@ -9,7 +9,7 @@ const Container = styled.div`
   min-width: 40px;
   min-height: 40px;
   background-color: yellow;
-  border-radius: 999px;
+  border-radius: 100%;
 `;
 
 export default ProfileIcon;

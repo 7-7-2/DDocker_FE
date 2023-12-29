@@ -8,34 +8,27 @@ import {
   brand
 } from '@/constants/Profile';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import { Between, Column, Flex, FlexCenter } from '@/styles/layout';
-import {
-  TextBlack,
-  TextGray,
-  Border16,
-  Bold,
-  Regular,
-  TextArea
-} from '@/styles/styles';
+import { Between, Column, FlexCenter, Center, Align } from '@/styles/layout';
+import { Border16, PrfileTitle, SmStyle, TextArea } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
 const ProfileDetail = () => {
   return (
-    <Container className={cx(Column, FlexCenter)}>
-      <UserTitle className={cx(FlexCenter, TextBlack, Bold)}>
+    <Container className={cx(Column, Center)}>
+      <UserTitle className={cx(FlexCenter, PrfileTitle)}>
         {userNickName.loginName}
       </UserTitle>
-      <UserText className={cx(FlexCenter, Regular)}>
-        <span className={TextBlack}>{userName.user1}</span>
-        <span className={TextGray}>{userEmail.eMail}</span>
+      <UserText className={cx(FlexCenter, SmStyle)}>
+        <span>{userName.user1}</span>
+        <UserNameText>{userEmail.eMail}</UserNameText>
       </UserText>
-      <Info className={cx(FlexCenter, Between)}>
-        <UserBrand className={cx(Flex, Border16)}>
+      <Info className={cx(Align, Between)}>
+        <UserBrand className={cx(FlexCenter, Border16)}>
           <Icon {...iconPropsGenerator('brand')} />
           <div className={TextArea}>{brand.brand1}</div>
         </UserBrand>
-        <UserSubTitle className={cx(Flex, Border16)}>
+        <UserSubTitle className={cx(FlexCenter, Border16)}>
           <Icon {...iconPropsGenerator('coffeebean')} />
           <div
             className={
@@ -52,13 +45,15 @@ const Container = styled.div`
 `;
 const UserTitle = styled.span`
   width: 200px;
-  font-size: var(--font-sizes-xxl);
   margin: 22px 0px 2px 0px;
 `;
 const UserText = styled.div`
-  font-size: var(--font-sizes-sm);
   margin-bottom: 16px;
   gap: 4px;
+`;
+const UserNameText = styled.span`
+  color: #767676 !important;
+  font-weight: 400;
 `;
 const Info = styled.div`
   gap: 8px;

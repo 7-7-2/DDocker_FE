@@ -96,8 +96,6 @@ const WaterPerCoffee = ({
   );
 };
 
-export default WaterPerCoffee;
-
 const Container = styled.div`
   width: inherit;
   height: 220px;
@@ -139,3 +137,5 @@ const RegistCoffeeBtn = css`
 const MarginTop = css`
   margin-top: 16px;
 `;
+
+export default WaterPerCoffee;

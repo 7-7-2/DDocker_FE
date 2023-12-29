@@ -9,7 +9,6 @@ import { Input } from '@/components/common/Input';
 import CoffeeOptionSelection from '@/components/common/CoffeeOptionSelection';
 import CoffeeMenuSelection from '@/components/home/CoffeeMenuSelection';
 import RegisterLabel from '@/components/post/RegisterLabel';
-
 import { BUTTON_TEXTS, INPUT_TEXTS, LABEL_TEXTS } from '@/constants/common';
 import { registPostState, useInputState } from '@/atoms/atoms';
 import { setPostRegist } from '@/api/post';
@@ -19,7 +18,6 @@ import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import Icon from '@/components/common/Icon';
 import Button from '@/components/common/Button';
-
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Center, Flex } from '@/styles/layout';

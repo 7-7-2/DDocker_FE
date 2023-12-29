@@ -1,4 +1,5 @@
 import Icon from '@/components/common/Icon';
+import { testMenu } from '@/types/types';
 import { Column, Flex } from '@/styles/layout';
 import { Semibold } from '@/styles/styles';
 import { testMenu } from '@/types/types';
@@ -20,14 +21,12 @@ const TodayMenuItem = (data: { data: DocumentData }) => {
         />
       </IconCotainer>
       <div className={Column}>
-        <span className={Semibold}>{data.data.caffeine}mg</span>
-        <span className={SmFont}>{convertBrandName(data.data.brand)}</span>
+        <span className={RecentSearch}>{data.data.caffeine}mg</span>
+        <span className={SumType}>{convertBrandName(data.data.brand)}</span>
       </div>
     </Container>
   );
 };
-
-export default TodayMenuItem;
 
 const Container = styled.div`
   min-width: 134px;
@@ -37,7 +36,6 @@ const Container = styled.div`
   padding: 6px;
   border: 1px solid #ccc;
   background: #fff;
-  line-height: 20px;
 `;
 const IconCotainer = styled.div`
   width: 40px;
@@ -45,6 +43,9 @@ const IconCotainer = styled.div`
   border-radius: 50%;
   margin-right: 10px;
 `;
+
 const SmFont = css`
   font-size: var(--font-sizes-sm);
 `;
+
+export default TodayMenuItem;

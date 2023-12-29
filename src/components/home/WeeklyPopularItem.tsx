@@ -1,14 +1,13 @@
 import { WeeklyPopularTypes } from '@/types/types';
-import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { Align, Flex } from '@/styles/layout';
+import { Align } from '@/styles/layout';
 import convertBrandName from '@/utils/convertBrandName';
 
 const WeeklyPopularItem = ({ data }: { data: WeeklyPopularTypes }) => {
   const icon = `/png/${data.brand}.png`;
 
   return (
-    <Container className={cx(Flex, Align)}>
+    <Container className={Align}>
       <span>{data.ranking}</span>
       <BrandInfo className={cx(Flex, Align)}>
         <Icon>
@@ -23,8 +22,6 @@ const WeeklyPopularItem = ({ data }: { data: WeeklyPopularTypes }) => {
   );
 };
 
-export default WeeklyPopularItem;
-
 const Container = styled.div`
   height: 54px;
   border-radius: 50px;
@@ -32,7 +29,6 @@ const Container = styled.div`
   background: #fff;
 `;
 const BrandInfo = styled.div`
-  font-size: var(--font-sizes-sm);
   margin-left: 20px;
 `;
 const Icon = styled.div`
@@ -42,3 +38,5 @@ const Icon = styled.div`
   background-color: darkkhaki;
   margin-right: 12px;
 `;
+
+export default WeeklyPopularItem;

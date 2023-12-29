@@ -34,7 +34,7 @@ const SearchListItem: React.FC<{ users: SimplifyUser[] }> = () => {
   return (
     <>
       {filteredResults.length > 0 && !inputValue && (
-        <Wrapper className={cx(Flex, Align, Between)}>
+        <Wrapper className={cx(Align, Between)}>
           <span className={RecentSearch}>{SEARCH_TEXTS.recentSearch}</span>
           <span
             className={DeleteAllBtn}
@@ -46,7 +46,7 @@ const SearchListItem: React.FC<{ users: SimplifyUser[] }> = () => {
       {filteredResults.map(({ userId, NickName, caffeine }: SimplifyUser) => (
         <Container
           key={userId}
-          className={cx(Flex, Align, Between)}>
+          className={cx(Align, Between)}>
           <div onTouchEnd={handleInUsers}>
             <MiniProfile
               userId={userId}
