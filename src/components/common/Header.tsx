@@ -1,11 +1,12 @@
 import { useRecoilValue } from 'recoil';
-import HeaderCloseIcon from '@/components/common/HeaderCloseIcon';
-import HeaderIcons from '@/components/common/HeaderIcons';
 import {
   headerTextState,
   headerLogoState,
   headerIconsState
 } from '@/atoms/atoms';
+import HeaderCloseIcon from '@/components/common/HeaderCloseIcon';
+import HeaderIcons from '@/components/common/HeaderIcons';
+import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 import { Between, Flex, Align } from '@/styles/layout';
@@ -21,7 +22,7 @@ const Header = () => {
 
   return (
     <Container className={cx(Flex, Between, Align)}>
-      <Left>
+      <Left onTouchEnd={useNavigateTo('/')}>
         {logo && (
           <svg
             width={'80'}
