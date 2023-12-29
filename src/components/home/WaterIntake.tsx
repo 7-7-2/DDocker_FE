@@ -1,13 +1,13 @@
 import Icon from '@/components/common/Icon';
-import { Align, Justify } from '@/styles/layout';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+import { FlexCenter } from '@/styles/layout';
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 
 const WaterIntake = () => {
   return (
-    <Container className={cx(Align, Justify)}>
-      <div className={cx(progress, Justify, Align)}>
+    <Container className={FlexCenter}>
+      <div className={cx(progress, FlexCenter)}>
         <img
           src="/png/waterCup.png"
           alt="water"
@@ -19,8 +19,6 @@ const WaterIntake = () => {
     </Container>
   );
 };
-
-export default WaterIntake;
 
 const Container = styled.div`
   position: relative;
@@ -42,3 +40,5 @@ const IconContainer = styled.div`
   right: 30px;
   bottom: 25px;
 `;
+
+export default WaterIntake;

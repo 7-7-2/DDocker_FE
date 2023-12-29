@@ -1,25 +1,22 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-
-import RegisterLabel from '@/components/post/RegisterLabel';
-import { CAFFEINE_FILTER_TEXTS } from '@/constants/home';
-import useGetCacheData from '@/hooks/useGetCacheData';
-import { CoffeeData, UserCachedData } from '@/types/types';
-import { setBrnadList } from '@/utils/setBrandList';
-import coffeeData from '@/datas/coffees';
-
-import { css, cx } from 'styled-system/css';
-import { styled } from 'styled-system/jsx';
-import { Medium } from '@/styles/styles';
-import { Column, Flex, Grid } from '@/styles/layout';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import {
   registPostState,
   selectedBrandState,
   selectedMenuInfoState,
   selectedMenuState
 } from '@/atoms/atoms';
-import convertBrandName from '@/utils/convertBrandName';
+import RegisterLabel from '@/components/post/RegisterLabel';
+import { CAFFEINE_FILTER_TEXTS } from '@/constants/home';
+import useGetCacheData from '@/hooks/useGetCacheData';
+import { CoffeeData, UserCachedData } from '@/types/types';
+import { setBrnadList } from '@/utils/setBrandList';
+import coffeeData from '@/datas/coffees';
+import { css, cx } from 'styled-system/css';
+import { styled } from 'styled-system/jsx';
+import { SmStyle } from '@/styles/styles';
+import { Column, Flex } from '@/styles/layout';
 
 const { coffeeMenu } = CAFFEINE_FILTER_TEXTS;
 
@@ -91,8 +88,8 @@ const CoffeeMenuSelection = () => {
 
   return (
     <div className={MarginTop}>
-      {!register && <span className={cx(Medium)}>{coffeeMenu.title}</span>}
-      <CoffeeSelectContainer className={cx(register ? Column : Flex, Grid)}>
+      {!register && <span className={SmStyle}>{coffeeMenu.title}</span>}
+      <CoffeeSelectContainer className={cx(register ? Column : Flex)}>
         {register && (
           <RegisterLabel
             label={coffeeMenu.brand}
@@ -101,7 +98,7 @@ const CoffeeMenuSelection = () => {
         )}
         <SelectBox className={selectedBrand ? seletedBorder : defaultBorder}>
           <select
-            className={cx(SelectInput, Medium)}
+            className={cx(SelectInput, SmStyle)}
             name={coffeeMenu.brand}
             id={coffeeMenu.brand}
             value={selectedBrand}
@@ -134,7 +131,7 @@ const CoffeeMenuSelection = () => {
         )}
         <SelectBox className={selectedMenu ? seletedBorder : defaultBorder}>
           <select
-            className={cx(SelectInput, Medium)}
+            className={cx(SelectInput, SmStyle)}
             name={coffeeMenu.menu}
             id={coffeeMenu.menu}
             value={selectedMenu}

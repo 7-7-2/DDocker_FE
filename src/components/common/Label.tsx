@@ -5,6 +5,7 @@ import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Align, Between } from '@/styles/layout';
+import { HomeRegistContainer, InputByteCheck } from '@/styles/styles';
 
 const { nickname, gender } = LABEL_TEXTS;
 
@@ -24,20 +25,21 @@ export const Label = ({ inputValue, isAlert, label, message }: LabelProps) => {
     );
 
   const alretMessage = (
-    <LabelMessage
-      className={
+    <span
+      className={cx(
         message && message === nickname.message.disapproval
           ? ErrorMessage
-          : DefaltMessage
-      }>
+          : DefaltMessage,
+        InputByteCheck
+      )}>
       {message}
-    </LabelMessage>
+    </span>
   );
 
   return (
     <LabelContainer className={cx(Align, Between)}>
       <div className={Align}>
-        <LabelText>{label}</LabelText>
+        <LabelText className={HomeRegistContainer}>{label}</LabelText>
         {label === nickname.label && nicknameCheckIcon}
         {label === gender.label && genderCheckIcon}
       </div>
@@ -53,17 +55,7 @@ export const LabelContainer = styled.div`
 `;
 
 export const LabelText = styled.div`
-  color: #313131;
   margin-right: 4px;
-  font-size: var(--font-sizes-base);
-  font-weight: 500;
-  line-height: 24px;
-`;
-
-export const LabelMessage = styled.span`
-  font-size: var(--font-sizes-xs);
-  font-weight: 400;
-  line-height: 20px;
 `;
 
 export const ErrorMessage = css`

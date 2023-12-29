@@ -3,7 +3,7 @@ import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Flex } from '@/styles/layout';
-import { Medium } from '@/styles/styles';
+import { HomeRegistContainer, MarginT16 } from '@/styles/styles';
 
 const RegisterLabel = ({
   label,
@@ -13,21 +13,16 @@ const RegisterLabel = ({
   essential?: boolean;
 }) => {
   return (
-    <RegisterLabelContiner className={cx(Medium, Flex)}>
+    <div className={cx(HomeRegistContainer, MarginT16, Flex)}>
       {label}
       {essential && (
         <IconContainer>
           <Icon {...iconPropsGenerator('essential', '7')} />
         </IconContainer>
       )}
-    </RegisterLabelContiner>
+    </div>
   );
 };
-
-const RegisterLabelContiner = styled.div`
-  margin-top: 16px;
-  font-size: var(--font-sizes-base);
-`;
 
 const IconContainer = styled.div`
   margin: 4px 3px;

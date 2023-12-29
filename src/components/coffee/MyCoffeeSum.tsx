@@ -1,14 +1,14 @@
 import SumBoard from '@/components/coffee/SumBoard';
 import { COFFEE_TEXTS } from '@/constants/coffee';
-import { styled } from 'styled-system/jsx';
-import { Semibold } from '@/styles/styles';
+import { cx } from 'styled-system/css';
+import { SumTitle, PaddingT22 } from '@/styles/styles';
 
 const { sum } = COFFEE_TEXTS;
 
 const MyCoffeeSum = () => {
   return (
     <>
-      <Title className={Semibold}>{sum}</Title>
+      <h2 className={cx(SumTitle, PaddingT22)}>{sum}</h2>
       <SumBoard
         period="이번 주"
         coffeeAmount={20}
@@ -28,11 +28,5 @@ const MyCoffeeSum = () => {
     </>
   );
 };
-
-const Title = styled.h2`
-  padding-top: 22px;
-  font-size: var(--font-sizes-lg);
-  line-height: 26px;
-`;
 
 export default MyCoffeeSum;

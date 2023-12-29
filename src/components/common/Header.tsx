@@ -1,5 +1,4 @@
 import { useRecoilValue } from 'recoil';
-
 import HeaderCloseIcon from '@/components/common/HeaderCloseIcon';
 import HeaderIcons from '@/components/common/HeaderIcons';
 import {
@@ -8,8 +7,9 @@ import {
   headerIconsState
 } from '@/atoms/atoms';
 import { styled } from 'styled-system/jsx';
-import { cx, css } from 'styled-system/css';
+import { cx } from 'styled-system/css';
 import { Between, Flex, Align } from '@/styles/layout';
+import { HeaderText, PaddingL63, PaddingL24 } from '@/styles/styles';
 
 const Header = () => {
   const logo = useRecoilValue(headerLogoState);
@@ -30,9 +30,13 @@ const Header = () => {
           </svg>
         )}
       </Left>
-      <Center className={icons ? IconsSpace : close ? CloseSpace : ''}>
+      <h2
+        className={cx(
+          icons ? PaddingL63 : close ? PaddingL24 : '',
+          HeaderText
+        )}>
         {text}
-      </Center>
+      </h2>
       <Right className={Flex}>
         {icons && <HeaderIcons />}
         {close && <HeaderCloseIcon />}
@@ -57,20 +61,8 @@ const Nav = styled.nav`
 
 const Left = styled(Nav)``;
 
-const Center = styled.h2`
-  font-size: var(--font-sizes-lg);
-  font-weight: 500;
-`;
-
 const Right = styled.span`
   gap: 15px;
-`;
-
-const IconsSpace = css`
-  padding-left: 63px;
-`;
-const CloseSpace = css`
-  padding-left: 24px;
 `;
 
 export default Header;

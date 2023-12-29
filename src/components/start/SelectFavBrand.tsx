@@ -13,7 +13,14 @@ import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { AuthTypes } from '@/types/types';
 import { styled } from 'styled-system/jsx';
 import { Grid } from '@/styles/layout';
-import { DefaultBtn, DisabledBtn, StartPageContainer } from '@/styles/styles';
+import {
+  DefaultBtn,
+  DisabledBtn,
+  StartPageContainer,
+  StartBrand,
+  StartBrandSub,
+  MarginT28
+} from '@/styles/styles';
 import { cx } from 'styled-system/css';
 
 const { message } = SELECTFAVBRAND_TEXTS;
@@ -49,11 +56,11 @@ export const SelectFavBrand = () => {
   return (
     <>
       <div className={StartPageContainer}>
-        <InitialFormText>
+        <div className={cx(StartBrand, MarginT28)}>
           <span>{message.first}</span>
           <br />
-          <SecondLine>{message.second}</SecondLine>
-        </InitialFormText>
+          <span className={StartBrandSub}>{message.second}</span>
+        </div>
         <BrandItemContainer className={Grid}>
           {brandList.map(item => (
             <BrandItem

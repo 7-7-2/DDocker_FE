@@ -10,7 +10,8 @@ import {
   TextGray,
   ToggleButton,
   ToggleLeft,
-  ToggleRight
+  ToggleRight,
+  MarginT17
 } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
@@ -57,7 +58,7 @@ const Follow: React.FC<FollowCountProps> = () => {
   const handleMoveBtn = useNavigateTo('/search');
   return (
     <>
-      <Container className={cx(FlexCenter, Column)}>
+      <div className={cx(FlexCenter, Column, MarginT17)}>
         <ToggleArea className={cx(Flex)}>
           <button
             className={cx(
@@ -84,7 +85,7 @@ const Follow: React.FC<FollowCountProps> = () => {
             {TEXT.toggleFollowingBtn}
           </button>
         </ToggleArea>
-      </Container>
+      </div>
 
       {usersToShow.length > 0 && <UserListItem users={usersToShow} />}
       {isActiveBtn === '팔로워' && !usersToShow.length && (
@@ -100,9 +101,6 @@ const Follow: React.FC<FollowCountProps> = () => {
   );
 };
 
-const Container = styled.div`
-  margin-top: 17px;
-`;
 const ToggleArea = styled.div`
   width: 100%;
   padding-bottom: 4px;
