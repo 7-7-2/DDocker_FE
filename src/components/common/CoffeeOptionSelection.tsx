@@ -1,17 +1,16 @@
 import { TouchEvent, useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
 import { useParams } from 'react-router-dom';
+import { caffeineFilterState, registPostState } from '@/atoms/atoms';
+import RegisterLabel from '@/components/post/RegisterLabel';
 import Button from '@/components/common/Button';
 import Icon from '@/components/common/Icon';
 import { CAFFEINE_FILTER_TEXTS } from '@/constants/home';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { BtnColorWhite, Medium } from '@/styles/styles';
-import { Align, Between, Column, Flex, Grid } from '@/styles/layout';
-import RegisterLabel from '@/components/post/RegisterLabel';
-import { caffeineFilterState, registPostState } from '@/atoms/atoms';
-import { useRecoilState } from 'recoil';
+import { BtnColorWhite, SmStyle, MarginB6, MarginB8 } from '@/styles/styles';
+import { Align, Between, Column, Flex } from '@/styles/layout';
 
 const { coffeeOption } = CAFFEINE_FILTER_TEXTS;
 
@@ -90,15 +89,15 @@ const CoffeeOptionSelection = () => {
   }, []);
 
   return (
-    <Container className={cx(Column, Medium)}>
-      <span className={BottomMargin6}>
+    <div className={cx(Column, SmStyle)}>
+      <span className={MarginB6}>
         {!register ? (
           coffeeOption.size
         ) : (
           <RegisterLabel label={coffeeOption.size} />
         )}
       </span>
-      <SizeBtnContainer className={cx(Flex, Grid, BottomMargin8)}>
+      <SizeBtnContainer className={cx(Flex, MarginB8)}>
         {size.map(item => (
           <Button
             key={item}
@@ -107,13 +106,13 @@ const CoffeeOptionSelection = () => {
             onTouchEnd={selectSize}
             className={cx(
               sizeValue === item ? SelectSizeBtn : BtnColorWhite,
-              Medium,
-              SizeBtn
+              SizeBtn,
+              SmStyle
             )}
           />
         ))}
       </SizeBtnContainer>
-      <span className={BottomMargin6}>
+      <span className={MarginB6}>
         {!register ? (
           coffeeOption.shot.title
         ) : (
@@ -121,7 +120,7 @@ const CoffeeOptionSelection = () => {
         )}
       </span>
       <ShotOptionInputContainer
-        className={cx(Flex, Align, Between, BottomMargin8)}>
+        className={cx(Align, Between, MarginB8, SmStyle)}>
         <span>{coffeeOption.shot.input}</span>
         <div className={cx(Flex, Align)}>
           <Icon
@@ -131,7 +130,6 @@ const CoffeeOptionSelection = () => {
             onTouchEnd={selectMinusBtn}
           />
           <ShotOptionInput
-            className={Medium}
             type="number"
             value={inputValue}
             readOnly
@@ -143,7 +141,7 @@ const CoffeeOptionSelection = () => {
           />
         </div>
       </ShotOptionInputContainer>
-    </Container>
+    </div>
   );
 };
 
@@ -153,46 +151,25 @@ const ShotOptionInputContainer = styled.div`
   border-radius: 10px;
   border: 1px solid #ccc;
   background: #fff;
-  color: #313131;
-  font-size: var(--font-sizes-sm);
 `;
-
 const ShotOptionInput = styled.input`
   text-align: center;
   width: 40px;
+  background-color: transparent;
 `;
-
-const Container = styled.div`
-  color: #313131;
-  font-size: var(--font-sizes-sm);
-  line-height: 22px;
-`;
-
-const BottomMargin6 = css`
-  margin-bottom: 6px;
-`;
-
-const BottomMargin8 = css`
-  margin-bottom: 8px;
-`;
-
 const SizeBtnContainer = styled.div`
   gap: 4px;
 `;
-
 const SelectSizeBtn = css`
   border: 1px solid var(--colors-main);
   background-color: var(--colors-main);
-  color: #fff;
+  color: #fff !important;
 `;
-
 const SizeBtn = css`
   min-width: 104px;
   width: 100%;
   height: 40px;
   border-radius: 50px;
-  font-size: var(--font-sizes-sm);
-  line-height: 22px;
 `;
 
 export default CoffeeOptionSelection;

@@ -1,10 +1,10 @@
 import WeeklyPopularItem from '@/components/home/WeeklyPopularItem';
+import { TODAY_CAFFEINE_INFO_TEXTS } from '@/constants/home';
 import { WeeklyPopularTypes } from '@/types/types';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 import { Grid } from '@/styles/layout';
-import { Medium, Semibold } from '@/styles/styles';
-import { TODAY_CAFFEINE_INFO_TEXTS } from '@/constants/home';
+import { SmStyle, SumTitle, MarginT12 } from '@/styles/styles';
 
 const data: WeeklyPopularTypes[] = [
   {
@@ -32,9 +32,9 @@ const data: WeeklyPopularTypes[] = [
 const WeeklyPopular = () => {
   const { weeklyPopular } = TODAY_CAFFEINE_INFO_TEXTS;
   return (
-    <Container>
-      <div className={Semibold}>{weeklyPopular}</div>
-      <WeeklyPopularList className={cx(Grid, Medium)}>
+    <div>
+      <div className={SumTitle}>{weeklyPopular}</div>
+      <WeeklyPopularList className={cx(Grid, SmStyle, MarginT12)}>
         {data.map(item => (
           <WeeklyPopularItem
             data={item}
@@ -42,18 +42,12 @@ const WeeklyPopular = () => {
           />
         ))}
       </WeeklyPopularList>
-    </Container>
+    </div>
   );
 };
 
-export default WeeklyPopular;
-
 const WeeklyPopularList = styled.div`
-  font-size: var(--font-sizes-base);
-  margin-top: 12px;
   gap: 8px 0;
 `;
-const Container = styled.div`
-  color: #313131;
-  font-size: var(--font-sizes-lg);
-`;
+
+export default WeeklyPopular;

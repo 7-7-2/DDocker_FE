@@ -1,8 +1,8 @@
+import { useRecoilState } from 'recoil';
+import { searchResultsState } from '@/atoms/atoms';
 import SearchBar from '@/components/search/SearchBar';
 import SearchListItem from '@/components/search/SearchListItem';
 import { SimplifyUser } from '@/types/types';
-import { useRecoilState } from 'recoil';
-import { searchResultsState } from '@/atoms/atoms';
 
 const Search = () => {
   const [searchResults, setSearchResults] = useRecoilState(searchResultsState);

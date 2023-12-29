@@ -1,11 +1,12 @@
 import { useRecoilState } from 'recoil';
-import { css, cx } from 'styled-system/css';
 import { activeState } from '@/atoms/atoms';
 import Icon from '@/components/common/Icon';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
+import useGetCacheData from '@/hooks/useGetCacheData';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { Column, Center } from '@/styles/layout';
-import useGetCacheData from '@/hooks/useGetCacheData';
+import { FooterTextMedium, FooterTextSelected } from '@/styles/styles';
+import { cx } from 'styled-system/css';
 
 const userId = useGetCacheData('user', '/userId');
 
@@ -33,7 +34,8 @@ const FooterIcon = ({ icon }: { icon: string }) => {
           <Icon
             {...iconPropsGenerator(active === icon ? `${icon}-active` : icon)}
           />
-          <span className={active === icon ? Selected : Text}>
+          <span
+            className={active === icon ? FooterTextSelected : FooterTextMedium}>
             {icon.toUpperCase()}
           </span>
         </div>
@@ -41,16 +43,5 @@ const FooterIcon = ({ icon }: { icon: string }) => {
     </>
   );
 };
-
-const Text = css`
-  font-weight: 500;
-  font-size: var(--font-sizes-xxs);
-`;
-
-const Selected = css`
-  font-size: var(--font-sizes-xxs);
-  font-weight: 600;
-  color: var(--colors-main);
-`;
 
 export default FooterIcon;

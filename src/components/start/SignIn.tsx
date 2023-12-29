@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil';
 import { GoogleAuthProvider } from 'firebase/auth';
 import { getUserInfo, signInWithGoogle } from '@/api/user';
-
+import { DocumentData } from 'firebase/firestore';
 import Icon from '@/components/common/Icon';
 import { SIGININ_TEXTS } from '@/constants/start';
 import { AuthTypes } from '@/types/types';
@@ -21,7 +21,7 @@ import {
   Flex,
   MarginAuto
 } from '@/styles/layout';
-import { Btn, SignInBtn } from '@/styles/styles';
+import { StartBtn, NoneBtn, SignInBtn } from '@/styles/styles';
 
 const { signInBtn, startText } = SIGININ_TEXTS;
 
@@ -80,11 +80,11 @@ const SignIn = () => {
             <use href={`/sprite.svg#icon-ddocker-logo`} />
           </svg>
         </AppLogo>
-        <StartText className={Btn}>
+        <div className={StartBtn}>
           {startText.first}
           <br />
           {startText.second}
-        </StartText>
+        </div>
       </AppLogoContainer>
       <SignInBtnContainer className={cx(Justify, Column)}>
         <KakaoBtn className={SignInBtn}>
@@ -102,13 +102,12 @@ const SignIn = () => {
           </IconContiner>
           <div>{signInBtn.google}</div>
         </GoogleBtn>
-        <NoneBtn
-          type="button"
-          className={Btn}
+        <button
+          className={NoneBtn}
           onClick={useNavigateTo('/')}
           onTouchEnd={useNavigateTo('/')}>
           {signInBtn.none}
-        </NoneBtn>
+        </button>
       </SignInBtnContainer>
     </Container>
   );
@@ -143,21 +142,9 @@ const GoogleBtn = styled.button`
   margin-top: 13px;
 `;
 
-const NoneBtn = styled.button`
-  font-size: var(--font-sizes-sm);
-  color: #767676;
-  line-height: 18px;
-  margin-top: 13px;
-`;
-
 const IconContiner = styled.div`
   position: absolute;
   left: 15px;
-`;
-
-const StartText = styled.div`
-  text-align: center;
-  font-size: var(--font-sizes-sm);
 `;
 
 export default SignIn;

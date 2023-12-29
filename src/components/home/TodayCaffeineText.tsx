@@ -3,8 +3,11 @@ import { useLayoutEffect, useState } from 'react';
 import { DocumentData } from 'firebase/firestore';
 
 import { authState } from '@/atoms/atoms';
+import { useEffect, useState } from 'react';
 import Icon from '@/components/common/Icon';
 import { TODAY_CAFFEINE_INFO_TEXTS } from '@/constants/home';
+import useGetCacheData from '@/hooks/useGetCacheData';
+import { UserCachedData } from '@/types/types';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import useGetCacheData from '@/hooks/useGetCacheData';
 import { getUserInfo } from '@/api/user';
@@ -13,8 +16,9 @@ import { UserCachedData } from '@/types/types';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { Align, Between, Column, Flex } from '@/styles/layout';
-import { Regular } from '@/styles/styles';
+import { cx } from 'styled-system/css';
+import { Align, Between, Column } from '@/styles/layout';
+import { HomeHeaderContent, InputFontSm } from '@/styles/styles';
 
 const { anonymous, signedIn } = TODAY_CAFFEINE_INFO_TEXTS;
 
@@ -72,8 +76,8 @@ const TodayCaffeineText = () => {
   );
 
   return (
-    <TodayCaffeineInfoContainer>
-      <div className={cx(Flex, Align, Between)}>
+    <div className={HomeHeaderContent}>
+      <div className={cx(Align, Between)}>
         {user?.signIn ? signedInText : anonymousText}
         <img
           src="/png/coffee_mainimg.png"
@@ -82,26 +86,19 @@ const TodayCaffeineText = () => {
       </div>
       <MessageContainer className={cx(Align)}>
         <Icon {...iconPropsGenerator('message', '15')} />
-        <MessageText className={Regular}>
+        <MessageText className={InputFontSm}>
           {dataList && dataList.length >= 1
             ? signedInMessage
             : anonymous.messageText}
         </MessageText>
       </MessageContainer>
-    </TodayCaffeineInfoContainer>
+    </div>
   );
 };
-
-const TodayCaffeineInfoContainer = styled.div`
-  font-size: var(--font-size-xl);
-  font-weight: 500;
-  line-height: 28px;
-`;
 
 const CaffeineInfo = styled.span`
   color: var(--colors-main);
 `;
-
 const MessageContainer = styled.div`
   padding: 0 16px;
   margin-top: 10px;
@@ -109,9 +106,7 @@ const MessageContainer = styled.div`
   background-color: var(--colors-main);
   color: #fff;
   border-radius: 16px;
-  font-size: var(--font-sizes-sm);
 `;
-
 const MessageText = styled.div`
   margin-left: 12px;
 `;

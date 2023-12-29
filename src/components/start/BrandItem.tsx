@@ -4,11 +4,11 @@ import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import useSetUserInitialInfo from '@/hooks/useSetUserInitialInfo';
 import { BrnadItemProps } from '@/types/types';
 import { authState } from '@/atoms/atoms';
-
 import { styled } from 'styled-system/jsx';
 import { css, cx } from 'styled-system/css';
 import { Center, Column } from '@/styles/layout';
 import convertBrandName from '@/utils/convertBrandName';
+import { SmStyle } from '@/styles/styles';
 
 const BrandItem = (brandInfo: BrnadItemProps) => {
   const { user } = useRecoilValue(authState);
@@ -35,7 +35,8 @@ const BrandItem = (brandInfo: BrnadItemProps) => {
           ? SelectedBrandContainer
           : DefaltBrandContainer,
         Column,
-        Center
+        Center,
+        SmStyle
       )}>
       {selectedIcon}
       <IconContainer>
@@ -63,10 +64,6 @@ const ItemContainer = styled.div`
   position: relative;
   border-radius: 16px;
   padding: 14px 0;
-  text-align: center;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 20px;
 `;
 
 const SelectedBrandContainer = css`

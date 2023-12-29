@@ -2,6 +2,7 @@ import SumByType from '@/components/coffee/SumByType';
 import { COFFEE_TEXTS } from '@/constants/coffee';
 import { styled } from 'styled-system/jsx';
 import { Column, Evenly, Flex } from '@/styles/layout';
+import { SumBoardTitle, SumType } from '@/styles/styles';
 import { cx } from 'styled-system/css';
 
 const { intake, cups, unit, coffee, caffeine, year, month } = COFFEE_TEXTS;
@@ -19,15 +20,15 @@ const SumBoard = ({
   const YearPredi = typeof period === 'number' && period > 13;
   return (
     <Container>
-      <Title>
+      <div className={SumBoardTitle}>
         {period}
         {MonthPredi && month}
         {YearPredi && year} {intake}
-      </Title>
+      </div>
 
       <InfoArea className={cx(Flex, Evenly)}>
         <div className={Column}>
-          <SumType>{coffee}</SumType>
+          <div className={SumType}>{coffee}</div>
           <SumByType
             amount={coffeeAmount}
             unit={cups}
@@ -35,7 +36,7 @@ const SumBoard = ({
         </div>
         <Divider />
         <div className={Column}>
-          <SumType>{caffeine}</SumType>
+          <div className={SumType}>{caffeine}</div>
           <SumByType
             amount={caffeineAmount}
             unit={unit}
@@ -55,17 +56,6 @@ const Container = styled.div`
 
 const InfoArea = styled.div`
   position: relative;
-`;
-
-const Title = styled.div`
-  font-weight: 500;
-  font-size: var(--font-sizes-sm);
-`;
-
-const SumType = styled.div`
-  font-size: var(--font-sizes-xs);
-  line-height: 20px;
-  color: #767676;
 `;
 
 const Divider = styled.div`

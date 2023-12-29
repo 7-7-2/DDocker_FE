@@ -2,7 +2,7 @@ import { useLayoutEffect, useState, Suspense } from 'react';
 import TodayCaffeineText from '@/components/home/TodayCaffeineText';
 import WaterPerCoffee from '@/components/home/WaterPerCoffee';
 import useGetCacheData from '@/hooks/useGetCacheData';
-import { CachedData, UserCachedData } from '@/types/types';
+import { CachedData } from '@/types/types';
 import { getTodayCoffeeInfo } from '@/api/post';
 import { styled } from 'styled-system/jsx';
 

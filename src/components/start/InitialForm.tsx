@@ -16,7 +16,9 @@ import {
   DisabledBtn,
   Regular,
   Semibold,
-  StartPageContainer
+  StartPageContainer,
+  PrfileTitle,
+  MarginT28
 } from '@/styles/styles';
 import { cx } from 'styled-system/css';
 
@@ -32,12 +34,12 @@ const InitialForm = () => {
   return (
     <div className={Column}>
       <div className={StartPageContainer}>
-        <InitialFormText className={Regular}>
+        <div className={cx(Regular, PrfileTitle, MarginT28)}>
           {message.first}
           <br />
           <span className={Semibold}>{message.profile}</span>
           {message.second}
-        </InitialFormText>
+        </div>
         <ProfileContainer>
           <EditProfileImg onImageSelect={handleImageSelect} />
         </ProfileContainer>
@@ -61,13 +63,6 @@ const InitialForm = () => {
     </div>
   );
 };
-
-const InitialFormText = styled.div`
-  margin-top: 28px;
-  color: #313131;
-  font-size: var(--font-sizes-xxl);
-  line-height: 32px;
-`;
 
 const ProfileContainer = styled.div`
   margin: 50px 36px;

@@ -5,7 +5,7 @@ import Icon from '@/components/common/Icon';
 import { SEARCH_TEXTS } from '@/constants/search';
 import { SearchBarProps } from '@/types/types';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import { Between, Flex, FlexCenter } from '@/styles/layout';
+import { Align, Between, Flex, FlexCenter } from '@/styles/layout';
 import { SearchInput } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
@@ -31,8 +31,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
 
   return (
     <>
-      <div className={cx(Flex, Between)}>
-        <Container className={Flex}>
+      <div className={cx(Align, Between)}>
+        <Container className={cx(Align, Between)}>
           <Area className={Flex}>
             <IconContainer className={FlexCenter}>
               <Icon {...iconPropsGenerator('mini-search', '12')} />
@@ -47,11 +47,11 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
             />
           </Area>
           {inputValue && (
-            <div
+            <IconDelete
               className={FlexCenter}
               onTouchEnd={handleInputDelete}>
               <Icon {...iconPropsGenerator('input-delete', '24')} />
-            </div>
+            </IconDelete>
           )}
         </Container>
         <Button
@@ -74,13 +74,14 @@ const Container = styled.div`
   background-color: var(--colors-tertiary);
   border-radius: 6px;
 `;
-
 const Area = styled.div`
   height: 32px;
 `;
-
 const IconContainer = styled.div`
   padding: 10px;
+`;
+const IconDelete = styled.div`
+  padding: 4px;
 `;
 const Divider = styled.div`
   position: relative;
