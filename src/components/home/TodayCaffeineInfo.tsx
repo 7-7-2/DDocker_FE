@@ -1,9 +1,9 @@
 import { useLayoutEffect, useState, Suspense } from 'react';
+import { getTodayCoffeeInfo } from '@/api/post';
 import TodayCaffeineText from '@/components/home/TodayCaffeineText';
 import WaterPerCoffee from '@/components/home/WaterPerCoffee';
 import useGetCacheData from '@/hooks/useGetCacheData';
 import { CachedData } from '@/types/types';
-import { getTodayCoffeeInfo } from '@/api/post';
 import { styled } from 'styled-system/jsx';
 
 const TodayCaffeineInfo = () => {

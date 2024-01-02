@@ -2,7 +2,6 @@ import PostSocial from '@/components/post/PostSocial';
 import MiniProfile from '@/components/common/MiniProfile';
 import Icon from '@/components/common/Icon';
 import CafeDetail from '@/components/post/CafeDetail';
-
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { SimplifyUser } from '@/types/types';
 import { styled } from 'styled-system/jsx';

@@ -1,16 +1,16 @@
+import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { Input } from '@/components/common/Input';
-import { Label } from '@/components/common/Label';
-import { INPUT_TEXTS } from '@/constants/common';
-import { LABEL_TEXTS } from '@/constants/common';
+import { getNicknameList } from '@/api/user';
 import {
   inputNicknameAlertState,
   authState,
   useInputState
 } from '@/atoms/atoms';
+import { Input } from '@/components/common/Input';
+import { Label } from '@/components/common/Label';
+import { INPUT_TEXTS } from '@/constants/common';
+import { LABEL_TEXTS } from '@/constants/common';
 import useSetUserInitialInfo from '@/hooks/useSetUserInitialInfo';
-import { getNicknameList } from '@/api/user';
-import { useState } from 'react';
 
 const { nickname } = INPUT_TEXTS.type;
 

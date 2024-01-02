@@ -1,15 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-
 import { authState } from '@/atoms/atoms';
 import SignIn from '@/components/start/SignIn';
 import InitialForm from '@/components/start/InitialForm';
 import { SelectFavBrand } from '@/components/start/SelectFavBrand';
-
-import { authState } from '@/atoms/atoms';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { useShowFooter } from '@/hooks/useShowFooter';
 import useGetCacheData from '@/hooks/useGetCacheData';

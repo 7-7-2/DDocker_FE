@@ -1,3 +1,4 @@
+import { DocumentData } from 'firebase/firestore';
 import { CAFFEINE_PER_WATER_TEXTS } from '@/constants/home';
 import { FlexCenter } from '@/styles/layout';
 import {
@@ -7,7 +8,6 @@ import {
   HomeContentNum,
   InputByteCheck
 } from '@/styles/styles';
-import { DocumentData } from 'firebase/firestore';
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 
@@ -21,8 +21,8 @@ const CoffeeIntake = ({ data }: { data: DocumentData[] }) => {
     <div>
       <div className={CaffeineDetail}>{coffeeIntake.title}</div>
       <div className={HomeContent}>
-        <span className={HomeContentBigNum}>{data.Allcaffeine}</span>mg
-        <span className={HomeContentNum}> /{data.coffee}잔</span>
+        <span className={HomeContentBigNum}>{allCaffeine}</span>mg
+        <span className={HomeContentNum}> /{data.length}잔</span>
       </div>
       <div className={InputByteCheck}>{coffeeIntake.subTitle}</div>
       <div className={FlexCenter}>

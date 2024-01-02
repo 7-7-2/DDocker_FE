@@ -8,7 +8,6 @@ import WaterIntake from '@/components/home/WaterIntake';
 import { BUTTON_TEXTS } from '@/constants/common';
 import { TODAY_CAFFEINE_INFO_TEXTS } from '@/constants/home';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
-
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import {
@@ -19,7 +18,7 @@ import {
   Flex,
   MarginAuto
 } from '@/styles/layout';
-import { LoginBtn, Medium, Regular } from '@/styles/styles';
+import { LoginBtn, RegistCoffeeBtn, AlertMessage } from '@/styles/styles';
 
 const { anonymous, signedIn } = TODAY_CAFFEINE_INFO_TEXTS;
 
@@ -41,7 +40,7 @@ const WaterPerCoffee = ({
 
   const anonymousCard = (
     <div className={cx(Column, Center, MarginAuto)}>
-      <span className={cx(AlertMessage, Regular)}>
+      <span className={AlertMessage}>
         {anonymous.card.first} <br /> {anonymous.card.second}
       </span>
       <Button
@@ -54,13 +53,11 @@ const WaterPerCoffee = ({
 
   const notConsumedCoffee = (
     <div className={cx(Column, Center, MarginAuto)}>
-      <span className={cx(AlertMessage, Regular)}>
-        {signedIn.card.notConsumed}
-      </span>
+      <span className={AlertMessage}>{signedIn.card.notConsumed}</span>
       <Button
         text={signedIn.btn}
         onTouchEnd={useNavigateTo('/post/register')}
-        className={cx(RegistCoffeeBtn, Medium)}
+        className={RegistCoffeeBtn}
       />
     </div>
   );
@@ -120,18 +117,6 @@ const Default = css`
   border: 1px solid #ccc;
   background: #ebebeb;
   text-align: center;
-`;
-
-const AlertMessage = css`
-  font-size: var(--font-sizes-sm);
-  color: #a6a6a6;
-  line-height: 22px;
-`;
-
-const RegistCoffeeBtn = css`
-  color: #767676;
-  font-size: var(--font-sizes-xxl);
-  line-height: 32px;
 `;
 
 const MarginTop = css`

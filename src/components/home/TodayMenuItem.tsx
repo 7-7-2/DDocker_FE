@@ -1,12 +1,7 @@
-import Icon from '@/components/common/Icon';
-import { testMenu } from '@/types/types';
-import { Column, Flex } from '@/styles/layout';
-import { Semibold } from '@/styles/styles';
-import { testMenu } from '@/types/types';
-import convertBrandName from '@/utils/convertBrandName';
-import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { DocumentData } from 'firebase/firestore';
-import { css } from 'styled-system/css';
+import convertBrandName from '@/utils/convertBrandName';
+import { Column, Flex } from '@/styles/layout';
+import { RecentSearch, SumType } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 
 const TodayMenuItem = (data: { data: DocumentData }) => {
@@ -42,10 +37,6 @@ const IconCotainer = styled.div`
   height: 40px;
   border-radius: 50%;
   margin-right: 10px;
-`;
-
-const SmFont = css`
-  font-size: var(--font-sizes-sm);
 `;
 
 export default TodayMenuItem;

@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { CAFFEINE_INFO_TEXTS } from '@/constants/home';
 import {
   caffeineFilterState,
   selectedMenuInfoState,
   selectedMenuState
 } from '@/atoms/atoms';
+import { CAFFEINE_INFO_TEXTS } from '@/constants/home';
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { HomeRegistContainer, HomeInfoCaffeine } from '@/styles/styles';
-import { Align, Between, Flex } from '@/styles/layout';
+import { Align, Between } from '@/styles/layout';
 
 const CaffeineInfo = () => {
   const selectedMenu = useRecoilValue(selectedMenuState);
@@ -24,7 +24,7 @@ const CaffeineInfo = () => {
   }, [selectedMenu]);
 
   return (
-    <Container className={cx(Flex, Between, HomeRegistContainer, Align)}>
+    <Container className={cx(Between, HomeRegistContainer, Align)}>
       <span>{CAFFEINE_INFO_TEXTS.title}</span>
       <span className={HomeInfoCaffeine}>{caffeine.caffeine}mg</span>
     </Container>
