@@ -122,7 +122,7 @@ const CoffeeOptionSelection = () => {
       <ShotOptionInputContainer
         className={cx(Align, Between, MarginB8, SmStyle)}>
         <span>{coffeeOption.shot.input}</span>
-        <div className={cx(Flex, Align)}>
+        <div className={Align}>
           <Icon
             {...iconPropsGenerator(
               !inputValue ? 'input-minus' : 'input-minus:active'

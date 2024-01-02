@@ -21,7 +21,7 @@ const Header = () => {
   const close = icon === 'close';
 
   return (
-    <Container className={cx(Flex, Between, Align)}>
+    <Container className={cx(Between, Align)}>
       <Left onTouchEnd={useNavigateTo('/')}>
         {logo && (
           <svg

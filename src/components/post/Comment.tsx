@@ -2,6 +2,8 @@ import Icon from '@/components/common/Icon';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { styled } from 'styled-system/jsx';
 import { Flex, Column } from '@/styles/layout';
+import { CommnetUser, CaffeineDetail, TextArea } from '@/styles/styles';
+import { cx } from 'styled-system/css';
 
 // 하드코딩 텍스트 데이터로 변경예정
 const Comment = () => {
@@ -9,9 +11,9 @@ const Comment = () => {
     <Container className={Flex}>
       <Icon {...iconPropsGenerator('comment-default', '36')} />
       <CommentDetail className={Column}>
-        <UserName>프리한 프리지아</UserName>
-        <CommentText>커피 ㄲ</CommentText>
-        <OnComment className={Flex}>
+        <div className={CommnetUser}>프리한 프리지아</div>
+        <div className={CaffeineDetail}>커피 ㄲ</div>
+        <OnComment className={cx(Flex, TextArea)}>
           <CommentedAt>23분 전</CommentedAt>
           <Reply>답글 달기</Reply>
         </OnComment>
@@ -27,20 +29,8 @@ const Container = styled.div`
 const CommentDetail = styled.div`
   padding-left: 8px;
 `;
-const UserName = styled.div`
-  font-weight: 600;
-  font-size: var(--font-sizes-sm);
-  line-height: 22px;
-`;
-
-const CommentText = styled.div`
-  font-size: var(--font-sizes-sm);
-  line-height: 22px;
-`;
 
 const OnComment = styled.div`
-  font-size: var(--font-sizes-xs);
-  line-height: 20px;
   color: #a6a6a6;
 `;
 

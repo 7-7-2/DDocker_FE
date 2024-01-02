@@ -1,13 +1,12 @@
 import Icon from '@/components/common/Icon';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { styled } from 'styled-system/jsx';
-import { cx } from 'styled-system/css';
-import { Align, Flex } from '@/styles/layout';
+import { Align } from '@/styles/layout';
 import { CaffeineDetail } from '@/styles/styles';
 
 const PostSocialCount = ({ count, icon }: { count: number; icon: string }) => {
   return (
-    <Container className={cx(Flex, Align)}>
+    <Container className={Align}>
       <Icon {...iconPropsGenerator(icon)}></Icon>
       <Count className={CaffeineDetail}>{count}</Count>
     </Container>

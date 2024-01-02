@@ -1,5 +1,5 @@
-import { imageState } from '@/atoms/atoms';
 import { useRecoilState } from 'recoil';
+import { imageState } from '@/atoms/atoms';
 import FollowCount from '@/components/profile/FollowCount';
 import PostsGrid from '@/components/profile/PostsGrid';
 import ProfileDetail from '@/components/profile/ProfileDetail';

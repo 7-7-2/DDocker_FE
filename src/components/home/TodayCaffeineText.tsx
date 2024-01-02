@@ -1,20 +1,14 @@
-import { useRecoilValue } from 'recoil';
 import { useLayoutEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import { DocumentData } from 'firebase/firestore';
-
+import { getUserInfo } from '@/api/user';
+import { getTodayCoffeeInfo } from '@/api/post';
 import { authState } from '@/atoms/atoms';
-import { useEffect, useState } from 'react';
 import Icon from '@/components/common/Icon';
 import { TODAY_CAFFEINE_INFO_TEXTS } from '@/constants/home';
 import useGetCacheData from '@/hooks/useGetCacheData';
 import { UserCachedData } from '@/types/types';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import useGetCacheData from '@/hooks/useGetCacheData';
-import { getUserInfo } from '@/api/user';
-import { getTodayCoffeeInfo } from '@/api/post';
-import { UserCachedData } from '@/types/types';
-
-import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 import { Align, Between, Column } from '@/styles/layout';

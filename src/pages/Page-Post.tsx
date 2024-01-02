@@ -1,6 +1,6 @@
+import { lazy } from 'react';
 import { useParams } from 'react-router-dom';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
-import { lazy } from 'react';
 
 const PostRegister = lazy(() => import('../components/post/PostRegister'));
 const PostDetail = lazy(() => import('../components/post/PostDetail'));

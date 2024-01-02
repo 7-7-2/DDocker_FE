@@ -49,8 +49,6 @@ const SelectGender = () => {
   );
 };
 
-export default SelectGender;
-
 const NoneSelectedGender = css`
   border: 1px solid #ccc;
   color: #a6a6a6;
@@ -77,3 +75,5 @@ const SelectGenderContiner = styled.div`
   margin-top: 24px;
   height: auto;
 `;
+
+export default SelectGender;

@@ -3,7 +3,6 @@ import { setInitialInfo } from '@/api/user';
 import { authState } from '@/atoms/atoms';
 import BrandItem from '@/components/start/BrandItem';
 import Button from '@/components/common/Button';
-
 import { SELECTFAVBRAND_TEXTS } from '@/constants/start';
 import { BUTTON_TEXTS } from '@/constants/common';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
@@ -28,7 +27,7 @@ const { message } = SELECTFAVBRAND_TEXTS;
 export const SelectFavBrand = () => {
   useComposeHeader(false, '기본정보', 'close');
   const { user } = useRecoilValue(authState);
-  const { handleFormSubmit, setImageUrl } = useImgSubmit();
+  const { handleFormSubmit } = useImgSubmit();
 
   const navigateToHome = useNavigateTo('/');
   const navigateToMe = useNavigateTo('/start/3');
@@ -80,23 +79,6 @@ export const SelectFavBrand = () => {
     </>
   );
 };
-
-const InitialFormText = styled.div`
-  margin-top: 1.75rem;
-  color: #313131;
-  font-size: var(--font-sizes-xxl);
-  font-weight: 600;
-  line-height: 2rem;
-`;
-
-const SecondLine = styled.span`
-  color: #767676;
-  font-family: Pretendard;
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1.5rem;
-`;
 
 const BrandItemContainer = styled.div`
   margin: 2.375rem auto 3.75rem;

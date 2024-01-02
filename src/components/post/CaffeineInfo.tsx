@@ -1,12 +1,11 @@
 import CafeDetail from '@/components/post/CafeDetail';
 import { styled } from 'styled-system/jsx';
-import { cx } from 'styled-system/css';
-import { Flex, Align } from '@/styles/layout';
+import { Align } from '@/styles/layout';
 import { PaddingL12 } from '@/styles/styles';
 
 const CaffeineInfo = ({ brand }: { brand: string }) => {
   return (
-    <Container className={cx(Flex, Align)}>
+    <Container className={Align}>
       <CafeIcon />
       <CafeDetail
         brand={brand}
