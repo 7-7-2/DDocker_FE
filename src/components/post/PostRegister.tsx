@@ -20,7 +20,7 @@ import Icon from '@/components/common/Icon';
 import Button from '@/components/common/Button';
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { Center, Flex } from '@/styles/layout';
+import { FlexCenter } from '@/styles/layout';
 import { DefaultBtn } from '@/styles/styles';
 
 const editorDefaults = getEditorDefaults({
@@ -95,7 +95,7 @@ const PostRegister = () => {
             </PostImgContainer>
           )}
           {!imageUrl && (
-            <RegistPhoto className={cx(Flex, Center)}>
+            <RegistPhoto className={FlexCenter}>
               <Icon {...iconPropsGenerator('regist-photo', '24')} />
               <input
                 ref={fileInputRef}

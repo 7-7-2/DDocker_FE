@@ -606,3 +606,35 @@ export const StartBrandSub = cx(
     font-size: var(--font-sizes-base);
     line-height: 24px;
   `)
+  
+export const RegistCoffeeBtn = cx(
+  Medium,
+  css`
+    color: #767676;
+    font-size: var(--font-sizes-xxl);
+    line-height: 32px;
+  `)
+  
+export const AlertMessage = cx(
+  Regular,
+  css`
+    color: #a6a6a6;
+    font-size: var(--font-sizes-sm);
+    line-height: 22px;
+  `)
+
+export const CommnetUser = cx(
+  Semibold,
+  css`
+    color: #313131;
+    font-size: var(--font-sizes-sm);
+    line-height: 22px;
+  `)
+  
+export const CommentLength = cx(
+  Regular,
+  css`
+    color: #767676;
+    font-size: var(--font-sizes-sm);
+    line-height: 22px;
+  `)

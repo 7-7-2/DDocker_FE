@@ -5,14 +5,13 @@ import CaffeineInfo from '@/components/post/CaffeineInfo';
 import PostedAt from '@/components/post/PostedAt';
 import Icon from '@/components/common/Icon';
 import { Input } from '@/components/common/Input';
-
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { INPUT_TEXTS } from '@/constants/common';
+import { SimplifyUser } from '@/types/types';
 import { styled } from 'styled-system/jsx';
-import { Flex, Between, Align } from '@/styles/layout';
+import { Between, Align } from '@/styles/layout';
 import { cx } from 'styled-system/css';
 import { PaddingTB10, PostContent } from '@/styles/styles';
-import { SimplifyUser } from '@/types/types';
 
 // POST 정보를 수신 => 하위 props에 전달
 // 1. PostSocial => 좋아요, 댓글 수
@@ -26,7 +25,7 @@ const PostDetail = ({ userId, NickName, caffeine }: SimplifyUser) => {
 
   return (
     <>
-      <UserProfile className={cx(Flex, Between, Align)}>
+      <UserProfile className={cx(Between, Align)}>
         <MiniProfile
           userId={userId}
           NickName={NickName}

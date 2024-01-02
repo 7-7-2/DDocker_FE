@@ -1,7 +1,6 @@
 import { useRecoilState } from 'recoil';
 import { GoogleAuthProvider } from 'firebase/auth';
 import { getUserInfo, signInWithGoogle } from '@/api/user';
-import { DocumentData } from 'firebase/firestore';
 import Icon from '@/components/common/Icon';
 import { SIGININ_TEXTS } from '@/constants/start';
 import { AuthTypes } from '@/types/types';
@@ -9,8 +8,6 @@ import { authState } from '@/atoms/atoms';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import useSetCacheData from '@/hooks/useSetCacheData';
-import useGetCacheData from '@/hooks/useGetCacheData';
-
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 import {

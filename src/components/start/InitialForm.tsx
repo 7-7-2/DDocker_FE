@@ -27,7 +27,7 @@ const { message } = INITIAL_FORM_TEXTS;
 const InitialForm = () => {
   useComposeHeader(false, '기본정보', 'close');
   const { user } = useRecoilValue(authState);
-  const { handleFormSubmit, setImageUrl } = useImgSubmit();
+  const { setImageUrl } = useImgSubmit();
   const handleImageSelect = (selectedImage: File) => {
     setImageUrl(URL.createObjectURL(selectedImage));
   };

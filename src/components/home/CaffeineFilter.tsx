@@ -20,8 +20,8 @@ const CaffeineFilter = () => {
   );
 };
 
-export default CaffeineFilter;
-
 const Container = styled.div`
   margin: 32px 0 32px;
 `;
+
+export default CaffeineFilter;

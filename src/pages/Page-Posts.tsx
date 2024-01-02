@@ -1,5 +1,5 @@
-import { useComposeHeader } from '@/hooks/useComposeHeader';
 import PostCard from '@/components/posts/PostCard';
+import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { styled } from 'styled-system/jsx';
 
 export const Posts = () => {

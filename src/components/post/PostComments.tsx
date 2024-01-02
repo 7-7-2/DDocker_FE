@@ -1,9 +1,11 @@
-import { styled } from 'styled-system/jsx';
 import Comment from '@/components/post/Comment';
+import { styled } from 'styled-system/jsx';
+import { CommentLength } from '@/styles/styles';
+
 const PostComments = ({ length }: { length: number }) => {
   return (
     <Container>
-      <Length>{length}개의 댓글</Length>
+      <div className={CommentLength}>{length}개의 댓글</div>
       <Comment />
     </Container>
   );
@@ -11,12 +13,6 @@ const PostComments = ({ length }: { length: number }) => {
 
 const Container = styled.div`
   padding-top: 16px;
-`;
-
-const Length = styled.div`
-  font-size: var(--font-sizes-sm);
-  line-height: 22px;
-  color: #767676;
 `;
 
 export default PostComments;

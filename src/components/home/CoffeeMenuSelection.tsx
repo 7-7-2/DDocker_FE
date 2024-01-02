@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import {
   registPostState,
   selectedBrandState,
@@ -9,10 +9,11 @@ import {
 } from '@/atoms/atoms';
 import RegisterLabel from '@/components/post/RegisterLabel';
 import { CAFFEINE_FILTER_TEXTS } from '@/constants/home';
+import coffeeData from '@/datas/coffees';
 import useGetCacheData from '@/hooks/useGetCacheData';
 import { CoffeeData, UserCachedData } from '@/types/types';
+import convertBrandName from '@/utils/convertBrandName';
 import { setBrnadList } from '@/utils/setBrandList';
-import coffeeData from '@/datas/coffees';
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { SmStyle } from '@/styles/styles';
