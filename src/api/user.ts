@@ -14,10 +14,34 @@ import {
   getDocs,
   onSnapshot
 } from 'firebase/firestore';
+import { baseInstance } from '@/api/axiosInterceptor';
 import { app } from '@/firebase.config';
+import axios, { AxiosError } from 'axios';
 import { AuthTypes, CachedData, Collections, UserTypes } from '@/types/types';
 import useGetCacheData from '@/hooks/useGetCacheData';
 import useSetCacheData from '@/hooks/useSetCacheData';
+
+export const getSocialAuth = async (social: string) => {
+  try {
+    const res = await baseInstance.get(`users/signIn?social=${social}`);
+    console.log('hi:', res.data);
+    window.location.href = res.data;
+
+    return res.data;
+  } catch (error) {
+    console.error('Error fetching social authentication:', error);
+    return undefined;
+  }
+};
+
+export const getsocialAccessToken = async (code: string | null) => {
+  try {
+    const res = await baseInstance.get(`/users/google/redirect?code=${code}`);
+  } catch (error) {
+    console.error('Error fetching social authentication:', error);
+    return undefined;
+  }
+};
 
 // Auth
 export const auth = getAuth(app);
@@ -53,6 +77,7 @@ export const getUserId = async () => {
 //  userInfo를 cache storage에 caching 하는 함수
 export const cacheUserInfo = async (data: DocumentData) => {
   await useSetCacheData('user', '/user', data);
+  await useSetCacheData('userInfo', '/user', data);
 };
 
 // User 정보 가져오는 함수
@@ -61,6 +86,7 @@ export const getUserInfo = async () => {
   onSnapshot(userDocRef, doc => {
     if (doc.exists()) {
       const data = doc.data();
+      console.log(data);
       data && cacheUserInfo(data);
     }
   });
