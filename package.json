@@ -12,9 +12,11 @@
     "panda": "pnpm exec panda",
     "panda:dev": "pnpm exec panda --watch"
   },
+  "proxy": "http://localhost:4000",
   "dependencies": {
     "@pqina/pintura": "^8.70.1",
     "@pqina/react-pintura": "^9.0.3",
+    "axios": "^1.6.7",
     "firebase": "^10.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
