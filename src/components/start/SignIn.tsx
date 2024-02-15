@@ -1,6 +1,12 @@
 import { useRecoilState } from 'recoil';
 import { GoogleAuthProvider } from 'firebase/auth';
-import { getUserInfo, signInWithGoogle } from '@/api/user';
+import {
+  getSocialAuth,
+  getUserInfo,
+  getsocialAccessToken,
+  signInWithGoogle
+} from '@/api/user';
+
 import Icon from '@/components/common/Icon';
 import { SIGININ_TEXTS } from '@/constants/start';
 import { AuthTypes } from '@/types/types';
@@ -8,6 +14,7 @@ import { authState } from '@/atoms/atoms';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import useSetCacheData from '@/hooks/useSetCacheData';
+
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 import {
@@ -19,6 +26,8 @@ import {
   MarginAuto
 } from '@/styles/layout';
 import { StartBtn, NoneBtn, SignInBtn } from '@/styles/styles';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 const { signInBtn, startText } = SIGININ_TEXTS;
 
@@ -26,6 +35,9 @@ const SignIn = () => {
   const [userInfo, setUserAuthState] = useRecoilState<AuthTypes>(authState);
   const navToSignUp = useNavigateTo('/start/2');
   const navToHome = useNavigateTo('/');
+  const [test, setTest] = useState<any | undefined>({});
+  const [searchParams] = useSearchParams();
+  const code = searchParams.get('code');
 
   const handleSignIn = async () => {
     try {
@@ -34,6 +46,7 @@ const SignIn = () => {
       const credential = GoogleAuthProvider.credentialFromResult(res);
       const accessToken = credential?.accessToken as string;
       await useSetCacheData('user', '/accessToken', accessToken);
+      await useSetCacheData('userInfo', '/accessToken', accessToken);
       await useSetCacheData('user', '/userId', res.user.uid);
 
       // UserInfo 가져오는 로직
@@ -66,6 +79,28 @@ const SignIn = () => {
     }
   };
 
+  const handleKaKaoAuth = async () => {
+    try {
+      const res = await getSocialAuth('kakao');
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  let originalUrl: string;
+
+  const handleGoogleAuth = async () => {
+    try {
+      await getSocialAuth('google');
+    } catch (error) {
+      console.log(error);
+    }
+    console.log(test);
+  };
+
+  useEffect(() => {
+    getsocialAccessToken(code);
+  }, []);
   return (
     <Container>
       <AppLogoContainer
@@ -84,7 +119,9 @@ const SignIn = () => {
         </div>
       </AppLogoContainer>
       <SignInBtnContainer className={cx(Justify, Column)}>
-        <KakaoBtn className={SignInBtn}>
+        <KakaoBtn
+          className={SignInBtn}
+          onTouchEnd={handleKaKaoAuth}>
           <IconContiner>
             <Icon {...iconPropsGenerator('kakao', '18')} />
           </IconContiner>
@@ -93,7 +130,7 @@ const SignIn = () => {
         <GoogleBtn
           type="button"
           className={cx(SignInBtn, FlexCenter)}
-          onClick={handleSignIn}>
+          onTouchEnd={handleGoogleAuth}>
           <IconContiner>
             <Icon {...iconPropsGenerator('google', '18')} />
           </IconContiner>
