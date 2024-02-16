@@ -22,7 +22,7 @@ const TodayCaffeineText = () => {
   const userInfo = useRecoilValue(authState);
 
   const getCachedUserInfo = async () => {
-    const data = await useGetCacheData('user', '/user');
+    const data = await useGetCacheData('userInfo', '/user');
     setCachedUser(data);
   };
 
@@ -39,7 +39,7 @@ const TodayCaffeineText = () => {
     getDataList();
   }, []);
 
-  const anonymousText = !user && (
+  const anonymousText = !user?.nickname && (
     <div className={Column}>
       <span>{anonymous.first}</span>
       <span>{anonymous.second}</span>
@@ -50,11 +50,11 @@ const TodayCaffeineText = () => {
   const signedInText = (
     <div className={Column}>
       <span>
-        {user ? user?.user.nickname : userInfo.user.nickname}
+        {user ? user?.nickname : userInfo.nickname}
         {signedIn.first}
       </span>
       <div>
-        <CaffeineInfo>총 {user?.accumualted || 0}mg</CaffeineInfo>
+        <CaffeineInfo>총 {user?.sum || 0}mg</CaffeineInfo>
         {signedIn.second}
       </div>
       <span>{signedIn.third}</span>
@@ -72,7 +72,7 @@ const TodayCaffeineText = () => {
   return (
     <div className={HomeHeaderContent}>
       <div className={cx(Align, Between)}>
-        {user?.signIn ? signedInText : anonymousText}
+        {user?.nickname ? signedInText : anonymousText}
         <img
           src="/png/coffee_mainimg.png"
           alt="coffee"

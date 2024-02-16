@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import { setInitialInfo } from '@/api/user';
+import { setUserInitInfo } from '@/api/user';
 import { authState } from '@/atoms/atoms';
 import BrandItem from '@/components/start/BrandItem';
 import Button from '@/components/common/Button';
@@ -26,7 +26,7 @@ const { message } = SELECTFAVBRAND_TEXTS;
 
 export const SelectFavBrand = () => {
   useComposeHeader(false, '기본정보', 'close');
-  const { user } = useRecoilValue(authState);
+  const user = useRecoilValue(authState);
   const { handleFormSubmit } = useImgSubmit();
 
   const navigateToHome = useNavigateTo('/');
@@ -35,19 +35,12 @@ export const SelectFavBrand = () => {
 
   const handleStartBtn = () => {
     const userInfo: AuthTypes = {
-      initialized: true,
-      user: {
-        userId: user.userId,
-        email: user.email,
-        name: user.name,
-        nickname: user.nickname,
-        brand: user.brand,
-        gender: user.gender,
-        profileUrl: user.profileUrl || ''
-      },
-      signIn: true
+      nickname: user.nickname,
+      brand: user.brand,
+      gender: user.gender,
+      profileUrl: user.profileUrl || ''
     };
-    setInitialInfo(userInfo);
+    setUserInitInfo(userInfo);
     handleFormSubmit();
     navigateToHome();
   };
