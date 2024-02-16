@@ -1,19 +1,9 @@
-import {
-  getFirestore,
-  doc,
-  setDoc,
-  getDoc,
-  DocumentData,
-  collection,
-  getDocs,
-  onSnapshot
-} from 'firebase/firestore';
 import { authInstance, baseInstance } from '@/api/axiosInterceptor';
 import { AuthTypes, CachedData, Collections, UserTypes } from '@/types/types';
 import useGetCacheData from '@/hooks/useGetCacheData';
 import useSetCacheData from '@/hooks/useSetCacheData';
 
-// Auth
+// Social Auth
 export const getSocialAuth = async (social: string) => {
   try {
     const res = await baseInstance.get(`users/signIn?social=${social}`);
@@ -25,7 +15,7 @@ export const getSocialAuth = async (social: string) => {
   }
 };
 
-//
+// DDocker AccessToken
 export const getAccessToken = async (code: string | null, social: string) => {
   try {
     const res = await baseInstance.get(
@@ -38,7 +28,7 @@ export const getAccessToken = async (code: string | null, social: string) => {
   }
 };
 
-// User 정보 가져오는 함수
+// UserInfo
 export const getUserInfo = async () => {
   try {
     const res = await authInstance.get(`/users/0/userInfo`);
@@ -48,36 +38,26 @@ export const getUserInfo = async () => {
   }
 };
 
-// 초기 프로필 설정
+// DDocker SignUp
 export const setUserInitInfo = async (userInfo: AuthTypes) => {
   try {
     const data = userInfo;
-    const res = await authInstance.post('/users', data);
-    console.log(res, data);
+    await authInstance.post('/users', data);
   } catch (error) {
     console.log('Failed to save user initial info on DB', error);
   }
 };
 
-// 닉네임 중복 체크
-export const getNicknameList = async () => {
-  const fieldValues: UserTypes[] = [];
-  const nicknameList: string[] = [];
-  const userListDocRef = collection(getFirestore(), Collections.USERS);
-  const data = await getDocs(userListDocRef);
-  data &&
-    data.forEach((doc: DocumentData) => {
-      const fieldValue = doc.data()['user'];
-      fieldValue && fieldValues.push(fieldValue);
-    });
-  fieldValues.map(
-    (item: UserTypes) => item.nickname && nicknameList.push(item.nickname)
-  );
-  return nicknameList;
+// Check Nickname
+export const checkNickname = async (nickname: string) => {
+  try {
+    const res = await baseInstance.get(`/users/check?nickname=${nickname}`);
+    console.log('🚀 ~ checkNickname ~ res:', res.data.data);
+    return res.data.data;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
-// UserDocRef
-export const getUserDocRef = async () => {
-  const userId = (await getUserId()) as string;
-  return doc(getFirestore(), Collections.USERS, userId);
-};
+export const getUserDocRef = () => {};
+export const getUserId = () => {};

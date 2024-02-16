@@ -33,17 +33,10 @@ export const footerShowState = atom({
 export const authState = atom<AuthTypes>({
   key: 'authState',
   default: {
-    initialized: false,
-    user: {
-      userId: '',
-      email: '',
-      name: '',
-      nickname: '',
-      brand: '',
-      gender: '',
-      profileUrl: ''
-    },
-    signIn: false
+    nickname: '',
+    brand: '',
+    gender: '',
+    profileUrl: ''
   }
 });
 
