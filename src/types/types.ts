@@ -11,10 +11,11 @@ export interface HeaderType {
 }
 
 export interface AuthTypes {
-  accumualted?: number;
-  initialized: boolean;
-  user: UserTypes;
-  signIn: boolean;
+  profileUrl?: string | null;
+  nickname?: string;
+  brand?: string;
+  gender?: string;
+  sum?: number;
 }
 
 export interface UserTypes {
@@ -130,5 +131,5 @@ export enum Collections {
 }
 
 export interface EditProfileImgProps {
-  onImageSelect: (setProfileImg: File) => void
+  onImageSelect: (setProfileImg: File) => void;
 }

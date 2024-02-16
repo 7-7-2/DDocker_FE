@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { getNicknameList } from '@/api/user';
+import { checkNickname } from '@/api/user';
 import {
   inputNicknameAlertState,
   authState,
@@ -15,30 +15,29 @@ import useSetUserInitialInfo from '@/hooks/useSetUserInitialInfo';
 const { nickname } = INPUT_TEXTS.type;
 
 const CheckNickname = () => {
-  const { user } = useRecoilValue(authState);
+  const user = useRecoilValue(authState);
   const inputValue = useRecoilValue(useInputState);
   const [isAlert, setIsAlert] = useRecoilState(inputNicknameAlertState);
   const [isApproval, setIsapproval] = useState(false);
-  const setInitialInfo = useSetUserInitialInfo();
+  // const setInitialInfo = useSetUserInitialInfo();
+  const [userInit, setUserInit] = useRecoilState(authState);
 
-  const checkIsApproval = async () => {
+  const cilckIdCheckBtn = async () => {
     try {
-      const nicknameList: string[] = await getNicknameList();
-      const isApproval: boolean =
-        nicknameList && !nicknameList.includes(inputValue);
-      setIsapproval(isApproval);
-      isApproval && setInitialInfo(inputValue, user.brand, user.gender);
+      const res = await checkNickname(inputValue);
+      res === 1 ? setIsapproval(false) : setIsapproval(res);
+      setIsAlert(true);
+
+      const selectedNickname = {
+        ...userInit,
+        nickname: inputValue
+      };
+      if (isApproval) {
+        isApproval && setUserInit(selectedNickname);
+      }
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const cilckIdCheckBtn = async () => {
-    setTimeout(async () => {
-      await checkIsApproval();
-      setIsAlert(true);
-    }, 500);
-    clearTimeout;
   };
 
   const allertMessage = isApproval
