@@ -1,19 +1,12 @@
-import { useRecoilState } from 'recoil';
-import { GoogleAuthProvider } from 'firebase/auth';
-import {
-  getSocialAuth,
-  getUserInfo,
-  getsocialAccessToken,
-  signInWithGoogle
-} from '@/api/user';
+import { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import Icon from '@/components/common/Icon';
 import { SIGININ_TEXTS } from '@/constants/start';
-import { AuthTypes } from '@/types/types';
-import { authState } from '@/atoms/atoms';
+import { getSocialAuth, getAccessToken, getUserInfo } from '@/api/user';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
-import useSetCacheData from '@/hooks/useSetCacheData';
+import useGetCacheData from '@/hooks/useGetCacheData';
 
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
@@ -26,81 +19,42 @@ import {
   MarginAuto
 } from '@/styles/layout';
 import { StartBtn, NoneBtn, SignInBtn } from '@/styles/styles';
-import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 
 const { signInBtn, startText } = SIGININ_TEXTS;
 
 const SignIn = () => {
-  const [userInfo, setUserAuthState] = useRecoilState<AuthTypes>(authState);
-  const navToSignUp = useNavigateTo('/start/2');
-  const navToHome = useNavigateTo('/');
-  const [test, setTest] = useState<any | undefined>({});
   const [searchParams] = useSearchParams();
   const code = searchParams.get('code');
+  const navToSignUp = useNavigateTo('/start/2');
+  const navToHome = useNavigateTo('/');
 
-  const handleSignIn = async () => {
+  const handleSocialAuth: React.TouchEventHandler<HTMLButtonElement> = async (
+    e: React.TouchEvent<HTMLButtonElement>
+  ) => {
     try {
-      //sign in
-      const res = await signInWithGoogle();
-      const credential = GoogleAuthProvider.credentialFromResult(res);
-      const accessToken = credential?.accessToken as string;
-      await useSetCacheData('user', '/accessToken', accessToken);
-      await useSetCacheData('userInfo', '/accessToken', accessToken);
-      await useSetCacheData('user', '/userId', res.user.uid);
-
-      // UserInfo 가져오는 로직
-      const userData = (await getUserInfo()) as AuthTypes | undefined;
-      // const data = await useGetCacheData('user', '/user');
-
-      // 초기 프로필 미설정 &&
-      if (!userData) {
-        const userInfo: AuthTypes = {
-          initialized: false,
-          user: {
-            userId: res.user.uid,
-            email: res.user?.email,
-            name: res.user?.displayName,
-            nickname: '',
-            brand: '',
-            gender: '',
-            profileUrl: res.user.photoURL
-          },
-          signIn: true
-        };
-        setUserAuthState({ ...userInfo });
-      }
-      // 프로필 설정 여부로 페이지 이동
-      !userData?.initialized ? navToSignUp() : navToHome();
-    } catch {
-      (error: string) => {
-        console.log(error);
-      };
-    }
-  };
-
-  const handleKaKaoAuth = async () => {
-    try {
-      const res = await getSocialAuth('kakao');
-      console.log(res);
+      const social = e.currentTarget.value;
+      await getSocialAuth(social);
     } catch (error) {
       console.log(error);
     }
   };
-  let originalUrl: string;
 
-  const handleGoogleAuth = async () => {
+  const cacheAccessToken = async () => {
     try {
-      await getSocialAuth('google');
-    } catch (error) {
-      console.log(error);
+      const res = await useGetCacheData('user', '/social');
+      await getAccessToken(code, res.cacheData);
+      await getUserInfo();
+      const initialized = await useGetCacheData('user', '/userInfo');
+      (await initialized.cacheData.data) !== true ? navToHome() : navToSignUp();
+    } catch (err) {
+      console.log('Need to Social Sign In');
     }
-    console.log(test);
   };
 
   useEffect(() => {
-    getsocialAccessToken(code);
+    cacheAccessToken();
   }, []);
+
   return (
     <Container>
       <AppLogoContainer
@@ -120,17 +74,18 @@ const SignIn = () => {
       </AppLogoContainer>
       <SignInBtnContainer className={cx(Justify, Column)}>
         <KakaoBtn
+          value="kakao"
           className={SignInBtn}
-          onTouchEnd={handleKaKaoAuth}>
+          onTouchEnd={handleSocialAuth}>
           <IconContiner>
             <Icon {...iconPropsGenerator('kakao', '18')} />
           </IconContiner>
           {signInBtn.kakao}
         </KakaoBtn>
         <GoogleBtn
-          type="button"
+          value="google"
           className={cx(SignInBtn, FlexCenter)}
-          onTouchEnd={handleGoogleAuth}>
+          onTouchEnd={handleSocialAuth}>
           <IconContiner>
             <Icon {...iconPropsGenerator('google', '18')} />
           </IconContiner>
@@ -138,7 +93,6 @@ const SignIn = () => {
         </GoogleBtn>
         <button
           className={NoneBtn}
-          onClick={useNavigateTo('/')}
           onTouchEnd={useNavigateTo('/')}>
           {signInBtn.none}
         </button>
