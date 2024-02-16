@@ -1,10 +1,4 @@
 import {
-  getAuth,
-  signInWithPopup,
-  GoogleAuthProvider,
-  signOut
-} from 'firebase/auth';
-import {
   getFirestore,
   doc,
   setDoc,
@@ -14,92 +8,52 @@ import {
   getDocs,
   onSnapshot
 } from 'firebase/firestore';
-import { baseInstance } from '@/api/axiosInterceptor';
-import { app } from '@/firebase.config';
-import axios, { AxiosError } from 'axios';
+import { authInstance, baseInstance } from '@/api/axiosInterceptor';
 import { AuthTypes, CachedData, Collections, UserTypes } from '@/types/types';
 import useGetCacheData from '@/hooks/useGetCacheData';
 import useSetCacheData from '@/hooks/useSetCacheData';
 
+// Auth
 export const getSocialAuth = async (social: string) => {
   try {
     const res = await baseInstance.get(`users/signIn?social=${social}`);
-    console.log('hi:', res.data);
-    window.location.href = res.data;
-
-    return res.data;
+    // redirect url
+    window.location.href = res.data.url;
+    await useSetCacheData('user', '/social', res.data.social);
   } catch (error) {
     console.error('Error fetching social authentication:', error);
-    return undefined;
   }
 };
 
-export const getsocialAccessToken = async (code: string | null) => {
+//
+export const getAccessToken = async (code: string | null, social: string) => {
   try {
-    const res = await baseInstance.get(`/users/google/redirect?code=${code}`);
+    const res = await baseInstance.get(
+      `/users/${social}/redirect?code=${code}`
+    );
+    await useSetCacheData('user', '/accessToken', res.data.accessToken);
+    return res.data.accessToken;
   } catch (error) {
     console.error('Error fetching social authentication:', error);
-    return undefined;
   }
-};
-
-// Auth
-export const auth = getAuth(app);
-
-// UserDocRef
-export const getUserDocRef = async () => {
-  const userId = (await getUserId()) as string;
-  return doc(getFirestore(), Collections.USERS, userId);
-};
-
-// 소셜로그인
-export const signInWithGoogle = async () => {
-  const googleProvider = new GoogleAuthProvider();
-  return await signInWithPopup(auth, googleProvider);
-};
-
-// 로그아웃
-export const signOutAuth = async () => {
-  await signOut(auth);
-};
-
-// 소셜 로그인후 uid 가져오는 함수
-export const getUserId = async () => {
-  try {
-    const userId: CachedData = await useGetCacheData('user', '/userId');
-    return userId.cacheData;
-  } catch (error) {
-    console.log('Failed to load userID');
-    return undefined;
-  }
-};
-
-//  userInfo를 cache storage에 caching 하는 함수
-export const cacheUserInfo = async (data: DocumentData) => {
-  await useSetCacheData('user', '/user', data);
-  await useSetCacheData('userInfo', '/user', data);
 };
 
 // User 정보 가져오는 함수
 export const getUserInfo = async () => {
-  const userDocRef = await getUserDocRef();
-  onSnapshot(userDocRef, doc => {
-    if (doc.exists()) {
-      const data = doc.data();
-      console.log(data);
-      data && cacheUserInfo(data);
-    }
-  });
-  const data = (await getDoc(userDocRef)).data();
-  return data;
+  try {
+    const res = await authInstance.get(`/users/0/userInfo`);
+    await useSetCacheData('user', '/userInfo', res.data);
+  } catch (error) {
+    console.log('Error fetching social authentication:', error);
+  }
 };
 
-// 프로필 설정 후 DB저장
-export const setInitialInfo = async (userInfo: AuthTypes) => {
-  const userDocRef = await getUserDocRef();
+// 초기 프로필 설정
+export const setUserInitInfo = async (userInfo: AuthTypes) => {
   try {
-    await setDoc(userDocRef, { ...userInfo }, { merge: true });
-    await getUserInfo();
+    const data = userInfo;
+    const res = await authInstance.post('/users', data);
+    console.log(res, data);
   } catch (error) {
     console.log('Failed to save user initial info on DB', error);
   }
@@ -120,4 +74,10 @@ export const getNicknameList = async () => {
     (item: UserTypes) => item.nickname && nicknameList.push(item.nickname)
   );
   return nicknameList;
+};
+
+// UserDocRef
+export const getUserDocRef = async () => {
+  const userId = (await getUserId()) as string;
+  return doc(getFirestore(), Collections.USERS, userId);
 };
