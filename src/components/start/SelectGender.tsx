@@ -1,5 +1,5 @@
 import { TouchEventHandler, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { Label } from '@/components/common/Label';
 import Button from '@/components/common/Button';
 import { LABEL_TEXTS } from '@/constants/common';
@@ -11,15 +11,18 @@ import { css, cx } from 'styled-system/css';
 import { Between, Flex } from '@/styles/layout';
 
 const SelectGender = () => {
-  const { user } = useRecoilValue(authState);
+  const [userInit, setUserInit] = useRecoilState(authState);
   const [inputValue, setInputValue] = useState('');
   const [isAlert, setIsAlert] = useState(false);
   const { gender } = INITIAL_FORM_TEXTS;
   const genderType = [gender.male, gender.female];
-  const Selectedgender = useSetUserInitialInfo();
 
   const clickBtn: TouchEventHandler<HTMLButtonElement> = e => {
-    Selectedgender(user.nickname, user.brand, e.currentTarget.value);
+    const selectedGender = {
+      ...userInit,
+      gender: e.currentTarget.value
+    };
+    setUserInit(selectedGender);
     setInputValue(e.currentTarget.value);
     setIsAlert(true);
   };
@@ -29,7 +32,7 @@ const SelectGender = () => {
       <Label
         label={LABEL_TEXTS.gender.label}
         isAlert={isAlert}
-        inputValue={inputValue || user.gender}
+        inputValue={inputValue || userInit.gender}
       />
       <div className={cx(Flex, Between, SelectGenderBtnGap)}>
         {genderType.map((item, idx) => (
@@ -39,7 +42,7 @@ const SelectGender = () => {
             text={item}
             onTouchEnd={clickBtn}
             className={cx(
-              user.gender === item ? SelectedGender : NoneSelectedGender,
+              userInit.gender === item ? SelectedGender : NoneSelectedGender,
               SelectGenderBtn
             )}
           />
