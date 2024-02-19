@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { DocumentData } from 'firebase/firestore';
 import { getTodayCoffeeInfo } from '@/api/post';
 import Button from '@/components/common/Button';
@@ -19,23 +19,30 @@ import {
   MarginAuto
 } from '@/styles/layout';
 import { LoginBtn, RegistCoffeeBtn, AlertMessage } from '@/styles/styles';
+import { CoffeeInfo, UserCachedData } from '@/types/types';
+import useGetCacheData from '@/hooks/useGetCacheData';
 
 const { anonymous, signedIn } = TODAY_CAFFEINE_INFO_TEXTS;
 
-const WaterPerCoffee = ({
-  accessToken
-}: {
-  accessToken: string | undefined;
-}) => {
-  const [dataList, setDataList] = useState<DocumentData[]>([]);
+const WaterPerCoffee = () => {
+  const [cachedUser, setCachedUser] = useState<UserCachedData>();
+  const [dataList, setDataList] = useState<CoffeeInfo>();
 
-  const consumedCoffeList = async () => {
-    const dataList = await getTodayCoffeeInfo();
-    setDataList(dataList);
+  const getCachedUserInfo = async () => {
+    const data = await useGetCacheData('user', '/userInfo');
+    setCachedUser(data);
   };
 
-  useEffect(() => {
+  const user = cachedUser?.cacheData.data;
+
+  const consumedCoffeList = async () => {
+    const data = await useGetCacheData('user', '/coffee');
+    setDataList(data.cacheData);
+  };
+
+  useLayoutEffect(() => {
     consumedCoffeList();
+    getCachedUserInfo();
   }, []);
 
   const anonymousCard = (
@@ -69,7 +76,7 @@ const WaterPerCoffee = ({
         <WaterIntake />
       </div>
       <TodayMenuList className={Flex}>
-        {dataList.map((item, idx) => (
+        {dataList?.item.map((item, idx) => (
           <TodayMenuItem
             data={item}
             key={idx}
@@ -82,13 +89,13 @@ const WaterPerCoffee = ({
   return (
     <Container
       className={cx(
-        dataList.length >= 1 ? CosumedCoffee : Default,
+        dataList?.item && dataList?.item.length >= 1 ? CosumedCoffee : Default,
         Align,
         Between
       )}>
-      {!accessToken && anonymousCard}
-      {accessToken && dataList.length === 0 && notConsumedCoffee}
-      {accessToken && dataList.length >= 1 && consumedCoffee}
+      {!user && anonymousCard}
+      {user && dataList?.item && dataList?.item.length < 1 && notConsumedCoffee}
+      {user && dataList?.item && dataList?.item.length >= 1 && consumedCoffee}
     </Container>
   );
 };

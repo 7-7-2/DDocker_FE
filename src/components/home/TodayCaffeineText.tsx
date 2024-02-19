@@ -22,19 +22,18 @@ const TodayCaffeineText = () => {
   const userInfo = useRecoilValue(authState);
 
   const getCachedUserInfo = async () => {
-    const data = await useGetCacheData('userInfo', '/user');
+    const data = await useGetCacheData('user', '/userInfo');
     setCachedUser(data);
   };
 
   const getDataList = async () => {
-    const dataList = await getTodayCoffeeInfo();
-    setDataList(dataList);
+    const data = await useGetCacheData('user', '/coffee');
+    setDataList(data.cacheData.item);
   };
 
-  const user = cachedUser?.cacheData;
+  const user = cachedUser?.cacheData.data;
 
   useLayoutEffect(() => {
-    getUserInfo();
     getCachedUserInfo();
     getDataList();
   }, []);
