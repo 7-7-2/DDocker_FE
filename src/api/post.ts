@@ -1,46 +1,25 @@
-import { Collections, TodayPostTypes } from '@/types/types';
-import {
-  DocumentData,
-  addDoc,
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  serverTimestamp,
-  setDoc,
-  updateDoc
-} from 'firebase/firestore';
-import { getUserDocRef } from '@/api/user';
-
-// getSubCollection
-export const getSubCollecton = async (SubCollection: string) => {
-  const userDocRef = await getUserDocRef();
-  return collection(userDocRef, SubCollection);
-};
+import { authInstance, baseInstance } from '@/api/axiosInterceptor';
+import useSetCacheData from '@/hooks/useSetCacheData';
+import { TodayPostTypes } from '@/types/types';
 
 // Post 등록
 export const setPostRegist = async (postInfo: TodayPostTypes) => {
-  const userDocRef = await getUserDocRef();
   try {
-    const postCollection = await getSubCollecton(Collections.POSTS);
-    await setDoc(doc(postCollection), {
-      ...postInfo,
-      timestamp: serverTimestamp()
-    });
-    const data = (await getDoc(userDocRef)).data();
-    const caffeineData = data?.accumualted;
-    await updateDoc(userDocRef, {
-      accumualted: caffeineData + postInfo.caffeine
-    });
+    console.log(postInfo);
+    const data = postInfo;
+    await baseInstance.post('/posts/register', data);
   } catch (error) {
     console.log('Failed to regist post', error);
   }
 };
 
+// TodayCoffeeInfo
 export const getTodayCoffeeInfo = async () => {
-  const postCollection = await getSubCollecton(Collections.POSTS);
-  const dataList: DocumentData[] = [];
-  const data = (await getDocs(postCollection)).docs;
-  data.map(item => dataList.push(item.data()));
-  return dataList;
+  try {
+    const res = await authInstance.get('/coffee');
+    await useSetCacheData('user', '/coffee', res.data[0]);
+    return res.data[0];
+  } catch (error) {
+    console.log('Failed to get Today coffee Info', error);
+  }
 };
