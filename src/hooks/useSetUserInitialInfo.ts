@@ -13,7 +13,7 @@ const useSetUserInitialInfo = () => {
     setInitialInfo(prevAuthState => ({
       ...prevAuthState,
       user: {
-        ...prevAuthState.user,
+        ...prevAuthState,
         nickname: inputValue,
         brand: brand,
         gender: gender,
