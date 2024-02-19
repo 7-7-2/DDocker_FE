@@ -11,7 +11,7 @@ import convertBrandName from '@/utils/convertBrandName';
 import { SmStyle } from '@/styles/styles';
 
 const BrandItem = (brandInfo: BrnadItemProps) => {
-  const { user } = useRecoilValue(authState);
+  const user = useRecoilValue(authState);
   const setFavBrand = useSetUserInitialInfo();
 
   const selectBrand: React.TouchEventHandler<HTMLDivElement> = e => {
