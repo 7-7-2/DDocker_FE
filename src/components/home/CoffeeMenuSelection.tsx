@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useLayoutEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import {
@@ -36,27 +36,29 @@ const CoffeeMenuSelection = () => {
   const newRegistData = {
     ...registInfo,
     brand: selectedBrand,
-    name: selectedMenuInfo.name,
+    menu: selectedMenuInfo.name,
     caffeine: Number(selectedMenuInfo.caffeine)
   };
-
-  useEffect(() => {
-    getCachedUserInfo();
-  }, []);
+  console.log(registInfo);
 
   const getCachedUserInfo = async () => {
     try {
       const data = await useGetCacheData('user', '/user');
       setCachedUser(data);
-      setSelectedBrand(data.cacheData.user.brand);
-      getMenuList(data.cacheData.user.brand);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const user = cachedUser?.cacheData.user;
+  const user = cachedUser?.cacheData.data;
 
+  useLayoutEffect(() => {
+    setTimeout(() => {
+      getCachedUserInfo();
+    }, 0);
+    user?.brand && setSelectedBrand(user?.brand);
+    user?.brand && getMenuList(user?.brand);
+  }, []);
   const brandList = setBrnadList();
 
   const selectedBrandData: CoffeeData = coffeeData;
@@ -83,6 +85,7 @@ const CoffeeMenuSelection = () => {
   };
 
   const selectMenu = (e: ChangeEvent<HTMLSelectElement>) => {
+    console.log(e.target.value);
     setSelectedMenu(e.target.value);
     getMenuInfo(e.target.value);
   };

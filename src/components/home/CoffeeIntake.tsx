@@ -10,19 +10,17 @@ import {
 } from '@/styles/styles';
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
+import { CoffeeInfo } from '@/types/types';
 
 const { coffeeIntake } = CAFFEINE_PER_WATER_TEXTS;
 
-const CoffeeIntake = ({ data }: { data: DocumentData[] }) => {
-  const todayCaffeine = data.map(item => item.caffeine);
-  const allCaffeine = todayCaffeine.reduce((acc, cur) => acc + cur);
-
+const CoffeeIntake = ({ data }: { data: CoffeeInfo | undefined }) => {
   return (
     <div>
       <div className={CaffeineDetail}>{coffeeIntake.title}</div>
       <div className={HomeContent}>
-        <span className={HomeContentBigNum}>{allCaffeine}</span>mg
-        <span className={HomeContentNum}> /{data.length}잔</span>
+        <span className={HomeContentBigNum}>{data?.caffeineSum}</span>mg
+        <span className={HomeContentNum}> /{data?.allCount}잔</span>
       </div>
       <div className={InputByteCheck}>{coffeeIntake.subTitle}</div>
       <div className={FlexCenter}>
