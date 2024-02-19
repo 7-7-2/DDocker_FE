@@ -97,9 +97,18 @@ export interface CachedData {
 }
 
 export interface UserCachedData {
-  cacheData: AuthTypes;
+  cacheData: { success: 'ok'; data: AuthTypes };
 }
 
+export interface CoffeeCachedData {
+  cacheData: { success: 'ok'; data: CoffeeInfo };
+}
+
+export interface CoffeeInfo {
+  caffeineSum: string;
+  allCount: number;
+  item: [{ brand: string; caffeine: number }];
+}
 export interface CoffeeItem {
   brand: string;
   name: string;
@@ -108,12 +117,12 @@ export interface CoffeeItem {
 
 export interface TodayPostTypes {
   brand: string;
-  name: string;
+  menu: string;
   size: string;
   shot: number;
   caffeine: number;
-  title: string;
-  photo: string;
+  post_title: string;
+  photo: string | undefined;
 }
 
 export interface CoffeeData {
