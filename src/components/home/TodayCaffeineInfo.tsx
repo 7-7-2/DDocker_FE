@@ -1,35 +1,12 @@
-import { useLayoutEffect, useState, Suspense } from 'react';
-import { getTodayCoffeeInfo } from '@/api/post';
 import TodayCaffeineText from '@/components/home/TodayCaffeineText';
 import WaterPerCoffee from '@/components/home/WaterPerCoffee';
-import useGetCacheData from '@/hooks/useGetCacheData';
-import { CachedData } from '@/types/types';
 import { styled } from 'styled-system/jsx';
 
 const TodayCaffeineInfo = () => {
-  const [cachedData, setCachedData] = useState<CachedData>();
-
-  const getCachedUserInfo = async () => {
-    const data = await useGetCacheData('user', '/accessToken');
-    setCachedData(data);
-  };
-
-  const accessToken = cachedData?.cacheData;
-
-  useLayoutEffect(() => {
-    const getData = async () => {
-      await getCachedUserInfo();
-      await getTodayCoffeeInfo();
-    };
-    getData();
-  }, []);
-
   return (
     <Container>
-      <Suspense>
-        <TodayCaffeineText />
-        <WaterPerCoffee accessToken={accessToken} />
-      </Suspense>
+      <TodayCaffeineText />
+      <WaterPerCoffee />
     </Container>
   );
 };
