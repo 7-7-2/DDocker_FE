@@ -4,6 +4,7 @@ import {
   AuthTypes,
   CoffeeItem,
   SimplifyUser,
+  TodayPostTypes,
   caffeineFilterTypes
 } from '@/types/types';
 
@@ -59,15 +60,15 @@ export const selectedMenuInfoState = atom<CoffeeItem>({
   }
 });
 
-export const registPostState = atom({
+export const registPostState = atom<TodayPostTypes>({
   key: 'registPostState',
   default: {
     brand: '',
-    name: '',
+    menu: '',
     size: 'Regular',
     shot: 0,
     caffeine: 0,
-    title: '',
+    post_title: '',
     photo: ''
   }
 });

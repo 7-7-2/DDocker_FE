@@ -1,6 +1,5 @@
 import { authInstance, baseInstance } from '@/api/axiosInterceptor';
-import { AuthTypes, CachedData, Collections, UserTypes } from '@/types/types';
-import useGetCacheData from '@/hooks/useGetCacheData';
+import { AuthTypes } from '@/types/types';
 import useSetCacheData from '@/hooks/useSetCacheData';
 
 // Social Auth
@@ -52,12 +51,8 @@ export const setUserInitInfo = async (userInfo: AuthTypes) => {
 export const checkNickname = async (nickname: string) => {
   try {
     const res = await baseInstance.get(`/users/check?nickname=${nickname}`);
-    console.log('🚀 ~ checkNickname ~ res:', res.data.data);
     return res.data.data;
   } catch (err) {
     console.log(err);
   }
 };
-
-export const getUserDocRef = () => {};
-export const getUserId = () => {};

@@ -58,7 +58,8 @@ const PostRegister = () => {
 
   const newRegistData = {
     ...registInfo,
-    title: inputState
+    post_title: inputState,
+    photo: imageUrl
   };
 
   const navigateToDetail = useNavigateTo('/post/1');
@@ -66,7 +67,7 @@ const PostRegister = () => {
   const clickRegisterBtn = () => {
     navigateToDetail;
     setRegistInfo(newRegistData);
-    setPostRegist(registInfo);
+    setPostRegist(newRegistData);
   };
 
   return (
