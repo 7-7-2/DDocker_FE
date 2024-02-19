@@ -1,17 +1,17 @@
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import { getDoc } from 'firebase/firestore';
-import { getUserDocRef } from '@/api/profile';
 import { imageState } from '@/atoms/atoms';
 import useGetCacheData from '@/hooks/useGetCacheData';
+import { getUserDocRef } from '@/api/profile';
 
 export const useGetProfileImg = () => {
   const [profileUrl, setProfileUrl] = useRecoilState(imageState);
-  const userId = useGetCacheData('user', '/userId');
+  const userInfo = useGetCacheData('user', '/userInfo');
 
   useEffect(() => {
     const fetchProfileImg = async () => {
-      if (!userId) {
+      if (!userInfo) {
         return;
       }
       const userDocRef = await getUserDocRef();
