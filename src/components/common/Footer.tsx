@@ -27,7 +27,7 @@ const Container = styled.footer`
     right: 0;
     border-top: 1px solid #edecec;
     position: absolute;
-    bottom: 47px;
+    bottom: calc(47px + env(safe-area-inset-bottom));
     width: 50%;
   }
   &::after {
@@ -35,7 +35,7 @@ const Container = styled.footer`
     border-top: 1px solid #edecec;
     position: absolute;
     left: 0;
-    bottom: 47px;
+    bottom: calc(47px + env(safe-area-inset-bottom));
     width: 50%;
   }
 `;
