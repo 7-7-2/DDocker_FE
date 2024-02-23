@@ -18,13 +18,7 @@ const Post = () => {
   return (
     <>
       {register && <PostRegister />}
-      {!register && (
-        <PostDetail
-          userId="zxc"
-          NickName="커피안마셔안마셔"
-          caffeine={12345}
-        />
-      )}
+      {!register && postid && <PostDetail postNum={postid} />}
     </>
   );
 };

@@ -1,30 +1,47 @@
 import Icon from '@/components/common/Icon';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { cx } from 'styled-system/css';
-import { Column, Align } from '@/styles/layout';
-import { Cafe, CaffeineDetail, PaddingL6, PostsCafe } from '@/styles/styles';
+import { Column, Flex, Align } from '@/styles/layout';
+import { Cafe, CaffeineDetail, PostsCafe } from '@/styles/styles';
+import { COFFEE_TEXTS } from '@/constants/coffee';
+import { ColorMain } from '@/styles/styles';
+
+const { unit, including, is } = COFFEE_TEXTS;
 
 // 하드코딩 텍스트 데이터로 변경예정
 const CafeDetail = ({
   brand,
   className,
+  caffeine,
+  menu,
+  shot,
   posts = false
 }: {
   brand: string;
   className?: string;
+  caffeine?: string;
+  menu?: string;
+  shot: string;
   posts?: boolean;
 }) => {
   return (
     <div className={cx(Column, className)}>
       <div className={posts ? cx(PostsCafe, Align) : Cafe}>
         {posts && <Icon {...iconPropsGenerator('shop', '16')} />}
-        <span className={PaddingL6}>{brand}</span>
+        <span>{brand}</span>
       </div>
-      <div className={CaffeineDetail}>
-        ICED 아메리카노 (+2샷)
+      <CaffeineDetail>
+        {`${menu} ${shot !== '0' ? `(+${shot}` : ''}${
+          shot !== '0' ? '샷)' : ''
+        }`}
         <br />
-        포함된 카페인 함량은 185mg입니다.
-      </div>
+        {including}
+        <span className={ColorMain}>
+          {caffeine}
+          {unit}
+        </span>
+        {is}
+      </CaffeineDetail>
     </div>
   );
 };
