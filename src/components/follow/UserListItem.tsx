@@ -9,13 +9,13 @@ import { cx } from 'styled-system/css';
 const UserListItem: React.FC<{ users: SimplifyUser[] }> = ({ users }) => {
   return (
     <>
-      {users.map(({ userId, NickName, caffeine }: SimplifyUser) => (
-        <div
+      {users.map(({ userId, nickname, caffeine }: SimplifyUser) => (
+        <Container
           key={userId}
           className={cx(Align, Between, PaddingT20)}>
           <MiniProfile
             userId={userId}
-            NickName={NickName}
+            nickname={nickname}
             caffeine={caffeine}
           />
           <DeleteBtn className={cx(Cursor, DelBtn)}>{TEXT.deleteBtn}</DeleteBtn>

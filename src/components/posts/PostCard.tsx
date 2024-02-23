@@ -10,13 +10,14 @@ import { cx } from 'styled-system/css';
 import { PostContent } from '@/styles/styles';
 import { PaddingT12 } from '@/styles/styles';
 
-const PostCard = ({ userId, NickName, caffeine }: SimplifyUser) => {
+const PostCard = ({ userId, nickname, caffeine }: SimplifyUser) => {
   return (
     <Container>
       <UserProfile className={cx(Flex, Between)}>
         <MiniProfile
+          url="http://k.kakaocdn.net/dn/bYYA0L/btsD2uCFD2R/JSVS9OUZSvnycCswnIkgdk/img_640x640.jpg"
           userId={userId}
-          NickName={NickName}
+          nickname={nickname}
           caffeine={caffeine}
         />
         <Icon {...iconPropsGenerator('user-more')} />

@@ -17,7 +17,7 @@ const SearchListItem: React.FC<{ users: SimplifyUser[] }> = () => {
   const setSearchResults = useSetRecoilState(searchResultsState);
 
   const filteredResults = searchResults.filter(
-    user => user.NickName?.toLowerCase().includes(inputValue.toLowerCase())
+    user => user.nickname?.toLowerCase().includes(inputValue.toLowerCase())
   );
 
   const handleDeleteAll = () => {
@@ -43,14 +43,14 @@ const SearchListItem: React.FC<{ users: SimplifyUser[] }> = () => {
           </span>
         </Wrapper>
       )}
-      {filteredResults.map(({ userId, NickName, caffeine }: SimplifyUser) => (
+      {filteredResults.map(({ userId, nickname, caffeine }: SimplifyUser) => (
         <Container
           key={userId}
           className={cx(Align, Between)}>
           <div onTouchEnd={handleInUsers}>
             <MiniProfile
               userId={userId}
-              NickName={NickName}
+              nickname={nickname}
               caffeine={caffeine}
             />
           </div>
