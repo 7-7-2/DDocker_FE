@@ -24,7 +24,8 @@ export const Btn = cx(
   Medium,
   css`
     width: 100%;
-  `);
+  `
+);
 
 export const StartBtn = cx(
   Btn,
@@ -33,8 +34,9 @@ export const StartBtn = cx(
     font-size: var(--font-sizes-sm);
     line-height: 22px;
     text-align: center;
-  `)
-  
+  `
+);
+
 export const NoneBtn = cx(
   Btn,
   css`
@@ -42,7 +44,8 @@ export const NoneBtn = cx(
     color: #767676;
     line-height: 18px;
     margin-top: 13px;
-  `)
+  `
+);
 
 export const ThinBtn = css`
   border-radius: 10px;
@@ -176,79 +179,70 @@ export const InputByteCheck = cx(
     color: #313131;
     font-size: var(--font-sizes-xs);
     line-height: 20px;
-  `)
-    
+  `
+);
+
 export const Cafe = css`
   color: #767676;
   font-size: var(--font-sizes-xs);
   line-height: 20px;
 `;
 
-export const CafeMedium = cx(
-  Medium,
-  Cafe,
-)
+export const CafeMedium = cx(Medium, Cafe);
 
 export const BgF5 = css`
   background-color: #f5f5f5;
-`
+`;
 
 export const PaddingL12 = css`
   padding-left: 12px;
 `;
 
-export const PaddingL6 = css`
-  padding-left: 6px;
-`;
-
 export const PaddingL63 = css`
   padding-left: 63px;
-`
+`;
 
 export const PaddingL24 = css`
   padding-left: 24px;
-`
+`;
 
 export const PaddingT12 = css`
   padding-top: 12px;
 `;
 
 export const PaddingT20 = css`
- padding-top: 20px;
-`
+  padding-top: 20px;
+`;
 
 export const PaddingT22 = css`
   padding-top: 22px;
-`
+`;
 
 export const PaddingB20 = css`
   padding-bottom: 20px;
-`
+`;
 
-export const PaddingTBMix = cx(
-  PaddingT12,
-  PaddingB20,
-);
+export const PaddingTBMix = cx(PaddingT12, PaddingB20);
 
 export const MarginT12 = css`
   margin-top: 12px;
-`
+`;
 
 export const MarginT16 = css`
   margin-top: 16px;
-`
+`;
 
 export const MarginT17 = css`
   margin-top: 17px;
-`
+`;
 
 export const MarginT28 = css`
   margin-top: 28px;
-`
+`;
 
 export const MarginB6 = css`
   margin-bottom: 6px;
-`
+`;
 
 export const MarginB8 = css`
   margin-bottom: 8px;
@@ -281,7 +275,8 @@ export const CaffeineDetail = cx(
     color: #313131;
     font-size: var(--font-sizes-sm);
     line-height: 22px;
-  `);
+  `
+);
 
 export const SearchInput = cx(
   Regular,
@@ -324,7 +319,8 @@ export const TextArea = cx(
     color: #fff;
     font-size: var(--font-sizes-xs);
     line-height: 20px;
-  `)
+  `
+);
 
 export const ButtonArea = cx(
   Medium,
@@ -427,7 +423,8 @@ export const DelBtn = cx(
     color: #313131;
     font-size: var(--font-sizes-xs);
     line-height: 20px;
-  `)
+  `
+);
 
 export const SearchPageHeight = css`
   height: calc(
@@ -453,7 +450,8 @@ export const SumTitle = cx(
     color: #313131;
     font-size: var(--font-sizes-lg);
     line-height: 26px;
-  `)
+  `
+);
 
 export const SumBoardTitle = cx(
   Medium,
@@ -461,15 +459,17 @@ export const SumBoardTitle = cx(
     color: #313131;
     font-size: var(--font-sizes-sm);
     line-height: 22px;
-  `)
-  
+  `
+);
+
 export const SumType = cx(
   Regular,
   css`
     color: #767676;
     font-size: var(--font-sizes-xs);
     line-height: 20px;
-  `)
+  `
+);
 
 export const SumTypeAmount = cx(
   Bold,
@@ -477,7 +477,8 @@ export const SumTypeAmount = cx(
     color: var(--colors-main);
     font-size: var(--font-sizes-xl);
     line-height: 28px;
-  `)
+  `
+);
 
 export const SumTypeUnit = cx(
   Medium,
@@ -486,15 +487,17 @@ export const SumTypeUnit = cx(
     font-size: var(--font-sizes-sm);
     line-height: 28px;
     transform: translateY(7%);
-  `)
-  
+  `
+);
+
 export const HomeRegistContainer = cx(
   Medium,
   css`
     color: #313131;
     font-size: var(--font-sizes-base);
     line-height: 24px;
-  `)
+  `
+);
 
 export const HomeInfoCaffeine = cx(
   Semibold,
@@ -502,7 +505,8 @@ export const HomeInfoCaffeine = cx(
     color: var(--colors-main);
     font-size: var(--font-sizes-xl);
     line-height: 28px;
-  `)
+  `
+);
 
 export const SmStyle = cx(
   Medium,
@@ -510,15 +514,17 @@ export const SmStyle = cx(
     color: #313131;
     font-size: var(--font-sizes-sm);
     line-height: 22px;
-  `)
-  
+  `
+);
+
 export const FooterTextMedium = cx(
   Medium,
   css`
     color: #313131;
     font-size: var(--font-sizes-xxs);
     line-height: 18px;
-  `)
+  `
+);
 
 export const FooterTextSelected = cx(
   Semibold,
@@ -526,23 +532,26 @@ export const FooterTextSelected = cx(
     color: var(--colors-main);
     font-size: var(--font-sizes-xxs);
     line-height: 18px;
-  `)
-  
+  `
+);
+
 export const HeaderText = cx(
   Medium,
   css`
     color: #313131;
     font-size: var(--font-sizes-lg);
     line-height: 26px;
-  `)
-  
+  `
+);
+
 export const ProfileTitle = cx(
   Semibold,
   css`
     color: #313131;
     font-size: var(--font-sizes-sm);
     line-height: 18px;
-  `)
+  `
+);
 
 export const ProfileInfo = cx(
   Regular,
@@ -550,54 +559,61 @@ export const ProfileInfo = cx(
     color: #767676;
     font-size: var(--font-sizes-xs);
     line-height: 18px;
-  `)
-  
+  `
+);
+
 export const HomeContent = cx(
   Semibold,
   css`
     color: var(--colors-main);
     font-size: var(--font-sizes-base);
     line-height: 36px;
-  `)
-  
+  `
+);
+
 export const HomeContentBigNum = cx(
   Bold,
   css`
     font-size: var(--font-sizes-xxl);
     line-height: 40px;
-  `)
-  
+  `
+);
+
 export const HomeContentNum = cx(
   Semibold,
   css`
     color: #313131;
     font-size: var(--font-sizes-base);
     line-height: 36px;
-  `)
-  
+  `
+);
+
 export const HomeHeaderContent = cx(
   Medium,
   css`
     color: #313131;
     font-size: var(--font-sizes-xl);
     line-height: 28px;
-  `)
-  
+  `
+);
+
 export const PrfileTitle = cx(
   Bold,
   css`
     color: #313131;
     font-size: var(--font-sizes-xxl);
     line-height: 32px;
-  `)
-  
+  `
+);
+
 export const StartBrand = cx(
   Semibold,
   css`
     color: #313131;
     font-size: var(--font-sizes-xxl);
     line-height: 32px;
-  `)
+  `
+);
 
 export const StartBrandSub = cx(
   Regular,
@@ -605,23 +621,26 @@ export const StartBrandSub = cx(
     color: #767676;
     font-size: var(--font-sizes-base);
     line-height: 24px;
-  `)
-  
+  `
+);
+
 export const RegistCoffeeBtn = cx(
   Medium,
   css`
     color: #767676;
     font-size: var(--font-sizes-xxl);
     line-height: 32px;
-  `)
-  
+  `
+);
+
 export const AlertMessage = cx(
   Regular,
   css`
     color: #a6a6a6;
     font-size: var(--font-sizes-sm);
     line-height: 22px;
-  `)
+  `
+);
 
 export const CommnetUser = cx(
   Semibold,
@@ -629,12 +648,18 @@ export const CommnetUser = cx(
     color: #313131;
     font-size: var(--font-sizes-sm);
     line-height: 22px;
-  `)
-  
+  `
+);
+
 export const CommentLength = cx(
   Regular,
   css`
     color: #767676;
     font-size: var(--font-sizes-sm);
     line-height: 22px;
-  `)
+  `
+);
+export const ColorMain = css`
+  font-weight: 500;
+  color: var(--colors-main);
+`;

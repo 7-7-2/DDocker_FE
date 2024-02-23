@@ -5,7 +5,7 @@ import CaffeineInfo from '@/components/post/CaffeineInfo';
 import PostedAt from '@/components/post/PostedAt';
 import Icon from '@/components/common/Icon';
 import { Input } from '@/components/common/Input';
-import { useQuery, UseQueryResult } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { INPUT_TEXTS } from '@/constants/common';
