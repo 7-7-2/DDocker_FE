@@ -8,9 +8,9 @@ const Search = () => {
   const [searchResults, setSearchResults] = useRecoilState(searchResultsState);
 
   const usersData: SimplifyUser[] = [
-    { userId: '1', NickName: '시우', caffeine: 99999999999999 },
-    { userId: '2', NickName: '중후', caffeine: 500 },
-    { userId: '3', NickName: '상원', caffeine: 250 }
+    { userId: '1', nickname: '시우', caffeine: 99999999999999 },
+    { userId: '2', nickname: '중후', caffeine: 500 },
+    { userId: '3', nickname: '상원', caffeine: 250 }
   ];
 
   const handleSearch = () => {
