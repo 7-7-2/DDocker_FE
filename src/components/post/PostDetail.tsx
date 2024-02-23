@@ -5,6 +5,8 @@ import CaffeineInfo from '@/components/post/CaffeineInfo';
 import PostedAt from '@/components/post/PostedAt';
 import Icon from '@/components/common/Icon';
 import { Input } from '@/components/common/Input';
+import { useQuery, UseQueryResult } from '@tanstack/react-query';
+
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { INPUT_TEXTS } from '@/constants/common';
 import { SimplifyUser } from '@/types/types';
@@ -12,41 +14,74 @@ import { styled } from 'styled-system/jsx';
 import { Between, Align } from '@/styles/layout';
 import { cx } from 'styled-system/css';
 import { PaddingTB10, PostContent } from '@/styles/styles';
+import timestampToDate from '@/utils/timestampToDate';
+import { getPostDetail, getSocialCounts } from '@/api/post';
 
-// POST 정보를 수신 => 하위 props에 전달
-// 1. PostSocial => 좋아요, 댓글 수
-// 2. CaffeineInfo => 카페인 정보
-// 3. PostedAt => 게시글 작성 시간
 const { type } = INPUT_TEXTS;
 const { comment } = type;
 
-const PostDetail = ({ userId, NickName, caffeine }: SimplifyUser) => {
-  const handleTouch = () => {};
-
+const PostDetail = ({ postNum }: { postNum: string }) => {
+  const {
+    data: postData,
+    isLoading,
+    isError
+  } = useQuery({
+    queryKey: ['postData'],
+    queryFn: () => {
+      return getPostDetail(postNum);
+    },
+    enabled: !!postNum
+  });
+  const { data: socialCounts } = useQuery({
+    queryKey: ['socialCounts'],
+    queryFn: () => {
+      return getSocialCounts(postNum);
+    },
+    enabled: !!postNum
+  });
+  const handleTouch = () => {
+    // writeComment();
+  };
   return (
     <>
-      <UserProfile className={cx(Between, Align)}>
-        <MiniProfile
-          userId={userId}
-          NickName={NickName}
-          caffeine={caffeine}
-        />
-        <Icon {...iconPropsGenerator('user-more')} />
-      </UserProfile>
-      <DetailImg src="https://i.namu.wiki/i/d1A_wD4kuLHmOOFqJdVlOXVt1TWA9NfNt_HA0CS0Y_N0zayUAX8olMuv7odG2FiDLDQZIRBqbPQwBSArXfEJlQ.webp" />
-      <PostSocial />
-      <PostContent>COFFEE~!</PostContent>
-      <CaffeineInfo brand={'바나프레소'} />
-      <PostedAt at={'20'} />
-      <Divider />
-      <PostComments length={5} />
-      <Divider />
-      <div className={PaddingTB10}>
-        <Input
-          type={comment.typeName}
-          handleEvent={handleTouch}
-        />
-      </div>
+      {postData && socialCounts && (
+        <>
+          <UserProfile className={cx(Flex, Between, Align)}>
+            <MiniProfile
+              url={postData?.data?.profileUrl}
+              nickname={postData.data.nickname}
+              caffeine={postData.data.sum}
+            />
+            <Icon {...iconPropsGenerator('user-more')} />
+          </UserProfile>
+          <DetailImg src={postData.data.photo} />
+          <PostSocial
+            posts={false}
+            likes={socialCounts.data.totalLikes}
+            comments={socialCounts.data.totalComments}
+          />
+          <PostContent>{postData.data.post_title}</PostContent>
+          <CaffeineInfo
+            brand={postData.data.brand}
+            menu={postData.data.menu}
+            caffeine={postData.data.caffeine}
+            shot={postData.data.shot}
+          />
+          <PostedAt at={timestampToDate(postData.data.created_at)} />
+          <Divider />
+          <PostComments
+            postNum={postNum}
+            commentCount={socialCounts.data.totalComments}
+          />
+          <Divider />
+          <div className={PaddingTB10}>
+            <Input
+              type={comment.typeName}
+              handleEvent={handleTouch}
+            />
+          </div>
+        </>
+      )}
     </>
   );
 };
