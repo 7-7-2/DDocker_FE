@@ -20,6 +20,8 @@ const Container = styled.div`
 
 const Count = styled.span`
   width: 22px;
+  line-height: 22px;
+  align-self: end;
 `;
 
 export default PostSocialCount;

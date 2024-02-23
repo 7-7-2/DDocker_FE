@@ -6,16 +6,24 @@ import { PostContainer, PostsContainer } from '@/styles/styles';
 import { Flex, Between } from '@/styles/layout';
 import { cx } from 'styled-system/css';
 
-const PostSocial = ({ posts = false }: { posts?: boolean }) => {
+const PostSocial = ({
+  posts,
+  likes,
+  comments
+}: {
+  posts?: boolean;
+  likes: number;
+  comments: number;
+}) => {
   return (
     <div className={cx(Flex, Between, posts ? PostsContainer : PostContainer)}>
       <div className={Flex}>
         <PostSocialCount
-          count={0}
+          count={likes}
           icon={'like'}
         />
         <PostSocialCount
-          count={0}
+          count={comments}
           icon={'comments'}
         />
       </div>

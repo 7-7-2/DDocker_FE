@@ -3,13 +3,42 @@ import { styled } from 'styled-system/jsx';
 import { Align } from '@/styles/layout';
 import { PaddingL12 } from '@/styles/styles';
 
-const CaffeineInfo = ({ brand }: { brand: string }) => {
+const pathMap = (brand: string) => {
+  const brandObj: Record<string, string> = {
+    스타벅스: '/png/starbucks.png',
+    이디야: '/png/ediya.png',
+    메가커피: '/png/megacoffee.png',
+    할리스: '/png/hollys.png',
+    파스쿠찌: '/png/pascucci.png',
+    엔젤리너스: '/png/angelinus.png',
+    더벤티: '/png/theventi.png',
+    빽다방: '/png/bbak.png',
+    컴포즈커피: '/png/compose.png',
+    폴바셋: '/png/paulbassett.png'
+  };
+  return brandObj[brand];
+};
+
+const CaffeineInfo = ({
+  brand,
+  menu,
+  caffeine,
+  shot
+}: {
+  brand: string;
+  menu: string;
+  caffeine: string;
+  shot: string;
+}) => {
   return (
-    <Container className={Align}>
-      <CafeIcon />
+    <Container className={cx(Flex, Align)}>
+      <CafeIcon src={pathMap(brand)} />
       <CafeDetail
         brand={brand}
         className={PaddingL12}
+        caffeine={caffeine}
+        menu={menu}
+        shot={shot}
       />
     </Container>
   );
