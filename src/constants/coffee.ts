@@ -7,5 +7,8 @@ export const COFFEE_TEXTS = {
   cups: '잔',
   unit: 'mg',
   coffee: '커피',
-  caffeine: '카페인'
+  caffeine: '카페인',
+  including: '포함된 카페인 함량은 ',
+  is: '입니다.'
 };
+
