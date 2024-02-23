@@ -1,4 +1,5 @@
 import { TouchEventHandler } from 'react';
+import { Dayjs } from 'dayjs';
 
 export interface LazyRouteType {
   index: boolean;
@@ -29,9 +30,10 @@ export interface UserTypes {
 }
 
 export interface SimplifyUser {
-  userId: string | undefined;
-  NickName: string | undefined;
+  userId?: string | undefined;
+  nickname: string | undefined;
   caffeine?: number;
+  url?: string;
 }
 
 export interface SearchBarProps {
@@ -136,9 +138,27 @@ export interface caffeineFilterTypes {
 
 export enum Collections {
   USERS = 'users',
-  POSTS = 'posts'
+  POSTS = 'posts',
+  COMMENTS = 'comments'
 }
 
 export interface EditProfileImgProps {
   onImageSelect: (setProfileImg: File) => void;
 }
+
+export interface Comment {
+  profileUrl: string;
+  nickname: string;
+  content: string;
+  created_at: Dayjs;
+  reply_count: number;
+  id: number;
+}
+
+export interface CommentProto extends Omit<Comment, 'reply_count' | 'id'> {
+  comment?: boolean;
+}
+export type Reply = Pick<
+  Comment,
+  'profileUrl' | 'nickname' | 'content' | 'created_at'
+>;
