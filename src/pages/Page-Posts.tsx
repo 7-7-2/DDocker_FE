@@ -1,20 +1,20 @@
 import PostCard from '@/components/posts/PostCard';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { styled } from 'styled-system/jsx';
-import { useQuery } from '@tanstack/react-query';
-import { getFollowingPosts } from '@/api/post';
+// import { useQuery } from '@tanstack/react-query';
+// import { getFollowingPosts } from '@/api/post';
+
+// const { data: postsData } = useQuery({
+//   queryKey: ['postsData'],
+//   queryFn: () => {
+//     return getFollowingPosts();
+//   }
+// });
+// DATA.MAP => <PostCard />
 
 export const Posts = () => {
   useComposeHeader(true, '', 'icons');
-  // const { data: postsData } = useQuery({
-  //   queryKey: ['postsData'],
-  //   queryFn: () => {
-  //     return getFollowingPosts();
-  //   }
-  // });
-  console.log(getFollowingPosts());
 
-  // DATA.MAP => <PostCard />
   return (
     <Container>
       <PostCard

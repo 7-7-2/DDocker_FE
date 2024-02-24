@@ -30,7 +30,12 @@ const PostCard = ({ userId, nickname, caffeine }: SimplifyUser) => {
         posts={true}
       />
       <div>
-        <PostSocial posts={true} />
+        {/* useInfiniteScroll => receives likes && comments counts */}
+        <PostSocial
+          posts={true}
+          likes={1}
+          comments={1}
+        />
       </div>
     </Container>
   );
