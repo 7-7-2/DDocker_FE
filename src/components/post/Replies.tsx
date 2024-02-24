@@ -19,7 +19,6 @@ const Replies = ({
     },
     enabled: !!commentId && !!replies
   });
-  replyList && console.log(replyList);
   const id = useId();
 
   return (
