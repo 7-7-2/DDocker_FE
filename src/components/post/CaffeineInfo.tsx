@@ -1,7 +1,8 @@
 import CafeDetail from '@/components/post/CafeDetail';
 import { styled } from 'styled-system/jsx';
-import { Align } from '@/styles/layout';
+import { Align, Flex } from '@/styles/layout';
 import { PaddingL12 } from '@/styles/styles';
+import { cx } from 'styled-system/css';
 
 const pathMap = (brand: string) => {
   const brandObj: Record<string, string> = {

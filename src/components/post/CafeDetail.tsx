@@ -21,7 +21,7 @@ const CafeDetail = ({
   className?: string;
   caffeine?: string;
   menu?: string;
-  shot: string;
+  shot?: string;
   posts?: boolean;
 }) => {
   return (
@@ -30,7 +30,7 @@ const CafeDetail = ({
         {posts && <Icon {...iconPropsGenerator('shop', '16')} />}
         <span>{brand}</span>
       </div>
-      <CaffeineDetail>
+      <div className={CaffeineDetail}>
         {`${menu} ${shot !== '0' ? `(+${shot}` : ''}${
           shot !== '0' ? '샷)' : ''
         }`}
@@ -41,7 +41,7 @@ const CafeDetail = ({
           {unit}
         </span>
         {is}
-      </CaffeineDetail>
+      </div>
     </div>
   );
 };

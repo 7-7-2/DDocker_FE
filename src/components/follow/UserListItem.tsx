@@ -10,7 +10,7 @@ const UserListItem: React.FC<{ users: SimplifyUser[] }> = ({ users }) => {
   return (
     <>
       {users.map(({ userId, nickname, caffeine }: SimplifyUser) => (
-        <Container
+        <div
           key={userId}
           className={cx(Align, Between, PaddingT20)}>
           <MiniProfile
