@@ -28,12 +28,12 @@ const Follow: React.FC<FollowCountProps> = () => {
   const followers: SimplifyUser[] = [
     {
       userId: 'asd',
-      NickName: '커피마셔마셔',
+      nickname: '커피마셔마셔',
       caffeine: 34054
     },
     {
       userId: 'zxc',
-      NickName: '커피안마셔안마셔',
+      nickname: '커피안마셔안마셔',
       caffeine: 12345
     }
   ];
@@ -41,12 +41,12 @@ const Follow: React.FC<FollowCountProps> = () => {
   const followings: SimplifyUser[] = [
     {
       userId: 'zxc',
-      NickName: '커피안마셔안마셔',
+      nickname: '커피안마셔안마셔',
       caffeine: 12345
     },
     {
       userId: 'asd',
-      NickName: '커피마셔마셔',
+      nickname: '커피마셔마셔',
       caffeine: 34054
     }
   ];
