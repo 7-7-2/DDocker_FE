@@ -1,4 +1,5 @@
 import { authInstance, baseInstance } from '@/api/axiosInterceptor';
+import useGetCacheData from '@/hooks/useGetCacheData';
 import useSetCacheData from '@/hooks/useSetCacheData';
 import { TodayPostTypes } from '@/types/types';
 
@@ -88,7 +89,7 @@ export const getRanking = async () => {
   return res.data;
 };
 
-// Post 등록
+// PostRegist
 export const setPostRegist = async (postInfo: TodayPostTypes) => {
   try {
     const data = postInfo;
@@ -106,5 +107,22 @@ export const getTodayCoffeeInfo = async () => {
     return res.data[0];
   } catch (error) {
     console.log('Failed to get Today coffee Info', error);
+  }
+};
+
+// WeeklyPopular
+export const getWeeklyPopular = async () => {
+  try {
+    setTimeout(deleteCachedData, 7 * 24 * 60 * 60 * 1000);
+    const res = await authInstance.get('/popular');
+    await useSetCacheData('brand', '/WeeklyPopular', res.data.data);
+    function deleteCachedData() {
+      caches.open('brand').then(cache => {
+        cache.delete('/popular');
+      });
+    }
+    return res.data.data;
+  } catch (error) {
+    console.log('Failed to get Weekly Popular List', error);
   }
 };
