@@ -5,42 +5,40 @@ import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 import { Grid } from '@/styles/layout';
 import { SmStyle, SumTitle, MarginT12 } from '@/styles/styles';
-
-const data: WeeklyPopularTypes[] = [
-  {
-    ranking: 1,
-    brand: 'starbucks'
-  },
-  {
-    ranking: 2,
-    brand: 'compose'
-  },
-  {
-    ranking: 3,
-    brand: 'hollys'
-  },
-  {
-    ranking: 4,
-    brand: 'ediya'
-  },
-  {
-    ranking: 5,
-    brand: 'megacoffee'
-  }
-];
+import useGetCacheData from '@/hooks/useGetCacheData';
+import { useEffect, useState } from 'react';
+import { getWeeklyPopular } from '@/api/post';
 
 const WeeklyPopular = () => {
+  const [brandList, setBrandList] = useState<WeeklyPopularTypes[]>();
   const { weeklyPopular } = TODAY_CAFFEINE_INFO_TEXTS;
+
+  const getWeeklyPopularList = async () => {
+    const res = await useGetCacheData('brand', '/WeeklyPopular');
+    if (!res) {
+      const res = await getWeeklyPopular();
+      setBrandList(res);
+      return;
+    }
+    setBrandList(res.cacheData);
+  };
+
+  useEffect(() => {
+    getWeeklyPopularList();
+  }, []);
+
   return (
     <div>
       <div className={SumTitle}>{weeklyPopular}</div>
       <WeeklyPopularList className={cx(Grid, SmStyle, MarginT12)}>
-        {data.map(item => (
-          <WeeklyPopularItem
-            data={item}
-            key={item.ranking}
-          />
-        ))}
+        {brandList &&
+          brandList.map((item, idx) => (
+            <WeeklyPopularItem
+              data={item}
+              idx={idx}
+              key={item.brand}
+            />
+          ))}
       </WeeklyPopularList>
     </div>
   );

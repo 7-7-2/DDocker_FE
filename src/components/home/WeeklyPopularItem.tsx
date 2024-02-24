@@ -3,12 +3,18 @@ import convertBrandName from '@/utils/convertBrandName';
 import { styled } from 'styled-system/jsx';
 import { Align } from '@/styles/layout';
 
-const WeeklyPopularItem = ({ data }: { data: WeeklyPopularTypes }) => {
+const WeeklyPopularItem = ({
+  data,
+  idx
+}: {
+  data: WeeklyPopularTypes;
+  idx: number;
+}) => {
   const icon = `/png/${data.brand}.png`;
 
   return (
     <Container className={Align}>
-      <span>{data.ranking}</span>
+      <span>{idx + 1}</span>
       <BrandInfo className={Align}>
         <Icon>
           <img
