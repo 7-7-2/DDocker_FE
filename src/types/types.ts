@@ -113,7 +113,7 @@ export interface CoffeeInfo {
 }
 export interface CoffeeItem {
   brand: string;
-  name: string;
+  menu: string;
   caffeine: string;
 }
 
