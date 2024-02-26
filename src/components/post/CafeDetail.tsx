@@ -19,9 +19,9 @@ const CafeDetail = ({
 }: {
   brand: string;
   className?: string;
-  caffeine?: string;
+  caffeine?: string | number;
   menu?: string;
-  shot?: string;
+  shot?: string | number;
   posts?: boolean;
 }) => {
   return (

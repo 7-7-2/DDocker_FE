@@ -28,8 +28,8 @@ const CaffeineInfo = ({
 }: {
   brand: string;
   menu: string;
-  caffeine: string;
-  shot: string;
+  caffeine: number;
+  shot: number;
 }) => {
   return (
     <Container className={cx(Flex, Align)}>
