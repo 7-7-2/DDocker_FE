@@ -8,7 +8,7 @@ const authInterceptors = (instance: AxiosInstance): AxiosInstance => {
     async config => {
       const cached = await useGetCacheData('user', '/accessToken');
       if (config.headers && cached) {
-        config.headers.Authorization = cached.cacheData;
+        config.headers.Authorization = cached;
       }
       return config;
     },
