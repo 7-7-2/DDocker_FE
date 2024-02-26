@@ -1,7 +1,13 @@
 import { css } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 
-const PostedAt = ({ at, posts = false }: { at: string; posts?: boolean }) => {
+const PostedAt = ({
+  at,
+  posts = false
+}: {
+  at: string | undefined;
+  posts?: boolean;
+}) => {
   return <Posted className={posts ? '' : PaddingPost}>{at}</Posted>;
 };
 

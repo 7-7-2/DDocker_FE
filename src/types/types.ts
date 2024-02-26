@@ -162,3 +162,19 @@ export type Reply = Pick<
   Comment,
   'profileUrl' | 'nickname' | 'content' | 'created_at'
 >;
+
+export interface FollowingPost extends SimplifyUser {
+  sum: number;
+  totalComments: number;
+  likeCounts: number;
+  postTitle: string;
+  postId: string;
+  profileUrl: string;
+  createdAt: Dayjs;
+  photo: string;
+  caffeine: number;
+  shot: number;
+  menu: string;
+  brand: string;
+  userId: string;
+}

@@ -2,30 +2,49 @@ import PostSocial from '@/components/post/PostSocial';
 import MiniProfile from '@/components/common/MiniProfile';
 import Icon from '@/components/common/Icon';
 import CafeDetail from '@/components/post/CafeDetail';
+import timestampToDate from '@/utils/timestampToDate';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import { SimplifyUser } from '@/types/types';
 import { styled } from 'styled-system/jsx';
 import { Flex, Between } from '@/styles/layout';
 import { cx } from 'styled-system/css';
 import { PostContent } from '@/styles/styles';
 import { PaddingT12 } from '@/styles/styles';
+import { FollowingPost } from '@/types/types';
 
-const PostCard = ({ userId, nickname, caffeine }: SimplifyUser) => {
+const PostCard = ({ ...props }: FollowingPost) => {
+  const {
+    nickname,
+    sum,
+    totalComments,
+    likeCounts,
+    postTitle,
+    postId,
+    userId,
+    profileUrl,
+    createdAt,
+    photo,
+    caffeine,
+    shot,
+    menu,
+    brand
+  } = props;
   return (
     <Container>
       <UserProfile className={cx(Flex, Between)}>
         <MiniProfile
-          url="http://k.kakaocdn.net/dn/bYYA0L/btsD2uCFD2R/JSVS9OUZSvnycCswnIkgdk/img_640x640.jpg"
-          userId={userId}
+          url={profileUrl}
           nickname={nickname}
-          caffeine={caffeine}
+          caffeine={sum}
         />
         <Icon {...iconPropsGenerator('user-more')} />
       </UserProfile>
-      <PostContent>맛있는 오늘의 커피</PostContent>
-      <PostImg src="https://i.namu.wiki/i/d1A_wD4kuLHmOOFqJdVlOXVt1TWA9NfNt_HA0CS0Y_N0zayUAX8olMuv7odG2FiDLDQZIRBqbPQwBSArXfEJlQ.webp" />
+      <PostContent>{postTitle}</PostContent>
+      <PostImg src={photo} />
       <CafeDetail
-        brand={'바나프레소'}
+        brand={brand}
+        caffeine={caffeine}
+        shot={shot}
+        menu={menu}
         className={PaddingT12}
         posts={true}
       />
@@ -33,8 +52,10 @@ const PostCard = ({ userId, nickname, caffeine }: SimplifyUser) => {
         {/* useInfiniteScroll => receives likes && comments counts */}
         <PostSocial
           posts={true}
-          likes={1}
-          comments={1}
+          likes={likeCounts}
+          comments={totalComments}
+          createdAt={timestampToDate(createdAt)}
+          postId={postId}
         />
       </div>
     </Container>
