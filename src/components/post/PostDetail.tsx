@@ -9,7 +9,6 @@ import { useQuery } from '@tanstack/react-query';
 
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { INPUT_TEXTS } from '@/constants/common';
-import { SimplifyUser } from '@/types/types';
 import { styled } from 'styled-system/jsx';
 import { Between, Align, Flex } from '@/styles/layout';
 import { cx } from 'styled-system/css';
@@ -59,6 +58,7 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
             posts={false}
             likes={socialCounts.data.totalLikes}
             comments={socialCounts.data.totalComments}
+            postId={postNum}
           />
           <PostContent>{postData.data.post_title}</PostContent>
           <CaffeineInfo
