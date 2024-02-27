@@ -1,5 +1,5 @@
 import { useResetRecoilState } from 'recoil';
-import { registPostState } from '@/atoms/atoms';
+import { caffeineFilterState, registPostState } from '@/atoms/atoms';
 import CoffeeOptionSelection from '@/components/common/CoffeeOptionSelection';
 import CoffeeMenuSelection from '@/components/home/CoffeeMenuSelection';
 import Icon from '@/components/common/Icon';
@@ -13,10 +13,12 @@ import { SmStyle, SumBoardTitle, SumTitle } from '@/styles/styles';
 const { title } = CAFFEINE_FILTER_TEXTS;
 
 const CoffeeSelection = () => {
-  const resetState = useResetRecoilState(registPostState);
+  const resetstate = useResetRecoilState(registPostState);
+  const resetCaffeineState = useResetRecoilState(caffeineFilterState);
 
   const touchResetBtn = () => {
-    resetState();
+    resetstate();
+    resetCaffeineState();
   };
 
   return (
@@ -39,4 +41,5 @@ const CoffeeSelection = () => {
 const ResetBtn = styled.button`
   gap: 5px;
 `;
+
 export default CoffeeSelection;
