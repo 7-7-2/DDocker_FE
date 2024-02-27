@@ -1,6 +1,6 @@
-import coffeeData from '@/datas/coffees';
+import { CoffeeData } from '@/types/types';
 
-export const setBrnadList = () => {
+export const setBrnadList = (coffeeData: CoffeeData) => {
   const list = Object.keys(coffeeData);
   return list;
 };
