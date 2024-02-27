@@ -1,26 +1,16 @@
 import PostCard from '@/components/posts/PostCard';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { styled } from 'styled-system/jsx';
-import { useQuery } from '@tanstack/react-query';
-import { getFollowingPosts } from '@/api/post';
-import useGetCacheData from '@/hooks/useGetCacheData';
 import React, { useId } from 'react';
 import { FollowingPost } from '@/types/types';
+import { useTargetInfiniteScroll } from '@/hooks/useTargetInfiniteScroll';
+import { FollowingPostIQParam } from '@/hooks/useInfiniteScroll';
 
 export const Posts = () => {
   useComposeHeader(true, '', 'icons');
 
-  const { data: signedIn } = useQuery({
-    queryKey: ['signedIn'],
-    queryFn: () => useGetCacheData('user', '/accessToken')
-  });
-  const { data: postsData } = useQuery({
-    queryKey: ['postsData'],
-    queryFn: () => {
-      return getFollowingPosts();
-    },
-    enabled: !!signedIn
-  });
+  const { data: postsData, ref } =
+    useTargetInfiniteScroll(FollowingPostIQParam);
 
   const id = useId();
   const mapPosts = (post: FollowingPost, idx: number) => {
@@ -44,11 +34,18 @@ export const Posts = () => {
     );
   };
 
-  return <Container>{postsData && postsData.data.map(mapPosts)}</Container>;
+  return (
+    <Container>
+      {postsData && postsData.map(mapPosts)}
+      <Target ref={ref} />
+    </Container>
+  );
 };
 
 const Container = styled.div`
   padding: 20px 0;
 `;
-
+const Target = styled.div`
+  padding: 1px;
+`;
 export default Posts;

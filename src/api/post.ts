@@ -72,9 +72,17 @@ export const getReply = async (commentId: number) => {
 };
 
 // 11. 로그인한 유저가 팔로잉 중인 유저의 게시물들 조회
-export const getFollowingPosts = async () => {
-  const res = await authInstance.get('/posts');
-  return res.data;
+export const getFollowingPosts = async ({
+  pageParam
+}: {
+  pageParam: number;
+}) => {
+  const res = await authInstance.get(`/posts/${pageParam}`);
+  const data = res.data;
+  return {
+    data: data.data.results,
+    next: data.data.next
+  };
 };
 
 //12. 게시글 상세 내부 좋아요 및 댓글 개수 확인
