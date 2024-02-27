@@ -30,8 +30,6 @@ export const Posts = () => {
           nickname={post.nickname}
           sum={post.sum}
           postTitle={post.postTitle}
-          totalComments={post.totalComments}
-          likeCounts={post.likeCounts}
           postId={post.postId}
           profileUrl={post.profileUrl}
           createdAt={post.createdAt}
@@ -46,11 +44,7 @@ export const Posts = () => {
     );
   };
 
-  return (
-    <Container>
-      {postsData && postsData.data.map(mapPosts)}
-    </Container>
-  );
+  return <Container>{postsData && postsData.data.map(mapPosts)}</Container>;
 };
 
 const Container = styled.div`
