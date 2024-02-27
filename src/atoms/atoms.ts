@@ -55,7 +55,7 @@ export const selectedMenuInfoState = atom<CoffeeItem>({
   key: 'selectedMenuInfo',
   default: {
     brand: '',
-    name: '',
+    menu: '',
     caffeine: ''
   }
 });
@@ -92,6 +92,7 @@ export const todayCoffeeListState = atom<DocumentData[]>({
     }
   ]
 });
+
 export const inputNicknameState = atom({
   key: 'inputNicknameState',
   default: ''

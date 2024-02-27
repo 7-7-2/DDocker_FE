@@ -18,75 +18,71 @@ const CoffeeOptionSelection = () => {
   const { postid } = useParams();
   const register = postid === 'register';
   const size: string[] = ['Regular', 'Large', 'Venti'];
-  const [inputValue, setInputValue] = useState(0);
-  const [sizeValue, setSizeValue] = useState('Regular');
   const [caffeine, setCaffeine] = useRecoilState(caffeineFilterState);
   const [registInfo, setRegistInfo] = useRecoilState(registPostState);
 
-  const newRegistData = {
-    ...registInfo,
-    size: sizeValue,
-    shot: inputValue + 1,
-    caffeine: caffeine.caffeine
+  const caffeineValue = caffeine.caffeine;
+  const menuCaffeineValue = caffeine.menuCaffeine;
+
+  const setRegisterData = (key: string, value: string | number) => {
+    const newRegistData = {
+      ...registInfo,
+      [key]: value
+    };
+    setRegistInfo(newRegistData);
   };
 
+  // set coffee size info
   const largeSize = () => {
     setCaffeine({
-      caffeine: Number(caffeine.caffeine) + 75,
-      menuCaffeine: caffeine.menuCaffeine
+      caffeine: caffeineValue + 75,
+      menuCaffeine: menuCaffeineValue
     });
   };
 
   const VentiSize = () => {
     setCaffeine({
-      caffeine: Number(caffeine.caffeine) + 150,
-      menuCaffeine: caffeine.menuCaffeine
+      caffeine: caffeineValue + 150,
+      menuCaffeine: menuCaffeineValue
     });
   };
 
-  const caffeineValue = Number(caffeine.caffeine);
-  const menuCaffeineValue = Number(caffeine.menuCaffeine);
-
   const selectSize = (e: TouchEvent<HTMLButtonElement>) => {
-    setSizeValue(e.currentTarget.value);
+    setRegisterData('size', e.currentTarget.value);
+
+    // size/shot 변경으로 추가된 caffeine
     const plusedCaffeine = caffeineValue - menuCaffeineValue;
 
-    caffeineValue !== menuCaffeineValue &&
+    registInfo.size !== 'Regular' &&
       setCaffeine({
-        caffeine: caffeineValue - plusedCaffeine,
+        // size 변경 시 기본 caffiene reset 후 추가된 shot을 더해주는 식
+        caffeine: caffeineValue - plusedCaffeine + registInfo.shot * 75,
         menuCaffeine: menuCaffeineValue
       });
-    setRegistInfo(newRegistData);
   };
 
+  useEffect(() => {
+    registInfo.size === 'Large' && largeSize();
+    registInfo.size === 'Venti' && VentiSize();
+  }, [registInfo.size]);
+
+  // set coffee shot info
   const selectMinusBtn = () => {
-    inputValue >= 1 && setInputValue(inputValue - 1);
-    inputValue >= 1 &&
+    registInfo.shot >= 1 && setRegisterData('shot', registInfo.shot - 1);
+    registInfo.shot >= 1 &&
       setCaffeine({
         caffeine: caffeineValue - 75,
         menuCaffeine: menuCaffeineValue
       });
-    setRegistInfo(newRegistData);
   };
 
   const selectPlusBtn = () => {
-    setInputValue(inputValue + 1);
+    setRegisterData('shot', registInfo.shot + 1);
     setCaffeine({
       caffeine: caffeineValue + 75,
       menuCaffeine: menuCaffeineValue
     });
-    setRegistInfo(newRegistData);
   };
-
-  useEffect(() => {
-    sizeValue === 'Large' && largeSize();
-    sizeValue === 'Venti' && VentiSize();
-  }, [sizeValue]);
-
-  useEffect(() => {
-    setSizeValue(registInfo.size);
-    setInputValue(registInfo.shot);
-  }, []);
 
   return (
     <div className={cx(Column, SmStyle)}>
@@ -105,7 +101,7 @@ const CoffeeOptionSelection = () => {
             text={item}
             onTouchEnd={selectSize}
             className={cx(
-              sizeValue === item ? SelectSizeBtn : BtnColorWhite,
+              registInfo.size === item ? SelectSizeBtn : BtnColorWhite,
               SizeBtn,
               SmStyle
             )}
@@ -125,13 +121,13 @@ const CoffeeOptionSelection = () => {
         <div className={Align}>
           <Icon
             {...iconPropsGenerator(
-              !inputValue ? 'input-minus' : 'input-minus:active'
+              !registInfo.shot ? 'input-minus' : 'input-minus:active'
             )}
             onTouchEnd={selectMinusBtn}
           />
           <ShotOptionInput
             type="number"
-            value={inputValue}
+            value={registInfo.shot}
             readOnly
             disabled
           />

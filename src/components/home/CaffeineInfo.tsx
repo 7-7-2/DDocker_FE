@@ -12,21 +12,12 @@ import { HomeRegistContainer, HomeInfoCaffeine } from '@/styles/styles';
 import { Align, Between } from '@/styles/layout';
 
 const CaffeineInfo = () => {
-  const selectedMenu = useRecoilValue(selectedMenuState);
-  const seledctedCaffeineInfo = useRecoilValue(selectedMenuInfoState);
-  const [caffeine, setCaffeine] = useRecoilState(caffeineFilterState);
-
-  useEffect(() => {
-    setCaffeine({
-      caffeine: Number(seledctedCaffeineInfo.caffeine),
-      menuCaffeine: Number(seledctedCaffeineInfo.caffeine)
-    });
-  }, [selectedMenu]);
+  const { caffeine } = useRecoilValue(caffeineFilterState);
 
   return (
     <Container className={cx(Between, HomeRegistContainer, Align)}>
       <span>{CAFFEINE_INFO_TEXTS.title}</span>
-      <span className={HomeInfoCaffeine}>{caffeine.caffeine}mg</span>
+      <span className={HomeInfoCaffeine}>{caffeine}mg</span>
     </Container>
   );
 };
