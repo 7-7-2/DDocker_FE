@@ -88,8 +88,7 @@ export const getRanking = async () => {
   const res = await authInstance.get(`/popular`);
   return res.data;
 };
-
-// PostRegist
+// PostRegister
 export const setPostRegist = async (postInfo: TodayPostTypes) => {
   try {
     const data = postInfo;
@@ -124,5 +123,21 @@ export const getWeeklyPopular = async () => {
     return res.data.data;
   } catch (error) {
     console.log('Failed to get Weekly Popular List', error);
+  }
+};
+
+// selectMenu
+export const getCoffeeMenu = async () => {
+  try {
+    const res = await baseInstance.get('/brand');
+    console.log(res.data.data[0].coffee_menus);
+    await useSetCacheData(
+      'brand',
+      '/coffeeMenu',
+      res.data.data[0].coffee_menus
+    );
+    return res.data.data[0].coffee_menus;
+  } catch (error) {
+    console.log('Failed to get coffee menu List', error);
   }
 };
