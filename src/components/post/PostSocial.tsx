@@ -32,12 +32,12 @@ const PostSocial = ({
   });
 
   const toggleLike = myLike && myLike.success ? undoLikePost : likePost;
-  const { mutate } = useMutation(toggleLike);
+  const { mutate } = useMutation({ mutationFn: toggleLike });
   const handleLikeOnPost = () => {
     mutate(postId as string, {
       onSuccess: () => {
-        queryClient.invalidateQueries(['socialCounts', postId]);
-        queryClient.invalidateQueries(['myLike', postId]);
+        queryClient.invalidateQueries({ queryKey: ['socialCounts', postId] });
+        queryClient.invalidateQueries({ queryKey: ['myLike', postId] });
       }
     });
   };
