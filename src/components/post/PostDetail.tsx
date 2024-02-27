@@ -32,7 +32,7 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
     enabled: !!postNum
   });
   const { data: socialCounts } = useQuery({
-    queryKey: ['socialCounts'],
+    queryKey: ['socialCounts', postNum],
     queryFn: () => {
       return getSocialCounts(postNum);
     },
