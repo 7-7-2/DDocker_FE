@@ -1,19 +1,15 @@
-import { ChangeEvent, useEffect, useLayoutEffect, useState } from 'react';
+import { ChangeEvent, useLayoutEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import {
-  registPostState,
-  selectedBrandState,
-  selectedMenuInfoState,
-  selectedMenuState
-} from '@/atoms/atoms';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+
 import RegisterLabel from '@/components/post/RegisterLabel';
 import { CAFFEINE_FILTER_TEXTS } from '@/constants/home';
-import coffeeData from '@/datas/coffees';
 import useGetCacheData from '@/hooks/useGetCacheData';
-import { CoffeeData, UserCachedData } from '@/types/types';
+import { caffeineFilterState, registPostState } from '@/atoms/atoms';
+import { CoffeeData } from '@/types/types';
 import convertBrandName from '@/utils/convertBrandName';
 import { setBrnadList } from '@/utils/setBrandList';
+
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { SmStyle } from '@/styles/styles';
@@ -24,70 +20,93 @@ const { coffeeMenu } = CAFFEINE_FILTER_TEXTS;
 const CoffeeMenuSelection = () => {
   const { postid } = useParams();
   const register = postid === 'register';
-  const [cachedUser, setCachedUser] = useState<UserCachedData>();
-  const [selectedBrand, setSelectedBrand] = useRecoilState(selectedBrandState);
-  const [selectedMenu, setSelectedMenu] = useRecoilState(selectedMenuState);
-  const [selectedMenuInfo, setSelectedMenuInfo] = useRecoilState(
-    selectedMenuInfoState
-  );
-  const [menuList, setMenuList] = useState<string[]>([]);
   const [registInfo, setRegistInfo] = useRecoilState(registPostState);
+  const setCaffeine = useSetRecoilState(caffeineFilterState);
+  const [cachedMenu, setCachedMenu] = useState<CoffeeData>();
 
-  const newRegistData = {
-    ...registInfo,
-    brand: selectedBrand,
-    menu: selectedMenuInfo.name,
-    caffeine: Number(selectedMenuInfo.caffeine)
+  const setRegisterData = (key: string, value: string | number) => {
+    if (key === 'brand') {
+      const newRegistData = {
+        ...registInfo,
+        [key]: value as string,
+        menu: '',
+        shot: 0,
+        size: 'Regular'
+      };
+      setRegistInfo(newRegistData);
+      return;
+    }
+
+    if (key === 'menu') {
+      const newRegistData = {
+        ...registInfo,
+        [key]: value as string,
+        shot: 0,
+        size: 'Regular'
+      };
+      setRegistInfo(newRegistData);
+      return;
+    }
+
+    const newRegistData = {
+      ...registInfo,
+      [key]: value
+    };
+
+    setRegistInfo(newRegistData);
   };
-  console.log(registInfo);
 
-  const getCachedUserInfo = async () => {
+  const setCaffeineInfo = (caffeinie: number) => {
+    setCaffeine({
+      caffeine: caffeinie,
+      menuCaffeine: caffeinie
+    });
+  };
+
+  const getCachedData = async () => {
     try {
-      const data = await useGetCacheData('user', '/user');
-      setCachedUser(data);
+      const userData = await useGetCacheData('user', '/userInfo');
+      const coffeeData = await useGetCacheData('brand', '/coffeeMenu');
+      setCachedMenu(coffeeData.cacheData);
+      if (userData && registInfo.brand === '') {
+        setRegisterData('brand', userData.cacheData.data.brand);
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const user = cachedUser?.cacheData.data;
-
-  useLayoutEffect(() => {
-    setTimeout(() => {
-      getCachedUserInfo();
-    }, 0);
-    user?.brand && setSelectedBrand(user?.brand);
-    user?.brand && getMenuList(user?.brand);
-  }, []);
-  const brandList = setBrnadList();
-
-  const selectedBrandData: CoffeeData = coffeeData;
-
   const getMenuList = (selectedBrand: string) => {
-    const selectedBrandMenu =
-      selectedBrandData[selectedBrand]?.map(item => item.name) || [];
-    setMenuList(selectedBrandMenu);
+    const res = cachedMenu?.[selectedBrand]?.map(item => item.menu);
+    return res;
   };
+
+  const brandList = cachedMenu && setBrnadList(cachedMenu);
+  const menuList = cachedMenu && getMenuList(registInfo.brand);
 
   const getMenuInfo = (selectedMenu: string) => {
-    const selectedCaffeineInfo = selectedBrandData[selectedBrand]?.filter(
-      item => item.name === selectedMenu
+    const res = cachedMenu?.[registInfo.brand]?.filter(
+      item => item.menu === selectedMenu
     );
-    setSelectedMenuInfo(selectedCaffeineInfo[0]);
-    setRegistInfo(newRegistData);
+
+    // caffeine Info Update
+    res && setCaffeineInfo(Number(res[0].caffeine));
+    res && setRegisterData('caffeine', Number(res[0].caffeine));
   };
 
+  useLayoutEffect(() => {
+    getCachedData();
+  }, []);
+
   const selectBrand = (e: ChangeEvent<HTMLSelectElement>) => {
-    setSelectedBrand(e.target.value);
     getMenuList(e.target.value);
-    setRegistInfo(newRegistData);
-    setSelectedMenu('');
+    setRegisterData('brand', e.target.value);
+    setCaffeineInfo(0);
   };
 
   const selectMenu = (e: ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value);
-    setSelectedMenu(e.target.value);
     getMenuInfo(e.target.value);
+    setRegisterData('menu', e.target.value);
   };
 
   return (
@@ -100,27 +119,23 @@ const CoffeeMenuSelection = () => {
             essential
           />
         )}
-        <SelectBox className={selectedBrand ? seletedBorder : defaultBorder}>
+        <SelectBox className={registInfo.brand ? seletedBorder : defaultBorder}>
           <select
             className={cx(SelectInput, SmStyle)}
             name={coffeeMenu.brand}
             id={coffeeMenu.brand}
-            value={selectedBrand}
+            value={registInfo.brand || coffeeMenu.brand}
             onChange={selectBrand}>
             <option
-              value={
-                selectedBrand
-                  ? convertBrandName(selectedBrand)
-                  : coffeeMenu.brand
-              }
+              value={registInfo.brand || coffeeMenu.brand}
               disabled
               defaultValue={coffeeMenu.brand}
               hidden>
-              {selectedBrand ? user?.brand : coffeeMenu.brand}
+              {convertBrandName(registInfo.brand) || coffeeMenu.brand}
             </option>
-            {brandList.map((item, idx) => (
+            {brandList?.map(item => (
               <option
-                key={idx}
+                key={item}
                 value={item}>
                 {convertBrandName(item)}
               </option>
@@ -133,12 +148,12 @@ const CoffeeMenuSelection = () => {
             essential
           />
         )}
-        <SelectBox className={selectedMenu ? seletedBorder : defaultBorder}>
+        <SelectBox className={registInfo.menu ? seletedBorder : defaultBorder}>
           <select
             className={cx(SelectInput, SmStyle)}
             name={coffeeMenu.menu}
             id={coffeeMenu.menu}
-            value={selectedMenu}
+            value={registInfo.menu}
             onChange={selectMenu}>
             <option
               value=""
@@ -147,9 +162,9 @@ const CoffeeMenuSelection = () => {
               hidden>
               {coffeeMenu.menu}
             </option>
-            {menuList.map((item, idx) => (
+            {menuList?.map(item => (
               <option
-                key={idx}
+                key={item}
                 value={item}>
                 {item}
               </option>

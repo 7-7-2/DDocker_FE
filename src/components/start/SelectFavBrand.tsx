@@ -1,5 +1,7 @@
 import { useRecoilValue } from 'recoil';
+import { useState, useEffect } from 'react';
 import { setUserInitInfo } from '@/api/user';
+import { getCoffeeMenu } from '@/api/post';
 import { authState } from '@/atoms/atoms';
 import BrandItem from '@/components/start/BrandItem';
 import Button from '@/components/common/Button';
@@ -9,7 +11,7 @@ import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { setBrnadList } from '@/utils/setBrandList';
 import { useImgSubmit } from '@/hooks/useImgSubmit';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
-import { AuthTypes } from '@/types/types';
+import { AuthTypes, CoffeeData } from '@/types/types';
 import { styled } from 'styled-system/jsx';
 import { Grid } from '@/styles/layout';
 import {
@@ -27,11 +29,21 @@ const { message } = SELECTFAVBRAND_TEXTS;
 export const SelectFavBrand = () => {
   useComposeHeader(false, '기본정보', 'close');
   const user = useRecoilValue(authState);
+  const [brandList, setBrandList] = useState<string[]>();
   const { handleFormSubmit } = useImgSubmit();
 
   const navigateToHome = useNavigateTo('/');
   const navigateToMe = useNavigateTo('/start/3');
-  const brandList = setBrnadList();
+
+  const getBrandList = async () => {
+    const res = await getCoffeeMenu();
+    const list = setBrnadList(res);
+    setBrandList(list);
+  };
+
+  useEffect(() => {
+    getBrandList();
+  }, []);
 
   const handleStartBtn = () => {
     const userInfo: AuthTypes = {
@@ -54,7 +66,7 @@ export const SelectFavBrand = () => {
           <span className={StartBrandSub}>{message.second}</span>
         </div>
         <BrandItemContainer className={Grid}>
-          {brandList.map(item => (
+          {brandList?.map(item => (
             <BrandItem
               key={item}
               brand={item}
