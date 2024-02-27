@@ -4,10 +4,21 @@ import { styled } from 'styled-system/jsx';
 import { Align } from '@/styles/layout';
 import { CaffeineDetail } from '@/styles/styles';
 
-const PostSocialCount = ({ count, icon }: { count: number; icon: string }) => {
+const PostSocialCount = ({
+  count,
+  icon,
+  onTouchEnd
+}: {
+  count: number;
+  icon: string;
+  onTouchEnd?: () => void | ((postId: string) => void);
+}) => {
   return (
     <Container className={Align}>
-      <Icon {...iconPropsGenerator(icon)}></Icon>
+      {}
+      <Icon
+        {...iconPropsGenerator(icon)}
+        onTouchEnd={onTouchEnd}></Icon>
       <Count className={CaffeineDetail}>{count}</Count>
     </Container>
   );
