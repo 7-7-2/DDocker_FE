@@ -37,7 +37,10 @@ const WaterPerCoffee = () => {
 
   const consumedCoffeList = async () => {
     const data = await useGetCacheData('user', '/coffee');
-    setDataList(data.cacheData);
+    if (data.cacheData.allcount !== null) {
+      setDataList(data.cacheData);
+      return;
+    }
   };
 
   useLayoutEffect(() => {
@@ -76,12 +79,13 @@ const WaterPerCoffee = () => {
         <WaterIntake />
       </div>
       <TodayMenuList className={Flex}>
-        {dataList?.item.map((item, idx) => (
-          <TodayMenuItem
-            data={item}
-            key={idx}
-          />
-        ))}
+        {dataList?.allCount !== null &&
+          dataList?.item.map((item, idx) => (
+            <TodayMenuItem
+              data={item}
+              key={idx}
+            />
+          ))}
       </TodayMenuList>
     </div>
   );
@@ -94,7 +98,7 @@ const WaterPerCoffee = () => {
         Between
       )}>
       {!user && anonymousCard}
-      {user && dataList?.item && dataList?.item.length < 1 && notConsumedCoffee}
+      {user && dataList?.allCount === null && notConsumedCoffee}
       {user && dataList?.item && dataList?.item.length >= 1 && consumedCoffee}
     </Container>
   );
