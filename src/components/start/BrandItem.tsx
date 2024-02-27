@@ -1,24 +1,26 @@
-import { useRecoilValue } from 'recoil';
+import { useRecoilState } from 'recoil';
 import Icon from '@/components/common/Icon';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import useSetUserInitialInfo from '@/hooks/useSetUserInitialInfo';
+import convertBrandName from '@/utils/convertBrandName';
 import { BrnadItemProps } from '@/types/types';
 import { authState } from '@/atoms/atoms';
 import { styled } from 'styled-system/jsx';
 import { css, cx } from 'styled-system/css';
 import { Center, Column } from '@/styles/layout';
-import convertBrandName from '@/utils/convertBrandName';
 import { SmStyle } from '@/styles/styles';
 
 const BrandItem = (brandInfo: BrnadItemProps) => {
-  const user = useRecoilValue(authState);
-  const setFavBrand = useSetUserInitialInfo();
+  const [userInit, setUserInit] = useRecoilState(authState);
 
   const selectBrand: React.TouchEventHandler<HTMLDivElement> = e => {
-    setFavBrand(user.nickname, e.currentTarget.id, user.gender);
+    const selectedFavBrand = {
+      ...userInit,
+      brand: e.currentTarget.id
+    };
+    setUserInit(selectedFavBrand);
   };
 
-  const selectedIcon = user.brand === brandInfo.brand && (
+  const selectedIcon = userInit.brand === brandInfo.brand && (
     <SelectedIconContainer>
       <Icon {...iconPropsGenerator('check-brand', '20')} />
     </SelectedIconContainer>
@@ -31,7 +33,7 @@ const BrandItem = (brandInfo: BrnadItemProps) => {
       id={brandInfo.brand}
       onTouchEnd={selectBrand}
       className={cx(
-        user.brand === brandInfo.brand
+        userInit.brand === brandInfo.brand
           ? SelectedBrandContainer
           : DefaltBrandContainer,
         Column,
