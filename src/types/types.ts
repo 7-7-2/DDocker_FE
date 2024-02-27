@@ -176,3 +176,15 @@ export interface FollowingPost extends SimplifyUser {
   brand: string;
   userId: string;
 }
+
+export interface Fetched {
+  data: FollowingPost[];
+  next: number | undefined;
+}
+
+export interface InfinitePosts {
+  queryKey: string[];
+  queryFn: ({ pageParam }: { pageParam: number }) => Promise<Fetched>;
+  initialPageParam: number;
+  getNextPageParam: (lastPage: Fetched) => number | undefined;
+}
