@@ -1,8 +1,5 @@
 import { useLayoutEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { DocumentData } from 'firebase/firestore';
-import { getUserInfo } from '@/api/user';
-import { getTodayCoffeeInfo } from '@/api/post';
 import { authState } from '@/atoms/atoms';
 import Icon from '@/components/common/Icon';
 import { TODAY_CAFFEINE_INFO_TEXTS } from '@/constants/home';
@@ -18,7 +15,7 @@ const { anonymous, signedIn } = TODAY_CAFFEINE_INFO_TEXTS;
 
 const TodayCaffeineText = () => {
   const [cachedUser, setCachedUser] = useState<UserCachedData>();
-  const [dataList, setDataList] = useState<DocumentData[]>([]);
+  const [allCount, setAllCount] = useState<number>();
   const userInfo = useRecoilValue(authState);
 
   const getCachedUserInfo = async () => {
@@ -28,14 +25,16 @@ const TodayCaffeineText = () => {
 
   const getDataList = async () => {
     const data = await useGetCacheData('user', '/coffee');
-    setDataList(data.cacheData.item);
+    setAllCount(data.cacheData.allCount);
   };
 
   const user = cachedUser?.cacheData.data;
 
+  // getTodaycoffeeInfo fatching 수정 예정
   useLayoutEffect(() => {
     getCachedUserInfo();
     getDataList();
+    // getTodayCoffeeInfo();
   }, []);
 
   const anonymousText = !user?.nickname && (
@@ -63,7 +62,7 @@ const TodayCaffeineText = () => {
   const signedInMessage = (
     <div>
       {signedIn.messageText.first}
-      {dataList && dataList.length * 2}
+      {allCount && allCount * 2}
       {signedIn.messageText.second}
     </div>
   );
@@ -80,9 +79,7 @@ const TodayCaffeineText = () => {
       <MessageContainer className={cx(Align)}>
         <Icon {...iconPropsGenerator('message', '15')} />
         <MessageText className={InputFontSm}>
-          {dataList && dataList.length >= 1
-            ? signedInMessage
-            : anonymous.messageText}
+          {allCount && allCount >= 1 ? signedInMessage : anonymous.messageText}
         </MessageText>
       </MessageContainer>
     </div>
