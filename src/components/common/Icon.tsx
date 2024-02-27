@@ -5,7 +5,7 @@ const Icon = ({
 }: {
   id: string;
   size: string;
-  onTouchEnd?: () => void;
+  onTouchEnd?: () => void | ((postId: string) => void);
 }) => {
   return (
     <svg

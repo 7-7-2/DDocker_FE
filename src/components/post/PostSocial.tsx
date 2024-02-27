@@ -5,8 +5,8 @@ import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { PostContainer, PostsContainer } from '@/styles/styles';
 import { Flex, Between } from '@/styles/layout';
 import { cx } from 'styled-system/css';
-import { useQuery } from '@tanstack/react-query';
-import { getMyLikeOnPost } from '@/api/likes';
+import { useQueryClient, useMutation, useQuery } from '@tanstack/react-query';
+import { getMyLikeOnPost, likePost, undoLikePost } from '@/api/likes';
 
 const PostSocial = ({
   posts,
@@ -21,6 +21,8 @@ const PostSocial = ({
   createdAt?: string | undefined;
   postId?: string;
 }) => {
+  const queryClient = useQueryClient();
+
   const { data: myLike } = useQuery({
     queryKey: ['myLike', postId],
     queryFn: () => {
@@ -29,20 +31,33 @@ const PostSocial = ({
     enabled: !!postId
   });
 
+  const toggleLike = myLike && myLike.success ? undoLikePost : likePost;
+  const { mutate } = useMutation(toggleLike);
+  const handleLikeOnPost = () => {
+    mutate(postId as string, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['socialCounts', postId]);
+        queryClient.invalidateQueries(['myLike', postId]);
+      }
+    });
+  };
+
+  //myLike && 조건 수정 필요 => 비로그인 유저 조회 불가?
   return (
     <div className={cx(Flex, Between, posts ? PostsContainer : PostContainer)}>
-      {myLike && (
-        <div className={Flex}>
-          <PostSocialCount
-            count={likes}
-            icon={myLike.success ? 'liked' : 'like'}
-          />
-          <PostSocialCount
-            count={comments}
-            icon={'comments'}
-          />
-        </div>
-      )}
+      <div className={Flex}>
+        <PostSocialCount
+          count={likes}
+          icon={myLike && myLike.success ? 'liked' : 'like'}
+          onTouchEnd={handleLikeOnPost}
+        />
+        <PostSocialCount
+          count={comments}
+          icon={'comments'}
+          onTouchEnd={() => {}}
+        />
+      </div>
+
       {!posts && <Icon {...iconPropsGenerator('share')} />}
       {posts && (
         <PostedAt
