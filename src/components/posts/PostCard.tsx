@@ -10,13 +10,13 @@ import { cx } from 'styled-system/css';
 import { PostContent } from '@/styles/styles';
 import { PaddingT12 } from '@/styles/styles';
 import { FollowingPost } from '@/types/types';
+import { useQuery } from '@tanstack/react-query';
+import { getSocialCounts } from '@/api/post';
 
 const PostCard = ({ ...props }: FollowingPost) => {
   const {
     nickname,
     sum,
-    totalComments,
-    likeCounts,
     postTitle,
     postId,
     userId,
@@ -28,9 +28,18 @@ const PostCard = ({ ...props }: FollowingPost) => {
     menu,
     brand
   } = props;
+  const { data: socialCounts } = useQuery({
+    queryKey: ['socialCounts', postId],
+    queryFn: () => {
+      return getSocialCounts(postId);
+    },
+    enabled: !!postId
+  });
+
   return (
     <Container>
       <UserProfile className={cx(Flex, Between)}>
+        {/* userId => onClick => profile Page */}
         <MiniProfile
           url={profileUrl}
           nickname={nickname}
@@ -50,13 +59,15 @@ const PostCard = ({ ...props }: FollowingPost) => {
       />
       <div>
         {/* useInfiniteScroll => receives likes && comments counts */}
-        <PostSocial
-          posts={true}
-          likes={likeCounts}
-          comments={totalComments}
-          createdAt={timestampToDate(createdAt)}
-          postId={postId}
-        />
+        {socialCounts && (
+          <PostSocial
+            posts={true}
+            likes={socialCounts.data.totalLikes}
+            comments={socialCounts.data.totalComments}
+            createdAt={timestampToDate(createdAt)}
+            postId={postId}
+          />
+        )}
       </div>
     </Container>
   );

@@ -165,8 +165,6 @@ export type Reply = Pick<
 
 export interface FollowingPost extends SimplifyUser {
   sum: number;
-  totalComments: number;
-  likeCounts: number;
   postTitle: string;
   postId: string;
   profileUrl: string;
