@@ -77,7 +77,7 @@ export const getFollowingPosts = async ({
 }: {
   pageParam: number;
 }) => {
-  const res = await authInstance.get(`/posts/${pageParam}`);
+  const res = await authInstance.get(`/posts/following/${pageParam}`);
   const data = res.data;
   return {
     data: data.data.results,
