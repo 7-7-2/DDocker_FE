@@ -12,14 +12,13 @@ export const FollowingPostIQParam = {
   }
 };
 export const useInfiniteScroll = (param: InfinitePosts, enabled: string) => {
-  const validToken = enabled && enabled.includes('Bearer');
   const { data, hasNextPage, isFetching, fetchNextPage, isLoading } =
     useInfiniteQuery({
       queryKey: param.queryKey,
       queryFn: param.queryFn,
       initialPageParam: param.initialPageParam,
       getNextPageParam: param.getNextPageParam,
-      enabled: !!validToken
+      enabled: !!enabled
     });
 
   const pages = data?.pages.map(i => i.data).flat(2);
