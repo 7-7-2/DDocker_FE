@@ -1,21 +1,51 @@
+import { useRecoilState } from 'recoil';
+// progressbar
+import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+
 import Icon from '@/components/common/Icon';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+import { takedWaterState } from '@/atoms/atoms';
+
 import { FlexCenter } from '@/styles/layout';
-import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 
-const WaterIntake = () => {
+const WaterIntake = ({ coffeeCount }: { coffeeCount: number | undefined }) => {
+  const [takedWater, setTakedWater] = useRecoilState(takedWaterState);
+
+  const waterPerCoffeeCount = coffeeCount && coffeeCount * 2;
+  const percentage =
+    waterPerCoffeeCount && (takedWater / waterPerCoffeeCount) * 100;
+
+  const touchPlusIcon = () => {
+    if (waterPerCoffeeCount && takedWater < waterPerCoffeeCount)
+      setTakedWater(takedWater + 1);
+  };
+
   return (
     <Container className={FlexCenter}>
-      <div className={cx(progress, FlexCenter)}>
+      <CircularProgressbarWithChildren
+        value={percentage || 0}
+        styles={{
+          path: {
+            stroke: `#6AB5FB`,
+            strokeLinecap: 'round',
+            transition: 'stroke-dashoffset 0.5s ease 0s',
+            transformOrigin: 'center center'
+          },
+          trail: {
+            stroke: '#f1f1f1',
+            strokeLinecap: 'round'
+          }
+        }}>
         <img
           src="/png/waterCup.png"
           alt="water"
         />
-        <IconContainer>
+        <IconContainer onTouchEnd={touchPlusIcon}>
           <Icon {...iconPropsGenerator('plus')} />
         </IconContainer>
-      </div>
+      </CircularProgressbarWithChildren>
     </Container>
   );
 };
@@ -25,17 +55,9 @@ const Container = styled.div`
   width: 106px;
   height: 106px;
   border-radius: 50%;
-  background-color: aliceblue;
 `;
 
-const progress = css`
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  background-color: #ffffff;
-`;
-
-const IconContainer = styled.div`
+const IconContainer = styled.button`
   position: absolute;
   right: 30px;
   bottom: 25px;
