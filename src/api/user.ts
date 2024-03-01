@@ -28,9 +28,9 @@ export const getAccessToken = async (code: string | null, social: string) => {
 };
 
 // UserInfo
-export const getUserInfo = async () => {
+export const getUserInfo = async (userId: string) => {
   try {
-    const res = await authInstance.get(`/users/0/userInfo`);
+    const res = await authInstance.get(`/users/${userId}/userInfo`);
     await useSetCacheData('user', '/userInfo', res.data);
   } catch (error) {
     console.log('Error fetching social authentication:', error);
