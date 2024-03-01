@@ -43,7 +43,7 @@ const SignIn = () => {
     try {
       const res = await useGetCacheData('user', '/social');
       await getAccessToken(code, res.cacheData);
-      await getUserInfo();
+      await getUserInfo('0');
       const initialized = await useGetCacheData('user', '/userInfo');
       (await initialized.cacheData.data) !== true ? navToHome() : navToSignUp();
     } catch (err) {
