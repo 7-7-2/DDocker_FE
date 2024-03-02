@@ -14,8 +14,9 @@ export const TODAY_CAFFEINE_INFO_TEXTS = {
     second: '의',
     third: '카페인을 섭취했어요',
     messageText: {
-      first: '물 ',
-      second: '잔을 마시고 부족한 수분을 보충하세요!'
+      first: '물',
+      second: '잔을 마시고 부족한 수분을 보충하세요!',
+      third: '을 다 마시고 부족한 수분을 보충하셨어요!'
     },
     card: {
       notConsumed: '오늘 아직 드신 커피가 없어요!'
@@ -28,7 +29,9 @@ export const TODAY_CAFFEINE_INFO_TEXTS = {
 export const CAFFEINE_PER_WATER_TEXTS = {
   coffeeIntake: {
     title: '오늘의 카페인 섭취량',
-    subTitle: '일일 섭취 권장량'
+    subTitle: '일일 섭취 권장량',
+    recommended: 400,
+    unit: '잔'
   }
 };
 
@@ -43,5 +46,6 @@ export const CAFFEINE_FILTER_TEXTS = {
 };
 
 export const CAFFEINE_INFO_TEXTS = {
-  title: '총 카페인 함량'
+  title: '총 카페인 함량',
+  unit: 'mg'
 };

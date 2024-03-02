@@ -1,10 +1,13 @@
-import { DocumentData } from 'firebase/firestore';
+import { COFFEE_TEXTS } from '@/constants/coffee';
 import convertBrandName from '@/utils/convertBrandName';
+import { CoffeeInfoItem } from '@/types/types';
 import { Column, Flex } from '@/styles/layout';
 import { RecentSearch, SumType } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 
-const TodayMenuItem = (data: { data: DocumentData }) => {
+const { unit } = COFFEE_TEXTS;
+
+const TodayMenuItem = (data: { data: CoffeeInfoItem }) => {
   const icon = `/png/${data.data.brand}.png`;
 
   return (
@@ -16,7 +19,10 @@ const TodayMenuItem = (data: { data: DocumentData }) => {
         />
       </IconCotainer>
       <div className={Column}>
-        <span className={RecentSearch}>{data.data.caffeine}mg</span>
+        <span className={RecentSearch}>
+          {data.data.caffeine}
+          {unit}
+        </span>
         <span className={SumType}>{convertBrandName(data.data.brand)}</span>
       </div>
     </Container>
