@@ -1,6 +1,12 @@
 import { TouchEventHandler } from 'react';
 import { Dayjs } from 'dayjs';
 
+export enum Collections {
+  USERS = 'users',
+  POSTS = 'posts',
+  COMMENTS = 'comments'
+}
+
 export interface LazyRouteType {
   index: boolean;
   path: string;
@@ -107,14 +113,20 @@ export interface CoffeeCachedData {
 }
 
 export interface CoffeeInfo {
-  caffeineSum: string;
+  caffeineSum: number;
   allCount: number;
-  item: [{ brand: string; caffeine: number }];
+  item: [CoffeeInfoItem];
 }
+
+export interface CoffeeInfoItem {
+  brand: string;
+  caffeine: number;
+}
+
 export interface CoffeeItem {
   brand: string;
   menu: string;
-  caffeine: string;
+  caffeine: number;
 }
 
 export interface TodayPostTypes {
@@ -134,12 +146,6 @@ export interface CoffeeData {
 export interface caffeineFilterTypes {
   caffeine: number;
   menuCaffeine: number;
-}
-
-export enum Collections {
-  USERS = 'users',
-  POSTS = 'posts',
-  COMMENTS = 'comments'
 }
 
 export interface EditProfileImgProps {
