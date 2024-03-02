@@ -5,7 +5,7 @@ import { getEditorDefaults } from '@pqina/pintura';
 import locale_ko_KR from '@pqina/pintura/locale/ko_KR';
 // _PINTURA
 
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { constSelector, useRecoilState, useRecoilValue } from 'recoil';
 import { Input } from '@/components/common/Input';
 import CoffeeOptionSelection from '@/components/common/CoffeeOptionSelection';
 import CoffeeMenuSelection from '@/components/home/CoffeeMenuSelection';
@@ -14,16 +14,22 @@ import { BUTTON_TEXTS, INPUT_TEXTS, LABEL_TEXTS } from '@/constants/common';
 import Icon from '@/components/common/Icon';
 import Button from '@/components/common/Button';
 
-import { registPostState, useInputState } from '@/atoms/atoms';
+import {
+  caffeineFilterState,
+  registPostState,
+  useInputState
+} from '@/atoms/atoms';
 import { getTodayCoffeeInfo, setPostRegist } from '@/api/post';
 import { useShowFooter } from '@/hooks/useShowFooter';
-import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { FlexCenter } from '@/styles/layout';
 import { DefaultBtn } from '@/styles/styles';
+import { useNavigate } from 'react-router-dom';
+import { getUserInfo } from '@/api/user';
+import useResetSelectedCoffee from '@/hooks/useResetSelectedCoffee';
 
 const editorDefaults = getEditorDefaults({
   cropImageSelectionCornerStyle: 'hook',
@@ -36,6 +42,9 @@ const PostRegister = () => {
   useShowFooter(false);
   const inputState = useRecoilValue(useInputState);
   const [registInfo, setRegistInfo] = useRecoilState(registPostState);
+  const { caffeine } = useRecoilValue(caffeineFilterState);
+  const navigate = useNavigate();
+  const resetSelectedCoffee = useResetSelectedCoffee();
 
   const [editorEnabled, setEditorEnabled] = useState(false);
   const [editorSrc, setEditorSrc] = useState<File>();
@@ -60,16 +69,18 @@ const PostRegister = () => {
 
   const newRegistData = {
     ...registInfo,
+    caffeine: caffeine,
     post_title: inputState,
     photo: imageUrl
   };
 
-  const navigateToDetail = useNavigateTo('/post/1');
-
   const clickRegisterBtn = async () => {
     setRegistInfo(newRegistData);
-    await setPostRegist(newRegistData);
+    const postId = await setPostRegist(newRegistData);
     await getTodayCoffeeInfo();
+    await getUserInfo(0);
+    resetSelectedCoffee();
+    navigate(`/post/${postId}`);
   };
 
   return (
