@@ -18,6 +18,7 @@ const CoffeeOptionSelection = () => {
   const { postid } = useParams();
   const register = postid === 'register';
   const size: string[] = ['Regular', 'Large', 'Venti'];
+
   const [caffeine, setCaffeine] = useRecoilState(caffeineFilterState);
   const [registInfo, setRegistInfo] = useRecoilState(registPostState);
 
@@ -33,38 +34,21 @@ const CoffeeOptionSelection = () => {
   };
 
   // set coffee size info
-  const largeSize = () => {
-    setCaffeine({
-      caffeine: caffeineValue + 75,
-      menuCaffeine: menuCaffeineValue
-    });
-  };
-
-  const VentiSize = () => {
-    setCaffeine({
-      caffeine: caffeineValue + 150,
-      menuCaffeine: menuCaffeineValue
-    });
-  };
-
   const selectSize = (e: TouchEvent<HTMLButtonElement>) => {
     setRegisterData('size', e.currentTarget.value);
 
-    // size/shot 변경으로 추가된 caffeine
-    const plusedCaffeine = caffeineValue - menuCaffeineValue;
+    const size =
+      e.currentTarget.value === 'Large'
+        ? 75
+        : e.currentTarget.value === 'Venti'
+          ? 150
+          : 0;
 
-    registInfo.size !== 'Regular' &&
-      setCaffeine({
-        // size 변경 시 기본 caffiene reset 후 추가된 shot을 더해주는 식
-        caffeine: caffeineValue - plusedCaffeine + registInfo.shot * 75,
-        menuCaffeine: menuCaffeineValue
-      });
+    setCaffeine({
+      caffeine: menuCaffeineValue + size + registInfo.shot * 75,
+      menuCaffeine: menuCaffeineValue
+    });
   };
-
-  useEffect(() => {
-    registInfo.size === 'Large' && largeSize();
-    registInfo.size === 'Venti' && VentiSize();
-  }, [registInfo.size]);
 
   // set coffee shot info
   const selectMinusBtn = () => {
