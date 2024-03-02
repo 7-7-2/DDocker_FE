@@ -28,7 +28,7 @@ export const getAccessToken = async (code: string | null, social: string) => {
 };
 
 // UserInfo
-export const getUserInfo = async (userId: string) => {
+export const getUserInfo = async (userId: string | number) => {
   try {
     const res = await authInstance.get(`/users/${userId}/userInfo`);
     await useSetCacheData('user', '/userInfo', res.data);
