@@ -96,11 +96,13 @@ export const getRanking = async () => {
   const res = await authInstance.get(`/popular`);
   return res.data;
 };
+
 // PostRegister
 export const setPostRegist = async (postInfo: TodayPostTypes) => {
   try {
     const data = postInfo;
-    await baseInstance.post('/posts/register', data);
+    const res = await baseInstance.post('/posts/register', data);
+    return res.data.data;
   } catch (error) {
     console.log('Failed to regist post', error);
   }
