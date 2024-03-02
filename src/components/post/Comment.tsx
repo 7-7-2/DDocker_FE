@@ -1,4 +1,4 @@
-import { useShowReplies } from '@/hooks/useShowReplies';
+import { useToggle } from '@/hooks/useToggle';
 import CommentProto from '@/components/post/CommentProto';
 import CheckReply from '@/components/post/CheckReply';
 import Replies from '@/components/post/Replies';
@@ -12,7 +12,7 @@ const Comment = ({
   reply_count,
   id
 }: Comment) => {
-  const { replies, handleShowReplies } = useShowReplies();
+  const { toggle, handleToggle } = useToggle();
   return (
     <>
       <CommentProto
@@ -22,13 +22,13 @@ const Comment = ({
         created_at={created_at}
       />
       <Replies
-        replies={replies}
+        replies={toggle}
         commentId={id}
       />
       <CheckReply
         count={reply_count}
-        replies={replies}
-        handleShowReplies={handleShowReplies}
+        replies={toggle}
+        handleShowReplies={handleToggle}
       />
     </>
   );
