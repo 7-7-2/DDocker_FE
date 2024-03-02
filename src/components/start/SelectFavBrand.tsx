@@ -1,17 +1,19 @@
 import { useRecoilValue } from 'recoil';
-import { useState, useEffect } from 'react';
-import { setUserInitInfo } from '@/api/user';
-import { getCoffeeMenu } from '@/api/post';
-import { authState } from '@/atoms/atoms';
+
 import BrandItem from '@/components/start/BrandItem';
 import Button from '@/components/common/Button';
 import { SELECTFAVBRAND_TEXTS } from '@/constants/start';
 import { BUTTON_TEXTS } from '@/constants/common';
-import { useComposeHeader } from '@/hooks/useComposeHeader';
-import { setBrnadList } from '@/utils/setBrandList';
+
+import { setUserInitInfo } from '@/api/user';
+import { authState } from '@/atoms/atoms';
 import { useImgSubmit } from '@/hooks/useImgSubmit';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
-import { AuthTypes, CoffeeData } from '@/types/types';
+import useGetCoffeeList from '@/hooks/useGetCoffeeList';
+import { useComposeHeader } from '@/hooks/useComposeHeader';
+import { AuthTypes } from '@/types/types';
+
+import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Grid } from '@/styles/layout';
 import {
@@ -22,28 +24,17 @@ import {
   StartBrandSub,
   MarginT28
 } from '@/styles/styles';
-import { cx } from 'styled-system/css';
 
 const { message } = SELECTFAVBRAND_TEXTS;
 
 export const SelectFavBrand = () => {
   useComposeHeader(false, '기본정보', 'close');
   const user = useRecoilValue(authState);
-  const [brandList, setBrandList] = useState<string[]>();
   const { handleFormSubmit } = useImgSubmit();
 
   const navigateToHome = useNavigateTo('/');
   const navigateToMe = useNavigateTo('/start/3');
-
-  const getBrandList = async () => {
-    const res = await getCoffeeMenu();
-    const list = setBrnadList(res);
-    setBrandList(list);
-  };
-
-  useEffect(() => {
-    getBrandList();
-  }, []);
+  const brandList = useGetCoffeeList('brand') as string[];
 
   const handleStartBtn = () => {
     const userInfo: AuthTypes = {
