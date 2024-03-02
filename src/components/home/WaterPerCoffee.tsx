@@ -1,6 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from 'react';
-import { DocumentData } from 'firebase/firestore';
-import { getTodayCoffeeInfo } from '@/api/post';
+import { useRecoilValue } from 'recoil';
 import Button from '@/components/common/Button';
 import CoffeeIntake from '@/components/home/CoffeeIntake';
 import TodayMenuItem from '@/components/home/TodayMenuItem';
@@ -8,6 +6,8 @@ import WaterIntake from '@/components/home/WaterIntake';
 import { BUTTON_TEXTS } from '@/constants/common';
 import { TODAY_CAFFEINE_INFO_TEXTS } from '@/constants/home';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
+import useGetTodayCoffeeData from '@/hooks/useGetTodayCoffeeData';
+import { userInfoState } from '@/atoms/atoms';
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import {
@@ -19,34 +19,12 @@ import {
   MarginAuto
 } from '@/styles/layout';
 import { LoginBtn, RegistCoffeeBtn, AlertMessage } from '@/styles/styles';
-import { CoffeeInfo, UserCachedData } from '@/types/types';
-import useGetCacheData from '@/hooks/useGetCacheData';
 
 const { anonymous, signedIn } = TODAY_CAFFEINE_INFO_TEXTS;
 
 const WaterPerCoffee = () => {
-  const [cachedUser, setCachedUser] = useState<UserCachedData>();
-  const [dataList, setDataList] = useState<CoffeeInfo>();
-
-  const getCachedUserInfo = async () => {
-    const data = await useGetCacheData('user', '/userInfo');
-    setCachedUser(data);
-  };
-
-  const user = cachedUser?.cacheData.data;
-
-  const consumedCoffeList = async () => {
-    const data = await useGetCacheData('user', '/coffee');
-    if (data.cacheData.allcount !== null) {
-      setDataList(data.cacheData);
-      return;
-    }
-  };
-
-  useLayoutEffect(() => {
-    consumedCoffeList();
-    getCachedUserInfo();
-  }, []);
+  const user = useRecoilValue(userInfoState);
+  const todayCoffeeData = useGetTodayCoffeeData();
 
   const anonymousCard = (
     <div className={cx(Column, Center, MarginAuto)}>
@@ -75,12 +53,12 @@ const WaterPerCoffee = () => {
   const consumedCoffee = (
     <div className={Column}>
       <div className={cx(Flex, Between)}>
-        <CoffeeIntake data={dataList} />
-        <WaterIntake />
+        <CoffeeIntake data={todayCoffeeData} />
+        <WaterIntake coffeeCount={todayCoffeeData?.allCount} />
       </div>
       <TodayMenuList className={Flex}>
-        {dataList?.allCount !== null &&
-          dataList?.item.map((item, idx) => (
+        {todayCoffeeData?.allCount !== null &&
+          todayCoffeeData?.item.map((item, idx) => (
             <TodayMenuItem
               data={item}
               key={idx}
@@ -93,13 +71,18 @@ const WaterPerCoffee = () => {
   return (
     <Container
       className={cx(
-        dataList?.item && dataList?.item.length >= 1 ? CosumedCoffee : Default,
+        todayCoffeeData?.item && todayCoffeeData?.item.length >= 1
+          ? CosumedCoffee
+          : Default,
         Align,
         Between
       )}>
-      {!user && anonymousCard}
-      {user && dataList?.allCount === null && notConsumedCoffee}
-      {user && dataList?.item && dataList?.item.length >= 1 && consumedCoffee}
+      {!user.nickname && anonymousCard}
+      {user.nickname && !todayCoffeeData && notConsumedCoffee}
+      {user.nickname &&
+        todayCoffeeData?.item &&
+        todayCoffeeData?.item.length >= 1 &&
+        consumedCoffee}
     </Container>
   );
 };
