@@ -1,5 +1,4 @@
 import { atom } from 'recoil';
-import { DocumentData } from 'firebase/firestore';
 import {
   AuthTypes,
   CoffeeItem,
@@ -41,14 +40,14 @@ export const authState = atom<AuthTypes>({
   }
 });
 
-export const selectedBrandState = atom({
-  key: 'selectedBrandState',
-  default: ''
-});
-
-export const selectedMenuState = atom({
-  key: 'selectedMenuState',
-  default: ''
+export const userInfoState = atom<AuthTypes>({
+  key: 'userInfoState',
+  default: {
+    nickname: '',
+    brand: '',
+    sum: 0,
+    profileUrl: ''
+  }
 });
 
 export const selectedMenuInfoState = atom<CoffeeItem>({
@@ -56,7 +55,7 @@ export const selectedMenuInfoState = atom<CoffeeItem>({
   default: {
     brand: '',
     menu: '',
-    caffeine: ''
+    caffeine: 0
   }
 });
 
@@ -78,25 +77,7 @@ export const caffeineFilterState = atom<caffeineFilterTypes>({
   default: { caffeine: 0, menuCaffeine: 0 }
 });
 
-export const todayCoffeeListState = atom<DocumentData[]>({
-  key: 'todayCoffeeListState',
-  default: [
-    {
-      brand: '',
-      name: '',
-      size: 'Regular',
-      shot: 0,
-      caffeine: 0,
-      title: '',
-      photo: ''
-    }
-  ]
-});
-
-export const inputNicknameState = atom({
-  key: 'inputNicknameState',
-  default: ''
-});
+export const takedWaterState = atom({ key: 'takedWaterState', default: 0 });
 
 export const inputNicknameAlertState = atom({
   key: 'inputNicknameAlertState',
@@ -106,16 +87,6 @@ export const inputNicknameAlertState = atom({
 export const useInputState = atom({
   key: 'useInputState',
   default: ''
-});
-
-export const caffeineInfoState = atom({
-  key: 'caffeineInfoState',
-  default: {
-    brand: '',
-    menu: '',
-    size: '',
-    shot: 0
-  }
 });
 
 export const searchKeywordState = atom<string>({

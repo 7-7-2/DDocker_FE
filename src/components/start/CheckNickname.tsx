@@ -10,7 +10,6 @@ import { Input } from '@/components/common/Input';
 import { Label } from '@/components/common/Label';
 import { INPUT_TEXTS } from '@/constants/common';
 import { LABEL_TEXTS } from '@/constants/common';
-import useSetUserInitialInfo from '@/hooks/useSetUserInitialInfo';
 
 const { nickname } = INPUT_TEXTS.type;
 
@@ -19,7 +18,6 @@ const CheckNickname = () => {
   const inputValue = useRecoilValue(useInputState);
   const [isAlert, setIsAlert] = useRecoilState(inputNicknameAlertState);
   const [isApproval, setIsapproval] = useState(false);
-  // const setInitialInfo = useSetUserInitialInfo();
   const [userInit, setUserInit] = useRecoilState(authState);
 
   const cilckIdCheckBtn = async () => {
@@ -32,6 +30,7 @@ const CheckNickname = () => {
         ...userInit,
         nickname: inputValue
       };
+
       if (isApproval) {
         isApproval && setUserInit(selectedNickname);
       }
