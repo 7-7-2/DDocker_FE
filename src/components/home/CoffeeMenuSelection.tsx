@@ -1,14 +1,12 @@
-import { ChangeEvent, useLayoutEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import RegisterLabel from '@/components/post/RegisterLabel';
 import { CAFFEINE_FILTER_TEXTS } from '@/constants/home';
-import useGetCacheData from '@/hooks/useGetCacheData';
 import { caffeineFilterState, registPostState } from '@/atoms/atoms';
 import { CoffeeData } from '@/types/types';
 import convertBrandName from '@/utils/convertBrandName';
-import { setBrnadList } from '@/utils/setBrandList';
+import useGetCoffeeList from '@/hooks/useGetCoffeeList';
 
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
@@ -22,7 +20,8 @@ const CoffeeMenuSelection = () => {
   const register = postid === 'register';
   const [registInfo, setRegistInfo] = useRecoilState(registPostState);
   const setCaffeine = useSetRecoilState(caffeineFilterState);
-  const [cachedMenu, setCachedMenu] = useState<CoffeeData>();
+  const coffeeData = useGetCoffeeList() as CoffeeData;
+  const brandList = useGetCoffeeList('brand') as string[];
 
   const setRegisterData = (key: string, value: string | number) => {
     if (key === 'brand') {
@@ -47,13 +46,6 @@ const CoffeeMenuSelection = () => {
       setRegistInfo(newRegistData);
       return;
     }
-
-    const newRegistData = {
-      ...registInfo,
-      [key]: value
-    };
-
-    setRegistInfo(newRegistData);
   };
 
   const setCaffeineInfo = (caffeinie: number) => {
@@ -63,48 +55,32 @@ const CoffeeMenuSelection = () => {
     });
   };
 
-  const getCachedData = async () => {
-    try {
-      const userData = await useGetCacheData('user', '/userInfo');
-      const coffeeData = await useGetCacheData('brand', '/coffeeMenu');
-      setCachedMenu(coffeeData.cacheData);
-      if (userData && registInfo.brand === '') {
-        setRegisterData('brand', userData.cacheData.data.brand);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
+  // 선택한 커피 브랜드 메뉴 리스트 조회
   const getMenuList = (selectedBrand: string) => {
-    const res = cachedMenu?.[selectedBrand]?.map(item => item.menu);
+    const res = coffeeData?.[selectedBrand]?.map(item => item.menu);
     return res;
   };
+  const menuList = coffeeData && getMenuList(registInfo.brand);
 
-  const brandList = cachedMenu && setBrnadList(cachedMenu);
-  const menuList = cachedMenu && getMenuList(registInfo.brand);
-
-  const getMenuInfo = (selectedMenu: string) => {
-    const res = cachedMenu?.[registInfo.brand]?.filter(
-      item => item.menu === selectedMenu
-    );
-
-    // caffeine Info Update
-    res && setCaffeineInfo(Number(res[0].caffeine));
-    res && setRegisterData('caffeine', Number(res[0].caffeine));
-  };
-
-  useLayoutEffect(() => {
-    getCachedData();
-  }, []);
-
-  const selectBrand = (e: ChangeEvent<HTMLSelectElement>) => {
+  // 커피 브랜드 선택
+  const selectBrand = (e: React.ChangeEvent<HTMLSelectElement>) => {
     getMenuList(e.target.value);
     setRegisterData('brand', e.target.value);
     setCaffeineInfo(0);
   };
 
-  const selectMenu = (e: ChangeEvent<HTMLSelectElement>) => {
+  // 선택한 커피 메뉴 정보 조회
+  const getMenuInfo = (selectedMenu: string) => {
+    const res = coffeeData?.[registInfo.brand]?.filter(
+      item => item.menu === selectedMenu
+    );
+    // caffeine Info Update
+    const caffeine = res && res[0].caffeine;
+    res && setCaffeineInfo(Number(caffeine));
+  };
+
+  // 커피 메뉴 선택
+  const selectMenu = (e: React.ChangeEvent<HTMLSelectElement>) => {
     getMenuInfo(e.target.value);
     setRegisterData('menu', e.target.value);
   };
@@ -124,14 +100,16 @@ const CoffeeMenuSelection = () => {
             className={cx(SelectInput, SmStyle)}
             name={coffeeMenu.brand}
             id={coffeeMenu.brand}
-            value={registInfo.brand || coffeeMenu.brand}
+            value={registInfo.brand ? registInfo.brand : coffeeMenu.brand}
             onChange={selectBrand}>
             <option
-              value={registInfo.brand || coffeeMenu.brand}
+              value={registInfo.brand ? registInfo.brand : coffeeMenu.brand}
               disabled
               defaultValue={coffeeMenu.brand}
               hidden>
-              {convertBrandName(registInfo.brand) || coffeeMenu.brand}
+              {registInfo.brand
+                ? convertBrandName(registInfo.brand)
+                : coffeeMenu.brand}
             </option>
             {brandList?.map(item => (
               <option
