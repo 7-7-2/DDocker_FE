@@ -1,41 +1,23 @@
-import { useLayoutEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
-import { authState } from '@/atoms/atoms';
 import Icon from '@/components/common/Icon';
 import { TODAY_CAFFEINE_INFO_TEXTS } from '@/constants/home';
-import useGetCacheData from '@/hooks/useGetCacheData';
-import { UserCachedData } from '@/types/types';
+import { authState, takedWaterState, userInfoState } from '@/atoms/atoms';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import { styled } from 'styled-system/jsx';
-import { cx } from 'styled-system/css';
-import { Align, Between, Column } from '@/styles/layout';
+import useGetTodayCoffeeData from '@/hooks/useGetTodayCoffeeData';
+
 import { HomeHeaderContent, InputFontSm } from '@/styles/styles';
+import { Align, Between, Column } from '@/styles/layout';
+import { cx } from 'styled-system/css';
+import { styled } from 'styled-system/jsx';
 
 const { anonymous, signedIn } = TODAY_CAFFEINE_INFO_TEXTS;
 
 const TodayCaffeineText = () => {
-  const [cachedUser, setCachedUser] = useState<UserCachedData>();
-  const [allCount, setAllCount] = useState<number>();
+  const takedWater = useRecoilValue(takedWaterState);
   const userInfo = useRecoilValue(authState);
-
-  const getCachedUserInfo = async () => {
-    const data = await useGetCacheData('user', '/userInfo');
-    setCachedUser(data);
-  };
-
-  const getDataList = async () => {
-    const data = await useGetCacheData('user', '/coffee');
-    setAllCount(data.cacheData.allCount);
-  };
-
-  const user = cachedUser?.cacheData.data;
-
-  // getTodaycoffeeInfo fatching 수정 예정
-  useLayoutEffect(() => {
-    getCachedUserInfo();
-    getDataList();
-    // getTodayCoffeeInfo();
-  }, []);
+  const user = useRecoilValue(userInfoState);
+  const todayCoffeeData = useGetTodayCoffeeData();
+  const allCount = todayCoffeeData?.allCount;
 
   const anonymousText = !user?.nickname && (
     <div className={Column}>
@@ -59,11 +41,15 @@ const TodayCaffeineText = () => {
     </div>
   );
 
+  const waterPerCoffeeCount = allCount && allCount * 2 - takedWater;
+
   const signedInMessage = (
     <div>
       {signedIn.messageText.first}
-      {allCount && allCount * 2}
-      {signedIn.messageText.second}
+      {waterPerCoffeeCount ? ` ${waterPerCoffeeCount}` : null}
+      {waterPerCoffeeCount
+        ? signedIn.messageText.second
+        : signedIn.messageText.third}
     </div>
   );
 
