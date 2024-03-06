@@ -32,11 +32,14 @@ const LazyRoutes = ROUTES.map(route => {
   );
 });
 
+const ErrorComponent = React.lazy(() => import(`./Page-Error.tsx`));
+
 export const router = createBrowserRouter(
   createRoutesFromElements(
     <Route
       path="/"
-      element={<Layout />}>
+      element={<Layout />}
+      errorElement={<ErrorComponent />}>
       {LazyRoutes}
     </Route>
   )
