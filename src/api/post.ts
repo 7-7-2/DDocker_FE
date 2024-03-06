@@ -1,5 +1,4 @@
 import { authInstance, baseInstance } from '@/api/axiosInterceptor';
-import useGetCacheData from '@/hooks/useGetCacheData';
 import useSetCacheData from '@/hooks/useSetCacheData';
 import { TodayPostTypes } from '@/types/types';
 
@@ -8,20 +7,26 @@ interface Comment {}
 
 // 1. 포스트 조회
 export const getPostDetail = async (postId: string) => {
-  const res = await baseInstance.get(`/posts/${postId}`);
-  return res.data;
+  const res = await baseInstance
+    .get(`/posts/${postId}`)
+    .catch(e => console.log(e));
+  return res && res.data;
 };
 
 // 2. 포스트 등록(+JWT 인증)
 export const registerPost = async (postForm: PostForm) => {
-  const res = await authInstance.post(`/posts/register`, postForm);
-  return res.data;
+  const res = await authInstance
+    .post(`/posts/register`, postForm)
+    .catch(e => console.log(e));
+  return res && res.data;
 };
 
 // 3. 포스트 삭제(+JWT 인증)
 export const deletePost = async (postId: string) => {
-  const res = await authInstance.delete(`/posts/${postId}`);
-  return res.data;
+  const res = await authInstance
+    .delete(`/posts/${postId}`)
+    .catch(e => console.log(e));
+  return res && res.data;
 };
 
 // 4. 포스트 수정(+JWT 인증)
@@ -29,46 +34,58 @@ export const updatePost = async (
   postId: string,
   postForm: Partial<PostForm>
 ) => {
-  const res = await authInstance.patch(`/posts/${postId}`, postForm);
-  return res.data;
+  const res = await authInstance
+    .patch(`/posts/${postId}`, postForm)
+    .catch(e => console.log(e));
+  return res && res.data;
 };
 
 // 5. 댓글 작성(+JWT 인증)
 export const writeComment = async (postId: string, comment: Comment) => {
-  const res = await authInstance.post(`/posts/${postId}/comments`, comment);
-  return res.data;
+  const res = await authInstance
+    .post(`/posts/${postId}/comments`, comment)
+    .catch(e => console.log(e));
+  return res && res.data;
 };
 
 // 6. 댓글 삭제(+JWT 인증)
 export const deleteComment = async (postId: string, commentId: number) => {
-  const res = await authInstance.delete(
-    `/posts/${postId}/comments/${commentId}`
-  );
-  return res.data;
+  const res = await authInstance
+    .delete(`/posts/${postId}/comments/${commentId}`)
+    .catch(e => console.log(e));
+  return res && res.data;
 };
 
 // 7. 답글 작성(+JWT 인증)
 export const replyComment = async (commentId: number) => {
-  const res = await authInstance.post(`/posts/${commentId}/reply`);
-  return res.data;
+  const res = await authInstance
+    .post(`/posts/${commentId}/reply`)
+    .catch(e => console.log(e));
+  return res && res.data;
 };
 
 // 8. 답글 삭제(+JWT 인증)
 export const deleteReply = async (commentId: number) => {
-  const res = await authInstance.post(`/posts/${commentId}/reply`);
-  return res.data;
+  const res = await authInstance
+    .post(`/posts/${commentId}/reply`)
+    .catch(e => console.log(e));
+  return res && res.data;
 };
 
 // 9. 포스트 진입시 댓글목록 조회
 export const getComments = async (postId: string) => {
-  const res = await baseInstance.get(`/posts/${postId}/comments`);
-  return res.data;
+  const res = await baseInstance
+    .get(`/posts/${postId}/comments`)
+    .catch(e => console.log(e));
+  return res && res.data;
 };
 
 // 10. 댓글 하단 더보기 클릭시 답글목록 조회
 export const getReply = async (commentId: number) => {
-  const res = await baseInstance.get(`/posts/${commentId}/reply`);
-  return res.data;
+  const res = await baseInstance
+    .get(`/posts/${commentId}/reply`)
+    .catch(e => console.log(e));
+  return res && res.data;
 };
 
 // 11. 로그인한 유저가 팔로잉 중인 유저의 게시물들 조회
@@ -77,8 +94,10 @@ export const getFollowingPosts = async ({
 }: {
   pageParam: number;
 }) => {
-  const res = await authInstance.get(`/posts/following/${pageParam}`);
-  const data = res.data;
+  const res = await authInstance
+    .get(`/posts/following/${pageParam}`)
+    .catch(e => console.log(e));
+  const data = res && res.data;
   return {
     data: data.data.results,
     next: data.data.next
@@ -87,14 +106,16 @@ export const getFollowingPosts = async ({
 
 //12. 게시글 상세 내부 좋아요 및 댓글 개수 확인
 export const getSocialCounts = async (postId: string) => {
-  const res = await baseInstance.get(`/posts/${postId}/counts`);
-  return res.data;
+  const res = await baseInstance
+    .get(`/posts/${postId}/counts`)
+    .catch(e => console.log(e));
+  return res && res.data;
 };
 
 //13. 메인 페이지 인기 브랜드 순위 랭킹 조회
 export const getRanking = async () => {
-  const res = await authInstance.get(`/popular`);
-  return res.data;
+  const res = await authInstance.get(`/popular`).catch(e => console.log(e));
+  return res && res.data;
 };
 
 // PostRegister
@@ -140,7 +161,6 @@ export const getWeeklyPopular = async () => {
 export const getCoffeeMenu = async () => {
   try {
     const res = await baseInstance.get('/brand');
-    console.log(res.data.data[0].coffee_menus);
     await useSetCacheData(
       'brand',
       '/coffeeMenu',
