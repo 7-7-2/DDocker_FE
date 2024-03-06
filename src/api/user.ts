@@ -56,3 +56,13 @@ export const checkNickname = async (nickname: string) => {
     console.log(err);
   }
 };
+
+// Profile page posts
+export const getUserPosts = async (userId: string, nextPage: number) => {
+  try {
+    const res = await authInstance.get(`/users/${userId}/posts/${nextPage}`);
+    return res.data.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
