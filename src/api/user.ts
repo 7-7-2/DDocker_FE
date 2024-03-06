@@ -66,3 +66,13 @@ export const getUserPosts = async (userId: string, nextPage: number) => {
     console.log(err);
   }
 };
+
+//  ProFlie Follow Counts
+export const getUserFollowCounts = async (userId: string) => {
+  try {
+    const res = await authInstance.get(`/users/${userId}/follow`);
+    return res.data.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
