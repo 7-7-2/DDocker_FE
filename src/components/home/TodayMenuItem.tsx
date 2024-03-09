@@ -1,13 +1,13 @@
 import { COFFEE_TEXTS } from '@/constants/coffee';
 import convertBrandName from '@/utils/convertBrandName';
-import { CoffeeInfoItem } from '@/types/types';
+import { TodayCoffeeInfoItemTypes } from '@/types/types';
 import { Column, Flex } from '@/styles/layout';
 import { RecentSearch, SumType } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 
 const { unit } = COFFEE_TEXTS;
 
-const TodayMenuItem = (data: { data: CoffeeInfoItem }) => {
+const TodayMenuItem = (data: { data: TodayCoffeeInfoItemTypes }) => {
   const icon = `/png/${data.data.brand}.png`;
 
   return (

@@ -12,12 +12,12 @@ import {
 } from '@/styles/styles';
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { CoffeeInfo } from '@/types/types';
+import { TodayCoffeeInfoTypes } from '@/types/types';
 
 const { coffeeIntake } = CAFFEINE_PER_WATER_TEXTS;
 const { unit } = CAFFEINE_INFO_TEXTS;
 
-const CoffeeIntake = ({ data }: { data: CoffeeInfo | undefined }) => {
+const CoffeeIntake = ({ data }: { data: TodayCoffeeInfoTypes | undefined }) => {
   const percentage =
     data?.caffeineSum && data?.caffeineSum / 4 <= 100
       ? data?.caffeineSum / 4

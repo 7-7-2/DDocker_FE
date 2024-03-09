@@ -4,7 +4,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import RegisterLabel from '@/components/post/RegisterLabel';
 import { CAFFEINE_FILTER_TEXTS } from '@/constants/home';
 import { caffeineFilterState, registPostState } from '@/atoms/atoms';
-import { CoffeeData } from '@/types/types';
+import { CoffeeDataTypes } from '@/types/types';
 import convertBrandName from '@/utils/convertBrandName';
 import useGetCoffeeList from '@/hooks/useGetCoffeeList';
 
@@ -20,7 +20,7 @@ const CoffeeMenuSelection = () => {
   const register = postid === 'register';
   const [registInfo, setRegistInfo] = useRecoilState(registPostState);
   const setCaffeine = useSetRecoilState(caffeineFilterState);
-  const coffeeData = useGetCoffeeList() as CoffeeData;
+  const coffeeData = useGetCoffeeList() as CoffeeDataTypes;
   const brandList = useGetCoffeeList('brand') as string[];
 
   const setRegisterData = (key: string, value: string | number) => {
