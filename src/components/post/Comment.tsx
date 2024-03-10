@@ -20,6 +20,7 @@ const Comment = ({
         nickname={nickname}
         content={content}
         created_at={created_at}
+        id={id}
       />
       <Replies
         replies={toggle}
