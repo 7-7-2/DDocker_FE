@@ -1,4 +1,4 @@
-import { TouchEventHandler } from 'react';
+import { TouchEventHandler, RefObject, ChangeEvent } from 'react';
 import { Dayjs } from 'dayjs';
 
 export enum Collections {
@@ -64,6 +64,9 @@ export interface LabelProps {
 export interface InputProps {
   type: string;
   handleEvent?: () => void;
+  inputRef?: RefObject<HTMLInputElement>;
+  inputValue?: string;
+  handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface BrnadItemProps {
@@ -163,6 +166,7 @@ export interface Comment {
 
 export interface CommentProto extends Omit<Comment, 'reply_count' | 'id'> {
   comment?: boolean;
+  id?: number;
 }
 export type Reply = Pick<
   Comment,
