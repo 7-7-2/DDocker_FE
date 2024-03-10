@@ -1,39 +1,41 @@
-import { useRecoilState } from 'recoil';
-import { imageState } from '@/atoms/atoms';
+import { useParams } from 'react-router-dom';
+
 import FollowCount from '@/components/profile/FollowCount';
 import PostsGrid from '@/components/profile/PostsGrid';
 import ProfileDetail from '@/components/profile/ProfileDetail';
-import ProfileImg from '@/components/profile/ProfileImg';
-import { FOLLOW } from '@/constants/Follow';
+import { InfinitePosts, UserProfileDataTypes } from '@/types/types';
+import { useTargetInfiniteScroll } from '@/hooks/useTargetInfiniteScroll';
+import { getProfilePostIQParam } from '@/hooks/useInfiniteScroll';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
-import { useGetProfileImg } from '@/hooks/useGetProfileImg';
+
 import { Between, Column } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
-const icons = [
-  { number: FOLLOW.post, label: '게시물' },
-  { number: FOLLOW.following, label: '팔로잉' },
-  { number: FOLLOW.followed, label: '팔로워' }
-];
-
 const Profile = () => {
   useComposeHeader(true, '', 'icons');
+  const { userId } = useParams();
 
-  const [profileUrl, setProfileUrl] = useRecoilState(imageState);
+  const ProfilePostIQParam: InfinitePosts = getProfilePostIQParam();
+  const { data, ref } = useTargetInfiniteScroll(ProfilePostIQParam);
 
-  useGetProfileImg();
+  const postsData = data as unknown as UserProfileDataTypes[];
+
+  const followCountData = {
+    userId: userId,
+    postCount: postsData && postsData[0].allCount
+  };
 
   return (
     <>
       <Container className={Column}>
         <div className={cx(Column, Between)}>
-          <ProfileImg imageUrl={profileUrl} />
-          <ProfileDetail />
-          <FollowCount icons={icons} />
+          <ProfileDetail userId={userId} />
+          <FollowCount data={followCountData} />
         </div>
       </Container>
-      <PostsGrid />
+      <PostsGrid data={postsData} />
+      <Target ref={ref} />
     </>
   );
 };
@@ -42,6 +44,9 @@ const Container = styled.div`
   position: relative;
   width: auto;
   margin: 20px 0;
+`;
+const Target = styled.div`
+  width: 1px;
 `;
 
 export default Profile;
