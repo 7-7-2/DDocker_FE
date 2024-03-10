@@ -7,26 +7,15 @@ import { cx } from 'styled-system/css';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import Icon from '@/components/common/Icon';
 import { COMMENT_TEXTS } from '@/constants/texts';
-import { InputContext } from '@/context/inputContext';
-import { useContext, useEffect, useRef } from 'react';
+import { useRefIntoView } from '@/hooks/useRefIntoView';
 
 const { at, onReply } = COMMENT_TEXTS;
 
 const ReplyToPanel = () => {
-  const panelRef = useRef<HTMLDivElement | null>(null);
   const selectedReply = useRecoilValue(replyState);
   const reset = useResetRecoilState(replyState);
-  const { inputRef } = useContext(InputContext);
+  const { ref: panelRef } = useRefIntoView(selectedReply);
 
-  useEffect(() => {
-    if (inputRef && inputRef.current) {
-      inputRef.current.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-        inline: 'center'
-      });
-    }
-  }, [selectedReply]);
   return (
     <>
       {selectedReply && selectedReply.id !== 0 && (

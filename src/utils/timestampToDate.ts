@@ -21,7 +21,7 @@ const getTimeDiff = (timeToCompare: Dayjs): string => {
       s: '초 전'
     };
     const before = unitMap[unit];
-    return `${diff}${before}`;
+    return before ? `${diff}${before}` : '지금';
   };
   return convertUnit(targetUnit, diffMap.get(targetUnit));
 };

@@ -15,24 +15,30 @@ const CheckReply = ({
   return (
     <>
       {count !== 0 && !replies && (
-        <ToggleReply
-          onClick={handleShowReplies}>{`${count}${loadMore}`}</ToggleReply>
+        <Container>
+          <ToggleReply
+            onClick={handleShowReplies}>{`${count}${loadMore}`}</ToggleReply>
+        </Container>
       )}
       {count !== 0 && replies && (
-        <ToggleReply onClick={handleShowReplies}>{hide}</ToggleReply>
+        <Container>
+          <ToggleReply onClick={handleShowReplies}>{hide}</ToggleReply>
+        </Container>
       )}
     </>
   );
 };
 
-const ToggleReply = styled.div`
-  font-size: var(--font-sizes-sm);
-  color: #767676;
-  font-weight: 500;
+const Container = styled.div`
   padding-left: 44px;
   padding-bottom: 20px;
   margin-top: -12px;
+  color: #767676;
+  font-weight: 500;
   line-height: 20px;
+  font-size: var(--font-sizes-sm);
 `;
+
+const ToggleReply = styled.span``;
 
 export default CheckReply;
