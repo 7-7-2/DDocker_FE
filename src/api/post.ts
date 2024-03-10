@@ -1,9 +1,8 @@
 import { authInstance, baseInstance } from '@/api/axiosInterceptor';
 import useSetCacheData from '@/hooks/useSetCacheData';
-import { TodayPostTypes } from '@/types/types';
+import { TodayPostTypes, CommentInput } from '@/types/types';
 
 interface PostForm {}
-interface Comment {}
 
 // 1. 포스트 조회
 export const getPostDetail = async (postId: string) => {
@@ -41,9 +40,9 @@ export const updatePost = async (
 };
 
 // 5. 댓글 작성(+JWT 인증)
-export const writeComment = async (postId: string, comment: Comment) => {
+export const writeComment = async (comment: CommentInput) => {
   const res = await authInstance
-    .post(`/posts/${postId}/comments`, comment)
+    .post(`/posts/${comment.parentId}/comments`, { content: comment.content })
     .catch(e => console.log(e));
   return res && res.data;
 };
@@ -57,9 +56,9 @@ export const deleteComment = async (postId: string, commentId: number) => {
 };
 
 // 7. 답글 작성(+JWT 인증)
-export const replyComment = async (commentId: number) => {
+export const replyComment = async (comment: CommentInput) => {
   const res = await authInstance
-    .post(`/posts/${commentId}/reply`)
+    .post(`/posts/${comment.parentId}/reply`, { content: comment.content })
     .catch(e => console.log(e));
   return res && res.data;
 };
