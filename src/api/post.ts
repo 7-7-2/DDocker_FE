@@ -1,6 +1,6 @@
 import { authInstance, baseInstance } from '@/api/axiosInterceptor';
 import useSetCacheData from '@/hooks/useSetCacheData';
-import { TodayPostTypes, CommentInput } from '@/types/types';
+import { RegisterPostTypes, CommentInput } from '@/types/types';
 
 interface PostForm {}
 
@@ -130,7 +130,7 @@ export const getRanking = async () => {
 };
 
 // PostRegister
-export const setPostRegist = async (postInfo: TodayPostTypes) => {
+export const setPostRegist = async (postInfo: RegisterPostTypes) => {
   try {
     const data = postInfo;
     const res = await baseInstance.post('/posts/register', data);
