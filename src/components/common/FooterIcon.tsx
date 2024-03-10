@@ -8,7 +8,8 @@ import { Column, Center } from '@/styles/layout';
 import { FooterTextMedium, FooterTextSelected } from '@/styles/styles';
 import { cx } from 'styled-system/css';
 
-const userId = useGetCacheData('user', '/userId');
+const user = await useGetCacheData('user', '/userInfo');
+const userId = user.cacheData.data.userId;
 
 const routeMap = new Map();
 routeMap.set('home', '/');
