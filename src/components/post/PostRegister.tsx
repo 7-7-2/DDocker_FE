@@ -5,7 +5,7 @@ import { getEditorDefaults } from '@pqina/pintura';
 import locale_ko_KR from '@pqina/pintura/locale/ko_KR';
 // _PINTURA
 
-import { constSelector, useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { Input } from '@/components/common/Input';
 import CoffeeOptionSelection from '@/components/common/CoffeeOptionSelection';
 import CoffeeMenuSelection from '@/components/home/CoffeeMenuSelection';
@@ -74,11 +74,15 @@ const PostRegister = () => {
     photo: imageUrl
   };
 
+  const updateData = async () => {
+    await getTodayCoffeeInfo();
+    await getUserInfo(0);
+  };
+
   const clickRegisterBtn = async () => {
     setRegistInfo(newRegistData);
     const postId = await setPostRegist(newRegistData);
-    await getTodayCoffeeInfo();
-    await getUserInfo(0);
+    await updateData();
     resetSelectedCoffee();
     navigate(`/post/${postId}`);
   };
