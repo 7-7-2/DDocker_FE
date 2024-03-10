@@ -17,6 +17,5 @@ export const useTargetInfiniteScroll = (param: InfinitePosts) => {
     observer.unobserve(entry.target);
     if (hasNextPage && !isFetching) fetchNextPage();
   });
-
   return { data, ref, isLoading };
 };
