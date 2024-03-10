@@ -1,10 +1,10 @@
 import { atom } from 'recoil';
 import {
   AuthTypes,
-  CoffeeItem,
+  CoffeeItemTypes,
   SimplifyUser,
-  TodayPostTypes,
-  caffeineFilterTypes
+  RegisterPostTypes,
+  CaffeineFilterTypes
 } from '@/types/types';
 
 export const activeState = atom({
@@ -46,11 +46,12 @@ export const userInfoState = atom<AuthTypes>({
     nickname: '',
     brand: '',
     sum: 0,
-    profileUrl: ''
+    profileUrl: '',
+    userId: ''
   }
 });
 
-export const selectedMenuInfoState = atom<CoffeeItem>({
+export const selectedMenuInfoState = atom<CoffeeItemTypes>({
   key: 'selectedMenuInfo',
   default: {
     brand: '',
@@ -58,8 +59,11 @@ export const selectedMenuInfoState = atom<CoffeeItem>({
     caffeine: 0
   }
 });
-
-export const registPostState = atom<TodayPostTypes>({
+export const registerPostTitleState = atom({
+  key: 'registerPostTitleState',
+  default: false
+});
+export const registPostState = atom<RegisterPostTypes>({
   key: 'registPostState',
   default: {
     brand: '',
@@ -72,7 +76,7 @@ export const registPostState = atom<TodayPostTypes>({
   }
 });
 
-export const caffeineFilterState = atom<caffeineFilterTypes>({
+export const caffeineFilterState = atom<CaffeineFilterTypes>({
   key: 'caffeineFilterState',
   default: { caffeine: 0, menuCaffeine: 0 }
 });

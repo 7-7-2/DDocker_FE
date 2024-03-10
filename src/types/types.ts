@@ -18,21 +18,12 @@ export interface HeaderType {
 }
 
 export interface AuthTypes {
-  profileUrl?: string | null;
+  profileUrl?: string;
   nickname?: string;
   brand?: string;
   gender?: string;
   sum?: number;
-}
-
-export interface UserTypes {
-  userId: string | undefined;
-  email: string | null;
-  name: string | null;
-  profileUrl?: string | null;
-  nickname?: string;
-  brand?: string;
-  gender?: string;
+  userId?: string;
 }
 
 export interface SimplifyUser {
@@ -47,11 +38,7 @@ export interface SearchBarProps {
 }
 
 export interface FollowCountProps {
-  icons: {
-    number?: number;
-    label: string;
-    onTouchEnd?: (event: TouchEventHandler<HTMLDivElement>) => void;
-  }[];
+  data: { userId: string | undefined; postCount: number | undefined };
 }
 
 export interface LabelProps {
@@ -81,18 +68,6 @@ export interface ButtonProps {
   className: string;
 }
 
-export interface testData {
-  Allcaffeine: number;
-  coffee: number;
-  menu: testMenu[];
-}
-export interface testMenu {
-  icon: string;
-  brand: string;
-  caffeine: number;
-  menuName: string;
-}
-
 export interface EmptyUserProps {
   label: string;
   onTouchEnd?: () => void;
@@ -107,32 +82,28 @@ export interface CachedData {
   cacheData: string;
 }
 
-export interface UserCachedData {
-  cacheData: { success: 'ok'; data: AuthTypes };
-}
-
-export interface CoffeeCachedData {
-  cacheData: { success: 'ok'; data: CoffeeInfo };
-}
-
-export interface CoffeeInfo {
+export interface TodayCoffeeInfoTypes {
   caffeineSum: number;
   allCount: number;
-  item: [CoffeeInfoItem];
+  item: [TodayCoffeeInfoItemTypes];
 }
 
-export interface CoffeeInfoItem {
+export interface TodayCoffeeInfoItemTypes {
   brand: string;
   caffeine: number;
 }
 
-export interface CoffeeItem {
+export interface CoffeeItemTypes {
   brand: string;
   menu: string;
   caffeine: number;
 }
 
-export interface TodayPostTypes {
+export interface CoffeeDataTypes {
+  [brand: string]: CoffeeItemTypes[];
+}
+
+export interface RegisterPostTypes {
   brand: string;
   menu: string;
   size: string;
@@ -142,11 +113,24 @@ export interface TodayPostTypes {
   photo: string | undefined;
 }
 
-export interface CoffeeData {
-  [brand: string]: CoffeeItem[];
+export interface UserProfileDataTypes {
+  allCount: number;
+  posts: UserProfilePostsTypes[];
 }
 
-export interface caffeineFilterTypes {
+export interface UserProfilePostsTypes {
+  photo: string;
+  postId: string;
+}
+
+export interface UserFollowCountsTypes {
+  followed: number;
+  following: number;
+}
+export interface PostsGridProps {
+  data?: UserProfileDataTypes[];
+}
+export interface CaffeineFilterTypes {
   caffeine: number;
   menuCaffeine: number;
 }
