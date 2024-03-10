@@ -198,3 +198,8 @@ export interface InfinitePosts {
   initialPageParam: number;
   getNextPageParam: (lastPage: Fetched) => number | undefined;
 }
+
+export interface CommentInput {
+  parentId: string | number;
+  content: string;
+}
