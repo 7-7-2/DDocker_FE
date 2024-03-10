@@ -1,6 +1,5 @@
 import Icon from '@/components/common/Icon';
 import { INPUT_TEXTS } from '@/constants/common';
-import { useInput } from '@/hooks/useInput';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { InputProps } from '@/types/types';
 import { styled } from 'styled-system/jsx';
@@ -13,9 +12,14 @@ import {
   BgF5
 } from '@/styles/styles';
 
-export const Input = ({ type, handleEvent }: InputProps) => {
+export const Input = ({
+  type,
+  handleEvent,
+  inputRef,
+  inputValue,
+  handleChange
+}: InputProps) => {
   const { nickname, comment, title, search } = INPUT_TEXTS.type;
-  const { value: inputValue, onChange: handleInputBox } = useInput('');
   let submitBtn;
   let inputLength;
   let inputPlaceholder;
@@ -65,7 +69,8 @@ export const Input = ({ type, handleEvent }: InputProps) => {
         type="text"
         placeholder={inputPlaceholder}
         value={inputValue}
-        onChange={handleInputBox}
+        onChange={handleChange}
+        ref={inputRef}
         maxLength={inputLength}
       />
       <InputBox className={Align}>
