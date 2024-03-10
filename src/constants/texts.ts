@@ -12,5 +12,7 @@ export const COMMENT_TEXTS = {
   count: '개의 댓글',
   reply: '답글 달기',
   hide: '답글 숨기기',
-  loadMore: '개의 답글 더보기'
+  loadMore: '개의 답글 더보기',
+  at: '@',
+  onReply: '님의 댓글에 답글 작성 중'
 };
