@@ -1,24 +1,35 @@
-import { GRID } from '@/constants/PostsGrid';
+import { useNavigate } from 'react-router-dom';
+import { PostsGridProps, UserProfilePostsTypes } from '@/types/types';
+
+import { cx } from 'styled-system/css';
+import { styled } from 'styled-system/jsx';
 import { Grid, Center } from '@/styles/layout';
 import { Cursor } from '@/styles/styles';
-import { styled } from 'styled-system/jsx';
-import { cx } from 'styled-system/css';
 
-const PostsGrid = () => {
-  const handleClick = () => {};
+const PostsGrid = ({ data }: PostsGridProps) => {
+  const navigate = useNavigate();
+  const posts = data && data.flatMap(item => item.posts);
+
+  const touchImg: React.TouchEventHandler<HTMLImageElement> = (
+    e: React.TouchEvent<HTMLImageElement>
+  ) => {
+    navigate(`/post/${e.currentTarget.id}`);
+  };
 
   return (
     <GridContainer className={cx(Grid, Center)}>
-      {Array.from({ length: GRID.numberOfItems }).map((_, index) => (
-        <GridItemContainer>
-          <GridItem
-            className={Cursor}
-            key={index}
-            onTouchEnd={handleClick}
-            src="https://img.kbs.co.kr/kbs/620/news.kbs.co.kr/data/fckeditor/new/image/2022/09/15/332631663220505444.jpg"
-          />
-        </GridItemContainer>
-      ))}
+      {posts &&
+        posts.map((item: UserProfilePostsTypes) => (
+          <GridItemContainer key={item.postId}>
+            <GridItem
+              className={Cursor}
+              key={item.postId}
+              id={item.postId}
+              onTouchEnd={touchImg}
+              src={item.photo}
+            />
+          </GridItemContainer>
+        ))}
     </GridContainer>
   );
 };
@@ -44,6 +55,10 @@ const GridItem = styled.img`
   height: 100%;
   object-fit: cover;
   background-color: var(--colors-tertiary);
+`;
+
+const Target = styled.div`
+  padding: 1px;
 `;
 
 export default PostsGrid;

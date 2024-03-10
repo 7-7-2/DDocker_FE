@@ -31,7 +31,11 @@ export const getAccessToken = async (code: string | null, social: string) => {
 export const getUserInfo = async (userId: string | number) => {
   try {
     const res = await authInstance.get(`/users/${userId}/userInfo`);
-    await useSetCacheData('user', '/userInfo', res.data);
+    if (userId === 0) {
+      await useSetCacheData('user', '/userInfo', res.data);
+      return;
+    }
+    return res.data;
   } catch (error) {
     console.log('Error fetching social authentication:', error);
   }
@@ -58,12 +62,17 @@ export const checkNickname = async (nickname: string) => {
 };
 
 // Profile page posts
-export const getUserPosts = async (userId: string, nextPage: number) => {
+export const getUserProfilePosts = async (
+  userId: string | undefined,
+  nextPage: number
+) => {
   try {
     const res = await authInstance.get(`/users/${userId}/posts/${nextPage}`);
-    return res.data.data;
+    const resData = res.data;
+    return { data: resData.data, next: resData.next };
   } catch (err) {
     console.log(err);
+    return;
   }
 };
 
