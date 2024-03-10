@@ -1,39 +1,45 @@
 import Icon from '@/components/common/Icon';
+import { useRecoilValue } from 'recoil';
+import ProfileImg from '@/components/profile/ProfileImg';
 import { TEXT } from '@/constants/texts';
-import {
-  userName,
-  userNickName,
-  userEmail,
-  addedCoffee,
-  brand
-} from '@/constants/Profile';
+import { userInfoState } from '@/atoms/atoms';
+import useGetUserInfo from '@/hooks/useGetUserInfo';
+import convertBrandName from '@/utils/convertBrandName';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+
+import { cx } from 'styled-system/css';
+import { styled } from 'styled-system/jsx';
 import { Between, Column, FlexCenter, Center, Align } from '@/styles/layout';
 import { Border16, PrfileTitle, SmStyle, TextArea } from '@/styles/styles';
-import { styled } from 'styled-system/jsx';
-import { cx } from 'styled-system/css';
 
-const ProfileDetail = () => {
+const ProfileDetail = ({ userId }: { userId: string | undefined }) => {
+  const user = useRecoilValue(userInfoState);
+  useGetUserInfo(userId);
+
   return (
     <Container className={cx(Column, Center)}>
+      <ProfileImg imageUrl={user?.profileUrl} />
       <UserTitle className={cx(FlexCenter, PrfileTitle)}>
-        {userNickName.loginName}
+        {user.nickname}
       </UserTitle>
       <UserText className={cx(FlexCenter, SmStyle)}>
-        <span>{userName.user1}</span>
-        <UserNameText>{userEmail.eMail}</UserNameText>
+        {/* 상태메세지 Input 수정 후 추가 예정 */}
+        {/* <span>{user.nickname}</span>
+        <UserNameText>{user.nickname}</UserNameText> */}
       </UserText>
       <Info className={cx(Align, Between)}>
         <UserBrand className={cx(FlexCenter, Border16)}>
           <Icon {...iconPropsGenerator('brand')} />
-          <div className={TextArea}>{brand.brand1}</div>
+          <div className={TextArea}>
+            {user.brand && convertBrandName(user.brand)}
+          </div>
         </UserBrand>
         <UserSubTitle className={cx(FlexCenter, Border16)}>
           <Icon {...iconPropsGenerator('coffeebean')} />
           <div
             className={
               TextArea
-            }>{`${TEXT.addedcaffeine} ${addedCoffee.cafein} ${TEXT.mgLabel}`}</div>
+            }>{`${TEXT.addedcaffeine} ${user.sum} ${TEXT.mgLabel}`}</div>
         </UserSubTitle>
       </Info>
     </Container>
