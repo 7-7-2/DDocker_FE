@@ -103,7 +103,7 @@ const CosumedCoffee = css`
 
 const TodayMenuList = styled.div`
   width: calc(100vw - 80px);
-  margin-top: 25px;
+  margin-top: 14px;
   overflow-x: scroll;
 `;
 
