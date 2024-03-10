@@ -4,24 +4,23 @@ import PostComments from '@/components/post/PostComments';
 import CaffeineInfo from '@/components/post/CaffeineInfo';
 import PostedAt from '@/components/post/PostedAt';
 import Icon from '@/components/common/Icon';
-import { Input } from '@/components/common/Input';
 import { useQuery } from '@tanstack/react-query';
 import useGetCacheData from '@/hooks/useGetCacheData';
+import ReplyToPanel from '@/components/post/ReplyToPanel';
 
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import { INPUT_TEXTS } from '@/constants/common';
 import { styled } from 'styled-system/jsx';
 import { Between, Align, Flex } from '@/styles/layout';
 import { cx } from 'styled-system/css';
-import { PaddingTB10, PostContent } from '@/styles/styles';
+import { PostContent, Divider } from '@/styles/styles';
 import timestampToDate from '@/utils/timestampToDate';
 import { getPostDetail, getSocialCounts } from '@/api/post';
 import { useToggle } from '@/hooks/useToggle';
 import PostOwnerOption from '@/components/post/overlay/PostOwnerOption';
 import PublicOption from '@/components/post/overlay/PublicOption';
-
-const { type } = INPUT_TEXTS;
-const { comment } = type;
+import PostInput from '@/components/post/PostInput';
+import { useRef } from 'react';
+import { InputContext } from '@/context/inputContext';
 
 const PostDetail = ({ postNum }: { postNum: string }) => {
   const { data: postData } = useQuery({
@@ -46,11 +45,9 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
     queryFn: () => useGetCacheData('user', '/accessToken')
   });
 
-  const handleTouch = () => {
-    // writeComment();
-  };
-
   const { toggle, handleToggle } = useToggle();
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
   return (
     <>
       {toggle && signedIn && (
@@ -96,18 +93,17 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
             shot={postData.data.shot}
           />
           <PostedAt at={timestampToDate(postData.data.created_at)} />
-          <Divider />
-          <PostComments
-            postNum={postNum}
-            commentCount={socialCounts.data.totalComments}
-          />
-          <Divider />
-          <div className={PaddingTB10}>
-            <Input
-              type={comment.typeName}
-              handleEvent={handleTouch}
+          <div className={Divider} />
+
+          <InputContext.Provider value={{ inputRef }}>
+            <PostComments
+              postNum={postNum}
+              commentCount={socialCounts.data.totalComments}
             />
-          </div>
+            <ReplyToPanel />
+          </InputContext.Provider>
+
+          <PostInput inputRef={inputRef} />
         </>
       )}
     </>
@@ -116,24 +112,6 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
 
 const UserProfile = styled.div`
   padding: 12px 0;
-`;
-
-const Divider = styled.div`
-  position: relative;
-  &::after {
-    content: '';
-    position: absolute;
-    border-top: 1px solid #edecec;
-    left: -20px;
-    width: calc(50% + 20px);
-  }
-  &::before {
-    content: '';
-    position: absolute;
-    border-top: 1px solid #edecec;
-    right: -20px;
-    width: calc(50% + 20px);
-  }
 `;
 
 const DetailImg = styled.img`

@@ -108,3 +108,11 @@ export const userIdState = atom({
   key: 'userIdState',
   default: localStorage.getItem('userId') || null
 });
+
+export const replyState = atom({
+  key: 'replyState',
+  default: {
+    nickname: '',
+    id: 0
+  }
+});

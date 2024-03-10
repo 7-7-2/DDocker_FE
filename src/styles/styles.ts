@@ -663,3 +663,21 @@ export const ColorMain = css`
   font-weight: 500;
   color: var(--colors-main);
 `;
+
+export const Divider = css`
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    border-top: 1px solid #edecec;
+    left: -20px;
+    width: calc(50% + 20px);
+  }
+  &::before {
+    content: '';
+    position: absolute;
+    border-top: 1px solid #edecec;
+    right: -20px;
+    width: calc(50% + 20px);
+  }
+`;
