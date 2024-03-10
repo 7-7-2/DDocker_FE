@@ -100,10 +100,12 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
               postNum={postNum}
               commentCount={socialCounts.data.totalComments}
             />
-            <ReplyToPanel />
           </InputContext.Provider>
-
-          <PostInput inputRef={inputRef} />
+          <ReplyToPanel />
+          <PostInput
+            inputRef={inputRef}
+            postId={postNum}
+          />
         </>
       )}
     </>
