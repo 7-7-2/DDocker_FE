@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { InputContext } from '@/context/inputContext';
 import { memo } from 'react';
 import { replyState } from '@/atoms/atoms';
-import { useSetRecoilState, useRecoilValue } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { CommentProto } from '@/types/types';
 
 const { reply } = COMMENT_TEXTS;
@@ -13,7 +13,6 @@ const Reply = memo(
   ({ nickname, id }: Pick<CommentProto, 'nickname' | 'id'>) => {
     const { inputRef } = useContext(InputContext);
     const setReplyState = useSetRecoilState(replyState);
-    const replyValue = useRecoilValue(replyState);
 
     const focusInput = () => {
       if (inputRef && inputRef.current) {

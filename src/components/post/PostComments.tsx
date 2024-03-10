@@ -16,7 +16,7 @@ const PostComments = ({
   commentCount: number;
 }) => {
   const { data: commentData } = useQuery({
-    queryKey: ['commentData'],
+    queryKey: ['commentData', postNum],
     queryFn: () => {
       return getComments(postNum);
     },
