@@ -7,13 +7,11 @@ import { styled } from 'styled-system/jsx';
 export const Option = ({
   icon,
   option,
-  onTouchEnd,
-  postId
+  onTouchEnd
 }: {
   icon: string;
   option: string;
   onTouchEnd: () => void;
-  postId: string;
 }) => {
   return (
     <div className={cx(Flex, Align)}>
@@ -21,7 +19,7 @@ export const Option = ({
         {...iconPropsGenerator(`${icon}`)}
         onTouchEnd={onTouchEnd}
       />
-      <OptionText>{option}</OptionText>
+      <OptionText onTouchEnd={onTouchEnd}>{option}</OptionText>
     </div>
   );
 };

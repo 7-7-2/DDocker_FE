@@ -4,13 +4,17 @@ import { Option } from '@/components/post/overlay/Option';
 
 const PublicOption = ({
   handleToggle,
-  handleReport,
   postId
 }: {
   handleToggle: () => void;
-  handleReport: () => void;
   postId: string;
 }) => {
+  // cause => userInput
+  const reportValue = {
+    postId: postId
+    // cause: '욕설'
+  };
+  const handleReport = () => {};
   return (
     <BackgroundLayer onTouchEnd={handleToggle}>
       <PostOptions>
@@ -18,7 +22,6 @@ const PublicOption = ({
           icon="update-post"
           option="수정하기"
           onTouchEnd={handleReport}
-          postId={postId}
         />
       </PostOptions>
     </BackgroundLayer>

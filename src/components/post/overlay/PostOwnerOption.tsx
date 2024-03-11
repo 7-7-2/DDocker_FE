@@ -1,18 +1,25 @@
-import { BackgroundLayer } from "@/components/post/overlay/BackgroundLayer";
-import { PostOptions } from "@/components/post/overlay/PostOptions";
-import { Option } from "@/components/post/overlay/Option";
+import { BackgroundLayer } from '@/components/post/overlay/BackgroundLayer';
+import { PostOptions } from '@/components/post/overlay/PostOptions';
+import { Option } from '@/components/post/overlay/Option';
+import { useMutation } from '@tanstack/react-query';
+import { deletePost } from '@/api/post';
+import { useNavigateTo } from '@/hooks/useNavigateTo';
 
 const PostOwnerOption = ({
   handleToggle,
-  handleUpdate,
-  handleDelete,
   postId
 }: {
   handleToggle: () => void;
-  handleUpdate: () => void;
-  handleDelete: () => void;
   postId: string;
 }) => {
+  const { mutate: mutateDelete } = useMutation({ mutationFn: deletePost });
+  const navigate = useNavigateTo('/posts');
+  const handleDelete = () => {
+    mutateDelete(postId, {
+      onSuccess: navigate
+    });
+  };
+  const handleUpdate = () => {};
   return (
     <BackgroundLayer onTouchEnd={handleToggle}>
       <PostOptions>
@@ -20,13 +27,11 @@ const PostOwnerOption = ({
           icon="update-post"
           option="수정하기"
           onTouchEnd={handleUpdate}
-          postId={postId}
         />
         <Option
           icon="delete-post"
           option="삭제"
           onTouchEnd={handleDelete}
-          postId={postId}
         />
       </PostOptions>
     </BackgroundLayer>
