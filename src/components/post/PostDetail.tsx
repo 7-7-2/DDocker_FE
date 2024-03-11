@@ -53,15 +53,12 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
       {toggle && signedIn && (
         <PostOwnerOption
           handleToggle={handleToggle}
-          handleUpdate={() => {}}
-          handleDelete={() => {}}
           postId={postNum}
         />
       )}
       {toggle && !signedIn && (
         <PublicOption
           handleToggle={handleToggle}
-          handleReport={() => {}}
           postId={postNum}
         />
       )}
