@@ -6,25 +6,25 @@ interface PostForm {}
 
 // 1. 포스트 조회
 export const getPostDetail = async (postId: string) => {
-  const res = await baseInstance
-    .get(`/posts/${postId}`)
-    .catch(e => console.log(e));
+  const res = await baseInstance.get(`/posts/${postId}`).catch(e => {
+    console.log(e);
+  });
   return res && res.data;
 };
 
 // 2. 포스트 등록(+JWT 인증)
 export const registerPost = async (postForm: PostForm) => {
-  const res = await authInstance
-    .post(`/posts/register`, postForm)
-    .catch(e => console.log(e));
+  const res = await authInstance.post(`/posts/register`, postForm).catch(e => {
+    console.log(e);
+  });
   return res && res.data;
 };
 
 // 3. 포스트 삭제(+JWT 인증)
 export const deletePost = async (postId: string) => {
-  const res = await authInstance
-    .delete(`/posts/${postId}`)
-    .catch(e => console.log(e));
+  const res = await authInstance.delete(`/posts/${postId}`).catch(e => {
+    console.log(e);
+  });
   return res && res.data;
 };
 
@@ -35,7 +35,9 @@ export const updatePost = async (
 ) => {
   const res = await authInstance
     .patch(`/posts/${postId}`, postForm)
-    .catch(e => console.log(e));
+    .catch(e => {
+      console.log(e);
+    });
   return res && res.data;
 };
 
@@ -43,7 +45,9 @@ export const updatePost = async (
 export const writeComment = async (comment: CommentInput) => {
   const res = await authInstance
     .post(`/posts/${comment.parentId}/comments`, { content: comment.content })
-    .catch(e => console.log(e));
+    .catch(e => {
+      console.log(e);
+    });
   return res && res.data;
 };
 
@@ -51,7 +55,9 @@ export const writeComment = async (comment: CommentInput) => {
 export const deleteComment = async (postId: string, commentId: number) => {
   const res = await authInstance
     .delete(`/posts/${postId}/comments/${commentId}`)
-    .catch(e => console.log(e));
+    .catch(e => {
+      console.log(e);
+    });
   return res && res.data;
 };
 
@@ -59,31 +65,33 @@ export const deleteComment = async (postId: string, commentId: number) => {
 export const replyComment = async (comment: CommentInput) => {
   const res = await authInstance
     .post(`/posts/${comment.parentId}/reply`, { content: comment.content })
-    .catch(e => console.log(e));
+    .catch(e => {
+      console.log(e);
+    });
   return res && res.data;
 };
 
 // 8. 답글 삭제(+JWT 인증)
 export const deleteReply = async (commentId: number) => {
-  const res = await authInstance
-    .post(`/posts/${commentId}/reply`)
-    .catch(e => console.log(e));
+  const res = await authInstance.post(`/posts/${commentId}/reply`).catch(e => {
+    console.log(e);
+  });
   return res && res.data;
 };
 
 // 9. 포스트 진입시 댓글목록 조회
 export const getComments = async (postId: string) => {
-  const res = await baseInstance
-    .get(`/posts/${postId}/comments`)
-    .catch(e => console.log(e));
+  const res = await baseInstance.get(`/posts/${postId}/comments`).catch(e => {
+    console.log(e);
+  });
   return res && res.data;
 };
 
 // 10. 댓글 하단 더보기 클릭시 답글목록 조회
 export const getReply = async (commentId: number) => {
-  const res = await baseInstance
-    .get(`/posts/${commentId}/reply`)
-    .catch(e => console.log(e));
+  const res = await baseInstance.get(`/posts/${commentId}/reply`).catch(e => {
+    console.log(e);
+  });
   return res && res.data;
 };
 
@@ -95,7 +103,9 @@ export const getFollowingPosts = async ({
 }) => {
   const res = await authInstance
     .get(`/posts/following/${pageParam}`)
-    .catch(e => console.log(e));
+    .catch(e => {
+      console.log(e);
+    });
   const data = res && res.data;
   return {
     data: data.data.results,
@@ -105,15 +115,17 @@ export const getFollowingPosts = async ({
 
 //12. 게시글 상세 내부 좋아요 및 댓글 개수 확인
 export const getSocialCounts = async (postId: string) => {
-  const res = await baseInstance
-    .get(`/posts/${postId}/counts`)
-    .catch(e => console.log(e));
+  const res = await baseInstance.get(`/posts/${postId}/counts`).catch(e => {
+    console.log(e);
+  });
   return res && res.data;
 };
 
 //13. 메인 페이지 인기 브랜드 순위 랭킹 조회
 export const getRanking = async () => {
-  const res = await authInstance.get(`/popular`).catch(e => console.log(e));
+  const res = await authInstance.get(`/popular`).catch(e => {
+    console.log(e);
+  });
   return res && res.data;
 };
 
