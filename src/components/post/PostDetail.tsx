@@ -15,12 +15,13 @@ import { cx } from 'styled-system/css';
 import { PostContent, Divider } from '@/styles/styles';
 import timestampToDate from '@/utils/timestampToDate';
 import { getPostDetail, getSocialCounts } from '@/api/post';
-import { useToggle } from '@/hooks/useToggle';
 import PostOwnerOption from '@/components/post/overlay/PostOwnerOption';
 import PublicOption from '@/components/post/overlay/PublicOption';
 import PostInput from '@/components/post/PostInput';
 import { useRef } from 'react';
 import { InputContext } from '@/context/inputContext';
+import { usePostOptions } from '@/hooks/usePostOptions';
+import { useVerifyOwner } from '@/hooks/useVerifyOwner';
 
 const PostDetail = ({ postNum }: { postNum: string }) => {
   const { data: postData } = useQuery({
@@ -40,25 +41,23 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
   // signedIn => 로그인만을 판별
   // modify => 본인의 포스트인지 판별
   // userId? nickname? 을 통해 검증
-  const { data: signedIn } = useQuery({
-    queryKey: ['signedIn'],
-    queryFn: () => useGetCacheData('user', '/accessToken')
-  });
 
-  const { toggle, handleToggle } = useToggle();
+  const { postOwner } = useVerifyOwner(postNum);
+  const { toggle, handleOptions } = usePostOptions();
   const inputRef = useRef<HTMLInputElement | null>(null);
-
+  const isPostOwner =
+    postOwner && postData && postOwner === postData.data.nickname;
   return (
     <>
-      {toggle && signedIn && (
+      {toggle && isPostOwner && (
         <PostOwnerOption
-          handleToggle={handleToggle}
+          handleToggle={handleOptions}
           postId={postNum}
         />
       )}
-      {toggle && !signedIn && (
+      {toggle && !isPostOwner && (
         <PublicOption
-          handleToggle={handleToggle}
+          handleToggle={handleOptions}
           postId={postNum}
         />
       )}
@@ -72,7 +71,7 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
             />
             <Icon
               {...iconPropsGenerator('user-more')}
-              onTouchEnd={handleToggle}
+              onTouchEnd={handleOptions}
             />
           </UserProfile>
           <DetailImg src={postData.data.photo} />
