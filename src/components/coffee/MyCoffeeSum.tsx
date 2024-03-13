@@ -10,14 +10,16 @@ const cur = new Date();
 const year = cur.getFullYear();
 const month = cur.getMonth() + 1;
 
-const MyCoffeeSum = () => {
+const MyCoffeeSum = ({ signedIn }: { signedIn: string | null }) => {
   const { data: coffeeIntake } = useQuery({
     queryKey: ['coffeeIntake'],
-    queryFn: getCoffeeIntake
+    queryFn: getCoffeeIntake,
+    enabled: !!signedIn
   });
+
   return (
     <>
-      {coffeeIntake && coffeeIntake.setRes && (
+      {signedIn && coffeeIntake && coffeeIntake.setRes && (
         <>
           <h2 className={cx(SumTitle, PaddingT22)}>{sum}</h2>
           <SumBoard
@@ -35,6 +37,31 @@ const MyCoffeeSum = () => {
             coffeeAmount={coffeeIntake.setRes.YEAR[0].CountSum}
             caffeineAmount={coffeeIntake.setRes.YEAR[0].CaffeineSum}
           />
+        </>
+      )}
+      {!signedIn && (
+        <>
+          <h2 className={cx(SumTitle, PaddingT22)}>{sum}</h2>
+          <>
+            <SumBoard
+              period={week}
+              coffeeAmount={0}
+              caffeineAmount={0}
+              blur={true}
+            />
+            <SumBoard
+              period={month}
+              coffeeAmount={0}
+              caffeineAmount={0}
+              blur={true}
+            />
+            <SumBoard
+              period={year}
+              coffeeAmount={0}
+              caffeineAmount={0}
+              blur={true}
+            />
+          </>
         </>
       )}
     </>

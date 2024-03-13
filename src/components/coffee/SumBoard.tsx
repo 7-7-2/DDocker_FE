@@ -2,25 +2,27 @@ import SumByType from '@/components/coffee/SumByType';
 import { COFFEE_TEXTS } from '@/constants/coffee';
 import { styled } from 'styled-system/jsx';
 import { Column, Evenly, Flex } from '@/styles/layout';
-import { SumBoardTitle, SumType } from '@/styles/styles';
-import { cx } from 'styled-system/css';
+import { SumBoardTitle, SumType, Blur } from '@/styles/styles';
+import { cx, css } from 'styled-system/css';
 
 const { intake, cups, unit, coffee, caffeine, year, month } = COFFEE_TEXTS;
 
 const SumBoard = ({
   period,
   coffeeAmount,
-  caffeineAmount
+  caffeineAmount,
+  blur = false
 }: {
   period: string | number;
   coffeeAmount: number;
   caffeineAmount: number;
+  blur?: boolean;
 }) => {
   const MonthPredi = typeof period === 'number' && period < 13;
   const YearPredi = typeof period === 'number' && period > 13;
   return (
     <Container>
-      <div className={SumBoardTitle}>
+      <div className={blur ? cx(SumBoardTitle, Blur) : SumBoardTitle}>
         {period}
         {MonthPredi && month}
         {YearPredi && year} {intake}
@@ -28,18 +30,20 @@ const SumBoard = ({
 
       <InfoArea className={cx(Flex, Evenly)}>
         <div className={Column}>
-          <div className={SumType}>{coffee}</div>
+          <div className={blur ? cx(SumType, Blur) : SumType}>{coffee}</div>
           <SumByType
             amount={coffeeAmount}
             unit={cups}
+            blur={blur}
           />
         </div>
         <Divider />
         <div className={Column}>
-          <div className={SumType}>{caffeine}</div>
+          <div className={blur ? cx(SumType, Blur) : SumType}>{caffeine}</div>
           <SumByType
             amount={caffeineAmount}
             unit={unit}
+            blur={blur}
           />
         </div>
       </InfoArea>
