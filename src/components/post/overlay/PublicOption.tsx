@@ -19,8 +19,8 @@ const PublicOption = ({
     <BackgroundLayer onTouchEnd={handleToggle}>
       <PostOptions>
         <Option
-          icon="update-post"
-          option="수정하기"
+          icon="report"
+          option="신고하기"
           onTouchEnd={handleReport}
         />
       </PostOptions>
