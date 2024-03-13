@@ -3,6 +3,7 @@ export const COFFEE_TEXTS = {
   intake: '카페인 섭취량',
   month: '월',
   year: '년',
+  week: '이번 주',
   calendar: '카페인 달력',
   cups: '잔',
   unit: 'mg',
@@ -11,4 +12,3 @@ export const COFFEE_TEXTS = {
   including: '포함된 카페인 함량은 ',
   is: '입니다.'
 };
-
