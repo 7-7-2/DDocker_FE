@@ -681,3 +681,7 @@ export const Divider = css`
     width: calc(50% + 20px);
   }
 `;
+
+export const Blur = css`
+  filter: blur(1px);
+`;
