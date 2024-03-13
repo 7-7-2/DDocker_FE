@@ -20,6 +20,6 @@ const Background = styled.div`
   left: 0;
   z-index: 99;
   width: 100%;
-  height: calc(100% - 50px);
+  height: calc(100%);
   background-color: rgba(0, 0, 0, 0.55);
 `;

@@ -12,6 +12,8 @@ import { PaddingT12 } from '@/styles/styles';
 import { FollowingPost } from '@/types/types';
 import { useQuery } from '@tanstack/react-query';
 import { getSocialCounts } from '@/api/post';
+import { usePostOptions } from '@/hooks/usePostOptions';
+import PublicOption from '@/components/post/overlay/PublicOption';
 
 const PostCard = ({ ...props }: FollowingPost) => {
   const {
@@ -35,41 +37,52 @@ const PostCard = ({ ...props }: FollowingPost) => {
     },
     enabled: !!postId
   });
-
+  const { toggle, handleOptions } = usePostOptions();
   return (
-    <Container>
-      <UserProfile className={cx(Flex, Between)}>
-        {/* userId => onClick => profile Page */}
-        <MiniProfile
-          url={profileUrl}
-          nickname={nickname}
-          caffeine={sum}
+    <>
+      {toggle && (
+        <PublicOption
+          handleToggle={handleOptions}
+          postId={postId}
         />
-        <Icon {...iconPropsGenerator('user-more')} />
-      </UserProfile>
-      <PostContent>{postTitle}</PostContent>
-      <PostImg src={photo} />
-      <CafeDetail
-        brand={brand}
-        caffeine={caffeine}
-        shot={shot}
-        menu={menu}
-        className={PaddingT12}
-        posts={true}
-      />
-      <div>
-        {/* useInfiniteScroll => receives likes && comments counts */}
-        {socialCounts && (
-          <PostSocial
-            posts={true}
-            likes={socialCounts.data.totalLikes}
-            comments={socialCounts.data.totalComments}
-            createdAt={timestampToDate(createdAt)}
-            postId={postId}
+      )}
+      <Container>
+        <UserProfile className={cx(Flex, Between)}>
+          {/* userId => onClick => profile Page */}
+          <MiniProfile
+            url={profileUrl}
+            nickname={nickname}
+            caffeine={sum}
           />
-        )}
-      </div>
-    </Container>
+          <Icon
+            {...iconPropsGenerator('user-more')}
+            onTouchEnd={handleOptions}
+          />
+        </UserProfile>
+        <PostContent>{postTitle}</PostContent>
+        <PostImg src={photo} />
+        <CafeDetail
+          brand={brand}
+          caffeine={caffeine}
+          shot={shot}
+          menu={menu}
+          className={PaddingT12}
+          posts={true}
+        />
+        <div>
+          {/* useInfiniteScroll => receives likes && comments counts */}
+          {socialCounts && (
+            <PostSocial
+              posts={true}
+              likes={socialCounts.data.totalLikes}
+              comments={socialCounts.data.totalComments}
+              createdAt={timestampToDate(createdAt)}
+              postId={postId}
+            />
+          )}
+        </div>
+      </Container>
+    </>
   );
 };
 
