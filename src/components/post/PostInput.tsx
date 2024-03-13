@@ -8,7 +8,8 @@ import { writeComment, replyComment } from '@/api/post';
 import { memo } from 'react';
 import { useRecoilValue } from 'recoil';
 import { replyState } from '@/atoms/atoms';
-import { useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import useGetCacheData from '@/hooks/useGetCacheData';
 
 const { type } = INPUT_TEXTS;
 const { comment } = type;
@@ -23,9 +24,12 @@ const PostInput = memo(
   }) => {
     const { value, setValue, onChange } = useInput();
     const selectedReply = useRecoilValue(replyState);
-
     const queryClient = useQueryClient();
-    const signedIn = queryClient.getQueryData(['signedIn']);
+
+    const { data: signedIn } = useQuery({
+      queryKey: ['signedIn'],
+      queryFn: () => useGetCacheData('user', '/accessToken')
+    });
 
     const commentTo =
       selectedReply && selectedReply.id === 0 ? postId : selectedReply.id;
