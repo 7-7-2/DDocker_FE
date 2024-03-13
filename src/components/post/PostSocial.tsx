@@ -7,6 +7,7 @@ import { Flex, Between } from '@/styles/layout';
 import { cx } from 'styled-system/css';
 import { useQueryClient, useMutation, useQuery } from '@tanstack/react-query';
 import { getMyLikeOnPost, likePost, undoLikePost } from '@/api/likes';
+import useGetCacheData from '@/hooks/useGetCacheData';
 
 const PostSocial = ({
   posts,
@@ -22,13 +23,17 @@ const PostSocial = ({
   postId?: string;
 }) => {
   const queryClient = useQueryClient();
+  const { data: signedIn } = useQuery({
+    queryKey: ['signedIn'],
+    queryFn: () => useGetCacheData('user', '/accessToken')
+  });
 
   const { data: myLike } = useQuery({
     queryKey: ['myLike', postId],
     queryFn: () => {
       return getMyLikeOnPost(postId as string);
     },
-    enabled: !!postId
+    enabled: !!postId && !!signedIn
   });
 
   const toggleLike = myLike && myLike.success ? undoLikePost : likePost;
