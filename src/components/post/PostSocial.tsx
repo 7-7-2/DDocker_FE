@@ -14,13 +14,15 @@ const PostSocial = ({
   likes,
   comments,
   createdAt,
-  postId
+  postId,
+  onClick
 }: {
   posts?: boolean;
   likes: number;
   comments: number;
   createdAt?: string | undefined;
   postId?: string;
+  onClick: () => void;
 }) => {
   const queryClient = useQueryClient();
   const { data: signedIn } = useQuery({
@@ -54,12 +56,12 @@ const PostSocial = ({
         <PostSocialCount
           count={likes}
           icon={myLike && myLike.success ? 'liked' : 'like'}
-          onTouchEnd={handleLikeOnPost}
+          onClick={handleLikeOnPost}
         />
         <PostSocialCount
           count={comments}
           icon={'comments'}
-          onTouchEnd={() => {}}
+          onClick={onClick}
         />
       </div>
 

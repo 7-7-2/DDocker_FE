@@ -685,3 +685,7 @@ export const Divider = css`
 export const Blur = css`
   filter: blur(1px);
 `;
+
+export const BrandSpan = styled.span`
+  padding-left: 4px;
+`;

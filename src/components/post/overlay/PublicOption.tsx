@@ -6,7 +6,7 @@ const PublicOption = ({
   handleToggle,
   postId
 }: {
-  handleToggle: () => void;
+  handleToggle: (e: React.MouseEvent<HTMLDivElement>) => void;
   postId: string;
 }) => {
   // cause => userInput
@@ -16,7 +16,7 @@ const PublicOption = ({
   };
   const handleReport = () => {};
   return (
-    <BackgroundLayer onTouchEnd={handleToggle}>
+    <BackgroundLayer onClick={handleToggle}>
       <PostOptions>
         <Option
           icon="report"
