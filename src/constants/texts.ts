@@ -16,3 +16,8 @@ export const COMMENT_TEXTS = {
   at: '@',
   onReply: '님의 댓글에 답글 작성 중'
 };
+
+export const TABS_TEXTS = {
+  trend: ['trend', '트렌드'],
+  following: ['following', '팔로잉']
+};
