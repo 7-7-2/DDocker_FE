@@ -91,6 +91,9 @@ devDependencies:
   imagemin-svgo:
     specifier: ^10.0.1
     version: 10.0.1
+  react-ga4:
+    specifier: ^2.1.0
+    version: 2.1.0
   rollup-plugin-visualizer:
     specifier: ^5.10.0
     version: 5.10.0
@@ -6216,6 +6219,10 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+
+  /react-ga4@2.1.0:
+    resolution: {integrity: sha512-ZKS7PGNFqqMd3PJ6+C2Jtz/o1iU9ggiy8Y8nUeksgVuvNISbmrQtJiZNvC/TjDsqD0QlU5Wkgs7i+w9+OjHhhQ==}
+    dev: true
 
   /react-router-dom@6.20.1(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-npzfPWcxfQN35psS7rJgi/EW0Gx6EsNjfdJSAk73U/HqMEJZ2k/8puxfwHFgDQhBGmS3+sjnGbMdMSV45axPQw==}

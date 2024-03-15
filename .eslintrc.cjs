@@ -1,5 +1,8 @@
 module.exports = {
-  env: { browser: true, es2020: true, node: true },
+  globals: {
+    process: true
+  },
+  env: { browser: true, es2020: true, commonjs: true, node: true },
   extends: [
     'eslint:recommended',
     'react-app',
