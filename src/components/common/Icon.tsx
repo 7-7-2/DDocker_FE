@@ -1,17 +1,20 @@
 const Icon = ({
   id,
   size,
-  onTouchEnd
+  onTouchEnd,
+  onClick
 }: {
   id: string;
   size: string;
-  onTouchEnd?: () => void | ((postId: string) => void);
+  onTouchEnd?: any;
+  onClick?: any;
 }) => {
   return (
     <svg
       width={size}
       height={size}
-      onTouchEnd={onTouchEnd}>
+      onTouchEnd={onTouchEnd}
+      onClick={onClick}>
       <use href={`/sprite.svg#${id}`} />
     </svg>
   );

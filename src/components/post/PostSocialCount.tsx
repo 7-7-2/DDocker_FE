@@ -7,18 +7,18 @@ import { CaffeineDetail } from '@/styles/styles';
 const PostSocialCount = ({
   count,
   icon,
-  onTouchEnd
+  onClick
 }: {
   count: number;
   icon: string;
-  onTouchEnd?: () => void | ((postId: string) => void);
+  onClick?: () => void | ((postId: string) => void);
 }) => {
   return (
     <Container className={Align}>
       {}
       <Icon
         {...iconPropsGenerator(icon)}
-        onTouchEnd={onTouchEnd}></Icon>
+        onClick={onClick}></Icon>
       <Count className={CaffeineDetail}>{count}</Count>
     </Container>
   );
