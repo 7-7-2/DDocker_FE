@@ -190,3 +190,7 @@ export interface CommentInput {
   parentId: string | number;
   content: string;
 }
+
+export interface TabsText {
+  [key: string]: string[] | string;
+}
