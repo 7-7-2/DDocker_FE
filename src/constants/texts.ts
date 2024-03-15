@@ -1,3 +1,5 @@
+import { TabsText } from '@/types/types';
+
 export const TEXT = {
   exitButtonText: '회원 탈퇴',
   saveButton: '저장하기',
@@ -17,7 +19,7 @@ export const COMMENT_TEXTS = {
   onReply: '님의 댓글에 답글 작성 중'
 };
 
-export const TABS_TEXTS = {
+export const TABS_TEXTS: TabsText = {
   trend: ['trend', '트렌드'],
   following: ['following', '팔로잉']
 };
