@@ -9,13 +9,18 @@ import {
   SearchPageHeight,
   StartPageHeight
 } from '@/styles/styles';
+import useTrackRoute from '@/hooks/google/useTrackRoute';
 
 const Header = lazy(() => import('../components/common/Header'));
 const Footer = lazy(() => import('../components/common/Footer'));
 
 let PagesHeight;
 
+const { NODE_ENV } = import.meta.env;
+const isPro = NODE_ENV === 'production';
+
 const Layout = () => {
+  isPro && useTrackRoute();
   const { pathname } = useLocation();
   const footerState = useRecoilValue(footerShowState);
   const searchPredi = pathname !== '/search';
