@@ -33,6 +33,10 @@ export interface SimplifyUser {
   url?: string;
 }
 
+export interface MiniProfile extends SimplifyUser {
+  onClick: () => void;
+}
+
 export interface SearchBarProps {
   onSearch: () => void;
 }

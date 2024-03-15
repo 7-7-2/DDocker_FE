@@ -1,19 +1,18 @@
 import PostSocial from '@/components/post/PostSocial';
 import MiniProfile from '@/components/common/MiniProfile';
 import Icon from '@/components/common/Icon';
-import CafeDetail from '@/components/post/CafeDetail';
 import timestampToDate from '@/utils/timestampToDate';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { styled } from 'styled-system/jsx';
 import { Flex, Between } from '@/styles/layout';
 import { cx } from 'styled-system/css';
-import { PostContent } from '@/styles/styles';
-import { PaddingT12 } from '@/styles/styles';
 import { FollowingPost } from '@/types/types';
 import { useQuery } from '@tanstack/react-query';
 import { getSocialCounts } from '@/api/post';
 import { usePostOptions } from '@/hooks/usePostOptions';
 import PublicOption from '@/components/post/overlay/PublicOption';
+import { useNavigateTo } from '@/hooks/useNavigateTo';
+import PostBody from '@/components/posts/PostBody';
 
 const PostCard = ({ ...props }: FollowingPost) => {
   const {
@@ -30,6 +29,9 @@ const PostCard = ({ ...props }: FollowingPost) => {
     menu,
     brand
   } = props;
+  const PostBodyProps = { postTitle, photo, caffeine, shot, menu, brand };
+  const MiniProfileProps = { url: profileUrl, nickname, caffeine: sum };
+
   const { data: socialCounts } = useQuery({
     queryKey: ['socialCounts', postId],
     queryFn: () => {
@@ -38,6 +40,15 @@ const PostCard = ({ ...props }: FollowingPost) => {
     enabled: !!postId
   });
   const { toggle, handleOptions } = usePostOptions();
+
+  const navigateToProfile = useNavigateTo(`/profile/${userId}`);
+  const navigateToPost = useNavigateTo(`/post/${postId}`);
+  const handleToProfile = () => {
+    navigateToProfile();
+  };
+  const handleToPost = () => {
+    navigateToPost();
+  };
   return (
     <>
       {toggle && (
@@ -48,29 +59,22 @@ const PostCard = ({ ...props }: FollowingPost) => {
       )}
       <Container>
         <UserProfile className={cx(Flex, Between)}>
-          {/* userId => onClick => profile Page */}
           <MiniProfile
-            url={profileUrl}
-            nickname={nickname}
-            caffeine={sum}
+            {...MiniProfileProps}
+            onClick={handleToProfile}
           />
           <Icon
             {...iconPropsGenerator('user-more')}
-            onTouchEnd={handleOptions}
+            onClick={handleOptions}
           />
         </UserProfile>
-        <PostContent>{postTitle}</PostContent>
-        <PostImg src={photo} />
-        <CafeDetail
-          brand={brand}
-          caffeine={caffeine}
-          shot={shot}
-          menu={menu}
-          className={PaddingT12}
-          posts={true}
+
+        <PostBody
+          {...PostBodyProps}
+          onTouchEnd={handleToPost}
         />
+
         <div>
-          {/* useInfiniteScroll => receives likes && comments counts */}
           {socialCounts && (
             <PostSocial
               posts={true}
@@ -78,6 +82,7 @@ const PostCard = ({ ...props }: FollowingPost) => {
               comments={socialCounts.data.totalComments}
               createdAt={timestampToDate(createdAt)}
               postId={postId}
+              onClick={handleToPost}
             />
           )}
         </div>
@@ -87,7 +92,6 @@ const PostCard = ({ ...props }: FollowingPost) => {
 };
 
 const Container = styled.div`
-  /* border: 1px solid #767676; */
   padding: 16px;
   border-radius: 16px;
   margin-bottom: 20px;
@@ -96,11 +100,6 @@ const Container = styled.div`
 
 const UserProfile = styled.div`
   padding-bottom: 12px;
-`;
-
-const PostImg = styled.img`
-  margin-top: -4px;
-  border-radius: 16px;
 `;
 
 export default PostCard;

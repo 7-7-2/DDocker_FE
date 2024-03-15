@@ -1,14 +1,14 @@
 import { styled } from 'styled-system/jsx';
 export const BackgroundLayer = ({
   children,
-  onTouchEnd
+  onClick
 }: {
   children: React.ReactNode;
-  onTouchEnd: () => void;
+  onClick: (e: React.MouseEvent<HTMLDivElement>) => void;
 }) => {
   return (
     <>
-      <Background onTouchEnd={onTouchEnd} />
+      <Background onClick={onClick} />
       {children}
     </>
   );
