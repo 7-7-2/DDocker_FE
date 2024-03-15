@@ -53,7 +53,6 @@ const Container = styled.header`
   height: 46px;
   background-color: #fff;
   z-index: 99;
-  box-shadow: -1px 1px 2px 0px rgba(0, 0, 0, 0.1);
 `;
 
 const Nav = styled.nav`
