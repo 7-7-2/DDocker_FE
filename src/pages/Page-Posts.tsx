@@ -5,8 +5,10 @@ import PostTabs from '@/components/posts/PostsTabs';
 import { TABS_TEXTS } from '@/constants/texts';
 import { Divider } from '@/styles/styles';
 
-const PostsFollowing = lazy(() => import('../components/posts/PostsFollowing'));
-const PostsTrend = lazy(() => import('../components/posts/PostsTrend'));
+const PostsFollowing = lazy(
+  () => import('../components/posts/following/PostsFollowing')
+);
+const PostsTrend = lazy(() => import('../components/posts/trend/PostsTrend'));
 
 export const Posts = () => {
   useComposeHeader(true, '', 'icons');

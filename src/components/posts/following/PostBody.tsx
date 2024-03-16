@@ -40,6 +40,7 @@ const PostBody = ({
 const PostImg = styled.img`
   margin-top: -4px;
   border-radius: 16px;
+  height: 220px;
 `;
 
 export default PostBody;
