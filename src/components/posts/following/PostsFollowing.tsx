@@ -1,4 +1,4 @@
-import PostCard from '@/components/posts/PostCard';
+import PostCard from '@/components/posts/following/PostCard';
 import { FollowingPostIQParam } from '@/hooks/useInfiniteScroll';
 import { useTargetInfiniteScroll } from '@/hooks/useTargetInfiniteScroll';
 import { FollowingPost } from '@/types/types';

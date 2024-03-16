@@ -12,7 +12,7 @@ import { getSocialCounts } from '@/api/post';
 import { usePostOptions } from '@/hooks/usePostOptions';
 import PublicOption from '@/components/post/overlay/PublicOption';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
-import PostBody from '@/components/posts/PostBody';
+import PostBody from '@/components/posts/following/PostBody';
 
 const PostCard = ({ ...props }: FollowingPost) => {
   const {
