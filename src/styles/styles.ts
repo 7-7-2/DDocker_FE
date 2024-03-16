@@ -702,10 +702,18 @@ export const SectionHeader = css`
   line-height: 26px;
 `;
 
-export const CardSpacer = styled.div`
+export const RightCardSpacer = styled.div`
   &::after {
     content: '';
     display: block;
     width: 10px;
+  }
+`;
+
+export const LeftCardSpacer = styled.div`
+  &::after {
+    content: '';
+    display: block;
+    width: 20px;
   }
 `;
