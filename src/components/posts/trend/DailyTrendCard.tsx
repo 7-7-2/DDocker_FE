@@ -11,7 +11,7 @@ const PROPS = {
   caffeine: 255,
   posts: true
 };
-
+// useQuery => 1. new API DailyTrendData 2.
 const DailyTrendCard = () => {
   return (
     <div className={cx(Column, PaddingR8)}>
