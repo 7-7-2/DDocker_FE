@@ -194,3 +194,13 @@ export interface CommentInput {
 export interface TabsText {
   [key: string]: string[] | string;
 }
+
+export interface CafeDetail {
+  brand: string;
+  className?: string;
+  caffeine?: string | number;
+  menu?: string;
+  shot?: string | number;
+  posts?: boolean;
+  onTouchEnd?: () => void;
+}
