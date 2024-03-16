@@ -686,6 +686,26 @@ export const Blur = css`
   filter: blur(1px);
 `;
 
-export const BrandSpan = styled.span`
+export const PaddingL4 = css`
   padding-left: 4px;
+`;
+
+export const PaddingR8 = css`
+  padding-right: 8px;
+`;
+
+export const SectionHeader = css`
+  padding-bottom: 12px;
+  font-size: var(--font-sizes-lg);
+  font-weight: 600;
+  color: var(--colors-mainDark);
+  line-height: 26px;
+`;
+
+export const CardSpacer = styled.div`
+  &::after {
+    content: '';
+    display: block;
+    width: 10px;
+  }
 `;
