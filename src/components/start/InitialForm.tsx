@@ -1,5 +1,5 @@
 import { useRecoilValue } from 'recoil';
-import { authState } from '@/atoms/atoms';
+import { CheckNicknameState, authState } from '@/atoms/atoms';
 import Button from '@/components/common/Button';
 import EditProfileImg from '@/components/mypage/EditProfileImg';
 import SelectGender from '@/components/start/SelectGender';
@@ -9,6 +9,7 @@ import { BUTTON_TEXTS } from '@/constants/common';
 import { useImgSubmit } from '@/hooks/useImgSubmit';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
+
 import { styled } from 'styled-system/jsx';
 import { Column } from '@/styles/layout';
 import {
@@ -27,10 +28,13 @@ const { message } = INITIAL_FORM_TEXTS;
 const InitialForm = () => {
   useComposeHeader(false, '기본정보', 'close');
   const user = useRecoilValue(authState);
+  const isApproval = useRecoilValue(CheckNicknameState);
+
   const { setImageUrl } = useImgSubmit();
   const handleImageSelect = (selectedImage: File) => {
     setImageUrl(URL.createObjectURL(selectedImage));
   };
+
   return (
     <div className={Column}>
       <div className={StartPageContainer}>
@@ -46,16 +50,13 @@ const InitialForm = () => {
         <CheckNickname />
         <SelectGender />
       </div>
-
       <Button
         text={BUTTON_TEXTS.next}
         onTouchEnd={
-          user.nickname && user?.nickname?.length >= 0 && user?.gender
-            ? useNavigateTo('/start/3')
-            : useNavigateTo('/start/2')
+          user?.gender ? useNavigateTo('/start/3') : useNavigateTo('/start/2')
         }
         className={
-          user?.nickname && user?.gender
+          user?.nickname && isApproval && user?.gender
             ? DefaultBtn
             : cx(DefaultBtn, DisabledBtn)
         }
