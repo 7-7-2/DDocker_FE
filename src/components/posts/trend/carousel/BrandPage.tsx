@@ -3,15 +3,12 @@ import BrandCard from '@/components/posts/trend/carousel/BrandCard';
 import { BRANDS } from '@/constants/coffee';
 import { Between, Flex } from '@/styles/layout';
 import { cx } from 'styled-system/css';
-import { useState } from 'react';
 
 const BrandPage = ({
-  curPage,
   ownPage,
   setSelected,
   selected
 }: {
-  curPage: number;
   ownPage: number;
   setSelected: (brand: string) => void;
   selected: string;

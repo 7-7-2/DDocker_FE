@@ -22,7 +22,6 @@ const BrandCarousel = () => {
         {Array.from({ length: pages }).map((_, i) => (
           <BrandPage
             key={i}
-            curPage={curPage}
             ownPage={i}
             setSelected={setSelected}
             selected={selected}
