@@ -45,7 +45,6 @@ export interface LabelProps {
   label: string | undefined;
   message?: string | undefined;
   inputValue?: string | undefined;
-  isAlert?: boolean | null;
 }
 
 export interface InputProps {
