@@ -1,8 +1,8 @@
+import { useEffect } from 'react';
+import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
 import { getUserInfo } from '@/api/user';
 import { registPostState, userInfoState } from '@/atoms/atoms';
 import useGetCacheData from '@/hooks/useGetCacheData';
-import { useEffect } from 'react';
-import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
 
 function useGetUserInfo(userId?: string | number | undefined) {
   const setCachedUser = useSetRecoilState(userInfoState);

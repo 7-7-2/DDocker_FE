@@ -7,7 +7,7 @@ import { styled } from 'styled-system/jsx';
 
 const Home = () => {
   useComposeHeader(true, '', 'icons');
-  useGetUserInfo();
+  useGetUserInfo(0);
 
   return (
     <Container>
