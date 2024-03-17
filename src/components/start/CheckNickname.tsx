@@ -44,7 +44,6 @@ const CheckNickname = () => {
       <Label
         label={LABEL_TEXTS.nickname.label}
         message={allertMessage}
-        isAlert={isApproval}
         inputValue={value}
       />
       <Input

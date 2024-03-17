@@ -45,7 +45,7 @@ export interface LabelProps {
   label: string | undefined;
   message?: string | undefined;
   inputValue?: string | undefined;
-  isAlert?: boolean | undefined;
+  isAlert?: boolean | null;
 }
 
 export interface InputProps {
@@ -109,7 +109,7 @@ export interface RegisterPostTypes {
   size: string;
   shot: number;
   caffeine: number;
-  post_title: string;
+  post_title: string | undefined;
   photo: string | undefined;
 }
 
