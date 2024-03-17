@@ -5,31 +5,28 @@ import { getEditorDefaults } from '@pqina/pintura';
 import locale_ko_KR from '@pqina/pintura/locale/ko_KR';
 // _PINTURA
 
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
-import { Input } from '@/components/common/Input';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+
 import CoffeeOptionSelection from '@/components/common/CoffeeOptionSelection';
 import CoffeeMenuSelection from '@/components/home/CoffeeMenuSelection';
 import RegisterLabel from '@/components/post/RegisterLabel';
-import { BUTTON_TEXTS, INPUT_TEXTS, LABEL_TEXTS } from '@/constants/common';
-import Icon from '@/components/common/Icon';
 import Button from '@/components/common/Button';
+import Icon from '@/components/common/Icon';
+import { BUTTON_TEXTS, LABEL_TEXTS } from '@/constants/common';
 
-import {
-  caffeineFilterState,
-  registPostState,
-  useInputState
-} from '@/atoms/atoms';
+import { caffeineFilterState, registPostState } from '@/atoms/atoms';
+import { getUserInfo } from '@/api/user';
 import { getTodayCoffeeInfo, setPostRegist } from '@/api/post';
 import { useShowFooter } from '@/hooks/useShowFooter';
+import useResetSelectedCoffee from '@/hooks/useResetSelectedCoffee';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { FlexCenter } from '@/styles/layout';
 import { DefaultBtn } from '@/styles/styles';
-import { useNavigate } from 'react-router-dom';
-import { getUserInfo } from '@/api/user';
-import useResetSelectedCoffee from '@/hooks/useResetSelectedCoffee';
+import PostInputTitle from '@/components/post/PostInputTitle';
 
 const editorDefaults = getEditorDefaults({
   cropImageSelectionCornerStyle: 'hook',
@@ -40,16 +37,16 @@ const editorDefaults = getEditorDefaults({
 
 const PostRegister = () => {
   useShowFooter(false);
-  const inputState = useRecoilValue(useInputState);
-  const [registInfo, setRegistInfo] = useRecoilState(registPostState);
   const { caffeine } = useRecoilValue(caffeineFilterState);
-  const navigate = useNavigate();
+  const registInfo = useRecoilValue(registPostState);
   const resetSelectedCoffee = useResetSelectedCoffee();
+  const navigate = useNavigate();
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
+  // _PINTURA
   const [editorEnabled, setEditorEnabled] = useState(false);
   const [editorSrc, setEditorSrc] = useState<File>();
   const [imageUrl, setImageUrl] = useState<string>();
-
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleInputChange = () => {
@@ -67,11 +64,13 @@ const PostRegister = () => {
     setImageUrl(url);
   };
 
-  const newRegistData = {
-    ...registInfo,
-    caffeine: caffeine,
-    post_title: inputState,
-    photo: imageUrl
+  const handleRegistData = async (postTitle: string | undefined) => {
+    return {
+      ...registInfo,
+      caffeine: caffeine,
+      post_title: postTitle,
+      photo: imageUrl
+    };
   };
 
   const updateData = async () => {
@@ -80,7 +79,7 @@ const PostRegister = () => {
   };
 
   const clickRegisterBtn = async () => {
-    setRegistInfo(newRegistData);
+    const newRegistData = await handleRegistData(inputRef.current?.value);
     const postId = await setPostRegist(newRegistData);
     await updateData();
     resetSelectedCoffee();
@@ -93,9 +92,7 @@ const PostRegister = () => {
         <CoffeeMenuSelection />
         <CoffeeOptionSelection />
         <RegisterLabel label={LABEL_TEXTS.title} />
-        <div className={MarginTop6}>
-          <Input type={INPUT_TEXTS.type.title.typeName} />
-        </div>
+        <PostInputTitle inputRef={inputRef} />
         <RegisterLabel
           label={LABEL_TEXTS.photo}
           essential
