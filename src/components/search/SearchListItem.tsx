@@ -16,8 +16,8 @@ const SearchListItem: React.FC<{ users: SimplifyUser[] }> = () => {
   const searchResults = useRecoilValue(searchResultsState);
   const setSearchResults = useSetRecoilState(searchResultsState);
 
-  const filteredResults = searchResults.filter(
-    user => user.nickname?.toLowerCase().includes(inputValue.toLowerCase())
+  const filteredResults = searchResults.filter(user =>
+    user.nickname?.toLowerCase().includes(inputValue.toLowerCase())
   );
 
   const handleDeleteAll = () => {
@@ -52,6 +52,7 @@ const SearchListItem: React.FC<{ users: SimplifyUser[] }> = () => {
               userId={userId}
               nickname={nickname}
               caffeine={caffeine}
+              onClick={() => {}}
             />
           </div>
           <div
