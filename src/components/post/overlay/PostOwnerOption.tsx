@@ -9,7 +9,7 @@ const PostOwnerOption = ({
   handleToggle,
   postId
 }: {
-  handleToggle: () => void;
+  handleToggle: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   postId: string;
 }) => {
   const { mutate: mutateDelete } = useMutation({ mutationFn: deletePost });
@@ -21,7 +21,7 @@ const PostOwnerOption = ({
   };
   const handleUpdate = () => {};
   return (
-    <BackgroundLayer onTouchEnd={handleToggle}>
+    <BackgroundLayer onClick={handleToggle}>
       <PostOptions>
         <Option
           icon="update-post"
