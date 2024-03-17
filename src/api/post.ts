@@ -133,7 +133,7 @@ export const getRanking = async () => {
 export const setPostRegist = async (postInfo: RegisterPostTypes) => {
   try {
     const data = postInfo;
-    const res = await baseInstance.post('/posts/register', data);
+    const res = await authInstance.post('/posts/register', data);
     return res.data.data;
   } catch (error) {
     console.log('Failed to regist post', error);
