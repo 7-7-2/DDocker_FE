@@ -693,12 +693,15 @@ export const PaddingL4 = css`
 export const PaddingR8 = css`
   padding-right: 8px;
 `;
+export const Gap6 = css`
+  gap: 6px;
+`;
 
 export const SectionHeader = css`
   padding-bottom: 12px;
   font-size: var(--font-sizes-lg);
   font-weight: 600;
-  color: var(--colors-mainDark);
+  color: var(--colors-main-dark);
   line-height: 26px;
 `;
 
