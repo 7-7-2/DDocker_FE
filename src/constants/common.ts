@@ -23,7 +23,8 @@ export const LABEL_TEXTS = {
     label: '닉네임',
     message: {
       approval: '사용가능한 닉네임입니다.',
-      disapproval: '이미 존재하는 닉네임입니다.'
+      disapproval: '이미 존재하는 닉네임입니다.',
+      validate: '닉네임은 특수문자와 공백을 포함 할 수 없습니다'
     }
   },
   gender: {
