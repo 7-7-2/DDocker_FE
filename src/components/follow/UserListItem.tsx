@@ -17,6 +17,7 @@ const UserListItem: React.FC<{ users: SimplifyUser[] }> = ({ users }) => {
             userId={userId}
             nickname={nickname}
             caffeine={caffeine}
+            onClick={() => {}}
           />
           <DeleteBtn className={cx(Cursor, DelBtn)}>{TEXT.deleteBtn}</DeleteBtn>
         </div>
