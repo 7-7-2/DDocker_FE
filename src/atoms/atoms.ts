@@ -88,6 +88,11 @@ export const inputNicknameAlertState = atom({
   default: false
 });
 
+export const CheckNicknameState = atom<boolean | null>({
+  key: 'CheckNicknameState',
+  default: null
+});
+
 export const useInputState = atom({
   key: 'useInputState',
   default: ''

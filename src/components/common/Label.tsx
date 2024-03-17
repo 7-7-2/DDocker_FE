@@ -9,9 +9,9 @@ import { HomeRegistContainer, InputByteCheck } from '@/styles/styles';
 
 const { nickname, gender } = LABEL_TEXTS;
 
-export const Label = ({ inputValue, isAlert, label, message }: LabelProps) => {
+export const Label = ({ inputValue, label, message }: LabelProps) => {
   const nicknameCheckIcon =
-    isAlert && message === nickname.message.approval ? (
+    inputValue && message === nickname.message.approval ? (
       <Icon {...iconPropsGenerator('check-done', '14')} />
     ) : (
       <Icon {...iconPropsGenerator('check', '14')} />
@@ -27,7 +27,7 @@ export const Label = ({ inputValue, isAlert, label, message }: LabelProps) => {
   const alretMessage = (
     <span
       className={cx(
-        message && message === nickname.message.disapproval
+        message && message !== nickname.message.approval
           ? ErrorMessage
           : DefaltMessage,
         InputByteCheck
@@ -43,7 +43,7 @@ export const Label = ({ inputValue, isAlert, label, message }: LabelProps) => {
         {label === nickname.label && nicknameCheckIcon}
         {label === gender.label && genderCheckIcon}
       </div>
-      {isAlert && inputValue && alretMessage}
+      {inputValue !== '' && alretMessage}
     </LabelContainer>
   );
 };
