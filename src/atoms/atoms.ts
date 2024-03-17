@@ -6,6 +6,7 @@ import {
   RegisterPostTypes,
   CaffeineFilterTypes
 } from '@/types/types';
+import { BRANDS } from '@/constants/coffee';
 
 export const activeState = atom({
   key: 'activeState',
@@ -124,4 +125,9 @@ export const replyState = atom({
     nickname: '',
     id: 0
   }
+});
+
+export const brandState = atom({
+  key: 'brandState',
+  default: BRANDS[0]
 });

@@ -23,7 +23,9 @@ export default defineConfig({
           sub: { value: '#3D2D1E' },
           tertiary: { value: '#f5f5f5' },
           subtext: { value: '#a6a6a6' },
-          mainDark: { value: '#313131' }
+          mainDark: { value: '#313131' },
+          subGrey: { value: '#DCDCDC' },
+          borderGrey: { value: '#EDECEC' }
         },
         fontSizes: {
           xxs: { value: '10px' },
