@@ -14,7 +14,12 @@ export const INPUT_TEXTS = {
       placeholder: '댓글을 작성해보세요.'
     },
     title: { typeName: 'title', placeholder: '제목을 입력하세요.' },
-    search: { typeName: 'search', placeholder: '검색어를 입력해주세요.' }
+    search: { typeName: 'search', placeholder: '검색어를 입력해주세요.' },
+    aboutMe: {
+      typeName: 'aboutMe',
+      placeholder: '소개 글을 적어주세요.',
+      inputLength: 50
+    }
   }
 };
 
@@ -31,7 +36,10 @@ export const LABEL_TEXTS = {
     label: '성별'
   },
   title: '제목',
-  photo: '사진'
+  photo: '사진',
+  aboutMe: {
+    label: '소개글'
+  }
 };
 
 export const BUTTON_TEXTS = {
