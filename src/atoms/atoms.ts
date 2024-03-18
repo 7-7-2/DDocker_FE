@@ -37,7 +37,8 @@ export const authState = atom<AuthTypes>({
     nickname: '',
     brand: '',
     gender: '',
-    profileUrl: ''
+    profileUrl: '',
+    aboutMe: ''
   }
 });
 
