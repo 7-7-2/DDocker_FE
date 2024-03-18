@@ -85,3 +85,12 @@ export const getUserFollowCounts = async (userId: string) => {
     console.log(err);
   }
 };
+
+export const editProfile = async (editInfo: {}) => {
+  try {
+    const data = editInfo;
+    await authInstance.patch('/users/userInfo', data);
+  } catch (error) {
+    console.log('Failed to save user initial info on DB', error);
+  }
+};
