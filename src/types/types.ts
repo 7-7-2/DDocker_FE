@@ -24,6 +24,7 @@ export interface AuthTypes {
   gender?: string;
   sum?: number;
   userId?: string;
+  aboutMe?: string;
 }
 
 export interface SimplifyUser {
@@ -49,6 +50,7 @@ export interface LabelProps {
   label: string | undefined;
   message?: string | undefined;
   inputValue?: string | undefined;
+  userAboutMe?: string | undefined;
 }
 
 export interface InputProps {
