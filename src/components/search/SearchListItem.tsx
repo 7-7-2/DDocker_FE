@@ -1,67 +1,56 @@
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { searchKeywordState, searchResultsState } from '@/atoms/atoms';
 import Icon from '@/components/common/Icon';
 import MiniProfile from '@/components/common/MiniProfile';
 import { SEARCH_TEXTS } from '@/constants/search';
-import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { SimplifyUser } from '@/types/types';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { Align, Between, Flex } from '@/styles/layout';
 import { RecentSearch, DeleteAllBtn } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
+import { useNavigate } from 'react-router-dom';
 
-const SearchListItem: React.FC<{ users: SimplifyUser[] }> = () => {
-  const inputValue = useRecoilValue(searchKeywordState);
-  const searchResults = useRecoilValue(searchResultsState);
-  const setSearchResults = useSetRecoilState(searchResultsState);
+interface SearchList {
+  users: SimplifyUser[];
+  search: string;
+}
 
-  const filteredResults = searchResults.filter(user =>
-    user.nickname?.toLowerCase().includes(inputValue.toLowerCase())
-  );
-
-  const handleDeleteAll = () => {
-    setSearchResults([]);
-  };
-  const handleInUsers = useNavigateTo('/profile');
-
-  const handleDeleteBtn = (userId: string | undefined) => {
-    setSearchResults(prevResults =>
-      prevResults.filter(user => user.userId !== userId)
-    );
-  };
+const SearchListItem = ({ users, search }: SearchList) => {
+  const navigate = useNavigate();
+  const handleToProfile = (userId: string) => () => navigate(userId);
 
   return (
     <>
-      {filteredResults.length > 0 && !inputValue && (
+      {/* 1. 검색기록 컴포넌트 => 분리 후 캐시 스토리지*/}
+      {users.length > 0 && !search && (
         <Wrapper className={cx(Align, Between)}>
           <span className={RecentSearch}>{SEARCH_TEXTS.recentSearch}</span>
           <span
             className={DeleteAllBtn}
-            onTouchEnd={handleDeleteAll}>
+            onTouchEnd={() => {}}>
             {SEARCH_TEXTS.deleteAllBtn}
           </span>
         </Wrapper>
       )}
-      {filteredResults.map(({ userId, nickname, caffeine }: SimplifyUser) => (
-        <Container
-          key={userId}
-          className={cx(Align, Between)}>
-          <div onTouchEnd={handleInUsers}>
+      {/* 2. 검색값 존재시 검색결과 */}
+      {/* 3. 검색값 5개 이상일 시 더보기 버튼 => 무한스크롤 */}
+      {users &&
+        users.map((user: SimplifyUser) => (
+          <Container
+            key={user.userId}
+            className={cx(Align, Between)}>
             <MiniProfile
-              userId={userId}
-              nickname={nickname}
-              caffeine={caffeine}
-              onClick={() => {}}
+              url={user.url}
+              nickname={user.nickname}
+              caffeine={user.caffeine}
+              onClick={handleToProfile(`/profile/${user.userId}`)}
             />
-          </div>
-          <div
-            className={Flex}
-            onTouchEnd={() => handleDeleteBtn(userId)}>
-            <Icon {...iconPropsGenerator('cancel', '24')} />
-          </div>
-        </Container>
-      ))}
+            <div
+              className={Flex}
+              onTouchEnd={() => {}}>
+              <Icon {...iconPropsGenerator('cancel', '24')} />
+            </div>
+          </Container>
+        ))}
     </>
   );
 };

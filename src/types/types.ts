@@ -39,7 +39,9 @@ export interface MiniProfile extends SimplifyUser {
 }
 
 export interface SearchBarProps {
-  onSearch: () => void;
+  search: string;
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  reset: () => void;
 }
 
 export interface FollowCountProps {
