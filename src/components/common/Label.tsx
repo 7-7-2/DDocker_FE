@@ -7,9 +7,14 @@ import { styled } from 'styled-system/jsx';
 import { Align, Between } from '@/styles/layout';
 import { HomeRegistContainer, InputByteCheck } from '@/styles/styles';
 
-const { nickname, gender } = LABEL_TEXTS;
+const { nickname, gender, aboutMe } = LABEL_TEXTS;
 
-export const Label = ({ inputValue, label, message }: LabelProps) => {
+export const Label = ({
+  inputValue,
+  label,
+  message,
+  userAboutMe
+}: LabelProps) => {
   const nicknameCheckIcon =
     inputValue && message === nickname.message.approval ? (
       <Icon {...iconPropsGenerator('check-done', '14')} />
@@ -19,6 +24,13 @@ export const Label = ({ inputValue, label, message }: LabelProps) => {
 
   const genderCheckIcon =
     inputValue?.length !== 0 ? (
+      <Icon {...iconPropsGenerator('check-done', '14')} />
+    ) : (
+      <Icon {...iconPropsGenerator('check', '14')} />
+    );
+
+  const AboutMeIcon =
+    userAboutMe !== inputValue ? (
       <Icon {...iconPropsGenerator('check-done', '14')} />
     ) : (
       <Icon {...iconPropsGenerator('check', '14')} />
@@ -42,6 +54,7 @@ export const Label = ({ inputValue, label, message }: LabelProps) => {
         <LabelText className={HomeRegistContainer}>{label}</LabelText>
         {label === nickname.label && nicknameCheckIcon}
         {label === gender.label && genderCheckIcon}
+        {label === aboutMe.label && AboutMeIcon}
       </div>
       {inputValue !== '' && alretMessage}
     </LabelContainer>
