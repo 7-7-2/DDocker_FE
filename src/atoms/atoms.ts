@@ -100,16 +100,6 @@ export const useInputState = atom({
   default: ''
 });
 
-export const searchKeywordState = atom<string>({
-  key: 'searchKeywordState',
-  default: ''
-});
-
-export const searchResultsState = atom<SimplifyUser[]>({
-  key: 'searchResultsState',
-  default: []
-});
-
 export const imageState = atom({
   key: 'imageState',
   default: ''
