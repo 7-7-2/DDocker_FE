@@ -1,33 +1,20 @@
-import { useRecoilState } from 'recoil';
-import { searchKeywordState } from '@/atoms/atoms';
 import Button from '@/components/common/Button';
 import Icon from '@/components/common/Icon';
 import { SEARCH_TEXTS } from '@/constants/search';
 import { SearchBarProps } from '@/types/types';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { Align, Between, Flex, FlexCenter } from '@/styles/layout';
-import { SearchInput } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
+import { useNavigateTo } from '@/hooks/useNavigateTo';
+import { SearchInput, Divider, CancelBtn } from '@/styles/styles';
 
-const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
-  const [inputValue, setInputValue] = useRecoilState(searchKeywordState);
-
-  const handleHome = () => {
-    window.history.back();
-  };
-
-  const searchInputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
-  };
-
-  const handleInputDelete = () => {
-    setInputValue('');
-  };
-
-  const handleSearch = () => {
-    onSearch();
-  };
+const SearchBar: React.FC<SearchBarProps> = ({
+  search,
+  reset,
+  handleChange
+}) => {
+  const navigate = useNavigateTo('-1');
 
   return (
     <>
@@ -40,36 +27,33 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
             <input
               className={SearchInput}
               type="text"
-              value={inputValue}
-              onChange={searchInputHandler}
+              value={search}
+              onChange={handleChange}
               placeholder={SEARCH_TEXTS.placeHolder}
-              onTouchEnd={handleSearch}
             />
           </Area>
-          {inputValue && (
+          {search && (
             <IconDelete
               className={FlexCenter}
-              onTouchEnd={handleInputDelete}>
+              onTouchEnd={reset}>
               <Icon {...iconPropsGenerator('input-delete', '24')} />
             </IconDelete>
           )}
         </Container>
         <Button
-          className={FlexCenter}
+          className={cx(FlexCenter, CancelBtn)}
           text={SEARCH_TEXTS.moveToHome}
-          onTouchEnd={handleHome}
+          onTouchEnd={navigate}
         />
       </div>
 
-      <Divider />
+      <div className={Divider} />
     </>
   );
 };
 
 const Container = styled.div`
   width: 85%;
-  gap: 20px;
-  padding: 5px 0px;
   margin: 7px 0;
   background-color: var(--colors-tertiary);
   border-radius: 6px;
@@ -83,21 +67,5 @@ const IconContainer = styled.div`
 const IconDelete = styled.div`
   padding: 4px;
 `;
-const Divider = styled.div`
-  position: relative;
-  &::after {
-    content: '';
-    position: absolute;
-    border-top: 1px solid #edecec;
-    left: -20px;
-    width: calc(50% + 20px);
-  }
-  &::before {
-    content: '';
-    position: absolute;
-    border-top: 1px solid #edecec;
-    right: -20px;
-    width: calc(50% + 20px);
-  }
-`;
+
 export default SearchBar;

@@ -281,10 +281,14 @@ export const CaffeineDetail = cx(
 export const SearchInput = cx(
   Regular,
   css`
-    color: #a6a6a6;
+    width: 100%;
+    color: var(--colors-main-dark);
     font-size: var(--font-sizes-sm);
     line-height: 22px;
     background-color: transparent;
+    &:focus {
+      outline: none;
+    }
   `
 );
 export const StartPageContainer = css`
@@ -669,14 +673,14 @@ export const Divider = css`
   &::after {
     content: '';
     position: absolute;
-    border-top: 1px solid #edecec;
+    border-top: 1px solid var(--colors-border-grey);
     left: -20px;
     width: calc(50% + 20px);
   }
   &::before {
     content: '';
     position: absolute;
-    border-top: 1px solid #edecec;
+    border-top: 1px solid var(--colors-border-grey);
     right: -20px;
     width: calc(50% + 20px);
   }
@@ -719,4 +723,9 @@ export const LeftCardSpacer = styled.div`
     display: block;
     width: 20px;
   }
+`;
+
+export const CancelBtn = css`
+  color: var(--colors-main-dark);
+  font-size: var(--font-sizes-sm);
 `;
