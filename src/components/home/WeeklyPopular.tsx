@@ -1,31 +1,15 @@
 import WeeklyPopularItem from '@/components/home/WeeklyPopularItem';
+import { useGetPopularList } from '@/hooks/useGetPopularList';
 import { TODAY_CAFFEINE_INFO_TEXTS } from '@/constants/home';
-import { WeeklyPopularTypes } from '@/types/types';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 import { Grid } from '@/styles/layout';
 import { SmStyle, SumTitle, MarginT12 } from '@/styles/styles';
-import useGetCacheData from '@/hooks/useGetCacheData';
-import { useEffect, useState } from 'react';
-import { getWeeklyPopular } from '@/api/post';
+
+const { weeklyPopular } = TODAY_CAFFEINE_INFO_TEXTS;
 
 const WeeklyPopular = () => {
-  const [brandList, setBrandList] = useState<WeeklyPopularTypes[]>();
-  const { weeklyPopular } = TODAY_CAFFEINE_INFO_TEXTS;
-
-  const getWeeklyPopularList = async () => {
-    const res = await useGetCacheData('brand', '/WeeklyPopular');
-    if (!res) {
-      const res = await getWeeklyPopular();
-      setBrandList(res);
-      return;
-    }
-    setBrandList(res.cacheData);
-  };
-
-  useEffect(() => {
-    getWeeklyPopularList();
-  }, []);
+  const brandList = useGetPopularList();
 
   return (
     <div>
