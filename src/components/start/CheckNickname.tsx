@@ -11,10 +11,10 @@ import useValidateNickname from '@/hooks/useValidateNickname';
 const { nickname } = INPUT_TEXTS.type;
 const { message } = LABEL_TEXTS.nickname;
 
-const CheckNickname = () => {
+const CheckNickname = ({ userNickname }: { userNickname?: string }) => {
   const [userInit, setUserInit] = useRecoilState(authState);
   const [isApproval, setIsapproval] = useRecoilState(CheckNicknameState);
-  const { value, onChange: handleChange } = useInput();
+  const { value, onChange: handleChange } = useInput(userNickname);
 
   const validate = useValidateNickname(value);
 
