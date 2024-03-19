@@ -18,8 +18,8 @@ const Start = () => {
   const getCachedData = async () => {
     const getAccessToken = await useGetCacheData('user', '/accessToken');
     const getUserInfo = await useGetCacheData('user', '/userInfo');
-    setAccessToken(getAccessToken.cacheData);
-    setUserInfo(getUserInfo.cacheData);
+    getAccessToken && setAccessToken(getAccessToken.cacheData);
+    getUserInfo && setUserInfo(getUserInfo.cacheData);
   };
 
   const notAllowedPages = id && !allowedPages.includes(id);
