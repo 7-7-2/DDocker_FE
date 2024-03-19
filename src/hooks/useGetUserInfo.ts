@@ -18,10 +18,11 @@ function useGetUserInfo(userId?: string | number | undefined) {
       return;
     }
 
-    setCachedUser(data.cacheData.data);
+    data && setCachedUser(data.cacheData.data);
 
     if (registInfo.brand === '') {
-      setRegistInfo({ ...registInfo, brand: data.cacheData.data.brand });
+      data &&
+        setRegistInfo({ ...registInfo, brand: data.cacheData.data.brand });
     }
   };
 
