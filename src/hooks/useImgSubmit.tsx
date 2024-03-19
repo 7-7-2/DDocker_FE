@@ -13,6 +13,7 @@ import { CachedData } from '@/types/types';
 export const useImgSubmit = () => {
   const [cachedData, setCachedData] = useState<CachedData>();
   const [imageUrl, setImageUrl] = useRecoilState(imageState);
+
   useEffect(() => {
     const getCachedUserInfo = async () => {
       const data = await useGetCacheData('user', '/userId');
@@ -40,5 +41,5 @@ export const useImgSubmit = () => {
     await setProfileImg(userDocRef, filePath);
   };
 
-  return { handleFormSubmit, setImageUrl };
+  return { handleFormSubmit, setImageUrl, imageUrl };
 };
