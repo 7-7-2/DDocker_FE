@@ -6,7 +6,7 @@ function useGetTodayCoffeeData() {
   const [coffeeInfo, setCoffeeInfo] = useState<TodayCoffeeInfoTypes>();
   const getDataList = async () => {
     const data = await useGetCacheData('user', '/coffee');
-    setCoffeeInfo(data.cacheData);
+    data && setCoffeeInfo(data.cacheData);
   };
 
   useEffect(() => {
