@@ -1,16 +1,17 @@
-import { TouchEvent, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { useParams } from 'react-router-dom';
-import { caffeineFilterState, registPostState } from '@/atoms/atoms';
-import RegisterLabel from '@/components/post/RegisterLabel';
-import Button from '@/components/common/Button';
+
 import Icon from '@/components/common/Icon';
+import Button from '@/components/common/Button';
+import RegisterLabel from '@/components/post/RegisterLabel';
 import { CAFFEINE_FILTER_TEXTS } from '@/constants/home';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+import { caffeineFilterState, registPostState } from '@/atoms/atoms';
+
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { BtnColorWhite, SmStyle, MarginB6, MarginB8 } from '@/styles/styles';
 import { Align, Between, Column, Flex } from '@/styles/layout';
+import { BtnColorWhite, SmStyle, MarginB6, MarginB8 } from '@/styles/styles';
 
 const { coffeeOption } = CAFFEINE_FILTER_TEXTS;
 
@@ -34,7 +35,7 @@ const CoffeeOptionSelection = () => {
   };
 
   // set coffee size info
-  const selectSize = (e: TouchEvent<HTMLButtonElement>) => {
+  const selectSize = (e: React.TouchEvent<HTMLButtonElement>) => {
     setRegisterData('size', e.currentTarget.value);
 
     const size =
@@ -61,11 +62,12 @@ const CoffeeOptionSelection = () => {
   };
 
   const selectPlusBtn = () => {
-    setRegisterData('shot', registInfo.shot + 1);
-    setCaffeine({
-      caffeine: caffeineValue + 75,
-      menuCaffeine: menuCaffeineValue
-    });
+    registInfo.shot <= 5 && setRegisterData('shot', registInfo.shot + 1);
+    registInfo.shot <= 5 &&
+      setCaffeine({
+        caffeine: caffeineValue + 75,
+        menuCaffeine: menuCaffeineValue
+      });
   };
 
   return (
@@ -116,7 +118,9 @@ const CoffeeOptionSelection = () => {
             disabled
           />
           <Icon
-            {...iconPropsGenerator('input-plus')}
+            {...iconPropsGenerator(
+              registInfo.shot >= 5 ? 'input-plus' : 'input-plus:active'
+            )}
             onTouchEnd={selectPlusBtn}
           />
         </div>
