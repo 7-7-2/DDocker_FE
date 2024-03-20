@@ -1,9 +1,12 @@
 import { useRecoilState } from 'recoil';
+
 // progressbar
 import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 import Icon from '@/components/common/Icon';
+import useSetCacheData from '@/hooks/useSetCacheData';
+import useGetCachedWater from '@/hooks/useGetCachedWater';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { takedWaterState } from '@/atoms/atoms';
 
@@ -12,14 +15,17 @@ import { styled } from 'styled-system/jsx';
 
 const WaterIntake = ({ coffeeCount }: { coffeeCount: number | undefined }) => {
   const [takedWater, setTakedWater] = useRecoilState(takedWaterState);
+  useGetCachedWater();
 
   const waterPerCoffeeCount = coffeeCount && coffeeCount * 2;
+
   const percentage =
     waterPerCoffeeCount && (takedWater / waterPerCoffeeCount) * 100;
 
   const touchPlusIcon = () => {
     if (waterPerCoffeeCount && takedWater < waterPerCoffeeCount)
       setTakedWater(takedWater + 1);
+    useSetCacheData('user', '/water', takedWater + 1);
   };
 
   return (
