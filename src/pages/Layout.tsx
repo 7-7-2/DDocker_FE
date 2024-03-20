@@ -25,8 +25,12 @@ const Layout = () => {
   const footerState = useRecoilValue(footerShowState);
   const searchPredi = pathname !== '/search';
   const startPredi = pathname !== '/start/1';
+  const registerPredi = pathname === '/post/register';
 
   const getHeight = () => {
+    if (registerPredi) {
+      return (PagesHeight = SearchPageHeight);
+    }
     if (searchPredi) {
       return (PagesHeight = GeneralHeight);
     }
