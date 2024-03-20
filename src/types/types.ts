@@ -35,7 +35,7 @@ export interface SimplifyUser {
 }
 
 export interface MiniProfile extends SimplifyUser {
-  onClick: () => void;
+  onClick: () => void | Promise<() => void>;
 }
 
 export interface SearchBarProps {
