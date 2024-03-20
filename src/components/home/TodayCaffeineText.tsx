@@ -1,14 +1,13 @@
 import { useRecoilValue } from 'recoil';
-import Icon from '@/components/common/Icon';
+import AlertBubble from '@/components/common/AlertBubble';
 import { TODAY_CAFFEINE_INFO_TEXTS } from '@/constants/home';
 import { authState, takedWaterState, userInfoState } from '@/atoms/atoms';
-import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import useGetTodayCoffeeData from '@/hooks/useGetTodayCoffeeData';
 
-import { HomeHeaderContent, InputFontSm } from '@/styles/styles';
-import { Align, Between, Column } from '@/styles/layout';
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
+import { HomeHeaderContent } from '@/styles/styles';
+import { Align, Between, Column } from '@/styles/layout';
 
 const { anonymous, signedIn } = TODAY_CAFFEINE_INFO_TEXTS;
 
@@ -62,29 +61,20 @@ const TodayCaffeineText = () => {
           alt="coffee"
         />
       </div>
-      <MessageContainer className={cx(Align)}>
-        <Icon {...iconPropsGenerator('message', '15')} />
-        <MessageText className={InputFontSm}>
-          {allCount && allCount >= 1 ? signedInMessage : anonymous.messageText}
-        </MessageText>
-      </MessageContainer>
+      {allCount && allCount >= 1 ? (
+        <AlertBubble message={signedInMessage} />
+      ) : (
+        <AlertBubble
+          type={null}
+          message={anonymous.messageText}
+        />
+      )}
     </div>
   );
 };
 
 const CaffeineInfo = styled.span`
   color: var(--colors-main);
-`;
-const MessageContainer = styled.div`
-  padding: 0 16px;
-  margin-top: 10px;
-  height: 54px;
-  background-color: var(--colors-main);
-  color: #fff;
-  border-radius: 16px;
-`;
-const MessageText = styled.div`
-  margin-left: 12px;
 `;
 
 export default TodayCaffeineText;
