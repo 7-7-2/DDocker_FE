@@ -2,6 +2,7 @@ import SearchBar from '@/components/search/SearchBar';
 import SearchListItem from '@/components/search/SearchListItem';
 import { useShowFooter } from '@/hooks/useShowFooter';
 import { useSearchInput } from '@/hooks/useSearchInput';
+import SearchHistory from '@/components/search/SearchHistory';
 
 const Search = () => {
   useShowFooter(false);
@@ -14,10 +15,8 @@ const Search = () => {
         handleChange={handleChange}
         reset={reset}
       />
-      <SearchListItem
-        users={results}
-        search={search}
-      />
+      {search && <SearchListItem users={results} />}
+      {!search && <SearchHistory />}
     </>
   );
 };

@@ -1,7 +1,9 @@
+import { SimplifyUser } from '@/types/types';
+
 const useSetCacheData = async (
   cacheName: string,
   url: string,
-  cacheData: string | boolean
+  cacheData: string | boolean | SimplifyUser[]
 ) => {
   const cacheStorage = await caches.open(cacheName);
   try {
