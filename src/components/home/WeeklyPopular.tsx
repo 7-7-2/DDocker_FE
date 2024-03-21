@@ -13,7 +13,10 @@ const WeeklyPopular = () => {
 
   return (
     <div>
-      <div className={SumTitle}>{weeklyPopular}</div>
+      <Dividerline />
+      <WeeklyPopularTitle className={SumTitle}>
+        {weeklyPopular}
+      </WeeklyPopularTitle>
       <WeeklyPopularList className={cx(Grid, SmStyle, MarginT12)}>
         {brandList &&
           brandList.map((item, idx) => (
@@ -28,8 +31,16 @@ const WeeklyPopular = () => {
   );
 };
 
+const WeeklyPopularTitle = styled.div`
+  margin-top: 24px;
+`;
 const WeeklyPopularList = styled.div`
   gap: 8px 0;
 `;
 
+const Dividerline = styled.div`
+  width: 100vw;
+  margin-left: -20px;
+  border-top: 8px solid #fff;
+`;
 export default WeeklyPopular;
