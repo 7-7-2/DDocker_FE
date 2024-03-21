@@ -14,7 +14,7 @@ function useGetCoffeeList(dataType?: string) {
       setCoffeeData(res);
     }
 
-    setCoffeeData(cachedData.cacheData);
+    cachedData && setCoffeeData(cachedData.cacheData);
   };
 
   useEffect(() => {
