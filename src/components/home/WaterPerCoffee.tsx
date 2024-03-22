@@ -18,7 +18,12 @@ import {
   Flex,
   MarginAuto
 } from '@/styles/layout';
-import { LoginBtn, RegistCoffeeBtn, AlertMessage } from '@/styles/styles';
+import {
+  LoginBtn,
+  RegistCoffeeBtn,
+  AlertMessage,
+  Default
+} from '@/styles/styles';
 
 const { anonymous, signedIn } = TODAY_CAFFEINE_INFO_TEXTS;
 
@@ -105,12 +110,6 @@ const TodayMenuList = styled.div`
   width: calc(100vw - 80px);
   margin-top: 14px;
   overflow-x: scroll;
-`;
-
-const Default = css`
-  border: 1px solid #ccc;
-  background: #ebebeb;
-  text-align: center;
 `;
 
 const MarginTop = css`
