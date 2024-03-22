@@ -34,3 +34,19 @@ const changeVisitPurpose = (brandName: string) => {
 };
 
 export default changeVisitPurpose;
+
+export const brandMapToEng = (brandName: string) => {
+  const brandObj: Record<string, string> = {
+    스타벅스: 'starbucks',
+    이디야: 'ediya',
+    메가커피: 'megacoffee',
+    할리스: 'hollys',
+    파스쿠찌: 'pascucci',
+    엔젤리너스: 'angelinus',
+    더벤티: 'theventi',
+    빽다방: 'bbak',
+    컴포즈커피: 'compose',
+    폴바셋: 'paulbassett'
+  };
+  return brandObj[brandName];
+};
