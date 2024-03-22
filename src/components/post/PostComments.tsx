@@ -62,7 +62,7 @@ const Length = styled.div`
   padding-bottom: 12px;
   font-size: var(--font-sizes-sm);
   line-height: 22px;
-  color: #767676;
+  color: var(--colors-mid-grey);
 `;
 
 export default PostComments;

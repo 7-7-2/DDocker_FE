@@ -33,7 +33,7 @@ const Container = styled.div`
   padding-left: 44px;
   padding-bottom: 20px;
   margin-top: -12px;
-  color: #767676;
+  color: var(--colors-mid-grey);
   font-weight: 500;
   line-height: 20px;
   font-size: var(--font-sizes-sm);

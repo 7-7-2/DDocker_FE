@@ -41,7 +41,8 @@ const UserTitle = styled.div`
 `;
 const UserCaffeine = styled.div`
   font-size: var(--font-sizes-xs);
-  color: #767676;
+  color: var(--colors-mid-grey);
+  cursor: pointer;
 `;
 
 export default MiniProfile;

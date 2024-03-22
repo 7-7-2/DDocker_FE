@@ -41,7 +41,7 @@ export const NoneBtn = cx(
   Btn,
   css`
     font-size: var(--font-sizes-sm);
-    color: #767676;
+    color: var(--colors-mid-grey);
     line-height: 18px;
     margin-top: 13px;
   `
@@ -139,7 +139,7 @@ export const LoginBtn = cx(
     width: 120px;
     height: 40px;
     border-radius: 50px;
-    color: #767676;
+    color: var(--colors-mid-grey);
     font-size: var(--font-sizes-sm);
     line-height: 22px;
   `
@@ -183,7 +183,7 @@ export const InputByteCheck = cx(
 );
 
 export const Cafe = css`
-  color: #767676;
+  color: var(--colors-mid-grey);
   font-size: var(--font-sizes-xs);
   line-height: 20px;
 `;
@@ -310,7 +310,7 @@ export const TextBlack = css`
 `;
 
 export const TextGray = css`
-  color: #767676;
+  color: var(--colors-mid-grey);
 `;
 
 export const Border16 = css`
@@ -373,7 +373,7 @@ export const ToggleLeft = css`
     }
   }
   &::after {
-    border-bottom: 1px solid #767676;
+    border-bottom: 1px solid var(--colors-mid-grey);
     left: -20px;
   }
 `;
@@ -385,7 +385,7 @@ export const ToggleRight = css`
     }
   }
   &::after {
-    border-bottom: 1px solid #767676;
+    border-bottom: 1px solid var(--colors-mid-grey);
     right: -20px;
   }
 `;
@@ -416,7 +416,7 @@ export const DeleteAllBtn = cx(
   Semibold,
   css`
     font-size: var(--font-sizes-xs);
-    color: #767676;
+    color: var(--colors-mid-grey);
     line-height: 20px;
   `
 );
@@ -469,7 +469,7 @@ export const SumBoardTitle = cx(
 export const SumType = cx(
   Regular,
   css`
-    color: #767676;
+    color: var(--colors-mid-grey);
     font-size: var(--font-sizes-xs);
     line-height: 20px;
   `
@@ -560,7 +560,7 @@ export const ProfileTitle = cx(
 export const ProfileInfo = cx(
   Regular,
   css`
-    color: #767676;
+    color: var(--colors-mid-grey);
     font-size: var(--font-sizes-xs);
     line-height: 18px;
   `
@@ -622,7 +622,7 @@ export const StartBrand = cx(
 export const StartBrandSub = cx(
   Regular,
   css`
-    color: #767676;
+    color: var(--colors-mid-grey);
     font-size: var(--font-sizes-base);
     line-height: 24px;
   `
@@ -631,7 +631,7 @@ export const StartBrandSub = cx(
 export const RegistCoffeeBtn = cx(
   Medium,
   css`
-    color: #767676;
+    color: var(--colors-mid-grey);
     font-size: var(--font-sizes-xxl);
     line-height: 32px;
   `
@@ -658,7 +658,7 @@ export const CommnetUser = cx(
 export const CommentLength = cx(
   Regular,
   css`
-    color: #767676;
+    color: var(--colors-mid-grey);
     font-size: var(--font-sizes-sm);
     line-height: 22px;
   `
@@ -728,4 +728,22 @@ export const LeftCardSpacer = styled.div`
 export const CancelBtn = css`
   color: var(--colors-main-dark);
   font-size: var(--font-sizes-sm);
+`;
+
+export const TrendDivider = css`
+  margin-left: -20px;
+  margin-right: -20px;
+  &::after {
+    content: '';
+    display: block;
+    margin-top: 32px;
+    height: 8px;
+    background-color: var(--colors-tertiary);
+  }
+`;
+
+export const Default = css`
+  border: 1px solid #ccc;
+  background: #ebebeb;
+  text-align: center;
 `;

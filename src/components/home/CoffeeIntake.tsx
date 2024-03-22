@@ -66,7 +66,7 @@ const Progress = styled.div`
 `;
 
 const recommended = css`
-  color: #767676;
+  color: var(--colors-mid-grey);
 `;
 
 export default CoffeeIntake;
