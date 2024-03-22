@@ -14,7 +14,7 @@ const PostedAt = ({
 const Posted = styled.div`
   font-size: var(--font-sizes-xs);
   line-height: 20px;
-  color: #767676;
+  color: var(--colors-mid-grey);
 `;
 
 const PaddingPost = css`

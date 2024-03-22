@@ -58,7 +58,7 @@ const UserText = styled.div`
   gap: 4px;
 `;
 const UserNameText = styled.span`
-  color: #767676 !important;
+    color: var(--colors-mid-grey) !important;
   font-weight: 400;
 `;
 const Info = styled.div`
