@@ -37,7 +37,7 @@ const NoticeText = styled(Common)`
   color: #313131;
 `;
 const NoticeTime = styled(Common)`
-  color: #767676;
+  color: var(--colors-mid-grey);
 `;
 
 export default Notice;

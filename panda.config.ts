@@ -25,7 +25,9 @@ export default defineConfig({
           subtext: { value: '#a6a6a6' },
           mainDark: { value: '#313131' },
           subGrey: { value: '#DCDCDC' },
-          borderGrey: { value: '#EDECEC' }
+          borderGrey: { value: '#EDECEC' },
+          midGrey: { value: '#767676' },
+          btnGrey: { value: '#ccc' }
         },
         fontSizes: {
           xxs: { value: '10px' },
