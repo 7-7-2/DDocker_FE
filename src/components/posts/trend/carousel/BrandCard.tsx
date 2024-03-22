@@ -23,7 +23,6 @@ const BrandCard = ({
           src={pathMap(brand)}
           onClick={() => {
             setSelected(brand);
-            console.log(brand);
           }}
         />
       </ImgBox>

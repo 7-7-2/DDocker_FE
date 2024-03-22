@@ -11,7 +11,6 @@ const Bullet = ({
 }) => {
   const isSelected = cur === bulletPage;
   const handleSetPage = () => {
-    console.log(bulletPage);
     setCurPage(bulletPage);
   };
   return (
