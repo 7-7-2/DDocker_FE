@@ -3,6 +3,7 @@ import BrandCard from '@/components/posts/trend/carousel/BrandCard';
 import { BRANDS } from '@/constants/coffee';
 import { Between, Flex } from '@/styles/layout';
 import { cx } from 'styled-system/css';
+import { useId } from 'react';
 
 const BrandPage = ({
   ownPage,
@@ -16,11 +17,13 @@ const BrandPage = ({
   const range = [...Array(5).keys()];
   const slice5 = ownPage * 5;
   const brandsKeys = range.map(i => slice5 + i);
+  const id = useId();
+
   return (
     <Page className={cx(Flex, Between)}>
       {brandsKeys.map(brand => (
         <BrandCard
-          key={brand}
+          key={id + brand}
           brand={BRANDS[brand]}
           setSelected={setSelected}
           selected={selected}
