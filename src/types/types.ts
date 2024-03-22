@@ -208,3 +208,10 @@ export interface CafeDetail {
   posts?: boolean;
   onTouchEnd?: () => void;
 }
+
+export interface DailyTrendCardProps {
+  brand: string;
+  menu: string;
+  shot: number;
+  caffeine: number;
+}
