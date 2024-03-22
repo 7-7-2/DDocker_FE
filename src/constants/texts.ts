@@ -27,6 +27,16 @@ export const TABS_TEXTS: TabsText = {
 export const TREND_TEXTS = {
   daily: '오늘의 인기 게시글',
   popular: '의 인기 게시글',
-  latest: '최신순',
-  popularity: '인기순'
+  latest: '최신',
+  popularity: '인기',
+  divide: ' | ',
+  WeeklyPopular: '이번 주 인기 메뉴는 ',
+  is: '입니다!'
+};
+
+export const CTA_TEXTS = {
+  trend: `아직 작성된 게시글이 없어요.
+  게시글을 등록해보세요!
+  `,
+  trendAction: '등록하기'
 };
