@@ -1,4 +1,7 @@
+import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
 import Icon from '@/components/common/Icon';
+import useGetCacheData from '@/hooks/useGetCacheData';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { FlexCenter, MarginAuto } from '@/styles/layout';
@@ -8,6 +11,14 @@ import { cx } from 'styled-system/css';
 
 const ProfileImg = ({ imageUrl }: { imageUrl?: string }) => {
   const handleProfile = useNavigateTo('/mypage');
+  const { userId: ProFileId } = useParams();
+
+  const { data: userInfo } = useQuery({
+    queryKey: ['userInfo'],
+    queryFn: () => useGetCacheData('user', '/userInfo')
+  });
+
+  const userId = userInfo && userInfo.cacheData.data.userId;
 
   return (
     <Container className={cx(FlexCenter, MarginAuto)}>
@@ -22,12 +33,14 @@ const ProfileImg = ({ imageUrl }: { imageUrl?: string }) => {
             <Icon {...iconPropsGenerator('user', '100')} />
           )}
         </div>
-        <Edit className={Cursor}>
-          <Icon
-            {...iconPropsGenerator('edit', '32')}
-            onTouchEnd={handleProfile}
-          />
-        </Edit>
+        {ProFileId && ProFileId === userId && (
+          <Edit className={Cursor}>
+            <Icon
+              {...iconPropsGenerator('edit', '32')}
+              onTouchEnd={handleProfile}
+            />
+          </Edit>
+        )}
       </Box>
     </Container>
   );
