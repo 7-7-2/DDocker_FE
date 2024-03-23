@@ -10,7 +10,12 @@ import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Between, Column, FlexCenter, Center, Align } from '@/styles/layout';
-import { Border16, PrfileTitle, SmStyle, TextArea } from '@/styles/styles';
+import {
+  Border16,
+  PrfileTitle,
+  ProfileAboutMe,
+  TextArea
+} from '@/styles/styles';
 
 const ProfileDetail = ({ userId }: { userId: string | undefined }) => {
   const user = useRecoilValue(userInfoState);
@@ -22,11 +27,9 @@ const ProfileDetail = ({ userId }: { userId: string | undefined }) => {
       <UserTitle className={cx(FlexCenter, PrfileTitle)}>
         {user.nickname}
       </UserTitle>
-      <UserText className={cx(FlexCenter, SmStyle)}>
-        {/* 상태메세지 Input 수정 후 추가 예정 */}
-        {/* <span>{user.nickname}</span>
-        <UserNameText>{user.nickname}</UserNameText> */}
-      </UserText>
+      <UserAboutMe className={cx(FlexCenter, ProfileAboutMe)}>
+        {user.aboutMe}
+      </UserAboutMe>
       <Info className={cx(Align, Between)}>
         <UserBrand className={cx(FlexCenter, Border16)}>
           <Icon {...iconPropsGenerator('brand')} />
@@ -53,9 +56,9 @@ const UserTitle = styled.span`
   width: 200px;
   margin: 22px 0px 2px 0px;
 `;
-const UserText = styled.div`
-  margin-bottom: 16px;
-  gap: 4px;
+const UserAboutMe = styled.div`
+  margin: 4px 8% 18px;
+  text-align: center;
 `;
 const UserNameText = styled.span`
     color: var(--colors-mid-grey) !important;
