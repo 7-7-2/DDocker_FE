@@ -20,14 +20,15 @@ import {
   RecentSearch,
   SumType
 } from '@/styles/styles';
+import useGetFollowCount from '@/hooks/useGetFollowCount';
+import useGetCheckFollowing from '@/hooks/useGetCheckFollowing';
 
 const { following, follow1 } = BUTTON_TEXTS;
 const FollowCount = ({ data }: FollowCountProps) => {
   const navigate = useNavigateTo('/FOLLOW');
   const { userId: ProfileId, postCount } = data;
-  const [isFollowing, setIsFollowing] = useState(true);
-  const [userFollowCount, setUserFollowCount] =
-    useState<UserFollowCountsTypes>();
+  const { isFollowing, getCheckFollowing } = useGetCheckFollowing(ProfileId);
+  const { userFollowCount } = useGetFollowCount(ProfileId, isFollowing);
 
   const { data: userInfo } = useQuery({
     queryKey: ['userInfo'],
@@ -36,27 +37,11 @@ const FollowCount = ({ data }: FollowCountProps) => {
 
   const userId = userInfo && userInfo.cacheData.data.userId;
 
-  const getUserFollowCount = async () => {
-    const res = ProfileId && (await getUserFollowCounts(ProfileId));
-    setUserFollowCount(res);
-  };
-
-  const getCheckFollowing = async () => {
-    const res = ProfileId && (await checkFollowing(ProfileId));
-    setIsFollowing(res.data);
-    console.log(isFollowing, res.data);
-  };
-
   const handleFollowBtn = async () => {
     !isFollowing && ProfileId && (await followUser(ProfileId));
     isFollowing && ProfileId && (await unfollowUser(ProfileId));
-    await getCheckFollowing();
-  };
-
-  useEffect(() => {
-    getUserFollowCount();
     getCheckFollowing();
-  }, [userId, isFollowing]);
+  };
 
   const count = [
     { number: postCount, label: '게시물' },
