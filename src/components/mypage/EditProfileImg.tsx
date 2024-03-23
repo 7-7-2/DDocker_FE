@@ -1,5 +1,5 @@
 import '@pqina/pintura/pintura.css';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { imageState } from '@/atoms/atoms';
 import { PinturaEditorModal } from '@pqina/react-pintura';
@@ -29,12 +29,18 @@ const editorDefaults = getEditorDefaults({
   })
 });
 
-const EditProfileImg: React.FC<EditProfileImgProps> = ({ onImageSelect }) => {
+const EditProfileImg: React.FC<EditProfileImgProps> = ({
+  imageUrl: beforeImageUrl,
+  onImageSelect
+}) => {
   const [editorEnabled, setEditorEnabled] = useState(false);
   const [editorSrc, setEditorSrc] = useState<File>();
   const [imageUrl, setImageUrl] = useRecoilState(imageState);
-
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    beforeImageUrl && setImageUrl(beforeImageUrl);
+  }, []);
 
   const handleInputChange = () => {
     if (!fileInputRef?.current?.files?.length) return;
