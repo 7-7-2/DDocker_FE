@@ -610,6 +610,15 @@ export const PrfileTitle = cx(
   `
 );
 
+export const ProfileAboutMe = cx(
+  Regular,
+  css`
+    color: #a6a6a6;
+    font-size: var(--font-sizes-sm);
+    line-height: 18px;
+  `
+);
+
 export const StartBrand = cx(
   Semibold,
   css`

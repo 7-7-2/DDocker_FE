@@ -1,12 +1,15 @@
 import { useRef } from 'react';
 import { useRecoilValue } from 'recoil';
+import { useQuery } from '@tanstack/react-query';
 
 import InputAboutMe from '@/components/mypage/InputAboutMe';
 import EditProfileImg from '@/components/mypage/EditProfileImg';
 import CheckNickname from '@/components/start/CheckNickname';
 import { TEXT } from '@/constants/texts';
+import { AuthTypes } from '@/types/types';
 import { editProfile, getUserInfo } from '@/api/user';
-import { authState, userInfoState } from '@/atoms/atoms';
+import { authState } from '@/atoms/atoms';
+import useGetCacheData from '@/hooks/useGetCacheData';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { useImgSubmit } from '@/hooks/useImgSubmit';
 
@@ -23,8 +26,14 @@ import { FlexCenter, Justify } from '@/styles/layout';
 const MyProfile = () => {
   useComposeHeader(false, '프로필 수정', 'close');
   const { nickname: editNickname } = useRecoilValue(authState);
-  const userInfo = useRecoilValue(userInfoState);
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
+
+  const { data: userData } = useQuery({
+    queryKey: ['userInfo'],
+    queryFn: () => useGetCacheData('user', '/userInfo')
+  });
+
+  const userInfo: AuthTypes = userData && userData.cacheData.data;
 
   const handleExitedUser = () => {
     // 추후 진행하겠습니다...
@@ -61,11 +70,14 @@ const MyProfile = () => {
 
   return (
     <>
-      <EditProfileImg onImageSelect={handleImageSelect} />
-      <CheckNickname userNickname={userInfo.nickname} />
+      <EditProfileImg
+        onImageSelect={handleImageSelect}
+        imageUrl={userInfo && userInfo.profileUrl}
+      />
+      <CheckNickname userNickname={userInfo && userInfo.nickname} />
       <InputAboutMe
         inputRef={inputRef}
-        userAboutMe={userInfo.aboutMe}
+        userAboutMe={userInfo && userInfo.aboutMe}
       />
       <ExitButton
         className={cx(Cursor, SumType)}
