@@ -154,7 +154,7 @@ export const getTodayCoffeeInfo = async () => {
 // WeeklyPopular
 export const getWeeklyPopular = async () => {
   try {
-    const res = await baseInstance.get('/popular');
+    const res = await baseInstance.get('/posts/popular');
     await useSetCacheData('brand', '/WeeklyPopular', res.data.data);
     return res.data.data;
   } catch (error) {
