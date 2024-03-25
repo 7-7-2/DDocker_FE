@@ -1,15 +1,31 @@
 import Icon from '@/components/common/Icon';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { styled } from 'styled-system/jsx';
+import { useLikeOnPost } from '@/hooks/useLikeOnPost';
 
-// 1. useMutation => myLike API
-// 2. useQuery => myLike API
-const DailyTrendImage = ({ src }: { src: string }) => {
+const DailyTrendImage = ({
+  src,
+  onClick,
+  postId
+}: {
+  src: string;
+  onClick: () => void;
+  postId: string;
+}) => {
+  const { myLike, handleLikeOnPost } = useLikeOnPost(postId);
   return (
     <Container>
-      <Image src={src} />
+      <Image
+        src={src}
+        onClick={onClick}
+      />
       <IconContainer>
-        <Icon {...iconPropsGenerator('like-white')} />
+        <Icon
+          {...iconPropsGenerator(
+            myLike && myLike.success ? 'liked' : 'like-white'
+          )}
+          onClick={handleLikeOnPost}
+        />
       </IconContainer>
     </Container>
   );
