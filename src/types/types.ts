@@ -210,8 +210,10 @@ export interface CafeDetail {
 }
 
 export interface DailyTrendCardProps {
+  photo: string;
   brand: string;
   menu: string;
   shot: number;
   caffeine: number;
+  postId: string;
 }
