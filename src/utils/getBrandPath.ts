@@ -15,3 +15,19 @@ const pathMap = (brand: string) => {
 };
 
 export default pathMap;
+
+export const getBrandPath = (brand: string) => {
+  const brandMap: Record<string, string> = {
+    starbucks: '스타벅스',
+    ediya: '이디야',
+    megacoffee: '메가커피',
+    hollys: '할리스',
+    pascucci: '파스쿠찌',
+    angelinus: '엔젤리너스',
+    theventi: '더벤티',
+    bbak: '빽다방',
+    compose: '컴포즈커피',
+    paulbassett: '폴바셋'
+  };
+  return brandMap[brand];
+};

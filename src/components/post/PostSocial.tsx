@@ -5,9 +5,7 @@ import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { PostContainer, PostsContainer } from '@/styles/styles';
 import { Flex, Between } from '@/styles/layout';
 import { cx } from 'styled-system/css';
-import { useQueryClient, useMutation, useQuery } from '@tanstack/react-query';
-import { getMyLikeOnPost, likePost, undoLikePost } from '@/api/likes';
-import useGetCacheData from '@/hooks/useGetCacheData';
+import { useLikeOnPost } from '@/hooks/useLikeOnPost';
 
 const PostSocial = ({
   posts,
@@ -24,32 +22,9 @@ const PostSocial = ({
   postId?: string;
   onClick: () => void;
 }) => {
-  const queryClient = useQueryClient();
-  const { data: signedIn } = useQuery({
-    queryKey: ['signedIn'],
-    queryFn: () => useGetCacheData('user', '/accessToken')
-  });
-
-  const { data: myLike } = useQuery({
-    queryKey: ['myLike', postId],
-    queryFn: () => {
-      return getMyLikeOnPost(postId as string);
-    },
-    enabled: !!postId && !!signedIn
-  });
-
-  const toggleLike = myLike && myLike.success ? undoLikePost : likePost;
-  const { mutate } = useMutation({ mutationFn: toggleLike });
-  const handleLikeOnPost = () => {
-    mutate(postId as string, {
-      onSuccess: () => {
-        queryClient.invalidateQueries({ queryKey: ['socialCounts', postId] });
-        queryClient.invalidateQueries({ queryKey: ['myLike', postId] });
-      }
-    });
-  };
-
   //myLike && 조건 수정 필요 => 비로그인 유저 조회 불가?
+  const { myLike, handleLikeOnPost } = useLikeOnPost(postId);
+
   return (
     <div className={cx(Flex, Between, posts ? PostsContainer : PostContainer)}>
       <div className={Flex}>
