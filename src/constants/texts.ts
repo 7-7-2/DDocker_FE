@@ -39,7 +39,12 @@ export const CTA_TEXTS = {
   trend: `아직 작성된 게시글이 없어요.
   게시글을 등록해보세요!
   `,
-  trendAction: '등록하기'
+  trendAction: '등록하기',
+  followDiscovery: `아직 팔로우한 사람이 없어요. 
+  유저를 팔로우하고 피드를 확인해보세요.`,
+  followDiscoveryAction: '검색하기',
+  signIn: '로그인 후 피드를 확인해보세요.',
+  signInAction: '로그인하기'
 };
 
 export const POST_TEXTS = {
