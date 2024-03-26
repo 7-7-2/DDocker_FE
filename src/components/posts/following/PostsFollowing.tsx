@@ -5,10 +5,12 @@ import { FollowingPost } from '@/types/types';
 import React, { useId } from 'react';
 import { styled } from 'styled-system/jsx';
 
+const FollowDiscoveryCTA = React.lazy(() => import('./FollowDiscoveryCTA'));
+const SignInCTA = React.lazy(() => import('./SignInCTA'));
+
 const PostsFollowing = () => {
   const { data: postsData, ref } =
     useTargetInfiniteScroll(FollowingPostIQParam);
-
   const id = useId();
   const mapPosts = (post: FollowingPost, idx: number) => {
     return (
@@ -32,10 +34,14 @@ const PostsFollowing = () => {
   };
   return (
     <>
-      <Container>
-        {postsData && postsData.map(mapPosts)}
-        <Target ref={ref} />
-      </Container>
+      {postsData && postsData.length !== 0 && (
+        <Container>
+          {postsData && postsData.map(mapPosts)}
+          <Target ref={ref} />
+        </Container>
+      )}
+      {postsData && postsData.length === 0 && <FollowDiscoveryCTA />}
+      {!postsData && <SignInCTA />}
     </>
   );
 };

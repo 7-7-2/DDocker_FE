@@ -751,3 +751,7 @@ export const Default = css`
 export const PaddingTB60 = css`
   padding: 60px 0;
 `;
+
+export const CTAContainer = css`
+  margin-top: calc(50dvh - 136px + env(safe-area-inset-bottom));
+`;
