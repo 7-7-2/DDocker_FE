@@ -1,4 +1,9 @@
-import { TouchEventHandler, RefObject, ChangeEvent } from 'react';
+import {
+  TouchEventHandler,
+  RefObject,
+  ChangeEvent,
+  MouseEventHandler
+} from 'react';
 import { Dayjs } from 'dayjs';
 
 export enum Collections {
@@ -72,6 +77,7 @@ export interface ButtonProps {
   value?: string;
   text: string;
   onTouchEnd?: TouchEventHandler<HTMLButtonElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   className: string;
 }
 
