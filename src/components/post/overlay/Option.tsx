@@ -11,7 +11,9 @@ export const Option = ({
 }: {
   icon: string;
   option: string;
-  onTouchEnd: () => void;
+  onTouchEnd:
+    | (() => void)
+    | ((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void);
 }) => {
   return (
     <div className={cx(Flex, Align)}>
@@ -19,7 +21,7 @@ export const Option = ({
         {...iconPropsGenerator(`${icon}`)}
         onTouchEnd={onTouchEnd}
       />
-      <OptionText onTouchEnd={onTouchEnd}>{option}</OptionText>
+      <OptionText onClick={onTouchEnd}>{option}</OptionText>
     </div>
   );
 };
