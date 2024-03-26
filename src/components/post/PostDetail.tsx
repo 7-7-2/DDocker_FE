@@ -5,7 +5,6 @@ import CaffeineInfo from '@/components/post/CaffeineInfo';
 import PostedAt from '@/components/post/PostedAt';
 import Icon from '@/components/common/Icon';
 import { useQuery } from '@tanstack/react-query';
-import useGetCacheData from '@/hooks/useGetCacheData';
 import ReplyToPanel from '@/components/post/ReplyToPanel';
 
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
@@ -38,9 +37,6 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
     },
     enabled: !!postNum
   });
-  // signedIn => 로그인만을 판별
-  // modify => 본인의 포스트인지 판별
-  // userId? nickname? 을 통해 검증
 
   const { postOwner } = useVerifyOwner(postNum);
   const { toggle, handleOptions } = usePostOptions();
