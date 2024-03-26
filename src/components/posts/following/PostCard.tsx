@@ -39,7 +39,7 @@ const PostCard = ({ ...props }: FollowingPost) => {
     },
     enabled: !!postId
   });
-  const { toggle, handleOptions } = usePostOptions();
+  const { toggle, cancelOptions } = usePostOptions();
 
   const navigateToProfile = useNavigateTo(`/profile/${userId}`);
   const navigateToPost = useNavigateTo(`/post/${postId}`);
@@ -53,7 +53,7 @@ const PostCard = ({ ...props }: FollowingPost) => {
     <>
       {toggle && (
         <PublicOption
-          handleToggle={handleOptions}
+          handleToggle={cancelOptions}
           postId={postId}
         />
       )}
@@ -65,7 +65,7 @@ const PostCard = ({ ...props }: FollowingPost) => {
           />
           <Icon
             {...iconPropsGenerator('user-more')}
-            onClick={handleOptions}
+            onClick={cancelOptions}
           />
         </UserProfile>
 

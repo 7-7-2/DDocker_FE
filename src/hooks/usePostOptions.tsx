@@ -6,10 +6,18 @@ export const usePostOptions = () => {
   const { toggle, handleToggle } = useToggle();
   const [footerState, setFooterState] = useRecoilState(footerShowState);
 
-  const handleOptions = (e: React.MouseEvent<HTMLDivElement>) => {
+  const cancelOptions = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     handleToggle();
     setFooterState(!footerState);
   };
-  return { toggle, handleOptions };
+
+  const cancelConfirm = <T extends HTMLElement>(
+    e: React.MouseEvent<T, MouseEvent>
+  ) => {
+    e.preventDefault();
+    handleToggle();
+    setFooterState(true);
+  };
+  return { toggle, cancelOptions, cancelConfirm, handleToggle };
 };

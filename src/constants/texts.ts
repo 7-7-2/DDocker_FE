@@ -5,6 +5,7 @@ export const TEXT = {
   saveButton: '저장하기',
   addedcaffeine: '누적 카페인',
   mgLabel: 'mg',
+  cancelBtn: '취소',
   deleteBtn: '삭제',
   toggleFollowedBtn: '팔로워',
   toggleFollowingBtn: '팔로잉'
@@ -42,5 +43,6 @@ export const CTA_TEXTS = {
 };
 
 export const POST_TEXTS = {
-  noComments: '아직 작성한 댓글이 없어요'
+  noComments: '아직 작성한 댓글이 없어요',
+  delete: '이 게시물을 삭제하시겠습니까?'
 };

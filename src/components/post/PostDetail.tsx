@@ -21,6 +21,9 @@ import { useRef } from 'react';
 import { InputContext } from '@/context/inputContext';
 import { usePostOptions } from '@/hooks/usePostOptions';
 import { useVerifyOwner } from '@/hooks/useVerifyOwner';
+import React from 'react';
+
+const ConfirmDelete = React.lazy(() => import('./overlay/ConfirmDelete'));
 
 const PostDetail = ({ postNum }: { postNum: string }) => {
   const { data: postData } = useQuery({
@@ -39,7 +42,13 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
   });
 
   const { postOwner } = useVerifyOwner(postNum);
-  const { toggle, handleOptions } = usePostOptions();
+  const { toggle, cancelOptions } = usePostOptions();
+  const {
+    toggle: confirm,
+    handleToggle: setConfirm,
+    cancelConfirm
+  } = usePostOptions();
+
   const inputRef = useRef<HTMLInputElement | null>(null);
   const isPostOwner =
     postOwner && postData && postOwner === postData.data.nickname;
@@ -47,13 +56,20 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
     <>
       {toggle && isPostOwner && (
         <PostOwnerOption
-          handleToggle={handleOptions}
+          cancleOptions={cancelOptions}
+          setConfirm={setConfirm}
           postId={postNum}
         />
       )}
       {toggle && !isPostOwner && (
         <PublicOption
-          handleToggle={handleOptions}
+          handleToggle={cancelOptions}
+          postId={postNum}
+        />
+      )}
+      {confirm && (
+        <ConfirmDelete
+          cancelConfirm={cancelConfirm}
           postId={postNum}
         />
       )}
@@ -68,7 +84,7 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
             />
             <Icon
               {...iconPropsGenerator('user-more')}
-              onTouchEnd={handleOptions}
+              onTouchEnd={cancelOptions}
             />
           </UserProfile>
           <DetailImg src={postData.data.photo} />
