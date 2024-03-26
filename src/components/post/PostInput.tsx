@@ -6,7 +6,7 @@ import { useInput } from '@/hooks/useInput';
 import { useMutation } from '@tanstack/react-query';
 import { writeComment, replyComment } from '@/api/post';
 import { memo } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { replyState } from '@/atoms/atoms';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import useGetCacheData from '@/hooks/useGetCacheData';
@@ -24,6 +24,7 @@ const PostInput = memo(
   }) => {
     const { value, setValue, onChange } = useInput();
     const selectedReply = useRecoilValue(replyState);
+    const reset = useResetRecoilState(replyState);
     const queryClient = useQueryClient();
 
     const { data: signedIn } = useQuery({
@@ -49,6 +50,14 @@ const PostInput = memo(
               queryKey: ['commentData', postId]
             });
             setValue('');
+            reset();
+            if (inputRef && inputRef.current) {
+              console.log(
+                '🚀 ~ handleSubmitComment ~ inputRef.current:',
+                inputRef.current
+              );
+              inputRef?.current.blur();
+            }
           }
         });
     };
