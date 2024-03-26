@@ -71,7 +71,7 @@ export interface BrnadItemProps {
 export interface ButtonProps {
   value?: string;
   text: string;
-  onTouchEnd: TouchEventHandler<HTMLButtonElement>;
+  onTouchEnd?: TouchEventHandler<HTMLButtonElement>;
   className: string;
 }
 

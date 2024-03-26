@@ -747,3 +747,7 @@ export const Default = css`
   background: #ebebeb;
   text-align: center;
 `;
+
+export const PaddingTB60 = css`
+  padding: 60px 0;
+`;
