@@ -4,8 +4,10 @@ import { useQuery } from '@tanstack/react-query';
 import { getComments } from '@/api/post';
 import Comment from '@/components/post/Comment';
 import { styled } from 'styled-system/jsx';
-import { COMMENT_TEXTS } from '@/constants/texts';
+import { COMMENT_TEXTS, POST_TEXTS } from '@/constants/texts';
+import { PaddingTB60 } from '@/styles/styles';
 
+const CTA = React.lazy(() => import('../common/CTA'));
 const { count } = COMMENT_TEXTS;
 
 const PostComments = ({
@@ -41,7 +43,7 @@ const PostComments = ({
 
   return (
     <>
-      {commentData && (
+      {commentData && commentData.data.length !== 0 && (
         <Container>
           <Length>
             {commentCount}
@@ -49,6 +51,14 @@ const PostComments = ({
           </Length>
           {commentData.data.map(mapComment)}
         </Container>
+      )}
+      {commentData && commentData.data.length === 0 && (
+        <div className={PaddingTB60}>
+          <CTA
+            btn={false}
+            text={POST_TEXTS.noComments}
+          />
+        </div>
       )}
     </>
   );

@@ -5,12 +5,12 @@ import { css, cx } from 'styled-system/css';
 
 interface CTA {
   text: string;
-  actionText: string;
+  actionText?: string;
   btn?: boolean;
-  fn: () => void;
+  fn?: () => void;
 }
 
-const CTA = ({ text, actionText, btn = true, fn }: CTA) => {
+const CTA = ({ text, actionText = '', btn = true, fn }: CTA) => {
   return (
     <div className={cx(Container, Column, Center)}>
       <span className={Text}>{text}</span>

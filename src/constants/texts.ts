@@ -40,3 +40,7 @@ export const CTA_TEXTS = {
   `,
   trendAction: '등록하기'
 };
+
+export const POST_TEXTS = {
+  noComments: '아직 작성한 댓글이 없어요'
+};
