@@ -1,12 +1,13 @@
+import { useQuery } from '@tanstack/react-query';
 import Button from '@/components/common/Button';
 import CaffeineInfo from '@/components/home/CaffeineInfo';
 import CoffeeSelection from '@/components/home/CoffeeSelection';
 import { BUTTON_TEXTS } from '@/constants/common';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
+import useGetCacheData from '@/hooks/useGetCacheData';
 import { styled } from 'styled-system/jsx';
 import { RegistBtn } from '@/styles/styles';
-import { useQuery } from '@tanstack/react-query';
-import useGetCacheData from '@/hooks/useGetCacheData';
+import { css, cx } from 'styled-system/css';
 
 const CaffeineFilter = () => {
   const registPage = useNavigateTo('/post/register');
@@ -23,7 +24,7 @@ const CaffeineFilter = () => {
         <Button
           text={BUTTON_TEXTS.regist}
           onTouchEnd={registPage}
-          className={RegistBtn}
+          className={cx(RegistBtn, MarginBottom)}
         />
       )}
     </Container>
@@ -31,7 +32,10 @@ const CaffeineFilter = () => {
 };
 
 const Container = styled.div`
-  margin: 32px 0 32px;
+  margin: 32px 0 0;
+`;
+const MarginBottom = css`
+  margin-bottom: 32px;
 `;
 
 export default CaffeineFilter;
