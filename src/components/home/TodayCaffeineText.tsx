@@ -61,11 +61,12 @@ const TodayCaffeineText = () => {
           alt="coffee"
         />
       </div>
-      {allCount && allCount >= 1 ? (
-        <AlertBubble message={signedInMessage} />
-      ) : (
-        <AlertBubble message={anonymous.messageText} />
-      )}
+      <AlertBubble
+        type={allCount && allCount >= 1 ? '' : null}
+        message={
+          allCount && allCount >= 1 ? signedInMessage : anonymous.messageText
+        }
+      />
     </div>
   );
 };

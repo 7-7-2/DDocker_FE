@@ -29,7 +29,7 @@ const { anonymous, signedIn } = TODAY_CAFFEINE_INFO_TEXTS;
 
 const WaterPerCoffee = () => {
   const user = useRecoilValue(userInfoState);
-  const todayCoffeeData = user && useGetTodayCoffeeData();
+  const todayCoffeeData = useGetTodayCoffeeData();
 
   const anonymousCard = (
     <div className={cx(Column, Center, MarginAuto)}>
@@ -83,10 +83,10 @@ const WaterPerCoffee = () => {
         Between
       )}>
       {!user.nickname && anonymousCard}
-      {user.nickname && !todayCoffeeData && notConsumedCoffee}
+      {user.nickname && !todayCoffeeData?.allCount && notConsumedCoffee}
       {user.nickname &&
-        todayCoffeeData?.item &&
-        todayCoffeeData?.item.length >= 1 &&
+        todayCoffeeData?.allCount &&
+        todayCoffeeData?.allCount >= 1 &&
         consumedCoffee}
     </Container>
   );
