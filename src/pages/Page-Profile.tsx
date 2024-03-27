@@ -9,7 +9,7 @@ import { useTargetInfiniteScroll } from '@/hooks/useTargetInfiniteScroll';
 import { getProfilePostIQParam } from '@/hooks/useInfiniteScroll';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
-import { PROFILE_TEXTS } from '@/constants/Profile';
+import { PROFILE_TEXTS } from '@/constants/profile';
 
 import { Default, Semibold } from '@/styles/styles';
 import { Between, Column, Justify } from '@/styles/layout';
