@@ -30,7 +30,7 @@ export const getAccessToken = async (code: string | null, social: string) => {
 // UserInfo
 export const getUserInfo = async (userId: string | number) => {
   try {
-    const res = await authInstance.get(`/users/${userId}/userInfo`);
+    const res = await baseInstance.get(`/users/${userId}/userInfo`);
     if (userId === 0) {
       await useSetCacheData('user', '/userInfo', res.data);
       return;
@@ -67,7 +67,7 @@ export const getUserProfilePosts = async (
   nextPage: number
 ) => {
   try {
-    const res = await authInstance.get(`/users/${userId}/posts/${nextPage}`);
+    const res = await baseInstance.get(`/users/${userId}/posts/${nextPage}`);
     const resData = res.data;
     return { data: resData.data, next: resData.next };
   } catch (err) {
@@ -76,7 +76,7 @@ export const getUserProfilePosts = async (
   }
 };
 
-//  ProFlie Follow Counts
+//  Profile Follow Counts
 export const getUserFollowCounts = async (userId: string) => {
   try {
     const res = await authInstance.get(`/users/${userId}/follow`);
@@ -86,6 +86,7 @@ export const getUserFollowCounts = async (userId: string) => {
   }
 };
 
+//Profile edit
 export const editProfile = async (editInfo: {}) => {
   try {
     const data = editInfo;
