@@ -49,7 +49,7 @@ const FollowCount = ({ data }: FollowCountProps) => {
     { number: userFollowCount?.followed, label: '팔로워' }
   ];
 
-  const handleStatClick = (label: string) => {
+  const handleStatClick = (label: string) => () => {
     label === '게시물'
       ? null
       : (label === '팔로잉' || label === '팔로워') && navigate();
@@ -66,7 +66,7 @@ const FollowCount = ({ data }: FollowCountProps) => {
               Column,
               index === count.length - 1 ? 'lastStat' : ''
             )}
-            onTouchEnd={() => handleStatClick(item.label)}>
+            onTouchEnd={handleStatClick(item.label)}>
             <StatNumber className={RecentSearch}>{item.number}</StatNumber>
             <StatLabel className={SumType}>{item.label}</StatLabel>
           </Stat>
