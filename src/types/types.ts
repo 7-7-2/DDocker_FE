@@ -50,7 +50,10 @@ export interface SearchBarProps {
 }
 
 export interface FollowCountProps {
-  data: { userId: string | undefined; postCount: number | undefined };
+  data: {
+    userId: string | undefined;
+    postCount: number | undefined;
+  };
 }
 
 export interface LabelProps {
@@ -150,6 +153,7 @@ export interface CaffeineFilterTypes {
 
 export interface EditProfileImgProps {
   onImageSelect: (setProfileImg: File) => void;
+  imageUrl?: string;
 }
 
 export interface Comment {
