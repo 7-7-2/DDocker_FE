@@ -75,7 +75,7 @@ const PostRegister = () => {
 
   const updateData = async () => {
     await getTodayCoffeeInfo();
-    await getUserInfo(0);
+    await getUserInfo('0');
   };
 
   const clickRegisterBtn = async () => {
