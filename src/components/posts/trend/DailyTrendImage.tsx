@@ -1,7 +1,7 @@
 import Icon from '@/components/common/Icon';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { styled } from 'styled-system/jsx';
-import { useLikeOnPost } from '@/hooks/useLikeOnPost';
+import { useLikeOnPost } from '@/hooks/post/useLikeOnPost';
 
 const DailyTrendImage = ({
   src,

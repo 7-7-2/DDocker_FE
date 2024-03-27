@@ -3,7 +3,7 @@ import { Align, Between } from '@/styles/layout';
 import { RecentSearch, DeleteAllBtn } from '@/styles/styles';
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { useSetHistory } from '@/hooks/useSetHistory';
+import { useSetHistory } from '@/hooks/search/useSetHistory';
 
 const HistoryHeader = () => {
   const { reset } = useSetHistory();

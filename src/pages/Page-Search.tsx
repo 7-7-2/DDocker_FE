@@ -1,7 +1,7 @@
 import SearchBar from '@/components/search/SearchBar';
 import SearchListItem from '@/components/search/SearchListItem';
 import { useShowFooter } from '@/hooks/useShowFooter';
-import { useSearchInput } from '@/hooks/useSearchInput';
+import { useSearchInput } from '@/hooks/search/useSearchInput';
 import SearchHistory from '@/components/search/SearchHistory';
 
 const Search = () => {

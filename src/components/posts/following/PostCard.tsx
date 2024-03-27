@@ -9,7 +9,7 @@ import { cx } from 'styled-system/css';
 import { FollowingPost } from '@/types/types';
 import { useQuery } from '@tanstack/react-query';
 import { getSocialCounts } from '@/api/post';
-import { usePostOptions } from '@/hooks/usePostOptions';
+import { usePostOptions } from '@/hooks/post/usePostOptions';
 import PublicOption from '@/components/post/overlay/PublicOption';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import PostBody from '@/components/posts/following/PostBody';

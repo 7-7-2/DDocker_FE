@@ -5,7 +5,7 @@ import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { PostContainer, PostsContainer } from '@/styles/styles';
 import { Flex, Between } from '@/styles/layout';
 import { cx } from 'styled-system/css';
-import { useLikeOnPost } from '@/hooks/useLikeOnPost';
+import { useLikeOnPost } from '@/hooks/post/useLikeOnPost';
 
 const PostSocial = ({
   posts,

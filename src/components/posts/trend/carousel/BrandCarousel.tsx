@@ -3,7 +3,7 @@ import BrandPage from '@/components/posts/trend/carousel/BrandPage';
 import { Flex } from '@/styles/layout';
 import Bullets from '@/components/posts/trend/carousel/Bullets';
 import { BRANDS } from '@/constants/coffee';
-import { useCarousel } from '@/hooks/useCarousel';
+import { useCarousel } from '@/hooks/post/useCarousel';
 import { useRecoilState } from 'recoil';
 import { brandState } from '@/atoms/atoms';
 import { LeftCardSpacer } from '@/styles/styles';
