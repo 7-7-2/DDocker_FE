@@ -12,12 +12,12 @@ import { FooterTextMedium, FooterTextSelected } from '@/styles/styles';
 import { cx } from 'styled-system/css';
 
 const FooterIcon = ({ icon }: { icon: string }) => {
-  const [userId, setUserId] = useState();
+  const [userId, setUserId] = useState('');
   const [active, setActive] = useRecoilState(activeState);
 
   const getUserId = async () => {
     const data = await useGetCacheData('user', '/userInfo');
-    data && setUserId(data.cacheData.data.userId);
+    data ? setUserId(data.cacheData.data.userId) : setUserId('Non-members');
   };
 
   useEffect(() => {
