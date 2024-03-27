@@ -1,16 +1,14 @@
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import useGetCacheData from '@/hooks/useGetCacheData';
 import { TodayCoffeeInfoTypes } from '@/types/types';
 import { getTodayCoffeeInfo } from '@/api/post';
+import { useGetSignedIn } from '@/hooks/useGetSignedIn';
 
 function useGetTodayCoffeeData() {
   const [coffeeInfo, setCoffeeInfo] = useState<TodayCoffeeInfoTypes>();
-  const { data: signedIn } = useQuery({
-    queryKey: ['signedIn'],
-    queryFn: () => useGetCacheData('user', '/accessToken')
-  });
+  const { signedIn } = useGetSignedIn();
+
   const resetOnMidnight = () => {
     const currentTime = dayjs();
     const nextMidnight = dayjs().endOf('day').add(1, 'second');

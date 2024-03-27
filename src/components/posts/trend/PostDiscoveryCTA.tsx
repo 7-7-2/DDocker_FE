@@ -3,15 +3,11 @@ import CTA from '@/components/common/CTA';
 import { CTA_TEXTS } from '@/constants/texts';
 import { css, cx } from 'styled-system/css';
 import { Default } from '@/styles/styles';
-import { useQuery } from '@tanstack/react-query';
-import useGetCacheData from '@/hooks/useGetCacheData';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
+import { useGetSignedIn } from '@/hooks/useGetSignedIn';
 
 const PostDiscoveryCTA = () => {
-  const { data: signedIn } = useQuery({
-    queryKey: ['signedIn'],
-    queryFn: () => useGetCacheData('user', '/accessToken')
-  });
+  const { signedIn } = useGetSignedIn();
 
   const toRegister = useNavigateTo('/post/register');
   const toSignIn = useNavigateTo('/start/1');
