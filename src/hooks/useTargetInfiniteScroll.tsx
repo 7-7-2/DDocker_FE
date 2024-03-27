@@ -1,5 +1,8 @@
 import { useIntersection } from '@/hooks/useIntersection';
-import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
+import {
+  useBaseInfiniteScroll,
+  useInfiniteScroll
+} from '@/hooks/useInfiniteScroll';
 import { InfinitePosts } from '@/types/types';
 import { useQuery } from '@tanstack/react-query';
 import useGetCacheData from '@/hooks/useGetCacheData';
@@ -10,8 +13,9 @@ export const useTargetInfiniteScroll = (param: InfinitePosts) => {
     queryFn: () => useGetCacheData('user', '/accessToken')
   });
 
-  const { data, hasNextPage, isFetching, fetchNextPage, isLoading } =
-    useInfiniteScroll(param, signedIn);
+  const { data, hasNextPage, isFetching, fetchNextPage, isLoading } = signedIn
+    ? useInfiniteScroll(param, signedIn)
+    : useBaseInfiniteScroll(param);
 
   const ref = useIntersection((entry, observer) => {
     observer.unobserve(entry.target);
