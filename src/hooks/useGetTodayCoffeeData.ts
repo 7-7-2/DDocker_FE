@@ -11,7 +11,7 @@ function useGetTodayCoffeeData() {
     queryKey: ['signedIn'],
     queryFn: () => useGetCacheData('user', '/accessToken')
   });
-  function resetOnMidnight() {
+  const resetOnMidnight = () => {
     const currentTime = dayjs();
     const nextMidnight = dayjs().endOf('day').add(1, 'second');
     const delay = nextMidnight.diff(currentTime);
@@ -20,13 +20,12 @@ function useGetTodayCoffeeData() {
       const cacheStorage = await caches.open(cacheName);
       await cacheStorage.delete(url);
     };
-
     setTimeout(() => {
       resetOnMidnight();
       deleteCachedData('user', '/coffee');
       deleteCachedData('user', '/water');
     }, delay);
-  }
+  };
   const getDataList = async () => {
     const data = await useGetCacheData('user', '/coffee');
     data && setCoffeeInfo(data.cacheData);
