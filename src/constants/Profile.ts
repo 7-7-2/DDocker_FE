@@ -1,21 +1,7 @@
-export const userNickName = {
-    loginName: '커피좋아',
-    loginName1: '커피커피마셔'
-}
-
-export const userName = {
-    user1: '신개굴'
-}
-
-export const userEmail = {
-    eMail: 'sjdjfjfk@gmail.com'
-}
-
-export const addedCoffee = {
-    cafein: 26730,
-    cafein1: 34054
-}
-
-export const brand = {
-    brand1: '바나프레소'
-}
+export const PROFILE_TEXTS = {
+  anonymous: {
+    title: '게스트 모드입니다.',
+    text: '로그인하면 나의 피드를 확인 할 수 있어요. 오늘 마신 커피를 기록하고 관리해보세요.',
+    actionText: '로그인'
+  }
+};
