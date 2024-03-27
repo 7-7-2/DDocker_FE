@@ -1,4 +1,4 @@
-import { useDebounce } from '@/hooks/useDebounce';
+import { useDebounce } from '@/hooks/search/useDebounce';
 import { useState, useEffect } from 'react';
 import { getSearchUser } from '@/api/search';
 import { SimplifyUser } from '@/types/types';
