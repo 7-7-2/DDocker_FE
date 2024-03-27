@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import { useQuery } from '@tanstack/react-query';
 
 import Button from '@/components/common/Button';
-import { FollowCountProps, UserFollowCountsTypes } from '@/types/types';
+import { FollowCountProps } from '@/types/types';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
+import useGetFollowCount from '@/hooks/useGetFollowCount';
+import useGetCheckFollowing from '@/hooks/useGetCheckFollowing';
 import useGetCacheData from '@/hooks/useGetCacheData';
 import { BUTTON_TEXTS } from '@/constants/common';
-import { getUserFollowCounts } from '@/api/user';
-import { checkFollowing, followUser, unfollowUser } from '@/api/follow';
+import { followUser, unfollowUser } from '@/api/follow';
+import { userInfoState } from '@/atoms/atoms';
 
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
@@ -20,12 +23,10 @@ import {
   RecentSearch,
   SumType
 } from '@/styles/styles';
-import useGetFollowCount from '@/hooks/useGetFollowCount';
-import useGetCheckFollowing from '@/hooks/useGetCheckFollowing';
 
 const { following, follow1 } = BUTTON_TEXTS;
 const FollowCount = ({ data }: FollowCountProps) => {
-  const navigate = useNavigateTo('/FOLLOW');
+  const navigate = useNavigateTo(`/follow/${data.userId}`);
   const { userId: ProfileId, postCount } = data;
   const { isFollowing, getCheckFollowing } = useGetCheckFollowing(ProfileId);
   const { userFollowCount } = useGetFollowCount(ProfileId, isFollowing);
@@ -34,7 +35,6 @@ const FollowCount = ({ data }: FollowCountProps) => {
     queryKey: ['userInfo'],
     queryFn: () => useGetCacheData('user', '/userInfo')
   });
-
   const userId = userInfo && userInfo.cacheData.data.userId;
 
   const handleFollowBtn = async () => {
