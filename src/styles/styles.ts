@@ -305,10 +305,6 @@ export const LineH18 = css`
   line-height: 18px;
 `;
 
-export const TextBlack = css`
-  color: #313131;
-`;
-
 export const TextGray = css`
   color: var(--colors-mid-grey);
 `;
@@ -548,24 +544,6 @@ export const HeaderText = cx(
   `
 );
 
-export const ProfileTitle = cx(
-  Semibold,
-  css`
-    color: #313131;
-    font-size: var(--font-sizes-sm);
-    line-height: 18px;
-  `
-);
-
-export const ProfileInfo = cx(
-  Regular,
-  css`
-    color: var(--colors-mid-grey);
-    font-size: var(--font-sizes-xs);
-    line-height: 18px;
-  `
-);
-
 export const HomeContent = cx(
   Semibold,
   css`
@@ -655,23 +633,6 @@ export const AlertMessage = cx(
   `
 );
 
-export const CommnetUser = cx(
-  Semibold,
-  css`
-    color: #313131;
-    font-size: var(--font-sizes-sm);
-    line-height: 22px;
-  `
-);
-
-export const CommentLength = cx(
-  Regular,
-  css`
-    color: var(--colors-mid-grey);
-    font-size: var(--font-sizes-sm);
-    line-height: 22px;
-  `
-);
 export const ColorMain = css`
   font-weight: 500;
   color: var(--colors-main);
@@ -706,6 +667,7 @@ export const PaddingL4 = css`
 export const PaddingR8 = css`
   padding-right: 8px;
 `;
+
 export const Gap6 = css`
   gap: 6px;
 `;
