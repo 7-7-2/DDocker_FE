@@ -8,6 +8,7 @@ import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { HomeHeaderContent } from '@/styles/styles';
 import { Align, Between, Column } from '@/styles/layout';
+import { TodayCoffeeInfoTypes } from '@/types/types';
 
 const { anonymous, signedIn } = TODAY_CAFFEINE_INFO_TEXTS;
 
@@ -15,7 +16,7 @@ const TodayCaffeineText = () => {
   const takedWater = useRecoilValue(takedWaterState);
   const userInfo = useRecoilValue(authState);
   const user = useRecoilValue(userInfoState);
-  const todayCoffeeData = useGetTodayCoffeeData();
+  const todayCoffeeData = user && useGetTodayCoffeeData();
   const allCount = todayCoffeeData?.allCount;
 
   const anonymousText = !user?.nickname && (
@@ -64,10 +65,7 @@ const TodayCaffeineText = () => {
       {allCount && allCount >= 1 ? (
         <AlertBubble message={signedInMessage} />
       ) : (
-        <AlertBubble
-          type={null}
-          message={anonymous.messageText}
-        />
+        <AlertBubble message={anonymous.messageText} />
       )}
     </div>
   );

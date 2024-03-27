@@ -6,7 +6,7 @@ import { Align } from '@/styles/layout';
 import { InputFontSm } from '@/styles/styles';
 
 const AlertBubble = ({
-  type,
+  type = null,
   message
 }: {
   type?: string | null;
