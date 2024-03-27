@@ -13,7 +13,8 @@ const LazyRoutes = ROUTES.map(route => {
     Home: { index: true, path: '' },
     Start: { index: false, path: 'start/:id' },
     Post: { index: false, path: 'post/:postid' },
-    Profile: { index: false, path: 'profile/:userId' }
+    Profile: { index: false, path: 'profile/:userId' },
+    Follow: { index: false, path: 'follow/:userId' }
   };
 
   const { index, path } = routeConfig[route] || {
