@@ -16,7 +16,7 @@ import AlertBubble from '@/components/common/AlertBubble';
 import TrendBubbleText from '@/components/posts/trend/TrendBubbleText';
 import { Between, Flex } from '@/styles/layout';
 import PostsSortBy from '@/components/posts/trend/PostsSortBy';
-import { useToggle } from '@/hooks/useToggle';
+import { useToggle } from '@/hooks/post/useToggle';
 import { useId } from 'react';
 
 const PostsBrandPopular = () => {

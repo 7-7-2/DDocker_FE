@@ -1,4 +1,4 @@
-import { useToggle } from '@/hooks/useToggle';
+import { useToggle } from '@/hooks/post/useToggle';
 import CommentProto from '@/components/post/CommentProto';
 import CheckReply from '@/components/post/CheckReply';
 import Replies from '@/components/post/Replies';

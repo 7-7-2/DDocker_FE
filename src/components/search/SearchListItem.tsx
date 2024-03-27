@@ -4,7 +4,7 @@ import { Align, Between } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 import { useNavigate } from 'react-router-dom';
-import { useSetHistory } from '@/hooks/useSetHistory';
+import { useSetHistory } from '@/hooks/search/useSetHistory';
 import { memo } from 'react';
 
 interface SearchList {

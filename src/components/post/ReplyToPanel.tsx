@@ -7,7 +7,7 @@ import { cx } from 'styled-system/css';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import Icon from '@/components/common/Icon';
 import { COMMENT_TEXTS } from '@/constants/texts';
-import { useRefIntoView } from '@/hooks/useRefIntoView';
+import { useRefIntoView } from '@/hooks/post/useRefIntoView';
 
 const { at, onReply } = COMMENT_TEXTS;
 

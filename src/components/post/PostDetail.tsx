@@ -19,8 +19,8 @@ import PublicOption from '@/components/post/overlay/PublicOption';
 import PostInput from '@/components/post/PostInput';
 import { useRef } from 'react';
 import { InputContext } from '@/context/inputContext';
-import { usePostOptions } from '@/hooks/usePostOptions';
-import { useVerifyOwner } from '@/hooks/useVerifyOwner';
+import { usePostOptions } from '@/hooks/post/usePostOptions';
+import { useVerifyOwner } from '@/hooks/post/useVerifyOwner';
 import React from 'react';
 
 const ConfirmDelete = React.lazy(() => import('./overlay/ConfirmDelete'));

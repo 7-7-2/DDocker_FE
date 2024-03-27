@@ -1,5 +1,5 @@
 import { footerShowState } from '@/atoms/atoms';
-import { useToggle } from '@/hooks/useToggle';
+import { useToggle } from '@/hooks/post/useToggle';
 import { useRecoilState } from 'recoil';
 
 export const usePostOptions = () => {

@@ -7,7 +7,7 @@ import { Align, Between, Flex } from '@/styles/layout';
 import { cx } from 'styled-system/css';
 import Icon from '@/components/common/Icon';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import { useSetHistory } from '@/hooks/useSetHistory';
+import { useSetHistory } from '@/hooks/search/useSetHistory';
 import { SimplifyUser } from '@/types/types';
 
 const HistoryList = () => {
