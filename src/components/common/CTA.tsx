@@ -1,7 +1,10 @@
+import { footerShowState } from '@/atoms/atoms';
 import Button from '@/components/common/Button';
 import { Center, Column } from '@/styles/layout';
-import { LoginBtn, Medium } from '@/styles/styles';
+import { LoginBtn } from '@/styles/styles';
+import { useSetRecoilState } from 'recoil';
 import { css, cx } from 'styled-system/css';
+import { CTA_TEXTS } from '@/constants/texts';
 
 interface CTA {
   text: string;
@@ -11,6 +14,12 @@ interface CTA {
 }
 
 const CTA = ({ text, actionText = '', btn = true, fn }: CTA) => {
+  const setFooterState = useSetRecoilState(footerShowState);
+
+  const handleActions = () => {
+    actionText !== CTA_TEXTS.followDiscoveryAction && setFooterState(false);
+    fn && fn();
+  };
   return (
     <div className={cx(Container, Column, Center)}>
       <span className={Text}>{text}</span>
@@ -18,7 +27,7 @@ const CTA = ({ text, actionText = '', btn = true, fn }: CTA) => {
         <Button
           className={cx(LoginBtn, BTN)}
           text={actionText}
-          onTouchEnd={fn}
+          onTouchEnd={handleActions}
         />
       )}
     </div>

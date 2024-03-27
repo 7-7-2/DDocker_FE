@@ -1,14 +1,10 @@
 import MyCoffeeSum from '@/components/coffee/MyCoffeeSum';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
-import useGetCacheData from '@/hooks/useGetCacheData';
-import { useQuery } from '@tanstack/react-query';
+import { useGetSignedIn } from '@/hooks/useGetSignedIn';
 
 const Coffee = () => {
   useComposeHeader(true, '', 'icons');
-  const { data: signedIn } = useQuery({
-    queryKey: ['signedIn'],
-    queryFn: () => useGetCacheData('user', '/accessToken')
-  });
+  const { signedIn } = useGetSignedIn();
 
   return (
     <>

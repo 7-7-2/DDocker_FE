@@ -1,20 +1,16 @@
-import { useQuery } from '@tanstack/react-query';
 import Button from '@/components/common/Button';
 import CaffeineInfo from '@/components/home/CaffeineInfo';
 import CoffeeSelection from '@/components/home/CoffeeSelection';
 import { BUTTON_TEXTS } from '@/constants/common';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
-import useGetCacheData from '@/hooks/useGetCacheData';
 import { styled } from 'styled-system/jsx';
 import { RegistBtn } from '@/styles/styles';
 import { css, cx } from 'styled-system/css';
+import { useGetSignedIn } from '@/hooks/useGetSignedIn';
 
 const CaffeineFilter = () => {
   const registPage = useNavigateTo('/post/register');
-  const { data: signedIn } = useQuery({
-    queryKey: ['signedIn'],
-    queryFn: () => useGetCacheData('user', '/accessToken')
-  });
+  const { signedIn } = useGetSignedIn();
 
   return (
     <Container>

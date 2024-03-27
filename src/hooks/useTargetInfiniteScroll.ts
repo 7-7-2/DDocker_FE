@@ -4,14 +4,10 @@ import {
   useInfiniteScroll
 } from '@/hooks/useInfiniteScroll';
 import { InfinitePosts } from '@/types/types';
-import { useQuery } from '@tanstack/react-query';
-import useGetCacheData from '@/hooks/useGetCacheData';
+import { useGetSignedIn } from '@/hooks/useGetSignedIn';
 
 export const useTargetInfiniteScroll = (param: InfinitePosts) => {
-  const { data: signedIn } = useQuery({
-    queryKey: ['signedIn'],
-    queryFn: () => useGetCacheData('user', '/accessToken')
-  });
+  const { signedIn } = useGetSignedIn();
 
   const { data, hasNextPage, isFetching, fetchNextPage, isLoading } = signedIn
     ? useInfiniteScroll(param, signedIn)

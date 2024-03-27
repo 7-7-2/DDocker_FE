@@ -1,13 +1,10 @@
 import { getMyLikeOnPost, undoLikePost, likePost } from '@/api/likes';
-import useGetCacheData from '@/hooks/useGetCacheData';
+import { useGetSignedIn } from '@/hooks/useGetSignedIn';
 import { useQueryClient, useQuery, useMutation } from '@tanstack/react-query';
 
 export const useLikeOnPost = (postId: string | undefined) => {
   const queryClient = useQueryClient();
-  const { data: signedIn } = useQuery({
-    queryKey: ['signedIn'],
-    queryFn: () => useGetCacheData('user', '/accessToken')
-  });
+  const { signedIn } = useGetSignedIn();
 
   const { data: myLike } = useQuery({
     queryKey: ['myLike', postId],
