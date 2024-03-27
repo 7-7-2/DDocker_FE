@@ -8,7 +8,6 @@ import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { HomeHeaderContent } from '@/styles/styles';
 import { Align, Between, Column } from '@/styles/layout';
-import { TodayCoffeeInfoTypes } from '@/types/types';
 
 const { anonymous, signedIn } = TODAY_CAFFEINE_INFO_TEXTS;
 
