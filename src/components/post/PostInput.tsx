@@ -8,8 +8,8 @@ import { writeComment, replyComment } from '@/api/post';
 import { memo } from 'react';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { replyState } from '@/atoms/atoms';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import useGetCacheData from '@/hooks/useGetCacheData';
+import { useQueryClient } from '@tanstack/react-query';
+import { useGetSignedIn } from '@/hooks/useGetSignedIn';
 
 const { type } = INPUT_TEXTS;
 const { comment } = type;
@@ -27,10 +27,7 @@ const PostInput = memo(
     const reset = useResetRecoilState(replyState);
     const queryClient = useQueryClient();
 
-    const { data: signedIn } = useQuery({
-      queryKey: ['signedIn'],
-      queryFn: () => useGetCacheData('user', '/accessToken')
-    });
+    const { signedIn } = useGetSignedIn();
 
     const commentTo =
       selectedReply && selectedReply.id === 0 ? postId : selectedReply.id;
@@ -52,10 +49,6 @@ const PostInput = memo(
             setValue('');
             reset();
             if (inputRef && inputRef.current) {
-              console.log(
-                '🚀 ~ handleSubmitComment ~ inputRef.current:',
-                inputRef.current
-              );
               inputRef?.current.blur();
             }
           }
