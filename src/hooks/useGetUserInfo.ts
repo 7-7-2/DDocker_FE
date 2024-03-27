@@ -11,8 +11,10 @@ function useGetUserInfo(userId?: string | number | undefined) {
 
   const setUserInfo = async () => {
     const data = await useGetCacheData('user', '/userInfo');
-
-    if (userId && data.cacheData.data.userId !== userId) {
+    if (
+      ((data && data.cacheData.data.userId !== userId) || data === null) &&
+      userId
+    ) {
       const res = await getUserInfo(userId);
       setCachedUser(res.data);
       return;
