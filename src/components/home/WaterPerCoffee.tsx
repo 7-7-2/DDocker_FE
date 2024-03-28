@@ -6,7 +6,7 @@ import WaterIntake from '@/components/home/WaterIntake';
 import { BUTTON_TEXTS } from '@/constants/common';
 import { TODAY_CAFFEINE_INFO_TEXTS } from '@/constants/home';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
-import useGetTodayCoffeeData from '@/hooks/useGetTodayCoffeeData';
+import useGetTodayCoffeeData from '@/hooks/home/useGetTodayCoffeeData';
 import { userInfoState } from '@/atoms/atoms';
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
