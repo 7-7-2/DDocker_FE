@@ -24,6 +24,7 @@ import {
   AlertMessage,
   Default
 } from '@/styles/styles';
+import CTA from '@/components/common/CTA';
 
 const { anonymous, signedIn } = TODAY_CAFFEINE_INFO_TEXTS;
 
@@ -33,13 +34,11 @@ const WaterPerCoffee = () => {
 
   const anonymousCard = (
     <div className={cx(Column, Center, MarginAuto)}>
-      <span className={AlertMessage}>
-        {anonymous.card.first} <br /> {anonymous.card.second}
-      </span>
-      <Button
-        text={BUTTON_TEXTS.signin}
-        onTouchEnd={useNavigateTo('/start/1')}
-        className={cx(LoginBtn, MarginTop)}
+      <CTA
+        text={anonymous.card}
+        actionText={BUTTON_TEXTS.signin}
+        btn={true}
+        fn={useNavigateTo('/start/1')}
       />
     </div>
   );
@@ -76,7 +75,7 @@ const WaterPerCoffee = () => {
   return (
     <Container
       className={cx(
-        todayCoffeeData?.item && todayCoffeeData?.item.length >= 1
+        todayCoffeeData?.allCount && todayCoffeeData?.allCount >= 1
           ? CosumedCoffee
           : Default,
         Align,
