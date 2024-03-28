@@ -2,7 +2,7 @@ import { useRecoilValue } from 'recoil';
 import AlertBubble from '@/components/common/AlertBubble';
 import { TODAY_CAFFEINE_INFO_TEXTS } from '@/constants/home';
 import { authState, takedWaterState, userInfoState } from '@/atoms/atoms';
-import useGetTodayCoffeeData from '@/hooks/useGetTodayCoffeeData';
+import useGetTodayCoffeeData from '@/hooks/home/useGetTodayCoffeeData';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
