@@ -1,5 +1,5 @@
 import WeeklyPopularItem from '@/components/home/WeeklyPopularItem';
-import { useGetPopularList } from '@/hooks/useGetPopularList';
+import { useGetPopularList } from '@/hooks/home/useGetPopularList';
 import { TODAY_CAFFEINE_INFO_TEXTS } from '@/constants/home';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
