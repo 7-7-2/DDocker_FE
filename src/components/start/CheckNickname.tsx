@@ -6,7 +6,7 @@ import { Label } from '@/components/common/Label';
 import { INPUT_TEXTS } from '@/constants/common';
 import { LABEL_TEXTS } from '@/constants/common';
 import { useInput } from '@/hooks/useInput';
-import useValidateNickname from '@/hooks/useValidateNickname';
+import useValidateNickname from '@/hooks/start/useValidateNickname';
 
 const { nickname } = INPUT_TEXTS.type;
 const { message } = LABEL_TEXTS.nickname;
