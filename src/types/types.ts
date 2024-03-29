@@ -197,7 +197,17 @@ export interface InfinitePosts {
   queryKey: string[];
   queryFn: ({ pageParam }: { pageParam: number }) => Promise<Fetched>;
   initialPageParam: number;
-  getNextPageParam: (lastPage: Fetched) => number | undefined;
+  getNextPageParam: (
+    lastPage: Fetched | FetchedFollowing
+  ) => number | undefined;
+}
+export interface InfiniteFollowList {
+  queryKey: string[];
+  queryFn: ({ pageParam }: { pageParam: number }) => Promise<FetchedFollowing>;
+  initialPageParam: number;
+  getNextPageParam: (
+    lastPage: Fetched | FetchedFollowing
+  ) => number | undefined;
 }
 
 export interface CommentInput {
@@ -226,4 +236,14 @@ export interface DailyTrendCardProps {
   shot: number;
   caffeine: number;
   postId: string;
+}
+
+export interface FetchedFollowing {
+  data: SimplifyUser[];
+  next: number | undefined;
+}
+
+export interface FetchedPosts {
+  data: FollowingPost[];
+  next: number | undefined;
 }
