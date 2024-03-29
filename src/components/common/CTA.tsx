@@ -15,15 +15,15 @@ interface CTA {
 
 const CTA = ({ text, actionText = '', btn = true, fn }: CTA) => {
   const setFooterState = useSetRecoilState(footerShowState);
-
   const handleActions = () => {
     actionText !== CTA_TEXTS.followDiscoveryAction && setFooterState(false);
     fn && fn();
   };
+
   return (
     <div className={cx(Container, Column, Center)}>
       <span className={Text}>{text}</span>
-      {btn && (
+      {btn && actionText && (
         <Button
           className={cx(LoginBtn, BTN)}
           text={actionText}

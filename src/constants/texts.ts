@@ -44,7 +44,9 @@ export const CTA_TEXTS = {
   유저를 팔로우하고 피드를 확인해보세요.`,
   followDiscoveryAction: '검색하기',
   signIn: '로그인 후 피드를 확인해보세요.',
-  signInAction: '로그인하기'
+  signInAction: '로그인하기',
+  emptyFollowing: '아직 팔로우한 사람이 없어요. ',
+  emptyFollower: '아직 팔로워가 없어요.'
 };
 
 export const POST_TEXTS = {
