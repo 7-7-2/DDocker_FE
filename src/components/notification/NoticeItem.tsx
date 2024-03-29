@@ -6,7 +6,12 @@ import { NOTICE_TEXTS } from '@/constants/notification';
 import { BUTTON_TEXTS } from '@/constants/common';
 import { styled } from 'styled-system/jsx';
 import { Align } from '@/styles/layout';
-import { css, cx } from 'styled-system/css';
+import { cx } from 'styled-system/css';
+import {
+  FollowBtnCommon,
+  FollowingBtnStyle,
+  FollowBtnStyle
+} from '@/styles/styles';
 
 const { following, follow2 } = BUTTON_TEXTS;
 
@@ -45,23 +50,5 @@ const Container = styled.div`
 `;
 
 const Right = styled.div``;
-
-const FollowBtnCommon = css`
-  width: 80px;
-  height: 30px;
-  border-radius: 6px;
-  font-size: var(--font-sizes-xs);
-  font-weight: 500;
-  line-height: 20px;
-`;
-
-const FollowBtnStyle = css`
-  background-color: var(--colors-main);
-  color: #fff;
-`;
-
-const FollowingBtnStyle = css`
-  background-color: var(--colors-tertiary);
-`;
 
 export default NoticeItem;
