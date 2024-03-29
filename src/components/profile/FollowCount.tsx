@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-import { useRecoilValue } from 'recoil';
 import { useQuery } from '@tanstack/react-query';
 
 import Button from '@/components/common/Button';
@@ -10,8 +8,7 @@ import useGetCheckFollowing from '@/hooks/profile/useGetCheckFollowing';
 import useGetCacheData from '@/hooks/useGetCacheData';
 import { BUTTON_TEXTS } from '@/constants/common';
 import { followUser, unfollowUser } from '@/api/follow';
-import { userInfoState } from '@/atoms/atoms';
-
+import { useNavigate } from 'react-router-dom';
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Center, Column, Flex } from '@/styles/layout';
@@ -23,19 +20,19 @@ import {
   RecentSearch,
   SumType
 } from '@/styles/styles';
+import { useGetSignedIn } from '@/hooks/useGetSignedIn';
+import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 
 const { following, follow1 } = BUTTON_TEXTS;
 const FollowCount = ({ data }: FollowCountProps) => {
-  const navigate = useNavigateTo(`/follow/${data.userId}`);
+  const { signedIn } = useGetSignedIn();
+
+  const navigate = useNavigate();
   const { userId: ProfileId, postCount } = data;
   const { isFollowing, getCheckFollowing } = useGetCheckFollowing(ProfileId);
   const { userFollowCount } = useGetFollowCount(ProfileId, isFollowing);
 
-  const { data: userInfo } = useQuery({
-    queryKey: ['userInfo'],
-    queryFn: () => useGetCacheData('user', '/userInfo')
-  });
-  const userId = userInfo && userInfo.cacheData.data.userId;
+  const { userId } = useCachedUserInfo();
 
   const handleFollowBtn = async () => {
     !isFollowing && ProfileId && (await followUser(ProfileId));
@@ -52,7 +49,8 @@ const FollowCount = ({ data }: FollowCountProps) => {
   const handleStatClick = (label: string) => () => {
     label === '게시물'
       ? null
-      : (label === '팔로잉' || label === '팔로워') && navigate();
+      : (label === '팔로잉' || label === '팔로워') &&
+        navigate(`/follow/${data.userId}`, { state: label });
   };
 
   return (
@@ -66,7 +64,7 @@ const FollowCount = ({ data }: FollowCountProps) => {
               Column,
               index === count.length - 1 ? 'lastStat' : ''
             )}
-            onTouchEnd={handleStatClick(item.label)}>
+            onTouchEnd={signedIn && handleStatClick(item.label)}>
             <StatNumber className={RecentSearch}>{item.number}</StatNumber>
             <StatLabel className={SumType}>{item.label}</StatLabel>
           </Stat>
