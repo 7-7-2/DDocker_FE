@@ -1,6 +1,6 @@
 import { authInstance, baseInstance } from '@/api/axiosInterceptor';
 import useSetCacheData from '@/hooks/useSetCacheData';
-import { RegisterPostTypes, CommentInput } from '@/types/types';
+import { RegisterPostTypes, CommentInput, Fetched } from '@/types/types';
 
 interface PostForm {}
 
@@ -110,7 +110,7 @@ export const getFollowingPosts = async ({
   return {
     data: data.data.results,
     next: data.data.next
-  };
+  } as Fetched;
 };
 
 //12. 게시글 상세 내부 좋아요 및 댓글 개수 확인
