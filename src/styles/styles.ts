@@ -222,18 +222,12 @@ export const PaddingB20 = css`
   padding-bottom: 20px;
 `;
 
-export const PaddingTBMix = cx(PaddingT12, PaddingB20);
-
 export const MarginT12 = css`
   margin-top: 12px;
 `;
 
 export const MarginT16 = css`
   margin-top: 16px;
-`;
-
-export const MarginT17 = css`
-  margin-top: 17px;
 `;
 
 export const MarginT28 = css`
@@ -305,10 +299,6 @@ export const LineH18 = css`
   line-height: 18px;
 `;
 
-export const TextGray = css`
-  color: var(--colors-mid-grey);
-`;
-
 export const Border16 = css`
   border-radius: 16px;
 `;
@@ -337,6 +327,7 @@ export const ButtonArea = cx(
 );
 
 export const ToggleButton = css`
+  color: var(--colors-subtext);
   width: 100%;
   height: 40px;
   cursor: pointer;
@@ -369,7 +360,7 @@ export const ToggleLeft = css`
     }
   }
   &::after {
-    border-bottom: 1px solid var(--colors-mid-grey);
+    border-bottom: 1px solid var(--colors-btn-grey);
     left: -20px;
   }
 `;
@@ -381,7 +372,7 @@ export const ToggleRight = css`
     }
   }
   &::after {
-    border-bottom: 1px solid var(--colors-mid-grey);
+    border-bottom: 1px solid var(--colors-btn-grey);
     right: -20px;
   }
 `;
@@ -413,15 +404,6 @@ export const DeleteAllBtn = cx(
   css`
     font-size: var(--font-sizes-xs);
     color: var(--colors-mid-grey);
-    line-height: 20px;
-  `
-);
-
-export const DelBtn = cx(
-  Medium,
-  css`
-    color: #313131;
-    font-size: var(--font-sizes-xs);
     line-height: 20px;
   `
 );
@@ -725,4 +707,22 @@ export const PaddingTB60 = css`
 
 export const CTAContainer = css`
   margin-top: calc(50dvh - 136px + env(safe-area-inset-bottom));
+`;
+
+export const FollowBtnCommon = css`
+  width: 80px;
+  height: 30px;
+  border-radius: 6px;
+  font-size: var(--font-sizes-xs);
+  font-weight: 500;
+  line-height: 20px;
+`;
+
+export const FollowBtnStyle = css`
+  background-color: var(--colors-main);
+  color: #fff;
+`;
+
+export const FollowingBtnStyle = css`
+  background-color: var(--colors-tertiary);
 `;

@@ -1,6 +1,13 @@
 import { getFollowingPosts } from '@/api/post';
+import { getFollowerList, getFollowingList } from '@/api/follow';
 import { getUserProfilePosts } from '@/api/user';
-import { Fetched, InfinitePosts } from '@/types/types';
+import {
+  Fetched,
+  FetchedFollowing,
+  FollowingPost,
+  InfiniteFollowList,
+  InfinitePosts
+} from '@/types/types';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 
@@ -14,7 +21,43 @@ export const FollowingPostIQParam = {
   }
 };
 
-export const getProfilePostIQParam = () => {
+export const FollowingListIQParam = () => {
+  const { userId } = useParams();
+  return {
+    queryKey: ['followingList', userId as string],
+    queryFn: ({ pageParam }: { pageParam: number }) => {
+      return getFollowingList(
+        userId as string,
+        pageParam
+      ) as Promise<FetchedFollowing>;
+    },
+    initialPageParam: 1,
+    getNextPageParam: (lastPage: FetchedFollowing) => {
+      if (!lastPage.next) return undefined;
+      return lastPage.next;
+    }
+  };
+};
+
+export const FollowerListIQParam = () => {
+  const { userId } = useParams();
+  return {
+    queryKey: ['followerList', userId as string],
+    queryFn: ({ pageParam }: { pageParam: number }) => {
+      return getFollowerList(
+        userId as string,
+        pageParam
+      ) as Promise<FetchedFollowing>;
+    },
+    initialPageParam: 1,
+    getNextPageParam: (lastPage: FetchedFollowing) => {
+      if (!lastPage.next) return undefined;
+      return lastPage.next;
+    }
+  };
+};
+
+export const getProfilePostIQParam = (): InfinitePosts => {
   const { userId } = useParams();
   return {
     queryKey: ['ProFilePosts', userId as string],
@@ -22,14 +65,17 @@ export const getProfilePostIQParam = () => {
       return getUserProfilePosts(userId, pageParam) as Promise<Fetched>;
     },
     initialPageParam: 0,
-    getNextPageParam: (lastPage: Fetched) => {
+    getNextPageParam: (lastPage: Fetched | FetchedFollowing) => {
       if (!lastPage.next) return undefined;
       return lastPage.next;
     }
   };
 };
 
-export const useInfiniteScroll = (param: InfinitePosts, enabled: string) => {
+export const useInfiniteScroll = (
+  param: InfinitePosts | InfiniteFollowList,
+  enabled: string
+) => {
   const { data, hasNextPage, isFetching, fetchNextPage, isLoading } =
     useInfiniteQuery({
       queryKey: param.queryKey,
@@ -40,7 +86,13 @@ export const useInfiniteScroll = (param: InfinitePosts, enabled: string) => {
     });
 
   const pages = data?.pages.map(i => i.data).flat(2);
-  return { data: pages, hasNextPage, isFetching, fetchNextPage, isLoading };
+  return {
+    data: pages as FollowingPost[],
+    hasNextPage,
+    isFetching,
+    fetchNextPage,
+    isLoading
+  };
 };
 
 export const useBaseInfiniteScroll = (param: InfinitePosts) => {

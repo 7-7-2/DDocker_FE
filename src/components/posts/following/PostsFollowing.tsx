@@ -1,7 +1,7 @@
 import PostCard from '@/components/posts/following/PostCard';
 import { FollowingPostIQParam } from '@/hooks/useInfiniteScroll';
 import { useTargetInfiniteScroll } from '@/hooks/useTargetInfiniteScroll';
-import { FollowingPost } from '@/types/types';
+import { FollowingPost, InfinitePosts, SimplifyUser } from '@/types/types';
 import React, { useId } from 'react';
 import { styled } from 'styled-system/jsx';
 
@@ -9,9 +9,11 @@ const FollowDiscoveryCTA = React.lazy(() => import('./FollowDiscoveryCTA'));
 const SignInCTA = React.lazy(() => import('./SignInCTA'));
 
 const PostsFollowing = () => {
-  const { data: postsData, ref } =
-    useTargetInfiniteScroll(FollowingPostIQParam);
+  const { data: postsData, ref } = useTargetInfiniteScroll(
+    FollowingPostIQParam as InfinitePosts
+  );
   const id = useId();
+
   const mapPosts = (post: FollowingPost, idx: number) => {
     return (
       <React.Fragment key={id + idx}>
