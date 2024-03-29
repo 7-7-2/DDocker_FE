@@ -22,18 +22,14 @@ import {
   HomeRegistContainer
 } from '@/styles/styles';
 import { FlexCenter, Justify } from '@/styles/layout';
+import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 
 const MyProfile = () => {
   useComposeHeader(false, '프로필 수정', 'close');
   const { nickname: editNickname } = useRecoilValue(authState);
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
 
-  const { data: userData } = useQuery({
-    queryKey: ['userInfo'],
-    queryFn: () => useGetCacheData('user', '/userInfo')
-  });
-
-  const userInfo: AuthTypes = userData && userData.cacheData.data;
+  const { userData } = useCachedUserInfo();
 
   const handleExitedUser = () => {
     // 추후 진행하겠습니다...
@@ -53,7 +49,7 @@ const MyProfile = () => {
   const handleEditProfileData = async () => {
     const editData: {}[] = [];
 
-    userInfo.aboutMe !== inputRef.current?.value &&
+    userData.aboutMe !== inputRef.current?.value &&
       editData.push({ aboutMe: inputRef.current?.value });
     editNickname && editData.push({ nickname: editNickname });
     editImgUrl && editData.push({ proFileUrl: editImgUrl });
@@ -72,12 +68,12 @@ const MyProfile = () => {
     <>
       <EditProfileImg
         onImageSelect={handleImageSelect}
-        imageUrl={userInfo && userInfo.profileUrl}
+        imageUrl={userData && userData.profileUrl}
       />
-      <CheckNickname userNickname={userInfo && userInfo.nickname} />
+      <CheckNickname userNickname={userData && userData.nickname} />
       <InputAboutMe
         inputRef={inputRef}
-        userAboutMe={userInfo && userInfo.aboutMe}
+        userAboutMe={userData && userData.aboutMe}
       />
       <ExitButton
         className={cx(Cursor, SumType)}

@@ -8,17 +8,13 @@ import { FlexCenter, MarginAuto } from '@/styles/layout';
 import { Cursor } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
+import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 
 const ProfileImg = ({ imageUrl }: { imageUrl?: string }) => {
   const handleProfile = useNavigateTo('/mypage');
   const { userId: ProFileId } = useParams();
 
-  const { data: userInfo } = useQuery({
-    queryKey: ['userInfo'],
-    queryFn: () => useGetCacheData('user', '/userInfo')
-  });
-
-  const userId = userInfo && userInfo.cacheData.data.userId;
+  const { userId } = useCachedUserInfo();
 
   return (
     <Container className={cx(FlexCenter, MarginAuto)}>
