@@ -26,7 +26,7 @@ export interface AuthTypes {
   profileUrl?: string;
   nickname?: string;
   brand?: string;
-  gender?: string;
+  gender?: number;
   sum?: number;
   userId?: string;
   aboutMe?: string;
@@ -145,6 +145,7 @@ export interface UserFollowCountsTypes {
 }
 export interface PostsGridProps {
   data?: UserProfileDataTypes[];
+  postRef: React.RefObject<HTMLDivElement>;
 }
 export interface CaffeineFilterTypes {
   caffeine: number;
