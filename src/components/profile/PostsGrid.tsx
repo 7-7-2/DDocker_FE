@@ -6,7 +6,7 @@ import { styled } from 'styled-system/jsx';
 import { Grid, Center } from '@/styles/layout';
 import { Cursor } from '@/styles/styles';
 
-const PostsGrid = ({ data }: PostsGridProps) => {
+const PostsGrid = ({ data, postRef }: PostsGridProps) => {
   const navigate = useNavigate();
   const posts = data && data.flatMap(item => item.posts);
 
@@ -30,6 +30,7 @@ const PostsGrid = ({ data }: PostsGridProps) => {
             />
           </GridItemContainer>
         ))}
+      <Target ref={postRef} />
     </GridContainer>
   );
 };
@@ -58,7 +59,7 @@ const GridItem = styled.img`
 `;
 
 const Target = styled.div`
-  padding: 1px;
+  width: 1px;
 `;
 
 export default PostsGrid;
