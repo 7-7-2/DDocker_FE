@@ -12,11 +12,32 @@ export const useSetHistory = () => {
   const { mutate } = useMutation({
     mutationFn: async (data: SimplifyUser) => {
       !cachedHistory && (await useSetCacheData('search', '/user', [data]));
-      cachedHistory &&
-        (await useSetCacheData('search', '/user', [
-          ...cachedHistory.cacheData,
-          data
-        ]));
+      if (cachedHistory) {
+        const newDataExists = cachedHistory.cacheData.some(
+          (item: SimplifyUser) => item.userId === data.userId
+        );
+        !newDataExists &&
+          (await useSetCacheData('search', '/user', [
+            ...cachedHistory.cacheData,
+            data
+          ]));
+      }
+    }
+  });
+
+  const { mutate: mutateHistory } = useMutation({
+    mutationFn: async (data: SimplifyUser) => {
+      !cachedHistory && (await useSetCacheData('search', '/user', [data]));
+      if (cachedHistory) {
+        const newDataExists = cachedHistory.cacheData.some(
+          (item: SimplifyUser) => item.keyword === data.keyword
+        );
+        !newDataExists &&
+          (await useSetCacheData('search', '/user', [
+            ...cachedHistory.cacheData,
+            data
+          ]));
+      }
     }
   });
 
@@ -40,5 +61,18 @@ export const useSetHistory = () => {
     }
   });
 
-  return { mutate, reset, remove };
+  const { mutate: removeHistory } = useMutation({
+    mutationFn: async (data: SimplifyUser) => {
+      await useSetCacheData(
+        'search',
+        '/user',
+        cachedHistory.cacheData.filter(
+          (user: SimplifyUser) => user.keyword !== data.keyword
+        )
+      );
+      queryClient.invalidateQueries({ queryKey: ['cachedHistory'] });
+    }
+  });
+
+  return { mutate, reset, remove, mutateHistory, removeHistory };
 };
