@@ -10,6 +10,7 @@ import {
 } from '@/types/types';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
+import { getSearchMoreUser } from '@/api/search';
 
 export const FollowingPostIQParam = {
   queryKey: ['followingPosts'],
@@ -51,6 +52,20 @@ export const FollowerListIQParam = () => {
     },
     initialPageParam: 1,
     getNextPageParam: (lastPage: FetchedFollowing) => {
+      if (!lastPage.next) return undefined;
+      return lastPage.next;
+    }
+  };
+};
+
+export const SearchListMoreUserIQParam = (nickname: string) => {
+  return {
+    queryKey: ['searchListMoreUser', nickname],
+    queryFn: ({ pageParam }: { pageParam: number }) => {
+      return getSearchMoreUser(nickname, pageParam) as Promise<Fetched>;
+    },
+    initialPageParam: 1,
+    getNextPageParam: (lastPage: Fetched | FetchedFollowing) => {
       if (!lastPage.next) return undefined;
       return lastPage.next;
     }

@@ -3,11 +3,15 @@ import {
   useBaseInfiniteScroll,
   useInfiniteScroll
 } from '@/hooks/useInfiniteScroll';
-import { InfiniteFollowList, InfinitePosts } from '@/types/types';
+import {
+  InfiniteFollowList,
+  InfinitePosts,
+  InfiniteSearchList
+} from '@/types/types';
 import { useGetSignedIn } from '@/hooks/useGetSignedIn';
 
 export const useTargetInfiniteScroll = (
-  param: InfinitePosts | InfiniteFollowList,
+  param: InfinitePosts | InfiniteFollowList | InfiniteSearchList,
   enabled = ''
 ) => {
   const { signedIn } = useGetSignedIn();
@@ -49,6 +53,20 @@ export const useTargetInfiniteScroll = (
     });
 
     return { followingList, ref };
+  }
+  if (enabled === '검색') {
+    const {
+      data: searchMoreList,
+      hasNextPage,
+      isFetching,
+      fetchNextPage
+    } = useInfiniteScroll(param, enabled);
+    const ref = useIntersection((entry, observer) => {
+      observer.unobserve(entry.target);
+      if (hasNextPage && !isFetching) fetchNextPage();
+    });
+
+    return { searchMoreList, ref };
   }
 
   return { data, ref, isLoading };
