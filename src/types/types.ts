@@ -34,9 +34,10 @@ export interface AuthTypes {
 
 export interface SimplifyUser {
   userId?: string | undefined;
-  nickname: string | undefined;
+  nickname?: string | undefined;
   caffeine?: number;
   url?: string;
+  keyword?: string;
 }
 
 export interface MiniProfile extends SimplifyUser {
@@ -211,6 +212,15 @@ export interface InfiniteFollowList {
   ) => number | undefined;
 }
 
+export interface InfiniteSearchList {
+  queryKey: string[];
+  queryFn: ({ pageParam }: { pageParam: number }) => Promise<Fetched>;
+  initialPageParam: number;
+  getNextPageParam: (
+    lastPage: Fetched | FetchedFollowing
+  ) => number | undefined;
+}
+
 export interface CommentInput {
   parentId: string | number;
   content: string;
@@ -247,4 +257,9 @@ export interface FetchedFollowing {
 export interface FetchedPosts {
   data: FollowingPost[];
   next: number | undefined;
+}
+
+export interface SearchList {
+  users: SimplifyUser[];
+  search: string;
 }

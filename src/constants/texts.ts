@@ -8,7 +8,8 @@ export const TEXT = {
   cancelBtn: '취소',
   deleteBtn: '삭제',
   toggleFollowedBtn: '팔로워',
-  toggleFollowingBtn: '팔로잉'
+  toggleFollowingBtn: '팔로잉',
+  searchMore: '더보기'
 };
 
 export const COMMENT_TEXTS = {
