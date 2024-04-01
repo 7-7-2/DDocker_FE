@@ -38,6 +38,7 @@ const Container = styled.div`
 `;
 const UserTitle = styled.div`
   font-size: var(--font-sizes-sm);
+  color: var(--colors-main-dark);
 `;
 const UserCaffeine = styled.div`
   font-size: var(--font-sizes-xs);

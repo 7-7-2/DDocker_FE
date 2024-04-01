@@ -20,7 +20,6 @@ export const useSearchInput = () => {
   useEffect(() => {
     if (debounceVal) {
       getSearchUser(debounceVal).then(res => {
-        console.log('🚀 ~ getSearchUser ~ res.data:', res.data);
         setResults(res.data);
       });
     }

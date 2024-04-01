@@ -1,7 +1,7 @@
 import { styled } from 'styled-system/jsx';
 import { COMMENT_TEXTS } from '@/constants/texts';
 import { useContext } from 'react';
-import { InputContext } from '@/context/inputContext';
+import { InputContext } from '@/context/contexts';
 import { memo } from 'react';
 import { replyState } from '@/atoms/atoms';
 import { useSetRecoilState } from 'recoil';

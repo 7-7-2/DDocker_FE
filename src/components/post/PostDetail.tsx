@@ -18,7 +18,7 @@ import PostOwnerOption from '@/components/post/overlay/PostOwnerOption';
 import PublicOption from '@/components/post/overlay/PublicOption';
 import PostInput from '@/components/post/PostInput';
 import { useRef } from 'react';
-import { InputContext } from '@/context/inputContext';
+import { InputContext } from '@/context/contexts';
 import { usePostOptions } from '@/hooks/post/usePostOptions';
 import { useVerifyOwner } from '@/hooks/post/useVerifyOwner';
 import React from 'react';
