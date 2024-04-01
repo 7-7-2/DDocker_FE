@@ -1,6 +1,6 @@
+import { useQuery } from '@tanstack/react-query';
 import useGetCacheData from '@/hooks/useGetCacheData';
 import { AuthTypes } from '@/types/types';
-import { useQuery } from '@tanstack/react-query';
 
 export const useCachedUserInfo = () => {
   const { data: userInfo } = useQuery({
