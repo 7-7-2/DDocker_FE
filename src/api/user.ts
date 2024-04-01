@@ -41,6 +41,17 @@ export const getUserInfo = async (userId: string | number) => {
   }
 };
 
+// MyInfo
+export const getMyInfo = async () => {
+  try {
+    const res = await authInstance.get(`/users/userInfo`);
+    await useSetCacheData('user', '/userInfo', res.data);
+    return res.data;
+  } catch (error) {
+    console.log('Error fetching social authentication:', error);
+  }
+};
+
 // DDocker SignUp
 export const setUserInitInfo = async (userInfo: AuthTypes) => {
   try {
@@ -69,6 +80,7 @@ export const getUserProfilePosts = async (
   try {
     const res = await baseInstance.get(`/users/${userId}/posts/${nextPage}`);
     const resData = res.data;
+    console.log(resData);
     return { data: resData.data, next: resData.next };
   } catch (err) {
     console.log(err);
