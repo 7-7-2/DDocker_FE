@@ -1,14 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
-
+import { useNavigate } from 'react-router-dom';
 import Button from '@/components/common/Button';
-import { FollowCountProps } from '@/types/types';
-import { useNavigateTo } from '@/hooks/useNavigateTo';
 import useGetFollowCount from '@/hooks/profile/useGetFollowCount';
 import useGetCheckFollowing from '@/hooks/profile/useGetCheckFollowing';
-import useGetCacheData from '@/hooks/useGetCacheData';
+import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
+import { useGetSignedIn } from '@/hooks/useGetSignedIn';
 import { BUTTON_TEXTS } from '@/constants/common';
+import { FollowCountProps } from '@/types/types';
 import { followUser, unfollowUser } from '@/api/follow';
-import { useNavigate } from 'react-router-dom';
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Center, Column, Flex } from '@/styles/layout';
@@ -20,19 +18,18 @@ import {
   RecentSearch,
   SumType
 } from '@/styles/styles';
-import { useGetSignedIn } from '@/hooks/useGetSignedIn';
-import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 
 const { following, follow1 } = BUTTON_TEXTS;
-const FollowCount = ({ data }: FollowCountProps) => {
-  const { signedIn } = useGetSignedIn();
 
+const FollowCount = ({ data }: FollowCountProps) => {
   const navigate = useNavigate();
+  const { signedIn } = useGetSignedIn();
+  const { userId } = useCachedUserInfo();
+
   const { userId: ProfileId, postCount } = data;
+
   const { isFollowing, getCheckFollowing } = useGetCheckFollowing(ProfileId);
   const { userFollowCount } = useGetFollowCount(ProfileId, isFollowing);
-
-  const { userId } = useCachedUserInfo();
 
   const handleFollowBtn = async () => {
     !isFollowing && ProfileId && (await followUser(ProfileId));
@@ -70,7 +67,7 @@ const FollowCount = ({ data }: FollowCountProps) => {
           </Stat>
         ))}
       </CountContainer>
-      {userId !== ProfileId && (
+      {signedIn && userId !== ProfileId && (
         <Button
           text={isFollowing ? following : follow1}
           onTouchEnd={handleFollowBtn}
