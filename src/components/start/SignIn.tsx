@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 
 import Icon from '@/components/common/Icon';
 import { SIGININ_TEXTS } from '@/constants/start';
-import { getSocialAuth, getAccessToken, getUserInfo } from '@/api/user';
+import { getSocialAuth, getAccessToken, getMyInfo } from '@/api/user';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import useGetCacheData from '@/hooks/useGetCacheData';
@@ -43,7 +43,8 @@ const SignIn = () => {
     try {
       const res = await useGetCacheData('user', '/social');
       await getAccessToken(code, res.cacheData);
-      await getUserInfo(0);
+      await getMyInfo();
+
       const initialized = await useGetCacheData('user', '/userInfo');
       (await initialized.cacheData.data) !== true ? navToHome() : navToSignUp();
     } catch (err) {
