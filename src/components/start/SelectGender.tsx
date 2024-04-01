@@ -9,16 +9,22 @@ import { styled } from 'styled-system/jsx';
 import { css, cx } from 'styled-system/css';
 import { Between, Flex } from '@/styles/layout';
 
+const { gender } = INITIAL_FORM_TEXTS;
+
 const SelectGender = () => {
   const [userInit, setUserInit] = useRecoilState(authState);
   const [inputValue, setInputValue] = useState('');
-  const { gender } = INITIAL_FORM_TEXTS;
-  const genderType = [gender.male, gender.female];
+  const genderType = [
+    { gender: gender.male, genderNum: 0 },
+    { gender: gender.female, genderNum: 1 }
+  ];
 
   const clickBtn: TouchEventHandler<HTMLButtonElement> = e => {
+    const selectGender = e.currentTarget.value === gender.male ? 0 : 1;
+    e.currentTarget.id;
     const selectedGender = {
       ...userInit,
-      gender: e.currentTarget.value
+      gender: selectGender
     };
     setUserInit(selectedGender);
     setInputValue(e.currentTarget.value);
@@ -28,17 +34,19 @@ const SelectGender = () => {
     <SelectGenderContiner>
       <Label
         label={LABEL_TEXTS.gender.label}
-        inputValue={inputValue || userInit.gender}
+        inputValue={inputValue || JSON.stringify(userInit.gender)}
       />
       <div className={cx(Flex, Between, SelectGenderBtnGap)}>
-        {genderType.map((item, idx) => (
+        {genderType.map(item => (
           <Button
-            key={idx}
-            value={item}
-            text={item}
+            key={item.genderNum}
+            value={item.gender}
+            text={item.gender}
             onTouchEnd={clickBtn}
             className={cx(
-              userInit.gender === item ? SelectedGender : NoneSelectedGender,
+              userInit.gender === item.genderNum
+                ? SelectedGender
+                : NoneSelectedGender,
               SelectGenderBtn
             )}
           />
