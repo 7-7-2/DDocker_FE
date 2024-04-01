@@ -23,7 +23,7 @@ const HistoryHeader = () => {
 };
 
 const Wrapper = styled.div`
-  margin: 0 0 -10px 0;
+  margin: 0 0 -24px 0;
   padding: 20px 0;
 `;
 

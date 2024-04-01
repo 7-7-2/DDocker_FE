@@ -9,6 +9,7 @@ import Icon from '@/components/common/Icon';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { useSetHistory } from '@/hooks/search/useSetHistory';
 import { SimplifyUser } from '@/types/types';
+import KeywordHistory from '@/components/search/KeywordHistory';
 
 const HistoryList = () => {
   const { data: cachedHistory } = useQuery({
@@ -17,39 +18,57 @@ const HistoryList = () => {
       return useGetCacheData('search', '/user');
     }
   });
+
   const navigate = useNavigate();
   const handleToProfile = (userId: string) => () => {
     navigate(userId);
   };
-  const { remove } = useSetHistory();
-  const removeHistory = (user: SimplifyUser) => () => {
+  const { remove, removeHistory } = useSetHistory();
+  const removeUserHistory = (user: SimplifyUser) => () => {
     remove(user);
+  };
+  const removeKeywordHistory = (keyword: SimplifyUser) => () => {
+    removeHistory(keyword);
   };
 
   return (
     <>
       {cachedHistory &&
-        cachedHistory.cacheData.map((user: any) => (
-          <Container className={cx(Align, Between)}>
-            <MiniProfile
+        cachedHistory.cacheData.map((user: any) =>
+          user.userId ? (
+            <Container
               key={user.userId}
-              url={user.url}
-              nickname={user.nickname}
-              caffeine={user.caffeine}
-              onClick={handleToProfile(`/profile/${user.userId}`)}
-            />
-            <div
-              className={Flex}
-              onClick={removeHistory(user)}>
-              <Icon {...iconPropsGenerator('cancel', '24')} />
-            </div>
-          </Container>
-        ))}
+              className={cx(Align, Between)}>
+              <MiniProfile
+                url={user.url}
+                nickname={user.nickname}
+                caffeine={user.caffeine}
+                onClick={handleToProfile(`/profile/${user.userId}`)}
+              />
+              <div
+                className={Flex}
+                onClick={removeUserHistory(user)}>
+                <Icon {...iconPropsGenerator('cancel', '24')} />
+              </div>
+            </Container>
+          ) : (
+            <Container
+              className={cx(Align, Between)}
+              key={user.keyword}>
+              <KeywordHistory keyword={user.keyword} />
+              <div
+                className={Flex}
+                onClick={removeKeywordHistory(user)}>
+                <Icon {...iconPropsGenerator('cancel', '24')} />
+              </div>
+            </Container>
+          )
+        )}
     </>
   );
 };
 const Container = styled.div`
-  margin: 10px 0;
+  margin: 20px 0;
 `;
 
 export default HistoryList;
