@@ -1,22 +1,27 @@
 import MiniProfile from '@/components/common/MiniProfile';
-import { SimplifyUser } from '@/types/types';
+import { SimplifyUser, SearchList } from '@/types/types';
 import { Align, Between } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 import { useNavigate } from 'react-router-dom';
 import { useSetHistory } from '@/hooks/search/useSetHistory';
-import { memo } from 'react';
+import { memo, lazy, useState } from 'react';
 
-interface SearchList {
-  users: SimplifyUser[];
-}
+const SearchMore = lazy(() => import('@/components/search/SearchMore'));
+const SearchMoreList = lazy(() => import('@/components/search/SearchMoreList'));
 
-const SearchListItem = memo(({ users }: SearchList) => {
+const SearchListItem = memo(({ users, search }: SearchList) => {
   const navigate = useNavigate();
-  const { mutate } = useSetHistory();
+  const [loadMore, setLoadMore] = useState(false);
+
+  const { mutate, mutateHistory } = useSetHistory();
   const handleToProfile = (userId: string, user: SimplifyUser) => () => {
     mutate(user);
     navigate(userId);
+  };
+  const handleSearchMore = (user: SimplifyUser) => () => {
+    setLoadMore(true);
+    mutateHistory(user);
   };
 
   return (
@@ -34,11 +39,15 @@ const SearchListItem = memo(({ users }: SearchList) => {
             />
           </Container>
         ))}
+      {users.length == 5 && !loadMore && (
+        <SearchMore onClick={handleSearchMore({ keyword: search })} />
+      )}
+      {loadMore && <SearchMoreList search={search} />}
     </>
   );
 });
 
 const Container = styled.div`
-  margin: 10px 0;
+  margin: 20px 0;
 `;
 export default SearchListItem;
