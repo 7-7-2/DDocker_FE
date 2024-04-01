@@ -44,20 +44,16 @@ const Profile = () => {
     />
   );
 
-  return (
-    <div>
-      {profileId !== 'Non-members' ? (
-        <Container className={Column}>
-          <div className={cx(Column, Between)}>
-            <ProfileDetail userId={profileId} />
-            <FollowCount data={followCountData} />
-          </div>
-          {profileId && postGrid}
-        </Container>
-      ) : (
-        <AnonymousUserCard />
-      )}
-    </div>
+  return profileId !== 'Non-members' ? (
+    <Container className={Column}>
+      <div className={cx(Column, Between)}>
+        <ProfileDetail userId={profileId} />
+        <FollowCount data={followCountData} />
+      </div>
+      {profileId && postGrid}
+    </Container>
+  ) : (
+    <AnonymousUserCard />
   );
 };
 

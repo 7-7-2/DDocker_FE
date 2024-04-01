@@ -59,7 +59,7 @@ const GridItem = styled.img`
 `;
 
 const Target = styled.div`
-  width: 1px;
+  height: 1px;
 `;
 
 export default PostsGrid;
