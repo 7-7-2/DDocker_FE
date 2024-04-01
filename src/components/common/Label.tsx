@@ -22,12 +22,11 @@ export const Label = ({
       <Icon {...iconPropsGenerator('check', '14')} />
     );
 
-  const genderCheckIcon =
-    inputValue?.length !== 0 ? (
-      <Icon {...iconPropsGenerator('check-done', '14')} />
-    ) : (
-      <Icon {...iconPropsGenerator('check', '14')} />
-    );
+  const genderCheckIcon = inputValue ? (
+    <Icon {...iconPropsGenerator('check-done', '14')} />
+  ) : (
+    <Icon {...iconPropsGenerator('check', '14')} />
+  );
 
   const AboutMeIcon =
     userAboutMe !== inputValue ? (
