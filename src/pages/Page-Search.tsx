@@ -2,9 +2,10 @@ import SearchBar from '@/components/search/SearchBar';
 import SearchListItem from '@/components/search/SearchListItem';
 import { useSearchInput } from '@/hooks/search/useSearchInput';
 import SearchHistory from '@/components/search/SearchHistory';
+import { SearchContext } from '@/context/contexts';
 
 const Search = () => {
-  const { results, search, handleChange, reset } = useSearchInput();
+  const { results, search, handleChange, reset, setSearch } = useSearchInput();
 
   return (
     <>
@@ -13,8 +14,17 @@ const Search = () => {
         handleChange={handleChange}
         reset={reset}
       />
-      {search && <SearchListItem users={results} />}
-      {!search && <SearchHistory />}
+      {search && (
+        <SearchListItem
+          users={results}
+          search={search}
+        />
+      )}
+      {!search && (
+        <SearchContext.Provider value={{ setSearch }}>
+          <SearchHistory />
+        </SearchContext.Provider>
+      )}
     </>
   );
 };

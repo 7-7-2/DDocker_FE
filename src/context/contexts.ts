@@ -7,3 +7,11 @@ type InputRefState = {
 export const InputContext = createContext<InputRefState>({
   inputRef: null
 });
+
+type SearchState = {
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export const SearchContext = createContext<SearchState>({
+  setSearch: () => {}
+});

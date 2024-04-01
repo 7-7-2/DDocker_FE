@@ -23,7 +23,7 @@ const Layout = () => {
   isPro && useTrackRoute();
   const { pathname } = useLocation();
   const footerState = useRecoilValue(footerShowState);
-  const searchPredi = pathname !== '/search';
+  const searchPredi = !pathname.startsWith('/search');
   const startPredi = pathname !== '/start/1';
   const registerPredi = pathname === '/post/register';
 
