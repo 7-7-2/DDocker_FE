@@ -110,15 +110,16 @@ export const useInfiniteScroll = (
   };
 };
 
-export const useBaseInfiniteScroll = (param: InfinitePosts) => {
-  const { data, hasNextPage, isFetching, fetchNextPage, isLoading } =
-    useInfiniteQuery({
-      queryKey: param.queryKey,
-      queryFn: param.queryFn,
-      initialPageParam: param.initialPageParam,
-      getNextPageParam: param.getNextPageParam
-    });
+// export const useBaseInfiniteScroll = (param: InfinitePosts) => {
+//   console.log('🚀 ~ useBaseInfiniteScroll ~ param:', param);
+//   const { data, hasNextPage, isFetching, fetchNextPage, isLoading } =
+//     useInfiniteQuery({
+//       queryKey: param.queryKey,
+//       queryFn: param.queryFn,
+//       initialPageParam: param.initialPageParam,
+//       getNextPageParam: param.getNextPageParam
+//     });
 
-  const pages = data?.pages.map(i => i.data).flat(2);
-  return { data: pages, hasNextPage, isFetching, fetchNextPage, isLoading };
-};
+//   const pages = data?.pages.map(i => i.data).flat(2);
+//   return { data: pages, hasNextPage, isFetching, fetchNextPage, isLoading };
+// };

@@ -12,5 +12,6 @@ export const PROFILE_TEXTS = {
       actionText: '홈으로'
     },
     another: `아직 등록된 게시물이 없어요.`
-  }
+  },
+  profile: '프로필'
 };
