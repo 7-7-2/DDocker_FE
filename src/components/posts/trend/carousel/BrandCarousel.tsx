@@ -4,17 +4,16 @@ import { Flex } from '@/styles/layout';
 import Bullets from '@/components/posts/trend/carousel/Bullets';
 import { BRANDS } from '@/constants/coffee';
 import { useCarousel } from '@/hooks/post/useCarousel';
-import { useRecoilState } from 'recoil';
-import { brandState } from '@/atoms/atoms';
 import { LeftCardSpacer } from '@/styles/styles';
 import React, { useId } from 'react';
+import { useSetInitialBrand } from '@/hooks/post/useSetInitialBrand';
 
 const pages = Math.ceil(BRANDS.length / 5);
 
 const BrandCarousel = () => {
   const { curPage, setCurPage, handleScroll, containerRef } = useCarousel();
-  const [selected, setSelected] = useRecoilState(brandState);
   const id = useId();
+  const { selected, setSelected } = useSetInitialBrand();
   return (
     <>
       <Container
