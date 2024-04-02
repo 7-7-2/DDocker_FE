@@ -63,7 +63,7 @@ const PostsBrandPopular = () => {
       <div className={cx(Flex, Between)}>
         <h3 className={cx(SectionHeader, MarginT28)}>
           <span className={Selected}>{selected}</span>
-          {TREND_TEXTS.popular}
+          {sort ? TREND_TEXTS.latestPost : TREND_TEXTS.popularPost}
         </h3>
         <PostsSortBy
           sort={sort}
