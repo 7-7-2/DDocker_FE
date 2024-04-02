@@ -1,8 +1,5 @@
 import { useIntersection } from '@/hooks/useIntersection';
-import {
-  useBaseInfiniteScroll,
-  useInfiniteScroll
-} from '@/hooks/useInfiniteScroll';
+import { useInfiniteScroll } from '@/hooks/useInfiniteScroll';
 import {
   InfiniteFollowList,
   InfinitePosts,
@@ -15,23 +12,34 @@ export const useTargetInfiniteScroll = (
   enabled = ''
 ) => {
   const { signedIn } = useGetSignedIn();
-
-  const { data, hasNextPage, isFetching, fetchNextPage, isLoading } = signedIn
-    ? useInfiniteScroll(param, signedIn)
-    : useBaseInfiniteScroll(param as InfinitePosts);
+  const { data, hasNextPage, isFetching, fetchNextPage, isLoading } =
+    useInfiniteScroll(param, signedIn);
 
   const ref = useIntersection((entry, observer) => {
     observer.unobserve(entry.target);
     if (hasNextPage && !isFetching) fetchNextPage();
   });
 
-  if (enabled === '팔로워') {
+  if (enabled === '프로필') {
+    const { data, hasNextPage, isFetching, fetchNextPage } = useInfiniteScroll(
+      param,
+      enabled
+    );
+    const ref = useIntersection((entry, observer) => {
+      observer.unobserve(entry.target);
+      if (hasNextPage && !isFetching) fetchNextPage();
+    });
+
+    return { data, ref };
+  }
+
+  if (enabled === '팔로워' && signedIn) {
     const {
       data: followerList,
       hasNextPage,
       isFetching,
       fetchNextPage
-    } = useInfiniteScroll(param, enabled);
+    } = useInfiniteScroll(param, signedIn ? enabled : '');
     const ref = useIntersection((entry, observer) => {
       observer.unobserve(entry.target);
       if (hasNextPage && !isFetching) fetchNextPage();
@@ -40,13 +48,13 @@ export const useTargetInfiniteScroll = (
     return { followerList, ref };
   }
 
-  if (enabled === '팔로잉') {
+  if (enabled === '팔로잉' && signedIn) {
     const {
       data: followingList,
       hasNextPage,
       isFetching,
       fetchNextPage
-    } = useInfiniteScroll(param, enabled);
+    } = useInfiniteScroll(param, signedIn ? enabled : '');
     const ref = useIntersection((entry, observer) => {
       observer.unobserve(entry.target);
       if (hasNextPage && !isFetching) fetchNextPage();
