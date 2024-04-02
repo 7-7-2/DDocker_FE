@@ -28,7 +28,8 @@ export const TABS_TEXTS: TabsText = {
 
 export const TREND_TEXTS = {
   daily: '오늘의 인기 게시글',
-  popular: '의 인기 게시글',
+  popularPost: '의 인기 게시글',
+  latestPost: '의 최신 게시글',
   latest: '최신',
   popularity: '인기',
   divide: ' | ',
