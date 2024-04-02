@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 
 export const useVerifyOwner = (postNum: string) => {
   const { data: userInfo } = useQuery({
-    queryKey: ['userInfo', postNum],
+    queryKey: ['userInfo'],
     queryFn: () => useGetCacheData('user', '/userInfo')
   });
 

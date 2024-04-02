@@ -1,7 +1,8 @@
 import { styled } from 'styled-system/jsx';
 import pathMap from '@/utils/getBrandPath';
-import { Align, Column, FlexCenter, Justify } from '@/styles/layout';
+import { Align, Column, FlexCenter } from '@/styles/layout';
 import { css, cx } from 'styled-system/css';
+import { useSelectCard } from '@/hooks/post/useSelectCard';
 
 const BrandCard = ({
   brand,
@@ -12,18 +13,23 @@ const BrandCard = ({
   setSelected: (brand: string) => void;
   selected: string;
 }) => {
-  const isSelected = brand === selected;
+  const { brandRef, isSelected, handleSelectCard } = useSelectCard(
+    brand,
+    selected,
+    setSelected
+  );
+
   return (
-    <div className={cx(Column, Align)}>
+    <div
+      className={cx(Column, Align)}
+      ref={brandRef}>
       <ImgBox
         className={
           isSelected ? cx(FlexCenter, Selected) : cx(FlexCenter, Candidate)
         }>
         <Img
           src={pathMap(brand)}
-          onClick={() => {
-            setSelected(brand);
-          }}
+          onClick={handleSelectCard}
         />
       </ImgBox>
       <span
