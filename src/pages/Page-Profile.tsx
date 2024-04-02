@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
 
 import ProfileDetail from '@/components/profile/ProfileDetail';
 import FollowCount from '@/components/profile/FollowCount';
@@ -16,6 +15,9 @@ import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 import { Between, Column } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
+import { PROFILE_TEXTS } from '@/constants/profile';
+
+const { profile } = PROFILE_TEXTS;
 
 const Profile = () => {
   useComposeHeader(true, '', 'icons');
@@ -23,7 +25,10 @@ const Profile = () => {
   const { userId } = useCachedUserInfo();
 
   const ProfilePostIQParam = getProfilePostIQParam();
-  const { data, ref: postRef } = useTargetInfiniteScroll(ProfilePostIQParam);
+  const { data, ref: postRef } = useTargetInfiniteScroll(
+    ProfilePostIQParam,
+    profile
+  );
   const postsData = data && (data as unknown as UserProfileDataTypes[]);
   const allCount = postsData && postsData[0].allCount;
 

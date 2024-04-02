@@ -10,6 +10,7 @@ import FollowTabs from '@/components/follow/FollowTabs';
 const Follow: React.FC<FollowCountProps> = () => {
   const { signedIn } = useGetSignedIn();
   const { userId } = useParams();
+  console.log('🚀 ~ userId:', userId);
 
   const { state: tabState } = useLocation();
   const [activeTab, setActiveTab] = useState(tabState || '팔로워');
