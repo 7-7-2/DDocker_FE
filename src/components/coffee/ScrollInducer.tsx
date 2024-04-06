@@ -51,6 +51,7 @@ const Container = styled.div`
 
 const Default = css`
   opacity: 0;
+  pointer-events: none;
   transition: opacity 0.5s ease;
 `;
 
