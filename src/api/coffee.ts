@@ -7,3 +7,13 @@ export const getCoffeeIntake = async () => {
   });
   return res && res.data;
 };
+
+// 2. 카페인 달력
+export const getCoffeeCaledar = async (activeMonth: string) => {
+  const res = await authInstance
+    .get(`/coffee/calendar/${activeMonth}`)
+    .catch(e => {
+      console.log(e);
+    });
+  return res && res.data.setRes;
+};
