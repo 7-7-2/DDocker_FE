@@ -14,6 +14,7 @@ const LogInCTA = () => {
   const handleSignInBtn = () => {
     goToSignIn();
   };
+
   return (
     <Container className={cx(Column, Align)}>
       <Text className={Regular}>{logInCTA.text}</Text>
