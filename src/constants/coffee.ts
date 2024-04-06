@@ -13,6 +13,22 @@ export const COFFEE_TEXTS = {
   is: '입니다.'
 };
 
+export const COFFEE_CALENDAR_TEXTS = {
+  title: '카페인 달력',
+  legend: [
+    { className: 'Healthy', number: '0-200mg' },
+    { className: 'Recommended', number: '201-400mg' },
+    { className: 'Excessive', number: '400mg 초과' }
+  ]
+};
+
+export const ANONYMOUS_TEXTS = {
+  logInCTA: {
+    text: '로그인하면 통계 데이터를 확인하실 수 있어요.',
+    btn: '로그인 하기'
+  }
+};
+
 export const BRANDS = [
   '스타벅스',
   '이디야',

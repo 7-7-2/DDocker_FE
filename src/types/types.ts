@@ -263,3 +263,8 @@ export interface SearchList {
   users: SimplifyUser[];
   search: string;
 }
+
+export interface CalendarData {
+  day: string;
+  caffeineSum: string;
+}
