@@ -16,7 +16,7 @@ import Icon from '@/components/common/Icon';
 import { BUTTON_TEXTS, LABEL_TEXTS } from '@/constants/common';
 
 import { caffeineFilterState, registPostState } from '@/atoms/atoms';
-import { getUserInfo } from '@/api/user';
+import { getMyInfo } from '@/api/user';
 import { getTodayCoffeeInfo, setPostRegist } from '@/api/post';
 import { useShowFooter } from '@/hooks/useShowFooter';
 import useResetSelectedCoffee from '@/hooks/useResetSelectedCoffee';
@@ -75,7 +75,7 @@ const PostRegister = () => {
 
   const updateData = async () => {
     await getTodayCoffeeInfo();
-    await getUserInfo('0');
+    await getMyInfo();
   };
 
   const clickRegisterBtn = async () => {
