@@ -30,6 +30,10 @@ export const footerShowState = atom({
   key: 'footerShowState',
   default: true
 });
+export const isModalState = atom({
+  key: 'isModalState',
+  default: false
+});
 
 export const authState = atom<AuthTypes>({
   key: 'authState',

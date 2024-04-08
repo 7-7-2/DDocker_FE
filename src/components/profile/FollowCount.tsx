@@ -1,3 +1,4 @@
+import { useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import Button from '@/components/common/Button';
 import useGetFollowCount from '@/hooks/profile/useGetFollowCount';
@@ -5,6 +6,7 @@ import useGetCheckFollowing from '@/hooks/profile/useGetCheckFollowing';
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 import { useGetSignedIn } from '@/hooks/useGetSignedIn';
 import { BUTTON_TEXTS } from '@/constants/common';
+import { isModalState } from '@/atoms/atoms';
 import { FollowCountProps } from '@/types/types';
 import { followUser, unfollowUser } from '@/api/follow';
 import { css, cx } from 'styled-system/css';
@@ -25,15 +27,16 @@ const FollowCount = ({ data }: FollowCountProps) => {
   const navigate = useNavigate();
   const { signedIn } = useGetSignedIn();
   const { userId } = useCachedUserInfo();
+  const setIsModal = useSetRecoilState(isModalState);
 
-  const { userId: ProfileId, postCount } = data;
+  const { userId: profileId, postCount } = data;
 
-  const { isFollowing, getCheckFollowing } = useGetCheckFollowing(ProfileId);
-  const { userFollowCount } = useGetFollowCount(ProfileId, isFollowing);
+  const { isFollowing, getCheckFollowing } = useGetCheckFollowing(profileId);
+  const { userFollowCount } = useGetFollowCount(profileId, isFollowing);
 
   const handleFollowBtn = async () => {
-    !isFollowing && ProfileId && (await followUser(ProfileId));
-    isFollowing && ProfileId && (await unfollowUser(ProfileId));
+    !isFollowing && profileId && (await followUser(profileId));
+    isFollowing && profileId && (await unfollowUser(profileId));
     getCheckFollowing();
   };
 
@@ -44,10 +47,11 @@ const FollowCount = ({ data }: FollowCountProps) => {
   ];
 
   const handleStatClick = (label: string) => () => {
-    label === '게시물'
+    !(label === '팔로잉' || label === '팔로워')
       ? null
-      : (label === '팔로잉' || label === '팔로워') &&
-        navigate(`/follow/${data.userId}`, { state: label });
+      : signedIn
+        ? navigate(`/follow/${profileId}`, { state: label })
+        : setIsModal(true);
   };
 
   return (
@@ -61,13 +65,13 @@ const FollowCount = ({ data }: FollowCountProps) => {
               Column,
               index === count.length - 1 ? 'lastStat' : ''
             )}
-            onTouchEnd={signedIn && handleStatClick(item.label)}>
+            onTouchEnd={handleStatClick(item.label)}>
             <StatNumber className={RecentSearch}>{item.number}</StatNumber>
             <StatLabel className={SumType}>{item.label}</StatLabel>
           </Stat>
         ))}
       </CountContainer>
-      {signedIn && userId !== ProfileId && (
+      {signedIn && userId !== profileId && (
         <Button
           text={isFollowing ? following : follow1}
           onTouchEnd={handleFollowBtn}
