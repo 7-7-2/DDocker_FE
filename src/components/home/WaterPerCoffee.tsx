@@ -36,7 +36,7 @@ const WaterPerCoffee = () => {
     <div className={cx(Column, Center, MarginAuto)}>
       <CTA
         text={anonymous.card}
-        actionText={BUTTON_TEXTS.signin}
+        actionText={BUTTON_TEXTS.signIn1}
         btn={true}
         fn={useNavigateTo('/start/1')}
       />

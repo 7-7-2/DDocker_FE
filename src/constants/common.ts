@@ -46,10 +46,19 @@ export const BUTTON_TEXTS = {
   start: '시작하기',
   regist: '등록하기',
   next: '다음으로',
-  signin: '로그인',
+  signIn1: '로그인',
+  signIn2: '로그인하기',
   following: '팔로잉',
   follow2: '팔로우',
   follow1: '팔로우 하기'
+};
+
+export const MODAL_CTA_TEXTS = {
+  signIn: {
+    text: `로그인 후
+  자세한 내용을 확인해보세요.`,
+    subBtn: `로그인 없이 둘러보기`
+  }
 };
 
 export const SCROLL_INDUCER_TEXTS = {
