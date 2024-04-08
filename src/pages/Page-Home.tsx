@@ -2,12 +2,14 @@ import CaffeineFilter from '@/components/home/CaffeineFilter';
 import TodayCaffeineInfo from '@/components/home/TodayCaffeineInfo';
 import WeeklyPopular from '@/components/home/WeeklyPopular';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
+import { useGetSignedIn } from '@/hooks/useGetSignedIn';
 import useGetUserInfo from '@/hooks/useGetUserInfo';
 import { styled } from 'styled-system/jsx';
 
 const Home = () => {
   useComposeHeader(true, '', 'icons');
-  useGetUserInfo();
+  const { signedIn } = useGetSignedIn();
+  signedIn && useGetUserInfo();
 
   return (
     <Container>

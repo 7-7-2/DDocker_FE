@@ -46,7 +46,7 @@ export const getMyInfo = async () => {
   try {
     const res = await authInstance.get(`/users/userInfo`);
     await useSetCacheData('user', '/userInfo', res.data);
-    return res.data;
+    return res && res.data;
   } catch (error) {
     console.log('Error fetching social authentication:', error);
   }
