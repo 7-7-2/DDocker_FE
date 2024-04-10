@@ -1,16 +1,15 @@
 import { useRef } from 'react';
 import { useRecoilValue } from 'recoil';
-import { useQuery } from '@tanstack/react-query';
 
 import InputAboutMe from '@/components/mypage/InputAboutMe';
 import EditProfileImg from '@/components/mypage/EditProfileImg';
 import CheckNickname from '@/components/start/CheckNickname';
 import { TEXT } from '@/constants/texts';
-import { AuthTypes } from '@/types/types';
-import { editProfile, getUserInfo } from '@/api/user';
+import { editProfile, getMyInfo } from '@/api/user';
 import { authState } from '@/atoms/atoms';
-import useGetCacheData from '@/hooks/useGetCacheData';
+import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
+import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 import { useImgSubmit } from '@/hooks/useImgSubmit';
 
 import { cx } from 'styled-system/css';
@@ -22,14 +21,13 @@ import {
   HomeRegistContainer
 } from '@/styles/styles';
 import { FlexCenter, Justify } from '@/styles/layout';
-import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 
 const MyProfile = () => {
   useComposeHeader(false, '프로필 수정', 'close');
+  const { userData, userId } = useCachedUserInfo();
   const { nickname: editNickname } = useRecoilValue(authState);
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
-
-  const { userData } = useCachedUserInfo();
+  const goToMyProfile = useNavigateTo(`/profile/${userId}`);
 
   const handleExitedUser = () => {
     // 추후 진행하겠습니다...
@@ -61,7 +59,8 @@ const MyProfile = () => {
     // handleFormSubmit();
     const editData = await handleEditProfileData();
     await editProfile(editData);
-    await getUserInfo(0);
+    await getMyInfo();
+    goToMyProfile();
   };
 
   return (
