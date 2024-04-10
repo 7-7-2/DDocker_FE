@@ -8,8 +8,7 @@ import { styled } from 'styled-system/jsx';
 
 const Home = () => {
   useComposeHeader(true, '', 'icons');
-  const { signedIn } = useGetSignedIn();
-  signedIn && useGetUserInfo();
+  useGetUserInfo();
 
   return (
     <Container>
