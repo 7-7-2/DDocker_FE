@@ -1,27 +1,14 @@
 import SumBoard from '@/components/coffee/SumBoard';
 import { COFFEE_TEXTS } from '@/constants/coffee';
+
 import { cx } from 'styled-system/css';
 import { SumTitle, PaddingT22 } from '@/styles/styles';
-import { useQuery } from '@tanstack/react-query';
-import { getCoffeeIntake } from '@/api/coffee';
+import { useGetMyCoffeeSum } from '@/hooks/coffee/useGetMyCoffeeSum';
 
-const { sum, week } = COFFEE_TEXTS;
-const cur = new Date();
-const year = cur.getFullYear();
-const month = cur.getMonth() + 1;
-
-const periods = [
-  { label: week, key: 'WEEK' },
-  { label: month, key: 'MONTH' },
-  { label: year, key: 'YEAR' }
-];
+const { sum } = COFFEE_TEXTS;
 
 const MyCoffeeSum = ({ signedIn }: { signedIn: string | null }) => {
-  const { data: coffeeIntake } = useQuery({
-    queryKey: ['coffeeIntake'],
-    queryFn: getCoffeeIntake,
-    enabled: !!signedIn
-  });
+  const { periods, coffeeIntake } = useGetMyCoffeeSum(signedIn);
 
   return (
     <>
