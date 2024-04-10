@@ -11,14 +11,14 @@ import { Blur, InputByteCheck, SumTitle } from '@/styles/styles';
 import { Align, Flex } from '@/styles/layout';
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
+import { useRecoilState } from 'recoil';
+import { activeMonthState } from '@/atoms/atoms';
 
 const { title, legend } = COFFEE_CALENDAR_TEXTS;
 
 const MyCalendar = ({ signedIn }: { signedIn: string }) => {
   const [value] = useState(dayjs(new Date()).format('YYYY-MM-DD'));
-  const [activeMonth, setActiveMonth] = useState<string>(
-    dayjs(new Date()).format('YYYY-MM-DD')
-  );
+  const [activeMonth, setActiveMonth] = useRecoilState(activeMonthState);
 
   const { healthy, recommended, excessive } = useGetCalendarData(
     signedIn,
@@ -42,6 +42,9 @@ const MyCalendar = ({ signedIn }: { signedIn: string }) => {
         }
         next2Label={null}
         prev2Label={null}
+        maxDetail="month"
+        minDetail="year"
+        maxDate={new Date()}
         calendarType="gregory"
         formatDay={(__locale, date) => dayjs(date).format('D')}
         formatMonthYear={(__locale, date) => dayjs(date).format('YYYY. MM')}
