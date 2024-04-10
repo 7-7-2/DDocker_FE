@@ -1,4 +1,5 @@
 import { atom } from 'recoil';
+import dayjs from 'dayjs';
 import {
   AuthTypes,
   CoffeeItemTypes,
@@ -125,4 +126,9 @@ export const replyState = atom({
 export const brandState = atom({
   key: 'brandState',
   default: BRANDS[0]
+});
+
+export const activeMonthState = atom({
+  key: 'activeMonthState',
+  default: dayjs(new Date()).format('YYYY-MM-DD')
 });
