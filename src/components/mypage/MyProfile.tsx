@@ -30,7 +30,6 @@ const imagePath = import.meta.env.VITE_R2_USER_IMAGE_PATH;
 const MyProfile = () => {
   useComposeHeader(false, '프로필 수정', 'close');
   const { userData, userId } = useCachedUserInfo();
-  const { userData, userId } = useCachedUserInfo();
   const { nickname: editNickname } = useRecoilValue(authState);
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
   const goToMyProfile = useNavigateTo(`/profile/${userId}`);
