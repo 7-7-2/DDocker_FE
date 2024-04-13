@@ -1,11 +1,3 @@
-import '@pqina/pintura/pintura.css';
-import { useEffect, useRef, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { imageState } from '@/atoms/atoms';
-import { PinturaEditorModal } from '@pqina/react-pintura';
-import { getEditorDefaults, createDefaultImageWriter } from '@pqina/pintura';
-import locale_ko_KR from '@pqina/pintura/locale/ko_KR';
-// _PINTURA IMPORTS
 import Icon from '@/components/common/Icon';
 import { EditProfileImgProps } from '@/types/types';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
@@ -13,65 +5,40 @@ import { FlexCenter, Column } from '@/styles/layout';
 import { Cursor } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
+import { useImageCropper } from '@/hooks/post/useImageCropper';
 
-const editorDefaults = getEditorDefaults({
-  cropImageSelectionCornerStyle: 'hook',
-  locale: {
-    ...locale_ko_KR
-  },
-  imageWriter: createDefaultImageWriter({
-    targetSize: {
-      width: 100,
-      height: 100,
-      fit: 'contain',
-      upscale: true
-    }
-  })
-});
+const EditProfileImg = ({
+  profileImg,
+  setImageUrl,
+  imageUrl,
+  setCropperEnabled
+}: EditProfileImgProps) => {
+  const { fileInputRef } = useImageCropper();
 
-const EditProfileImg: React.FC<EditProfileImgProps> = ({
-  imageUrl: beforeImageUrl,
-  onImageSelect
-}) => {
-  const [editorEnabled, setEditorEnabled] = useState(false);
-  const [editorSrc, setEditorSrc] = useState<File>();
-  const [imageUrl, setImageUrl] = useRecoilState(imageState);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    beforeImageUrl && setImageUrl(beforeImageUrl);
-  }, []);
-
-  const handleInputChange = () => {
-    if (!fileInputRef?.current?.files?.length) return;
-    const file = fileInputRef?.current?.files[0];
-    if (fileInputRef?.current?.files) {
-      setEditorEnabled(true);
-      setEditorSrc(file);
-    }
-  };
-
-  const handleEditorHide = () => setEditorEnabled(false);
-
-  const handleEditorProcess = ({ dest }: { dest: File }) => {
-    const url = URL.createObjectURL(dest);
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    const files = e.target.files;
+    if (!files) return;
+    const url = URL.createObjectURL(files[0]);
     setImageUrl(url);
-    onImageSelect(dest);
+    setCropperEnabled(true);
   };
 
   return (
     <>
       <Wrapper className={cx(FlexCenter, Column)}>
         <ImgContainer>
-          {imageUrl && (
+          {(profileImg || imageUrl) && (
             <ImgRound>
               <img
-                src={imageUrl}
+                src={imageUrl ? imageUrl : profileImg}
                 alt="profile image"
               />
             </ImgRound>
           )}
-          {!imageUrl && <Icon {...iconPropsGenerator('user', '100')} />}
+          {!profileImg && !imageUrl && (
+            <Icon {...iconPropsGenerator('user', '100')} />
+          )}
           <Edit className={Cursor}>
             <label>
               <Icon {...iconPropsGenerator('edit-photo', '32')} />
@@ -79,49 +46,13 @@ const EditProfileImg: React.FC<EditProfileImgProps> = ({
                 ref={fileInputRef}
                 type="file"
                 accept="image/*"
-                onChange={handleInputChange}
+                onChange={handleFileChange}
                 style={{ display: 'none' }}
               />
             </label>
           </Edit>
         </ImgContainer>
       </Wrapper>
-
-      {editorEnabled && (
-        <PinturaEditorModal
-          {...editorDefaults}
-          src={editorSrc}
-          imageCropAspectRatio={1}
-          onHide={handleEditorHide}
-          onProcess={handleEditorProcess}
-          willRenderCanvas={(shapes, state) => {
-            const { utilVisibility, selectionRect, lineColor } = state;
-
-            if (utilVisibility.crop <= 0) return shapes;
-
-            const { x, y, width, height } = selectionRect;
-
-            return {
-              ...shapes,
-
-              interfaceShapes: [
-                {
-                  x: x + width * 0.5,
-                  y: y + height * 0.5,
-                  rx: width * 0.5,
-                  ry: height * 0.5,
-                  opacity: utilVisibility.crop,
-                  inverted: true,
-                  backgroundColor: [0, 0, 0, 0.1],
-                  strokeWidth: 0.4,
-                  strokeColor: [...lineColor]
-                },
-                ...shapes.interfaceShapes
-              ]
-            };
-          }}
-        />
-      )}
     </>
   );
 };
