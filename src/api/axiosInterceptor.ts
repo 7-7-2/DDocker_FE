@@ -27,3 +27,10 @@ export const baseInstance: AxiosInstance = axios.create({
 
 // Authorization 설정이 추가된 로그인한 사용자 API용 Instance --유저 API 에서 공통적으로 사용할 인스턴스
 export const authInstance: AxiosInstance = authInterceptors(baseInstance);
+
+export const storageInstance = (url: string) => {
+  return axios.create({
+    baseURL: url,
+    withCredentials: false
+  });
+};

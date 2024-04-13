@@ -79,7 +79,8 @@ export const registPostState = atom<RegisterPostTypes>({
     shot: 0,
     caffeine: 0,
     post_title: '',
-    photo: ''
+    photo: '',
+    postId: ''
   }
 });
 
@@ -131,4 +132,9 @@ export const brandState = atom({
 export const activeMonthState = atom({
   key: 'activeMonthState',
   default: dayjs(new Date()).format('YYYY-MM-DD')
+});
+
+export const cahceImgState = atom({
+  key: 'cahceImgState',
+  default: true
 });
