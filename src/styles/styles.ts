@@ -222,6 +222,10 @@ export const PaddingB20 = css`
   padding-bottom: 20px;
 `;
 
+export const MarginT6 = css`
+  margin-top: 6px;
+`;
+
 export const MarginT12 = css`
   margin-top: 12px;
 `;
@@ -286,7 +290,9 @@ export const SearchInput = cx(
   `
 );
 export const StartPageContainer = css`
-  height: calc(100vh - 162px);
+  height: calc(100vh - 78px);
+  margin: 0 -20px;
+  padding: 0 20px;
   overflow-x: visible;
   overflow-y: auto;
 `;
@@ -410,13 +416,19 @@ export const DeleteAllBtn = cx(
 
 export const SearchPageHeight = css`
   height: calc(
-    100dvh - 52px - env(safe-area-inset-bottom) - env(safe-area-inset-top)
+    100dvh - 50px - env(safe-area-inset-bottom) - env(safe-area-inset-top)
+  );
+`;
+
+export const RegisterPageHeight = css`
+  height: calc(
+    100dvh - 46px - env(safe-area-inset-bottom) - env(safe-area-inset-top)
   );
 `;
 
 export const GeneralHeight = css`
   height: calc(
-    100dvh - 46px - 52px - env(safe-area-inset-bottom) - env(
+    100dvh - 46px - 50px - env(safe-area-inset-bottom) - env(
         safe-area-inset-top
       )
   );

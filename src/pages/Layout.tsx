@@ -7,9 +7,11 @@ import { footerShowState } from '@/atoms/atoms';
 import {
   GeneralHeight,
   SearchPageHeight,
-  StartPageHeight
+  StartPageHeight,
+  RegisterPageHeight
 } from '@/styles/styles';
 import useTrackRoute from '@/hooks/google/useTrackRoute';
+import { useForceSubmitForm } from '@/hooks/start/useForceSubmitForm';
 
 const Header = lazy(() => import('../components/common/Header'));
 const Footer = lazy(() => import('../components/common/Footer'));
@@ -20,30 +22,30 @@ const { NODE_ENV } = import.meta.env;
 const isPro = NODE_ENV === 'production';
 
 const Layout = () => {
+  useForceSubmitForm();
   isPro && useTrackRoute();
   const { pathname } = useLocation();
   const footerState = useRecoilValue(footerShowState);
-  const searchPredi = !pathname.startsWith('/search');
-  const startPredi = pathname !== '/start/1';
+  const searchPredi = pathname.startsWith('/search');
+  const startPredi = pathname.startsWith('/start');
   const registerPredi = pathname === '/post/register';
 
   const getHeight = () => {
-    if (registerPredi) {
+    if (searchPredi) {
       return (PagesHeight = SearchPageHeight);
     }
-    if (searchPredi) {
-      return (PagesHeight = GeneralHeight);
+    if (registerPredi) {
+      return (PagesHeight = RegisterPageHeight);
     }
     if (startPredi) {
-      return (PagesHeight = SearchPageHeight);
+      return (PagesHeight = StartPageHeight);
     }
-    return (PagesHeight = StartPageHeight);
+    return (PagesHeight = GeneralHeight);
   };
-
   return (
     <>
       <Container>
-        <Suspense>{startPredi && searchPredi && <Header />}</Suspense>
+        <Suspense>{!startPredi && !searchPredi && <Header />}</Suspense>
         <Suspense fallback={<div className={getHeight()}></div>}>
           <Contents className={getHeight()}>
             <Outlet />
