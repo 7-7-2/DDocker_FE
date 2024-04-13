@@ -1,8 +1,10 @@
-import { authInstance, baseInstance } from '@/api/axiosInterceptor';
+import {
+  authInstance,
+  baseInstance,
+  storageInstance
+} from '@/api/axiosInterceptor';
 import useSetCacheData from '@/hooks/useSetCacheData';
 import { RegisterPostTypes, CommentInput, Fetched } from '@/types/types';
-
-interface PostForm {}
 
 // 1. 포스트 조회
 export const getPostDetail = async (postId: string) => {
@@ -12,11 +14,13 @@ export const getPostDetail = async (postId: string) => {
   return res && res.data;
 };
 
-// 2. 포스트 등록(+JWT 인증)
-export const registerPost = async (postForm: PostForm) => {
-  const res = await authInstance.post(`/posts/register`, postForm).catch(e => {
-    console.log(e);
-  });
+// 2. 게시글 이미지 업로드
+export const registerImage = async (url: string, Image: File) => {
+  const res = await storageInstance(url)
+    .put('', Image)
+    .catch((e: Error) => {
+      console.log(e);
+    });
   return res && res.data;
 };
 
@@ -29,15 +33,10 @@ export const deletePost = async (postId: string) => {
 };
 
 // 4. 포스트 수정(+JWT 인증)
-export const updatePost = async (
-  postId: string,
-  postForm: Partial<PostForm>
-) => {
-  const res = await authInstance
-    .patch(`/posts/${postId}`, postForm)
-    .catch(e => {
-      console.log(e);
-    });
+export const updatePost = async (postId: string, Image: File) => {
+  const res = await authInstance.patch(`/posts/${postId}`, Image).catch(e => {
+    console.log(e);
+  });
   return res && res.data;
 };
 
