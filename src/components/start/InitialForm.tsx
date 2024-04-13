@@ -6,9 +6,8 @@ import SelectGender from '@/components/start/SelectGender';
 import CheckNickname from '@/components/start/CheckNickname';
 import { INITIAL_FORM_TEXTS } from '@/constants/start';
 import { BUTTON_TEXTS } from '@/constants/common';
-import { useImgSubmit } from '@/hooks/useImgSubmit';
-import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
+import { useNavigate } from 'react-router-dom';
 
 import { styled } from 'styled-system/jsx';
 import { Column } from '@/styles/layout';
@@ -22,17 +21,44 @@ import {
   MarginT28
 } from '@/styles/styles';
 import { cx } from 'styled-system/css';
+import ImgCropper from '@/components/common/ImgCropper';
+import { TEXT } from '@/constants/texts';
+import { useImageCropper } from '@/hooks/post/useImageCropper';
 
 const { message } = INITIAL_FORM_TEXTS;
 
 const InitialForm = () => {
+  const navigate = useNavigate();
+
   useComposeHeader(false, '기본정보', 'close');
   const user = useRecoilValue(authState);
   const isApproval = useRecoilValue(CheckNicknameState);
 
-  const { setImageUrl } = useImgSubmit();
-  const handleImageSelect = (selectedImage: File) => {
-    setImageUrl(URL.createObjectURL(selectedImage));
+  const {
+    imageUrl,
+    setImageUrl,
+    setImageFile,
+    imageFile,
+    setCropperEnabled,
+    cropperEnabled
+  } = useImageCropper();
+
+  const cropperProps = {
+    imageUrl,
+    setImageUrl,
+    setImageFile,
+    cropperEnabled,
+    setCropperEnabled
+  };
+
+  const editProps = {
+    imageUrl,
+    setImageUrl,
+    setCropperEnabled
+  };
+
+  const handleNextPage = () => {
+    navigate('/start/3', { state: imageFile });
   };
 
   return (
@@ -45,7 +71,12 @@ const InitialForm = () => {
           {message.second}
         </div>
         <ProfileContainer>
-          <EditProfileImg onImageSelect={handleImageSelect} />
+          <EditProfileImg {...editProps} />
+          <ImgCropper
+            stencilType={TEXT.circle}
+            aspectRatio={1}
+            {...cropperProps}
+          />
         </ProfileContainer>
         <CheckNickname />
         <SelectGender />
@@ -53,7 +84,9 @@ const InitialForm = () => {
       <Button
         text={BUTTON_TEXTS.next}
         onTouchEnd={
-          user?.gender ? useNavigateTo('/start/3') : useNavigateTo('/start/2')
+          user?.nickname && isApproval && user?.gender
+            ? handleNextPage
+            : () => navigate('/start/2')
         }
         className={
           user?.nickname && isApproval && user?.gender
