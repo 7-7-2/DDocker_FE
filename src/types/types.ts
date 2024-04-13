@@ -6,12 +6,6 @@ import {
 } from 'react';
 import { Dayjs } from 'dayjs';
 
-export enum Collections {
-  USERS = 'users',
-  POSTS = 'posts',
-  COMMENTS = 'comments'
-}
-
 export interface LazyRouteType {
   index: boolean;
   path: string;
@@ -128,6 +122,7 @@ export interface RegisterPostTypes {
   caffeine: number;
   post_title: string | undefined;
   photo: string | undefined;
+  postId: string;
 }
 
 export interface UserProfileDataTypes {
@@ -153,9 +148,8 @@ export interface CaffeineFilterTypes {
   menuCaffeine: number;
 }
 
-export interface EditProfileImgProps {
-  onImageSelect: (setProfileImg: File) => void;
-  imageUrl?: string;
+export interface EditProfileImgProps extends ImgRegisterProps {
+  profileImg?: string;
 }
 
 export interface Comment {
@@ -268,3 +262,18 @@ export interface CalendarData {
   day: string;
   caffeineSum: string;
 }
+
+export interface ImgCropperProps {
+  stencilType?: string;
+  aspectRatio: number;
+  imageUrl: string;
+  setImageUrl: (url: string) => void;
+  setImageFile: (file: File) => void;
+  setCropperEnabled: (enabled: boolean) => void;
+  cropperEnabled: boolean;
+}
+
+export type ImgRegisterProps = Omit<
+  ImgCropperProps,
+  'aspectRatio' | 'setImageFile' | 'cropperEnabled'
+>;
