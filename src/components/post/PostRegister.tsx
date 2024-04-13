@@ -1,10 +1,4 @@
-import '@pqina/pintura/pintura.css';
-import { useRef, useState } from 'react';
-import { PinturaEditorModal } from '@pqina/react-pintura';
-import { getEditorDefaults } from '@pqina/pintura';
-import locale_ko_KR from '@pqina/pintura/locale/ko_KR';
-// _PINTURA
-
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
@@ -12,7 +6,6 @@ import CoffeeOptionSelection from '@/components/common/CoffeeOptionSelection';
 import CoffeeMenuSelection from '@/components/home/CoffeeMenuSelection';
 import RegisterLabel from '@/components/post/RegisterLabel';
 import Button from '@/components/common/Button';
-import Icon from '@/components/common/Icon';
 import { BUTTON_TEXTS, LABEL_TEXTS } from '@/constants/common';
 
 import { caffeineFilterState, registPostState } from '@/atoms/atoms';
@@ -20,20 +13,19 @@ import { getMyInfo } from '@/api/user';
 import { getTodayCoffeeInfo, setPostRegist } from '@/api/post';
 import { useShowFooter } from '@/hooks/useShowFooter';
 import useResetSelectedCoffee from '@/hooks/useResetSelectedCoffee';
-import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { FlexCenter } from '@/styles/layout';
 import { DefaultBtn } from '@/styles/styles';
 import PostInputTitle from '@/components/post/PostInputTitle';
+import { useImageCropper } from '@/hooks/post/useImageCropper';
+import ImgRegister from '@/components/common/ImgRegister';
+import ImgCropper from '@/components/common/ImgCropper';
+import { nanoid } from 'nanoid';
+import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
+import { useUploadStorage } from '@/hooks/useUploadStorage';
 
-const editorDefaults = getEditorDefaults({
-  cropImageSelectionCornerStyle: 'hook',
-  locale: {
-    ...locale_ko_KR
-  }
-});
+const imagePath = import.meta.env.VITE_R2_POST_IMAGE_PATH;
 
 const PostRegister = () => {
   useShowFooter(false);
@@ -43,33 +35,30 @@ const PostRegister = () => {
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement | null>(null);
 
-  // _PINTURA
-  const [editorEnabled, setEditorEnabled] = useState(false);
-  const [editorSrc, setEditorSrc] = useState<File>();
-  const [imageUrl, setImageUrl] = useState<string>();
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const { userId } = useCachedUserInfo();
+  const uploadStorage = useUploadStorage();
 
-  const handleInputChange = () => {
-    if (!fileInputRef?.current?.files?.length) return;
-    if (fileInputRef?.current?.files) {
-      setEditorEnabled(true);
-      setEditorSrc(fileInputRef?.current?.files[0]);
-    }
-  };
-
-  const handleEditorHide = () => setEditorEnabled(false);
-
-  const handleEditorProcess = ({ dest }: { dest: File }) => {
-    const url = URL.createObjectURL(dest);
-    setImageUrl(url);
-  };
+  const {
+    imageUrl,
+    setImageUrl,
+    setImageFile,
+    imageFile,
+    setCropperEnabled,
+    cropperEnabled
+  } = useImageCropper();
 
   const handleRegistData = async (postTitle: string | undefined) => {
+    const postId = nanoid();
+    const route = `post/${userId}/${postId}`;
+    await uploadStorage(route, imageFile as File);
+
+    const storagePath = `${imagePath}%2F${userId}%2F${postId}`;
     return {
       ...registInfo,
       caffeine: caffeine,
       post_title: postTitle,
-      photo: imageUrl
+      photo: storagePath,
+      postId: postId
     };
   };
 
@@ -80,10 +69,11 @@ const PostRegister = () => {
 
   const clickRegisterBtn = async () => {
     const newRegistData = await handleRegistData(inputRef.current?.value);
-    const postId = await setPostRegist(newRegistData);
+    const { postId } = newRegistData;
+    const registered = await setPostRegist(newRegistData);
     await updateData();
     resetSelectedCoffee();
-    navigate(`/post/${postId}`);
+    registered && navigate(`/post/${postId}`);
   };
 
   return (
@@ -97,103 +87,39 @@ const PostRegister = () => {
           label={LABEL_TEXTS.photo}
           essential
         />
-        <div className={MarginTop6}>
-          {imageUrl && (
-            <PostImgContainer>
-              <img
-                src={imageUrl}
-                alt="posted coffee"
-                onTouchEnd={() => {
-                  setImageUrl('');
-                }}
-              />
-            </PostImgContainer>
-          )}
-          {!imageUrl && (
-            <RegistPhoto className={FlexCenter}>
-              <Icon {...iconPropsGenerator('regist-photo', '24')} />
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleInputChange}
-                style={{ display: 'none' }}
-              />
-            </RegistPhoto>
-          )}
-        </div>
-      </Container>
-
-      {editorEnabled && (
-        <PinturaEditorModal
-          {...editorDefaults}
-          src={editorSrc}
-          imageCropAspectRatio={1.378}
-          onHide={handleEditorHide}
-          onProcess={handleEditorProcess}
-          willRenderCanvas={(shapes, state) => {
-            const { utilVisibility, selectionRect, lineColor } = state;
-
-            if (utilVisibility.crop <= 0) return shapes;
-
-            const { x, y, width, height } = selectionRect;
-
-            return {
-              ...shapes,
-
-              interfaceShapes: [
-                {
-                  x: x + width * 0.5,
-                  y: y + height * 0.5,
-                  opacity: utilVisibility.crop,
-                  inverted: true,
-                  backgroundColor: [0, 0, 0, 0.1],
-                  strokeWidth: 0.4,
-                  strokeColor: [...lineColor]
-                },
-                ...shapes.interfaceShapes
-              ]
-            };
-          }}
+        <ImgRegister
+          setImageUrl={setImageUrl}
+          imageUrl={imageUrl}
+          setCropperEnabled={setCropperEnabled}
         />
-      )}
+        <ImgCropper
+          aspectRatio={1}
+          imageUrl={imageUrl}
+          setImageUrl={setImageUrl}
+          setImageFile={setImageFile}
+          cropperEnabled={cropperEnabled}
+          setCropperEnabled={setCropperEnabled}
+        />
+      </Container>
 
       <Button
         text={BUTTON_TEXTS.regist}
-        onTouchEnd={clickRegisterBtn}
+        onTouchEnd={userId && clickRegisterBtn}
         className={cx(DefaultBtn, BtnContainer)}
       />
     </>
   );
 };
 
-const MarginTop6 = css`
-  margin-top: 6px;
-`;
-
-const RegistPhoto = styled.label`
-  width: 106px;
-  height: 106px;
-  border-radius: 10px;
-  background: var(--colors-tertiary);
-`;
-
 const Container = styled.div`
-  padding-bottom: 22px;
+  padding-bottom: 28px;
   overflow-x: visible;
   overflow-y: auto;
 `;
 
 const BtnContainer = css`
   position: sticky;
-  bottom: 0;
-`;
-
-const PostImgContainer = styled.div`
-  max-width: 100%;
-  height: auto;
-  border-radius: 10px;
-  overflow: hidden;
+  bottom: 10px;
 `;
 
 export default PostRegister;
