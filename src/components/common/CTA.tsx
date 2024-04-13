@@ -16,7 +16,9 @@ interface CTA {
 const CTA = ({ text, actionText = '', btn = true, fn }: CTA) => {
   const setFooterState = useSetRecoilState(footerShowState);
   const handleActions = () => {
-    actionText !== CTA_TEXTS.followDiscoveryAction && setFooterState(false);
+    actionText !== CTA_TEXTS.followDiscoveryAction &&
+      fn &&
+      setFooterState(false);
     fn && fn();
   };
 

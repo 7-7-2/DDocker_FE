@@ -4,6 +4,7 @@ import { PROFILE_TEXTS } from '@/constants/profile';
 import { css, cx } from 'styled-system/css';
 import { Justify } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
+import { useNavigateTo } from '@/hooks/useNavigateTo';
 
 const {
   user: { my, another }
@@ -16,6 +17,7 @@ const EmptyPostGrid = ({
   profileId: string | undefined;
   userId?: string;
 }) => {
+  const goToHome = useNavigateTo('/');
   return (
     <Container
       className={cx(
@@ -26,6 +28,7 @@ const EmptyPostGrid = ({
         <CTA
           text={my.text}
           actionText={my.actionText}
+          fn={goToHome}
         />
       ) : (
         <CTA
