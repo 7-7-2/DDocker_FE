@@ -9,7 +9,10 @@ export const TEXT = {
   deleteBtn: '삭제',
   toggleFollowedBtn: '팔로워',
   toggleFollowingBtn: '팔로잉',
-  searchMore: '더보기'
+  searchMore: '더보기',
+  complete: '완료',
+  circle: 'circle',
+  rectangle: 'rectangle'
 };
 
 export const COMMENT_TEXTS = {
