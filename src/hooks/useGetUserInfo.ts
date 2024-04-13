@@ -14,20 +14,24 @@ function useGetUserInfo(ProfileId?: string | number | undefined) {
     const userId = data && data.cacheData.data.userId;
     const userData = data && data.cacheData.data;
 
-    if ((userId !== ProfileId || (!userId && ProfileId)) && ProfileId) {
+    if (
+      userId &&
+      (userId !== ProfileId || (!userId && ProfileId)) &&
+      ProfileId
+    ) {
       const res = await getUserInfo(ProfileId);
       setCachedUser(res.data);
       return;
     }
 
-    if (userId !== ProfileId) {
+    if (userId && userId !== ProfileId) {
       const res = await getMyInfo();
       res && setCachedUser(res.data);
       return;
     }
     userData && setCachedUser(userData);
 
-    if (registInfo.brand === '') {
+    if (userId && registInfo.brand === '') {
       userData.brand && setRegistInfo({ ...registInfo, brand: userData.brand });
     }
   };

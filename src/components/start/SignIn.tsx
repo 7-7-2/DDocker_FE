@@ -25,8 +25,8 @@ const { signInBtn, startText } = SIGININ_TEXTS;
 const SignIn = () => {
   const [searchParams] = useSearchParams();
   const code = searchParams.get('code');
-  const navToSignUp = useNavigateTo('/start/2');
   const navToHome = useNavigateTo('/');
+  const navToSignUp = useNavigateTo('/start/2');
 
   const handleSocialAuth: React.TouchEventHandler<HTMLButtonElement> = async (
     e: React.TouchEvent<HTMLButtonElement>
@@ -42,7 +42,9 @@ const SignIn = () => {
   const cacheAccessToken = async () => {
     try {
       const res = await useGetCacheData('user', '/social');
-      await getAccessToken(code, res.cacheData);
+      if (!res) return;
+      const token = await useGetCacheData('user', '/accessToken');
+      !token && (await getAccessToken(code, res.cacheData));
       await getMyInfo();
 
       const initialized = await useGetCacheData('user', '/userInfo');

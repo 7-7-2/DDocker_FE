@@ -21,7 +21,8 @@ export const getAccessToken = async (code: string | null, social: string) => {
       `/users/${social}/redirect?code=${code}`
     );
     await useSetCacheData('user', '/accessToken', res.data.accessToken);
-    return res.data.accessToken;
+    await useSetCacheData('user', '/userId', res.data.userId);
+    return;
   } catch (error) {
     console.error('Error fetching social authentication:', error);
   }
@@ -80,7 +81,6 @@ export const getUserProfilePosts = async (
   try {
     const res = await baseInstance.get(`/users/${userId}/posts/${nextPage}`);
     const resData = res.data;
-    console.log(resData);
     return { data: resData.data, next: resData.next };
   } catch (err) {
     console.log(err);
