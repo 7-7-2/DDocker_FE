@@ -1,8 +1,8 @@
 import Icon from '@/components/common/Icon';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import ProfileImg from '@/components/profile/ProfileImg';
 import { TEXT } from '@/constants/texts';
-import { userInfoState } from '@/atoms/atoms';
+import { cahceImgState, userInfoState } from '@/atoms/atoms';
 import useGetUserInfo from '@/hooks/useGetUserInfo';
 import convertBrandName from '@/utils/convertBrandName';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
@@ -16,14 +16,24 @@ import {
   ProfileAboutMe,
   TextArea
 } from '@/styles/styles';
+import { useEffect } from 'react';
 
 const ProfileDetail = ({ userId }: { userId: string | undefined }) => {
   const user = useRecoilValue(userInfoState);
   useGetUserInfo(userId);
 
+  const [cacheState, setCacheState] = useRecoilState(cahceImgState);
+  useEffect(() => {
+    setCacheState(true);
+  }, []);
+
   return (
     <Container className={cx(Column, Center)}>
-      <ProfileImg imageUrl={user?.profileUrl} />
+      <ProfileImg
+        imageUrl={
+          cacheState ? user?.profileUrl : user?.profileUrl + '?' + Math.random()
+        }
+      />
       <UserTitle className={cx(FlexCenter, PrfileTitle)}>
         {user.nickname}
       </UserTitle>
@@ -61,7 +71,7 @@ const UserAboutMe = styled.div`
   text-align: center;
 `;
 const UserNameText = styled.span`
-    color: var(--colors-mid-grey) !important;
+  color: var(--colors-mid-grey) !important;
   font-weight: 400;
 `;
 const Info = styled.div`

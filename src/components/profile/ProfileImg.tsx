@@ -1,7 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import Icon from '@/components/common/Icon';
-import useGetCacheData from '@/hooks/useGetCacheData';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { FlexCenter, MarginAuto } from '@/styles/layout';
@@ -33,7 +31,7 @@ const ProfileImg = ({ imageUrl }: { imageUrl?: string }) => {
           <Edit className={Cursor}>
             <Icon
               {...iconPropsGenerator('edit', '32')}
-              onTouchEnd={handleProfile}
+              onClick={handleProfile}
             />
           </Edit>
         )}
