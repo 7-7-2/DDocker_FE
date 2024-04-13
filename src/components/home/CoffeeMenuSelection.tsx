@@ -67,7 +67,6 @@ const CoffeeMenuSelection = () => {
     getMenuList(e.currentTarget.value);
     setRegisterData('brand', e.currentTarget.value);
     setCaffeineInfo(0);
-    console.log(e.currentTarget.value);
   };
 
   // 선택한 커피 메뉴 정보 조회
