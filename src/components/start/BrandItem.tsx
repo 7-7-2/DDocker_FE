@@ -29,28 +29,36 @@ const BrandItem = (brandInfo: BrnadItemProps) => {
   const icon = `/png/${brandInfo.brand}.png`;
 
   return (
-    <ItemContainer
-      id={brandInfo.brand}
-      onTouchEnd={selectBrand}
-      className={cx(
-        userInit.brand === brandInfo.brand
-          ? SelectedBrandContainer
-          : DefaltBrandContainer,
-        Column,
-        Center,
-        SmStyle
-      )}>
-      {selectedIcon}
-      <IconContainer>
-        <img
-          src={icon}
-          alt={brandInfo.brand}
-        />
-      </IconContainer>
-      <span>{convertBrandName(brandInfo.brand)}</span>
-    </ItemContainer>
+    <Container>
+      <ItemContainer
+        id={brandInfo.brand}
+        onTouchEnd={selectBrand}
+        className={cx(
+          userInit.brand === brandInfo.brand
+            ? SelectedBrandContainer
+            : DefaltBrandContainer,
+          Column,
+          Center,
+          SmStyle
+        )}>
+        {selectedIcon}
+        <IconContainer>
+          <img
+            src={icon}
+            alt={brandInfo.brand}
+          />
+        </IconContainer>
+        <span>{convertBrandName(brandInfo.brand)}</span>
+      </ItemContainer>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  width: 100%;
+  padding-top: 100%;
+  position: relative;
+`;
 
 const IconContainer = styled.button`
   width: 46px;
@@ -61,11 +69,13 @@ const IconContainer = styled.button`
 `;
 
 const ItemContainer = styled.div`
-  width: 103px;
-  height: 103px;
-  position: relative;
+  width: 100%;
+  height: 100%;
   border-radius: 16px;
-  padding: 14px 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const SelectedBrandContainer = css`
@@ -83,7 +93,7 @@ const SelectedIconContainer = styled.div`
 
 const DefaltBrandContainer = css`
   border: 1px solid #edecec;
-  background: #fff;
+  background-color: #fff;
 `;
 
 export default BrandItem;
