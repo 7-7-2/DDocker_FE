@@ -1,17 +1,18 @@
-import Icon from '@/components/common/Icon';
+import { HOME_FOOTER_TEXTS } from '@/constants/home';
 import { Align, Flex } from '@/styles/layout';
 import { Medium, Regular } from '@/styles/styles';
-import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 
+const { email, copyright } = HOME_FOOTER_TEXTS;
+const FooterCategotis = [
+  '공지사항',
+  '건의사항',
+  '이용약관',
+  '개인정보처리방침'
+];
+
 const HomeFooter = () => {
-  const FooterCategotis = [
-    '공지사항',
-    '건의사항',
-    '이용약관',
-    '개인정보처리방침'
-  ];
   return (
     <Container>
       <svg
@@ -24,12 +25,9 @@ const HomeFooter = () => {
           <Category className={cx(Align, Medium)}>{item}</Category>
         ))}
       </Categories>
-      <DDockerInfo className={Regular}>
-        E-mail : ddocker33@naver.com
-      </DDockerInfo>
-      <Text className={Regular}>
-        Copyright ⓒ 2024 DDocker. All rights reserved.
-      </Text>
+      <DDockerInfo className={Regular}>{email}</DDockerInfo>
+      {/* 저작권.... */}
+      <Text className={Regular}>{copyright}</Text>
     </Container>
   );
 };
@@ -62,7 +60,7 @@ const Category = styled.li`
 `;
 
 const DDockerInfo = styled.div`
-  margin: 6px 0 36px;
+  margin: 10px 0 36px;
 `;
 
 const Text = styled.span`
