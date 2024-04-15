@@ -24,7 +24,7 @@ import {
   MarginT28
 } from '@/styles/styles';
 import { useLocation } from 'react-router-dom';
-import { useUploadStorage } from '@/hooks/useUploadStorage';
+import { useCloudStorage } from '@/hooks/useCloudStorage';
 import useGetCacheData from '@/hooks/useGetCacheData';
 
 const imagePath = import.meta.env.VITE_R2_USER_IMAGE_PATH;
@@ -35,7 +35,7 @@ export const SelectFavBrand = () => {
   useComposeHeader(false, '기본정보', 'close');
   const { state: imageFile } = useLocation();
   const getUserId = async () => await useGetCacheData('user', '/userId');
-  const uploadStorage = useUploadStorage();
+  const { uploadStorage } = useCloudStorage();
 
   const user = useRecoilValue(authState);
 

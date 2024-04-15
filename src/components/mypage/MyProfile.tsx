@@ -22,7 +22,7 @@ import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 
 import { useImageCropper } from '@/hooks/post/useImageCropper';
 import ImgCropper from '@/components/common/ImgCropper';
-import { useUploadStorage } from '@/hooks/useUploadStorage';
+import { useCloudStorage } from '@/hooks/useCloudStorage';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 
 const imagePath = import.meta.env.VITE_R2_USER_IMAGE_PATH;
@@ -49,7 +49,7 @@ const MyProfile = () => {
     console.log('회원 탈퇴');
   };
 
-  const uploadStorage = useUploadStorage();
+  const { uploadStorage } = useCloudStorage();
 
   const storagePath = `${imagePath}%2F${userId}`;
 
