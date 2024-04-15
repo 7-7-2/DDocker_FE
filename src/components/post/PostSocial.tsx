@@ -22,7 +22,6 @@ const PostSocial = ({
   postId?: string;
   onClick: () => void;
 }) => {
-  //myLike && 조건 수정 필요 => 비로그인 유저 조회 불가?
   const { myLike, handleLikeOnPost } = useLikeOnPost(postId);
 
   return (
