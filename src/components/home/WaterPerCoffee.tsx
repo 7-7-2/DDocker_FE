@@ -18,12 +18,7 @@ import {
   Flex,
   MarginAuto
 } from '@/styles/layout';
-import {
-  LoginBtn,
-  RegistCoffeeBtn,
-  AlertMessage,
-  Default
-} from '@/styles/styles';
+import { RegistCoffeeBtn, AlertMessage, Default } from '@/styles/styles';
 import CTA from '@/components/common/CTA';
 
 const { anonymous, signedIn } = TODAY_CAFFEINE_INFO_TEXTS;

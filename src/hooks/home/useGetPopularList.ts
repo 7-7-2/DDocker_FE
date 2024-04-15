@@ -19,18 +19,22 @@ const useGetPopularList = () => {
   }
 
   const getWeeklyPopularList = async () => {
-    const res = await useGetCacheData('brand', '/WeeklyPopular');
-    res ? setBrandList(res.cacheData) : getWeeklyPopular();
+    try {
+      const res = await useGetCacheData('brand', '/WeeklyPopular');
+      if (res) {
+        setBrandList(res.cacheData);
+      } else {
+        getWeeklyPopular();
+        getWeeklyPopularList();
+      }
+    } catch (error) {
+      console.error('Failed to fetch data:', error);
+    }
   };
 
   useEffect(() => {
     fetchOnMonday();
     getWeeklyPopularList();
-  }, []);
-
-  useEffect(() => {
-    const intervalId = setInterval(fetchOnMonday, 1000 * 60 * 60 * 24);
-    return () => clearInterval(intervalId);
   }, []);
 
   return brandList;
