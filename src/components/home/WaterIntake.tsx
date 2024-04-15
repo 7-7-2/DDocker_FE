@@ -18,14 +18,15 @@ const WaterIntake = ({ coffeeCount }: { coffeeCount: number | undefined }) => {
   useGetCachedWater();
 
   const waterPerCoffeeCount = coffeeCount && coffeeCount * 2;
+  const cachedWater = takedWater + 1;
 
   const percentage =
     waterPerCoffeeCount && (takedWater / waterPerCoffeeCount) * 100;
 
   const touchPlusIcon = () => {
-    if (waterPerCoffeeCount && takedWater < waterPerCoffeeCount)
-      setTakedWater(takedWater + 1);
-    useSetCacheData('user', '/water', takedWater + 1);
+    if (waterPerCoffeeCount && cachedWater <= waterPerCoffeeCount)
+      setTakedWater(cachedWater);
+    useSetCacheData('user', '/water', cachedWater);
   };
 
   return (
