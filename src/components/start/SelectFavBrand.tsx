@@ -90,6 +90,6 @@ export const SelectFavBrand = () => {
 
 const BrandItemContainer = styled.div`
   margin: 2.375rem auto 3.75rem;
-  gap: 0.75rem 0.75rem;
   grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
 `;
