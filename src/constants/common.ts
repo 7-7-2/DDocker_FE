@@ -50,7 +50,8 @@ export const BUTTON_TEXTS = {
   signIn2: '로그인하기',
   following: '팔로잉',
   follow2: '팔로우',
-  follow1: '팔로우 하기'
+  follow1: '팔로우 하기',
+  home: '홈으로 돌아가기'
 };
 
 export const MODAL_CTA_TEXTS = {
