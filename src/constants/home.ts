@@ -47,3 +47,8 @@ export const CAFFEINE_INFO_TEXTS = {
   title: '총 카페인 함량',
   unit: 'mg'
 };
+
+export const HOME_FOOTER_TEXTS = {
+  email: 'E-mail : ddocker33@naver.com',
+  copyright: ' Copyright ⓒ 2024 DDocker. All rights reserved.'
+};
