@@ -4,13 +4,7 @@ import { Medium, Regular } from '@/styles/styles';
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 
-const { email, copyright } = HOME_FOOTER_TEXTS;
-const FooterCategotis = [
-  '공지사항',
-  '건의사항',
-  '이용약관',
-  '개인정보처리방침'
-];
+const { email, copyright, footerCategories } = HOME_FOOTER_TEXTS;
 
 const HomeFooter = () => {
   return (
@@ -21,7 +15,7 @@ const HomeFooter = () => {
         <use href={`/sprite.svg#icon-ddocker-gray`} />
       </svg>
       <Categories className={Flex}>
-        {FooterCategotis.map(item => (
+        {footerCategories.map(item => (
           <Category className={cx(Align, Medium)}>{item}</Category>
         ))}
       </Categories>
