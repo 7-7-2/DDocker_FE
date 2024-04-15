@@ -23,7 +23,7 @@ import ImgRegister from '@/components/common/ImgRegister';
 import ImgCropper from '@/components/common/ImgCropper';
 import { nanoid } from 'nanoid';
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
-import { useUploadStorage } from '@/hooks/useUploadStorage';
+import { useCloudStorage } from '@/hooks/useCloudStorage';
 
 const imagePath = import.meta.env.VITE_R2_POST_IMAGE_PATH;
 
@@ -36,7 +36,7 @@ const PostRegister = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const { userId } = useCachedUserInfo();
-  const uploadStorage = useUploadStorage();
+  const { uploadStorage } = useCloudStorage();
 
   const {
     imageUrl,
@@ -49,9 +49,6 @@ const PostRegister = () => {
 
   const handleRegistData = async (postTitle: string | undefined) => {
     const postId = nanoid();
-    const route = `post/${userId}/${postId}`;
-    await uploadStorage(route, imageFile as File);
-
     const storagePath = `${imagePath}%2F${userId}%2F${postId}`;
     return {
       ...registInfo,
@@ -71,6 +68,9 @@ const PostRegister = () => {
     const newRegistData = await handleRegistData(inputRef.current?.value);
     const { postId } = newRegistData;
     const registered = await setPostRegist(newRegistData);
+    const route = `post/${userId}/${postId}`;
+    registered && (await uploadStorage(route, imageFile as File));
+
     await updateData();
     resetSelectedCoffee();
     registered && navigate(`/post/${postId}`);

@@ -1,9 +1,12 @@
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import {
+  S3Client,
+  PutObjectCommand,
+  DeleteObjectCommand
+} from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
-const r2 = new S3Client({
+export const r2 = new S3Client({
   region: 'auto',
-
   endpoint: `https://${import.meta.env.VITE_R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
   credentials: {
     accessKeyId: import.meta.env.VITE_R2_ACCESS_KEY_ID || '',
@@ -12,18 +15,33 @@ const r2 = new S3Client({
 });
 
 //r2 cloud storage upload, e.g.) /post/${userId}/{postId}, /user/{userId}
-export const getPresignedUrl = async (dir: string) => {
-  console.log('Generating upload URL...');
+export const getPresignedUploadUrl = async (
+  instance: S3Client,
+  dir: string
+) => {
   const signedUrl = await getSignedUrl(
-    r2,
+    instance,
     new PutObjectCommand({
       Bucket: import.meta.env.VITE_R2_BUCKET_NAME,
       Key: `assets/${dir}`
     }),
-    { expiresIn: 60 }
+    { expiresIn: 20 }
   );
-  console.log('🚀 ~ uploadR2 ~ signedUrl:', signedUrl);
+  return { url: signedUrl };
+};
 
-  console.log(`Success generating upload URL!`);
+//r2 cloud storage delete, e.g.) /post/${userId}/{postId}, /user/{userId}
+export const getPresignedDeleteUrl = async (
+  instance: S3Client,
+  dir: string
+) => {
+  const signedUrl = await getSignedUrl(
+    instance,
+    new DeleteObjectCommand({
+      Bucket: import.meta.env.VITE_R2_BUCKET_NAME,
+      Key: `assets/${dir}`
+    }),
+    { expiresIn: 20 }
+  );
   return { url: signedUrl };
 };

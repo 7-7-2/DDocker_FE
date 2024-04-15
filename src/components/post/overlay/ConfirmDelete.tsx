@@ -6,6 +6,9 @@ import { POST_TEXTS } from '@/constants/texts';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { useMutation } from '@tanstack/react-query';
 import { css } from 'styled-system/css';
+import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
+import { useCloudStorage } from '@/hooks/useCloudStorage';
+import { usePostOptions } from '@/hooks/post/usePostOptions';
 
 const ConfirmDelete = ({
   postId,
@@ -16,12 +19,23 @@ const ConfirmDelete = ({
     e: React.MouseEvent<T, MouseEvent>
   ) => void;
 }) => {
-  const { mutate: mutateDelete } = useMutation({ mutationFn: deletePost });
+  const { mutateAsync: mutateDelete } = useMutation({ mutationFn: deletePost });
   const navigate = useNavigateTo('/posts');
+
+  const { userId } = useCachedUserInfo();
+  const route = `post/${userId}/${postId}`;
+  const { deleteStorage } = useCloudStorage();
+  const { recoverFooterState } = usePostOptions();
+
+  const handleStorage = async () => {
+    await deleteStorage(route);
+    recoverFooterState();
+    navigate();
+  };
 
   const handleDelete = () => {
     mutateDelete(postId, {
-      onSuccess: navigate
+      onSuccess: handleStorage
     });
   };
 

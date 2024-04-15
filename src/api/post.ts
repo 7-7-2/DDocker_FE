@@ -14,7 +14,7 @@ export const getPostDetail = async (postId: string) => {
   return res && res.data;
 };
 
-// 2. 게시글 이미지 업로드
+// 2. 게시글 이미지 클라우드 업로드
 export const registerImage = async (url: string, Image: File) => {
   const res = await storageInstance(url)
     .put('', Image)
@@ -137,6 +137,15 @@ export const setPostRegist = async (postInfo: RegisterPostTypes) => {
   } catch (error) {
     console.log('Failed to regist post', error);
   }
+};
+
+//14. 게시글 이미지 클라우드 삭제
+export const deleteImage = async (url: string) => {
+  const res = await storageInstance(url)
+    .delete('')
+    .catch(e => {
+      console.log(e);
+    });
 };
 
 // TodayCoffeeInfo

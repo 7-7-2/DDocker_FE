@@ -19,5 +19,15 @@ export const usePostOptions = () => {
     handleToggle();
     setFooterState(true);
   };
-  return { toggle, cancelOptions, cancelConfirm, handleToggle };
+
+  const recoverFooterState = () => {
+    setFooterState(true);
+  };
+  return {
+    toggle,
+    cancelOptions,
+    cancelConfirm,
+    handleToggle,
+    recoverFooterState
+  };
 };
