@@ -7,12 +7,15 @@ import { Flex, Between } from '@/styles/layout';
 import { cx } from 'styled-system/css';
 import { useLikeOnPost } from '@/hooks/post/useLikeOnPost';
 
+const imagePath = import.meta.env.VITE_R2_POST_IMAGE_PATH;
+
 const PostSocial = ({
   posts,
   likes,
   comments,
   createdAt,
   postId,
+  userId,
   onClick
 }: {
   posts?: boolean;
@@ -20,9 +23,34 @@ const PostSocial = ({
   comments: number;
   createdAt?: string | undefined;
   postId?: string;
-  onClick: () => void;
+  userId?: string;
+  onClick?: () => void;
 }) => {
   const { myLike, handleLikeOnPost } = useLikeOnPost(postId);
+  const storagePath = `${imagePath}%2F${userId}%2F${postId}`;
+
+  const handleShare = (imageUrl: string, postId: string) => async () => {
+    const fetchedImage = await fetch(imageUrl).catch(e => console.log(e));
+    const blobImage = await fetchedImage?.blob();
+    const filesArray = blobImage && [
+      new File([blobImage], postId + '.png', {
+        type: 'image/png',
+        lastModified: Date.now()
+      })
+    ];
+    const shareData = {
+      title: postId + '.png',
+      files: filesArray,
+      url: document.location.href
+    };
+    if (navigator.canShare && navigator.canShare(shareData)) {
+      await navigator.clipboard.writeText(document.location.href);
+      await navigator.share(shareData);
+    } else {
+      await navigator.clipboard.writeText(document.location.href);
+    }
+    return;
+  };
 
   return (
     <div className={cx(Flex, Between, posts ? PostsContainer : PostContainer)}>
@@ -39,7 +67,12 @@ const PostSocial = ({
         />
       </div>
 
-      {!posts && <Icon {...iconPropsGenerator('share')} />}
+      {!posts && (
+        <Icon
+          {...iconPropsGenerator('share')}
+          onClick={postId && handleShare(storagePath, postId)}
+        />
+      )}
       {posts && (
         <PostedAt
           at={createdAt}

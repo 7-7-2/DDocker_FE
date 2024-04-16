@@ -93,7 +93,7 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
             likes={socialCounts.data.totalLikes}
             comments={socialCounts.data.totalComments}
             postId={postNum}
-            onClick={() => {}}
+            userId={postData.data.userId}
           />
           <PostContent>{postData.data.post_title}</PostContent>
           <CaffeineInfo
