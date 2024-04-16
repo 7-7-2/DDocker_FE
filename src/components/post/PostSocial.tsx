@@ -30,8 +30,10 @@ const PostSocial = ({
   const storagePath = `${imagePath}%2F${userId}%2F${postId}`;
 
   const handleShare = (imageUrl: string, postId: string) => async () => {
-    const fetchedImage = await fetch(imageUrl).catch(e => console.log(e));
-    const blobImage = await fetchedImage?.blob();
+    const fetchedImage = await fetch(imageUrl).catch(e => {
+      console.log(e);
+    });
+    const blobImage = fetchedImage && (await fetchedImage?.blob());
     const filesArray = blobImage && [
       new File([blobImage], postId + '.png', {
         type: 'image/png',
@@ -40,7 +42,7 @@ const PostSocial = ({
     ];
     const shareData = {
       title: postId + '.png',
-      files: filesArray,
+      files: filesArray as File[],
       url: document.location.href
     };
     if (navigator.canShare && navigator.canShare(shareData)) {
