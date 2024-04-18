@@ -2,6 +2,7 @@ import Icon from '@/components/common/Icon';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { styled } from 'styled-system/jsx';
 import { useLikeOnPost } from '@/hooks/post/useLikeOnPost';
+import { Transition } from '@/styles/styles';
 
 const DailyTrendImage = ({
   src,
@@ -20,12 +21,15 @@ const DailyTrendImage = ({
         onClick={onClick}
       />
       <IconContainer>
-        <Icon
-          {...iconPropsGenerator(
-            myLike && myLike.success ? 'liked' : 'like-white'
-          )}
-          onClick={handleLikeOnPost}
-        />
+        <div
+          className={Transition}
+          onAnimationStart={handleLikeOnPost}>
+          <Icon
+            {...iconPropsGenerator(
+              myLike && myLike.success ? 'liked' : 'like-white'
+            )}
+          />
+        </div>
       </IconContainer>
     </Container>
   );
