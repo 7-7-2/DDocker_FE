@@ -148,7 +148,8 @@ export interface CaffeineFilterTypes {
   menuCaffeine: number;
 }
 
-export interface EditProfileImgProps extends ImgRegisterProps {
+export interface EditProfileImgProps
+  extends Omit<ImgRegisterProps, 'isLoading'> {
   profileImg?: string;
 }
 
@@ -271,9 +272,11 @@ export interface ImgCropperProps {
   setImageFile: (file: File) => void;
   setCropperEnabled: (enabled: boolean) => void;
   cropperEnabled: boolean;
+  compressImage: (imageFile: File) => Promise<void | File>;
+  isLoading: boolean;
 }
 
 export type ImgRegisterProps = Omit<
   ImgCropperProps,
-  'aspectRatio' | 'setImageFile' | 'cropperEnabled'
+  'aspectRatio' | 'setImageFile' | 'compressImage' | 'cropperEnabled'
 >;

@@ -60,6 +60,14 @@ export default defineConfig({
           '100%': {
             opacity: '1'
           }
+        },
+        loader: {
+          '0%': {
+            transform: 'rotate(0deg)'
+          },
+          '100%': {
+            transform: 'rotate(360deg)'
+          }
         }
       }
     }

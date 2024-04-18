@@ -16,15 +16,17 @@ import {
   ProfileAboutMe,
   TextArea
 } from '@/styles/styles';
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 const ProfileDetail = ({ userId }: { userId: string | undefined }) => {
+  const { state: statusCode } = useLocation();
   const user = useRecoilValue(userInfoState);
   useGetUserInfo(userId);
 
   const [cacheState, setCacheState] = useRecoilState(cahceImgState);
-  useEffect(() => {
-    setCacheState(true);
+  useLayoutEffect(() => {
+    !statusCode && setCacheState(true);
   }, []);
 
   return (
