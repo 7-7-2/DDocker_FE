@@ -1,7 +1,6 @@
 import Icon from '@/components/common/Icon';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { styled } from 'styled-system/jsx';
-import { css } from 'styled-system/css';
 import { Align } from '@/styles/layout';
 import { CaffeineDetail } from '@/styles/styles';
 import { Transition } from '@/styles/styles';

@@ -1,6 +1,6 @@
 import Icon from '@/components/common/Icon';
 import { FlexCenter } from '@/styles/layout';
-import { MarginT6 } from '@/styles/styles';
+import { MarginT6, Spinner } from '@/styles/styles';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { styled } from 'styled-system/jsx';
 import { ImgRegisterProps } from '@/types/types';
@@ -9,26 +9,27 @@ import { useImageCropper } from '@/hooks/post/useImageCropper';
 const ImgRegister = ({
   setImageUrl,
   imageUrl,
-  setCropperEnabled
+  setCropperEnabled,
+  isLoading: isLoadingImg
 }: ImgRegisterProps) => {
-  const { fileInputRef } = useImageCropper();
+  const { fileInputRef, setImageFile, imageFile } = useImageCropper();
 
   const resetImage = () => {
     setImageUrl('');
+    setImageFile(undefined);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    const files = e.target.files;
-    if (!files) return;
-    const url = URL.createObjectURL(files[0]);
-    setImageUrl(url);
+    if (!e.target.files) return;
+    setImageFile(e.target.files[0]);
+    setImageUrl(URL.createObjectURL(e.target.files[0]));
     setCropperEnabled(true);
   };
 
   return (
     <div className={MarginT6}>
-      {imageUrl && (
+      {imageUrl && !isLoadingImg && (
         <PostImgContainer>
           <img
             src={imageUrl}
@@ -39,14 +40,19 @@ const ImgRegister = ({
       )}
       {!imageUrl && (
         <RegistPhoto className={FlexCenter}>
-          <Icon {...iconPropsGenerator('regist-photo', '24')} />
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/*"
-            onChange={handleFileChange}
-            style={{ display: 'none' }}
-          />
+          {!imageFile && !isLoadingImg && (
+            <>
+              <Icon {...iconPropsGenerator('regist-photo', '24')} />
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                style={{ display: 'none' }}
+              />
+            </>
+          )}
+          {imageFile && <div className={Spinner} />}
         </RegistPhoto>
       )}
     </div>
@@ -54,8 +60,9 @@ const ImgRegister = ({
 };
 
 const RegistPhoto = styled.label`
-  width: 106px;
-  height: 106px;
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 1;
   border-radius: 10px;
   background: var(--colors-tertiary);
 `;
@@ -63,6 +70,7 @@ const RegistPhoto = styled.label`
 const PostImgContainer = styled.div`
   max-width: 100%;
   height: auto;
+  aspect-ratio: 1;
   border-radius: 10px;
   overflow: hidden;
 `;

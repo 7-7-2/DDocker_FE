@@ -24,6 +24,7 @@ import ImgCropper from '@/components/common/ImgCropper';
 import { nanoid } from 'nanoid';
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 import { useCloudStorage } from '@/hooks/useCloudStorage';
+import { useCompressImage } from '@/hooks/useCompressImage';
 
 const imagePath = import.meta.env.VITE_R2_POST_IMAGE_PATH;
 
@@ -46,6 +47,19 @@ const PostRegister = () => {
     setCropperEnabled,
     cropperEnabled
   } = useImageCropper();
+  const { compressImage, isLoading } = useCompressImage();
+  const registerProps = {
+    setImageUrl,
+    imageUrl,
+    setCropperEnabled,
+    isLoading
+  };
+  const cropperProps = {
+    aspectRatio: 1,
+    setImageFile,
+    cropperEnabled,
+    compressImage
+  };
 
   const handleRegistData = async (postTitle: string | undefined) => {
     const postId = nanoid();
@@ -68,11 +82,12 @@ const PostRegister = () => {
     const newRegistData = await handleRegistData(inputRef.current?.value);
     const { postId } = newRegistData;
     const registered = await setPostRegist(newRegistData);
-    const route = `post/${userId}/${postId}`;
-    registered && (await uploadStorage(route, imageFile as File));
+    registered &&
+      (await uploadStorage(`post/${userId}/${postId}`, imageFile as File));
 
     await updateData();
     resetSelectedCoffee();
+    URL.revokeObjectURL(imageUrl);
     registered && navigate(`/post/${postId}`);
   };
 
@@ -87,18 +102,10 @@ const PostRegister = () => {
           label={LABEL_TEXTS.photo}
           essential
         />
-        <ImgRegister
-          setImageUrl={setImageUrl}
-          imageUrl={imageUrl}
-          setCropperEnabled={setCropperEnabled}
-        />
+        <ImgRegister {...registerProps} />
         <ImgCropper
-          aspectRatio={1}
-          imageUrl={imageUrl}
-          setImageUrl={setImageUrl}
-          setImageFile={setImageFile}
-          cropperEnabled={cropperEnabled}
-          setCropperEnabled={setCropperEnabled}
+          {...registerProps}
+          {...cropperProps}
         />
       </Container>
 

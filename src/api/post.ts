@@ -21,7 +21,7 @@ export const registerImage = async (url: string, Image: File) => {
     .catch((e: Error) => {
       console.log(e);
     });
-  return res && res.data;
+  return res && res.status;
 };
 
 // 3. 포스트 삭제(+JWT 인증)

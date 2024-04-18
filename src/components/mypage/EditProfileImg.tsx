@@ -17,10 +17,8 @@ const EditProfileImg = ({
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
-    const files = e.target.files;
-    if (!files) return;
-    const url = URL.createObjectURL(files[0]);
-    setImageUrl(url);
+    if (!e.target.files) return;
+    setImageUrl(URL.createObjectURL(e.target.files[0]));
     setCropperEnabled(true);
   };
 
