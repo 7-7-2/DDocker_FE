@@ -7,6 +7,11 @@ export const useNavigateTo = (to: string) => {
       navigate(-1);
       return;
     }
+    if (to === '0') {
+      navigate(0);
+      return;
+    }
+
     navigate(to);
   };
 
