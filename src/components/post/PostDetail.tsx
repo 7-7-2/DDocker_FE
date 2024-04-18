@@ -5,7 +5,6 @@ import CaffeineInfo from '@/components/post/CaffeineInfo';
 import PostedAt from '@/components/post/PostedAt';
 import Icon from '@/components/common/Icon';
 import { useQuery } from '@tanstack/react-query';
-import ReplyToPanel from '@/components/post/ReplyToPanel';
 
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { styled } from 'styled-system/jsx';
@@ -14,8 +13,6 @@ import { cx } from 'styled-system/css';
 import { PostContent, Divider } from '@/styles/styles';
 import timestampToDate from '@/utils/timestampToDate';
 import { getPostDetail, getSocialCounts } from '@/api/post';
-import PostOwnerOption from '@/components/post/overlay/PostOwnerOption';
-import PublicOption from '@/components/post/overlay/PublicOption';
 import PostInput from '@/components/post/PostInput';
 import { useRef } from 'react';
 import { InputContext } from '@/context/contexts';
@@ -24,6 +21,9 @@ import { useVerifyOwner } from '@/hooks/post/useVerifyOwner';
 import React from 'react';
 import { useRefIntoView } from '@/hooks/post/useRefIntoView';
 
+const ReplyToPanel = React.lazy(() => import('./ReplyToPanel'));
+const PublicOption = React.lazy(() => import('./overlay/PublicOption'));
+const PostOwnerOption = React.lazy(() => import('./overlay/PostOwnerOption'));
 const ConfirmDelete = React.lazy(() => import('./overlay/ConfirmDelete'));
 
 const PostDetail = ({ postNum }: { postNum: string }) => {

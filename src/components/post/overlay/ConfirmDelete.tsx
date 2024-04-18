@@ -13,15 +13,17 @@ import { Justify } from '@/styles/layout';
 
 const ConfirmDelete = ({
   postId,
-  cancelConfirm
+  cancelConfirm,
+  posts = false
 }: {
   postId: string;
   cancelConfirm: <T extends HTMLElement>(
     e: React.MouseEvent<T, MouseEvent>
   ) => void;
+  posts?: boolean;
 }) => {
   const { mutateAsync: mutateDelete } = useMutation({ mutationFn: deletePost });
-  const navigate = useNavigateTo('/posts');
+  const navigate = posts ? useNavigateTo('0') : useNavigateTo('/posts');
 
   const { userId } = useCachedUserInfo();
   const route = `post/${userId}/${postId}`;
