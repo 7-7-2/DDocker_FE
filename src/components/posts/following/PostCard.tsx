@@ -10,9 +10,20 @@ import { FollowingPost } from '@/types/types';
 import { useQuery } from '@tanstack/react-query';
 import { getSocialCounts } from '@/api/post';
 import { usePostOptions } from '@/hooks/post/usePostOptions';
-import PublicOption from '@/components/post/overlay/PublicOption';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import PostBody from '@/components/posts/following/PostBody';
+import { useVerifyOwner } from '@/hooks/post/useVerifyOwner';
+import React from 'react';
+
+const PublicOption = React.lazy(
+  () => import('../../post/overlay/PublicOption')
+);
+const PostOwnerOption = React.lazy(
+  () => import('../../post/overlay/PostOwnerOption')
+);
+const ConfirmDelete = React.lazy(
+  () => import('../../post/overlay/ConfirmDelete')
+);
 
 const PostCard = ({ ...props }: FollowingPost) => {
   const {
@@ -32,6 +43,14 @@ const PostCard = ({ ...props }: FollowingPost) => {
   const PostBodyProps = { postTitle, photo, caffeine, shot, menu, brand };
   const MiniProfileProps = { url: profileUrl, nickname, caffeine: sum, userId };
 
+  const { postOwner } = useVerifyOwner(postId);
+  const isPostOwner = postOwner && postOwner === nickname;
+  const {
+    toggle: confirm,
+    handleToggle: setConfirm,
+    cancelConfirm
+  } = usePostOptions();
+
   const { data: socialCounts } = useQuery({
     queryKey: ['socialCounts', postId],
     queryFn: () => {
@@ -47,10 +66,25 @@ const PostCard = ({ ...props }: FollowingPost) => {
   };
   return (
     <>
-      {toggle && (
+      {/* 유저별 분기처리 */}
+      {toggle && !isPostOwner && (
         <PublicOption
           handleToggle={cancelOptions}
           postId={postId}
+        />
+      )}
+      {toggle && isPostOwner && (
+        <PostOwnerOption
+          cancleOptions={cancelOptions}
+          postId={postId}
+          setConfirm={setConfirm}
+        />
+      )}
+      {confirm && (
+        <ConfirmDelete
+          cancelConfirm={cancelConfirm}
+          postId={postId}
+          posts={true}
         />
       )}
       <Container>
