@@ -2,7 +2,8 @@ import { useState } from 'react';
 import imageCompression from 'browser-image-compression';
 
 const options = {
-  maxSizeMB: 0.5
+  maxSizeMB: 0.5,
+  maxWidthOrHeight: 1080
 };
 
 export const useCompressImage = () => {

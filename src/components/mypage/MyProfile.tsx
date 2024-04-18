@@ -23,7 +23,8 @@ import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 import { useImageCropper } from '@/hooks/post/useImageCropper';
 import ImgCropper from '@/components/common/ImgCropper';
 import { useCloudStorage } from '@/hooks/useCloudStorage';
-import { useNavigateTo } from '@/hooks/useNavigateTo';
+import { useNavigate } from 'react-router-dom';
+import { useCompressImage } from '@/hooks/useCompressImage';
 
 const imagePath = import.meta.env.VITE_R2_USER_IMAGE_PATH;
 
@@ -32,7 +33,9 @@ const MyProfile = () => {
   const { userData, userId } = useCachedUserInfo();
   const { nickname: editNickname } = useRecoilValue(authState);
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
-  const goToMyProfile = useNavigateTo(`/profile/${userId}`);
+  const navigate = useNavigate();
+  const goToMyProfile = (status = 0) =>
+    navigate(`/profile/${userId}`, { state: status });
   const setCacheState = useSetRecoilState(cahceImgState);
 
   const {
@@ -43,6 +46,7 @@ const MyProfile = () => {
     setCropperEnabled,
     cropperEnabled
   } = useImageCropper();
+  const { compressImage, isLoading } = useCompressImage();
 
   const handleExitedUser = () => {
     // 추후 진행하겠습니다...
@@ -63,25 +67,21 @@ const MyProfile = () => {
     return Object.assign({}, ...editData);
   };
 
-  // editProfile <=> getMyInfo(set) 실패가정
-  // 1. 전 화면 cacheData 대신 useQuery통해 서버 데이터 사용
-  // 2. 앱마운트시  캐시데이터 검증 (useValidateCache?)
   const handlClickBtn =
-    (route: string, file: File, path: string) => async () => {
-      await uploadStorage(route, file);
+    (route: string, file: File | null, path: string) => async () => {
+      const uploaded = route && file && (await uploadStorage(route, file));
       const editData = await handleEditProfileData(path);
       await editProfile(editData);
       await getMyInfo();
-      setCacheState(false);
-      return goToMyProfile();
+      uploaded && setCacheState(false);
+      return uploaded ? goToMyProfile(uploaded) : goToMyProfile();
     };
 
   const cropperProps = {
-    imageUrl,
-    setImageUrl,
     setImageFile,
     cropperEnabled,
-    setCropperEnabled
+    compressImage,
+    isLoading
   };
 
   const editProps = {
@@ -100,6 +100,7 @@ const MyProfile = () => {
         stencilType={TEXT.circle}
         aspectRatio={1}
         {...cropperProps}
+        {...editProps}
       />
       <CheckNickname userNickname={userData && userData.nickname} />
       <InputAboutMe
@@ -114,9 +115,11 @@ const MyProfile = () => {
       <ButtonArea className={Justify}>
         <SaveButton
           className={cx(FlexCenter, Cursor, Border16, HomeRegistContainer)}
-          onTouchEnd={
-            imageFile && handlClickBtn(`user/${userId}`, imageFile, storagePath)
-          }>
+          onTouchEnd={handlClickBtn(
+            `user/${userId}`,
+            imageFile ? imageFile : null,
+            storagePath
+          )}>
           {TEXT.saveButton}
         </SaveButton>
       </ButtonArea>

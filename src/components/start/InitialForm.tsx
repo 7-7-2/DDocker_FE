@@ -24,6 +24,7 @@ import { cx } from 'styled-system/css';
 import ImgCropper from '@/components/common/ImgCropper';
 import { TEXT } from '@/constants/texts';
 import { useImageCropper } from '@/hooks/post/useImageCropper';
+import { useCompressImage } from '@/hooks/useCompressImage';
 
 const { message } = INITIAL_FORM_TEXTS;
 
@@ -42,13 +43,16 @@ const InitialForm = () => {
     setCropperEnabled,
     cropperEnabled
   } = useImageCropper();
+  const { compressImage, isLoading } = useCompressImage();
 
   const cropperProps = {
     imageUrl,
     setImageUrl,
     setImageFile,
     cropperEnabled,
-    setCropperEnabled
+    setCropperEnabled,
+    compressImage,
+    isLoading
   };
 
   const editProps = {
