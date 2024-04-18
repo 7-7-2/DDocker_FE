@@ -738,3 +738,25 @@ export const FollowBtnStyle = css`
 export const FollowingBtnStyle = css`
   background-color: var(--colors-tertiary);
 `;
+
+export const Transition = css`
+  &:active {
+    animation-name: like;
+    animation-duration: 2s;
+  }
+`;
+
+export const Spinner = css`
+  width: 40px;
+  height: 40px;
+  position: relative;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto auto;
+  border: 4px solid var(--colors-main);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: loader 0.7s infinite ease-in-out;
+`;
