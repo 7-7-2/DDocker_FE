@@ -35,13 +35,13 @@ const PostSocial = ({
     });
     const blobImage = fetchedImage && (await fetchedImage?.blob());
     const filesArray = blobImage && [
-      new File([blobImage], postId + '.png', {
-        type: 'image/png',
+      new File([blobImage], postId + '.webp', {
+        type: 'image/webp',
         lastModified: Date.now()
       })
     ];
     const shareData = {
-      title: postId + '.png',
+      title: postId + '.webp',
       files: filesArray as File[],
       url: document.location.href
     };
