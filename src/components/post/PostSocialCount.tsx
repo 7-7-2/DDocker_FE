@@ -4,6 +4,7 @@ import { styled } from 'styled-system/jsx';
 import { css } from 'styled-system/css';
 import { Align } from '@/styles/layout';
 import { CaffeineDetail } from '@/styles/styles';
+import { Transition } from '@/styles/styles';
 
 const PostSocialCount = ({
   count,
@@ -38,13 +39,6 @@ const Count = styled.span`
   width: 22px;
   line-height: 22px;
   align-self: end;
-`;
-
-const Transition = css`
-  &:active {
-    animation-name: like;
-    animation-duration: 2s;
-  }
 `;
 
 export default PostSocialCount;
