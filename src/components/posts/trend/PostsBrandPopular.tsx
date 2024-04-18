@@ -18,6 +18,7 @@ import { Between, Flex } from '@/styles/layout';
 import PostsSortBy from '@/components/posts/trend/PostsSortBy';
 import { useToggle } from '@/hooks/post/useToggle';
 import { useId } from 'react';
+import { generatePostCardProps } from '@/utils/manageProps';
 
 const PostsBrandPopular = () => {
   const selected = useRecoilValue(brandState);
@@ -74,41 +75,13 @@ const PostsBrandPopular = () => {
       {!sort &&
         brandPopularPosts &&
         brandPopularPosts.data.map((post: FollowingPost, idx: number) => (
-          <PostCard
-            key={id + idx}
-            nickname={post.nickname}
-            sum={post.sum}
-            postTitle={post.postTitle}
-            postId={post.postId}
-            profileUrl={post.profileUrl}
-            createdAt={post.createdAt}
-            photo={post.photo}
-            caffeine={post.caffeine}
-            shot={post.shot}
-            menu={post.menu}
-            brand={selected}
-            userId={post.userId}
-          />
+          <PostCard {...generatePostCardProps(post, id, idx, selected)} />
         ))}
 
       {sort &&
         brandRecentPosts &&
         brandRecentPosts.data.map((post: FollowingPost, idx: number) => (
-          <PostCard
-            key={id + idx}
-            nickname={post.nickname}
-            sum={post.sum}
-            postTitle={post.postTitle}
-            postId={post.postId}
-            profileUrl={post.profileUrl}
-            createdAt={post.createdAt}
-            photo={post.photo}
-            caffeine={post.caffeine}
-            shot={post.shot}
-            menu={post.menu}
-            brand={selected}
-            userId={post.userId}
-          />
+          <PostCard {...generatePostCardProps(post, id, idx, selected)} />
         ))}
     </div>
   );
