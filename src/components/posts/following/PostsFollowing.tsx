@@ -2,6 +2,7 @@ import PostCard from '@/components/posts/following/PostCard';
 import { FollowingPostIQParam } from '@/hooks/useInfiniteScroll';
 import { useTargetInfiniteScroll } from '@/hooks/useTargetInfiniteScroll';
 import { FollowingPost, InfinitePosts, SimplifyUser } from '@/types/types';
+import { generatePostCardProps } from '@/utils/manageProps';
 import React, { useId } from 'react';
 import { styled } from 'styled-system/jsx';
 
@@ -15,25 +16,9 @@ const PostsFollowing = () => {
   const id = useId();
 
   const mapPosts = (post: FollowingPost, idx: number) => {
-    return (
-      <React.Fragment key={id + idx}>
-        <PostCard
-          nickname={post.nickname}
-          sum={post.sum}
-          postTitle={post.postTitle}
-          postId={post.postId}
-          profileUrl={post.profileUrl}
-          createdAt={post.createdAt}
-          photo={post.photo}
-          caffeine={post.caffeine}
-          shot={post.shot}
-          menu={post.menu}
-          brand={post.brand}
-          userId={post.userId}
-        />
-      </React.Fragment>
-    );
+    return <PostCard {...generatePostCardProps(post, id, idx)} />;
   };
+
   return (
     <>
       {postsData && postsData.length !== 0 && (
