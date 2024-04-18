@@ -5,7 +5,6 @@ import { useImageCropper } from '@/hooks/post/useImageCropper';
 import { css, cx } from 'styled-system/css';
 import { TEXT } from '@/constants/texts';
 import { ImgCropperProps } from '@/types/types';
-import { useCompressImage } from '@/hooks/useCompressImage';
 
 const { complete, circle, rectangle } = TEXT;
 
@@ -16,7 +15,9 @@ const ImgCropper = ({
   imageUrl,
   setImageUrl,
   setCropperEnabled,
-  cropperEnabled
+  cropperEnabled,
+  compressImage,
+  isLoading
 }: ImgCropperProps) => {
   const circleType = {
     stencilComponent: stencilType === circle ? CircleStencil : RectangleStencil
@@ -29,25 +30,25 @@ const ImgCropper = ({
   };
 
   const { cropperRef } = useImageCropper();
-  const { compressImage, isLoading } = useCompressImage();
+
+  const blobCallback = async (blob: Blob | null) => {
+    const file = new File([blob as Blob], 'crop.webp', {
+      type: 'image/webp'
+    });
+    const compressed = await compressImage(file);
+    if (compressed && !isLoading) {
+      setImageFile(compressed);
+      setImageUrl(URL.createObjectURL(compressed));
+    }
+  };
 
   const handleCropperDone = () => {
     const cropper = cropperRef.current;
+    setImageUrl('');
+    setCropperEnabled(false);
     if (cropper) {
       const canvas = cropper.getCanvas();
-      setCropperEnabled(false);
-      canvas &&
-        canvas.toBlob(async blob => {
-          const file = new File([blob as Blob], 'crop.png', {
-            type: 'image/png'
-          });
-          const compressed = await compressImage(file);
-          if (compressed && !isLoading) {
-            setImageFile(compressed);
-            setImageUrl(URL.createObjectURL(compressed));
-          }
-        });
-
+      canvas && canvas.toBlob(blobCallback, 'image/webp');
       return;
     }
   };
