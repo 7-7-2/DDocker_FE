@@ -56,5 +56,6 @@ export const CTA_TEXTS = {
 
 export const POST_TEXTS = {
   noComments: '아직 작성한 댓글이 없어요',
-  delete: '이 게시물을 삭제하시겠습니까?'
+  delete: '이 게시물을 삭제하시겠습니까?',
+  warn: '게시글 삭제시, 카페인 데이터가 함께 삭제됩니다.'
 };
