@@ -84,7 +84,7 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
               url={postData?.data?.profileUrl}
               nickname={postData.data.nickname}
               caffeine={postData.data.sum}
-              onClick={() => {}}
+              userId={postData.data.userId}
             />
             <Icon
               {...iconPropsGenerator('user-more')}

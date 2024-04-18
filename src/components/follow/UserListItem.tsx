@@ -12,7 +12,7 @@ import {
 } from '@/hooks/useInfiniteScroll';
 import { useTargetInfiniteScroll } from '@/hooks/useTargetInfiniteScroll';
 import EmptyFollow from '@/components/follow/EmptyFollow';
-import { useNavigate } from 'react-router-dom';
+import { useCallback } from 'react';
 
 const UserListItem = ({
   activeTab,
@@ -21,9 +21,6 @@ const UserListItem = ({
   activeTab: string;
   pageUserId: string | undefined;
 }) => {
-  const navigate = useNavigate();
-  const toProfile = (userId: string | undefined) => () =>
-    navigate(`/profile/${userId}`);
   const activeParam =
     activeTab === '팔로워' ? FollowerListIQParam() : FollowingListIQParam();
   const { userId: myId } = useCachedUserInfo();
@@ -33,40 +30,28 @@ const UserListItem = ({
   );
   const isFollowingTab = activeTab === '팔로잉';
   const isFollowerTab = activeTab === '팔로워';
+
+  const mapMiniProfile = useCallback(
+    ({ url, nickname, caffeine, userId }: SimplifyUser) => (
+      <div
+        key={userId}
+        className={cx(Align, Between, PaddingT20)}>
+        <MiniProfile
+          url={url}
+          nickname={nickname}
+          caffeine={caffeine}
+          userId={userId}
+        />
+        {userId !== myId && <FollowBtn userId={userId} />}
+      </div>
+    ),
+    []
+  );
+
   return (
     <div className={PaddingB20}>
-      {followingList &&
-        followingList.map(
-          ({ url, nickname, caffeine, userId }: SimplifyUser) => (
-            <div
-              key={userId}
-              className={cx(Align, Between, PaddingT20)}>
-              <MiniProfile
-                url={url}
-                nickname={nickname}
-                caffeine={caffeine}
-                onClick={toProfile(userId)}
-              />
-              {userId !== myId && <FollowBtn userId={userId} />}
-            </div>
-          )
-        )}
-      {followerList &&
-        followerList.map(
-          ({ url, nickname, caffeine, userId }: SimplifyUser) => (
-            <div
-              key={userId}
-              className={cx(Align, Between, PaddingT20)}>
-              <MiniProfile
-                url={url}
-                nickname={nickname}
-                caffeine={caffeine}
-                onClick={toProfile(userId)}
-              />
-              {userId !== myId && <FollowBtn userId={userId} />}
-            </div>
-          )
-        )}
+      {followingList && followingList.map(mapMiniProfile)}
+      {followerList && followerList.map(mapMiniProfile)}
       {isFollowingTab && followingList && followingList?.length === 0 && (
         <EmptyFollow
           activeTab={activeTab}

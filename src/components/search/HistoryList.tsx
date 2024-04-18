@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import useGetCacheData from '@/hooks/useGetCacheData';
 import MiniProfile from '@/components/common/MiniProfile';
-import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-system/jsx';
 import { Align, Between, Flex } from '@/styles/layout';
 import { cx } from 'styled-system/css';
@@ -19,10 +18,6 @@ const HistoryList = () => {
     }
   });
 
-  const navigate = useNavigate();
-  const handleToProfile = (userId: string) => () => {
-    navigate(userId);
-  };
   const { remove, removeHistory } = useSetHistory();
   const removeUserHistory = (user: SimplifyUser) => () => {
     remove(user);
@@ -43,7 +38,7 @@ const HistoryList = () => {
                 url={user.url}
                 nickname={user.nickname}
                 caffeine={user.caffeine}
-                onClick={handleToProfile(`/profile/${user.userId}`)}
+                userId={user.userId}
               />
               <div
                 className={Flex}

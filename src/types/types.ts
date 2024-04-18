@@ -34,9 +34,7 @@ export interface SimplifyUser {
   keyword?: string;
 }
 
-export interface MiniProfile extends SimplifyUser {
-  onClick: () => void | Promise<() => void>;
-}
+export type MiniProfileProps = Omit<SimplifyUser, 'keyword'>;
 
 export interface SearchBarProps {
   search: string;

@@ -30,7 +30,7 @@ const PostCard = ({ ...props }: FollowingPost) => {
     brand
   } = props;
   const PostBodyProps = { postTitle, photo, caffeine, shot, menu, brand };
-  const MiniProfileProps = { url: profileUrl, nickname, caffeine: sum };
+  const MiniProfileProps = { url: profileUrl, nickname, caffeine: sum, userId };
 
   const { data: socialCounts } = useQuery({
     queryKey: ['socialCounts', postId],
@@ -41,11 +41,7 @@ const PostCard = ({ ...props }: FollowingPost) => {
   });
   const { toggle, cancelOptions } = usePostOptions();
 
-  const navigateToProfile = useNavigateTo(`/profile/${userId}`);
   const navigateToPost = useNavigateTo(`/post/${postId}`);
-  const handleToProfile = () => {
-    navigateToProfile();
-  };
   const handleToPost = () => {
     navigateToPost();
   };
@@ -59,10 +55,7 @@ const PostCard = ({ ...props }: FollowingPost) => {
       )}
       <Container>
         <UserProfile className={cx(Flex, Between)}>
-          <MiniProfile
-            {...MiniProfileProps}
-            onClick={handleToProfile}
-          />
+          <MiniProfile {...MiniProfileProps} />
           <Icon
             {...iconPropsGenerator('user-more')}
             onClick={cancelOptions}
