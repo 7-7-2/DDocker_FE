@@ -3,7 +3,6 @@ import { SimplifyUser, SearchList } from '@/types/types';
 import { Align, Between } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
-import { useNavigate } from 'react-router-dom';
 import { useSetHistory } from '@/hooks/search/useSetHistory';
 import { memo, lazy, useState } from 'react';
 
@@ -11,13 +10,11 @@ const SearchMore = lazy(() => import('@/components/search/SearchMore'));
 const SearchMoreList = lazy(() => import('@/components/search/SearchMoreList'));
 
 const SearchListItem = memo(({ users, search }: SearchList) => {
-  const navigate = useNavigate();
   const [loadMore, setLoadMore] = useState(false);
 
   const { mutate, mutateHistory } = useSetHistory();
-  const handleToProfile = (userId: string, user: SimplifyUser) => () => {
+  const handleAddUserHistory = (user: SimplifyUser) => () => {
     mutate(user);
-    navigate(userId);
   };
   const handleSearchMore = (user: SimplifyUser) => () => {
     setLoadMore(true);
@@ -31,12 +28,14 @@ const SearchListItem = memo(({ users, search }: SearchList) => {
           <Container
             key={user.userId}
             className={cx(Align, Between)}>
-            <MiniProfile
-              url={user.url}
-              nickname={user.nickname}
-              caffeine={user.caffeine}
-              onClick={handleToProfile(`/profile/${user.userId}`, user)}
-            />
+            <div onClick={handleAddUserHistory(user)}>
+              <MiniProfile
+                url={user.url}
+                nickname={user.nickname}
+                caffeine={user.caffeine}
+                userId={user.userId}
+              />
+            </div>
           </Container>
         ))}
       {users.length == 5 && !loadMore && (

@@ -3,16 +3,11 @@ import { styled } from 'styled-system/jsx';
 import { SearchListMoreUserIQParam } from '@/hooks/useInfiniteScroll';
 import MiniProfile from '@/components/common/MiniProfile';
 import { SimplifyUser } from '@/types/types';
-import { useNavigate } from 'react-router-dom';
 import { SEARCH_TEXTS } from '@/constants/search';
 
 const { search: searchText } = SEARCH_TEXTS;
 
 const SearchMoreList = ({ search }: { search: string }) => {
-  const navigate = useNavigate();
-  const toProfile = (userId: string | undefined) => () =>
-    navigate(`/profile/${userId}`);
-
   const { searchMoreList, ref } = useTargetInfiniteScroll(
     SearchListMoreUserIQParam(search),
     searchText
@@ -25,7 +20,7 @@ const SearchMoreList = ({ search }: { search: string }) => {
           url={user.url}
           nickname={user.nickname}
           caffeine={user.caffeine}
-          onClick={toProfile(user.userId)}
+          userId={user.userId}
         />
       </Container>
     );
