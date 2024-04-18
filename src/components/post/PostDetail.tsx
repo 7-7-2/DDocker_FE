@@ -22,10 +22,12 @@ import { InputContext } from '@/context/contexts';
 import { usePostOptions } from '@/hooks/post/usePostOptions';
 import { useVerifyOwner } from '@/hooks/post/useVerifyOwner';
 import React from 'react';
+import { useRefIntoView } from '@/hooks/post/useRefIntoView';
 
 const ConfirmDelete = React.lazy(() => import('./overlay/ConfirmDelete'));
 
 const PostDetail = ({ postNum }: { postNum: string }) => {
+  const { ref } = useRefIntoView(null, 'auto');
   const { data: postData } = useQuery({
     queryKey: ['postData'],
     queryFn: () => {
@@ -75,7 +77,9 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
       )}
       {postData && socialCounts && (
         <>
-          <UserProfile className={cx(Flex, Between, Align)}>
+          <UserProfile
+            className={cx(Flex, Between, Align)}
+            ref={ref}>
             <MiniProfile
               url={postData?.data?.profileUrl}
               nickname={postData.data.nickname}
@@ -140,6 +144,7 @@ const DetailImg = styled.img`
   }
   max-height: 500px;
   object-fit: fill;
+  aspect-ratio: 1/1;
 `;
 
 export default PostDetail;
