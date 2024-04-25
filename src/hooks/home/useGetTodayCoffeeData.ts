@@ -1,43 +1,57 @@
-import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
-import useGetCacheData from '@/hooks/useGetCacheData';
+import { useQuery } from '@tanstack/react-query';
 import { TodayCoffeeInfoTypes } from '@/types/types';
 import { getTodayCoffeeInfo } from '@/api/post';
 import { useGetSignedIn } from '@/hooks/useGetSignedIn';
+import useGetCacheData from '@/hooks/useGetCacheData';
+import useSetCacheData from '@/hooks/useSetCacheData';
+import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
+import { useDeleteCacheData } from '@/hooks/useDeleteCacheData';
 
-function useGetTodayCoffeeData() {
+export const useGetTodayCoffeeData = () => {
   const [coffeeInfo, setCoffeeInfo] = useState<TodayCoffeeInfoTypes>();
   const { signedIn } = useGetSignedIn();
+  const { userId } = useCachedUserInfo();
+  const userUrl = userId && `/water/${userId}`;
 
-  const resetOnMidnight = () => {
-    const currentTime = dayjs();
-    const nextMidnight = dayjs().endOf('day').add(1, 'second');
-    const delay = nextMidnight.diff(currentTime);
+  const { data: todayCoffeeData, refetch: updateTodayCoffeeData } = useQuery({
+    queryKey: ['todayCoffeeData'],
+    queryFn: () => getTodayCoffeeInfo(),
+    enabled: !!signedIn
+  });
 
-    const deleteCachedData = async (cacheName: string, url: string) => {
-      const cacheStorage = await caches.open(cacheName);
-      await cacheStorage.delete(url);
-    };
-    setTimeout(() => {
-      resetOnMidnight();
-      deleteCachedData('user', '/coffee');
-      deleteCachedData('user', '/water');
-    }, delay);
-  };
-  const getDataList = async () => {
+  const getDataList = async (todayCoffeeData: TodayCoffeeInfoTypes) => {
     const data = await useGetCacheData('user', '/coffee');
-    data && setCoffeeInfo(data.cacheData);
-    if (!data) {
-      signedIn && getTodayCoffeeInfo();
+    if (!data && todayCoffeeData) {
+      useSetCacheData('user', '/coffee', todayCoffeeData);
+      useDeleteCacheData('user', userUrl);
+      setCoffeeInfo(todayCoffeeData);
+      return;
+    }
+    if (
+      data &&
+      todayCoffeeData &&
+      todayCoffeeData.allCount === data.cacheData.allCount
+    ) {
+      setCoffeeInfo(data.cacheData);
+      return;
+    }
+    if (
+      data &&
+      todayCoffeeData &&
+      todayCoffeeData.allCount !== data.cacheData.allCount
+    ) {
+      console.log('🫨');
+      useSetCacheData('user', '/coffee', todayCoffeeData);
+      useDeleteCacheData('user', userUrl);
+      setCoffeeInfo(todayCoffeeData);
+      return;
     }
   };
 
   useEffect(() => {
-    getDataList();
-    resetOnMidnight();
-  }, []);
+    getDataList(todayCoffeeData);
+  }, [todayCoffeeData]);
 
-  return coffeeInfo;
-}
-
-export default useGetTodayCoffeeData;
+  return { coffeeInfo, updateTodayCoffeeData };
+};

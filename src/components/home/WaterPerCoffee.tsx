@@ -3,11 +3,14 @@ import Button from '@/components/common/Button';
 import CoffeeIntake from '@/components/home/CoffeeIntake';
 import TodayMenuItem from '@/components/home/TodayMenuItem';
 import WaterIntake from '@/components/home/WaterIntake';
+import CTA from '@/components/common/CTA';
+
 import { BUTTON_TEXTS } from '@/constants/common';
 import { TODAY_CAFFEINE_INFO_TEXTS } from '@/constants/home';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
-import useGetTodayCoffeeData from '@/hooks/home/useGetTodayCoffeeData';
+import { useGetTodayCoffeeData } from '@/hooks/home/useGetTodayCoffeeData';
 import { userInfoState } from '@/atoms/atoms';
+
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import {
@@ -19,13 +22,12 @@ import {
   MarginAuto
 } from '@/styles/layout';
 import { RegistCoffeeBtn, AlertMessage, Default } from '@/styles/styles';
-import CTA from '@/components/common/CTA';
 
 const { anonymous, signedIn } = TODAY_CAFFEINE_INFO_TEXTS;
 
 const WaterPerCoffee = () => {
   const user = useRecoilValue(userInfoState);
-  const todayCoffeeData = useGetTodayCoffeeData();
+  const { coffeeInfo: todayCoffeeData } = useGetTodayCoffeeData();
 
   const anonymousCard = (
     <div className={cx(Column, Center, MarginAuto)}>
