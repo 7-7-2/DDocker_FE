@@ -7,18 +7,32 @@ const PostDetail = lazy(() => import('../components/post/PostDetail'));
 
 const Post = () => {
   const { postid } = useParams();
+  const { type } = useParams();
   const register = postid === 'register';
-  if (register) {
-    useComposeHeader(false, '커피 등록 추가', 'close');
-  }
-  if (!register) {
-    useComposeHeader(false, '게시물', 'close');
-  }
+  const update = type === 'update';
+  console.log(update);
+  const headerText = () => {
+    if (register) {
+      return '커피 등록 추가';
+    }
+    if (!register && update) {
+      return '수정하기';
+    }
+    return '게시물';
+  };
+
+  useComposeHeader(false, headerText(), 'close');
 
   return (
     <>
       {register && <PostRegister />}
-      {!register && postid && <PostDetail postNum={postid} />}
+      {update && !register && (
+        <PostRegister
+          update
+          postid={postid}
+        />
+      )}
+      {!update && !register && postid && <PostDetail postNum={postid} />}
     </>
   );
 };

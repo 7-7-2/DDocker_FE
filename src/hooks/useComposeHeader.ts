@@ -20,6 +20,7 @@ export const useComposeHeader = <T extends HeaderType>(
     setLogoState(logo);
     setTextState(text);
     setIconsState(icon);
-  }, []);
+  }, [text]);
+
   return null;
 };
