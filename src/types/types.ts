@@ -1,10 +1,10 @@
+import { Dayjs } from 'dayjs';
 import {
   TouchEventHandler,
   RefObject,
   ChangeEvent,
   MouseEventHandler
 } from 'react';
-import { Dayjs } from 'dayjs';
 
 export interface LazyRouteType {
   index: boolean;
@@ -106,6 +106,10 @@ export interface CoffeeItemTypes {
   brand: string;
   menu: string;
   caffeine: number;
+}
+
+export interface TodayTakedWaterTypes {
+  [key: string]: number;
 }
 
 export interface CoffeeDataTypes {
