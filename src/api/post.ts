@@ -33,10 +33,12 @@ export const deletePost = async (postId: string) => {
 };
 
 // 4. 포스트 수정(+JWT 인증)
-export const updatePost = async (postId: string, Image: File) => {
-  const res = await authInstance.patch(`/posts/${postId}`, Image).catch(e => {
-    console.log(e);
-  });
+export const updatePost = async (postId: string, postInfo: Object) => {
+  const res = await authInstance
+    .patch(`/posts/${postId}`, postInfo)
+    .catch(e => {
+      console.log(e);
+    });
   return res && res.data;
 };
 
@@ -152,7 +154,7 @@ export const deleteImage = async (url: string) => {
 export const getTodayCoffeeInfo = async () => {
   try {
     const res = await authInstance.get('/coffee');
-    await useSetCacheData('user', '/coffee', res.data[0]);
+
     return res.data[0];
   } catch (error) {
     console.log('Failed to get Today coffee Info', error);
@@ -163,7 +165,6 @@ export const getTodayCoffeeInfo = async () => {
 export const getWeeklyPopular = async () => {
   try {
     const res = await baseInstance.get('/posts/popular');
-    await useSetCacheData('brand', '/WeeklyPopular', res.data.data);
     return res.data.data;
   } catch (error) {
     console.log('Failed to get Weekly Popular List', error);
