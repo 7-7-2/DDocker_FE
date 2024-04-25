@@ -1,9 +1,21 @@
-import { SimplifyUser } from '@/types/types';
+import {
+  SimplifyUser,
+  TodayCoffeeInfoTypes,
+  TodayTakedWaterTypes,
+  WeeklyPopularTypes
+} from '@/types/types';
 
 const useSetCacheData = async (
   cacheName: string,
   url: string,
-  cacheData: string | boolean | SimplifyUser[] | number
+  cacheData:
+    | string
+    | boolean
+    | number
+    | SimplifyUser[]
+    | TodayCoffeeInfoTypes
+    | WeeklyPopularTypes[]
+    | TodayTakedWaterTypes[]
 ) => {
   const cacheStorage = await caches.open(cacheName);
   try {

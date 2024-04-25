@@ -45,6 +45,7 @@ export const LABEL_TEXTS = {
 export const BUTTON_TEXTS = {
   start: '시작하기',
   regist: '등록하기',
+  update: '수정하기',
   next: '다음으로',
   signIn1: '로그인',
   signIn2: '로그인하기',
