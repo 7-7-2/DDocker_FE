@@ -3,13 +3,12 @@ import CoffeeMenuSelection from '@/components/home/CoffeeMenuSelection';
 import CoffeeOptionSelection from '@/components/common/CoffeeOptionSelection';
 import { CAFFEINE_FILTER_TEXTS } from '@/constants/home';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import useResetSelectedCoffee from '@/hooks/useResetSelectedCoffee';
+import { useResetSelectedCoffee } from '@/hooks/useResetSelectedCoffee';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Align, Between, Flex } from '@/styles/layout';
 import { SmStyle, SumBoardTitle, SumTitle } from '@/styles/styles';
-import React from 'react';
 
 const { title } = CAFFEINE_FILTER_TEXTS;
 
