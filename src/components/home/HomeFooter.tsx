@@ -16,7 +16,11 @@ const HomeFooter = () => {
       </svg>
       <Categories className={Flex}>
         {footerCategories.map(item => (
-          <Category className={cx(Align, Medium)}>{item}</Category>
+          <Category
+            className={cx(Align, Medium)}
+            key={item}>
+            {item}
+          </Category>
         ))}
       </Categories>
       <DDockerInfo className={Regular}>{email}</DDockerInfo>
