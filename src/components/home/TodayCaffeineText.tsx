@@ -2,7 +2,7 @@ import { useRecoilValue } from 'recoil';
 import AlertBubble from '@/components/common/AlertBubble';
 import { TODAY_CAFFEINE_INFO_TEXTS } from '@/constants/home';
 import { authState, takedWaterState, userInfoState } from '@/atoms/atoms';
-import useGetTodayCoffeeData from '@/hooks/home/useGetTodayCoffeeData';
+import { useGetTodayCoffeeData } from '@/hooks/home/useGetTodayCoffeeData';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
@@ -15,7 +15,7 @@ const TodayCaffeineText = () => {
   const takedWater = useRecoilValue(takedWaterState);
   const userInfo = useRecoilValue(authState);
   const user = useRecoilValue(userInfoState);
-  const todayCoffeeData = user && useGetTodayCoffeeData();
+  const { coffeeInfo: todayCoffeeData } = user && useGetTodayCoffeeData();
   const allCount = todayCoffeeData?.allCount;
 
   const anonymousText = !user?.nickname && (
