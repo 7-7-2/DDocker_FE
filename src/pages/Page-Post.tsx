@@ -10,7 +10,7 @@ const Post = () => {
   const { type } = useParams();
   const register = postid === 'register';
   const update = type === 'update';
-  console.log(update);
+
   const headerText = () => {
     if (register) {
       return '커피 등록 추가';
