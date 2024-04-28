@@ -14,6 +14,14 @@ export const getSocialAuth = async (social: string) => {
   }
 };
 
+export const deleteUserAccount = async () => {
+  try {
+    await authInstance.delete('/users');
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 // DDocker AccessToken
 export const getAccessToken = async (code: string | null, social: string) => {
   try {
