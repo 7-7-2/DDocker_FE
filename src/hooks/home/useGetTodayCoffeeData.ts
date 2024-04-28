@@ -41,7 +41,6 @@ export const useGetTodayCoffeeData = () => {
       todayCoffeeData &&
       todayCoffeeData.allCount !== data.cacheData.allCount
     ) {
-      console.log('🫨');
       useSetCacheData('user', '/coffee', todayCoffeeData);
       useDeleteCacheData('user', userUrl);
       setCoffeeInfo(todayCoffeeData);

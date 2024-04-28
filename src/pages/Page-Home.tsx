@@ -15,7 +15,7 @@ const Home = () => {
       <Container>
         <TodayCaffeineInfo />
         <CaffeineFilter />
-        {/* <WeeklyPopular /> */}
+        <WeeklyPopular />
       </Container>
       <HomeFooter />
     </>
