@@ -35,7 +35,7 @@ const AnonymousCard = styled.div`
   height: 364px;
   border-radius: 16px;
   margin-top: 28px;
-  padding: 0 52px;
+  padding: 0 auto;
 `;
 
 const Title = styled.div`

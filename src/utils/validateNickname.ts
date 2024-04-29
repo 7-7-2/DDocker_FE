@@ -1,5 +1,5 @@
 export const validateNickname = (nickname: string) => {
-  const regex = /^[a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣]+$/;
+  const regex = /^[a-zA-Z가-힣]+$/;
   const spaceRegex = /\s/;
   const min = nickname.length >= 1;
 
