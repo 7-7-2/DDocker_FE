@@ -1,7 +1,8 @@
 import { TabsText } from '@/types/types';
 
 export const TEXT = {
-  exitButtonText: '회원 탈퇴',
+  deleteAccount: '회원 탈퇴',
+  signOutBtn: '로그아웃',
   saveButton: '저장하기',
   addedcaffeine: '누적 카페인',
   mgLabel: 'mg',
