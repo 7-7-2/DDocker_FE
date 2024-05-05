@@ -52,7 +52,7 @@ export const SelectFavBrand = () => {
     const userInfo: AuthTypes = {
       nickname: user.nickname,
       brand: user.brand,
-      gender: user.gender,
+      aboutMe: user.aboutMe,
       profileUrl: file ? storagePath : ''
     };
     await setUserInitInfo(userInfo);
