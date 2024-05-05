@@ -32,9 +32,7 @@ export const LABEL_TEXTS = {
       validate: '닉네임은 특수문자와 공백을 포함 할 수 없습니다'
     }
   },
-  gender: {
-    label: '성별'
-  },
+
   title: '제목',
   photo: '사진',
   aboutMe: {
