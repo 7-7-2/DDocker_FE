@@ -1,14 +1,23 @@
-import { useRecoilValue } from 'recoil';
-import { CheckNicknameState, authState } from '@/atoms/atoms';
-import Button from '@/components/common/Button';
-import EditProfileImg from '@/components/mypage/EditProfileImg';
-import SelectGender from '@/components/start/SelectGender';
-import CheckNickname from '@/components/start/CheckNickname';
-import { INITIAL_FORM_TEXTS } from '@/constants/start';
-import { BUTTON_TEXTS } from '@/constants/common';
-import { useComposeHeader } from '@/hooks/useComposeHeader';
+import { useRef } from 'react';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 
+import Button from '@/components/common/Button';
+import ImgCropper from '@/components/common/ImgCropper';
+import InputAboutMe from '@/components/mypage/InputAboutMe';
+import CheckNickname from '@/components/start/CheckNickname';
+import EditProfileImg from '@/components/mypage/EditProfileImg';
+
+import { useComposeHeader } from '@/hooks/useComposeHeader';
+import { useImageCropper } from '@/hooks/post/useImageCropper';
+import { useCompressImage } from '@/hooks/useCompressImage';
+
+import { TEXT } from '@/constants/texts';
+import { BUTTON_TEXTS } from '@/constants/common';
+import { INITIAL_FORM_TEXTS } from '@/constants/start';
+import { CheckNicknameState, authState } from '@/atoms/atoms';
+
+import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Column } from '@/styles/layout';
 import {
@@ -20,19 +29,14 @@ import {
   PrfileTitle,
   MarginT28
 } from '@/styles/styles';
-import { cx } from 'styled-system/css';
-import ImgCropper from '@/components/common/ImgCropper';
-import { TEXT } from '@/constants/texts';
-import { useImageCropper } from '@/hooks/post/useImageCropper';
-import { useCompressImage } from '@/hooks/useCompressImage';
 
 const { message } = INITIAL_FORM_TEXTS;
 
 const InitialForm = () => {
-  const navigate = useNavigate();
-
   useComposeHeader(false, '기본정보', 'close');
-  const user = useRecoilValue(authState);
+  const navigate = useNavigate();
+  const inputRef = useRef<HTMLTextAreaElement | null>(null);
+  const [userInit, setUserInit] = useRecoilState(authState);
   const isApproval = useRecoilValue(CheckNicknameState);
 
   const {
@@ -62,6 +66,8 @@ const InitialForm = () => {
   };
 
   const handleNextPage = () => {
+    inputRef.current?.value &&
+      setUserInit({ ...userInit, aboutMe: inputRef.current?.value });
     navigate('/start/3', { state: imageFile });
   };
 
@@ -83,17 +89,20 @@ const InitialForm = () => {
           />
         </ProfileContainer>
         <CheckNickname />
-        <SelectGender />
+        <InputAboutMe
+          inputRef={inputRef}
+          Icon={false}
+        />
       </div>
       <Button
         text={BUTTON_TEXTS.next}
         onTouchEnd={
-          user?.nickname && isApproval && user?.gender
+          userInit?.nickname && isApproval
             ? handleNextPage
             : () => navigate('/start/2')
         }
         className={
-          user?.nickname && isApproval && user?.gender
+          userInit?.nickname && isApproval
             ? DefaultBtn
             : cx(DefaultBtn, DisabledBtn)
         }
