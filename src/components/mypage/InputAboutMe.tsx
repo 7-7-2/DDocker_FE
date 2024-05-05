@@ -12,12 +12,14 @@ const { placeholder, inputLength } = INPUT_TEXTS.type.aboutMe;
 
 const InputAboutMe = ({
   inputRef,
+  Icon = true,
   userAboutMe
 }: {
   inputRef: React.RefObject<HTMLTextAreaElement>;
-  userAboutMe: string | undefined;
+  Icon?: boolean;
+  userAboutMe?: string | undefined;
 }) => {
-  const [inputValue, setInputValue] = useState(userAboutMe);
+  const [inputValue, setInputValue] = useState(userAboutMe || undefined);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value);
@@ -28,6 +30,7 @@ const InputAboutMe = ({
       <Label
         inputValue={inputValue}
         label={aboutMe.label}
+        Icon={Icon}
         userAboutMe={userAboutMe}
       />
       <TextAreaBox>
