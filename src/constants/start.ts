@@ -15,10 +15,6 @@ export const INITIAL_FORM_TEXTS = {
     first: '환영합니다!',
     second: '을 등록해 보세요!',
     profile: '프로필'
-  },
-  gender: {
-    male: '남성',
-    female: '여성'
   }
 };
 
