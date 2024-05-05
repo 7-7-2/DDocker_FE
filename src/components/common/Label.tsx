@@ -2,16 +2,19 @@ import Icon from '@/components/common/Icon';
 import { LABEL_TEXTS } from '@/constants/common';
 import { LabelProps } from '@/types/types';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+import { convertUserAboutMe } from '@/utils/convertUserAboutMe';
+
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Align, Between } from '@/styles/layout';
 import { HomeRegistContainer, InputByteCheck } from '@/styles/styles';
 
-const { nickname, gender, aboutMe } = LABEL_TEXTS;
+const { nickname, aboutMe } = LABEL_TEXTS;
 
 export const Label = ({
   inputValue,
   label,
+  Icon: labelIcon,
   message,
   userAboutMe
 }: LabelProps) => {
@@ -22,17 +25,11 @@ export const Label = ({
       <Icon {...iconPropsGenerator('check', '14')} />
     );
 
-  const genderCheckIcon = inputValue ? (
-    <Icon {...iconPropsGenerator('check-done', '14')} />
-  ) : (
-    <Icon {...iconPropsGenerator('check', '14')} />
-  );
-
   const AboutMeIcon =
-    userAboutMe !== inputValue ? (
-      <Icon {...iconPropsGenerator('check-done', '14')} />
-    ) : (
+    convertUserAboutMe(userAboutMe) === inputValue ? (
       <Icon {...iconPropsGenerator('check', '14')} />
+    ) : (
+      <Icon {...iconPropsGenerator('check-done', '14')} />
     );
 
   const alretMessage = (
@@ -52,8 +49,7 @@ export const Label = ({
       <div className={Align}>
         <LabelText className={HomeRegistContainer}>{label}</LabelText>
         {label === nickname.label && nicknameCheckIcon}
-        {label === gender.label && genderCheckIcon}
-        {label === aboutMe.label && AboutMeIcon}
+        {labelIcon && label === aboutMe.label && AboutMeIcon}
       </div>
       {inputValue !== '' && alretMessage}
     </LabelContainer>
