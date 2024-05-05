@@ -20,7 +20,6 @@ export interface AuthTypes {
   profileUrl?: string;
   nickname?: string;
   brand?: string;
-  gender?: number;
   sum?: number;
   userId?: string;
   aboutMe?: string;
@@ -51,6 +50,7 @@ export interface FollowCountProps {
 
 export interface LabelProps {
   label: string | undefined;
+  Icon?: boolean | undefined;
   message?: string | undefined;
   inputValue?: string | undefined;
   userAboutMe?: string | undefined;
