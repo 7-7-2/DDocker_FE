@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Label } from '@/components/common/Label';
+import TextArea from '@/components/common/TextArea';
 import { INPUT_TEXTS, LABEL_TEXTS } from '@/constants/common';
 
 import { cx } from 'styled-system/css';
@@ -33,23 +34,12 @@ const InputAboutMe = ({
         Icon={Icon}
         userAboutMe={userAboutMe}
       />
-      <TextAreaBox>
-        <Textarea
-          name={aboutMe.label}
-          className={InputFontBase}
-          placeholder={placeholder}
-          cols={28}
-          rows={3}
-          value={inputValue}
-          ref={inputRef}
-          onChange={handleChange}
-          maxLength={inputLength}
-        />
-        <InputByteBox className={cx(Align, InputByteCheck)}>
-          {inputValue?.length}
-          <LengthLimit>/{inputLength}</LengthLimit>
-        </InputByteBox>
-      </TextAreaBox>
+      <TextArea
+        placeholder={placeholder}
+        inputValue={inputValue}
+        inputRef={inputRef}
+        handleChange={handleChange}
+        inputLength={inputLength}></TextArea>
     </Container>
   );
 };
