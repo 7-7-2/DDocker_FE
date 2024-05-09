@@ -6,9 +6,9 @@ const PostRegister = lazy(() => import('../components/post/PostRegister'));
 const PostDetail = lazy(() => import('../components/post/PostDetail'));
 
 const Post = () => {
-  const { postid } = useParams();
+  const { postId } = useParams();
   const { type } = useParams();
-  const register = postid === 'register';
+  const register = postId === 'register';
   const update = type === 'update';
 
   const headerText = () => {
@@ -29,10 +29,10 @@ const Post = () => {
       {update && !register && (
         <PostRegister
           update
-          postid={postid}
+          postid={postId}
         />
       )}
-      {!update && !register && postid && <PostDetail postNum={postid} />}
+      {!update && !register && postId && <PostDetail postNum={postId} />}
     </>
   );
 };
