@@ -23,6 +23,7 @@ export const usePostOptions = () => {
   const recoverFooterState = () => {
     setFooterState(true);
   };
+
   return {
     toggle,
     cancelOptions,
