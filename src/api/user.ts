@@ -115,3 +115,11 @@ export const editProfile = async (editInfo: {}) => {
     console.log('Failed to save user initial info on DB', error);
   }
 };
+
+// 유저 프로필 이미지 조회(알림)
+export const getUserProfile = async (userId: string) => {
+  const res = await baseInstance.get(`users/profile/${userId}`).catch(e => {
+    console.log(e);
+  });
+  return res && res.data.data;
+};
