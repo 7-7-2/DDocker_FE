@@ -760,3 +760,15 @@ export const Spinner = css`
   border-radius: 50%;
   animation: loader 0.7s infinite ease-in-out;
 `;
+
+export const AlignCTA = css`
+  height: calc(
+    100dvh - 46px - 50px - env(safe-area-inset-bottom) - env(
+        safe-area-inset-top
+      )
+  );
+  margin: auto 0;
+`;
+export const NotificationContainer = css`
+  margin-top: -20px;
+`;
