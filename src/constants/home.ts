@@ -51,5 +51,7 @@ export const CAFFEINE_INFO_TEXTS = {
 export const HOME_FOOTER_TEXTS = {
   email: 'E-mail : ddocker33@naver.com',
   copyright: ' Copyright ⓒ 2024 DDocker. All rights reserved.',
-  footerCategories: ['공지사항', '건의사항', '이용약관', '개인정보처리방침']
+  footerCategories: ['공지사항', '건의사항', '이용약관', '개인정보처리방침'],
+  designedBy: `3D image Designed by `,
+  freepik: 'Freepik'
 };
