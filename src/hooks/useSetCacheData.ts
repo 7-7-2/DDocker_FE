@@ -16,6 +16,7 @@ const useSetCacheData = async (
     | TodayCoffeeInfoTypes
     | WeeklyPopularTypes[]
     | TodayTakedWaterTypes[]
+    | Notification[]
 ) => {
   const cacheStorage = await caches.open(cacheName);
   try {
