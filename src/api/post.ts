@@ -74,9 +74,11 @@ export const replyComment = async (comment: CommentInput) => {
 
 // 8. 답글 삭제(+JWT 인증)
 export const deleteReply = async (commentId: number) => {
-  const res = await authInstance.post(`/posts/${commentId}/reply`).catch(e => {
-    console.log(e);
-  });
+  const res = await authInstance
+    .delete(`/posts/reply/${commentId}`)
+    .catch(e => {
+      console.log(e);
+    });
   return res && res.data;
 };
 
@@ -130,6 +132,15 @@ export const getRanking = async () => {
   return res && res.data;
 };
 
+//14. 게시글 이미지 클라우드 삭제
+export const deleteImage = async (url: string) => {
+  const res = await storageInstance(url)
+    .delete('')
+    .catch(e => {
+      console.log(e);
+    });
+};
+
 // PostRegister
 export const setPostRegist = async (postInfo: RegisterPostTypes) => {
   try {
@@ -139,15 +150,6 @@ export const setPostRegist = async (postInfo: RegisterPostTypes) => {
   } catch (error) {
     console.log('Failed to regist post', error);
   }
-};
-
-//14. 게시글 이미지 클라우드 삭제
-export const deleteImage = async (url: string) => {
-  const res = await storageInstance(url)
-    .delete('')
-    .catch(e => {
-      console.log(e);
-    });
 };
 
 // TodayCoffeeInfo
