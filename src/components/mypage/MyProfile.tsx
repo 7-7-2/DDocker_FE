@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import InputAboutMe from '@/components/mypage/InputAboutMe';
@@ -16,6 +17,8 @@ import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 import { useImageCropper } from '@/hooks/post/useImageCropper';
 import { useCloudStorage } from '@/hooks/useCloudStorage';
+import { useCompressImage } from '@/hooks/useCompressImage';
+import { useHandleAuth } from '@/hooks/MyPage/useHandleAuth';
 
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
@@ -26,12 +29,10 @@ import {
   HomeRegistContainer
 } from '@/styles/styles';
 import { FlexCenter, Justify } from '@/styles/layout';
-import { useHandleAuth } from '@/hooks/MyPage/useHandleAuth';
-import { useNavigate } from 'react-router-dom';
-import { useCompressImage } from '@/hooks/useCompressImage';
 
 const imagePath = import.meta.env.VITE_R2_USER_IMAGE_PATH;
 const { btn } = MYPAGE_TEXTS;
+
 const MyProfile = () => {
   useComposeHeader(false, '프로필 수정', 'close');
   const { userData, userId } = useCachedUserInfo();
