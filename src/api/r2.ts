@@ -1,7 +1,8 @@
 import {
   S3Client,
   PutObjectCommand,
-  DeleteObjectCommand
+  DeleteObjectCommand,
+  GetObjectCommand
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
@@ -42,6 +43,18 @@ export const getPresignedDeleteUrl = async (
       Key: `assets/${dir}`
     }),
     { expiresIn: 20 }
+  );
+  return { url: signedUrl };
+};
+
+export const getPresignedGetUrl = async (instance: S3Client, dir: string) => {
+  const signedUrl = await getSignedUrl(
+    instance,
+    new GetObjectCommand({
+      Bucket: import.meta.env.VITE_R2_BUCKET_NAME,
+      Key: `assets/${dir}`
+    }),
+    { expiresIn: 3600 }
   );
   return { url: signedUrl };
 };
