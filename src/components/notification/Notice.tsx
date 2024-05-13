@@ -3,16 +3,18 @@ import { styled } from 'styled-system/jsx';
 const Notice = ({
   username,
   text,
-  time
+  time,
+  onClick
 }: {
   username: string;
   text: string;
   time: string;
+  onClick: () => void;
 }) => {
   return (
     <Container>
       <Username>{username}</Username>
-      <NoticeText>{text}</NoticeText>
+      <NoticeText onClick={onClick}>{text}</NoticeText>
       <NoticeTime>{time}</NoticeTime>
     </Container>
   );
