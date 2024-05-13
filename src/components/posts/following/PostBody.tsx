@@ -43,7 +43,6 @@ const PostBody = ({
   );
 
   const handleOnError = () => {
-    console.log('👿', photo);
     handleImgError();
     setUrl(photo);
   };
