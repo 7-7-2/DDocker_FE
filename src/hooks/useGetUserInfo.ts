@@ -4,7 +4,7 @@ import { getMyInfo, getUserInfo } from '@/api/user';
 import { registPostState, userInfoState } from '@/atoms/atoms';
 import useGetCacheData from '@/hooks/useGetCacheData';
 
-function useGetUserInfo(ProfileId?: string | number | undefined) {
+function useGetUserInfo(profileId?: string | number | undefined) {
   const setCachedUser = useSetRecoilState(userInfoState);
   const resetCachedUser = useResetRecoilState(userInfoState);
   const [registInfo, setRegistInfo] = useRecoilState(registPostState);
@@ -14,17 +14,23 @@ function useGetUserInfo(ProfileId?: string | number | undefined) {
     const userId = data && data.cacheData.data.userId;
     const userData = data && data.cacheData.data;
 
-    if (
-      userId &&
-      (userId !== ProfileId || (!userId && ProfileId)) &&
-      ProfileId
-    ) {
-      const res = await getUserInfo(ProfileId);
+    if (!userId && profileId) {
+      const res = await getUserInfo(profileId);
       setCachedUser(res.data);
       return;
     }
 
-    if (userId && userId !== ProfileId) {
+    if (
+      userId &&
+      (userId !== profileId || (!userId && profileId)) &&
+      profileId
+    ) {
+      const res = await getUserInfo(profileId);
+      setCachedUser(res.data);
+      return;
+    }
+
+    if (userId && userId !== profileId) {
       const res = await getMyInfo();
       res && setCachedUser(res.data);
       return;
@@ -39,7 +45,7 @@ function useGetUserInfo(ProfileId?: string | number | undefined) {
   useEffect(() => {
     resetCachedUser();
     setUserInfo();
-  }, [ProfileId]);
+  }, [profileId]);
 }
 
 export default useGetUserInfo;
