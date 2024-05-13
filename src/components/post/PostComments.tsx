@@ -35,6 +35,7 @@ const PostComments = ({
           content={comment.content}
           created_at={comment.created_at}
           reply_count={comment.reply_count}
+          postNum={postNum}
           id={comment.id}
         />
       </React.Fragment>

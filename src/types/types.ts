@@ -161,16 +161,18 @@ export interface Comment {
   content: string;
   created_at: Dayjs;
   reply_count: number;
+  postNum: string;
   id: number;
 }
 
-export interface CommentProto extends Omit<Comment, 'reply_count' | 'id'> {
+export interface CommentProto extends Omit<Comment, 'reply_count' | 'postNum'> {
   comment?: boolean;
-  id?: number;
+  postNum?: string;
+  parentCommentId?: number;
 }
 export type Reply = Pick<
   Comment,
-  'profileUrl' | 'nickname' | 'content' | 'created_at'
+  'profileUrl' | 'nickname' | 'content' | 'created_at' | 'id'
 >;
 
 export interface FollowingPost extends SimplifyUser {

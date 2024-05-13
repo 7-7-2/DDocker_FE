@@ -10,6 +10,7 @@ const Comment = ({
   content,
   created_at,
   reply_count,
+  postNum,
   id
 }: Comment) => {
   const { toggle, handleToggle } = useToggle();
@@ -20,6 +21,7 @@ const Comment = ({
         nickname={nickname}
         content={content}
         created_at={created_at}
+        postNum={postNum}
         id={id}
       />
       <Replies

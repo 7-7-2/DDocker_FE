@@ -31,7 +31,9 @@ const Replies = ({
               nickname={reply.nickname}
               content={reply.content}
               created_at={reply.created_at}
+              id={reply.id}
               comment={false}
+              parentCommentId={commentId}
               key={id + idx}
             />
           ))}
