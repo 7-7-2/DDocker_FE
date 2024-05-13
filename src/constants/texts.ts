@@ -52,7 +52,8 @@ export const CTA_TEXTS = {
   signIn: '로그인 후 피드를 확인해보세요.',
   signInAction: '로그인하기',
   emptyFollowing: '아직 팔로우한 사람이 없어요. ',
-  emptyFollower: '아직 팔로워가 없어요.'
+  emptyFollower: '아직 팔로워가 없어요.',
+  notice: '로그인 후 알림을 확인해보세요.'
 };
 
 export const POST_TEXTS = {
