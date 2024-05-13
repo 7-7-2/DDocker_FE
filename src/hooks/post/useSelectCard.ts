@@ -12,7 +12,12 @@ export const useSelectCard = (
   };
 
   useEffect(() => {
-    isSelected && brandRef.current && brandRef.current.scrollIntoView();
-  }, [isSelected]);
+    isSelected &&
+      brandRef.current &&
+      brandRef.current.scrollIntoView({
+        behavior: 'smooth',
+        inline: 'center'
+      });
+  }, [isSelected, brandRef]);
   return { brandRef, isSelected, handleSelectCard };
 };
