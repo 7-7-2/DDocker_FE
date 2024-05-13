@@ -10,10 +10,29 @@ import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { Column, Center } from '@/styles/layout';
 import { FooterTextMedium, FooterTextSelected } from '@/styles/styles';
 import { cx } from 'styled-system/css';
+import { useLocation } from 'react-router-dom';
+import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
+
+const pathMap = new Map();
+pathMap.set('', 'home');
+pathMap.set('posts', 'feed');
+pathMap.set('coffee', 'coffee');
+pathMap.set('profile', 'my');
+
+const routeMap = new Map();
+routeMap.set('home', '/');
+routeMap.set('feed', '/posts');
+routeMap.set('coffee', '/coffee');
 
 const FooterIcon = ({ icon }: { icon: string }) => {
+  const { userId: myId } = useCachedUserInfo();
+  const { pathname } = useLocation();
+  const path = pathname.split('/')[1];
   const [userId, setUserId] = useState('');
   const [active, setActive] = useRecoilState(activeState);
+
+  const isProfile = path === 'profile';
+  const isMyPage = path[2] === myId;
 
   const getUserId = async () => {
     const data = await useGetCacheData('user', '/userInfo');
@@ -24,10 +43,11 @@ const FooterIcon = ({ icon }: { icon: string }) => {
     getUserId();
   }, []);
 
-  const routeMap = new Map();
-  routeMap.set('home', '/');
-  routeMap.set('feed', '/posts');
-  routeMap.set('coffee', '/coffee');
+  useEffect(() => {
+    if (isProfile && !isMyPage) return;
+    pathMap.get(path) && setActive(pathMap.get(path));
+  }, [path]);
+
   routeMap.set('my', `/profile/${userId}`);
 
   const navigateTo = useNavigateTo(routeMap.get(icon));
