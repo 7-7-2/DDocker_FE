@@ -5,6 +5,7 @@ import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 const routeMap = new Map();
 routeMap.set('search', '/search');
 routeMap.set('notification', '/notification');
+routeMap.set('unread-notification', '/notification');
 
 const HeaderIcon = ({ icon }: { icon: string }) => {
   const navigateTo = useNavigateTo(routeMap.get(icon));
