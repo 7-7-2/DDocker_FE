@@ -4,7 +4,8 @@ import { Medium, Regular } from '@/styles/styles';
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 
-const { email, copyright, footerCategories } = HOME_FOOTER_TEXTS;
+const { email, copyright, footerCategories, designedBy, freepik } =
+  HOME_FOOTER_TEXTS;
 
 const HomeFooter = () => {
   return (
@@ -24,7 +25,13 @@ const HomeFooter = () => {
         ))}
       </Categories>
       <DDockerInfo className={Regular}>{email}</DDockerInfo>
-      {/* 저작권.... */}
+      <Text className={Regular}>
+        {designedBy}
+        <a href="https://kr.freepik.com/free-psd/3d-background-for-coffee-shop_76601642.htm">
+          {freepik}
+        </a>
+      </Text>
+      <br />
       <Text className={Regular}>{copyright}</Text>
     </Container>
   );
