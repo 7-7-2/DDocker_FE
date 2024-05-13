@@ -1600,5 +1600,11 @@
         </clipPath>
       </defs>
     </symbol>
+
+    <symbol id="icon-reload" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 1C22.732 1 29 7.26801 29 15C29 22.732 22.732 29 15 29C7.26801 29 1 22.732 1 15C1 10.602 3.02793 6.67771 6.1997 4.11111" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M1 3.3335H7.22222V9.55572" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
   </defs>
 </svg>;
