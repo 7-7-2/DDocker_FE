@@ -1,5 +1,4 @@
 import { useComposeHeader } from '@/hooks/useComposeHeader';
-import { styled } from 'styled-system/jsx';
 import { useState, lazy } from 'react';
 import PostTabs from '@/components/posts/PostsTabs';
 import { TABS_TEXTS } from '@/constants/texts';
