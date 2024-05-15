@@ -62,11 +62,13 @@ export const deleteAllFolderItems = async (
   const keys: ObjectIdentifier[] | undefined =
     listObjectsResult.Contents &&
     listObjectsResult.Contents.map(item => ({ Key: item.Key }));
-
-  await instance.send(
-    new DeleteObjectsCommand({
-      Bucket: import.meta.env.VITE_R2_BUCKET_NAME,
-      Delete: { Objects: keys }
-    })
-  );
+  if (keys?.length) {
+    await instance.send(
+      new DeleteObjectsCommand({
+        Bucket: import.meta.env.VITE_R2_BUCKET_NAME,
+        Delete: { Objects: keys }
+      })
+    );
+  }
+  return;
 };
