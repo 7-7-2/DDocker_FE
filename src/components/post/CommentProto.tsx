@@ -8,6 +8,10 @@ import { CommentProto } from '@/types/types';
 import Reply from '@/components/post/Reply';
 import { useGetSignedIn } from '@/hooks/useGetSignedIn';
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
+import { useDetectSlide } from '@/hooks/post/useDetectSlide';
+import { useSetRecoilState } from 'recoil';
+import { commentState } from '@/atoms/atoms';
+import { useIntersection } from '@/hooks/useIntersection';
 
 const CommentAction = React.lazy(() => import('./CommentAction'));
 
@@ -21,11 +25,32 @@ const CommentProto = ({
   id,
   parentCommentId
 }: CommentProto) => {
-  console.log('🚀 ~ id:', id);
   const { signedIn } = useGetSignedIn();
   const { userData } = useCachedUserInfo();
   const { nickname: myUsername } = userData;
   const myComment = nickname === myUsername;
+
+  const setSelectedComment = useSetRecoilState(commentState);
+  const { scrollRef, setIsIntersected, isIntersected } = useDetectSlide(
+    comment,
+    id
+  );
+
+  const ref = useIntersection(
+    (entry, observer) => {
+      if (!isIntersected) {
+        setIsIntersected(true);
+        setSelectedComment({
+          comment,
+          commentId: id
+        });
+        observer.unobserve(entry.target);
+      }
+    },
+    {
+      threshold: 1
+    }
+  );
 
   return (
     <>
@@ -34,7 +59,9 @@ const CommentProto = ({
           url={profileUrl}
           comment={true}
         />
-        <CommentDetail className={Column}>
+        <CommentDetail
+          className={Column}
+          ref={scrollRef}>
           <UserName>{nickname}</UserName>
           <CommentText>{content}</CommentText>
           <OnComment className={Flex}>
@@ -48,13 +75,16 @@ const CommentProto = ({
           </OnComment>
         </CommentDetail>
         {signedIn && (
-          <CommentAction
-            myComment={myComment}
-            comment={comment}
-            id={id}
-            postNum={postNum}
-            parentCommentId={parentCommentId}
-          />
+          <>
+            <Target ref={ref} />
+            <CommentAction
+              myComment={myComment}
+              comment={comment}
+              id={id}
+              postNum={postNum}
+              parentCommentId={parentCommentId}
+            />
+          </>
         )}
       </Container>
     </>
@@ -93,5 +123,9 @@ const OnComment = styled.div`
 `;
 
 const CommentedAt = styled.div``;
+
+const Target = styled.div`
+  padding: 1px;
+`;
 
 export default CommentProto;
