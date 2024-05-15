@@ -1,4 +1,9 @@
-import { getPresignedUploadUrl, getPresignedDeleteUrl, r2 } from '@/api/r2';
+import {
+  getPresignedUploadUrl,
+  getPresignedDeleteUrl,
+  deleteAllFolderItems,
+  r2
+} from '@/api/r2';
 import { registerImage, deleteImage } from '@/api/post';
 
 export const useCloudStorage = () => {
@@ -13,5 +18,9 @@ export const useCloudStorage = () => {
     url && (await deleteImage(url));
   };
 
-  return { uploadStorage, deleteStorage };
+  const deleteFolder = async (route: string) => {
+    await deleteAllFolderItems(r2, route);
+  };
+
+  return { uploadStorage, deleteStorage, deleteFolder };
 };
