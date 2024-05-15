@@ -1,19 +1,17 @@
 import ModalCTA from '@/components/common/ModalCTA';
+import { BUTTON_TEXTS, MODAL_CTA_TEXTS } from '@/constants/common';
 import { useHandleAuth } from '@/hooks/MyPage/useHandleAuth';
+
+const { confirm, warning, subBtn } = MODAL_CTA_TEXTS.deleteAccount;
 
 const ConfirmDeleteUser = () => {
   const { isConfirm, handleConfirmBtn, handleDeleteAccount } = useHandleAuth();
 
   return (
     <ModalCTA
-      actionText={'탈퇴하기'}
-      text={
-        !isConfirm
-          ? '정말 탈퇴하시겠습니까?'
-          : `회원 탈퇴 시 
-            누적 데이터가 모두 삭제됩니다`
-      }
-      subBtnText={'이전화면으로 돌아가기'}
+      actionText={BUTTON_TEXTS.deleteAccount}
+      text={!isConfirm ? confirm : warning}
+      subBtnText={subBtn}
       isConfirm={isConfirm}
       fn={!isConfirm ? handleConfirmBtn : handleDeleteAccount}
     />

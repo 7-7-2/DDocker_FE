@@ -50,7 +50,8 @@ export const BUTTON_TEXTS = {
   following: '팔로잉',
   follow2: '팔로우',
   follow1: '팔로우 하기',
-  home: '홈으로 돌아가기'
+  home: '홈으로 돌아가기',
+  deleteAccount: '탈퇴하기'
 };
 
 export const MODAL_CTA_TEXTS = {
@@ -58,6 +59,12 @@ export const MODAL_CTA_TEXTS = {
     text: `로그인 후
   자세한 내용을 확인해보세요.`,
     subBtn: `로그인 없이 둘러보기`
+  },
+  deleteAccount: {
+    confirm: '정말 탈퇴하시겠습니까?',
+    warning: `회원 탈퇴 시 
+  누적 데이터가 모두 삭제됩니다`,
+    subBtn: '이전화면으로 돌아가기'
   }
 };
 
