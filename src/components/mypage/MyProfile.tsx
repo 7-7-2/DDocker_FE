@@ -35,14 +35,14 @@ const { btn } = MYPAGE_TEXTS;
 
 const MyProfile = () => {
   useComposeHeader(false, '프로필 수정', 'close');
+  const navigate = useNavigate();
+  const inputRef = useRef<HTMLTextAreaElement | null>(null);
   const { userData, userId } = useCachedUserInfo();
   const { nickname: editNickname } = useRecoilValue(authState);
-  const inputRef = useRef<HTMLTextAreaElement | null>(null);
-  const navigate = useNavigate();
+  const { isModal, handleDeleteAccount, handleSignOut } = useHandleAuth();
+  const setCacheState = useSetRecoilState(cahceImgState);
   const goToMyProfile = (status = 0) =>
     navigate(`/profile/${userId}`, { state: status });
-  const setCacheState = useSetRecoilState(cahceImgState);
-  const { isModal, handleDeleteAccount, handleSignOut } = useHandleAuth();
 
   const {
     imageUrl,
@@ -57,20 +57,21 @@ const MyProfile = () => {
   const { uploadStorage } = useCloudStorage();
   const storagePath = `${imagePath}%2F${userId}`;
 
-  const handleEditProfileData = async (path: string) => {
+  const handleEditProfileData = async (path?: string) => {
     const editData: {}[] = [];
-
     userData.aboutMe !== inputRef.current?.value &&
       editData.push({ aboutMe: inputRef.current?.value });
     editNickname && editData.push({ nickname: editNickname });
-    editData.push({ proFileUrl: path });
+    path && editData.push({ proFileUrl: path });
     return Object.assign({}, ...editData);
   };
 
   const handlClickBtn =
     (route: string, file: File | null, path: string) => async () => {
       const uploaded = route && file && (await uploadStorage(route, file));
-      const editData = await handleEditProfileData(path);
+      const editData = uploaded
+        ? await handleEditProfileData(path)
+        : await handleEditProfileData();
       await editProfile(editData);
       await getMyInfo();
       uploaded && setCacheState(false);
