@@ -1,7 +1,10 @@
 import {
   S3Client,
   PutObjectCommand,
-  DeleteObjectCommand
+  DeleteObjectCommand,
+  ListObjectsV2Command,
+  DeleteObjectsCommand,
+  ObjectIdentifier
 } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 
@@ -44,4 +47,26 @@ export const getPresignedDeleteUrl = async (
     { expiresIn: 20 }
   );
   return { url: signedUrl };
+};
+
+export const deleteAllFolderItems = async (
+  instance: S3Client,
+  folderPath: string
+) => {
+  const listObjectsResult = await instance.send(
+    new ListObjectsV2Command({
+      Bucket: import.meta.env.VITE_R2_BUCKET_NAME,
+      Prefix: `assets/${folderPath}`
+    })
+  );
+  const keys: ObjectIdentifier[] | undefined =
+    listObjectsResult.Contents &&
+    listObjectsResult.Contents.map(item => ({ Key: item.Key }));
+
+  await instance.send(
+    new DeleteObjectsCommand({
+      Bucket: import.meta.env.VITE_R2_BUCKET_NAME,
+      Delete: { Objects: keys }
+    })
+  );
 };
