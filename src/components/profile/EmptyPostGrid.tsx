@@ -25,12 +25,9 @@ const EmptyPostGrid = ({
     goToHome();
     recoverFooterState();
   };
+
   return (
-    <Container
-      className={cx(
-        Justify,
-        userId || (userId === profileId && DefaultHeight)
-      )}>
+    <Container className={cx(Justify, userId === profileId && DefaultHeight)}>
       {userId === profileId ? (
         <CTA
           text={my.text}
@@ -53,7 +50,7 @@ const Container = styled.div`
 `;
 
 const DefaultHeight = css`
-  height: calc(100vh - 500px);
+  height: calc(100vh - 470px);
 `;
 
 export default EmptyPostGrid;
