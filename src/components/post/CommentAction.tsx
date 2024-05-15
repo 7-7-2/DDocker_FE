@@ -6,6 +6,9 @@ import { styled } from 'styled-system/jsx';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import Icon from '@/components/common/Icon';
 import { FlexCenter } from '@/styles/layout';
+import { useNavigate, useParams } from 'react-router-dom';
+import { footerShowState } from '@/atoms/atoms';
+import { useSetRecoilState } from 'recoil';
 
 const CommentAction = ({
   myComment,
@@ -16,7 +19,10 @@ const CommentAction = ({
 }: Pick<CommentProto, 'comment' | 'id' | 'postNum' | 'parentCommentId'> & {
   myComment: boolean;
 }) => {
+  const { postId } = useParams();
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const displayFooter = useSetRecoilState(footerShowState);
 
   const { mutate } = useMutation({
     mutationFn: async () => {
@@ -37,19 +43,22 @@ const CommentAction = ({
         queryClient.invalidateQueries({ queryKey: ['socialCounts', postNum] });
       }
     },
-    onError: () => {
-      console.log('🚀 ~ onError:');
-    }
+    onError: () => {}
   });
 
   const handleDelete = () => {
     mutate();
   };
 
+  const handleReport = () => {
+    navigate(`/report/${postId}`, { state: { comment, id } });
+    displayFooter(false);
+  };
+
   return (
     <Container
       className={cx(FlexCenter, myComment ? Delete : Report)}
-      onClick={handleDelete}>
+      onClick={myComment ? handleDelete : handleReport}>
       <Icon
         {...iconPropsGenerator(myComment ? 'delete-comment' : 'report-comment')}
       />
