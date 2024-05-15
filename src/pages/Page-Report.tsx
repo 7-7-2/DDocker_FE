@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import Button from '@/components/common/Button';
 import TextArea from '@/components/common/TextArea';
@@ -8,7 +8,7 @@ import { POST_REPORT_TEXTS } from '@/constants/report';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { footerShowState } from '@/atoms/atoms';
-import { postReport } from '@/api/report';
+import { postReport, reportComment } from '@/api/report';
 
 import { styled } from 'styled-system/jsx';
 import { css, cx } from 'styled-system/css';
@@ -21,8 +21,11 @@ const { reason, type, title, placeHolder, description, btn } =
 const Report = () => {
   useComposeHeader(false, '신고하기', 'close');
   const { postId } = useParams();
+  const { state } = useLocation();
+
   const goToBack = useNavigateTo('-1');
-  const footerState = useSetRecoilState(footerShowState);
+  const displayFooter = useSetRecoilState(footerShowState);
+
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
   const [inputValue, setInputValue] = useState('');
   const [selectOption, setselectOption] = useState('');
@@ -31,18 +34,35 @@ const Report = () => {
     setInputValue(e.target.value);
   };
 
-  const handleSelectOption = (e: React.TouchEvent<HTMLInputElement>) => {
+  const handleSelectOption = (e: React.TouchEvent<HTMLElement>) => {
     setselectOption(e.currentTarget.id);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmitPost = async () => {
     const reportData = {
       reason: selectOption,
       other: inputRef.current?.value || null
     };
-    postId && selectOption && (await postReport(postId, reportData));
-    footerState(true);
-    goToBack();
+    const res =
+      postId && selectOption && (await postReport(postId, reportData));
+    res && displayFooter(true);
+    res && goToBack();
+  };
+
+  const handleSubmitComment = async () => {
+    const reportData = {
+      reason: selectOption,
+      postId: postId,
+      other: inputRef.current?.value || null,
+      type: state.comment ? 'comment' : 'reply'
+    };
+    const res =
+      state &&
+      postId &&
+      selectOption &&
+      (await reportComment(state.id, reportData));
+    res && displayFooter(true);
+    res && goToBack();
   };
 
   return (
@@ -63,7 +83,12 @@ const Report = () => {
                     onTouchEnd={handleSelectOption}
                   />
                 </RadioBtn>
-                <label htmlFor={item}>{item}</label>
+                <label
+                  htmlFor={item}
+                  id={item}
+                  onTouchEnd={handleSelectOption}>
+                  {item}
+                </label>
               </RadioContainer>
             ))}
           </form>
@@ -84,8 +109,8 @@ const Report = () => {
       <Button
         value={type}
         text={btn}
-        onTouchEnd={handleSubmit}
-        className={cx(RegistBtn, !selectOption ? DisabledBtn : undefined)}
+        onTouchEnd={state ? handleSubmitComment : handleSubmitPost}
+        className={cx(RegistBtn, !selectOption && DisabledBtn)}
       />
     </>
   );
