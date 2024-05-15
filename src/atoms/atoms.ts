@@ -3,7 +3,6 @@ import dayjs from 'dayjs';
 import {
   AuthTypes,
   CoffeeItemTypes,
-  SimplifyUser,
   RegisterPostTypes,
   CaffeineFilterTypes
 } from '@/types/types';
@@ -136,4 +135,12 @@ export const activeMonthState = atom({
 export const cahceImgState = atom({
   key: 'cahceImgState',
   default: true
+});
+
+export const commentState = atom({
+  key: 'commentState',
+  default: {
+    comment: true,
+    commentId: 0
+  }
 });

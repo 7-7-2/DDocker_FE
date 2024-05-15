@@ -46,6 +46,15 @@ const PostInput = memo(
             queryClient.invalidateQueries({
               queryKey: ['commentData', postId]
             });
+            queryClient.invalidateQueries({
+              queryKey: ['socialCounts', postId]
+            });
+            if (selectedReply && selectedReply.id !== 0) {
+              queryClient.invalidateQueries({
+                queryKey: ['replyList', selectedReply.id]
+              });
+            }
+
             setValue('');
             reset();
             if (inputRef && inputRef.current) {

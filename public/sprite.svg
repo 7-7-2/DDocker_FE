@@ -1601,10 +1601,127 @@
       </defs>
     </symbol>
 
-    <symbol id="icon-reload" width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M15 1C22.732 1 29 7.26801 29 15C29 22.732 22.732 29 15 29C7.26801 29 1 22.732 1 15C1 10.602 3.02793 6.67771 6.1997 4.11111" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M1 3.3335H7.22222V9.55572" stroke="#313131" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <symbol
+      id="icon-reload"
+      width="30"
+      height="30"
+      viewBox="0 0 30 30"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M15 1C22.732 1 29 7.26801 29 15C29 22.732 22.732 29 15 29C7.26801 29 1 22.732 1 15C1 10.602 3.02793 6.67771 6.1997 4.11111"
+        stroke="#313131"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M1 3.3335H7.22222V9.55572"
+        stroke="#313131"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
     </symbol>
 
+    <symbol
+      id="icon-delete-comment"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#clip0_3915_8559)">
+        <path
+          d="M14 11V17"
+          stroke="white"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M10 11V17"
+          stroke="white"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M6 7V19C6 20.1046 6.89543 21 8 21H16C17.1046 21 18 20.1046 18 19V7"
+          stroke="white"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M4 7H20"
+          stroke="white"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M7 7L9 3H15L17 7"
+          stroke="white"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_3915_8559">
+          <rect
+            width="24"
+            height="24"
+            fill="white"
+          />
+        </clipPath>
+      </defs>
+    </symbol>
+
+    <symbol
+      id="icon-report-comment"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#clip0_3915_8560)">
+        <circle
+          cx="12"
+          cy="12"
+          r="9"
+          stroke="white"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <rect
+          x="12"
+          y="16"
+          width="0.01"
+          height="0.01"
+          stroke="white"
+          stroke-width="2.25"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M12 12L12 8"
+          stroke="white"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_3915_8560">
+          <rect
+            width="24"
+            height="24"
+            fill="white"
+          />
+        </clipPath>
+      </defs>
+    </symbol>
   </defs>
 </svg>;
