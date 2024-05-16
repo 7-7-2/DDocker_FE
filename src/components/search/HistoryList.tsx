@@ -39,6 +39,7 @@ const HistoryList = () => {
                 nickname={user.nickname}
                 caffeine={user.caffeine}
                 userId={user.userId}
+                mini={true}
               />
               <div
                 className={Flex}

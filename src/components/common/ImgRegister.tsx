@@ -31,7 +31,7 @@ const ImgRegister = ({
     <div className={MarginT6}>
       {imageUrl && !isLoadingImg && (
         <PostImgContainer>
-          <img
+          <Img
             src={imageUrl}
             alt="posted coffee"
             onTouchEnd={resetImage}
@@ -73,6 +73,12 @@ const PostImgContainer = styled.div`
   aspect-ratio: 1;
   border-radius: 10px;
   overflow: hidden;
+`;
+
+const Img = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: 'cover';
 `;
 
 export default ImgRegister;

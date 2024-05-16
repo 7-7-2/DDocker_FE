@@ -7,7 +7,14 @@ import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 
-const MiniProfile = ({ url, nickname, caffeine, userId }: MiniProfileProps) => {
+const MiniProfile = ({
+  url,
+  nickname,
+  caffeine,
+  userId,
+  post = false,
+  mini = false
+}: MiniProfileProps) => {
   const toProfilePage = useNavigateTo(`/profile/${userId}`);
   return (
     <>
@@ -16,7 +23,11 @@ const MiniProfile = ({ url, nickname, caffeine, userId }: MiniProfileProps) => {
           <div
             className={FlexCenter}
             onClick={toProfilePage}>
-            <ImgContainer url={url} />
+            <ImgContainer
+              url={url}
+              post={post}
+              mini={mini}
+            />
           </div>
           <div className={cx(Column, Justify)}>
             <UserTitle className={cx(LineH18, Semibold)}>

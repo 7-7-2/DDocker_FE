@@ -9,6 +9,7 @@ import getTimeDiff from '@/utils/timestampToDate';
 import { getUserProfile } from '@/api/user';
 import { useState } from 'react';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
+import ImgContainer from '@/components/common/ImgContainer';
 
 const userImagePath = import.meta.env.VITE_R2_USER_IMAGE_PATH;
 const postImagePath = import.meta.env.VITE_R2_POST_IMAGE_PATH;
@@ -50,8 +51,9 @@ const NoticeItem = ({
       />
       <Right>
         {!followNotice && (
-          <PostImg
-            src={postImgPath}
+          <ImgContainer
+            url={postImgPath}
+            mini={true}
             onClick={toPost}
           />
         )}
