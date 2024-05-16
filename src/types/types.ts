@@ -33,7 +33,10 @@ export interface SimplifyUser {
   keyword?: string;
 }
 
-export type MiniProfileProps = Omit<SimplifyUser, 'keyword'>;
+export interface MiniProfileProps extends Omit<SimplifyUser, 'keyword'> {
+  post?: boolean;
+  mini?: boolean;
+}
 
 export interface SearchBarProps {
   search: string;

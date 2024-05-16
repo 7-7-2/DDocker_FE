@@ -41,6 +41,7 @@ const UserListItem = ({
           nickname={nickname}
           caffeine={caffeine}
           userId={userId}
+          mini={true}
         />
         {userId !== myId && <FollowBtn userId={userId} />}
       </div>
