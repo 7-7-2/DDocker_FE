@@ -89,7 +89,10 @@ const PostCard = ({ ...props }: FollowingPost) => {
       )}
       <Container>
         <UserProfile className={cx(Flex, Between)}>
-          <MiniProfile {...MiniProfileProps} />
+          <MiniProfile
+            {...MiniProfileProps}
+            post={true}
+          />
           <Icon
             {...iconPropsGenerator('user-more')}
             onClick={cancelOptions}

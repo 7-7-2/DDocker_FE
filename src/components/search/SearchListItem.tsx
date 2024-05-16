@@ -34,6 +34,7 @@ const SearchListItem = memo(({ users, search }: SearchList) => {
                 nickname={user.nickname}
                 caffeine={user.caffeine}
                 userId={user.userId}
+                mini={true}
               />
             </div>
           </Container>

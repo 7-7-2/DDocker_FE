@@ -85,6 +85,7 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
               nickname={postData.data.nickname}
               caffeine={postData.data.sum}
               userId={postData.data.userId}
+              post={true}
             />
             <Icon
               {...iconPropsGenerator('user-more')}
