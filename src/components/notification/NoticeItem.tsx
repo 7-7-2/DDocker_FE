@@ -6,10 +6,10 @@ import { Notification } from '@/types/types';
 import FollowBtn from '@/components/follow/FollowBtn';
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 import getTimeDiff from '@/utils/timestampToDate';
-import { getUserProfile } from '@/api/user';
 import { useState } from 'react';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import ImgContainer from '@/components/common/ImgContainer';
+import NoProfileImg from '@/components/common/NoProfileImg';
 
 const userImagePath = import.meta.env.VITE_R2_USER_IMAGE_PATH;
 const postImagePath = import.meta.env.VITE_R2_POST_IMAGE_PATH;
@@ -29,20 +29,28 @@ const NoticeItem = ({
   const profileImgPath = senderId && `${userImagePath}%2F${senderId}`;
   const [profileImg, setProfileImg] = useState(profileImgPath);
 
-  const getExternalProfileImg = async () => {
-    const imgSrc = await getUserProfile(senderId);
-    setProfileImg(imgSrc);
+  const handleImgError = () => {
+    setProfileImg('');
   };
 
   const postImgPath = postId && `${postImagePath}%2F${myId}%2F${postId}`;
 
   return (
     <Container className={Align}>
-      <ProfileIcon
-        src={profileImg}
-        onError={getExternalProfileImg}
-        onClick={toProfile}
-      />
+      {profileImg && (
+        <ImgContainer
+          url={profileImg}
+          mini={true}
+          onClick={toProfile}
+          onError={handleImgError}
+        />
+      )}
+      {!profileImg && (
+        <NoProfileImg
+          onClick={toProfile}
+          mini={true}
+        />
+      )}
       <Notice
         username={nickname}
         text={NOTICE_TEXTS[type]}
@@ -51,9 +59,8 @@ const NoticeItem = ({
       />
       <Right>
         {!followNotice && (
-          <ImgContainer
-            url={postImgPath}
-            mini={true}
+          <PostImg
+            src={postImgPath}
             onClick={toPost}
           />
         )}
@@ -69,16 +76,14 @@ const Container = styled.div`
 
 const Right = styled.div``;
 
-const ProfileIcon = styled.img`
-  min-width: 40px;
-  height: 40px;
-  border-radius: 50%;
-`;
-
 const PostImg = styled.img`
   min-width: 44px;
   height: 44px;
   border-radius: 6px;
+`;
+
+const Min = styled.div`
+  min-width: 40px;
 `;
 
 export default NoticeItem;

@@ -6,7 +6,6 @@ import { SearchContext } from '@/context/contexts';
 
 const Search = () => {
   const { results, search, handleChange, reset, setSearch } = useSearchInput();
-
   return (
     <>
       <SearchBar
