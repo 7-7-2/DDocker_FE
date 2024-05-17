@@ -295,3 +295,12 @@ export interface Notification {
   nickname: string;
   time: Dayjs;
 }
+
+export interface NoImgProps {
+  url: string;
+  comment?: boolean;
+  mini?: boolean;
+  post?: boolean;
+  onClick?: () => void;
+  onError?: () => void;
+}
