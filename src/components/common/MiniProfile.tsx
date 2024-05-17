@@ -6,6 +6,7 @@ import { LineH18, Semibold } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
+import NoProfileImg from '@/components/common/NoProfileImg';
 
 const MiniProfile = ({
   url,
@@ -18,29 +19,35 @@ const MiniProfile = ({
   const toProfilePage = useNavigateTo(`/profile/${userId}`);
   return (
     <>
-      {url && (
-        <Container className={Flex}>
-          <div
-            className={FlexCenter}
-            onClick={toProfilePage}>
+      <Container className={Flex}>
+        <div
+          className={FlexCenter}
+          onClick={toProfilePage}>
+          {url && (
             <ImgContainer
               url={url}
               post={post}
               mini={mini}
             />
-          </div>
-          <div className={cx(Column, Justify)}>
-            <UserTitle className={cx(LineH18, Semibold)}>
-              <span onClick={toProfilePage}>{nickname}</span>
-            </UserTitle>
-            <UserCaffeine
-              className={cx(Flex, LineH18)}
-              onClick={
-                toProfilePage
-              }>{`${TEXT.addedcaffeine} ${caffeine} ${TEXT.mgLabel}`}</UserCaffeine>
-          </div>
-        </Container>
-      )}
+          )}
+          {!url && (
+            <NoProfileImg
+              mini={mini}
+              post={post}
+            />
+          )}
+        </div>
+        <div className={cx(Column, Justify)}>
+          <UserTitle className={cx(LineH18, Semibold)}>
+            <span onClick={toProfilePage}>{nickname}</span>
+          </UserTitle>
+          <UserCaffeine
+            className={cx(Flex, LineH18)}
+            onClick={
+              toProfilePage
+            }>{`${TEXT.addedcaffeine} ${caffeine} ${TEXT.mgLabel}`}</UserCaffeine>
+        </div>
+      </Container>
     </>
   );
 };

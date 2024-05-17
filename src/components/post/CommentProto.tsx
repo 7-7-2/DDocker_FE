@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { styled } from 'styled-system/jsx';
 import { Flex, Column } from '@/styles/layout';
 
@@ -12,6 +12,7 @@ import { useDetectSlide } from '@/hooks/post/useDetectSlide';
 import { useSetRecoilState } from 'recoil';
 import { commentState } from '@/atoms/atoms';
 import { useIntersection } from '@/hooks/useIntersection';
+import NoProfileImg from '@/components/common/NoProfileImg';
 
 const CommentAction = React.lazy(() => import('./CommentAction'));
 
@@ -29,6 +30,8 @@ const CommentProto = ({
   const { userData } = useCachedUserInfo();
   const { nickname: myUsername } = userData;
   const myComment = nickname === myUsername;
+  const [profile, setProfile] = useState(profileUrl);
+  const handleImgError = () => setProfile('');
 
   const setSelectedComment = useSetRecoilState(commentState);
   const { scrollRef, setIsIntersected, isIntersected } = useDetectSlide(
@@ -55,10 +58,18 @@ const CommentProto = ({
   return (
     <>
       <Container className={Flex}>
-        <ImgContainer
-          url={profileUrl}
-          comment={true}
-        />
+        {profile && (
+          <ImgContainer
+            url={profile}
+            comment={true}
+          />
+        )}
+        {!profile && (
+          <NoProfileImg
+            onClick={handleImgError}
+            comment={true}
+          />
+        )}
         <CommentDetail
           className={Column}
           ref={scrollRef}>
