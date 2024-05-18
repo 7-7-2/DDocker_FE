@@ -23,7 +23,7 @@ export const useCarousel = () => {
     const containerWidth = container?.offsetWidth;
     const currentPage = Math.round(scrollPosition / containerWidth);
     if (container && curPage !== currentPage) {
-      container.scrollLeft = containerWidth / curPage;
+      container.scrollLeft = containerWidth * curPage;
     }
   }, [curPage]);
   return { curPage, setCurPage, containerRef, handleScroll };
