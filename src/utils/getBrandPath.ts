@@ -9,7 +9,12 @@ const pathMap = (brand: string) => {
     더벤티: '/png/theventi.png',
     빽다방: '/png/bbak.png',
     컴포즈커피: '/png/compose.png',
-    폴바셋: '/png/paulbassett.png'
+    폴바셋: '/png/paulbassett.png',
+    바나프레소: '/png/banapresso.png',
+    하삼동커피: '/png/hasamdong.png',
+    커피빈: '/png/coffeebean.png',
+    매머드커피: '/png/mammoth.png',
+    '나만의 카페': 'png/private.png'
   };
   return brandObj[brand];
 };
@@ -27,7 +32,12 @@ export const getBrandPath = (brand: string) => {
     theventi: '더벤티',
     bbak: '빽다방',
     compose: '컴포즈커피',
-    paulbassett: '폴바셋'
+    paulbassett: '폴바셋',
+    banapresso: '바나프레소',
+    hasamdong: '하삼동커피',
+    coffeebean: '커피빈',
+    mammoth: '매머드커피',
+    private: '나만의 카페'
   };
   return brandMap[brand];
 };

@@ -30,6 +30,21 @@ const changeVisitPurpose = (brandName: string) => {
   if (brandName === 'theventi') {
     return '더벤티';
   }
+  if (brandName === 'banapresso') {
+    return '바나프레소';
+  }
+  if (brandName === 'hasamdong') {
+    return '하삼동커피';
+  }
+  if (brandName === 'coffeebean') {
+    return '커피빈';
+  }
+  if (brandName === 'mammoth') {
+    return '매머드커피';
+  }
+  if (brandName === 'private') {
+    return '나만의 카페';
+  }
   return `${brandName}`;
 };
 
@@ -46,7 +61,12 @@ export const brandMapToEng = (brandName: string) => {
     더벤티: 'theventi',
     빽다방: 'bbak',
     컴포즈커피: 'compose',
-    폴바셋: 'paulbassett'
+    폴바셋: 'paulbassett',
+    바나프레소: 'banapresso',
+    하삼동커피: 'hasamdong',
+    커피빈: 'coffeebean',
+    매머드커피: 'mammoth',
+    '나만의 카페': 'private'
   };
   return brandObj[brandName];
 };
