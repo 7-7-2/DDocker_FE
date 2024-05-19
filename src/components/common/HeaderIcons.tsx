@@ -3,13 +3,16 @@ import HeaderIcon from '@/components/common/HeaderIcon';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import useGetCacheData from '@/hooks/useGetCacheData';
 import { useQuery } from '@tanstack/react-query';
+import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 
 const HeaderIcons = () => {
+  const { userId } = useCachedUserInfo();
   const { data: unreadNotification } = useQuery({
-    queryKey: ['unread'],
+    queryKey: ['unread', userId],
     queryFn: () => {
-      return useGetCacheData('notification', '/unread');
-    }
+      return useGetCacheData('notification', `/unread-${userId}`);
+    },
+    enabled: !!userId
   });
 
   const notification =
