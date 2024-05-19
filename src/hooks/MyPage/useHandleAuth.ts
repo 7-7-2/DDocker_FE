@@ -26,6 +26,14 @@ export const useHandleAuth = () => {
     goToStart();
   };
 
+  const handleDeleteHistory = async () => {
+    await useDeleteCacheData(`search`, [`/user-${userId}`]);
+    await useDeleteCacheData(`notification`, [
+      `/user-${userId}`,
+      `/unread-${userId}`
+    ]);
+  };
+
   const handleConfirmBtn = () => {
     setIsConfirm(!isConfirm);
   };
@@ -38,6 +46,7 @@ export const useHandleAuth = () => {
     }
     if (isModal) {
       const deleteAccount = async () => {
+        await handleDeleteHistory();
         await deleteUserAccount();
         await deleteStorage(userRoute);
         await deleteFolder(postRoute);
