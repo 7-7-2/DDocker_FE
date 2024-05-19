@@ -25,6 +25,7 @@ const Container = styled.div`
   padding-right: 16px;
   height: 32px;
   line-height: 16px;
+  width: 100%;
 `;
 
 const Common = styled.span`

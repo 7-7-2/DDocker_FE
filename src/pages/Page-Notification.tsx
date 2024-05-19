@@ -1,6 +1,7 @@
 import CTA from '@/components/common/CTA';
 import NoticeItem from '@/components/notification/NoticeItem';
 import { CTA_TEXTS } from '@/constants/texts';
+import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import useGetCacheData from '@/hooks/useGetCacheData';
 import { useGetSignedIn } from '@/hooks/useGetSignedIn';
@@ -20,18 +21,20 @@ const SignInCTA = React.lazy(
 const Notification = () => {
   useComposeHeader(false, '알림', 'close');
   const { signedIn } = useGetSignedIn();
+  const { userId } = useCachedUserInfo();
 
   const id = useId();
   const { data: cachedNotification } = useQuery({
-    queryKey: ['cachedNotification'],
+    queryKey: ['cachedNotification', userId],
     queryFn: () => {
-      return useGetCacheData('notification', '/user');
-    }
+      return useGetCacheData('notification', `/user-${userId}`);
+    },
+    enabled: !!userId
   });
 
   useEffect(() => {
-    useSetCacheData('notification', '/unread', false);
-  }, []);
+    useSetCacheData('notification', `/unread-${userId}`, false);
+  }, [userId]);
 
   return (
     <Container
