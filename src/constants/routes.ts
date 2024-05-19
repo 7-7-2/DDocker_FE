@@ -9,5 +9,6 @@ export const ROUTES = [
   'Search',
   'Profile',
   'Coffee',
-  'Report'
+  'Report',
+  'Support'
 ];
