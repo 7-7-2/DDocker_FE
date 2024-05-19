@@ -332,56 +332,21 @@ export const ButtonArea = cx(
   `
 );
 
-export const ToggleButton = css`
-  color: var(--colors-subtext);
-  width: 100%;
-  height: 40px;
-  cursor: pointer;
-  position: relative;
-  font-weight: 500;
-  &.active {
-    position: relative;
-    font-weight: 600;
+export const SelectedTap = cx(
+  Semibold,
+  css`
     color: var(--colors-main);
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      width: calc(100% + 20px);
-    }
-  }
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    width: calc(100% + 20px);
-  }
-`;
+    border-bottom: 2px solid var(--colors-main);
+  `
+);
 
-export const ToggleLeft = css`
-  &.active {
-    &::after {
-      left: -20px;
-      border-bottom: 2px solid var(--colors-main);
-    }
-  }
-  &::after {
+export const DefaultTap = cx(
+  Medium,
+  css`
+    color: var(--colors-subtext);
     border-bottom: 1px solid var(--colors-btn-grey);
-    left: -20px;
-  }
-`;
-export const ToggleRight = css`
-  &.active {
-    &::after {
-      right: -20px;
-      border-bottom: 2px solid var(--colors-main);
-    }
-  }
-  &::after {
-    border-bottom: 1px solid var(--colors-btn-grey);
-    right: -20px;
-  }
-`;
+  `
+);
 
 export const PaddingTB10 = css`
   padding: 10px 0;
@@ -769,6 +734,24 @@ export const AlignCTA = css`
   );
   margin: auto 0;
 `;
+
 export const NotificationContainer = css`
   margin-top: -20px;
+`;
+
+export const CustomerItem = css`
+  border-bottom: 1px solid var(--colors-border-grey);
+  color: var(--colors-main-dark);
+  white-space: pre-wrap;
+`;
+
+export const CustomerTitle = css`
+  line-height: 22px;
+  font-size: var(--font-sizes-sm);
+`;
+
+export const CustomertDate = css`
+  line-height: 20px;
+  font-size: var(--font-sizes-xs);
+  color: var(--colors-mid-grey);
 `;

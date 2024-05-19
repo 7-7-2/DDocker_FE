@@ -1,17 +1,23 @@
-import { useState } from 'react';
-import UserListItem from '@/components/follow/UserListItem';
-import { FollowCountProps } from '@/types/types';
-import { getUsernameById } from '@/api/follow';
 import { useLocation, useParams } from 'react-router-dom';
-import { useGetSignedIn } from '@/hooks/useGetSignedIn';
 import { useQuery } from '@tanstack/react-query';
-import FollowTabs from '@/components/follow/FollowTabs';
+
+import Taps from '@/components/common/Taps';
+import UserListItem from '@/components/follow/UserListItem';
+import { useSelectTap } from '@/hooks/useSelectTap';
+import { useGetSignedIn } from '@/hooks/useGetSignedIn';
+import { useComposeHeader } from '@/hooks/useComposeHeader';
+
+import { getUsernameById } from '@/api/follow';
+import { FOLLOW_TEXTS } from '@/constants/follow';
+import { FollowCountProps } from '@/types/types';
+
+const { taps } = FOLLOW_TEXTS;
 
 const Follow: React.FC<FollowCountProps> = () => {
   const { signedIn } = useGetSignedIn();
   const { userId } = useParams();
   const { state: tabState } = useLocation();
-  const [activeTab, setActiveTab] = useState(tabState || '팔로워');
+  const { seletedTap, handleSelectTap } = useSelectTap(tabState || taps[0]);
 
   const { data: username } = useQuery({
     queryKey: ['username', userId],
@@ -20,24 +26,20 @@ const Follow: React.FC<FollowCountProps> = () => {
     },
     enabled: !!userId && !!signedIn
   });
-
-  const handleButtonTouch = (e: React.TouchEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    setActiveTab(e.currentTarget?.value);
-  };
+  const headerText = username && username.data;
+  useComposeHeader(false, headerText, 'close');
 
   return (
     <>
       {username && (
-        <FollowTabs
-          activeTab={activeTab}
-          handleButtonTouch={handleButtonTouch}
-          username={username.data}
+        <Taps
+          taps={taps}
+          selectedTab={seletedTap}
+          handleButtonTouch={handleSelectTap}
         />
       )}
-
       <UserListItem
-        activeTab={activeTab}
+        activeTab={seletedTap}
         pageUserId={userId}
       />
     </>
