@@ -22,7 +22,7 @@ export interface AuthTypes {
   brand?: string;
   sum?: number;
   userId?: string;
-  aboutMe?: string;
+  aboutMe?: string | null;
 }
 
 export interface SimplifyUser {
@@ -42,6 +42,8 @@ export interface SearchBarProps {
   search: string;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   reset: () => void;
+  type?: string;
+  placeholder?: string;
 }
 
 export interface FollowCountProps {
@@ -56,7 +58,7 @@ export interface LabelProps {
   Icon?: boolean | undefined;
   message?: string | undefined;
   inputValue?: string | undefined;
-  userAboutMe?: string | undefined;
+  userAboutMe?: string | null;
 }
 
 export interface InputProps {

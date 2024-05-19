@@ -5,21 +5,23 @@ import { SearchBarProps } from '@/types/types';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { Align, Between, Flex, FlexCenter } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
-import { cx } from 'styled-system/css';
+import { css, cx } from 'styled-system/css';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { SearchInput, Divider, CancelBtn } from '@/styles/styles';
 
 const SearchBar: React.FC<SearchBarProps> = ({
   search,
   reset,
-  handleChange
+  handleChange,
+  type,
+  placeholder
 }) => {
   const navigate = useNavigateTo('-1');
 
   return (
     <>
       <div className={cx(Align, Between)}>
-        <Container className={cx(Align, Between)}>
+        <Container className={cx(Align, Between, Transform)}>
           <Area className={Flex}>
             <IconContainer className={FlexCenter}>
               <Icon {...iconPropsGenerator('mini-search', '12')} />
@@ -29,7 +31,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
               type="text"
               value={search}
               onChange={handleChange}
-              placeholder={SEARCH_TEXTS.placeHolder}
+              placeholder={!type ? SEARCH_TEXTS.placeHolder : placeholder}
             />
           </Area>
           {search && (
@@ -40,14 +42,16 @@ const SearchBar: React.FC<SearchBarProps> = ({
             </IconDelete>
           )}
         </Container>
-        <Button
-          className={cx(FlexCenter, CancelBtn)}
-          text={SEARCH_TEXTS.moveToHome}
-          onTouchEnd={navigate}
-        />
+        {!type && (
+          <Button
+            className={cx(FlexCenter, CancelBtn)}
+            text={SEARCH_TEXTS.moveToHome}
+            onTouchEnd={navigate}
+          />
+        )}
       </div>
 
-      <div className={Divider} />
+      {!type && <div className={Divider} />}
     </>
   );
 };
@@ -66,6 +70,10 @@ const IconContainer = styled.div`
 `;
 const IconDelete = styled.div`
   padding: 4px;
+`;
+const Transform = css`
+  width: 100%;
+  height: 40px;
 `;
 
 export default SearchBar;
