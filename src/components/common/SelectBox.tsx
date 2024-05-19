@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import SelectBtn from '@/components/common/SelectBtn';
 import SelectOption from '@/components/common/SelectOption';
-import { useSelect } from '@/hooks/useSelect';
+import { useSelectBox } from '@/hooks/useSelectBox';
 import { styled } from 'styled-system/jsx';
 
 const SelectBox = ({
@@ -16,7 +16,7 @@ const SelectBox = ({
   onTouchEnd: React.TouchEventHandler<HTMLElement>;
 }) => {
   const selectRef = useRef<HTMLButtonElement>(null);
-  const { isSelect, handleSelectTouch } = useSelect(selectRef);
+  const { isSelect, handleSelectTouch } = useSelectBox(selectRef);
 
   return (
     <SelectBoxContainer>

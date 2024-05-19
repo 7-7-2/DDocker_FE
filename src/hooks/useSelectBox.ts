@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-export const useSelect = (selectRef: React.RefObject<HTMLButtonElement>) => {
+export const useSelectBox = (selectRef: React.RefObject<HTMLButtonElement>) => {
   const [isSelect, setIsSelect] = useState(false);
 
   const handleSelectTouch = () => {
