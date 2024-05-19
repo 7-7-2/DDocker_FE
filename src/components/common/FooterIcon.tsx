@@ -32,7 +32,7 @@ const FooterIcon = ({ icon }: { icon: string }) => {
   const [active, setActive] = useRecoilState(activeState);
 
   const isProfile = path === 'profile';
-  const isMyPage = path[2] === myId;
+  const isMyPage = pathname.split('/')[2] === myId;
 
   const getUserId = async () => {
     const data = await useGetCacheData('user', '/userInfo');
