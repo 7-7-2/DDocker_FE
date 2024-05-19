@@ -28,6 +28,7 @@ const data = [
 이렇게 이렇게 요롷게 죠롷게 하세요.`
   }
 ];
+
 const FAQ = () => {
   const { userData } = useCachedUserInfo();
   const { search, handleChange, reset } = useSearchInput();
@@ -45,9 +46,11 @@ const FAQ = () => {
         type={type}
         placeholder={text.placeholder}
       />
-      {data.map(item => (
-        <FoldableCard data={item} />
-      ))}
+      {!search
+        ? data.map(item => <FoldableCard data={item} />)
+        : data
+            .filter(item => item.title.includes(search))
+            .map(item => <FoldableCard data={item} />)}
     </Continer>
   );
 };
