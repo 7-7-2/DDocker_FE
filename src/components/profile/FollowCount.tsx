@@ -20,8 +20,10 @@ import {
   RecentSearch,
   SumType
 } from '@/styles/styles';
+import { PROFILE_TEXTS } from '@/constants/profile';
 
 const { following, follow1 } = BUTTON_TEXTS;
+const { followCount: followCountText } = PROFILE_TEXTS;
 
 const FollowCount = ({ data }: FollowCountProps) => {
   const navigate = useNavigate();
@@ -41,13 +43,13 @@ const FollowCount = ({ data }: FollowCountProps) => {
   };
 
   const count = [
-    { number: postCount, label: '게시물' },
-    { number: userFollowCount?.following, label: '팔로잉' },
-    { number: userFollowCount?.followed, label: '팔로워' }
+    { number: postCount, label: followCountText[0] },
+    { number: userFollowCount?.followed, label: followCountText[1] },
+    { number: userFollowCount?.following, label: followCountText[2] }
   ];
 
   const handleStatClick = (label: string) => () => {
-    !(label === '팔로잉' || label === '팔로워')
+    !(label === followCountText[1] || label === followCountText[2])
       ? null
       : signedIn
         ? navigate(`/follow/${profileId}`, { state: label })
