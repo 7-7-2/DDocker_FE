@@ -67,7 +67,7 @@ const InitialForm = () => {
 
   const handleNextPage = () => {
     inputRef.current?.value &&
-      setUserInit({ ...userInit, aboutMe: inputRef.current?.value });
+      setUserInit({ ...userInit, aboutMe: inputRef.current?.value || null });
     navigate('/start/3', { state: imageFile });
   };
 
