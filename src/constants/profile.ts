@@ -13,7 +13,8 @@ export const PROFILE_TEXTS = {
     },
     another: `아직 등록된 게시물이 없어요.`
   },
-  profile: '프로필'
+  profile: '프로필',
+  followCount: ['게시물', '팔로워', '필로잉']
 };
 
 export const MYPAGE_TEXTS = {
