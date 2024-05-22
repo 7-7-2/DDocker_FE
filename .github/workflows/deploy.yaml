@@ -1,0 +1,75 @@
+name: DDocker to AWS S3
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Build and Delpoy React
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.15.0]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8.10.5
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: Get PNPM cache directory
+        id: pnpm-cache-dir
+        run: |
+          echo "::set-output name=dir::$(pnpm config get store-dir)"
+      - uses: actions/cache@v3
+        id: pnpm-cache
+        with:
+          path: ${{ steps.pnpm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Configure .env variables
+        run: |
+          echo "VITE_BASE_URL=${{ secrets.VITE_BASE_URL }}" >> .env
+          echo "VITE_GA=${{ secrets.VITE_GA }}" >> .env
+          echo "VITE_R2_ACCESS_KEY_ID=${{ secrets.VITE_R2_ACCESS_KEY_ID }}" >> .env
+          echo "VITE_R2_SECRET_ACCESS_KEY=${{ secrets.VITE_R2_SECRET_ACCESS_KEY }}" >> .env
+          echo "VITE_R2_BUCKET_NAME=${{ secrets.VITE_R2_BUCKET_NAME }}" >> .env
+          echo "VITE_R2_ACCOUNT_ID=${{ secrets.VITE_R2_ACCOUNT_ID }}" >> .env
+          echo "VITE_R2_POST_IMAGE_PATH=${{ secrets.VITE_R2_POST_IMAGE_PATH }}" >> .env
+          echo "VITE_R2_USER_IMAGE_PATH=${{ secrets.VITE_R2_USER_IMAGE_PATH }}" >> .env
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build react project
+        run: pnpm run build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_S3_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_S3_SECRET_ACCESS_KEY_ID }}
+          aws-region: ap-northeast-2
+
+      - name: Upload to S3
+        env:
+          BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME}}
+        run: |
+          aws s3 sync \
+            ./dist s3://$BUCKET_NAME
+
+      - name: CloudFront Invalidation
+        env:
+          CLOUD_FRONT_ID: ${{ secrets.AWS_CLOUDFRONT_ID}}
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id $CLOUD_FRONT_ID --paths /*
