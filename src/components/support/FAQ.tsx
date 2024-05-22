@@ -1,37 +1,30 @@
+import { useQuery } from '@tanstack/react-query';
 import SearchBar from '@/components/search/SearchBar';
+import FoldableCard from '@/components/support/FoldableCard';
+import { getSupportList } from '@/api/support';
 import { useSearchInput } from '@/hooks/search/useSearchInput';
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
+import { FAQData } from '@/types/types';
 import { CUSTOMER_SUPPORT_TEXTS, SUPPORT_TEXTS } from '@/constants/support';
 
 import { styled } from 'styled-system/jsx';
 import { Column } from '@/styles/layout';
 import { Semibold } from '@/styles/styles';
-import FoldableCard from '@/components/support/FoldableCard';
 
 const { FAQ: text } = CUSTOMER_SUPPORT_TEXTS;
-const { type } = SUPPORT_TEXTS.FAQ;
-const data = [
-  {
-    postId: 'helldddo',
-    title: '대화를 백업하려면 어떻게 해야 하나요?',
-    contents: `그게 말이죠 어쩌고 저쩌고 이러쿵해서 불가능합니다.
-이렇게 이렇게 요롷게 죠롷게 하세요.
-그게 말이죠 어쩌고 저쩌고 이러쿵해서 불가능합니다.
-이렇게 이렇게 요롷게 죠롷게 하세요.
-그게 말이죠 어쩌고 저쩌고 이러쿵해서 불가능합니다.
-이렇게 이렇게 요롷게 죠롷게 하세요.`
-  },
-  {
-    postId: 'helloddd',
-    title: '똑플루언서가 되려면 어떻게 해야 하나여?',
-    contents: `그게 말이죠 어쩌고 저쩌고 이러쿵해서 불가능합니다.
-이렇게 이렇게 요롷게 죠롷게 하세요.`
-  }
-];
+const { type } = SUPPORT_TEXTS.customerCenter.FAQ;
 
 const FAQ = () => {
   const { userData } = useCachedUserInfo();
   const { search, handleChange, reset } = useSearchInput();
+
+  const { data: FAQList } = useQuery({
+    queryKey: ['FAQList'],
+    queryFn: async () => {
+      const data = await getSupportList(type);
+      return data.data;
+    }
+  });
 
   return (
     <Continer className={Column}>
@@ -46,11 +39,15 @@ const FAQ = () => {
         type={type}
         placeholder={text.placeholder}
       />
-      {!search
-        ? data.map(item => <FoldableCard data={item} />)
-        : data
-            .filter(item => item.title.includes(search))
-            .map(item => <FoldableCard data={item} />)}
+      {FAQList &&
+        FAQList.filter((item: FAQData) =>
+          search ? item.title.includes(search) : item
+        ).map((item: FAQData) => (
+          <FoldableCard
+            key={item.postId}
+            data={item}
+          />
+        ))}
     </Continer>
   );
 };

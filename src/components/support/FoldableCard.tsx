@@ -6,7 +6,13 @@ import { CUSTOMER_SUPPORT_TEXTS } from '@/constants/support';
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Between, Flex } from '@/styles/layout';
-import { CustomerItem, CustomerTitle, Medium, Semibold } from '@/styles/styles';
+import {
+  CustomerContents,
+  CustomerItem,
+  CustomerTitle,
+  Medium,
+  Semibold
+} from '@/styles/styles';
 
 const { questionMark } = CUSTOMER_SUPPORT_TEXTS.FAQ;
 
@@ -16,7 +22,7 @@ const FoldableCard = ({
   data: {
     postId: string;
     title: string;
-    contents: string;
+    content: string;
   };
 }) => {
   const { toggle, handleToggle } = useToggle();
@@ -39,7 +45,9 @@ const FoldableCard = ({
         </BtnArea>
       </FoledCard>
       {toggle && (
-        <UnfoledCard className={cx(Flex, Between)}>{data.contents}</UnfoledCard>
+        <UnfoledCard className={cx(Flex, Between, CustomerContents)}>
+          {data.content}
+        </UnfoledCard>
       )}
     </Container>
   );
@@ -64,9 +72,6 @@ const UnfoledCard = styled.div`
   width: 100%;
   margin: 4px 0 16px;
   padding: 0 18px;
-  line-height: 18px;
-  white-space: pre-wrap;
-  font-size: var(--font-sizes-xs);
 `;
 
 export default FoldableCard;
