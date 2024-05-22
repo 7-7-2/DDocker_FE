@@ -78,6 +78,7 @@ export const SignInBtn = cx(
 export const DisabledBtn = css`
   background: #ccc;
   color: #fff;
+  pointer-events: none;
 `;
 
 export const DefaultBtn = cx(
@@ -754,4 +755,54 @@ export const CustomertDate = css`
   line-height: 20px;
   font-size: var(--font-sizes-xs);
   color: var(--colors-mid-grey);
+`;
+
+export const CustomerContents = css`
+  line-height: 18px;
+  white-space: pre-wrap;
+  font-size: var(--font-sizes-xs);
+`;
+
+export const SupportContentsContainer = css`
+  height: calc(100vh - 188px);
+  margin: 14px -10px 14px 0;
+  padding: 0 10px 14px 4px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: block !important;
+    background-color: transparent;
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--colors-main);
+    border-radius: 20px;
+  }
+`;
+export const SupportChpater = cx(
+  Semibold,
+  css`
+    color: var(--colors-main);
+    margin-bottom: 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--colors-border-grey);
+    font-size: var(--font-sizes-lg);
+    line-height: 24px;
+    display: block;
+  `
+);
+export const SupportContentTitle = cx(
+  Semibold,
+  css`
+    line-height: 22px;
+    font-size: var(--font-sizes-sm);
+    display: block;
+  `
+);
+
+export const SupportContent = css`
+  margin-top: -18px;
+  line-height: 20px;
+  display: inline-block;
+  text-align: justify;
+  display: block;
 `;

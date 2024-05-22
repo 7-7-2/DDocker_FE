@@ -1,13 +1,20 @@
+import { useNavigate } from 'react-router-dom';
 import { HOME_FOOTER_TEXTS } from '@/constants/home';
-import { Align, Flex } from '@/styles/layout';
-import { Medium, Regular } from '@/styles/styles';
+import { SUPPORT_TEXTS } from '@/constants/support';
+
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
+import { Align, Flex } from '@/styles/layout';
+import { Medium, Regular } from '@/styles/styles';
 
-const { email, copyright, footerCategories, designedBy, freepik } =
-  HOME_FOOTER_TEXTS;
+const { email, copyright, designedBy, freepik } = HOME_FOOTER_TEXTS;
 
 const HomeFooter = () => {
+  const navigate = useNavigate();
+  const footerCategories = Object.values(SUPPORT_TEXTS);
+  const handleOnClick = (e: React.MouseEvent<HTMLLIElement>) => {
+    navigate(`support/${e.currentTarget.id}`);
+  };
   return (
     <Container>
       <svg
@@ -19,8 +26,10 @@ const HomeFooter = () => {
         {footerCategories.map(item => (
           <Category
             className={cx(Align, Medium)}
-            key={item}>
-            {item}
+            key={item.title}
+            id={item.type}
+            onClick={handleOnClick}>
+            {item.title}
           </Category>
         ))}
       </Categories>
