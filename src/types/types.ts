@@ -306,3 +306,29 @@ export interface NoImgProps {
   onClick?: () => void;
   onError?: () => void;
 }
+
+export interface NoticesListData {
+  postId: string;
+  title: string;
+  date: string;
+}
+
+export interface FAQData extends NoticesListData {
+  content: string;
+}
+
+export interface NoticeDetailData {
+  title: string;
+  content: string;
+  date: string;
+}
+
+export interface ChapterContentsType {
+  title: string;
+  content: string;
+}
+
+export interface ChpaterType {
+  chapter: string;
+  chapterContents: ChapterContentsType[];
+}
