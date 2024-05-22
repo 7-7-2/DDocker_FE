@@ -1,25 +1,28 @@
+import React, { useRef } from 'react';
+import { useQuery } from '@tanstack/react-query';
+
 import MiniProfile from '@/components/common/MiniProfile';
 import PostSocial from '@/components/post/PostSocial';
 import PostComments from '@/components/post/PostComments';
 import CaffeineInfo from '@/components/post/CaffeineInfo';
 import PostedAt from '@/components/post/PostedAt';
 import Icon from '@/components/common/Icon';
-import { useQuery } from '@tanstack/react-query';
+import PostInput from '@/components/post/PostInput';
 
+import { useVerifyOwner } from '@/hooks/post/useVerifyOwner';
+import { usePostOptions } from '@/hooks/post/usePostOptions';
+import { useRefIntoView } from '@/hooks/post/useRefIntoView';
+import { useResetRegistInfo } from '@/hooks/post/useResetRegistInfo';
+
+import { getPostDetail, getSocialCounts } from '@/api/post';
+import timestampToDate from '@/utils/timestampToDate';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+import { InputContext } from '@/context/contexts';
+
+import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Between, Align, Flex } from '@/styles/layout';
-import { cx } from 'styled-system/css';
 import { PostContent, Divider } from '@/styles/styles';
-import timestampToDate from '@/utils/timestampToDate';
-import { getPostDetail, getSocialCounts } from '@/api/post';
-import PostInput from '@/components/post/PostInput';
-import { useRef } from 'react';
-import { InputContext } from '@/context/contexts';
-import { usePostOptions } from '@/hooks/post/usePostOptions';
-import { useVerifyOwner } from '@/hooks/post/useVerifyOwner';
-import React from 'react';
-import { useRefIntoView } from '@/hooks/post/useRefIntoView';
 
 const ReplyToPanel = React.lazy(() => import('./ReplyToPanel'));
 const PublicOption = React.lazy(() => import('./overlay/PublicOption'));
@@ -28,6 +31,7 @@ const ConfirmDelete = React.lazy(() => import('./overlay/ConfirmDelete'));
 
 const PostDetail = ({ postNum }: { postNum: string }) => {
   const { ref } = useRefIntoView(null, 'auto');
+  useResetRegistInfo();
   const { data: postData } = useQuery({
     queryKey: ['postData'],
     queryFn: () => {
