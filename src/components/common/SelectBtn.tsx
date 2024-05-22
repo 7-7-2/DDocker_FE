@@ -3,7 +3,7 @@ import convertBrandName from '@/utils/convertBrandName';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { SmStyle } from '@/styles/styles';
+import { DisabledBtn, SmStyle } from '@/styles/styles';
 import { Align, Flex } from '@/styles/layout';
 
 const SelectBtn = ({
@@ -11,18 +11,21 @@ const SelectBtn = ({
   selectedValue,
   isSelect,
   selectRef,
-  onTouchEnd: handleTouch
+  onTouchEnd: handleTouch,
+  disabled
 }: {
   defalutValue: string;
   selectedValue?: string;
   isSelect: boolean;
   selectRef: React.RefObject<HTMLButtonElement>;
   onTouchEnd: React.TouchEventHandler<HTMLButtonElement>;
+  disabled: boolean;
 }) => {
   return (
     <SelectBox
       className={cx(
         Align,
+        disabled ? DisabledBtn : undefined,
         selectedValue
           ? SeletedBorder
           : isSelect
