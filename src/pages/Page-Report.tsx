@@ -8,7 +8,7 @@ import { POST_REPORT_TEXTS } from '@/constants/report';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { footerShowState } from '@/atoms/atoms';
-import { postReport, reportComment } from '@/api/report';
+import { postReport, reportComment } from '@/api/support';
 
 import { styled } from 'styled-system/jsx';
 import { css, cx } from 'styled-system/css';
