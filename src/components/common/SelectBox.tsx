@@ -17,6 +17,7 @@ const SelectBox = ({
 }) => {
   const selectRef = useRef<HTMLButtonElement>(null);
   const { isSelect, handleSelectTouch } = useSelectBox(selectRef);
+  const disabled = data === undefined && true;
 
   return (
     <SelectBoxContainer>
@@ -26,6 +27,7 @@ const SelectBox = ({
         defalutValue={defaultValue}
         isSelect={isSelect}
         onTouchEnd={handleSelectTouch}
+        disabled={disabled}
       />
       <SelectOption
         data={data}
