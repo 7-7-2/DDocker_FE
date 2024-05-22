@@ -32,7 +32,8 @@ const Layout = () => {
   const searchPredi = pathname.startsWith('/search');
   const startPredi = pathname.startsWith('/start');
   const reportPredi = pathname.startsWith('/report');
-  const registerPredi = pathname === '/post/register';
+  const registerPredi =
+    pathname === '/post/register' || pathname.endsWith('/update');
 
   const getHeight = () => {
     if (searchPredi) {
