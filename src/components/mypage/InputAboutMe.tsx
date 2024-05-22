@@ -3,10 +3,7 @@ import { Label } from '@/components/common/Label';
 import TextArea from '@/components/common/TextArea';
 import { INPUT_TEXTS, LABEL_TEXTS } from '@/constants/common';
 
-import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { Align } from '@/styles/layout';
-import { InputByteCheck, InputFontBase } from '@/styles/styles';
 
 const { aboutMe } = LABEL_TEXTS;
 const { placeholder, inputLength } = INPUT_TEXTS.type.aboutMe;
@@ -18,7 +15,7 @@ const InputAboutMe = ({
 }: {
   inputRef: React.RefObject<HTMLTextAreaElement>;
   Icon?: boolean;
-  userAboutMe?: string | undefined;
+  userAboutMe?: string | null;
 }) => {
   const [inputValue, setInputValue] = useState(userAboutMe || undefined);
 
