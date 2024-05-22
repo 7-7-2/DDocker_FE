@@ -14,6 +14,10 @@ function useGetUserInfo(profileId?: string | number | undefined) {
     const userId = data && data.cacheData.data.userId;
     const userData = data && data.cacheData.data;
 
+    if (userId && registInfo.brand === '') {
+      userData.brand && setRegistInfo({ ...registInfo, brand: userData.brand });
+    }
+
     if (!userId && profileId) {
       const res = await getUserInfo(profileId);
       setCachedUser(res.data);
@@ -36,10 +40,6 @@ function useGetUserInfo(profileId?: string | number | undefined) {
       return;
     }
     userData && setCachedUser(userData);
-
-    if (userId && registInfo.brand === '') {
-      userData.brand && setRegistInfo({ ...registInfo, brand: userData.brand });
-    }
   };
 
   useEffect(() => {
