@@ -1,16 +1,20 @@
 import { useRecoilValue } from 'recoil';
+import { useLocation } from 'react-router-dom';
 
-import BrandItem from '@/components/start/BrandItem';
 import Button from '@/components/common/Button';
-import { SELECTFAVBRAND_TEXTS } from '@/constants/start';
 import { BUTTON_TEXTS } from '@/constants/common';
+import BrandItem from '@/components/start/BrandItem';
+import { SELECTFAVBRAND_TEXTS } from '@/constants/start';
 
-import { getMyInfo, setUserInitInfo } from '@/api/user';
 import { authState } from '@/atoms/atoms';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
+import useGetCacheData from '@/hooks/useGetCacheData';
 import useGetCoffeeList from '@/hooks/useGetCoffeeList';
+import { useCloudStorage } from '@/hooks/useCloudStorage';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
+
 import { AuthTypes } from '@/types/types';
+import { getMyInfo, setUserInitInfo } from '@/api/user';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
@@ -23,9 +27,6 @@ import {
   StartBrandSub,
   MarginT28
 } from '@/styles/styles';
-import { useLocation } from 'react-router-dom';
-import { useCloudStorage } from '@/hooks/useCloudStorage';
-import useGetCacheData from '@/hooks/useGetCacheData';
 
 const imagePath = import.meta.env.VITE_R2_USER_IMAGE_PATH;
 
@@ -48,11 +49,10 @@ export const SelectFavBrand = () => {
     const route = `user/${userId}`;
     file && (await uploadStorage(route, file));
     const storagePath = `${imagePath}%2F${userId}`;
-
     const userInfo: AuthTypes = {
       nickname: user.nickname,
       brand: user.brand,
-      aboutMe: user.aboutMe,
+      aboutMe: user.aboutMe || null,
       profileUrl: file ? storagePath : ''
     };
     await setUserInitInfo(userInfo);
@@ -89,7 +89,7 @@ export const SelectFavBrand = () => {
 };
 
 const BrandItemContainer = styled.div`
+  gap: 12px;
   margin: 2.375rem auto 3.75rem;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 12px;
 `;
