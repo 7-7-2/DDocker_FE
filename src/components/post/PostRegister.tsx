@@ -1,6 +1,6 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
 import { nanoid } from 'nanoid';
 
 import CoffeeMenuSelection from '@/components/home/CoffeeMenuSelection';
@@ -27,7 +27,7 @@ import { useGetTodayCoffeeData } from '@/hooks/home/useGetTodayCoffeeData';
 
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { DefaultBtn } from '@/styles/styles';
+import { DefaultBtn, DisabledBtn } from '@/styles/styles';
 
 const imagePath = import.meta.env.VITE_R2_POST_IMAGE_PATH;
 
@@ -109,9 +109,12 @@ const PostRegister = ({
       inputRef.current?.value
     );
     const registered = newRegistData && (await setPostRegist(newRegistData));
-    registered &&
+
+    const imgUploaded =
+      registered &&
       (await uploadStorage(`post/${userId}/${postId}`, imageFile as File));
-    return { registered, postId };
+
+    return imgUploaded && { registered, postId };
   };
 
   const handleUpdate = async () => {
@@ -163,7 +166,15 @@ const PostRegister = ({
       <Button
         text={!update ? BUTTON_TEXTS.regist : BUTTON_TEXTS.update}
         onTouchEnd={userId && clickRegisterBtn}
-        className={cx(DefaultBtn, BtnContainer)}
+        className={cx(
+          imageFile && caffeine
+            ? undefined
+            : registInfo.caffeine
+              ? undefined
+              : DisabledBtn,
+          DefaultBtn,
+          BtnContainer
+        )}
       />
     </>
   );
