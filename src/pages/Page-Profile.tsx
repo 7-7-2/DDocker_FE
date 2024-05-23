@@ -8,7 +8,7 @@ import EmptyPostGrid from '@/components/profile/EmptyPostGrid';
 import AnonymousUserCard from '@/components/profile/AnonymousUserCard';
 import ModalCTA from '@/components/common/ModalCTA';
 
-import { UserProfileDataTypes } from '@/types/types';
+import { InfinitePosts, UserProfileDataTypes } from '@/types/types';
 import { useTargetInfiniteScroll } from '@/hooks/useTargetInfiniteScroll';
 import { getProfilePostIQParam } from '@/hooks/useInfiniteScroll';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
@@ -22,7 +22,7 @@ import { Between, Column } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 
-const { profile } = PROFILE_TEXTS;
+const { profile, nonMemberId } = PROFILE_TEXTS;
 const { signIn2 } = BUTTON_TEXTS;
 const { signIn } = MODAL_CTA_TEXTS;
 
@@ -32,8 +32,12 @@ const Profile = () => {
   const { userId } = useCachedUserInfo();
   const isModal = useRecoilValue(isModalState);
   const goToSignIn = useNavigateTo('/start/1');
+  const nonMembers = profileId === nonMemberId;
 
-  const ProfilePostIQParam = getProfilePostIQParam();
+  const ProfilePostIQParam: InfinitePosts = !nonMembers
+    ? getProfilePostIQParam()
+    : ({} as InfinitePosts);
+
   const { data, ref: postRef } = useTargetInfiniteScroll(
     ProfilePostIQParam,
     profile
@@ -69,7 +73,7 @@ const Profile = () => {
     />
   );
 
-  return profileId !== 'Non-members' ? (
+  return !nonMembers ? (
     <>
       {AnonymousModalCTA}
       <Container className={Column}>

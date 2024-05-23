@@ -14,6 +14,7 @@ export const PROFILE_TEXTS = {
     another: `아직 등록된 게시물이 없어요.`
   },
   profile: '프로필',
+  nonMemberId: 'Non-member',
   followCount: ['게시물', '팔로워', '필로잉']
 };
 
