@@ -15,7 +15,7 @@ export const PROFILE_TEXTS = {
   },
   profile: '프로필',
   nonMemberId: 'Non-member',
-  followCount: ['게시물', '팔로워', '필로잉']
+  followCount: ['게시물', '팔로워', '팔로잉']
 };
 
 export const MYPAGE_TEXTS = {
