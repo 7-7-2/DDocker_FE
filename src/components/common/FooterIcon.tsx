@@ -36,7 +36,7 @@ const FooterIcon = ({ icon }: { icon: string }) => {
 
   const getUserId = async () => {
     const data = await useGetCacheData('user', '/userInfo');
-    data ? setUserId(data.cacheData.data.userId) : setUserId('Non-members');
+    data ? setUserId(data.cacheData.data.userId) : setUserId('Non-member');
   };
 
   useEffect(() => {
