@@ -1,18 +1,18 @@
 import dayjs from 'dayjs';
 import { useState } from 'react';
+import { useRecoilState } from 'recoil';
 import ReactCalendar, { OnArgs, TileArgs } from 'react-calendar';
 
 import { COFFEE_CALENDAR_TEXTS } from '@/constants/coffee';
 import { validateDay } from '@/utils/validateDay';
 import { useGetCalendarData } from 'hooks/coffee/useGetCalendarData';
 import { CalendarData } from '@/types/types';
+import { activeMonthState } from '@/atoms/atoms';
 
 import { Blur, InputByteCheck, SumTitle } from '@/styles/styles';
 import { Align, Flex } from '@/styles/layout';
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { useRecoilState } from 'recoil';
-import { activeMonthState } from '@/atoms/atoms';
 
 const { title, legend } = COFFEE_CALENDAR_TEXTS;
 
@@ -135,6 +135,7 @@ const MyCoffeeCalendar = css`
   }
 
   & .react-calendar__month-view__days__day {
+    line-height: 23px;
     color: var(--colors-main-dark);
   }
 
@@ -161,6 +162,8 @@ const MyCoffeeCalendar = css`
     & abbr {
       font-weight: 600;
       width: 30px;
+      text-align: center;
+      line-height: 23px;
       border-radius: 50%;
       color: #fff;
       background-color: var(--colors-main);

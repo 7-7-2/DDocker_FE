@@ -1,13 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+
 import { getCoffeeCaledar } from '@/api/coffee';
 import { CalendarData } from '@/types/types';
 
 export const useGetCalendarData = (signedIn: string, activeMonth: string) => {
-  const [coffeeData, setCoffeeData] = useState<(CalendarData | null)[]>();
-  const getCalendarData = async (date: string) => {
-    const res = await getCoffeeCaledar(date);
-    res && setCoffeeData(res.days);
-  };
+  const { data } = useQuery({
+    queryKey: ['coffeeCalendar', activeMonth],
+    queryFn: async () => {
+      const data = await getCoffeeCaledar(activeMonth);
+      return data.days;
+    },
+    enabled: !!signedIn
+  });
+
+  const coffeeData = data as CalendarData[];
 
   const healthy = coffeeData?.filter(
     item => item && Number(item.caffeineSum) <= 200
@@ -21,10 +27,6 @@ export const useGetCalendarData = (signedIn: string, activeMonth: string) => {
   const excessive = coffeeData?.filter(
     item => item && Number(item.caffeineSum) > 401
   );
-
-  useEffect(() => {
-    signedIn && getCalendarData(activeMonth);
-  }, [activeMonth, signedIn]);
 
   return { healthy, recommended, excessive };
 };
