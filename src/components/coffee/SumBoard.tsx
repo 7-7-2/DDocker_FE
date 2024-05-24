@@ -1,9 +1,9 @@
 import SumByType from '@/components/coffee/SumByType';
 import { COFFEE_TEXTS } from '@/constants/coffee';
 import { styled } from 'styled-system/jsx';
-import { Column, Evenly, Flex } from '@/styles/layout';
+import { Between, Column, Flex } from '@/styles/layout';
 import { SumBoardTitle, SumType, Blur } from '@/styles/styles';
-import { cx, css } from 'styled-system/css';
+import { cx } from 'styled-system/css';
 
 const { intake, cups, unit, coffee, caffeine, year, month } = COFFEE_TEXTS;
 
@@ -28,24 +28,24 @@ const SumBoard = ({
         {YearPredi && year} {intake}
       </div>
 
-      <InfoArea className={cx(Flex, Evenly)}>
-        <div className={Column}>
+      <InfoArea className={cx(Flex, Between)}>
+        <InfoItem className={Column}>
           <div className={blur ? cx(SumType, Blur) : SumType}>{coffee}</div>
           <SumByType
             amount={coffeeAmount}
             unit={cups}
             blur={blur}
           />
-        </div>
+        </InfoItem>
         <Divider />
-        <div className={Column}>
+        <InfoItem className={Column}>
           <div className={blur ? cx(SumType, Blur) : SumType}>{caffeine}</div>
           <SumByType
             amount={caffeineAmount}
             unit={unit}
             blur={blur}
           />
-        </div>
+        </InfoItem>
       </InfoArea>
     </Container>
   );
@@ -53,13 +53,20 @@ const SumBoard = ({
 
 const Container = styled.div`
   margin-top: 12px;
-  padding: 16px;
+  padding: 16px 20px;
   background-color: var(--colors-tertiary);
   border-radius: 16px;
 `;
 
 const InfoArea = styled.div`
   position: relative;
+  padding: 0 10px;
+  margin-top: 6px;
+`;
+
+const InfoItem = styled.div`
+  width: 126px;
+  align-items: flex-start;
 `;
 
 const Divider = styled.div`

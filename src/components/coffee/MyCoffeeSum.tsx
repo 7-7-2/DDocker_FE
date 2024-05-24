@@ -1,9 +1,9 @@
 import SumBoard from '@/components/coffee/SumBoard';
 import { COFFEE_TEXTS } from '@/constants/coffee';
+import { useGetMyCoffeeSum } from '@/hooks/coffee/useGetMyCoffeeSum';
 
 import { cx } from 'styled-system/css';
 import { SumTitle, PaddingT22 } from '@/styles/styles';
-import { useGetMyCoffeeSum } from '@/hooks/coffee/useGetMyCoffeeSum';
 
 const { sum } = COFFEE_TEXTS;
 
