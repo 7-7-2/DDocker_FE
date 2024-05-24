@@ -1,6 +1,3 @@
-import { getCoffeeIntake } from '@/api/coffee';
-import { activeMonthState } from '@/atoms/atoms';
-import { COFFEE_TEXTS } from '@/constants/coffee';
 import {
   InvalidateQueryFilters,
   useQuery,
@@ -9,7 +6,12 @@ import {
 import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 
+import { getCoffeeIntake } from '@/api/coffee';
+import { activeMonthState } from '@/atoms/atoms';
+import { COFFEE_TEXTS } from '@/constants/coffee';
+
 const { week } = COFFEE_TEXTS;
+
 export const useGetMyCoffeeSum = (signedIn: string | null) => {
   const queryClient = useQueryClient();
   const activeMonth = useRecoilValue(activeMonthState);
