@@ -436,7 +436,7 @@ export const SumTypeAmount = cx(
   css`
     color: var(--colors-main);
     font-size: var(--font-sizes-xl);
-    line-height: 28px;
+    line-height: 24px;
   `
 );
 
@@ -445,7 +445,7 @@ export const SumTypeUnit = cx(
   css`
     color: #313131;
     font-size: var(--font-sizes-sm);
-    line-height: 28px;
+    line-height: 24px;
     transform: translateY(7%);
   `
 );
