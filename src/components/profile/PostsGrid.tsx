@@ -1,5 +1,5 @@
+import { lazy } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ImageErrorCTA from '@/components/common/ImageErrorCTA';
 import { useImgErrorCTA } from '@/hooks/useImgErrorCTA';
 import { PostsGridProps, UserProfilePostsTypes } from '@/types/types';
 
@@ -7,6 +7,8 @@ import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Grid, Center } from '@/styles/layout';
 import { Cursor } from '@/styles/styles';
+
+const ImageErrorCTA = lazy(() => import('@/components/common/ImageErrorCTA'));
 
 const PostsGrid = ({ data, postRef }: PostsGridProps) => {
   const navigate = useNavigate();
