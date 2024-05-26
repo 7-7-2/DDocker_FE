@@ -14,6 +14,38 @@ export const getSocialAuth = async (social: string) => {
   }
 };
 
+// DDocker verify membership
+export const ddockerSignIn = async (code: string | null, social: string) => {
+  try {
+    const res = await baseInstance.get(
+      `/users/${social}/redirect?code=${code}`
+    );
+    if (res.status === 200) {
+      await useSetCacheData('user', '/accessToken', res.data.accessToken);
+      return { accessToken: res.data.accessToken };
+    }
+    if (res.status === 201) {
+      await useSetCacheData('user', '/socialEmail', res.data.socialEmail);
+      await useSetCacheData('user', '/socialToken', res.data.socialToken);
+      await useSetCacheData('user', '/isRegistering', 'true');
+      return { socialEmail: res.data.socialEmail };
+    }
+  } catch (error) {
+    console.error('Error fetching social authentication:', error);
+  }
+  return;
+};
+
+// Unlink Social Auth
+export const unlinkSocialauth = async (social: string, token: string) => {
+  try {
+    await baseInstance.get(`/users/${social}/unlink/${token}`);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+// Delete DDocker User Account
 export const deleteUserAccount = async () => {
   try {
     await authInstance.delete('/users');
@@ -22,17 +54,23 @@ export const deleteUserAccount = async () => {
   }
 };
 
-// DDocker AccessToken
-export const getAccessToken = async (code: string | null, social: string) => {
+// DDocker SignUp
+export const setUserInitInfo = async (userInfo: AuthTypes) => {
   try {
-    const res = await baseInstance.get(
-      `/users/${social}/redirect?code=${code}`
-    );
-    await useSetCacheData('user', '/accessToken', res.data.accessToken);
-    await useSetCacheData('user', '/userId', res.data.userId);
-    return;
+    const res = await baseInstance.post('/users', userInfo);
+    await useSetCacheData('user', '/accessToken', res.data.data);
   } catch (error) {
-    console.error('Error fetching social authentication:', error);
+    console.log('Failed to save user initial info on DB', error);
+  }
+};
+
+// Check Nickname
+export const checkNickname = async (nickname: string) => {
+  try {
+    const res = await baseInstance.get(`/users/check?nickname=${nickname}`);
+    return res.data.data;
+  } catch (err) {
+    console.log(err);
   }
 };
 
@@ -58,26 +96,6 @@ export const getMyInfo = async () => {
     return res && res.data;
   } catch (error) {
     console.log('Error fetching social authentication:', error);
-  }
-};
-
-// DDocker SignUp
-export const setUserInitInfo = async (userInfo: AuthTypes) => {
-  try {
-    const data = userInfo;
-    await authInstance.post('/users', data);
-  } catch (error) {
-    console.log('Failed to save user initial info on DB', error);
-  }
-};
-
-// Check Nickname
-export const checkNickname = async (nickname: string) => {
-  try {
-    const res = await baseInstance.get(`/users/check?nickname=${nickname}`);
-    return res.data.data;
-  } catch (err) {
-    console.log(err);
   }
 };
 

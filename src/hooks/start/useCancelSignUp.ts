@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDeleteCacheData } from '@/hooks/useDeleteCacheData';
 import useGetCacheData from '@/hooks/useGetCacheData';
-import { unlinkSocialauth } from '@/api/user';
+import { unlinkSocialAuth } from '@/api/user';
 
 export const useCancelSignUp = async () => {
   const handleUnloadOrPopstate = async (event: BeforeUnloadEvent) => {
@@ -15,7 +15,7 @@ export const useCancelSignUp = async () => {
         '/socialEmail',
         '/isRegistering'
       ]);
-      await unlinkSocialauth(social.cacheData, socialToken.cacheData);
+      await unlinkSocialAuth(social.cacheData, socialToken.cacheData);
     }
     event.preventDefault();
   };
