@@ -19,14 +19,13 @@ const Footer = lazy(() => import('../components/common/Footer'));
 
 let PagesHeight;
 
-const { NODE_ENV } = import.meta.env;
-const isPro = NODE_ENV === 'production';
+const { PROD } = import.meta.env;
 
 const Layout = () => {
   useForceSubmitForm();
   useFetchSSE();
 
-  isPro && useTrackRoute();
+  PROD && useTrackRoute();
   const { pathname } = useLocation();
   const footerState = useRecoilValue(footerShowState);
   const searchPredi = pathname.startsWith('/search');
