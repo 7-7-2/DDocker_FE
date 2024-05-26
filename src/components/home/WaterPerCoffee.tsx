@@ -1,9 +1,5 @@
+import { lazy } from 'react';
 import { useRecoilValue } from 'recoil';
-import Button from '@/components/common/Button';
-import CoffeeIntake from '@/components/home/CoffeeIntake';
-import TodayMenuItem from '@/components/home/TodayMenuItem';
-import WaterIntake from '@/components/home/WaterIntake';
-import CTA from '@/components/common/CTA';
 
 import { BUTTON_TEXTS } from '@/constants/common';
 import { TODAY_CAFFEINE_INFO_TEXTS } from '@/constants/home';
@@ -22,6 +18,12 @@ import {
   MarginAuto
 } from '@/styles/layout';
 import { RegistCoffeeBtn, AlertMessage, Default } from '@/styles/styles';
+
+const CTA = lazy(() => import('@/components/common/CTA'));
+const Button = lazy(() => import('@/components/common/Button'));
+const WaterIntake = lazy(() => import('@/components/home/WaterIntake'));
+const TodayMenuItem = lazy(() => import('@/components/home/TodayMenuItem'));
+const CoffeeIntake = lazy(() => import('@/components/home/CoffeeIntake'));
 
 const { anonymous, signedIn } = TODAY_CAFFEINE_INFO_TEXTS;
 

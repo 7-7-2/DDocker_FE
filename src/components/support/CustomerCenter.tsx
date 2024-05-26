@@ -1,8 +1,10 @@
+import { lazy } from 'react';
 import Taps from '@/components/common/Taps';
-import FAQ from '@/components/support/FAQ';
-import Notice from '@/components/support/Notice';
 import { useSelectTap } from '@/hooks/useSelectTap';
 import { CUSTOMER_SUPPORT_TEXTS } from '@/constants/support';
+
+const FAQ = lazy(() => import('@/components/support/FAQ'));
+const Notice = lazy(() => import('@/components/support/Notice'));
 
 const { taps } = CUSTOMER_SUPPORT_TEXTS;
 
