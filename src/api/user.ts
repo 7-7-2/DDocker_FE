@@ -37,7 +37,7 @@ export const ddockerSignIn = async (code: string | null, social: string) => {
 };
 
 // Unlink Social Auth
-export const unlinkSocialauth = async (social: string, token: string) => {
+export const unlinkSocialAuth = async (social: string, token: string) => {
   try {
     await baseInstance.get(`/users/${social}/unlink/${token}`);
   } catch (err) {
