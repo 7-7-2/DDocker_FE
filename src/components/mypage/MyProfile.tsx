@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { lazy, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
@@ -6,7 +6,6 @@ import InputAboutMe from '@/components/mypage/InputAboutMe';
 import EditProfileImg from '@/components/mypage/EditProfileImg';
 import CheckNickname from '@/components/start/CheckNickname';
 import ImgCropper from '@/components/common/ImgCropper';
-import ConfirmDeleteUser from '@/components/post/overlay/ConfirmDeleteUser';
 
 import { TEXT } from '@/constants/texts';
 import { MYPAGE_TEXTS } from '@/constants/profile';
@@ -29,6 +28,10 @@ import {
   HomeRegistContainer
 } from '@/styles/styles';
 import { FlexCenter, Justify } from '@/styles/layout';
+
+const ConfirmDeleteUser = lazy(
+  () => import('@/components/post/overlay/ConfirmDeleteUser')
+);
 
 const imagePath = import.meta.env.VITE_R2_USER_IMAGE_PATH;
 const { btn } = MYPAGE_TEXTS;
@@ -90,7 +93,7 @@ const MyProfile = () => {
     setImageUrl,
     setCropperEnabled
   };
-
+  console.log(userData.profileUrl);
   return (
     <>
       {isModal && <ConfirmDeleteUser />}

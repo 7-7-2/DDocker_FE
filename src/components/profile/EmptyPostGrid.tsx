@@ -1,4 +1,4 @@
-import CTA from '@/components/common/CTA';
+import { lazy } from 'react';
 import { PROFILE_TEXTS } from '@/constants/profile';
 
 import { css, cx } from 'styled-system/css';
@@ -7,9 +7,8 @@ import { styled } from 'styled-system/jsx';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { usePostOptions } from '@/hooks/post/usePostOptions';
 
-const {
-  user: { my, another }
-} = PROFILE_TEXTS;
+const CTA = lazy(() => import('@/components/common/CTA'));
+const { my, another } = PROFILE_TEXTS.user;
 
 const EmptyPostGrid = ({
   profileId,
@@ -20,7 +19,7 @@ const EmptyPostGrid = ({
 }) => {
   const goToHome = useNavigateTo('/');
   const { recoverFooterState } = usePostOptions();
-
+  const myProfile = userId === profileId;
   const handleClickBtn = () => {
     goToHome();
     recoverFooterState();
@@ -28,18 +27,11 @@ const EmptyPostGrid = ({
 
   return (
     <Container className={cx(Justify, userId === profileId && DefaultHeight)}>
-      {userId === profileId ? (
-        <CTA
-          text={my.text}
-          actionText={my.actionText}
-          fn={handleClickBtn}
-        />
-      ) : (
-        <CTA
-          text={another}
-          btn={false}
-        />
-      )}
+      <CTA
+        text={myProfile ? my.text : another}
+        actionText={myProfile ? my.actionText : ''}
+        fn={myProfile ? handleClickBtn : undefined}
+      />
     </Container>
   );
 };

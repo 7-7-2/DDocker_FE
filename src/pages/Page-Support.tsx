@@ -1,11 +1,14 @@
+import { lazy } from 'react';
 import { useParams } from 'react-router-dom';
-
-import CustomerCenter from '@/components/support/CustomerCenter';
-import NoticeDetail from '@/components/support/NoticeDetail';
-import TOS from '@/components/support/TOS';
-import PrivacyPolicy from '@/components/support/PrivacyPolicy';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { SUPPORT_TEXTS } from '@/constants/support';
+
+const CustomerCenter = lazy(
+  () => import('../components/support/CustomerCenter')
+);
+const NoticeDetail = lazy(() => import('../components/support/NoticeDetail'));
+const TOS = lazy(() => import('../components/support/TOS'));
+const PrivacyPolicy = lazy(() => import('../components/support/PrivacyPolicy'));
 
 const { customerCenter, termsOfService, privacyPolicy } = SUPPORT_TEXTS;
 

@@ -1,11 +1,12 @@
-import { useRef } from 'react';
-import LogInCTA from '@/components/coffee/LogInCTA';
+import { lazy, useRef } from 'react';
 import MyCalendar from '@/components/coffee/MyCalendar';
 import MyCoffeeSum from '@/components/coffee/MyCoffeeSum';
-import ScrollInducer from '@/components/coffee/ScrollInducer';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { useGetSignedIn } from '@/hooks/useGetSignedIn';
 import { styled } from 'styled-system/jsx';
+
+const LogInCTA = lazy(() => import('../components/coffee/LogInCTA'));
+const ScrollInducer = lazy(() => import('../components/coffee/ScrollInducer'));
 
 const Coffee = () => {
   useComposeHeader(true, '', 'icons');

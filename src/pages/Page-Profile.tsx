@@ -1,26 +1,30 @@
+import { lazy } from 'react';
 import { useRecoilValue } from 'recoil';
 import { useParams } from 'react-router-dom';
 
-import ProfileDetail from '@/components/profile/ProfileDetail';
-import FollowCount from '@/components/profile/FollowCount';
-import PostsGrid from '@/components/profile/PostsGrid';
-import EmptyPostGrid from '@/components/profile/EmptyPostGrid';
-import AnonymousUserCard from '@/components/profile/AnonymousUserCard';
-import ModalCTA from '@/components/common/ModalCTA';
-
-import { InfinitePosts, UserProfileDataTypes } from '@/types/types';
 import { useTargetInfiniteScroll } from '@/hooks/useTargetInfiniteScroll';
 import { getProfilePostIQParam } from '@/hooks/useInfiniteScroll';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
+
 import { BUTTON_TEXTS, MODAL_CTA_TEXTS } from '@/constants/common';
 import { PROFILE_TEXTS } from '@/constants/profile';
 import { isModalState } from '@/atoms/atoms';
+import { InfinitePosts, UserProfileDataTypes } from '@/types/types';
 
 import { Between, Column } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
+
+const ModalCTA = lazy(() => import('../components/common/ModalCTA'));
+const AnonymousUserCard = lazy(
+  () => import('../components/profile/AnonymousUserCard')
+);
+const EmptyPostGrid = lazy(() => import('../components/profile/EmptyPostGrid'));
+const PostsGrid = lazy(() => import('../components/profile/PostsGrid'));
+const FollowCount = lazy(() => import('../components/profile/FollowCount'));
+const ProfileDetail = lazy(() => import('../components/profile/ProfileDetail'));
 
 const { profile, nonMemberId } = PROFILE_TEXTS;
 const { signIn2 } = BUTTON_TEXTS;
@@ -50,17 +54,18 @@ const Profile = () => {
     postCount: postsData && postsData[0].allCount
   };
 
-  const postGrid = allCount ? (
-    <PostsGrid
-      data={postsData}
-      postRef={postRef}
-    />
-  ) : (
-    <EmptyPostGrid
-      profileId={profileId}
-      userId={userId}
-    />
-  );
+  const postGrid =
+    allCount != 0 ? (
+      <PostsGrid
+        data={postsData}
+        postRef={postRef}
+      />
+    ) : (
+      <EmptyPostGrid
+        profileId={profileId}
+        userId={userId}
+      />
+    );
   const handleActions: React.TouchEventHandler<HTMLButtonElement> = () => {
     goToSignIn();
   };
