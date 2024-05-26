@@ -1,37 +1,30 @@
-import { useEffect, useState } from 'react';
+import { useEffect, lazy } from 'react';
 import { useParams } from 'react-router-dom';
-import SignIn from '@/components/start/SignIn';
-import InitialForm from '@/components/start/InitialForm';
-import { SelectFavBrand } from '@/components/start/SelectFavBrand';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { useShowFooter } from '@/hooks/useShowFooter';
-import useGetCacheData from '@/hooks/useGetCacheData';
+import { useCancelSignUp } from '@/hooks/start/useCancelSignUp';
+import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 
+const SignIn = lazy(() => import('../components/start/SignIn'));
+const InitialForm = lazy(() => import('../components/start/InitialForm'));
+const SelectFavBrand = lazy(() => import('../components/start/SelectFavBrand'));
 const allowedPages = ['1', '2', '3'];
 
 const Start = () => {
   useShowFooter(false);
-  const [accessToken, setAccessToken] = useState('');
-  const [userInfo, setUserInfo] = useState('');
+  useCancelSignUp();
+  const { accessToken, userData } = useCachedUserInfo();
   const { id } = useParams();
 
-  const getCachedData = async () => {
-    const getAccessToken = await useGetCacheData('user', '/accessToken');
-    const getUserInfo = await useGetCacheData('user', '/userInfo');
-    getAccessToken && setAccessToken(getAccessToken.cacheData);
-    getUserInfo && setUserInfo(getUserInfo.cacheData);
-  };
-
   const notAllowedPages = id && !allowedPages.includes(id);
-  const notSignUp = !userInfo && (id === '2' || '3');
+  const notSignUp = !userData && (id === '2' || '3');
   const goToHomePage = useNavigateTo('/');
   const goToStartPage = useNavigateTo('/start/1');
 
   useEffect(() => {
-    getCachedData();
     notAllowedPages && goToStartPage();
     notSignUp && goToStartPage();
-    accessToken && userInfo && goToHomePage();
+    accessToken && userData && goToHomePage();
   }, []);
 
   return (

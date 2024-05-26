@@ -3,17 +3,17 @@ import useGetCacheData from '@/hooks/useGetCacheData';
 import { AuthTypes } from '@/types/types';
 
 export const useCachedUserInfo = () => {
-  const { data: social } = useQuery({
-    queryKey: ['social'],
-    queryFn: () => useGetCacheData('user', '/social')
+  const { data: accessToken } = useQuery({
+    queryKey: ['accessToken'],
+    queryFn: () => useGetCacheData('user', '/accessToken')
   });
   const { data: userInfo } = useQuery({
-    queryKey: ['userInfo', social],
+    queryKey: ['userInfo', accessToken],
     queryFn: () => useGetCacheData('user', '/userInfo'),
-    enabled: !!social
+    enabled: !!accessToken
   });
   const userId = userInfo && userInfo.cacheData.data.userId;
   const userData: AuthTypes = userInfo && userInfo.cacheData.data;
 
-  return { userId, userData };
+  return { accessToken, userId, userData };
 };

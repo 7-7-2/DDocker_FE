@@ -3,10 +3,11 @@ import { useSearchParams } from 'react-router-dom';
 
 import Icon from '@/components/common/Icon';
 import { SIGININ_TEXTS } from '@/constants/start';
-import { getSocialAuth, getAccessToken, getMyInfo } from '@/api/user';
+import { getSocialAuth, ddockerSignIn, getMyInfo } from '@/api/user';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import useGetCacheData from '@/hooks/useGetCacheData';
+import { ddockerSignInType } from '@/types/types';
 
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
@@ -39,23 +40,21 @@ const SignIn = () => {
     }
   };
 
-  const cacheAccessToken = async () => {
-    try {
-      const res = await useGetCacheData('user', '/social');
-      if (!res) return;
-      const token = await useGetCacheData('user', '/accessToken');
-      !token && (await getAccessToken(code, res.cacheData));
-      await getMyInfo();
-
-      const initialized = await useGetCacheData('user', '/userInfo');
-      (await initialized.cacheData.data) !== true ? navToHome() : navToSignUp();
-    } catch (err) {
-      console.log('Need to Social Sign In');
+  const verifyMembership = async () => {
+    const social = await useGetCacheData('user', '/social');
+    const res = code && social && (await ddockerSignIn(code, social.cacheData));
+    if (res) {
+      const { accessToken } = res as ddockerSignInType;
+      const singIn = async () => {
+        await getMyInfo();
+        navToHome();
+      };
+      return accessToken ? singIn() : navToSignUp();
     }
   };
 
   useEffect(() => {
-    cacheAccessToken();
+    verifyMembership();
   }, []);
 
   return (

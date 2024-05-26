@@ -1,3 +1,4 @@
+import InitialForm from '@/components/start/InitialForm';
 import { Dayjs } from 'dayjs';
 import {
   TouchEventHandler,
@@ -23,6 +24,16 @@ export interface AuthTypes {
   sum?: number;
   userId?: string;
   aboutMe?: string | null;
+}
+
+export interface ddockerSignInType {
+  accessToken?: string;
+  socialEmail?: string;
+}
+
+export interface InitialformTypes extends AuthTypes {
+  useremail?: string;
+  social?: string;
 }
 
 export interface SimplifyUser {
