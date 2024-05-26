@@ -17,6 +17,7 @@ const TodayCaffeineText = () => {
   const user = useRecoilValue(userInfoState);
   const { coffeeInfo: todayCoffeeData } = user && useGetTodayCoffeeData();
   const allCount = todayCoffeeData?.allCount;
+  const waterPerCoffeeCount = allCount && allCount * 2 - takedWater;
 
   const anonymousText = !user?.nickname && (
     <div className={Column}>
@@ -39,8 +40,6 @@ const TodayCaffeineText = () => {
       <span>{signedIn.third}</span>
     </div>
   );
-
-  const waterPerCoffeeCount = allCount && allCount * 2 - takedWater;
 
   const signedInMessage = (
     <div>

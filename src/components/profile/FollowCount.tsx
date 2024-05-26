@@ -6,6 +6,7 @@ import useGetCheckFollowing from '@/hooks/profile/useGetCheckFollowing';
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 import { useGetSignedIn } from '@/hooks/useGetSignedIn';
 import { BUTTON_TEXTS } from '@/constants/common';
+import { PROFILE_TEXTS } from '@/constants/profile';
 import { isModalState } from '@/atoms/atoms';
 import { FollowCountProps } from '@/types/types';
 import { followUser, unfollowUser } from '@/api/follow';
@@ -20,7 +21,6 @@ import {
   RecentSearch,
   SumType
 } from '@/styles/styles';
-import { PROFILE_TEXTS } from '@/constants/profile';
 
 const { following, follow1 } = BUTTON_TEXTS;
 const { followCount: followCountText } = PROFILE_TEXTS;
