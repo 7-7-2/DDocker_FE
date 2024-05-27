@@ -6,13 +6,14 @@
   "name": "DDocker",
   "orientation": "any",
   "type": "image/png",
-  "scope": "https://ddocker.netlify.app/",
+  "scope": ".",
   "short_name": "DDocker",
-  "start_url": "https://ddocker.netlify.app/",
+  "start_url": "/index.html",
   "theme_color": "#ffffff",
   "categories": ["coffee", "cafe", "caffeine"],
   "screenshots": [],
-  "lang": "ko",
+  "theme-color": "#FF701E",
+  "lang": "ko-KR",
   "icons": [
     {
       "src": "./android/android-launchericon-512-512.png",
@@ -177,5 +178,5 @@
   ],
   "shortcuts": [],
   "display_override": ["window-controls-overlay"],
-  "id": "ahnjoonghooleesiwoosimsangwon"
+  "id": "DDocker"
 }
