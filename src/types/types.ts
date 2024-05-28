@@ -78,6 +78,7 @@ export interface InputProps {
   inputRef?: RefObject<HTMLInputElement>;
   inputValue?: string;
   handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  handleKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 export interface BrnadItemProps {

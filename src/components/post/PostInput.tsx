@@ -63,12 +63,20 @@ const PostInput = memo(
           }
         });
     };
+    const handleSubmitCommentByEnter = (
+      e: React.KeyboardEvent<HTMLDivElement>
+    ) => {
+      if (e.key === 'Enter') {
+        handleSubmitComment();
+      }
+    };
 
     return (
       <div className={PaddingTB10}>
         <Input
           type={comment.typeName}
           handleEvent={handleSubmitComment}
+          handleKeyDown={handleSubmitCommentByEnter}
           inputRef={inputRef}
           inputValue={value}
           handleChange={onChange}
