@@ -43,7 +43,7 @@ const BrandItem = (brandInfo: BrnadItemProps) => {
         )}>
         {selectedIcon}
         <IconContainer>
-          <img
+          <IconImg
             src={icon}
             alt={brandInfo.brand}
           />
@@ -66,6 +66,10 @@ const IconContainer = styled.button`
   border-radius: 46px;
   color: transparent;
   margin-bottom: 9px;
+`;
+const IconImg = styled.img`
+  width: 46px;
+  height: 46px;
 `;
 
 const ItemContainer = styled.div`

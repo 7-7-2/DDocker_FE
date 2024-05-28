@@ -55,7 +55,7 @@ const TodayCaffeineText = () => {
     <div className={HomeHeaderContent}>
       <div className={cx(Align, Between)}>
         {user?.nickname ? signedInText : anonymousText}
-        <img
+        <CoffeeImage
           src="/png/coffee_mainimg.png"
           alt="coffee"
         />
@@ -72,6 +72,11 @@ const TodayCaffeineText = () => {
 
 const CaffeineInfo = styled.span`
   color: var(--colors-main);
+`;
+
+const CoffeeImage = styled.img`
+  width: 120px;
+  height: 120px;
 `;
 
 export default TodayCaffeineText;
