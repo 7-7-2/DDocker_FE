@@ -1,11 +1,12 @@
 import { useDebounce } from '@/hooks/search/useDebounce';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { getSearchUser } from '@/api/search';
 import { SimplifyUser } from '@/types/types';
 
 export const useSearchInput = () => {
   const [search, setSearch] = useState('');
   const [results, setResults] = useState<SimplifyUser[]>([]);
+  const searchRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -25,5 +26,12 @@ export const useSearchInput = () => {
     }
   }, [debounceVal]);
 
-  return { results, search, handleChange, reset, setSearch };
+  useEffect(() => {
+    if (searchRef.current) {
+      setTimeout(() => {
+        searchRef.current?.focus();
+      }, 0);
+    }
+  }, []);
+  return { results, search, handleChange, reset, setSearch, searchRef };
 };
