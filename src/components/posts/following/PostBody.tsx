@@ -70,6 +70,7 @@ const PostImg = styled.img`
   border-radius: 16px;
   width: 100%;
   height: auto;
+  object-fit: cover;
   aspect-ratio: 1.4 / 1;
 `;
 
