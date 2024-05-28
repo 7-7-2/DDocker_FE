@@ -62,9 +62,9 @@ const SelectFavBrand = () => {
 
     await setUserInitInfo(userInfo);
     await useDeleteCacheData('user', [
-      '/socialToken',
       '/socialEmail',
-      '/isRegistering'
+      '/isRegistering',
+      '/socialToken'
     ]);
     await getMyInfo();
     navigateToHome();
