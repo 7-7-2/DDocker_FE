@@ -11,7 +11,6 @@ import {
   RegisterPageHeight
 } from '@/styles/styles';
 import useTrackRoute from '@/hooks/google/useTrackRoute';
-import { useForceSubmitForm } from '@/hooks/start/useForceSubmitForm';
 import { useFetchSSE } from '@/hooks/notification/useFetchSSE';
 
 const Header = lazy(() => import('../components/common/Header'));
@@ -22,7 +21,6 @@ let PagesHeight;
 const { PROD } = import.meta.env;
 
 const Layout = () => {
-  useForceSubmitForm();
   useFetchSSE();
 
   PROD && useTrackRoute();
