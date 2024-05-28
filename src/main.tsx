@@ -19,9 +19,15 @@ if (isPro && import.meta.env.VITE_GA) {
 }
 
 const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnReconnect: true
+    }
+  },
   queryCache: new QueryCache({
-    onError: error => {
+    onError: (error, query) => {
       console.error(`Something went wrong: ${error}`);
+      console.error(`From queryKey: ${query.queryKey}`);
     }
   })
 });
