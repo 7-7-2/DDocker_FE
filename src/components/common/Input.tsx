@@ -17,7 +17,8 @@ export const Input = ({
   handleEvent,
   inputRef,
   inputValue,
-  handleChange
+  handleChange,
+  handleKeyDown
 }: InputProps) => {
   const { nickname, comment, title, search } = INPUT_TEXTS.type;
   let submitBtn;
@@ -70,6 +71,7 @@ export const Input = ({
         placeholder={inputPlaceholder}
         value={inputValue}
         onChange={handleChange}
+        onKeyDown={handleKeyDown}
         ref={inputRef}
         maxLength={inputLength}
       />
