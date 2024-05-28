@@ -49,7 +49,7 @@ const WaterIntake = ({ coffeeCount }: { coffeeCount: number | undefined }) => {
             strokeLinecap: 'round'
           }
         }}>
-        <img
+        <WatercupImg
           src="/png/waterCup.png"
           alt="water"
         />
@@ -72,6 +72,10 @@ const IconContainer = styled.button`
   position: absolute;
   right: 30px;
   bottom: 25px;
+`;
+const WatercupImg = styled.img`
+  width: 60px;
+  height: 60px;
 `;
 
 export default WaterIntake;

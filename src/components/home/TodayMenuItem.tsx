@@ -12,12 +12,10 @@ const TodayMenuItem = (data: { data: TodayCoffeeInfoItemTypes }) => {
 
   return (
     <Container className={Flex}>
-      <IconCotainer>
-        <img
-          src={icon}
-          alt={data.data.brand}
-        />
-      </IconCotainer>
+      <IconCotainer
+        src={icon}
+        alt={data.data.brand}
+      />
       <div className={Column}>
         <span className={RecentSearch}>
           {data.data.caffeine}
@@ -38,7 +36,7 @@ const Container = styled.div`
   border: 1px solid #ccc;
   background: #fff;
 `;
-const IconCotainer = styled.div`
+const IconCotainer = styled.img`
   width: 40px;
   height: 40px;
   border-radius: 50%;

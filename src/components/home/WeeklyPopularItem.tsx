@@ -16,12 +16,10 @@ const WeeklyPopularItem = ({
     <Container className={Align}>
       <span>{idx + 1}</span>
       <BrandInfo className={Align}>
-        <Icon>
-          <img
-            src={icon}
-            alt={data.brand}
-          />
-        </Icon>
+        <BrandIcon
+          src={icon}
+          alt={data.brand}
+        />
         <span>{convertBrandName(data.brand)}</span>
       </BrandInfo>
     </Container>
@@ -37,7 +35,7 @@ const Container = styled.div`
 const BrandInfo = styled.div`
   margin-left: 20px;
 `;
-const Icon = styled.div`
+const BrandIcon = styled.img`
   width: 38px;
   height: 38px;
   border-radius: 50%;
