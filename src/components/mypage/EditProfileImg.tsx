@@ -28,7 +28,7 @@ const EditProfileImg = ({
         <ImgContainer>
           {(profileImg || imageUrl) && (
             <ImgRound>
-              <img
+              <Img
                 src={imageUrl ? imageUrl : profileImg}
                 alt="profile image"
               />
@@ -67,6 +67,11 @@ const ImgRound = styled.div`
   border-radius: 100px;
   overflow: hidden;
 `;
+const Img = styled.img`
+  width: 100px;
+  height: 100px;
+`;
+
 const Edit = styled.div`
   position: absolute;
   width: 30px;
