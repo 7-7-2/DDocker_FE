@@ -20,5 +20,12 @@ export const PROFILE_TEXTS = {
 
 export const MYPAGE_TEXTS = {
   btn: ['회원탈퇴', '로그아웃'],
-  signOutUrls: ['/userInfo', '/userId', '/accessToken', '/coffee', '/social']
+  signOutUrls: [
+    '/userInfo',
+    '/userId',
+    '/accessToken',
+    '/coffee',
+    '/social',
+    '/socialToken'
+  ]
 };

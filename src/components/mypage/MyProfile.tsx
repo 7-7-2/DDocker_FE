@@ -93,7 +93,7 @@ const MyProfile = () => {
     setImageUrl,
     setCropperEnabled
   };
-  console.log(userData.profileUrl);
+
   return (
     <>
       {isModal && <ConfirmDeleteUser />}

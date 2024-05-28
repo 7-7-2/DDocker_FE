@@ -3,12 +3,14 @@ import { AuthTypes } from '@/types/types';
 import useSetCacheData from '@/hooks/useSetCacheData';
 
 // Social Auth
-export const getSocialAuth = async (social: string) => {
+export const getSocialAuth = async (social: string, unlink?: boolean) => {
   try {
-    const res = await baseInstance.get(`users/signIn?social=${social}`);
+    const res = !unlink
+      ? await baseInstance.get(`users/signIn/${social}`)
+      : await baseInstance.get(`users/signIn/${social}/unlink`);
     // redirect url
     window.location.href = res.data.url;
-    await useSetCacheData('user', '/social', res.data.social);
+    await useSetCacheData('user', '/social', social);
   } catch (error) {
     console.error('Error fetching social authentication:', error);
   }
@@ -46,9 +48,9 @@ export const unlinkSocialAuth = async (social: string, token: string) => {
 };
 
 // Delete DDocker User Account
-export const deleteUserAccount = async () => {
+export const deleteUserAccount = async (social: string, code: string) => {
   try {
-    await authInstance.delete('/users');
+    await authInstance.delete(`/users/${social}?code=${code}`);
   } catch (err) {
     console.log(err);
   }
