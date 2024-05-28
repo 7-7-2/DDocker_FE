@@ -8,6 +8,7 @@ import { styled } from 'styled-system/jsx';
 import { css, cx } from 'styled-system/css';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { SearchInput, Divider, CancelBtn } from '@/styles/styles';
+import { useSearchInput } from '@/hooks/search/useSearchInput';
 
 const SearchBar: React.FC<SearchBarProps> = ({
   search,
@@ -17,6 +18,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   placeholder
 }) => {
   const navigate = useNavigateTo('-1');
+  const { searchRef } = useSearchInput();
 
   return (
     <>
@@ -31,6 +33,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
               type="text"
               value={search}
               onChange={handleChange}
+              ref={searchRef}
               placeholder={!type ? SEARCH_TEXTS.placeHolder : placeholder}
             />
           </Area>
@@ -43,11 +46,13 @@ const SearchBar: React.FC<SearchBarProps> = ({
           )}
         </Container>
         {!type && (
-          <Button
-            className={cx(FlexCenter, CancelBtn)}
-            text={SEARCH_TEXTS.moveToHome}
-            onTouchEnd={navigate}
-          />
+          <div className={CancelBtnSpace}>
+            <Button
+              className={cx(FlexCenter, CancelBtn)}
+              text={SEARCH_TEXTS.moveToHome}
+              onTouchEnd={navigate}
+            />
+          </div>
         )}
       </div>
 
@@ -74,6 +79,10 @@ const IconDelete = styled.div`
 const Transform = css`
   width: 100%;
   height: 40px;
+`;
+const CancelBtnSpace = css`
+  min-width: 25px;
+  margin-left: 20px;
 `;
 
 export default SearchBar;
