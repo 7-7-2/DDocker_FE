@@ -1,4 +1,6 @@
 import ActionButtons from '@/components/support/ActionButtons';
+import SEOMeta from '@/components/common/SEOMeta';
+import SEO_DATA from '@/constants/SEOData';
 import { PRIVACY_POLICY } from '@/constants/privacyPolicy';
 import { SUPPORT_TEXTS } from '@/constants/support';
 import { usePrintContents } from '@/hooks/support/usePrintContents';
@@ -22,6 +24,7 @@ const PrivacyPolicy = () => {
 
   return (
     <>
+      <SEOMeta pageData={SEO_DATA.supportPrivacyPolicy} />
       <div
         ref={printRef}
         className={SupportContentsContainer}>
