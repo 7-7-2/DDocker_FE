@@ -37,26 +37,23 @@ const MemberProfile = ({
     postCount: postsData && postsData[0].allCount
   };
 
-  const postGrid =
-    allCount != 0 ? (
-      <PostsGrid
-        data={postsData}
-        postRef={postRef}
-      />
-    ) : (
-      <EmptyPostGrid
-        profileId={profileId}
-        userId={userId}
-      />
-    );
-
   return (
     <Container className={Column}>
       <div className={cx(Column, Between)}>
         <ProfileDetail userId={profileId} />
         <FollowCount data={followCountData} />
       </div>
-      {postGrid}
+      {allCount != 0 ? (
+        <PostsGrid
+          data={postsData}
+          postRef={postRef}
+        />
+      ) : (
+        <EmptyPostGrid
+          profileId={profileId}
+          userId={userId}
+        />
+      )}
     </Container>
   );
 };

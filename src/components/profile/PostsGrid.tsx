@@ -22,19 +22,15 @@ const PostsGrid = ({ data, postRef }: PostsGridProps) => {
     navigate(`/post/${e.currentTarget.id}`);
   };
 
-  const ImgErrorCTA = (
-    <Container>
-      <ImageErrorCTA
-        text={'게시물을 불러올 수 없습니다.'}
-        handleOnclick={refresh}
-      />
-    </Container>
-  );
-
   return (
     <>
       {isError ? (
-        ImgErrorCTA
+        <Container>
+          <ImageErrorCTA
+            text={'게시물을 불러올 수 없습니다.'}
+            handleOnclick={refresh}
+          />
+        </Container>
       ) : (
         <GridContainer className={cx(Grid, Center)}>
           {posts &&
@@ -80,6 +76,7 @@ const GridItem = styled.img`
   position: absolute;
   width: 100%;
   height: 100%;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   background-color: var(--colors-tertiary);
 `;
