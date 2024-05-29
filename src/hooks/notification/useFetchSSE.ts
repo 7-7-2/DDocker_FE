@@ -29,19 +29,37 @@ export const useFetchSSE = () => {
           headers: {
             Authorization: `${accessToken}`
           },
-          heartbeatTimeout: 1200000
-          // withCredentials: true
+          heartbeatTimeout: 120000,
+          withCredentials: true
         }
       );
-      eventSource.addEventListener('message', e => {
-        notificationBuffer.current.push(JSON.parse(e.data));
-        flushBuffer();
-      });
+
+      const controller = new AbortController();
+      const { signal } = controller;
+
+      eventSource.addEventListener(
+        'message',
+        e => {
+          notificationBuffer.current.push(JSON.parse(e.data));
+          flushBuffer();
+        },
+        { signal }
+      );
+
+      eventSource.addEventListener(
+        'ping',
+        () => {
+          console.log('Received ping from server');
+        },
+        { signal }
+      );
 
       eventSource.onerror = () => {
         eventSource.close();
       };
+
       return () => {
+        controller.abort();
         eventSource.close();
       };
     }
