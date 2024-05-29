@@ -1,4 +1,6 @@
 import ActionButtons from '@/components/support/ActionButtons';
+import SEOMeta from '@/components/common/SEOMeta';
+import SEO_DATA from '@/constants/SEOData';
 import { SUPPORT_TEXTS } from '@/constants/support';
 import { usePrintContents } from '@/hooks/support/usePrintContents';
 import { extractChapter } from '@/utils/extractChapters';
@@ -20,6 +22,7 @@ const TOS = () => {
 
   return (
     <div>
+      <SEOMeta pageData={SEO_DATA.supportTOS} />
       <div
         ref={printRef}
         className={SupportContentsContainer}>

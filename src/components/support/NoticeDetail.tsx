@@ -2,6 +2,8 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getNoticeDetail } from '@/api/support';
 import { NoticeDetailData } from '@/types/types';
+import SEOMeta from '@/components/common/SEOMeta';
+import SEO_DATA from '@/constants/SEOData';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
@@ -20,13 +22,18 @@ const NoticeDetail = () => {
   });
 
   return (
-    <div className={Column}>
-      <TitleContainer className={cx(CustomerItem, Column)}>
-        <DetailTitle className={Semibold}>{noticeDetail?.title}</DetailTitle>
-        <DetailDate className={CustomertDate}>{noticeDetail?.date}</DetailDate>
-      </TitleContainer>
-      <DetailContents>{noticeDetail?.content}</DetailContents>
-    </div>
+    <>
+      <SEOMeta pageData={SEO_DATA.supportNotice} />
+      <div className={Column}>
+        <TitleContainer className={cx(CustomerItem, Column)}>
+          <DetailTitle className={Semibold}>{noticeDetail?.title}</DetailTitle>
+          <DetailDate className={CustomertDate}>
+            {noticeDetail?.date}
+          </DetailDate>
+        </TitleContainer>
+        <DetailContents>{noticeDetail?.content}</DetailContents>
+      </div>
+    </>
   );
 };
 

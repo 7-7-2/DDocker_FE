@@ -1,9 +1,14 @@
+import React, { useId } from 'react';
+
 import PostCard from '@/components/posts/following/PostCard';
+import SEOMeta from '@/components/common/SEOMeta';
+import SEO_DATA from '@/constants/SEOData';
+
 import { FollowingPostIQParam } from '@/hooks/useInfiniteScroll';
 import { useTargetInfiniteScroll } from '@/hooks/useTargetInfiniteScroll';
-import { FollowingPost, InfinitePosts, SimplifyUser } from '@/types/types';
+import { FollowingPost, InfinitePosts } from '@/types/types';
 import { generatePostCardProps } from '@/utils/manageProps';
-import React, { useId } from 'react';
+
 import { styled } from 'styled-system/jsx';
 
 const FollowDiscoveryCTA = React.lazy(() => import('./FollowDiscoveryCTA'));
@@ -21,6 +26,7 @@ const PostsFollowing = () => {
 
   return (
     <>
+      <SEOMeta pageData={SEO_DATA.postsFollowing} />
       {postsData && postsData.length !== 0 && (
         <Container>
           {postsData && postsData.map(mapPosts)}

@@ -1,6 +1,8 @@
 import { lazy, useRef } from 'react';
 import MyCalendar from '@/components/coffee/MyCalendar';
 import MyCoffeeSum from '@/components/coffee/MyCoffeeSum';
+import SEOMeta from '@/components/common/SEOMeta';
+import SEO_DATA from '@/constants/SEOData';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { useGetSignedIn } from '@/hooks/useGetSignedIn';
 import { styled } from 'styled-system/jsx';
@@ -14,6 +16,7 @@ const Coffee = () => {
   const targetRef = useRef<HTMLDivElement | null>(null);
   return (
     <>
+      <SEOMeta pageData={SEO_DATA.coffee} />
       <MyCoffeeSum signedIn={signedIn} />
       <MyCalendar signedIn={signedIn} />
       <Target ref={targetRef} />

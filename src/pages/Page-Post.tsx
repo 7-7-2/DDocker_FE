@@ -2,6 +2,9 @@ import { lazy } from 'react';
 import { useParams } from 'react-router-dom';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 
+import SEOMeta from '@/components/common/SEOMeta';
+import SEO_DATA from '@/constants/SEOData';
+
 const PostRegister = lazy(() => import('../components/post/PostRegister'));
 const PostDetail = lazy(() => import('../components/post/PostDetail'));
 
@@ -23,8 +26,19 @@ const Post = () => {
 
   useComposeHeader(false, headerText(), 'close');
 
+  const metaData = () => {
+    if (register) {
+      return SEO_DATA.register;
+    }
+    if (!register && update) {
+      return SEO_DATA.update;
+    }
+    return SEO_DATA.post;
+  };
+
   return (
     <>
+      <SEOMeta pageData={metaData()} />
       {register && <PostRegister />}
       {update && !register && (
         <PostRegister
