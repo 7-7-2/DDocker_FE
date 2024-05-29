@@ -20,7 +20,7 @@ const SEO_DATA = {
   follow: {
     title: '팔로워',
     pageUrl: ROUTES[2],
-    description: '나를 팔로우하는 또커들의 확인하고 방문해보세요.'
+    description: '나를 팔로우하는 또커들을 확인하고 방문해보세요.'
   },
   following: {
     title: '팔로잉',
@@ -31,7 +31,7 @@ const SEO_DATA = {
     title: '프로필 수정',
     pageUrl: ROUTES[3],
     description:
-      '또커 계정의 프로필을 변경해보세요. 닉네임 변경, 프로필 사진 업로드, 한 줄 소개 등을 통해 나만의 프로필을 만들수 있습니다'
+      '또커 계정의 프로필을 변경해보세요. 닉네임 변경, 프로필 사진 업로드, 한 줄 소개 등을 통해 나만의 프로필을 만들 수 있습니다.'
   },
   notification: {
     title: '알림',
@@ -54,25 +54,25 @@ const SEO_DATA = {
     title: '게시물 수정',
     pageUrl: ROUTES[5],
     description:
-      '또커 게시물의 정보를 잘못입력하거나 수정하고 싶을때 언제든지 게시물 정보를 변경 할 수 있습니다.'
+      '또커 게시물의 정보를 잘못 입력하거나 수정하고 싶을 때 언제든지 게시물 정보를 변경 할 수 있습니다.'
   },
   postsTrend: {
     title: '트렌드 피드',
     pageUrl: ROUTES[6],
     description:
-      '지금 가장 인기있는 게시물과 브랜드 별 최신 게시물 및 인기 게시물들을 확인하고 좋아요 와 댓글을 남겨보세요'
+      '지금 가장 인기있는 게시물과 브랜드별 최신 게시물 및 인기 게시물들을 확인하고 좋아요와 댓글을 남겨보세요'
   },
   postsFollowing: {
     title: '팔로잉 피드',
     pageUrl: ROUTES[6],
     description:
-      '내가 팔로잉 하는 또커 유저들의 촤신 게시물들을 확인하고 좋아요 와 댓글을 남겨보세요.'
+      '내가 팔로잉 하는 또커 유저들의 촤신 게시물들을 확인하고 좋아요와 댓글을 남겨보세요.'
   },
   search: {
     title: '검색',
     pageUrl: ROUTES[7],
     description:
-      '검색을 통해 다른 또커 유저를 검색헤버보세요. 또커 유저의 프로필에 방문해 게시물, 팔로우, 팔로잉 목록을 살펴 볼 수 있습니다.'
+      '검색을 통해 다른 또커 유저를 검색헤보세요. 또커 유저의 프로필에 방문해 게시물, 팔로우, 팔로잉 목록을 살펴 볼 수 있습니다.'
   },
   profile: {
     title: '프로필',
@@ -83,7 +83,7 @@ const SEO_DATA = {
     title: '나의 커피',
     pageUrl: ROUTES[9],
     description:
-      '나의 커피 페이지를 롹인해보세요. 내가 마신 커피 섭취량을 주, 월, 년 별로 확인하고, 카페인 달력을 통해 적정량을 섭취하고 있는지 한번에 확인 할 수 있습니다.'
+      '나의 커피 페이지를 확인해보세요. 내가 마신 커피 섭취량을 주, 월, 년 별로 확인하고, 카페인 달력을 통해 적정량을 섭취하고 있는지 한번에 확인 할 수 있습니다.'
   },
   support: {
     title: '고객센터',
@@ -103,7 +103,7 @@ const SEO_DATA = {
   supportPrivacyPolicy: {
     title: '개인정보처리방침',
     pageUrl: `${ROUTES[10]}/privacyPolicy`,
-    description: 'DDocker의 게인정보처리방침을 확인하세요.'
+    description: 'DDocker의 개인정보처리방침을 확인하세요.'
   },
   report: {
     title: '신고하기',
