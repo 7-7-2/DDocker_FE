@@ -10,6 +10,7 @@ import { router } from '@/pages/Router';
 import './main.css';
 import '/styled-system/styles.css';
 import ReactGA from 'react-ga4';
+import { HelmetProvider } from 'react-helmet-async';
 
 const { NODE_ENV } = import.meta.env;
 const isPro = NODE_ENV === 'production';
@@ -35,7 +36,9 @@ const queryClient = new QueryClient({
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <QueryClientProvider client={queryClient}>
     <RecoilRoot>
-      <RouterProvider router={router} />
+      <HelmetProvider>
+        <RouterProvider router={router} />
+      </HelmetProvider>
     </RecoilRoot>
   </QueryClientProvider>
 );
