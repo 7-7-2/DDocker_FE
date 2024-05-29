@@ -31,9 +31,15 @@ const Post = () => {
       return SEO_DATA.register;
     }
     if (!register && update) {
-      return SEO_DATA.update;
+      return {
+        ...SEO_DATA.update,
+        pageUrl: `${SEO_DATA.update.pageUrl}/${postId}/update`
+      };
     }
-    return SEO_DATA.post;
+    return {
+      ...SEO_DATA.post,
+      pageUrl: `${SEO_DATA.post.pageUrl}/${postId}`
+    };
   };
 
   return (
