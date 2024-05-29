@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQueries } from '@tanstack/react-query';
 
 import MiniProfile from '@/components/common/MiniProfile';
 import PostSocial from '@/components/post/PostSocial';
@@ -32,20 +32,22 @@ const ConfirmDelete = React.lazy(() => import('./overlay/ConfirmDelete'));
 const PostDetail = ({ postNum }: { postNum: string }) => {
   const { ref } = useRefIntoView(null, 'auto');
   useResetRegistInfo();
-  const { data: postData } = useQuery({
-    queryKey: ['postData'],
-    queryFn: () => {
-      return getPostDetail(postNum);
-    },
-    enabled: !!postNum
+  const queries = useQueries({
+    queries: [
+      {
+        queryKey: ['postData', postNum],
+        queryFn: () => getPostDetail(postNum),
+        enabled: !!postNum
+      },
+      {
+        queryKey: ['socialCounts', postNum],
+        queryFn: () => getSocialCounts(postNum),
+        enabled: !!postNum
+      }
+    ]
   });
-  const { data: socialCounts } = useQuery({
-    queryKey: ['socialCounts', postNum],
-    queryFn: () => {
-      return getSocialCounts(postNum);
-    },
-    enabled: !!postNum
-  });
+  const postData = queries[0].data;
+  const socialCounts = queries[1].data;
 
   const { postOwner } = useVerifyOwner(postNum);
   const { toggle, cancelOptions } = usePostOptions();
@@ -96,7 +98,7 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
               onTouchEnd={cancelOptions}
             />
           </UserProfile>
-          <DetailImg src={postData.data.photo} />
+          <DetailImg src={postData?.data.photo} />
           <PostSocial
             posts={false}
             likes={socialCounts.data.totalLikes}
