@@ -8,11 +8,49 @@ import imageminPngQuant from 'imagemin-pngquant';
 import imageminGifSicle from 'imagemin-gifsicle';
 import viteImagemin from '@vheemstra/vite-plugin-imagemin';
 import imageminSvgo from 'imagemin-svgo';
+import prerender from '@prerenderer/rollup-plugin';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
+    prerender({
+      routes: [
+        '/',
+        '/start',
+        '/follow',
+        '/mypage',
+        '/notification',
+        '/post',
+        '/post/register',
+        '/posts',
+        '/search',
+        '/profile',
+        '/coffee',
+        '/report',
+        '/support/customerCenter',
+        '/support/notice',
+        '/support/TOS',
+        '/support/privacyPolicy'
+      ],
+      renderer: '@prerenderer/renderer-puppeteer',
+      server: {
+        port: 3000,
+        host: 'localhost'
+      },
+      rendererOptions: {
+        maxConcurrentRoutes: 1,
+        renderAfterTime: 500
+      },
+      postProcess(renderedRoute) {
+        renderedRoute.html = renderedRoute.html
+          .replace(/http:/i, 'https:')
+          .replace(
+            /(https:\/\/)?(localhost|127\.0\.0\.1):\d*/i,
+            'ddocker.kro.kr/'
+          );
+      }
+    }),
     tsconfigpaths(),
     removeConsole(),
     visualizer({
