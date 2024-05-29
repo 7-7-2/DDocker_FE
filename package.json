@@ -24,6 +24,7 @@
     "react-calendar": "^4.8.0",
     "react-circular-progressbar": "^2.1.0",
     "react-dom": "^18.2.0",
+    "react-helmet-async": "^2.0.5",
     "react-mobile-cropper": "^0.10.0",
     "react-router-dom": "^6.20.1",
     "recoil": "^0.7.7"
