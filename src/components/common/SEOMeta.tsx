@@ -1,4 +1,3 @@
-import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 type Props = {
@@ -12,9 +11,9 @@ type Props = {
 const SEOMeta = ({ pageData }: Props) => {
   const { title, pageUrl, description } = pageData;
   const baseTitle = 'DDocker - ';
-  const keywords = 'ddocker'; // 페이지에 적용할 모든 키워드를 입력합니다.
-  const siteUrl = 'ddocker.kro.kr/'; // 사이트의 주소를 넣어줍니다.
-  const ogImage = ''; // og로 표시할 이미지를 넣어줍니다.
+  const keywords = 'ddocker, coffee, caffeine, 또커, 커피, 카페인, 커피사진';
+  const siteUrl = 'ddocker.kro.kr/';
+  const ogImage = '';
 
   return (
     <Helmet>
