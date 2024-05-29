@@ -1,11 +1,13 @@
 import CafeDetail from '@/components/post/CafeDetail';
-import ImageErrorCTA from '@/components/common/ImageErrorCTA';
 import { useImgErrorCTA } from '@/hooks/useImgErrorCTA';
 import { FollowingPost } from '@/types/types';
 
 import { styled } from 'styled-system/jsx';
 import { PostContent } from '@/styles/styles';
 import { PaddingT12 } from '@/styles/styles';
+import { lazy } from 'react';
+
+const ImageErrorCTA = lazy(() => import('../../common/ImageErrorCTA'));
 
 const PostBody = ({
   postTitle,
@@ -32,16 +34,6 @@ const PostBody = ({
   const { isError, handleImgError, setUrl, handleReloadImg, reloadPhoto } =
     useImgErrorCTA();
 
-  const ImgErrorCTA = (
-    <ImgErrorContainer>
-      <ImageErrorCTA
-        text={'이미지를 로드할 수 없습니다.'}
-        handleOnclick={handleReloadImg}
-      />
-      ;
-    </ImgErrorContainer>
-  );
-
   const handleOnError = () => {
     handleImgError();
     setUrl(photo);
@@ -51,7 +43,12 @@ const PostBody = ({
     <>
       <PostContent onClick={onTouchEnd}>{postTitle}</PostContent>
       {isError ? (
-        ImgErrorCTA
+        <ImgErrorContainer>
+          <ImageErrorCTA
+            text={'이미지를 로드할 수 없습니다.'}
+            handleOnclick={handleReloadImg}
+          />
+        </ImgErrorContainer>
       ) : (
         <PostImg
           src={reloadPhoto || photo}
