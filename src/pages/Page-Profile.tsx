@@ -43,9 +43,14 @@ const Profile = () => {
     />
   );
 
+  const pageData = {
+    ...SEO_DATA.profile,
+    pageUrl: `${SEO_DATA.profile.pageUrl}/${profileId}`
+  };
+
   return (
     <>
-      <SEOMeta pageData={SEO_DATA.profile} />
+      <SEOMeta pageData={pageData} />
       {!nonMembers ? (
         <>
           {AnonymousModalCTA}

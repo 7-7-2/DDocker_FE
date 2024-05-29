@@ -69,9 +69,14 @@ const Report = () => {
     res && goToBack();
   };
 
+  const pageData = {
+    ...SEO_DATA.report,
+    pageUrl: `${SEO_DATA.report.pageUrl}/${postId}`
+  };
+
   return (
     <>
-      <SEOMeta pageData={SEO_DATA.report} />
+      <SEOMeta pageData={pageData} />
       <Container className={Column}>
         <ReportReason handleOnTouchEnd={handleSelectOption} />
         <OtherReasonInput

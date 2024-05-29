@@ -21,9 +21,14 @@ const NoticeDetail = () => {
     }
   });
 
+  const pageData = {
+    ...SEO_DATA.supportNotice,
+    pageUrl: `${SEO_DATA.supportNotice.pageUrl}/${postId}`
+  };
+
   return (
     <>
-      <SEOMeta pageData={SEO_DATA.supportNotice} />
+      <SEOMeta pageData={pageData} />
       <div className={Column}>
         <TitleContainer className={cx(CustomerItem, Column)}>
           <DetailTitle className={Semibold}>{noticeDetail?.title}</DetailTitle>
