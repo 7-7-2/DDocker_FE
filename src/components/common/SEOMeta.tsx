@@ -22,6 +22,10 @@ const SEOMeta = ({ pageData }: Props) => {
         {title}
       </title>
       <meta
+        name="theme-color"
+        content="#FF701E"
+      />
+      <meta
         name="description"
         content={description}
       />
