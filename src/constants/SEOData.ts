@@ -92,7 +92,7 @@ const SEO_DATA = {
   },
   supportNotice: {
     title: '공지사항',
-    pageUrl: `${ROUTES[10]}/customerCenter`,
+    pageUrl: `${ROUTES[10]}/notice`,
     description: 'DDocker의 공지사항을 확인하세요.'
   },
   supportTOS: {
