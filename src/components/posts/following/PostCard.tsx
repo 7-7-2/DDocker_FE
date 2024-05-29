@@ -66,7 +66,6 @@ const PostCard = ({ ...props }: FollowingPost) => {
   };
   return (
     <>
-      {/* 유저별 분기처리 */}
       {toggle && !isPostOwner && (
         <PublicOption
           handleToggle={cancelOptions}
