@@ -1,7 +1,9 @@
 import { lazy } from 'react';
 import Taps from '@/components/common/Taps';
-import { useSelectTap } from '@/hooks/useSelectTap';
+import SEOMeta from '@/components/common/SEOMeta';
+import SEO_DATA from '@/constants/SEOData';
 import { CUSTOMER_SUPPORT_TEXTS } from '@/constants/support';
+import { useSelectTap } from '@/hooks/useSelectTap';
 
 const FAQ = lazy(() => import('@/components/support/FAQ'));
 const Notice = lazy(() => import('@/components/support/Notice'));
@@ -12,6 +14,7 @@ const CustomerCenter = () => {
   const { seletedTap, handleSelectTap } = useSelectTap(taps[0]);
   return (
     <>
+      <SEOMeta pageData={SEO_DATA.support} />
       <Taps
         taps={taps}
         selectedTab={seletedTap}

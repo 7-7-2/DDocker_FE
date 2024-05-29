@@ -10,6 +10,8 @@ import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { getUsernameById } from '@/api/follow';
 import { FOLLOW_TEXTS } from '@/constants/follow';
 import { FollowCountProps } from '@/types/types';
+import SEOMeta from '@/components/common/SEOMeta';
+import SEO_DATA from '@/constants/SEOData';
 
 const { taps } = FOLLOW_TEXTS;
 
@@ -31,6 +33,9 @@ const Follow: React.FC<FollowCountProps> = () => {
 
   return (
     <>
+      <SEOMeta
+        pageData={seletedTap === taps[0] ? SEO_DATA.follow : SEO_DATA.following}
+      />
       {username && (
         <Taps
           taps={taps}

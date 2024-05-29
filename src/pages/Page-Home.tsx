@@ -2,6 +2,8 @@ import CaffeineFilter from '@/components/home/CaffeineFilter';
 import HomeFooter from '@/components/home/HomeFooter';
 import TodayCaffeineInfo from '@/components/home/TodayCaffeineInfo';
 import WeeklyPopular from '@/components/home/WeeklyPopular';
+import SEOMeta from '@/components/common/SEOMeta';
+import SEO_DATA from '@/constants/SEOData';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import useGetUserInfo from '@/hooks/useGetUserInfo';
 import { styled } from 'styled-system/jsx';
@@ -12,6 +14,7 @@ const Home = () => {
 
   return (
     <>
+      <SEOMeta pageData={SEO_DATA.home} />
       <Container>
         <TodayCaffeineInfo />
         <CaffeineFilter />
