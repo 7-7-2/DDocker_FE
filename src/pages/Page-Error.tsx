@@ -37,7 +37,9 @@ const Container = styled.div`
   max-width: 500px;
   min-width: 360px;
   width: 100vw;
-  height: 100vh;
+  height: calc(
+    100dvh - 50px - env(safe-area-inset-bottom) - env(safe-area-inset-top)
+  );
   padding: 0 20px 20px;
   margin-bottom: calc(env(safe-area-inset-bottom));
 `;
