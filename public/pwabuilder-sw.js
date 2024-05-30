@@ -1,4 +1,4 @@
-const STATIC_CACHE_NAME = 'ddocker-static-v4';
+const STATIC_CACHE_NAME = 'ddocker-static-v5';
 const DYNAMIC_CACHE_NAME = 'ddocker-dynamic-v1';
 
 const ASSETS = [
@@ -18,6 +18,9 @@ const ASSETS = [
   '/support/notice/index.html',
   '/support/privacyPolicy/index.html',
   '/support/TOS/index.html',
+  '/png/feedpage.png',
+  '/png/coffeepage.png',
+  '/png/homepage.png',
   '/sprite.svg',
   '/png/angelinus.png',
   '/png/banapresso.png',
