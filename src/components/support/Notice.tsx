@@ -24,7 +24,7 @@ const Notice = () => {
     queryKey: ['noticesList', 'notice'],
     queryFn: async () => {
       const data = await getSupportList(type);
-      return data.data;
+      return data ? data.data : [];
     }
   });
 
