@@ -40,10 +40,11 @@ const ScrollInducer = ({
 
 const Container = styled.div`
   height: 80px;
-  position: absolute;
+  position: sticky;
+  margin: 0 -20px;
   left: 0;
   right: 0;
-  bottom: 47px;
+  bottom: 0;
   background-image: linear-gradient(#f5f5f530, #e9e9e9df);
   opacity: 100;
   transition: opacity 0.5s ease;
@@ -57,6 +58,7 @@ const Default = css`
 
 const Text = styled.div`
   width: 100%;
+  position: absolute;
   margin-top: 40px;
   font-size: var(--font-sizes-sm);
   color: var(--colors-mid-grey);
