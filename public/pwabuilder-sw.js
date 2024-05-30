@@ -145,6 +145,14 @@ self.addEventListener('activate', event => {
 });
 
 //3. SW - fetch(intercept fetch request and resue cache if exists)
+const isCachableRequest = url => {
+  const cachablePatterns = [
+    new RegExp('^https://ddocker\\.kro\\.kr/.*'),
+    new RegExp('^https://www\\.ddocker\\.kro\\.kr/.*')
+  ];
+  return cachablePatterns.some(pattern => pattern.test(url));
+};
+
 const cacheOrFetch = async request => {
   const cachedResp = await caches.match(request);
   if (cachedResp) return cachedResp;
@@ -154,9 +162,9 @@ const cacheOrFetch = async request => {
 
   const fetchRes = await fetch(request);
   if (
-    (request.url === 'https://ddocker.o-r.kr' ||
-      request.url === 'https://www.ddocker.o-r.kr') &&
-    request.method === 'GET'
+    request.method === 'GET' &&
+    fetchRes.status === 200 &&
+    isCachableRequest(request.url)
   ) {
     const cache = await caches.open(DYNAMIC_CACHE_NAME);
     await cache.put(request.url, fetchRes.clone());
