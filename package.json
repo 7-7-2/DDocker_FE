@@ -6,7 +6,7 @@
   "scripts": {
     "prepare": "panda codegen",
     "dev": "vite --host 0.0.0.0 --port 3000",
-    "build": "tsc && pnpm exec panda && vite build",
+    "build": "tsc && pnpm exec panda && npx puppeteer browsers install chrome && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "panda": "pnpm exec panda",
