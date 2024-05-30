@@ -7,7 +7,7 @@ import useGetCacheData from '@/hooks/useGetCacheData';
 import useSetCacheData from '@/hooks/useSetCacheData';
 
 const useGetPopularList = () => {
-  const [brandList, setBrandList] = useState<WeeklyPopularTypes[]>();
+  const [brandList, setBrandList] = useState<WeeklyPopularTypes[]>([]);
 
   const { data: weeklyPopularList } = useQuery({
     queryKey: ['weeklyPopularList'],

@@ -11,7 +11,7 @@ const pathMap = (brand: string) => {
     컴포즈커피: '/png/compose.png',
     폴바셋: '/png/paulbassett.png',
     바나프레소: '/png/banapresso.png',
-    하삼동커피: '/png/hasamdong.png',
+    탐앤탐스: '/png/tomntoms.png',
     커피빈: '/png/coffeebean.png',
     매머드커피: '/png/mammoth.png',
     '나만의 카페': 'png/private.png'
@@ -34,7 +34,7 @@ export const getBrandPath = (brand: string) => {
     compose: '컴포즈커피',
     paulbassett: '폴바셋',
     banapresso: '바나프레소',
-    hasamdong: '하삼동커피',
+    tomntoms: '탐앤탐스',
     coffeebean: '커피빈',
     mammoth: '매머드커피',
     private: '나만의 카페'
