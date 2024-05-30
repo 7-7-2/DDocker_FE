@@ -1,34 +1,8 @@
-const STATIC_CACHE_NAME = 'ddocker-static-v2';
+const STATIC_CACHE_NAME = 'ddocker-static-v3';
 const DYNAMIC_CACHE_NAME = 'ddocker-dynamic-v1';
-
-const detectOS = () => {
-  const OS = navigator.userAgent.toLowerCase();
-  const Android = OS.indexOf('android') > -1 && 'android';
-  const iOS = OS.indexOf('iphone') > -1 && 'ios';
-  return Android ? Android : iOS ? iOS : null;
-};
-
-const GET_OS_ASSETS = os => {
-  const iOS_ASSETS_SIZES = [
-    100, 1024, 114, 120, 128, 144, 152, 16, 167, 180, 192, 20, 256, 20, 32, 40,
-    50, 512, 57, 58, 60, 64, 72, 76, 80, 87
-  ];
-  const iOS_SIZE_ASSETS = iOS_ASSETS_SIZES.map(size => `/ios/${size}.png`);
-  const iOS_maskable = [
-    '/ios/manifest-icon-192.maskable.png',
-    '/ios/manifest-icon-512.maskable.png'
-  ];
-  const iOS_ASSETS = [...iOS_SIZE_ASSETS, ...iOS_maskable];
-  const Android_ASSETS_SIZES = [144, 192, 48, 512, 72, 96];
-  const Android_ASSETS = Android_ASSETS_SIZES.map(
-    size => `/android/android-launchericon-${size}-${size}.png`
-  );
-  return os === 'android' ? Android_ASSETS : os === 'ios' ? iOS_ASSETS : null;
-};
 
 const ASSETS = [
   '/index.html',
-  '/ios/144.png',
   '/sprite.svg',
   '/png/angelinus.png',
   '/png/banapresso.png',
@@ -48,6 +22,69 @@ const ASSETS = [
   '/png/starbucks.png',
   '/png/theventi.png',
   '/png/waterCup.png',
+  '/ios/100.png',
+  '/ios/1024.png',
+  '/ios/114.png',
+  '/ios/120.png',
+  '/ios/128.png',
+  '/ios/144.png',
+  '/ios/152.png',
+  '/ios/16.png',
+  '/ios/167.png',
+  '/ios/180.png',
+  '/ios/192.png',
+  '/ios/256.png',
+  '/ios/20.png',
+  '/ios/32.png',
+  '/ios/40.png',
+  '/ios/50.png',
+  '/ios/512.png',
+  '/ios/57.png',
+  '/ios/58.png',
+  '/ios/60.png',
+  '/ios/64.png',
+  '/ios/72.png',
+  '/ios/76.png',
+  '/ios/80.png',
+  '/ios/87.png',
+  '/android/android-launchericon-144-144.png',
+  '/android/android-launchericon-192-192.png',
+  '/android/android-launchericon-48-48.png',
+  '/android/android-launchericon-512-512.png',
+  '/android/android-launchericon-72-72.png',
+  '/android/android-launchericon-96-96.png',
+  '/ios/manifest-icon-192.maskable.png',
+  '/ios/manifest-icon-512.maskable.png',
+  '/assets/apple-splash-640-1136.jpg',
+  '/assets/apple-splash-750-1334.jpg',
+  '/assets/apple-splash-828-1792.jpg',
+  '/assets/apple-splash-1125-2436.jpg',
+  '/assets/apple-splash-1136-640.jpg',
+  '/assets/apple-splash-1170-2532.jpg',
+  '/assets/apple-splash-1179-2556.jpg',
+  '/assets/apple-splash-1242-2208.jpg',
+  '/assets/apple-splash-1242-2688.jpg',
+  '/assets/apple-splash-1284-2778.jpg',
+  '/assets/apple-splash-1290-2796.jpg',
+  '/assets/apple-splash-1334-750.jpg',
+  '/assets/apple-splash-1536-2048.jpg',
+  '/assets/apple-splash-1620-2160.jpg',
+  '/assets/apple-splash-1668-2224.jpg',
+  '/assets/apple-splash-1668-2388.jpg',
+  '/assets/apple-splash-1792-828.jpg',
+  '/assets/apple-splash-2048-1536.jpg',
+  '/assets/apple-splash-2048-2732.jpg',
+  '/assets/apple-splash-2160-1620.jpg',
+  '/assets/apple-splash-2208-1242.jpg',
+  '/assets/apple-splash-2224-1668.jpg',
+  '/assets/apple-splash-2388-1668.jpg',
+  '/assets/apple-splash-2436-1125.jpg',
+  '/assets/apple-splash-2532-1170.jpg',
+  '/assets/apple-splash-2556-1179.jpg',
+  '/assets/apple-splash-2688-1242.jpg',
+  '/assets/apple-splash-2732-2048.jpg',
+  '/assets/apple-splash-2778-1284.jpg',
+  '/assets/apple-splash-2796-1290.jpg',
   'https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.woff2',
   'https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Medium.woff2',
   'https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-SemiBold.woff2',
@@ -56,27 +93,21 @@ const ASSETS = [
 
 const CACHE = 'pwabuilder-page';
 
-self.addEventListener('message', event => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
-    self.skipWaiting();
-  }
-});
-
 //1. SW  -  install (would last only small amout of time => apply waitUntil to make callback works properly)
 const cacheAssets = async () => {
   const cache = await caches.open(STATIC_CACHE_NAME);
   await cache.addAll(ASSETS);
-  const curOS = detectOS();
-  const OS_ASSETS = GET_OS_ASSETS(curOS);
-  await cache.addAll(OS_ASSETS);
 };
 
 self.addEventListener('install', async event => {
+  self.skipWaiting();
   event.waitUntil(cacheAssets());
 });
 
 //2. SW - activate
 const enableNavigationPreload = async () => {
+  self.clients.claim();
+
   const STATIC_CACHE_ID = 'ddocker-static';
 
   if (self.registration.navigationPreload) {
@@ -84,7 +115,7 @@ const enableNavigationPreload = async () => {
   }
 
   const keys = await caches.keys();
-  const deletePromises = keys
+  const deletePromises = await keys
     .filter(key => key.startsWith(STATIC_CACHE_ID) && key !== STATIC_CACHE_NAME)
     .map(key => caches.delete(key));
 
