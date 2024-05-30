@@ -1,19 +1,53 @@
-const STATIC_CACHE_NAME = 'ddocker-static-v1';
+const STATIC_CACHE_NAME = 'ddocker-static-v2';
 const DYNAMIC_CACHE_NAME = 'ddocker-dynamic-v1';
 
-const GET_OS_ASSETS = () => {
+const detectOS = () => {
   const OS = navigator.userAgent.toLowerCase();
   const Android = OS.indexOf('android') > -1 && 'android';
   const iOS = OS.indexOf('iphone') > -1 && 'ios';
-  const OS_ASSETS = iOS ? '/ios/*' : Android ? '/android/*' : null;
-  return OS_ASSETS;
+  return Android ? Android : iOS ? iOS : null;
+};
+
+const GET_OS_ASSETS = os => {
+  const iOS_ASSETS_SIZES = [
+    100, 1024, 114, 120, 128, 144, 152, 16, 167, 180, 192, 20, 256, 20, 32, 40,
+    50, 512, 57, 58, 60, 64, 72, 76, 80, 87
+  ];
+  const iOS_SIZE_ASSETS = iOS_ASSETS_SIZES.map(size => `/ios/${size}.png`);
+  const iOS_maskable = [
+    '/ios/manifest-icon-192.maskable.png',
+    '/ios/manifest-icon-512.maskable.png'
+  ];
+  const iOS_ASSETS = [...iOS_SIZE_ASSETS, ...iOS_maskable];
+  const Android_ASSETS_SIZES = [144, 192, 48, 512, 72, 96];
+  const Android_ASSETS = Android_ASSETS_SIZES.map(
+    size => `/android/android-launchericon-${size}-${size}.png`
+  );
+  return os === 'android' ? Android_ASSETS : os === 'ios' ? iOS_ASSETS : null;
 };
 
 const ASSETS = [
-  GET_OS_ASSETS(),
   '/index.html',
+  '/ios/144.png',
   '/sprite.svg',
-  '/png/*',
+  '/png/angelinus.png',
+  '/png/banapresso.png',
+  '/png/bbak.png',
+  '/png/coffee_mainimg.png',
+  '/png/coffeebean.png',
+  '/png/compose.png',
+  '/png/ediya.png',
+  '/png/emptyCup.png',
+  '/png/hasamdong.png',
+  '/png/hollys.png',
+  '/png/mammoth.png',
+  '/png/megacoffee.png',
+  '/png/pascucci.png',
+  '/png/paulbassett.png',
+  '/png/private.png',
+  '/png/starbucks.png',
+  '/png/theventi.png',
+  '/png/waterCup.png',
   'https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Regular.woff2',
   'https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Medium.woff2',
   'https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-SemiBold.woff2',
@@ -32,6 +66,9 @@ self.addEventListener('message', event => {
 const cacheAssets = async () => {
   const cache = await caches.open(STATIC_CACHE_NAME);
   await cache.addAll(ASSETS);
+  const curOS = detectOS();
+  const OS_ASSETS = GET_OS_ASSETS(curOS);
+  await cache.addAll(OS_ASSETS);
 };
 
 self.addEventListener('install', async event => {
@@ -59,7 +96,6 @@ self.addEventListener('activate', event => {
 });
 
 //3. SW - fetch(intercept fetch request and resue cache if exists)
-
 const cacheOrFetch = async request => {
   const cachedResp = await caches.match(request);
   if (cachedResp) return cachedResp;
@@ -69,8 +105,8 @@ const cacheOrFetch = async request => {
 
   const fetchRes = await fetch(request);
   if (
-    (request.url === 'https://ddocker.kro.kr' ||
-      request.url === 'https://www.ddocker.kro.kr') &&
+    (request.url === 'https://ddocker.o-r.kr' ||
+      request.url === 'https://www.ddocker.o-r.kr') &&
     request.method === 'GET'
   ) {
     const cache = await caches.open(DYNAMIC_CACHE_NAME);

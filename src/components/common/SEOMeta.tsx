@@ -12,7 +12,7 @@ const SEOMeta = ({ pageData }: Props) => {
   const { title, pageUrl, description } = pageData;
   const baseTitle = 'DDocker - ';
   const keywords = 'ddocker, coffee, caffeine, 또커, 커피, 카페인, 커피사진';
-  const siteUrl = 'ddocker.kro.kr/';
+  const siteUrl = 'https://ddocker.kro.kr/';
   const ogImage = '';
 
   return (
