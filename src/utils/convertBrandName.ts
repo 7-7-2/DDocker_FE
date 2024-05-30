@@ -33,8 +33,8 @@ const changeVisitPurpose = (brandName: string) => {
   if (brandName === 'banapresso') {
     return '바나프레소';
   }
-  if (brandName === 'hasamdong') {
-    return '하삼동커피';
+  if (brandName === 'tomntoms') {
+    return '탐앤탐스';
   }
   if (brandName === 'coffeebean') {
     return '커피빈';
@@ -63,7 +63,7 @@ export const brandMapToEng = (brandName: string) => {
     컴포즈커피: 'compose',
     폴바셋: 'paulbassett',
     바나프레소: 'banapresso',
-    하삼동커피: 'hasamdong',
+    탐앤탐스: 'tomntoms',
     커피빈: 'coffeebean',
     매머드커피: 'mammoth',
     '나만의 카페': 'private'
