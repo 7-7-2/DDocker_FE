@@ -1,5 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { useHTMLParser } from '@/hooks/support/useHTMLPaser';
 import { getNoticeDetail } from '@/api/support';
 import { NoticeDetailData } from '@/types/types';
 import SEOMeta from '@/components/common/SEOMeta';
@@ -12,7 +13,6 @@ import { CustomerItem, CustomertDate, Semibold } from '@/styles/styles';
 
 const NoticeDetail = () => {
   const { postId } = useParams();
-
   const { data: noticeDetail } = useQuery({
     queryKey: ['noticeDetail', postId],
     queryFn: async () => {
@@ -20,6 +20,9 @@ const NoticeDetail = () => {
       return data.data as NoticeDetailData;
     }
   });
+
+  const htmlString =
+    noticeDetail?.content && useHTMLParser(noticeDetail?.content);
 
   const pageData = {
     ...SEO_DATA.supportNotice,
@@ -36,7 +39,9 @@ const NoticeDetail = () => {
             {noticeDetail?.date}
           </DetailDate>
         </TitleContainer>
-        <DetailContents>{noticeDetail?.content}</DetailContents>
+        <DetailContents>
+          <div dangerouslySetInnerHTML={{ __html: htmlString ?? '' }} />
+        </DetailContents>
       </div>
     </>
   );
@@ -56,6 +61,15 @@ const DetailContents = styled.div`
   line-height: 18px;
   white-space: pre-wrap;
   font-size: var(--font-sizes-xs);
+  & h3 {
+    font-size: var(--font-sizes-sm);
+    color: var(--colors-main);
+    margin-bottom: -10px;
+  }
+  & li {
+    line-height: 14px;
+    margin: 5px 0 -10px;
+  }
 `;
 
 export default NoticeDetail;
