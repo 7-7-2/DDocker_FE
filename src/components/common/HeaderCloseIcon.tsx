@@ -4,7 +4,6 @@ import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { useRecoilState } from 'recoil';
 
-//기능 추가필요(useClose수정)
 const HeaderCloseIcon = () => {
   const goToBack = useNavigateTo('-1');
   const [footerState, setFooterState] = useRecoilState(footerShowState);
