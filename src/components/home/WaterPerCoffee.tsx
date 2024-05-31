@@ -54,7 +54,7 @@ const WaterPerCoffee = () => {
   );
 
   const consumedCoffee = (
-    <div className={Column}>
+    <ConsumedCoffeeContainer className={Column}>
       <div className={cx(Flex, Between)}>
         <CoffeeIntake data={todayCoffeeData} />
         <WaterIntake coffeeCount={todayCoffeeData?.allCount} />
@@ -68,7 +68,7 @@ const WaterPerCoffee = () => {
             />
           ))}
       </TodayMenuList>
-    </div>
+    </ConsumedCoffeeContainer>
   );
 
   return (
@@ -91,27 +91,31 @@ const WaterPerCoffee = () => {
 };
 
 const Container = styled.div`
+  position: relative;
   width: inherit;
+  overflow: hidden;
   height: 220px;
   border-radius: 16px;
   margin-top: 16px;
+`;
+
+const ConsumedCoffeeContainer = styled.div`
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  bottom: 20px;
 `;
 
 const CosumedCoffee = css`
   background: #fff;
   box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.1);
   color: #313131;
-  padding: 20px;
 `;
 
 const TodayMenuList = styled.div`
-  width: calc(100vw - 80px);
-  margin-top: 14px;
+  margin-top: auto;
   overflow-x: scroll;
-`;
-
-const MarginTop = css`
-  margin-top: 16px;
 `;
 
 export default WaterPerCoffee;

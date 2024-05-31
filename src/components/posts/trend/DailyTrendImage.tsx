@@ -36,6 +36,7 @@ const DailyTrendImage = ({
 };
 
 const Image = styled.img`
+  object-fit: cover;
   border-radius: 16px;
   margin-bottom: 14px;
   min-width: 162px;

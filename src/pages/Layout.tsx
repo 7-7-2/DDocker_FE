@@ -73,6 +73,7 @@ const Container = styled.main`
 const Contents = styled.section`
   padding: 0 20px;
   overflow-y: scroll;
+  overflow-x: hidden;
 `;
 
 export default Layout;
