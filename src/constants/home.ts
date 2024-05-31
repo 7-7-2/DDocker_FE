@@ -49,7 +49,7 @@ export const CAFFEINE_INFO_TEXTS = {
 };
 
 export const HOME_FOOTER_TEXTS = {
-  email: 'E-mail : ddocker33@naver.com',
+  email: 'E-mail : ddocker0530@gmail.com',
   copyright: ' Copyright ⓒ 2024 DDocker. All rights reserved.',
   designedBy: `3D image Designed by `,
   freepik: 'Freepik'
