@@ -34,7 +34,7 @@ const BrandPage = ({
 };
 
 const Page = styled.div`
-  min-width: calc(100vw - 40px);
+  min-width: 100%;
   scroll-snap-align: start;
   scroll-snap-stop: always;
 `;
