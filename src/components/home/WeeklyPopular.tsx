@@ -1,4 +1,4 @@
-import WeeklyPopularItem from '@/components/home/WeeklyPopularItem';
+import { lazy } from 'react';
 import { useGetPopularList } from '@/hooks/home/useGetPopularList';
 import { TODAY_CAFFEINE_INFO_TEXTS } from '@/constants/home';
 import { styled } from 'styled-system/jsx';
@@ -6,6 +6,9 @@ import { cx } from 'styled-system/css';
 import { Grid } from '@/styles/layout';
 import { SmStyle, SumTitle, MarginT12 } from '@/styles/styles';
 
+const WeeklyPopularItem = lazy(
+  () => import('@/components/home/WeeklyPopularItem')
+);
 const { weeklyPopular } = TODAY_CAFFEINE_INFO_TEXTS;
 
 const WeeklyPopular = () => {
