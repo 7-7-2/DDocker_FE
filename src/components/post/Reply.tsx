@@ -5,12 +5,12 @@ import { InputContext } from '@/context/contexts';
 import { memo } from 'react';
 import { replyState } from '@/atoms/atoms';
 import { useSetRecoilState } from 'recoil';
-import { CommentProto } from '@/types/types';
+import { CommentPrototype } from '@/types/types';
 
 const { reply } = COMMENT_TEXTS;
 
 const Reply = memo(
-  ({ nickname, id }: Pick<CommentProto, 'nickname' | 'id'>) => {
+  ({ nickname, id }: Pick<CommentPrototype, 'nickname' | 'id'>) => {
     const { inputRef } = useContext(InputContext);
     const setReplyState = useSetRecoilState(replyState);
 

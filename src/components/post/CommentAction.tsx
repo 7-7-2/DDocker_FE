@@ -1,5 +1,5 @@
 import { deleteComment, deleteReply } from '@/api/post';
-import { CommentProto } from '@/types/types';
+import { CommentPrototype } from '@/types/types';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
@@ -16,7 +16,7 @@ const CommentAction = ({
   id,
   postNum,
   parentCommentId
-}: Pick<CommentProto, 'comment' | 'id' | 'postNum' | 'parentCommentId'> & {
+}: Pick<CommentPrototype, 'comment' | 'id' | 'postNum' | 'parentCommentId'> & {
   myComment: boolean;
 }) => {
   const { postId } = useParams();

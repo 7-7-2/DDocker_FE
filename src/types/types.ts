@@ -182,7 +182,7 @@ export interface Comment {
   id: number;
 }
 
-export interface CommentProto extends Omit<Comment, 'reply_count' | 'postNum'> {
+export interface CommentPrototype extends Omit<Comment, 'reply_count' | 'postNum'> {
   comment?: boolean;
   postNum?: string;
   parentCommentId?: number;
