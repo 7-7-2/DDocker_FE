@@ -29,12 +29,11 @@ const LogInCTA = () => {
 
 const Container = styled.div`
   gap: 11px;
-  margin-bottom: 20px;
+  margin-bottom: -60px;
 `;
 const Text = styled.span`
   font-size: var(--font-sizes-sm);
   color: var(--colors-mid-grey);
   left: calc(100vw / 2 - 46px);
-  bottom: 20px;
 `;
 export default LogInCTA;
