@@ -2,12 +2,13 @@ import React from 'react';
 import { useId } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { getComments } from '@/api/post';
-import Comment from '@/components/post/Comment';
 import { styled } from 'styled-system/jsx';
 import { COMMENT_TEXTS, POST_TEXTS } from '@/constants/texts';
 import { PaddingTB60 } from '@/styles/styles';
+import { CommentType } from '@/types/types';
 
 const CTA = React.lazy(() => import('../common/CTA'));
+const Comment = React.lazy(() => import('./Comment'));
 const { count } = COMMENT_TEXTS;
 
 const PostComments = ({
@@ -26,22 +27,6 @@ const PostComments = ({
   });
   const id = useId();
 
-  const mapComment = (comment: Comment, idx: number) => {
-    return (
-      <React.Fragment key={id + idx}>
-        <Comment
-          profileUrl={comment.profileUrl}
-          nickname={comment.nickname}
-          content={comment.content}
-          created_at={comment.created_at}
-          reply_count={comment.reply_count}
-          postNum={postNum}
-          id={comment.id}
-        />
-      </React.Fragment>
-    );
-  };
-
   return (
     <>
       {commentData && commentData.data.length !== 0 && (
@@ -50,7 +35,19 @@ const PostComments = ({
             {commentCount}
             {count}
           </Length>
-          {commentData.data.map(mapComment)}
+          {commentData.data.map((comment: CommentType, idx: number) => {
+            <React.Fragment key={id + idx}>
+              <Comment
+                profileUrl={comment.profileUrl}
+                nickname={comment.nickname}
+                content={comment.content}
+                created_at={comment.created_at}
+                reply_count={comment.reply_count}
+                postNum={postNum}
+                id={comment.id}
+              />
+            </React.Fragment>;
+          })}
         </Container>
       )}
       {commentData && commentData.data.length === 0 && (

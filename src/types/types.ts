@@ -1,4 +1,3 @@
-import InitialForm from '@/components/start/InitialForm';
 import { Dayjs } from 'dayjs';
 import {
   TouchEventHandler,
@@ -172,7 +171,7 @@ export interface EditProfileImgProps
   profileImg?: string;
 }
 
-export interface Comment {
+export interface CommentType {
   profileUrl: string;
   nickname: string;
   content: string;
@@ -182,13 +181,14 @@ export interface Comment {
   id: number;
 }
 
-export interface CommentPrototype extends Omit<Comment, 'reply_count' | 'postNum'> {
+export interface CommentPrototype
+  extends Omit<CommentType, 'reply_count' | 'postNum'> {
   comment?: boolean;
   postNum?: string;
   parentCommentId?: number;
 }
 export type Reply = Pick<
-  Comment,
+  CommentType,
   'profileUrl' | 'nickname' | 'content' | 'created_at' | 'id'
 >;
 

@@ -2,7 +2,7 @@ import { useToggle } from '@/hooks/post/useToggle';
 import CommentProto from '@/components/post/CommentProto';
 import CheckReply from '@/components/post/CheckReply';
 import Replies from '@/components/post/Replies';
-import { Comment } from '@/types/types';
+import { CommentType } from '@/types/types';
 
 const Comment = ({
   profileUrl,
@@ -12,7 +12,7 @@ const Comment = ({
   reply_count,
   postNum,
   id
-}: Comment) => {
+}: CommentType) => {
   const { toggle, handleToggle } = useToggle();
   return (
     <>
