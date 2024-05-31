@@ -167,7 +167,7 @@ export const getTodayCoffeeInfo = async () => {
 export const getWeeklyPopular = async () => {
   try {
     const res = await baseInstance.get('/posts/popular');
-    return res.data.data;
+    return res && res.data.data;
   } catch (error) {
     console.log('Failed to get Weekly Popular List', error);
   }
@@ -177,12 +177,13 @@ export const getWeeklyPopular = async () => {
 export const getCoffeeMenu = async () => {
   try {
     const res = await baseInstance.get('/brand');
-    await useSetCacheData(
-      'brand',
-      '/coffeeMenu',
-      res.data.data[0].coffee_menus
-    );
-    return res.data.data[0].coffee_menus;
+    res &&
+      (await useSetCacheData(
+        'brand',
+        '/coffeeMenu',
+        res.data.data[0].coffee_menus
+      ));
+    return res && res.data.data[0].coffee_menus;
   } catch (error) {
     console.log('Failed to get coffee menu List', error);
   }
