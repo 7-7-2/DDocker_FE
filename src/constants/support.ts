@@ -18,6 +18,7 @@ export const SUPPORT_TEXTS = {
 export const CUSTOMER_SUPPORT_TEXTS = {
   taps: ['공지사항', '자주 묻는 질문'],
   FAQ: {
+    nonMember: '안녕하세요!',
     message: `님,
 무엇을 도와드릴까요?`,
     placeholder: '질문 키워드를 입력해주세요.',

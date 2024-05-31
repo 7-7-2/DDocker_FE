@@ -1,6 +1,6 @@
+import { lazy } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import SearchBar from '@/components/search/SearchBar';
-import FoldableCard from '@/components/support/FoldableCard';
 import { getSupportList } from '@/api/support';
 import { useSearchInput } from '@/hooks/search/useSearchInput';
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
@@ -11,6 +11,7 @@ import { styled } from 'styled-system/jsx';
 import { Column } from '@/styles/layout';
 import { Semibold } from '@/styles/styles';
 
+const FoldableCard = lazy(() => import('@/components/support/FoldableCard'));
 const { FAQ: text } = CUSTOMER_SUPPORT_TEXTS;
 const { type } = SUPPORT_TEXTS.customerCenter.FAQ;
 
@@ -29,7 +30,7 @@ const FAQ = () => {
   return (
     <Continer className={Column}>
       <Message className={Semibold}>
-        {userData.nickname}
+        {userData ? userData?.nickname : text.nonMember}
         {text.message}
       </Message>
       <SearchBar
