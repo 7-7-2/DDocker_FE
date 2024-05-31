@@ -64,8 +64,9 @@ jobs:
         env:
           BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME}}
         run: |
+          aws s3 rm s3://$BUCKET_NAME --recursive
           aws s3 sync --size-only \
-            ./dist s3://$BUCKET_NAME
+            ./dist s3://$BUCKET_NAME --cache-control "max-age=2592000"
 
       - name: CloudFront Invalidation
         env:
