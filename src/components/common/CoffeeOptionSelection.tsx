@@ -140,6 +140,7 @@ const ShotOptionInput = styled.input`
   text-align: center;
   width: 40px;
   background-color: transparent;
+  color: var(--colors-main-dark);
 `;
 const SizeBtnContainer = styled.div`
   gap: 4px;

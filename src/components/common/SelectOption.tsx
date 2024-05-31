@@ -53,6 +53,7 @@ const SelectOptionContainer = styled.ul`
 const OptionCotainer = styled.div`
   width: 100%;
   overflow-y: scroll;
+  background-color: #fff;
   &::-webkit-scrollbar {
     display: block !important;
     background-color: transparent;
@@ -70,10 +71,10 @@ const SelectOptionItem = styled.button`
   padding: 12px 16px;
   margin-right: 8px;
   border-bottom: solid 1px #edecec;
-  &:first-child {
-  }
+  background-color: #fff;
   &:last-child {
     margin-bottom: -8px;
+    border-bottom: none;
   }
 `;
 
