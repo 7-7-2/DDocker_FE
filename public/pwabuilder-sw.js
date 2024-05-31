@@ -179,5 +179,6 @@ const handleError = error => {
 };
 
 self.addEventListener('fetch', event => {
+  if (event.request.headers.get('Accept') === 'text/event-stream') return;
   event.respondWith(cacheOrFetch(event.request).catch(handleError));
 });
