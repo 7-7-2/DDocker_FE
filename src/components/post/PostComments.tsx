@@ -35,19 +35,20 @@ const PostComments = ({
             {commentCount}
             {count}
           </Length>
-          {commentData.data.map((comment: CommentType, idx: number) => {
-            <React.Fragment key={id + idx}>
-              <Comment
-                profileUrl={comment.profileUrl}
-                nickname={comment.nickname}
-                content={comment.content}
-                created_at={comment.created_at}
-                reply_count={comment.reply_count}
-                postNum={postNum}
-                id={comment.id}
-              />
-            </React.Fragment>;
-          })}
+          {commentData &&
+            commentData.data.map((comment: CommentType, idx: number) => {
+              <React.Fragment key={id + idx}>
+                <Comment
+                  profileUrl={comment.profileUrl}
+                  nickname={comment.nickname}
+                  content={comment.content}
+                  created_at={comment.created_at}
+                  reply_count={comment.reply_count}
+                  postNum={postNum}
+                  id={comment.id}
+                />
+              </React.Fragment>;
+            })}
         </Container>
       )}
       {commentData && commentData.data.length === 0 && (
