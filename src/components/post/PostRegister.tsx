@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRecoilValue, useResetRecoilState } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { nanoid } from 'nanoid';
 
 import CoffeeMenuSelection from '@/components/home/CoffeeMenuSelection';
@@ -142,7 +142,10 @@ const PostRegister = ({
       : await handleUpdate();
     await updateTodayCoffeeData();
     URL.revokeObjectURL(imageUrl);
-    registered && navigate(`/post/${postId}`);
+    registered &&
+      navigate(`/post/${postId}`, {
+        state: true
+      });
   };
 
   return (
