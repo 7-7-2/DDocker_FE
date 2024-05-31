@@ -36,7 +36,8 @@ const PostComments = ({
             {count}
           </Length>
           {commentData &&
-            commentData.data.map((comment: CommentType, idx: number) => {
+            commentData.data.length !== 0 &&
+            commentData.data.map((comment: CommentType, idx: number) => (
               <React.Fragment key={id + idx}>
                 <Comment
                   profileUrl={comment.profileUrl}
@@ -47,8 +48,8 @@ const PostComments = ({
                   postNum={postNum}
                   id={comment.id}
                 />
-              </React.Fragment>;
-            })}
+              </React.Fragment>
+            ))}
         </Container>
       )}
       {commentData && commentData.data.length === 0 && (
