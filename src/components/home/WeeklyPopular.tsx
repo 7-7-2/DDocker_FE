@@ -22,13 +22,16 @@ const WeeklyPopular = () => {
       </WeeklyPopularTitle>
       <WeeklyPopularList className={cx(Grid, SmStyle, MarginT12)}>
         {brandList &&
-          brandList.map((item, idx) => (
-            <WeeklyPopularItem
-              data={item}
-              idx={idx}
-              key={item?.brand}
-            />
-          ))}
+          brandList.map(
+            (item, idx) =>
+              item && (
+                <WeeklyPopularItem
+                  data={item}
+                  idx={idx}
+                  key={item?.brand}
+                />
+              )
+          )}
       </WeeklyPopularList>
     </div>
   );

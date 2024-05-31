@@ -14,7 +14,7 @@ const pathMap = (brand: string) => {
     탐앤탐스: '/png/tomntoms.png',
     커피빈: '/png/coffeebean.png',
     매머드커피: '/png/mammoth.png',
-    '나만의 카페': 'png/private.png'
+    '나만의 카페': '/png/private.png'
   };
   return brandObj[brand];
 };
