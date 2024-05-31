@@ -10,7 +10,7 @@ const WeeklyPopularItem = ({
   data: WeeklyPopularTypes;
   idx: number;
 }) => {
-  const icon = `/png/${data.brand}.png`;
+  const icon = data && `/png/${data?.brand}.png`;
 
   return (
     <Container className={Align}>
@@ -18,9 +18,9 @@ const WeeklyPopularItem = ({
       <BrandInfo className={Align}>
         <BrandIcon
           src={icon}
-          alt={data.brand}
+          alt={data?.brand}
         />
-        <span>{convertBrandName(data.brand)}</span>
+        <span>{convertBrandName(data?.brand)}</span>
       </BrandInfo>
     </Container>
   );
