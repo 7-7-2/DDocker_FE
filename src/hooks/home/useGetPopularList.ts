@@ -23,7 +23,11 @@ const useGetPopularList = () => {
 
       if (!res && weeklyPopularList) {
         setBrandList(weeklyPopularList[currentDate]);
-        await useSetCacheData('brand', '/WeeklyPopular', weeklyPopularList);
+        await useSetCacheData(
+          'brand',
+          '/WeeklyPopular',
+          weeklyPopularList[currentDate]
+        );
         return;
       }
       if (res && weeklyPopularList && cachedDate === currentDate) {
