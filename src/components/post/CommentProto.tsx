@@ -4,7 +4,7 @@ import { Flex, Column } from '@/styles/layout';
 
 import ImgContainer from '@/components/common/ImgContainer';
 import timestampToDate from '@/utils/timestampToDate';
-import { CommentProto } from '@/types/types';
+import { CommentPrototype } from '@/types/types';
 import Reply from '@/components/post/Reply';
 import { useGetSignedIn } from '@/hooks/useGetSignedIn';
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
@@ -25,7 +25,7 @@ const CommentProto = ({
   postNum = '',
   id,
   parentCommentId
-}: CommentProto) => {
+}: CommentPrototype) => {
   const { signedIn } = useGetSignedIn();
   const { userData } = useCachedUserInfo();
   const { nickname: myUsername } = userData;
