@@ -28,7 +28,7 @@ const CommentProto = ({
 }: CommentPrototype) => {
   const { signedIn } = useGetSignedIn();
   const { userData } = useCachedUserInfo();
-  const { nickname: myUsername } = userData;
+  const { nickname: myUsername } = userData || {};
   const myComment = nickname === myUsername;
   const [profile, setProfile] = useState(profileUrl);
   const handleImgError = () => setProfile('');
