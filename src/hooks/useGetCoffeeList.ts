@@ -5,7 +5,7 @@ import useGetCacheData from '@/hooks/useGetCacheData';
 import { CoffeeDataTypes } from '@/types/types';
 
 function useGetCoffeeList(dataType?: string) {
-  const [coffeeData, setCoffeeData] = useState<CoffeeDataTypes>();
+  const [coffeeData, setCoffeeData] = useState<CoffeeDataTypes>({});
 
   const getBrandList = async () => {
     const cachedData = await useGetCacheData('brand', '/coffeeMenu');
@@ -13,7 +13,6 @@ function useGetCoffeeList(dataType?: string) {
       const res = await getCoffeeMenu();
       setCoffeeData(res);
     }
-
     cachedData && setCoffeeData(cachedData.cacheData);
   };
 

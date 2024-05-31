@@ -100,8 +100,8 @@ export interface EmptyUserProps {
 }
 
 export interface WeeklyPopularTypes {
-  ranking: number;
   brand: string;
+  co: number;
 }
 
 export interface CachedData {

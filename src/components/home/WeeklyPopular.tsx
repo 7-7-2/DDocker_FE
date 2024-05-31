@@ -23,7 +23,7 @@ const WeeklyPopular = () => {
             <WeeklyPopularItem
               data={item}
               idx={idx}
-              key={item.brand}
+              key={item?.brand}
             />
           ))}
       </WeeklyPopularList>
