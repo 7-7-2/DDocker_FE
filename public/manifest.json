@@ -6,9 +6,9 @@
   "name": "DDocker",
   "orientation": "any",
   "type": "image/png",
-  "scope": ".",
+  "scope": "/",
   "short_name": "DDocker",
-  "start_url": "/index.html",
+  "start_url": "/",
   "theme_color": "#ffffff",
   "categories": ["coffee", "cafe", "caffeine"],
   "screenshots": [
