@@ -1,6 +1,7 @@
 import React from 'react';
 import { useId } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import Comment from '@/components/post/Comment';
 import { getComments } from '@/api/post';
 import { styled } from 'styled-system/jsx';
 import { COMMENT_TEXTS, POST_TEXTS } from '@/constants/texts';
@@ -8,7 +9,6 @@ import { PaddingTB60 } from '@/styles/styles';
 import { CommentType } from '@/types/types';
 
 const CTA = React.lazy(() => import('../common/CTA'));
-const Comment = React.lazy(() => import('./Comment'));
 const { count } = COMMENT_TEXTS;
 
 const PostComments = ({
