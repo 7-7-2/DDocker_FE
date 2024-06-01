@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { Suspense, lazy } from 'react';
 import { useParams } from 'react-router-dom';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { SUPPORT_TEXTS } from '@/constants/support';
@@ -39,10 +39,26 @@ const Support = () => {
 
   return (
     <>
-      {customer && <CustomerCenter />}
-      {notice && <NoticeDetail />}
-      {tos && <TOS />}
-      {privacy && <PrivacyPolicy />}
+      {customer && (
+        <Suspense>
+          <CustomerCenter />
+        </Suspense>
+      )}
+      {notice && (
+        <Suspense>
+          <NoticeDetail />
+        </Suspense>
+      )}
+      {tos && (
+        <Suspense>
+          <TOS />
+        </Suspense>
+      )}
+      {privacy && (
+        <Suspense>
+          <PrivacyPolicy />
+        </Suspense>
+      )}
     </>
   );
 };

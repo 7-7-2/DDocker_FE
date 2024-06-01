@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { lazy, Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useImgErrorCTA } from '@/hooks/useImgErrorCTA';
 import { PostsGridProps, UserProfilePostsTypes } from '@/types/types';
@@ -26,10 +26,12 @@ const PostsGrid = ({ data, postRef }: PostsGridProps) => {
     <>
       {isError ? (
         <Container>
-          <ImageErrorCTA
-            text={'게시물을 불러올 수 없습니다.'}
-            handleOnclick={refresh}
-          />
+          <Suspense>
+            <ImageErrorCTA
+              text={'게시물을 불러올 수 없습니다.'}
+              handleOnclick={refresh}
+            />
+          </Suspense>
         </Container>
       ) : (
         <GridContainer className={cx(Grid, Center)}>

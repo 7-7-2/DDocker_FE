@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { Suspense, lazy } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import SearchBar from '@/components/search/SearchBar';
 import { getSupportList } from '@/api/support';
@@ -44,10 +44,12 @@ const FAQ = () => {
         FAQList.filter((item: FAQData) =>
           search ? item.title.includes(search) : item
         ).map((item: FAQData) => (
-          <FoldableCard
-            key={item.postId}
-            data={item}
-          />
+          <Suspense>
+            <FoldableCard
+              key={item.postId}
+              data={item}
+            />
+          </Suspense>
         ))}
     </Continer>
   );

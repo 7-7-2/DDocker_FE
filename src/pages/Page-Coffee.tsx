@@ -1,4 +1,4 @@
-import { lazy, useRef } from 'react';
+import { Suspense, lazy, useRef } from 'react';
 import MyCalendar from '@/components/coffee/MyCalendar';
 import MyCoffeeSum from '@/components/coffee/MyCoffeeSum';
 import SEOMeta from '@/components/common/SEOMeta';
@@ -20,8 +20,16 @@ const Coffee = () => {
       <MyCoffeeSum signedIn={signedIn} />
       <MyCalendar signedIn={signedIn} />
       <Target ref={targetRef} />
-      {!signedIn && <LogInCTA />}
-      {!signedIn && <ScrollInducer targetRef={targetRef} />}
+      {!signedIn && (
+        <Suspense>
+          <LogInCTA />
+        </Suspense>
+      )}
+      {!signedIn && (
+        <Suspense>
+          <ScrollInducer targetRef={targetRef} />
+        </Suspense>
+      )}
     </>
   );
 };

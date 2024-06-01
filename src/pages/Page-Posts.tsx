@@ -1,4 +1,4 @@
-import { useState, lazy } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import PostTabs from '@/components/posts/PostsTabs';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { TABS_TEXTS } from '@/constants/texts';
@@ -21,8 +21,16 @@ export const Posts = () => {
       />
       <div className={Divider} />
 
-      {postsTab === TABS_TEXTS.trend[0] && <PostsTrend />}
-      {postsTab === TABS_TEXTS.following[0] && <PostsFollowing />}
+      {postsTab === TABS_TEXTS.trend[0] && (
+        <Suspense>
+          <PostsTrend />
+        </Suspense>
+      )}
+      {postsTab === TABS_TEXTS.following[0] && (
+        <Suspense>
+          <PostsFollowing />
+        </Suspense>
+      )}
     </>
   );
 };

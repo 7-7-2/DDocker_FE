@@ -1,4 +1,4 @@
-import React, { useId } from 'react';
+import React, { Suspense, useId } from 'react';
 
 import PostCard from '@/components/posts/following/PostCard';
 import SEOMeta from '@/components/common/SEOMeta';
@@ -33,8 +33,16 @@ const PostsFollowing = () => {
           <Target ref={ref} />
         </Container>
       )}
-      {postsData && postsData.length === 0 && <FollowDiscoveryCTA />}
-      {!postsData && <SignInCTA />}
+      {postsData && postsData.length === 0 && (
+        <Suspense>
+          <FollowDiscoveryCTA />
+        </Suspense>
+      )}
+      {!postsData && (
+        <Suspense>
+          <SignInCTA />
+        </Suspense>
+      )}
     </>
   );
 };

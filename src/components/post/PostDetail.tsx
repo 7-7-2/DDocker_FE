@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { Suspense, useRef } from 'react';
 import { useQueries } from '@tanstack/react-query';
 
 import MiniProfile from '@/components/common/MiniProfile';
@@ -63,23 +63,29 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
   return (
     <>
       {toggle && isPostOwner && (
-        <PostOwnerOption
-          cancleOptions={cancelOptions}
-          setConfirm={setConfirm}
-          postId={postNum}
-        />
+        <Suspense>
+          <PostOwnerOption
+            cancleOptions={cancelOptions}
+            setConfirm={setConfirm}
+            postId={postNum}
+          />
+        </Suspense>
       )}
       {toggle && !isPostOwner && (
-        <PublicOption
-          handleToggle={cancelOptions}
-          postId={postNum}
-        />
+        <Suspense>
+          <PublicOption
+            handleToggle={cancelOptions}
+            postId={postNum}
+          />
+        </Suspense>
       )}
       {confirm && (
-        <ConfirmDelete
-          cancelConfirm={cancelConfirm}
-          postId={postNum}
-        />
+        <Suspense>
+          <ConfirmDelete
+            cancelConfirm={cancelConfirm}
+            postId={postNum}
+          />
+        </Suspense>
       )}
       {postData && socialCounts && (
         <>
@@ -122,7 +128,9 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
               commentCount={socialCounts.data.totalComments}
             />
           </InputContext.Provider>
-          <ReplyToPanel />
+          <Suspense>
+            <ReplyToPanel />
+          </Suspense>
           <PostInput
             inputRef={inputRef}
             postId={postNum}

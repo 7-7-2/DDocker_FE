@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { Suspense, lazy } from 'react';
 import { useParams } from 'react-router-dom';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 
@@ -45,14 +45,24 @@ const Post = () => {
   return (
     <>
       <SEOMeta pageData={metaData()} />
-      {register && <PostRegister />}
-      {update && !register && (
-        <PostRegister
-          update
-          postid={postId}
-        />
+      {register && (
+        <Suspense>
+          <PostRegister />
+        </Suspense>
       )}
-      {!update && !register && postId && <PostDetail postNum={postId} />}
+      {update && !register && (
+        <Suspense>
+          <PostRegister
+            update
+            postid={postId}
+          />
+        </Suspense>
+      )}
+      {!update && !register && postId && (
+        <Suspense>
+          <PostDetail postNum={postId} />
+        </Suspense>
+      )}
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { lazy, Suspense } from 'react';
 import Taps from '@/components/common/Taps';
 import SEOMeta from '@/components/common/SEOMeta';
 import SEO_DATA from '@/constants/SEOData';
@@ -20,7 +20,8 @@ const CustomerCenter = () => {
         selectedTab={seletedTap}
         handleButtonClick={handleSelectTap}
       />
-      {seletedTap === taps[0] ? <Notice /> : <FAQ />}
+
+      <Suspense>{seletedTap === taps[0] ? <Notice /> : <FAQ />}</Suspense>
     </>
   );
 };

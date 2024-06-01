@@ -13,7 +13,7 @@ import { usePostOptions } from '@/hooks/post/usePostOptions';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import PostBody from '@/components/posts/following/PostBody';
 import { useVerifyOwner } from '@/hooks/post/useVerifyOwner';
-import React from 'react';
+import React, { Suspense } from 'react';
 
 const PublicOption = React.lazy(
   () => import('../../post/overlay/PublicOption')
@@ -67,24 +67,30 @@ const PostCard = ({ ...props }: FollowingPost) => {
   return (
     <>
       {toggle && !isPostOwner && (
-        <PublicOption
-          handleToggle={cancelOptions}
-          postId={postId}
-        />
+        <Suspense>
+          <PublicOption
+            handleToggle={cancelOptions}
+            postId={postId}
+          />
+        </Suspense>
       )}
       {toggle && isPostOwner && (
-        <PostOwnerOption
-          cancleOptions={cancelOptions}
-          postId={postId}
-          setConfirm={setConfirm}
-        />
+        <Suspense>
+          <PostOwnerOption
+            cancleOptions={cancelOptions}
+            postId={postId}
+            setConfirm={setConfirm}
+          />
+        </Suspense>
       )}
       {confirm && (
-        <ConfirmDelete
-          cancelConfirm={cancelConfirm}
-          postId={postId}
-          posts={true}
-        />
+        <Suspense>
+          <ConfirmDelete
+            cancelConfirm={cancelConfirm}
+            postId={postId}
+            posts={true}
+          />
+        </Suspense>
       )}
       <Container>
         <UserProfile className={cx(Flex, Between)}>

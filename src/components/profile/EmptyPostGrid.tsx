@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { lazy, Suspense } from 'react';
 import { PROFILE_TEXTS } from '@/constants/profile';
 
 import { css, cx } from 'styled-system/css';
@@ -27,11 +27,13 @@ const EmptyPostGrid = ({
 
   return (
     <Container className={cx(Justify, userId === profileId && DefaultHeight)}>
-      <CTA
-        text={myProfile ? my.text : another}
-        actionText={myProfile ? my.actionText : ''}
-        fn={myProfile ? handleClickBtn : undefined}
-      />
+      <Suspense>
+        <CTA
+          text={myProfile ? my.text : another}
+          actionText={myProfile ? my.actionText : ''}
+          fn={myProfile ? handleClickBtn : undefined}
+        />
+      </Suspense>
     </Container>
   );
 };

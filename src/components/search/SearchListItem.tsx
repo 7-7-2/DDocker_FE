@@ -4,7 +4,7 @@ import { Align, Between } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 import { useSetHistory } from '@/hooks/search/useSetHistory';
-import { memo, lazy, useState } from 'react';
+import { memo, lazy, useState, Suspense } from 'react';
 
 const SearchMore = lazy(() => import('@/components/search/SearchMore'));
 const SearchMoreList = lazy(() => import('@/components/search/SearchMoreList'));
@@ -40,9 +40,15 @@ const SearchListItem = memo(({ users, search }: SearchList) => {
           </Container>
         ))}
       {users.length == 5 && !loadMore && (
-        <SearchMore onClick={handleSearchMore({ keyword: search })} />
+        <Suspense>
+          <SearchMore onClick={handleSearchMore({ keyword: search })} />
+        </Suspense>
       )}
-      {loadMore && <SearchMoreList search={search} />}
+      {loadMore && (
+        <Suspense>
+          <SearchMoreList search={search} />
+        </Suspense>
+      )}
     </>
   );
 });
