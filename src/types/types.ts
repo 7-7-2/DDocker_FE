@@ -1,4 +1,3 @@
-import { Dayjs } from 'dayjs';
 import {
   TouchEventHandler,
   RefObject,
@@ -174,7 +173,7 @@ export interface CommentType {
   profileUrl: string;
   nickname: string;
   content: string;
-  created_at: Dayjs;
+  created_at: string;
   reply_count: number;
   postNum: string;
   id: number;
@@ -196,7 +195,7 @@ export interface FollowingPost extends SimplifyUser {
   postTitle: string;
   postId: string;
   profileUrl: string;
-  createdAt: Dayjs;
+  createdAt: string;
   photo: string;
   caffeine: number;
   shot: number;
@@ -306,7 +305,7 @@ export interface Notification {
   postId?: string;
   senderId: string;
   nickname: string;
-  time: Dayjs;
+  time: string;
 }
 
 export interface NoImgProps {

@@ -1,10 +1,20 @@
 import dayjs, { Dayjs } from 'dayjs';
 import duration, { Duration } from 'dayjs/plugin/duration';
-dayjs.extend(duration);
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 
-const getTimeDiff = (timeToCompare: Dayjs): string => {
+dayjs.extend(duration);
+dayjs.extend(utc);
+dayjs.extend(timezone);
+
+const KST = 'Asia/Seoul';
+
+const getTimeDiff = (timeToCompare: string): string => {
+  const timeToCompareKST: Dayjs = dayjs.tz(timeToCompare, KST);
+  const nowKST: Dayjs = dayjs().tz(KST);
+
   const timeDiffDuration: Duration = dayjs.duration(
-    dayjs().diff(timeToCompare)
+    nowKST.diff(timeToCompareKST)
   );
   const getDiff = (unit: string) => parseInt(timeDiffDuration.format(unit));
   const units = ['Y', 'M', 'D', 'H', 'm', 's'];
