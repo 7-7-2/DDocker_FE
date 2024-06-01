@@ -42,7 +42,7 @@ export const useHandleAuth = () => {
     setIsConfirm(!isConfirm);
   };
 
-  const handleDeleteAccount = (e: React.TouchEvent<HTMLButtonElement>) => {
+  const handleDeleteAccount = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!isModal) {
       e.preventDefault();
       setIsModal(true);

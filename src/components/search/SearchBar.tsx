@@ -40,7 +40,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
           {search && (
             <IconDelete
               className={FlexCenter}
-              onTouchEnd={reset}>
+              onClick={reset}>
               <Icon {...iconPropsGenerator('input-delete', '24')} />
             </IconDelete>
           )}
@@ -50,7 +50,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
             <Button
               className={cx(FlexCenter, CancelBtn)}
               text={SEARCH_TEXTS.moveToHome}
-              onTouchEnd={navigate}
+              onClick={navigate}
             />
           </div>
         )}

@@ -18,7 +18,7 @@ const HeaderIcon = ({ icon }: { icon: string }) => {
       {icon && (
         <Icon
           {...iconPropsGenerator(icon)}
-          onTouchEnd={handleTouch}
+          onClick={handleTouch}
         />
       )}
     </>

@@ -29,7 +29,7 @@ const ReplyToPanel = () => {
           </PanelText>
           <Icon
             {...iconPropsGenerator('reply-close', '18')}
-            onTouchEnd={reset}
+            onClick={reset}
           />
         </Panel>
       )}

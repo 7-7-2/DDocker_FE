@@ -6,18 +6,18 @@ import { SelectedTap, DefaultTap } from '@/styles/styles';
 const Taps = ({
   taps,
   selectedTab,
-  handleButtonTouch
+  handleButtonClick
 }: {
   taps: Array<string>;
   selectedTab: string;
-  handleButtonTouch: (e: React.TouchEvent<HTMLButtonElement>) => void;
+  handleButtonClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }) => {
   return (
     <TabContainer className={cx(Flex, Between)}>
       {taps.map(item => (
         <TapItem
           className={cx(selectedTab === item ? SelectedTap : DefaultTap)}
-          onTouchEnd={handleButtonTouch}
+          onClick={handleButtonClick}
           value={item}
           key={item}>
           <TapTitle>{item}</TapTitle>

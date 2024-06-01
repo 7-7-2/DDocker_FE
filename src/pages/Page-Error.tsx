@@ -26,7 +26,7 @@ const Error = () => {
       <Button
         text={home}
         className={cx(DefaultBtn)}
-        onTouchEnd={useNavigateTo('/')}
+        onClick={useNavigateTo('/')}
       />
     </Container>
   );

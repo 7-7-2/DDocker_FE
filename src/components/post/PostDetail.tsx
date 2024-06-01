@@ -95,7 +95,7 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
             />
             <Icon
               {...iconPropsGenerator('user-more')}
-              onTouchEnd={cancelOptions}
+              onClick={cancelOptions}
             />
           </UserProfile>
           <DetailImg src={postData?.data.photo} />

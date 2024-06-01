@@ -91,7 +91,7 @@ const SelectFavBrand = () => {
 
       <Button
         text={BUTTON_TEXTS.start}
-        onTouchEnd={handleStartBtn(imageFile)}
+        onClick={handleStartBtn(imageFile)}
         className={user.brand ? DefaultBtn : cx(DefaultBtn, DisabledBtn)}
       />
     </>

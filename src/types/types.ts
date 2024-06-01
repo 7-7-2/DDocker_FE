@@ -88,14 +88,13 @@ export interface BrnadItemProps {
 export interface ButtonProps {
   value?: string;
   text: string;
-  onTouchEnd?: TouchEventHandler<HTMLButtonElement>;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   className: string;
 }
 
 export interface EmptyUserProps {
   label: string;
-  onTouchEnd?: () => void;
+  onClick?: () => void;
 }
 
 export interface WeeklyPopularTypes {
@@ -246,14 +245,14 @@ export interface TabsText {
   [key: string]: string[] | string;
 }
 
-export interface CafeDetail {
+export interface CafeDetailTypes {
   brand: string;
   className?: string;
   caffeine?: string | number;
   menu?: string;
   shot?: string | number;
   posts?: boolean;
-  onTouchEnd?: () => void;
+  onClick?: () => void;
 }
 
 export interface DailyTrendCardProps {

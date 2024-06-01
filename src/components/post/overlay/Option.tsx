@@ -7,11 +7,11 @@ import { styled } from 'styled-system/jsx';
 export const Option = ({
   icon,
   option,
-  onTouchEnd
+  onClick
 }: {
   icon: string;
   option: string;
-  onTouchEnd:
+  onClick:
     | (() => void)
     | ((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void);
 }) => {
@@ -19,9 +19,9 @@ export const Option = ({
     <div className={cx(Flex, Align)}>
       <Icon
         {...iconPropsGenerator(`${icon}`)}
-        onTouchEnd={onTouchEnd}
+        onClick={onClick}
       />
-      <OptionText onClick={onTouchEnd}>{option}</OptionText>
+      <OptionText onClick={onClick}>{option}</OptionText>
     </div>
   );
 };

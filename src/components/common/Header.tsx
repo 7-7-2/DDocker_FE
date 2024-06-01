@@ -22,7 +22,7 @@ const Header = () => {
 
   return (
     <Container className={cx(Between, Align)}>
-      <Left onTouchEnd={useNavigateTo('/')}>
+      <Left onClick={useNavigateTo('/')}>
         {logo && (
           <svg
             width={'80'}

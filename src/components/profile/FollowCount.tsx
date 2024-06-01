@@ -67,7 +67,7 @@ const FollowCount = ({ data }: FollowCountProps) => {
               Column,
               index === count.length - 1 ? 'lastStat' : ''
             )}
-            onTouchEnd={handleStatClick(item.label)}>
+            onClick={handleStatClick(item.label)}>
             <StatNumber className={RecentSearch}>{item.number}</StatNumber>
             <StatLabel className={SumType}>{item.label}</StatLabel>
           </Stat>
@@ -76,7 +76,7 @@ const FollowCount = ({ data }: FollowCountProps) => {
       {signedIn && userId !== profileId && (
         <Button
           text={isFollowing ? following : follow1}
-          onTouchEnd={handleFollowBtn}
+          onClick={handleFollowBtn}
           className={cx(MarginTop, isFollowing ? FollowingBtn : FollowBtn)}
         />
       )}

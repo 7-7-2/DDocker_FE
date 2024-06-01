@@ -12,7 +12,7 @@ import { SmStyle } from '@/styles/styles';
 const BrandItem = (brandInfo: BrnadItemProps) => {
   const [userInit, setUserInit] = useRecoilState(authState);
 
-  const selectBrand: React.TouchEventHandler<HTMLDivElement> = e => {
+  const selectBrand: React.MouseEventHandler<HTMLDivElement> = e => {
     const selectedFavBrand = {
       ...userInit,
       brand: e.currentTarget.id
@@ -32,7 +32,7 @@ const BrandItem = (brandInfo: BrnadItemProps) => {
     <Container>
       <ItemContainer
         id={brandInfo.brand}
-        onTouchEnd={selectBrand}
+        onClick={selectBrand}
         className={cx(
           userInit.brand === brandInfo.brand
             ? SelectedBrandContainer

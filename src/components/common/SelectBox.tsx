@@ -8,15 +8,15 @@ const SelectBox = ({
   value: selectedValue,
   defaultValue,
   data,
-  onTouchEnd: handleTouch
+  onClick: handleClick
 }: {
   value?: string;
   defaultValue: string;
   data: string[];
-  onTouchEnd: React.TouchEventHandler<HTMLElement>;
+  onClick: React.MouseEventHandler<HTMLElement>;
 }) => {
   const selectRef = useRef<HTMLButtonElement>(null);
-  const { isSelect, handleSelectTouch } = useSelectBox(selectRef);
+  const { isSelect, handleSelectClick } = useSelectBox(selectRef);
   const disabled = data === undefined && true;
 
   return (
@@ -26,13 +26,13 @@ const SelectBox = ({
         selectedValue={selectedValue}
         defalutValue={defaultValue}
         isSelect={isSelect}
-        onTouchEnd={handleSelectTouch}
+        onClick={handleSelectClick}
         disabled={disabled}
       />
       <SelectOption
         data={data}
         isSelect={isSelect}
-        onTouchEnd={handleTouch}
+        onClick={handleClick}
       />
     </SelectBoxContainer>
   );

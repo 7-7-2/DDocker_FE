@@ -34,7 +34,7 @@ const ImgRegister = ({
           <Img
             src={imageUrl}
             alt="posted coffee"
-            onTouchEnd={resetImage}
+            onClick={resetImage}
           />
         </PostImgContainer>
       )}

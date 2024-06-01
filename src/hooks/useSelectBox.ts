@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 export const useSelectBox = (selectRef: React.RefObject<HTMLButtonElement>) => {
   const [isSelect, setIsSelect] = useState(false);
 
-  const handleSelectTouch = () => {
+  const handleSelectClick = () => {
     setIsSelect(!isSelect);
     if (selectRef.current) {
       selectRef.current.focus();
@@ -27,5 +27,5 @@ export const useSelectBox = (selectRef: React.RefObject<HTMLButtonElement>) => {
     };
   }, []);
 
-  return { isSelect, handleSelectTouch };
+  return { isSelect, handleSelectClick };
 };

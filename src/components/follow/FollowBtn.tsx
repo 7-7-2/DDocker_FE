@@ -38,7 +38,7 @@ const FollowBtn = ({ userId }: { userId: string | undefined }) => {
     <>
       <Button
         text={isFollowing && isFollowing.data ? following : follow2}
-        onTouchEnd={handleFollowUser}
+        onClick={handleFollowUser}
         className={cx(
           FollowBtnCommon,
           isFollowing && isFollowing.data ? FollowingBtnStyle : FollowBtnStyle

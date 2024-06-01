@@ -100,7 +100,7 @@ const PostCard = ({ ...props }: FollowingPost) => {
 
         <PostBody
           {...PostBodyProps}
-          onTouchEnd={handleToPost}
+          onClick={handleToPost}
         />
 
         <div>

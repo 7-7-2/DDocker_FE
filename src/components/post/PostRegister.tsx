@@ -168,7 +168,7 @@ const PostRegister = ({
 
       <Button
         text={!update ? BUTTON_TEXTS.regist : BUTTON_TEXTS.update}
-        onTouchEnd={userId && clickRegisterBtn}
+        onClick={userId && clickRegisterBtn}
         className={cx(
           imageFile && caffeine
             ? undefined
@@ -185,6 +185,7 @@ const PostRegister = ({
 
 const Container = styled.div`
   padding-bottom: 28px;
+  margin-bottom: 20px;
   overflow-x: visible;
   overflow-y: auto;
 `;

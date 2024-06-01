@@ -20,7 +20,7 @@ const LogInCTA = () => {
       <Text className={Regular}>{logInCTA.text}</Text>
       <Button
         text={logInCTA.btn}
-        onTouchEnd={handleSignInBtn}
+        onClick={handleSignInBtn}
         className={DefaultBtn}
       />
     </Container>

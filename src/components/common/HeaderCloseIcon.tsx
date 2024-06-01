@@ -15,7 +15,7 @@ const HeaderCloseIcon = () => {
     <>
       <Icon
         {...iconPropsGenerator('close')}
-        onTouchEnd={handleTouch}></Icon>
+        onClick={handleTouch}></Icon>
     </>
   );
 };

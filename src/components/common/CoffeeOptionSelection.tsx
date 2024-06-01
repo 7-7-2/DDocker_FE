@@ -35,7 +35,7 @@ const CoffeeOptionSelection = () => {
   };
 
   // set coffee size info
-  const selectSize = (e: React.TouchEvent<HTMLButtonElement>) => {
+  const selectSize = (e: React.MouseEvent<HTMLButtonElement>) => {
     setRegisterData('size', e.currentTarget.value);
 
     const size =
@@ -85,7 +85,7 @@ const CoffeeOptionSelection = () => {
             key={item}
             value={item}
             text={item}
-            onTouchEnd={selectSize}
+            onClick={selectSize}
             className={cx(
               registInfo.size === item ? SelectSizeBtn : BtnColorWhite,
               SizeBtn,
@@ -109,7 +109,7 @@ const CoffeeOptionSelection = () => {
             {...iconPropsGenerator(
               !registInfo.shot ? 'input-minus' : 'input-minus:active'
             )}
-            onTouchEnd={selectMinusBtn}
+            onClick={selectMinusBtn}
           />
           <ShotOptionInput
             type="number"
@@ -121,7 +121,7 @@ const CoffeeOptionSelection = () => {
             {...iconPropsGenerator(
               registInfo.shot >= 5 ? 'input-plus' : 'input-plus:active'
             )}
-            onTouchEnd={selectPlusBtn}
+            onClick={selectPlusBtn}
           />
         </div>
       </ShotOptionInputContainer>

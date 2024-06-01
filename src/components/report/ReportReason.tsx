@@ -9,9 +9,9 @@ import { Semibold } from '@/styles/styles';
 const { reason, title } = POST_REPORT_TEXTS;
 
 const ReportReason = ({
-  handleOnTouchEnd: handleSelectOption
+  handleOnClick: handleSelectOption
 }: {
-  handleOnTouchEnd: React.TouchEventHandler<HTMLElement>;
+  handleOnClick: React.MouseEventHandler<HTMLElement>;
 }) => {
   return (
     <SelecteRadioBtn>
@@ -26,13 +26,13 @@ const ReportReason = ({
                 type="radio"
                 name="options"
                 id={item}
-                onTouchEnd={handleSelectOption}
+                onClick={handleSelectOption}
               />
             </RadioBtn>
             <label
               htmlFor={item}
               id={item}
-              onTouchEnd={handleSelectOption}>
+              onClick={handleSelectOption}>
               {item}
             </label>
           </RadioContainer>

@@ -9,11 +9,11 @@ import {
   CaffeineDetail,
   ColorMain
 } from '@/styles/styles';
-import { CafeDetail } from '@/types/types';
+import { CafeDetailTypes } from '@/types/types';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { cx } from 'styled-system/css';
 
-interface CafeDetailContent extends CafeDetail {
+interface CafeDetailContent extends CafeDetailTypes {
   mini?: boolean;
 }
 
@@ -24,7 +24,7 @@ const CafeDetailContent = ({
   mini = false,
   posts,
   brand,
-  onTouchEnd,
+  onClick,
   menu,
   caffeine,
   shot
@@ -37,7 +37,7 @@ const CafeDetailContent = ({
       </div>
       <div
         className={CaffeineDetail}
-        onClick={onTouchEnd}>
+        onClick={onClick}>
         {`${menu} ${shot !== '0' ? `(+${shot}` : ''}${
           shot !== '0' ? '샷)' : ''
         }`}

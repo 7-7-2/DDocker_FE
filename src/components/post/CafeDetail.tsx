@@ -1,6 +1,6 @@
 import { cx } from 'styled-system/css';
 import { Column } from '@/styles/layout';
-import { CafeDetail } from '@/types/types';
+import { CafeDetailTypes } from '@/types/types';
 import CafeDetailContent from '@/components/post/CafeDetailContent';
 
 const CafeDetail = ({
@@ -10,15 +10,15 @@ const CafeDetail = ({
   menu,
   shot,
   posts = false,
-  onTouchEnd
-}: CafeDetail) => {
+  onClick
+}: CafeDetailTypes) => {
   const CafeDetailProps = {
     brand,
     caffeine,
     menu,
     shot,
     posts,
-    onTouchEnd
+    onClick
   };
   return (
     <div className={cx(Column, className)}>

@@ -18,7 +18,7 @@ const CustomerCenter = () => {
       <Taps
         taps={taps}
         selectedTab={seletedTap}
-        handleButtonTouch={handleSelectTap}
+        handleButtonClick={handleSelectTap}
       />
       {seletedTap === taps[0] ? <Notice /> : <FAQ />}
     </>
