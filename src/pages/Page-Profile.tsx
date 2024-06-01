@@ -31,7 +31,7 @@ const Profile = () => {
   const goToSignIn = useNavigateTo('/start/1');
   const nonMembers = profileId === nonMemberId;
 
-  const handleActions: React.TouchEventHandler<HTMLButtonElement> = () => {
+  const handleActions: React.MouseEventHandler<HTMLButtonElement> = () => {
     goToSignIn();
   };
 

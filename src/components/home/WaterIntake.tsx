@@ -53,7 +53,7 @@ const WaterIntake = ({ coffeeCount }: { coffeeCount: number | undefined }) => {
           src="/png/waterCup.png"
           alt="water"
         />
-        <IconContainer onTouchEnd={touchPlusIcon}>
+        <IconContainer onClick={touchPlusIcon}>
           <Icon {...iconPropsGenerator('plus')} />
         </IconContainer>
       </CircularProgressbarWithChildren>

@@ -62,7 +62,7 @@ const FooterIcon = ({ icon }: { icon: string }) => {
       {icon && (
         <div
           className={cx(Column, Center)}
-          onTouchEnd={handleTouch}>
+          onClick={handleTouch}>
           <Icon
             {...iconPropsGenerator(active === icon ? `${icon}-active` : icon)}
           />

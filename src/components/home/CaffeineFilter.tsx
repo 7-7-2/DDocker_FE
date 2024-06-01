@@ -19,7 +19,7 @@ const CaffeineFilter = () => {
       {signedIn && (
         <Button
           text={BUTTON_TEXTS.regist}
-          onTouchEnd={registPage}
+          onClick={registPage}
           className={cx(RegistBtn, MarginBottom)}
         />
       )}

@@ -21,7 +21,7 @@ const CoffeeSelection = () => {
         <span>{title.title}</span>
         <ResetBtn
           className={cx(Align, SumBoardTitle)}
-          onTouchEnd={touchResetBtn}>
+          onClick={touchResetBtn}>
           <Icon {...iconPropsGenerator('reset', '14')} />
           {title.resetBtn}
         </ResetBtn>

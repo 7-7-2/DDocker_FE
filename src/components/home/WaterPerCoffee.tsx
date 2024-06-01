@@ -47,7 +47,7 @@ const WaterPerCoffee = () => {
       <span className={AlertMessage}>{signedIn.card.notConsumed}</span>
       <Button
         text={signedIn.btn}
-        onTouchEnd={useNavigateTo('/post/register')}
+        onClick={useNavigateTo('/post/register')}
         className={RegistCoffeeBtn}
       />
     </div>

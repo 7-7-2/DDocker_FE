@@ -31,8 +31,7 @@ export const Input = ({
         <button
           className={cx(nicknameBtn, InputFontSm)}
           type="button"
-          onClick={handleEvent}
-          onTouchEnd={handleEvent}>
+          onClick={handleEvent}>
           {nickname.btnText}
         </button>
       );
@@ -43,8 +42,7 @@ export const Input = ({
       submitBtn = (
         <button
           type="button"
-          // onClick={handleEvent}
-          onTouchEnd={handleEvent}>
+          onClick={handleEvent}>
           <Icon {...iconPropsGenerator('upload')} />
         </button>
       );

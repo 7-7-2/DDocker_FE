@@ -117,7 +117,7 @@ const MyProfile = () => {
           <ExitButton
             key={item}
             className={cx(Cursor, SumType)}
-            onTouchEnd={item === btn[0] ? handleDeleteAccount : handleSignOut}>
+            onClick={item === btn[0] ? handleDeleteAccount : handleSignOut}>
             {item}
           </ExitButton>
         ))}
@@ -126,7 +126,7 @@ const MyProfile = () => {
       <ButtonArea className={Justify}>
         <SaveButton
           className={cx(FlexCenter, Cursor, Border16, HomeRegistContainer)}
-          onTouchEnd={handlClickBtn(
+          onClick={handlClickBtn(
             `user/${userId}`,
             imageFile ? imageFile : null,
             storagePath

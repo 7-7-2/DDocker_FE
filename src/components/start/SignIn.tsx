@@ -29,8 +29,8 @@ const SignIn = () => {
   const navToHome = useNavigateTo('/');
   const navToSignUp = useNavigateTo('/start/2');
 
-  const handleSocialAuth: React.TouchEventHandler<HTMLButtonElement> = async (
-    e: React.TouchEvent<HTMLButtonElement>
+  const handleSocialAuth: React.MouseEventHandler<HTMLButtonElement> = async (
+    e: React.MouseEvent<HTMLButtonElement>
   ) => {
     try {
       const social = e.currentTarget.value;
@@ -78,7 +78,7 @@ const SignIn = () => {
         <KakaoBtn
           value="kakao"
           className={SignInBtn}
-          onTouchEnd={handleSocialAuth}>
+          onClick={handleSocialAuth}>
           <IconContiner>
             <Icon {...iconPropsGenerator('kakao', '18')} />
           </IconContiner>
@@ -87,7 +87,7 @@ const SignIn = () => {
         <GoogleBtn
           value="google"
           className={cx(SignInBtn, FlexCenter)}
-          onTouchEnd={handleSocialAuth}>
+          onClick={handleSocialAuth}>
           <IconContiner>
             <Icon {...iconPropsGenerator('google', '18')} />
           </IconContiner>
@@ -95,7 +95,7 @@ const SignIn = () => {
         </GoogleBtn>
         <button
           className={NoneBtn}
-          onTouchEnd={useNavigateTo('/')}>
+          onClick={useNavigateTo('/')}>
           {signInBtn.none}
         </button>
       </SignInBtnContainer>

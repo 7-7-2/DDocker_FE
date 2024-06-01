@@ -63,7 +63,7 @@ const CoffeeMenuSelection = () => {
   const menuList = coffeeData && getMenuList(registInfo.brand);
 
   // 커피 브랜드 선택
-  const selectBrand = (e: React.TouchEvent<HTMLButtonElement>) => {
+  const selectBrand = (e: React.MouseEvent<HTMLButtonElement>) => {
     getMenuList(e.currentTarget.value);
     setRegisterData('brand', e.currentTarget.value);
     setCaffeineInfo(0);
@@ -80,7 +80,7 @@ const CoffeeMenuSelection = () => {
   };
 
   // 커피 메뉴 선택
-  const selectMenu = (e: React.TouchEvent<HTMLButtonElement>) => {
+  const selectMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
     getMenuInfo(e.currentTarget.value);
     setRegisterData('menu', e.currentTarget.value);
   };
@@ -99,13 +99,13 @@ const CoffeeMenuSelection = () => {
           value={registInfo.brand}
           defaultValue={registInfo.brand || coffeeMenu.brand}
           data={brandList}
-          onTouchEnd={selectBrand}
+          onClick={selectBrand}
         />
         <SelectBox
           value={registInfo.menu}
           defaultValue={coffeeMenu.menu}
           data={menuList}
-          onTouchEnd={selectMenu}
+          onClick={selectMenu}
         />
       </CoffeeSelectContainer>
     </div>

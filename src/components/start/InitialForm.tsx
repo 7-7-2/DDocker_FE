@@ -96,7 +96,7 @@ const InitialForm = () => {
       </div>
       <Button
         text={BUTTON_TEXTS.next}
-        onTouchEnd={
+        onClick={
           userInit?.nickname && isApproval
             ? handleNextPage
             : () => navigate('/start/2')

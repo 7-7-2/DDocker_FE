@@ -29,7 +29,7 @@ const CTA = ({ text, actionText = '', btn = true, fn }: CTA) => {
         <Button
           className={cx(LoginBtn, BTN)}
           text={actionText}
-          onTouchEnd={handleActions}
+          onClick={handleActions}
         />
       )}
     </div>

@@ -24,7 +24,7 @@ const DailyTrendCard = ({ post }: { post: DailyTrendCardProps }) => {
         menu={post.menu}
         shot={post.shot}
         caffeine={post.caffeine}
-        onTouchEnd={toPost}
+        onClick={toPost}
       />
     </div>
   );

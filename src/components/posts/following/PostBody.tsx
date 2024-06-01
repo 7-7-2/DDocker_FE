@@ -16,11 +16,11 @@ const PostBody = ({
   shot,
   menu,
   brand,
-  onTouchEnd
+  onClick
 }: Pick<
   FollowingPost,
   'postTitle' | 'photo' | 'caffeine' | 'shot' | 'menu' | 'brand'
-> & { onTouchEnd: () => void }) => {
+> & { onClick: () => void }) => {
   const CafeDetailProps = {
     brand,
     caffeine,
@@ -28,7 +28,7 @@ const PostBody = ({
     menu,
     className: PaddingT12,
     posts: true,
-    onTouchEnd
+    onClick
   };
 
   const { isError, handleImgError, setUrl, handleReloadImg, reloadPhoto } =
@@ -41,7 +41,7 @@ const PostBody = ({
 
   return (
     <>
-      <PostContent onClick={onTouchEnd}>{postTitle}</PostContent>
+      <PostContent onClick={onClick}>{postTitle}</PostContent>
       {isError ? (
         <ImgErrorContainer>
           <ImageErrorCTA
@@ -52,7 +52,7 @@ const PostBody = ({
       ) : (
         <PostImg
           src={reloadPhoto || photo}
-          onClick={onTouchEnd}
+          onClick={onClick}
           onError={handleOnError}
         />
       )}

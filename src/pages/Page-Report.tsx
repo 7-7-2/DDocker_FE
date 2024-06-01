@@ -38,7 +38,7 @@ const Report = () => {
     setInputValue(e.target.value);
   };
 
-  const handleSelectOption = (e: React.TouchEvent<HTMLElement>) => {
+  const handleSelectOption = (e: React.MouseEvent<HTMLElement>) => {
     setselectOption(e.currentTarget.id);
   };
 
@@ -78,7 +78,7 @@ const Report = () => {
     <>
       <SEOMeta pageData={pageData} />
       <Container className={Column}>
-        <ReportReason handleOnTouchEnd={handleSelectOption} />
+        <ReportReason handleOnClick={handleSelectOption} />
         <OtherReasonInput
           inputValue={inputValue}
           inputRef={inputRef}
@@ -88,7 +88,7 @@ const Report = () => {
       <Button
         value={type}
         text={btn}
-        onTouchEnd={state ? handleSubmitComment : handleSubmitPost}
+        onClick={state ? handleSubmitComment : handleSubmitPost}
         className={cx(RegistBtn, !selectOption && DisabledBtn)}
       />
     </>

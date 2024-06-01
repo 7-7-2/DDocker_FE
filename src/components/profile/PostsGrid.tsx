@@ -16,8 +16,8 @@ const PostsGrid = ({ data, postRef }: PostsGridProps) => {
 
   const { isError, refresh, handleImgError } = useImgErrorCTA();
 
-  const touchImg: React.TouchEventHandler<HTMLImageElement> = (
-    e: React.TouchEvent<HTMLImageElement>
+  const touchImg: React.MouseEventHandler<HTMLImageElement> = (
+    e: React.MouseEvent<HTMLImageElement>
   ) => {
     navigate(`/post/${e.currentTarget.id}`);
   };
@@ -40,7 +40,7 @@ const PostsGrid = ({ data, postRef }: PostsGridProps) => {
                   className={Cursor}
                   key={item.postId}
                   id={item.postId}
-                  onTouchEnd={touchImg}
+                  onClick={touchImg}
                   onError={handleImgError}
                   src={item.photo}
                 />

@@ -26,7 +26,7 @@ const ModalCTA = ({
   text: string;
   subBtnText?: string;
   isConfirm?: boolean;
-  fn: React.TouchEventHandler<HTMLButtonElement>;
+  fn: React.MouseEventHandler<HTMLButtonElement>;
 }) => {
   const [isModal, setIsModal] = useRecoilState(isModalState);
 
@@ -38,12 +38,12 @@ const ModalCTA = ({
     <ConfirmContainer className={cx(Flex, Between)}>
       <Button
         text={'돌아가기'}
-        onTouchEnd={HandleOnclick}
+        onClick={HandleOnclick}
         className={cx(RegistBtn, BackBtn)}
       />
       <Button
         text={'탈퇴하기'}
-        onTouchEnd={handleActions}
+        onClick={handleActions}
         className={RegistBtn}
       />
     </ConfirmContainer>
@@ -52,7 +52,7 @@ const ModalCTA = ({
   const DefalutBtn = (
     <Button
       text={actionText}
-      onTouchEnd={handleActions}
+      onClick={handleActions}
       className={RegistBtn}
     />
   );
@@ -73,9 +73,7 @@ const ModalCTA = ({
             </TextContainer>
             {!isConfirm ? DefalutBtn : confirmDeleteAuth}
           </Container>
-          <SubBtn onTouchEnd={HandleOnclick}>
-            {subBtnText || signIn.subBtn}
-          </SubBtn>
+          <SubBtn onClick={HandleOnclick}>{subBtnText || signIn.subBtn}</SubBtn>
         </ModalContainer>
       </BackgroundLayer>
     )

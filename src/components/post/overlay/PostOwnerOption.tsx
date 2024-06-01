@@ -35,12 +35,12 @@ const PostOwnerOption = ({
         <Option
           icon="update-post"
           option="수정하기"
-          onTouchEnd={handleUpdate}
+          onClick={handleUpdate}
         />
         <Option
           icon="delete-post"
           option="삭제"
-          onTouchEnd={confirmDelete}
+          onClick={confirmDelete}
         />
       </PostOptions>
     </BackgroundLayer>

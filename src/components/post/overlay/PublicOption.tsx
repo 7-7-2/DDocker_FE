@@ -21,7 +21,7 @@ const PublicOption = ({
         <Option
           icon="report"
           option="신고하기"
-          onTouchEnd={handleReport}
+          onClick={handleReport}
         />
       </PostOptions>
     </BackgroundLayer>

@@ -20,7 +20,7 @@ const PostsSortBy = ({
     <div className={Container}>
       <span
         className={sort ? Candidate : cx(Selected, Semibold)}
-        onTouchEnd={sortPopular}>
+        onClick={sortPopular}>
         {TREND_TEXTS.popularity}
       </span>
 
@@ -28,7 +28,7 @@ const PostsSortBy = ({
 
       <span
         className={sort ? cx(Selected, Semibold) : Candidate}
-        onTouchEnd={sortRecent}>
+        onClick={sortRecent}>
         {TREND_TEXTS.latest}
       </span>
     </div>

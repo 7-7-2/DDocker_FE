@@ -11,14 +11,14 @@ const SelectBtn = ({
   selectedValue,
   isSelect,
   selectRef,
-  onTouchEnd: handleTouch,
+  onClick: handleTouch,
   disabled
 }: {
   defalutValue: string;
   selectedValue?: string;
   isSelect: boolean;
   selectRef: React.RefObject<HTMLButtonElement>;
-  onTouchEnd: React.TouchEventHandler<HTMLButtonElement>;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
   disabled: boolean;
 }) => {
   return (
@@ -32,7 +32,7 @@ const SelectBtn = ({
             ? OnSelectBorder
             : DefaultBorder
       )}
-      onTouchEnd={handleTouch}
+      onClick={handleTouch}
       ref={selectRef}>
       <DefalutOption className={cx(Flex, SelectInput, SmStyle)}>
         {convertBrandName(selectedValue || defalutValue)}

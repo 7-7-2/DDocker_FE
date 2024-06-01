@@ -6,17 +6,12 @@ import { Column } from '@/styles/layout';
 const SelectOption = ({
   data,
   isSelect,
-  onTouchEnd
+  onClick: handleCilck
 }: {
   data: string[];
   isSelect: boolean;
-
-  onTouchEnd: React.TouchEventHandler<HTMLElement>;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
 }) => {
-  const handleTouch = (e: React.TouchEvent<HTMLButtonElement>) => {
-    onTouchEnd(e);
-  };
-
   return (
     <div>
       {isSelect && (
@@ -26,7 +21,7 @@ const SelectOption = ({
               data.map(item => (
                 <SelectOptionItem
                   key={item}
-                  onTouchEnd={handleTouch}
+                  onClick={handleCilck}
                   value={item}>
                   {convertBrandName(item)}
                 </SelectOptionItem>
