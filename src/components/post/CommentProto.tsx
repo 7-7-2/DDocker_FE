@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Suspense, useState } from 'react';
 import { styled } from 'styled-system/jsx';
 import { Flex, Column } from '@/styles/layout';
 
@@ -88,13 +88,15 @@ const CommentProto = ({
         {signedIn && (
           <>
             <Target ref={ref} />
-            <CommentAction
-              myComment={myComment}
-              comment={comment}
-              id={id}
-              postNum={postNum}
-              parentCommentId={parentCommentId}
-            />
+            <Suspense>
+              <CommentAction
+                myComment={myComment}
+                comment={comment}
+                id={id}
+                postNum={postNum}
+                parentCommentId={parentCommentId}
+              />
+            </Suspense>
           </>
         )}
       </Container>

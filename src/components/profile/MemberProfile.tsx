@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { lazy, Suspense } from 'react';
 
 import { useTargetInfiniteScroll } from '@/hooks/useTargetInfiniteScroll';
 import { getProfilePostIQParam } from '@/hooks/useInfiniteScroll';
@@ -40,19 +40,25 @@ const MemberProfile = ({
   return (
     <Container className={Column}>
       <div className={cx(Column, Between)}>
-        <ProfileDetail userId={profileId} />
-        <FollowCount data={followCountData} />
+        <Suspense>
+          <ProfileDetail userId={profileId} />
+          <FollowCount data={followCountData} />
+        </Suspense>
       </div>
       {allCount != 0 ? (
-        <PostsGrid
-          data={postsData}
-          postRef={postRef}
-        />
+        <Suspense>
+          <PostsGrid
+            data={postsData}
+            postRef={postRef}
+          />
+        </Suspense>
       ) : (
-        <EmptyPostGrid
-          profileId={profileId}
-          userId={userId}
-        />
+        <Suspense>
+          <EmptyPostGrid
+            profileId={profileId}
+            userId={userId}
+          />
+        </Suspense>
       )}
     </Container>
   );

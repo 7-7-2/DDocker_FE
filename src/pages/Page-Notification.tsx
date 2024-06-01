@@ -1,4 +1,4 @@
-import React, { useEffect, useId } from 'react';
+import React, { Suspense, useEffect, useId } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
 import CTA from '@/components/common/CTA';
@@ -63,7 +63,11 @@ const Notification = () => {
             <CTA text={CTA_TEXTS.emptyNotification} />
           </div>
         )}
-        {!signedIn && <SignInCTA location="notice" />}
+        {!signedIn && (
+          <Suspense>
+            <SignInCTA location="notice" />
+          </Suspense>
+        )}
       </Container>
     </>
   );

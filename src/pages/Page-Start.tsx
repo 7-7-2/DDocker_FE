@@ -1,4 +1,4 @@
-import { useEffect, lazy } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import { useParams } from 'react-router-dom';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { useShowFooter } from '@/hooks/useShowFooter';
@@ -33,9 +33,21 @@ const Start = () => {
     <>
       <SEOMeta pageData={id === '1' ? SEO_DATA.start : SEO_DATA.signUp} />
       <div>
-        {!accessToken && id === '1' && <SignIn />}
-        {id === '2' && <InitialForm />}
-        {id === '3' && <SelectFavBrand />}
+        {!accessToken && id === '1' && (
+          <Suspense>
+            <SignIn />
+          </Suspense>
+        )}
+        {id === '2' && (
+          <Suspense>
+            <InitialForm />
+          </Suspense>
+        )}
+        {id === '3' && (
+          <Suspense>
+            <SelectFavBrand />
+          </Suspense>
+        )}
       </div>
     </>
   );

@@ -1,4 +1,4 @@
-import { lazy, useRef } from 'react';
+import { Suspense, lazy, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
@@ -96,7 +96,11 @@ const MyProfile = () => {
 
   return (
     <>
-      {isModal && <ConfirmDeleteUser />}
+      {isModal && (
+        <Suspense>
+          <ConfirmDeleteUser />
+        </Suspense>
+      )}
       <>
         <EditProfileImg
           profileImg={userData && userData.profileUrl}

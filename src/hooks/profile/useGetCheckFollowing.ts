@@ -1,7 +1,10 @@
 import { checkFollowing } from '@/api/follow';
 import { useEffect, useState } from 'react';
 
-const useGetCheckFollowing = (ProfileId: string | undefined) => {
+const useGetCheckFollowing = (
+  ProfileId: string | undefined,
+  signedIn: string | undefined
+) => {
   const [isFollowing, setIsFollowing] = useState(true);
 
   const getCheckFollowing = async () => {
@@ -10,7 +13,7 @@ const useGetCheckFollowing = (ProfileId: string | undefined) => {
   };
 
   useEffect(() => {
-    getCheckFollowing();
+    signedIn && getCheckFollowing();
   }, [isFollowing]);
 
   return { isFollowing, getCheckFollowing };

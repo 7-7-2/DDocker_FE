@@ -33,7 +33,10 @@ const FollowCount = ({ data }: FollowCountProps) => {
 
   const { userId: profileId, postCount } = data;
 
-  const { isFollowing, getCheckFollowing } = useGetCheckFollowing(profileId);
+  const { isFollowing, getCheckFollowing } = useGetCheckFollowing(
+    profileId,
+    signedIn
+  );
   const { userFollowCount } = useGetFollowCount(profileId, isFollowing);
 
   const handleFollowBtn = async () => {

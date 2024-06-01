@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { Suspense, lazy } from 'react';
 import { useRecoilValue } from 'recoil';
 import { useParams } from 'react-router-dom';
 
@@ -35,14 +35,6 @@ const Profile = () => {
     goToSignIn();
   };
 
-  const AnonymousModalCTA = isModal && !userId && (
-    <ModalCTA
-      actionText={signIn2}
-      text={signIn.text}
-      fn={handleActions}
-    />
-  );
-
   const pageData = {
     ...SEO_DATA.profile,
     pageUrl: `${SEO_DATA.profile.pageUrl}/${profileId}`
@@ -53,14 +45,26 @@ const Profile = () => {
       <SEOMeta pageData={pageData} />
       {!nonMembers ? (
         <>
-          {AnonymousModalCTA}
-          <MemberProfile
-            userId={userId}
-            profileId={profileId}
-          />
+          {isModal && !userId && (
+            <Suspense>
+              <ModalCTA
+                actionText={signIn2}
+                text={signIn.text}
+                fn={handleActions}
+              />
+            </Suspense>
+          )}
+          <Suspense>
+            <MemberProfile
+              userId={userId}
+              profileId={profileId}
+            />
+          </Suspense>
         </>
       ) : (
-        <AnonymousUserCard />
+        <Suspense>
+          <AnonymousUserCard />
+        </Suspense>
       )}
     </>
   );

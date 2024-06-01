@@ -43,7 +43,7 @@ const UserListItem = ({
           userId={userId}
           post={true}
         />
-        {userId !== myId && <FollowBtn userId={userId} />}
+        {myId && userId !== myId && <FollowBtn userId={userId} />}
       </div>
     ),
     []

@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { Suspense, lazy } from 'react';
 import { useGetPopularList } from '@/hooks/home/useGetPopularList';
 import { TODAY_CAFFEINE_INFO_TEXTS } from '@/constants/home';
 import { styled } from 'styled-system/jsx';
@@ -25,11 +25,12 @@ const WeeklyPopular = () => {
           brandList.map(
             (item, idx) =>
               item && (
-                <WeeklyPopularItem
-                  data={item}
-                  idx={idx}
-                  key={item?.brand}
-                />
+                <Suspense key={item?.brand}>
+                  <WeeklyPopularItem
+                    data={item}
+                    idx={idx}
+                  />
+                </Suspense>
               )
           )}
       </WeeklyPopularList>
