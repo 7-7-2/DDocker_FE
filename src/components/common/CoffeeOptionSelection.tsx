@@ -115,7 +115,6 @@ const CoffeeOptionSelection = () => {
             type="number"
             value={registInfo.shot}
             readOnly
-            disabled
           />
           <Icon
             {...iconPropsGenerator(
