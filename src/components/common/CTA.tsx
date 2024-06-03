@@ -6,14 +6,14 @@ import { useSetRecoilState } from 'recoil';
 import { css, cx } from 'styled-system/css';
 import { CTA_TEXTS } from '@/constants/texts';
 
-interface CTA {
+interface CTAprops {
   text: string;
   actionText?: string;
   btn?: boolean;
   fn?: () => void;
 }
 
-const CTA = ({ text, actionText = '', btn = true, fn }: CTA) => {
+const CTA = ({ text, actionText = '', btn = true, fn }: CTAprops) => {
   const setFooterState = useSetRecoilState(footerShowState);
   const handleActions = () => {
     actionText !== CTA_TEXTS.followDiscoveryAction &&
