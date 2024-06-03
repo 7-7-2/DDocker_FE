@@ -1,4 +1,4 @@
-import { lazy } from 'react';
+import { lazy, Suspense } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { BUTTON_TEXTS } from '@/constants/common';
@@ -31,46 +31,6 @@ const WaterPerCoffee = () => {
   const user = useRecoilValue(userInfoState);
   const { coffeeInfo: todayCoffeeData } = useGetTodayCoffeeData();
 
-  const anonymousCard = (
-    <div className={cx(Column, Center, MarginAuto)}>
-      <CTA
-        text={anonymous.card}
-        actionText={BUTTON_TEXTS.signIn1}
-        btn={true}
-        fn={useNavigateTo('/start/1')}
-      />
-    </div>
-  );
-
-  const notConsumedCoffee = (
-    <div className={cx(Column, Center, MarginAuto)}>
-      <span className={AlertMessage}>{signedIn.card.notConsumed}</span>
-      <Button
-        text={signedIn.btn}
-        onClick={useNavigateTo('/post/register')}
-        className={RegistCoffeeBtn}
-      />
-    </div>
-  );
-
-  const consumedCoffee = (
-    <ConsumedCoffeeContainer className={Column}>
-      <div className={cx(Flex, Between)}>
-        <CoffeeIntake data={todayCoffeeData} />
-        <WaterIntake coffeeCount={todayCoffeeData?.allCount} />
-      </div>
-      <TodayMenuList className={Flex}>
-        {todayCoffeeData?.allCount !== null &&
-          todayCoffeeData?.item.map((item, idx) => (
-            <TodayMenuItem
-              data={item}
-              key={idx}
-            />
-          ))}
-      </TodayMenuList>
-    </ConsumedCoffeeContainer>
-  );
-
   return (
     <Container
       className={cx(
@@ -80,12 +40,53 @@ const WaterPerCoffee = () => {
         Align,
         Between
       )}>
-      {!user.nickname && anonymousCard}
-      {user.nickname && !todayCoffeeData?.allCount && notConsumedCoffee}
+      {!user.nickname && (
+        <div className={cx(Column, Center, MarginAuto)}>
+          <Suspense>
+            <CTA
+              text={anonymous.card}
+              actionText={BUTTON_TEXTS.signIn1}
+              btn={true}
+              fn={useNavigateTo('/start/1')}
+            />
+          </Suspense>
+        </div>
+      )}
+      {user.nickname && !todayCoffeeData?.allCount && (
+        <div className={cx(Column, Center, MarginAuto)}>
+          <span className={AlertMessage}>{signedIn.card.notConsumed}</span>
+          <Suspense>
+            <Button
+              text={signedIn.btn}
+              onClick={useNavigateTo('/post/register')}
+              className={RegistCoffeeBtn}
+            />
+          </Suspense>
+        </div>
+      )}
       {user.nickname &&
         todayCoffeeData?.allCount &&
-        todayCoffeeData?.allCount >= 1 &&
-        consumedCoffee}
+        todayCoffeeData?.allCount >= 1 && (
+          <ConsumedCoffeeContainer className={Column}>
+            <div className={cx(Flex, Between)}>
+              <Suspense>
+                <CoffeeIntake data={todayCoffeeData} />
+              </Suspense>
+              <Suspense>
+                <WaterIntake coffeeCount={todayCoffeeData?.allCount} />
+              </Suspense>
+            </div>
+            <TodayMenuList className={Flex}>
+              {todayCoffeeData?.allCount !== null &&
+                todayCoffeeData?.item.map((item, idx) => (
+                  <TodayMenuItem
+                    data={item}
+                    key={idx}
+                  />
+                ))}
+            </TodayMenuList>
+          </ConsumedCoffeeContainer>
+        )}
     </Container>
   );
 };

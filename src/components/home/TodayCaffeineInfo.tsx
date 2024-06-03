@@ -1,12 +1,20 @@
-import TodayCaffeineText from '@/components/home/TodayCaffeineText';
-import WaterPerCoffee from '@/components/home/WaterPerCoffee';
+import { lazy, Suspense } from 'react';
 import { styled } from 'styled-system/jsx';
+
+const TodayCaffeineText = lazy(
+  () => import('@/components/home/TodayCaffeineText')
+);
+const WaterPerCoffee = lazy(() => import('@/components/home/WaterPerCoffee'));
 
 const TodayCaffeineInfo = () => {
   return (
     <Container>
-      <TodayCaffeineText />
-      <WaterPerCoffee />
+      <Suspense>
+        <TodayCaffeineText />
+      </Suspense>
+      <Suspense>
+        <WaterPerCoffee />
+      </Suspense>
     </Container>
   );
 };

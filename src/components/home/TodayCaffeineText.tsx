@@ -19,51 +19,49 @@ const TodayCaffeineText = () => {
   const allCount = todayCoffeeData?.allCount;
   const waterPerCoffeeCount = allCount && allCount * 2 - takedWater;
 
-  const anonymousText = !user?.nickname && (
-    <div className={Column}>
-      <span>{anonymous.first}</span>
-      <span>{anonymous.second}</span>
-      <span>{anonymous.third}</span>
-    </div>
-  );
-
-  const signedInText = (
-    <div className={Column}>
-      <span>
-        {user ? user?.nickname : userInfo.nickname}
-        {signedIn.first}
-      </span>
-      <div>
-        <CaffeineInfo>총 {user?.sum || 0}mg</CaffeineInfo>
-        {signedIn.second}
-      </div>
-      <span>{signedIn.third}</span>
-    </div>
-  );
-
-  const signedInMessage = (
-    <div>
-      {signedIn.messageText.first}
-      {waterPerCoffeeCount ? ` ${waterPerCoffeeCount}` : null}
-      {waterPerCoffeeCount
-        ? signedIn.messageText.second
-        : signedIn.messageText.third}
-    </div>
-  );
-
   return (
     <div className={HomeHeaderContent}>
       <div className={cx(Align, Between)}>
-        {user?.nickname ? signedInText : anonymousText}
+        {user?.nickname ? (
+          <div className={Column}>
+            <span>
+              {user ? user?.nickname : userInfo.nickname}
+              {signedIn.first}
+            </span>
+            <div>
+              <CaffeineInfo>총 {user?.sum || 0}mg</CaffeineInfo>
+              {signedIn.second}
+            </div>
+            <span>{signedIn.third}</span>
+          </div>
+        ) : (
+          <div className={Column}>
+            <span>{anonymous.first}</span>
+            <span>{anonymous.second}</span>
+            <span>{anonymous.third}</span>
+          </div>
+        )}
         <CoffeeImage
           src="/png/coffee_mainimg.png"
           alt="coffee"
+          srcset="/png/coffee_mainimg.png 120w"
+          sizes="(min-width: 360px) 120px, (max-width: 500px) 120px"
         />
       </div>
       <AlertBubble
         type={allCount && allCount >= 1 ? '' : null}
         message={
-          allCount && allCount >= 1 ? signedInMessage : anonymous.messageText
+          allCount && allCount >= 1 ? (
+            <div>
+              {signedIn.messageText.first}
+              {waterPerCoffeeCount ? ` ${waterPerCoffeeCount}` : null}
+              {waterPerCoffeeCount
+                ? signedIn.messageText.second
+                : signedIn.messageText.third}
+            </div>
+          ) : (
+            anonymous.messageText
+          )
         }
       />
     </div>

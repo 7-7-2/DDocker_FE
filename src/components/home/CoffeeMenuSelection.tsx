@@ -1,7 +1,7 @@
+import { lazy, Suspense } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import SelectBox from '@/components/common/SelectBox';
 import RegisterLabel from '@/components/post/RegisterLabel';
 import { CAFFEINE_FILTER_TEXTS } from '@/constants/home';
 import useGetCoffeeList from '@/hooks/useGetCoffeeList';
@@ -14,6 +14,7 @@ import { SmStyle } from '@/styles/styles';
 import { Column, Grid } from '@/styles/layout';
 
 const { coffeeMenu } = CAFFEINE_FILTER_TEXTS;
+const SelectBox = lazy(() => import('@/components/common/SelectBox'));
 
 const CoffeeMenuSelection = () => {
   const { postid } = useParams();
@@ -95,18 +96,20 @@ const CoffeeMenuSelection = () => {
             essential
           />
         )}
-        <SelectBox
-          value={registInfo.brand}
-          defaultValue={registInfo.brand || coffeeMenu.brand}
-          data={brandList}
-          onClick={selectBrand}
-        />
-        <SelectBox
-          value={registInfo.menu}
-          defaultValue={coffeeMenu.menu}
-          data={menuList}
-          onClick={selectMenu}
-        />
+        <Suspense>
+          <SelectBox
+            value={registInfo.brand}
+            defaultValue={registInfo.brand || coffeeMenu.brand}
+            data={brandList}
+            onClick={selectBrand}
+          />
+          <SelectBox
+            value={registInfo.menu}
+            defaultValue={coffeeMenu.menu}
+            data={menuList}
+            onClick={selectMenu}
+          />
+        </Suspense>
       </CoffeeSelectContainer>
     </div>
   );
