@@ -67,6 +67,9 @@ devDependencies:
   '@types/event-source-polyfill':
     specifier: ^1.0.5
     version: 1.0.5
+  '@types/gtag.js':
+    specifier: ^0.0.20
+    version: 0.0.20
   '@types/node':
     specifier: ^20.10.4
     version: 20.10.4
@@ -103,9 +106,6 @@ devDependencies:
   eslint-plugin-react-refresh:
     specifier: ^0.4.5
     version: 0.4.5(eslint@8.55.0)
-  imagemin-gifsicle:
-    specifier: ^7.0.0
-    version: 7.0.0
   imagemin-mozjpeg:
     specifier: ^10.0.0
     version: 10.0.0
@@ -118,9 +118,6 @@ devDependencies:
   puppeteer:
     specifier: ^22.10.0
     version: 22.10.0(typescript@5.3.2)
-  react-ga4:
-    specifier: ^2.1.0
-    version: 2.1.0
   rollup-plugin-visualizer:
     specifier: ^5.10.0
     version: 5.10.0(rollup@4.6.1)
@@ -2942,6 +2939,10 @@ packages:
     resolution: {integrity: sha512-iaiDuDI2aIFft7XkcwMzDWLqo7LVDixd2sR6B4wxJut9xcp/Ev9bO4EFg4rm6S9QxATLBj5OPxdeocgmhjwKaw==}
     dev: true
 
+  /@types/gtag.js@0.0.20:
+    resolution: {integrity: sha512-wwAbk3SA2QeU67unN7zPxjEHmPmlXwZXZvQEpbEUQuMCRGgKyE1m6XDuTUA9b6pCGb/GqJmdfMOY5LuDjJSbbg==}
+    dev: true
+
   /@types/hast@2.3.8:
     resolution: {integrity: sha512-aMIqAlFd2wTIDZuvLbhUT+TGvMxrNC8ECUIVtH6xxy0sQLs3iu6NO8Kp/VT5je7i5ufnebXzdV1dNDMnvaH6IQ==}
     dependencies:
@@ -5123,11 +5124,6 @@ packages:
     resolution: {integrity: sha512-tLIdonWTpABkU6Axg2yGChYdrOsy4V8xcm0IcyAP8fSsu6jiXLm5pgs083e4sq5fzNRZuAYolUbZyYmPvCKfwQ==}
     dev: true
 
-  /file-type@10.11.0:
-    resolution: {integrity: sha512-uzk64HRpUZyTGZtVuvrjP0FYxzQrBf4rojot6J65YMEbwBLB0CWm0CLojVpwpmFmxcE/lkvYICgfcGozbBq6rw==}
-    engines: {node: '>=6'}
-    dev: true
-
   /file-type@16.5.4:
     resolution: {integrity: sha512-/yFHK0aGjFEgDJjEKP0pWCplsPFPhwyfwevf/pVxiN0tmE4L9LmwWxWukdJSHdoCli4VgQLehjJtwQBnqmsKcw==}
     engines: {node: '>=10'}
@@ -5401,17 +5397,6 @@ packages:
       '@types/lodash.memoize': 4.1.9
       lodash.memoize: 4.1.2
     dev: false
-
-  /gifsicle@5.3.0:
-    resolution: {integrity: sha512-FJTpgdj1Ow/FITB7SVza5HlzXa+/lqEY0tHQazAJbuAdvyJtkH4wIdsR2K414oaTwRXHFLLF+tYbipj+OpYg+Q==}
-    engines: {node: '>=10'}
-    hasBin: true
-    requiresBuild: true
-    dependencies:
-      bin-build: 3.0.0
-      bin-wrapper: 4.1.0
-      execa: 5.1.1
-    dev: true
 
   /github-slugger@1.5.0:
     resolution: {integrity: sha512-wIh+gKBI9Nshz2o46B0B3f5k/W+WI9ZAv6y5Dn5WJ5SK1t0TnDimB4WE5rmTD05ZAIn8HALCZVmCsvj0w0v0lw==}
@@ -5795,15 +5780,6 @@ packages:
     engines: {node: '>= 4'}
     dev: true
 
-  /imagemin-gifsicle@7.0.0:
-    resolution: {integrity: sha512-LaP38xhxAwS3W8PFh4y5iQ6feoTSF+dTAXFRUEYQWYst6Xd+9L/iPk34QGgK/VO/objmIlmq9TStGfVY2IcHIA==}
-    engines: {node: '>=10'}
-    dependencies:
-      execa: 1.0.0
-      gifsicle: 5.3.0
-      is-gif: 3.0.0
-    dev: true
-
   /imagemin-mozjpeg@10.0.0:
     resolution: {integrity: sha512-DK85QNOjS3/GzWYfNB3CACMZD10sIQgFDv1+WTOnZljgltQTEyATjdyUVyjKu5q4sCESQdwvwq7WEZzJ5fFjlg==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
@@ -5961,13 +5937,6 @@ packages:
   /is-fullwidth-code-point@3.0.0:
     resolution: {integrity: sha512-zymm5+u+sCsSWyD9qNaejV3DFvhCKclKdizYaJUuHA83RLjb7nSuGnddCHGv0hk+KY7BMAlsWeK4Ueg6EV6XQg==}
     engines: {node: '>=8'}
-    dev: true
-
-  /is-gif@3.0.0:
-    resolution: {integrity: sha512-IqJ/jlbw5WJSNfwQ/lHEDXF8rxhRgF6ythk2oiEvhpG29F704eX9NO6TvPfMiq9DrbwgcEDnETYNcZDPewQoVw==}
-    engines: {node: '>=6'}
-    dependencies:
-      file-type: 10.11.0
     dev: true
 
   /is-glob@4.0.3:
@@ -7735,10 +7704,6 @@ packages:
   /react-fast-compare@3.2.2:
     resolution: {integrity: sha512-nsO+KSNgo1SbJqJEYRE9ERzo7YtYbou/OqjSQKxV7jcKox7+usiUVZOAC+XnDOABXggQTno0Y1CpVnuWEc1boQ==}
     dev: false
-
-  /react-ga4@2.1.0:
-    resolution: {integrity: sha512-ZKS7PGNFqqMd3PJ6+C2Jtz/o1iU9ggiy8Y8nUeksgVuvNISbmrQtJiZNvC/TjDsqD0QlU5Wkgs7i+w9+OjHhhQ==}
-    dev: true
 
   /react-helmet-async@2.0.5(react@18.2.0):
     resolution: {integrity: sha512-rYUYHeus+i27MvFE+Jaa4WsyBKGkL6qVgbJvSBoX8mbsWoABJXdEO0bZyi0F6i+4f0NuIb8AvqPMj3iXFHkMwg==}
