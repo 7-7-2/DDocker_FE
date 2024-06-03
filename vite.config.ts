@@ -5,7 +5,6 @@ import tsconfigpaths from 'vite-tsconfig-paths';
 import removeConsole from 'vite-plugin-remove-console';
 import imageminMozjpeg from 'imagemin-mozjpeg';
 import imageminPngQuant from 'imagemin-pngquant';
-import imageminGifSicle from 'imagemin-gifsicle';
 import viteImagemin from '@vheemstra/vite-plugin-imagemin';
 import imageminSvgo from 'imagemin-svgo';
 import prerender from '@prerenderer/rollup-plugin';
@@ -60,9 +59,20 @@ export default defineConfig({
       plugins: {
         jpg: imageminMozjpeg(),
         png: imageminPngQuant(),
-        gif: imageminGifSicle(),
         svg: imageminSvgo()
       }
     })
-  ]
+  ],
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: id => {
+          if (id.indexOf('node_modules') !== -1) {
+            const module = id.split('node_modules/').pop().split('/')[0];
+            return `vendor-${module}`;
+          }
+        }
+      }
+    }
+  }
 });
