@@ -1,12 +1,17 @@
-import CaffeineFilter from '@/components/home/CaffeineFilter';
-import HomeFooter from '@/components/home/HomeFooter';
-import TodayCaffeineInfo from '@/components/home/TodayCaffeineInfo';
-import WeeklyPopular from '@/components/home/WeeklyPopular';
+import { lazy, Suspense } from 'react';
+
 import SEOMeta from '@/components/common/SEOMeta';
 import SEO_DATA from '@/constants/SEOData';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import useGetUserInfo from '@/hooks/useGetUserInfo';
 import { styled } from 'styled-system/jsx';
+
+const CaffeineFilter = lazy(() => import('../components/home/CaffeineFilter'));
+const TodayCaffeineInfo = lazy(
+  () => import('../components/home/TodayCaffeineInfo')
+);
+const HomeFooter = lazy(() => import('../components/home/HomeFooter'));
+const WeeklyPopular = lazy(() => import('../components/home/WeeklyPopular'));
 
 const Home = () => {
   useComposeHeader(true, '', 'icons');
@@ -16,11 +21,19 @@ const Home = () => {
     <>
       <SEOMeta pageData={SEO_DATA.home} />
       <Container>
-        <TodayCaffeineInfo />
-        <CaffeineFilter />
-        <WeeklyPopular />
+        <Suspense>
+          <TodayCaffeineInfo />
+        </Suspense>
+        <Suspense>
+          <CaffeineFilter />
+        </Suspense>
+        <Suspense>
+          <WeeklyPopular />
+        </Suspense>
       </Container>
-      <HomeFooter />
+      <Suspense>
+        <HomeFooter />
+      </Suspense>
     </>
   );
 };
