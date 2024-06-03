@@ -10,7 +10,6 @@ import {
   StartPageHeight,
   RegisterPageHeight
 } from '@/styles/styles';
-import useTrackRoute from '@/hooks/google/useTrackRoute';
 import { useFetchSSE } from '@/hooks/notification/useFetchSSE';
 
 const Header = lazy(() => import('../components/common/Header'));
@@ -18,12 +17,9 @@ const Footer = lazy(() => import('../components/common/Footer'));
 
 let PagesHeight;
 
-const { PROD } = import.meta.env;
-
 const Layout = () => {
   useFetchSSE();
 
-  PROD && useTrackRoute();
   const { pathname } = useLocation();
   const footerState = useRecoilValue(footerShowState);
   const searchPredi = pathname.startsWith('/search');
