@@ -8,11 +8,16 @@ import imageminPngQuant from 'imagemin-pngquant';
 import viteImagemin from '@vheemstra/vite-plugin-imagemin';
 import imageminSvgo from 'imagemin-svgo';
 import prerender from '@prerenderer/rollup-plugin';
+import compression from 'vite-plugin-compression2';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
+    compression({
+      include: [/\.js/, /\.css/],
+      threshold: 1400
+    }),
     prerender({
       routes: [
         '/',
