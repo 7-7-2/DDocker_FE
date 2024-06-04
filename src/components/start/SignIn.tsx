@@ -26,7 +26,6 @@ const { signInBtn, startText } = SIGININ_TEXTS;
 
 const SignIn = () => {
   const [searchParams] = useSearchParams();
-  const { accessToken } = useCachedUserInfo();
   const code = searchParams.get('code');
   const navToHome = useNavigateTo('/');
   const navToSignUp = useNavigateTo('/start/2');
@@ -42,25 +41,26 @@ const SignIn = () => {
     }
   };
 
-  const verifyMembership = async (accessToken: string | null) => {
+  const verifyMembership = async () => {
     const social = await useGetCacheData('user', '/social');
+    const accessToken = await useGetCacheData('user', '/accessToken');
+    if (accessToken) return navToHome();
     const res =
       !accessToken &&
       code &&
       social &&
       (await ddockerSignIn(code, social.cacheData));
     if (res) {
-      const { accessToken } = res as ddockerSignInType;
+      const { accessToken } = (await res) as ddockerSignInType;
       const singIn = async () => {
         (await getMyInfo()) && navToHome();
       };
-      return accessToken ? singIn() : navToSignUp();
+      return accessToken ? await singIn() : navToSignUp();
     }
-    accessToken && navToHome();
   };
 
   useEffect(() => {
-    verifyMembership(accessToken);
+    verifyMembership();
   }, []);
 
   return (
