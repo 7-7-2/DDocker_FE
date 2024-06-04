@@ -1,4 +1,4 @@
-const STATIC_CACHE_NAME = 'ddocker-static-v7';
+const STATIC_CACHE_NAME = 'ddocker-static-v8';
 const DYNAMIC_CACHE_NAME = 'ddocker-dynamic-v1';
 
 const ASSETS = [
@@ -180,5 +180,6 @@ const handleError = error => {
 
 self.addEventListener('fetch', event => {
   if (event.request.headers.get('Accept') === 'text/event-stream') return;
+  if (event.request.url.includes('start')) return;
   event.respondWith(cacheOrFetch(event.request).catch(handleError));
 });
