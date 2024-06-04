@@ -1,4 +1,4 @@
-const STATIC_CACHE_NAME = 'ddocker-static-v8';
+const STATIC_CACHE_NAME = 'ddocker-static-v9';
 const DYNAMIC_CACHE_NAME = 'ddocker-dynamic-v1';
 
 const ASSETS = [
