@@ -15,7 +15,7 @@ const allowedPages = ['1', '2', '3'];
 const Start = () => {
   useShowFooter(false);
   useCancelSignUp();
-  const { accessToken, userData } = useCachedUserInfo();
+  const { userData } = useCachedUserInfo();
   const { id } = useParams();
 
   const notAllowedPages = id && !allowedPages.includes(id);
@@ -25,15 +25,14 @@ const Start = () => {
 
   useEffect(() => {
     notAllowedPages && goToStartPage();
-    notSignUp && goToStartPage();
-    accessToken && userData && goToHomePage();
+    notSignUp ? goToStartPage() : goToHomePage();
   }, []);
 
   return (
     <>
       <SEOMeta pageData={id === '1' ? SEO_DATA.start : SEO_DATA.signUp} />
       <div>
-        {!accessToken && id === '1' && (
+        {id === '1' && (
           <Suspense>
             <SignIn />
           </Suspense>
