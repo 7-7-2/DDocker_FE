@@ -1,4 +1,4 @@
-const STATIC_CACHE_NAME = 'ddocker-static-v6';
+const STATIC_CACHE_NAME = 'ddocker-static-v7';
 const DYNAMIC_CACHE_NAME = 'ddocker-dynamic-v1';
 
 const ASSETS = [
@@ -25,7 +25,7 @@ const ASSETS = [
   '/png/angelinus.png',
   '/png/banapresso.png',
   '/png/bbak.png',
-  '/png/coffee_mainimg.png',
+  '/png/coffee_mainimg.webp',
   '/png/coffeebean.png',
   '/png/compose.png',
   '/png/ediya.png',
