@@ -42,9 +42,9 @@ const TodayCaffeineText = () => {
           </div>
         )}
         <CoffeeImage
-          src="/png/coffee_mainimg.png"
+          src="/png/coffee_mainimg.webp"
           alt="coffee"
-          srcSet="/png/coffee_mainimg.png 120w"
+          srcSet="/png/coffee_mainimg.webp 120w"
           sizes="(min-width: 360px) 120px, (max-width: 500px) 120px"
         />
       </div>
