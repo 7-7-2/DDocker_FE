@@ -46,8 +46,7 @@ const SignIn = () => {
     if (res) {
       const { accessToken } = res as ddockerSignInType;
       const singIn = async () => {
-        await getMyInfo();
-        navToHome();
+        (await getMyInfo()) && navToHome();
       };
       return accessToken ? singIn() : navToSignUp();
     }
