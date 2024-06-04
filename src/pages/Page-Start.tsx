@@ -24,10 +24,11 @@ const Start = () => {
   const goToStartPage = useNavigateTo('/start/1');
 
   useEffect(() => {
+    console.log(accessToken);
     notAllowedPages && goToStartPage();
     notSignUp && goToStartPage();
-    accessToken && userData && goToHomePage();
-  }, []);
+    accessToken && goToHomePage();
+  }, [accessToken]);
 
   return (
     <>

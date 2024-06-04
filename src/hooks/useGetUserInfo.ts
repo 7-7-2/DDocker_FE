@@ -39,7 +39,8 @@ function useGetUserInfo(profileId?: string | number | undefined) {
       res && setCachedUser(res.data);
       return;
     }
-    userData && setCachedUser(userData);
+
+    return userData && setCachedUser(userData);
   };
 
   useEffect(() => {
