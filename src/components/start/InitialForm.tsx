@@ -11,6 +11,7 @@ import EditProfileImg from '@/components/mypage/EditProfileImg';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { useImageCropper } from '@/hooks/post/useImageCropper';
 import { useCompressImage } from '@/hooks/useCompressImage';
+import { useCancelSignUp } from '@/hooks/start/useCancelSignUp';
 
 import { TEXT } from '@/constants/texts';
 import { BUTTON_TEXTS } from '@/constants/common';
@@ -34,6 +35,7 @@ const { message } = INITIAL_FORM_TEXTS;
 
 const InitialForm = () => {
   useComposeHeader(false, '기본정보', 'close');
+  useCancelSignUp();
   const navigate = useNavigate();
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
   const [userInit, setUserInit] = useRecoilState(authState);

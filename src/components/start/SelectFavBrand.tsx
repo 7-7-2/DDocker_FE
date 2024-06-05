@@ -13,6 +13,7 @@ import useGetCoffeeList from '@/hooks/useGetCoffeeList';
 import { useCloudStorage } from '@/hooks/useCloudStorage';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { useDeleteCacheData } from '@/hooks/useDeleteCacheData';
+import { useCancelSignUp } from '@/hooks/start/useCancelSignUp';
 
 import { authState } from '@/atoms/atoms';
 import { InitialformTypes } from '@/types/types';
@@ -36,6 +37,7 @@ const { message } = SELECTFAVBRAND_TEXTS;
 
 const SelectFavBrand = () => {
   useComposeHeader(false, '기본정보', 'close');
+  useCancelSignUp();
   const navigateToHome = useNavigateTo('/');
   const { state: imageFile } = useLocation();
   const { uploadStorage } = useCloudStorage();
