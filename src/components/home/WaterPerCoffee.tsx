@@ -30,7 +30,8 @@ const { anonymous, signedIn } = TODAY_CAFFEINE_INFO_TEXTS;
 const WaterPerCoffee = () => {
   const user = useRecoilValue(userInfoState);
   const { coffeeInfo: todayCoffeeData } = useGetTodayCoffeeData();
-
+  const navigateToStart = useNavigateTo('/start/1');
+  const navigateToRegister = useNavigateTo('/post/register');
   return (
     <Container
       className={cx(
@@ -47,7 +48,7 @@ const WaterPerCoffee = () => {
               text={anonymous.card}
               actionText={BUTTON_TEXTS.signIn1}
               btn={true}
-              fn={useNavigateTo('/start/1')}
+              fn={navigateToStart}
             />
           </Suspense>
         </div>
@@ -58,7 +59,7 @@ const WaterPerCoffee = () => {
           <Suspense>
             <Button
               text={signedIn.btn}
-              onClick={useNavigateTo('/post/register')}
+              onClick={navigateToRegister}
               className={RegistCoffeeBtn}
             />
           </Suspense>
