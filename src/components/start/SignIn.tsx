@@ -1,14 +1,9 @@
-import { useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
-
 import Icon from '@/components/common/Icon';
 import { SIGININ_TEXTS } from '@/constants/start';
-import { getSocialAuth, ddockerSignIn, getMyInfo } from '@/api/user';
+import { getSocialAuth } from '@/api/user';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
-import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
-import useGetCacheData from '@/hooks/useGetCacheData';
-import { ddockerSignInType } from '@/types/types';
+import { useVerifyMembership } from '@/hooks/start/useVerifyMembership';
 
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
@@ -25,12 +20,6 @@ import { StartBtn, NoneBtn, SignInBtn } from '@/styles/styles';
 const { signInBtn, startText } = SIGININ_TEXTS;
 
 const SignIn = () => {
-  const [searchParams] = useSearchParams();
-  const { accessToken } = useCachedUserInfo();
-  const code = searchParams.get('code');
-  const navToHome = useNavigateTo('/');
-  const navToSignUp = useNavigateTo('/start/2');
-
   const handleSocialAuth: React.MouseEventHandler<HTMLButtonElement> = async (
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
@@ -41,27 +30,6 @@ const SignIn = () => {
       console.log(error);
     }
   };
-
-  const verifyMembership = async (accessToken: string | null) => {
-    const social = await useGetCacheData('user', '/social');
-    const res =
-      !accessToken &&
-      code &&
-      social &&
-      (await ddockerSignIn(code, social.cacheData));
-    if (res) {
-      const { accessToken } = res as ddockerSignInType;
-      const singIn = async () => {
-        (await getMyInfo()) && navToHome();
-      };
-      return accessToken ? singIn() : navToSignUp();
-    }
-    accessToken && navToHome();
-  };
-
-  useEffect(() => {
-    verifyMembership(accessToken);
-  }, []);
 
   return (
     <Container>
