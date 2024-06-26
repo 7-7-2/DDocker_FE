@@ -71,6 +71,7 @@ const UserTitle = styled.span`
 const UserAboutMe = styled.div`
   margin: 4px 8% 18px;
   text-align: center;
+  white-space: pre-wrap;
 `;
 const UserNameText = styled.span`
   color: var(--colors-mid-grey) !important;
