@@ -290,12 +290,15 @@ export const SearchInput = cx(
     }
   `
 );
-export const StartPageContainer = css`
-  height: calc(100vh - 78px);
-  margin: 0 -20px;
-  padding: 0 20px;
-  overflow-x: visible;
-  overflow-y: auto;
+
+export const StartPageBtnContainer = css`
+  position: absolute;
+  background-color: #ffffff;
+  border-top: 1px solid #edecec;
+  padding: 10px 20px;
+  bottom: 0;
+  right: 0;
+  left: 0;
 `;
 
 export const Cursor = css`

@@ -25,7 +25,7 @@ import { Grid } from '@/styles/layout';
 import {
   DefaultBtn,
   DisabledBtn,
-  StartPageContainer,
+  StartPageBtnContainer,
   StartBrand,
   StartBrandSub,
   MarginT28
@@ -74,35 +74,34 @@ const SelectFavBrand = () => {
 
   return (
     <>
-      <div className={StartPageContainer}>
-        <div className={cx(StartBrand, MarginT28)}>
-          <span>{message.first}</span>
-          <br />
-          <span className={StartBrandSub}>{message.second}</span>
-        </div>
-        <BrandItemContainer className={Grid}>
-          {brandList?.map(item => (
-            <BrandItem
-              key={item}
-              brand={item}
-              icon={item}
-            />
-          ))}
-        </BrandItemContainer>
+      <div className={cx(StartBrand, MarginT28)}>
+        <span>{message.first}</span>
+        <br />
+        <span className={StartBrandSub}>{message.second}</span>
       </div>
-
-      <Button
-        text={BUTTON_TEXTS.start}
-        onClick={handleStartBtn(imageFile)}
-        className={user.brand ? DefaultBtn : cx(DefaultBtn, DisabledBtn)}
-      />
+      <BrandItemContainer className={Grid}>
+        {brandList?.map(item => (
+          <BrandItem
+            key={item}
+            brand={item}
+            icon={item}
+          />
+        ))}
+      </BrandItemContainer>
+      <div className={StartPageBtnContainer}>
+        <Button
+          text={BUTTON_TEXTS.start}
+          onClick={handleStartBtn(imageFile)}
+          className={user.brand ? DefaultBtn : cx(DefaultBtn, DisabledBtn)}
+        />
+      </div>
     </>
   );
 };
 
 const BrandItemContainer = styled.div`
   gap: 12px;
-  margin: 2.375rem auto 3.75rem;
+  margin: 38px auto 100px;
   grid-template-columns: 1fr 1fr 1fr;
 `;
 

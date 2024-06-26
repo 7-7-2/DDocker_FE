@@ -26,9 +26,9 @@ import {
   DisabledBtn,
   Regular,
   Semibold,
-  StartPageContainer,
   PrfileTitle,
-  MarginT28
+  MarginT28,
+  StartPageBtnContainer
 } from '@/styles/styles';
 
 const { message } = INITIAL_FORM_TEXTS;
@@ -75,46 +75,53 @@ const InitialForm = () => {
 
   return (
     <div className={Column}>
-      <div className={StartPageContainer}>
-        <div className={cx(Regular, PrfileTitle, MarginT28)}>
-          {message.first}
-          <br />
-          <span className={Semibold}>{message.profile}</span>
-          {message.second}
-        </div>
-        <ProfileContainer>
-          <EditProfileImg {...editProps} />
-          <ImgCropper
-            stencilType={TEXT.circle}
-            aspectRatio={1}
-            {...cropperProps}
-          />
-        </ProfileContainer>
-        <CheckNickname />
+      <div className={cx(Regular, PrfileTitle, MarginT28)}>
+        {message.first}
+        <br />
+        <span className={Semibold}>{message.profile}</span>
+        {message.second}
+      </div>
+      <ProfileContainer>
+        <EditProfileImg {...editProps} />
+        <ImgCropper
+          stencilType={TEXT.circle}
+          aspectRatio={1}
+          {...cropperProps}
+        />
+      </ProfileContainer>
+      <CheckNickname />
+      <InputAboutMeContainer>
         <InputAboutMe
           inputRef={inputRef}
           Icon={false}
         />
+      </InputAboutMeContainer>
+
+      <div className={StartPageBtnContainer}>
+        <Button
+          text={BUTTON_TEXTS.next}
+          onClick={
+            userInit?.nickname && isApproval
+              ? handleNextPage
+              : () => navigate('/start/2')
+          }
+          className={
+            userInit?.nickname && isApproval
+              ? cx(DefaultBtn)
+              : cx(DefaultBtn, DisabledBtn)
+          }
+        />
       </div>
-      <Button
-        text={BUTTON_TEXTS.next}
-        onClick={
-          userInit?.nickname && isApproval
-            ? handleNextPage
-            : () => navigate('/start/2')
-        }
-        className={
-          userInit?.nickname && isApproval
-            ? DefaultBtn
-            : cx(DefaultBtn, DisabledBtn)
-        }
-      />
     </div>
   );
 };
 
 const ProfileContainer = styled.div`
   margin: 50px 36px;
+`;
+
+const InputAboutMeContainer = styled.div`
+  margin-bottom: 100px;
 `;
 
 export default InitialForm;

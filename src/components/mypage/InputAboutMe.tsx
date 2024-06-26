@@ -43,30 +43,7 @@ const InputAboutMe = ({
 
 const Container = styled.div`
   margin-top: 24px;
-`;
-
-const TextAreaBox = styled.div`
-  width: 100%;
-  border-radius: 10px;
-  padding: 14px 16px;
-  border: 1px solid #ccc;
-  &:focus-within {
-    border: 1px solid var(--colors-main);
-  }
-`;
-
-const Textarea = styled.textarea`
-  height: 64px;
-`;
-
-const InputByteBox = styled.div`
-  justify-content: flex-end;
-`;
-
-const LengthLimit = styled.div`
-  display: flex;
-  color: #a6a6a6;
-  align-items: flex-end;
+  /* margin-bottom: 100px; */
 `;
 
 export default InputAboutMe;
