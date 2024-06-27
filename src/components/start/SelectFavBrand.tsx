@@ -27,8 +27,7 @@ import {
   DisabledBtn,
   StartPageBtnContainer,
   StartBrand,
-  StartBrandSub,
-  MarginT28
+  StartBrandDescription
 } from '@/styles/styles';
 
 const imagePath = import.meta.env.VITE_R2_USER_IMAGE_PATH;
@@ -74,11 +73,8 @@ const SelectFavBrand = () => {
 
   return (
     <>
-      <div className={cx(StartBrand, MarginT28)}>
-        <span>{message.first}</span>
-        <br />
-        <span className={StartBrandSub}>{message.second}</span>
-      </div>
+      <div className={StartBrand}>{message.title}</div>
+      <div className={StartBrandDescription}>{message.description}</div>
       <BrandItemContainer className={Grid}>
         {brandList?.map(item => (
           <BrandItem
@@ -101,7 +97,7 @@ const SelectFavBrand = () => {
 
 const BrandItemContainer = styled.div`
   gap: 12px;
-  margin: 38px auto 100px;
+  margin: 28px auto 100px;
   grid-template-columns: 1fr 1fr 1fr;
 `;
 

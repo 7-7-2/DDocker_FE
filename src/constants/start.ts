@@ -20,7 +20,7 @@ export const INITIAL_FORM_TEXTS = {
 
 export const SELECTFAVBRAND_TEXTS = {
   message: {
-    first: '선호 브랜드를 선택해주세요',
-    second: '선호하는 커피 브랜드를 한가지만 선택해주세요.'
+    title: '선호 브랜드를 선택해주세요',
+    description: `선택된 브랜드는 기본 브랜드로 설정되어 쉽게 조회할 수 있고, 해당 브랜드를 피드에서 먼저 만나볼 수 있습니다.`
   }
 };
