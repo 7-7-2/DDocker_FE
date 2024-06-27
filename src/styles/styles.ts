@@ -566,15 +566,20 @@ export const StartBrand = cx(
     color: #313131;
     font-size: var(--font-sizes-xxl);
     line-height: 32px;
+    margin-top: 28px;
   `
 );
 
-export const StartBrandSub = cx(
+export const StartBrandDescription = cx(
   Regular,
   css`
+    margin-top: 4px;
     color: var(--colors-mid-grey);
     font-size: var(--font-sizes-base);
-    line-height: 24px;
+    line-height: 22px;
+    letter-spacing: -0.4px;
+    white-space: pre-wrap;
+    text-align: justify;
   `
 );
 
