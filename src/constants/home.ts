@@ -1,16 +1,25 @@
 export const TODAY_CAFFEINE_INFO_TEXTS = {
   anonymous: {
-    first: '안녕하세요!',
-    second: '건강한 커피 습관을',
-    third: '만들어보아요',
+    title: `안녕하세요!
+건강한 커피 습관을
+만들어보아요
+    `,
     messageText: '커피 1잔에 물 2잔을 마시고 수분을 보충하세요!',
     card: `원활한 서비스 이용을 위해 
     로그인을 해주세요.`
   },
   signedIn: {
-    first: '님,',
-    second: '의',
-    third: '카페인을 섭취했어요',
+    sir: '님,',
+    emphasize: {
+      notCounsumed: '오늘 마신 커피',
+      over: '초과',
+      default: 'mg'
+    },
+    sub: {
+      notCounsumed: ['를', '기록해보세요!'],
+      over: ['일일 권장량을', '했어요!'],
+      default: ['오늘 권장량까지', ' 남았어요']
+    },
     messageText: {
       first: '물',
       second: '잔을 마시고 부족한 수분을 보충하세요!',

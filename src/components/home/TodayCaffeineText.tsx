@@ -1,21 +1,22 @@
 import { useRecoilValue } from 'recoil';
+import TodayCaffeineTitle from '@/components/home/TodayCaffeineTitle';
 import AlertBubble from '@/components/common/AlertBubble';
 import { TODAY_CAFFEINE_INFO_TEXTS } from '@/constants/home';
-import { authState, takedWaterState, userInfoState } from '@/atoms/atoms';
+import { takedWaterState, userInfoState } from '@/atoms/atoms';
 import { useGetTodayCoffeeData } from '@/hooks/home/useGetTodayCoffeeData';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { HomeHeaderContent } from '@/styles/styles';
-import { Align, Between, Column } from '@/styles/layout';
+import { Align, Between } from '@/styles/layout';
 
 const { anonymous, signedIn } = TODAY_CAFFEINE_INFO_TEXTS;
 
 const TodayCaffeineText = () => {
   const takedWater = useRecoilValue(takedWaterState);
-  const userInfo = useRecoilValue(authState);
   const user = useRecoilValue(userInfoState);
   const { coffeeInfo: todayCoffeeData } = user && useGetTodayCoffeeData();
+  const caffeineSum = todayCoffeeData?.caffeineSum;
   const allCount = todayCoffeeData?.allCount;
   const waterPerCoffeeCount = allCount && allCount * 2 - takedWater;
 
@@ -23,23 +24,12 @@ const TodayCaffeineText = () => {
     <div className={HomeHeaderContent}>
       <div className={cx(Align, Between)}>
         {user?.nickname ? (
-          <div className={Column}>
-            <span>
-              {user ? user?.nickname : userInfo.nickname}
-              {signedIn.first}
-            </span>
-            <div>
-              <CaffeineInfo>총 {user?.sum || 0}mg</CaffeineInfo>
-              {signedIn.second}
-            </div>
-            <span>{signedIn.third}</span>
-          </div>
+          <TodayCaffeineTitle
+            allCount={allCount}
+            caffeineSum={caffeineSum}
+          />
         ) : (
-          <div className={Column}>
-            <span>{anonymous.first}</span>
-            <span>{anonymous.second}</span>
-            <span>{anonymous.third}</span>
-          </div>
+          <span>{anonymous.title}</span>
         )}
         <CoffeeImage
           src="/png/coffee_mainimg.webp"
@@ -67,10 +57,6 @@ const TodayCaffeineText = () => {
     </div>
   );
 };
-
-const CaffeineInfo = styled.span`
-  color: var(--colors-main);
-`;
 
 const CoffeeImage = styled.img`
   width: 120px;
