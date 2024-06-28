@@ -49,7 +49,7 @@ export const useGetTodayCoffeeData = () => {
   };
 
   useEffect(() => {
-    getDataList(todayCoffeeData);
+    todayCoffeeData && getDataList(todayCoffeeData);
   }, [todayCoffeeData]);
 
   return { coffeeInfo, updateTodayCoffeeData };
