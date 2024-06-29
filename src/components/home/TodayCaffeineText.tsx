@@ -29,7 +29,7 @@ const TodayCaffeineText = () => {
             caffeineSum={caffeineSum}
           />
         ) : (
-          <span>{anonymous.title}</span>
+          <AnonymousTitle>{anonymous.title}</AnonymousTitle>
         )}
         <CoffeeImage
           src="/png/coffee_mainimg.webp"
@@ -57,6 +57,11 @@ const TodayCaffeineText = () => {
     </div>
   );
 };
+
+const AnonymousTitle = styled.span`
+  margin-top: 24px;
+  white-space: pre-wrap;
+`;
 
 const CoffeeImage = styled.img`
   width: 120px;
