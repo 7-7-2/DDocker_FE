@@ -48,7 +48,7 @@ const HomeFooter = () => {
 
 const Container = styled.div`
   width: 100vw;
-  background-color: #fff;
+  background-color: var(--colors-tertiary);
   margin: 48px -20px -20px;
   padding: 30px 20px 24px;
   line-height: 22px;

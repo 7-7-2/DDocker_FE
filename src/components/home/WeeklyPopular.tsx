@@ -39,7 +39,7 @@ const WeeklyPopular = () => {
 };
 
 const WeeklyPopularTitle = styled.div`
-  margin-top: 24px;
+  margin: 36px 0 12px;
 `;
 const WeeklyPopularList = styled.div`
   gap: 8px 0;
@@ -48,6 +48,6 @@ const WeeklyPopularList = styled.div`
 const Dividerline = styled.div`
   width: 100vw;
   margin-left: -20px;
-  border-top: 8px solid #fff;
+  border-top: 12px solid var(--colors-tertiary);
 `;
 export default WeeklyPopular;

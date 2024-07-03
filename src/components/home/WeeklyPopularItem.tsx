@@ -33,6 +33,7 @@ const Container = styled.div`
   border-radius: 50px;
   padding: 8px 20px;
   background: #fff;
+  border: 1px solid var(--colors-border-grey);
 `;
 
 const BrandInfo = styled.div`

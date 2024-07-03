@@ -49,7 +49,7 @@ const Container = styled.div`
     left: -20px;
     right: -20px;
     bottom: -48px;
-    background-color: #f5f5f5;
+    background-color: #ffffff;
     z-index: -1;
   }
 `;
