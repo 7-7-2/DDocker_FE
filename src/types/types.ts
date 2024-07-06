@@ -135,6 +135,7 @@ export interface RegisterPostTypes {
   menu: string;
   size: string;
   shot: number;
+  concentration: string;
   caffeine: number;
   post_title: string | undefined;
   photo: string | undefined;

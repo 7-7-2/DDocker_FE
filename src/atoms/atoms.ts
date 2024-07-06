@@ -75,6 +75,7 @@ export const registPostState = atom<RegisterPostTypes>({
     menu: '',
     size: 'Regular',
     shot: 0,
+    concentration: '기본',
     caffeine: 0,
     post_title: '',
     photo: '',
