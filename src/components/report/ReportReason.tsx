@@ -2,16 +2,17 @@ import React from 'react';
 import { POST_REPORT_TEXTS } from '@/constants/report';
 
 import { styled } from 'styled-system/jsx';
-import { cx } from 'styled-system/css';
+import { css, cx } from 'styled-system/css';
 import { Align, Flex } from '@/styles/layout';
 import { Semibold } from '@/styles/styles';
+import RadioBtn from '@/components/common/RadioBtn';
 
 const { reason, title } = POST_REPORT_TEXTS;
 
 const ReportReason = ({
   handleOnClick: handleSelectOption
 }: {
-  handleOnClick: React.MouseEventHandler<HTMLElement>;
+  handleOnClick: React.ChangeEventHandler<HTMLElement>;
 }) => {
   return (
     <SelecteRadioBtn>
@@ -21,20 +22,11 @@ const ReportReason = ({
           <RadioContainer
             key={item}
             className={cx(Flex, Align)}>
-            <RadioBtn>
-              <Radio
-                type="radio"
-                name="options"
-                id={item}
-                onClick={handleSelectOption}
-              />
-            </RadioBtn>
-            <label
-              htmlFor={item}
+            <RadioBtn
+              className={RadioBtnContainer}
               id={item}
-              onClick={handleSelectOption}>
-              {item}
-            </label>
+              fn={handleSelectOption}
+            />
           </RadioContainer>
         ))}
       </form>
@@ -61,25 +53,8 @@ const RadioContainer = styled.div`
   line-height: 22px;
 `;
 
-const RadioBtn = styled.div`
+const RadioBtnContainer = css`
   border: 1px solid var(--colors-main-dark);
-  border-radius: 50%;
-  width: 16px;
-  height: 16px;
-  position: relative;
 `;
 
-const Radio = styled.input`
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  &[type='radio'] {
-    appearance: none;
-    border-radius: 50%;
-  }
-  &[type='radio']:checked {
-    background-color: var(--colors-main-dark);
-    border: 2px solid #fff;
-  }
-`;
 export default ReportReason;
