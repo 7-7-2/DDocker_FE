@@ -1,6 +1,6 @@
 import Icon from '@/components/common/Icon';
-import CoffeeMenuSelection from '@/components/home/CoffeeMenuSelection';
-import CoffeeOptionSelection from '@/components/common/CoffeeOptionSelection';
+import CoffeeMenuSelection from '@/components/common/coffeeSelection/CoffeeMenuSelection';
+import CoffeeOptionSelection from '@/components/common/coffeeSelection/CoffeeOptionSelection';
 import { CAFFEINE_FILTER_TEXTS } from '@/constants/home';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { useResetSelectedCoffee } from '@/hooks/useResetSelectedCoffee';

@@ -30,6 +30,7 @@ export const useUpadatePost = (
         menu: postData.menu,
         size: postData.size,
         shot: postData.shot,
+        concentration: postData.concentration,
         caffeine: postData.caffeine,
         post_title: postData.post_title || '',
         photo: postData.photo,
