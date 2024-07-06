@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import Icon from '@/components/common/Icon';
 import Button from '@/components/common/Button';
 import RegisterLabel from '@/components/post/RegisterLabel';
+import RadioBtn from '@/components/common/RadioBtn';
 import { CAFFEINE_FILTER_TEXTS } from '@/constants/home';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { caffeineFilterState, registPostState } from '@/atoms/atoms';
@@ -11,12 +12,19 @@ import { caffeineFilterState, registPostState } from '@/atoms/atoms';
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Align, Between, Column, Flex } from '@/styles/layout';
-import { BtnColorWhite, SmStyle, MarginB6, MarginB8 } from '@/styles/styles';
+import {
+  BtnColorWhite,
+  SmStyle,
+  MarginB8,
+  CaffeineFilterLabel,
+  Medium
+} from '@/styles/styles';
 
 const { coffeeOption } = CAFFEINE_FILTER_TEXTS;
 
 const CoffeeOptionSelection = () => {
   const { postid } = useParams();
+
   const register = postid === 'register';
   const size: string[] = ['Regular', 'Large', 'Venti'];
 
@@ -25,6 +33,7 @@ const CoffeeOptionSelection = () => {
 
   const caffeineValue = caffeine.caffeine;
   const menuCaffeineValue = caffeine.menuCaffeine;
+  const mild = registInfo.concentration === coffeeOption.concentrationOption[0];
 
   const setRegisterData = (key: string, value: string | number) => {
     const newRegistData = {
@@ -37,24 +46,39 @@ const CoffeeOptionSelection = () => {
   // set coffee size info
   const selectSize = (e: React.MouseEvent<HTMLButtonElement>) => {
     setRegisterData('size', e.currentTarget.value);
-
     const size =
-      e.currentTarget.value === 'Large'
+      registInfo.menu && e.currentTarget.value === 'Large'
         ? 75
-        : e.currentTarget.value === 'Venti'
+        : registInfo.menu && e.currentTarget.value === 'Venti'
           ? 150
           : 0;
 
     setCaffeine({
-      caffeine: menuCaffeineValue + size + registInfo.shot * 75,
+      caffeine:
+        menuCaffeineValue + size + registInfo.shot * 75 - (mild ? 75 : 0),
       menuCaffeine: menuCaffeineValue
     });
   };
 
-  // set coffee shot info
+  // set personal options
+  const selectconcentrationOption = (e: React.ChangeEvent<HTMLElement>) => {
+    const size =
+      registInfo.size === 'Large' ? 75 : registInfo.size === 'Venti' ? 150 : 0;
+    setRegisterData('concentration', e.currentTarget.id);
+    setCaffeine({
+      caffeine:
+        registInfo.menu &&
+        e.currentTarget.id === coffeeOption.concentrationOption[0]
+          ? caffeineValue - 75
+          : menuCaffeineValue + size,
+      menuCaffeine: menuCaffeineValue
+    });
+  };
+
   const selectMinusBtn = () => {
-    registInfo.shot >= 1 && setRegisterData('shot', registInfo.shot - 1);
-    registInfo.shot >= 1 &&
+    const isValid = registInfo.menu && registInfo.shot >= 1;
+    isValid && setRegisterData('shot', registInfo.shot - 1);
+    isValid &&
       setCaffeine({
         caffeine: caffeineValue - 75,
         menuCaffeine: menuCaffeineValue
@@ -62,8 +86,9 @@ const CoffeeOptionSelection = () => {
   };
 
   const selectPlusBtn = () => {
-    registInfo.shot <= 5 && setRegisterData('shot', registInfo.shot + 1);
-    registInfo.shot <= 5 &&
+    const isValid = registInfo.menu && !mild && registInfo.shot <= 5;
+    isValid && setRegisterData('shot', registInfo.shot + 1);
+    isValid &&
       setCaffeine({
         caffeine: caffeineValue + 75,
         menuCaffeine: menuCaffeineValue
@@ -72,7 +97,7 @@ const CoffeeOptionSelection = () => {
 
   return (
     <div className={cx(Column, SmStyle)}>
-      <span className={MarginB6}>
+      <span className={CaffeineFilterLabel}>
         {!register ? (
           coffeeOption.size
         ) : (
@@ -94,15 +119,32 @@ const CoffeeOptionSelection = () => {
           />
         ))}
       </SizeBtnContainer>
-      <span className={MarginB6}>
+      <span className={CaffeineFilterLabel}>
         {!register ? (
           coffeeOption.shot.title
         ) : (
           <RegisterLabel label={coffeeOption.shot.title} />
         )}
       </span>
-      <ShotOptionInputContainer
-        className={cx(Align, Between, MarginB8, SmStyle)}>
+      <PersonalOptionContainer className={cx(Flex, Between, Medium)}>
+        <span>{coffeeOption.shot.concentration}</span>
+        <div className={Flex}>
+          {coffeeOption.concentrationOption.map(item => (
+            <ConcentrationOptionItem
+              key={item}
+              className={cx(Flex, Align)}>
+              <RadioBtn
+                selectedOption={registInfo.concentration}
+                color="main"
+                className={RadioBtnColor}
+                id={item}
+                fn={selectconcentrationOption}
+              />
+            </ConcentrationOptionItem>
+          ))}
+        </div>
+      </PersonalOptionContainer>
+      <PersonalOptionContainer className={cx(Align, Between, Medium)}>
         <span>{coffeeOption.shot.input}</span>
         <div className={Align}>
           <Icon
@@ -118,21 +160,20 @@ const CoffeeOptionSelection = () => {
           />
           <Icon
             {...iconPropsGenerator(
-              registInfo.shot >= 5 ? 'input-plus' : 'input-plus:active'
+              mild || registInfo.shot >= 5 ? 'input-plus' : 'input-plus:active'
             )}
             onClick={selectPlusBtn}
           />
         </div>
-      </ShotOptionInputContainer>
+      </PersonalOptionContainer>
     </div>
   );
 };
 
-const ShotOptionInputContainer = styled.div`
-  padding: 10px 16px;
+const PersonalOptionContainer = styled.div`
+  padding: 12px 0;
   height: 46px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
+  border-bottom: 1px solid var(--colors-border-grey);
   background: #fff;
 `;
 const ShotOptionInput = styled.input`
@@ -140,6 +181,7 @@ const ShotOptionInput = styled.input`
   width: 40px;
   background-color: transparent;
   color: var(--colors-main-dark);
+  font-size: var(--font-sizes-base);
 `;
 const SizeBtnContainer = styled.div`
   gap: 4px;
@@ -154,6 +196,19 @@ const SizeBtn = css`
   width: 100%;
   height: 40px;
   border-radius: 50px;
+`;
+const ConcentrationOptionItem = styled.div`
+  gap: 4px;
+  margin-left: 20px;
+`;
+const RadioBtnColor = css`
+  border: 1px solid var(--colors-btn-grey);
+  &:focus-within {
+    border: 1px solid var(--colors-main);
+  }
+`;
+const InactiveColor = css`
+  border: 1px solid var(--colors-btn-grey);
 `;
 
 export default CoffeeOptionSelection;

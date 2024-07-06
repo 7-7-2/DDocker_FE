@@ -10,7 +10,7 @@ import { CoffeeDataTypes } from '@/types/types';
 
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { SmStyle } from '@/styles/styles';
+import { CaffeineFilterLabel, SmStyle } from '@/styles/styles';
 import { Column, Grid } from '@/styles/layout';
 
 const { coffeeMenu } = CAFFEINE_FILTER_TEXTS;
@@ -29,9 +29,7 @@ const CoffeeMenuSelection = () => {
       const newRegistData = {
         ...registInfo,
         [key]: value as string,
-        menu: '',
-        shot: 0,
-        size: 'Regular'
+        menu: ''
       };
       setRegistInfo(newRegistData);
       return;
@@ -42,7 +40,8 @@ const CoffeeMenuSelection = () => {
         ...registInfo,
         [key]: value as string,
         shot: 0,
-        size: 'Regular'
+        size: 'Regular',
+        concentration: '기본'
       };
       setRegistInfo(newRegistData);
       return;
@@ -88,7 +87,9 @@ const CoffeeMenuSelection = () => {
 
   return (
     <div className={MarginTop}>
-      {!register && <span className={SmStyle}>{coffeeMenu.title}</span>}
+      {!register && (
+        <span className={CaffeineFilterLabel}>{coffeeMenu.title}</span>
+      )}
       <CoffeeSelectContainer className={cx(register ? Column : Grid)}>
         {register && (
           <RegisterLabel
