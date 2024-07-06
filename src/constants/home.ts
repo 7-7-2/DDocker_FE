@@ -49,7 +49,11 @@ export const CAFFEINE_FILTER_TEXTS = {
     brand: '커피 브랜드',
     menu: '커피 메뉴'
   },
-  coffeeOption: { size: '사이즈', shot: { title: '추가선택', input: '샷추가' } }
+  coffeeOption: {
+    size: '사이즈',
+    shot: { title: '퍼스널 옵션', input: '샷 추가', concentration: '농도' },
+    concentrationOption: ['연하게', '기본']
+  }
 };
 
 export const CAFFEINE_INFO_TEXTS = {

@@ -3,7 +3,7 @@ import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Flex } from '@/styles/layout';
-import { HomeRegistContainer, MarginT16 } from '@/styles/styles';
+import { CaffeineFilterLabel, MarginT16 } from '@/styles/styles';
 
 const RegisterLabel = ({
   label,
@@ -13,7 +13,7 @@ const RegisterLabel = ({
   essential?: boolean;
 }) => {
   return (
-    <div className={cx(HomeRegistContainer, MarginT16, Flex)}>
+    <div className={cx(CaffeineFilterLabel, MarginT16, Flex)}>
       {label}
       {essential && (
         <IconContainer>

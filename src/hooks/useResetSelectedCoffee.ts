@@ -9,5 +9,6 @@ export const useResetSelectedCoffee = () => {
     resetstate();
     resetCaffeineState();
   };
+
   return touchResetBtn;
 };

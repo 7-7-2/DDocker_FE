@@ -19,14 +19,12 @@ const CaffeineFilter = () => {
       <Suspense>
         <CoffeeSelection />
       </Suspense>
-
       <Suspense>
         <CaffeineInfo />
       </Suspense>
-
       {signedIn && (
         <Button
-          text={BUTTON_TEXTS.regist}
+          text={BUTTON_TEXTS.mainRegister}
           onClick={registPage}
           className={cx(RegistBtn, MarginBottom)}
         />

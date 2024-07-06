@@ -462,6 +462,16 @@ export const HomeRegistContainer = cx(
   `
 );
 
+export const CaffeineFilterLabel = cx(
+  Semibold,
+  css`
+    color: #313131;
+    font-size: var(--font-sizes-sm);
+    line-height: 22px;
+    margin: 12px 0 6px;
+  `
+);
+
 export const HomeInfoCaffeine = cx(
   Semibold,
   css`
@@ -813,4 +823,11 @@ export const SupportContent = css`
   display: inline-block;
   text-align: justify;
   display: block;
+`;
+
+export const RadioBtnContainer = css`
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  position: relative;
 `;

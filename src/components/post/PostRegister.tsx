@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { nanoid } from 'nanoid';
 
-import CoffeeMenuSelection from '@/components/home/CoffeeMenuSelection';
 import PostInputTitle from '@/components/post/PostInputTitle';
 import RegisterLabel from '@/components/post/RegisterLabel';
-import CoffeeOptionSelection from '@/components/common/CoffeeOptionSelection';
+import CoffeeMenuSelection from '@/components/common/coffeeSelection/CoffeeMenuSelection';
+import CoffeeOptionSelection from '@/components/common/coffeeSelection/CoffeeOptionSelection';
 import ImgRegister from '@/components/common/ImgRegister';
 import ImgCropper from '@/components/common/ImgCropper';
 import Button from '@/components/common/Button';
@@ -167,7 +167,7 @@ const PostRegister = ({
       </Container>
 
       <Button
-        text={!update ? BUTTON_TEXTS.regist : BUTTON_TEXTS.update}
+        text={!update ? BUTTON_TEXTS.register : BUTTON_TEXTS.update}
         onClick={userId && clickRegisterBtn}
         className={cx(
           imageFile && caffeine
