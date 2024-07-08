@@ -171,6 +171,9 @@ export const InputFontBase = cx(
     &:focus {
       outline: none;
     }
+    &::placeholder {
+      font-size: var(--font-sizes-sm);
+    }
   `
 );
 
@@ -192,7 +195,8 @@ export const Cafe = css`
 export const CafeMedium = cx(Medium, Cafe);
 
 export const BgF5 = css`
-  background-color: #f5f5f5;
+  background-color: var(--colors-tertiary);
+  border: 1px solid var(--colors-tertiary);
 `;
 
 export const PaddingL12 = css`
@@ -462,13 +466,13 @@ export const HomeRegistContainer = cx(
   `
 );
 
-export const CaffeineFilterLabel = cx(
+export const CaffeineFilterHomeLabel = cx(
   Semibold,
   css`
     color: #313131;
     font-size: var(--font-sizes-sm);
     line-height: 22px;
-    margin: 12px 0 6px;
+    margin: 4px 0 6px;
   `
 );
 

@@ -60,9 +60,11 @@ export const Input = ({
   return (
     <InputContainer
       tabIndex={0}
-      className={
-        type === title.typeName ? cx(Align, Between, BgF5) : cx(Align, Between)
-      }>
+      className={cx(
+        Align,
+        Between,
+        type === title.typeName ? BgF5 : DefaultBorder
+      )}>
       <input
         className={InputFontBase}
         type="text"
@@ -91,10 +93,13 @@ const InputContainer = styled.div`
   border-radius: 10px;
   padding: 14px 16px;
   height: 50px;
-  border: 1px solid #ccc;
   &:focus-within {
     border: 1px solid var(--colors-main);
   }
+`;
+
+const DefaultBorder = css`
+  border: 1px solid #ccc;
 `;
 
 const InputBox = styled.div`
