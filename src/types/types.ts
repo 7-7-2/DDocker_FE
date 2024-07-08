@@ -138,6 +138,7 @@ export interface RegisterPostTypes {
   concentration: string;
   caffeine: number;
   post_title: string | undefined;
+  description: string | undefined;
   photo: string | undefined;
   postId: string;
 }
