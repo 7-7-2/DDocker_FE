@@ -14,6 +14,12 @@ export const INPUT_TEXTS = {
       placeholder: '댓글을 작성해보세요.'
     },
     title: { typeName: 'title', placeholder: '제목을 입력하세요.' },
+    description: {
+      typeName: 'title',
+      placeholder: '내용을 입력하세요.',
+      myCafe: '나만의 카페에 대한 정보를 공유해보세요.',
+      inputLength: 200
+    },
     search: { typeName: 'search', placeholder: '검색어를 입력해주세요.' },
     aboutMe: {
       typeName: 'aboutMe',
@@ -34,6 +40,7 @@ export const LABEL_TEXTS = {
   },
 
   title: '제목',
+  description: '내용',
   photo: '사진',
   aboutMe: {
     label: '소개글'
