@@ -36,14 +36,14 @@ const InputAboutMe = ({
         inputValue={inputValue}
         inputRef={inputRef}
         handleChange={handleChange}
-        inputLength={inputLength}></TextArea>
+        inputLength={inputLength}
+      />
     </Container>
   );
 };
 
 const Container = styled.div`
   margin-top: 24px;
-  /* margin-bottom: 100px; */
 `;
 
 export default InputAboutMe;

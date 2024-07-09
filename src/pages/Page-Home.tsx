@@ -41,17 +41,6 @@ const Home = () => {
 const Container = styled.div`
   position: relative;
   height: calc(100vh+ 126px);
-  &:before {
-    content: '';
-    position: absolute;
-    width: inherit;
-    top: -20px;
-    left: -20px;
-    right: -20px;
-    bottom: -48px;
-    background-color: #ffffff;
-    z-index: -1;
-  }
 `;
 
 export default Home;
