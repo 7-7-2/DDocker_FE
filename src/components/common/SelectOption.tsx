@@ -43,6 +43,7 @@ const SelectOptionContainer = styled.ul`
   background-color: #fff;
   padding: 8px;
   margin-top: 8px;
+  z-index: 1;
 `;
 
 const OptionCotainer = styled.div`

@@ -20,7 +20,7 @@ const TextArea = ({
   type?: string;
 }) => {
   return (
-    <TextAreaBox className={type ? ReportBox : undefined}>
+    <TextAreaBox className={type ? ReportBox : DefaultBox}>
       <Textarea
         className={InputFontBase}
         placeholder={placeholder}
@@ -43,20 +43,23 @@ const TextAreaBox = styled.div`
   width: 100%;
   border-radius: 10px;
   padding: 14px 16px;
-  border: 1px solid #ccc;
   &:focus-within {
     border: 1px solid var(--colors-main);
   }
 `;
 
 const ReportBox = css`
-  border: 1px solid #f5f5f5;
-  background-color: #f5f5f5;
+  border: 1px solid var(--colors-tertiary);
+  background-color: var(--colors-tertiary);
+`;
+
+const DefaultBox = css`
+  border: 1px solid var(--colors-btn-grey);
+  background-color: #fff;
 `;
 
 const Textarea = styled.textarea`
   height: 64px;
-  font-size: var(--font-sizes-sm);
 `;
 
 const InputByteBox = styled.div`

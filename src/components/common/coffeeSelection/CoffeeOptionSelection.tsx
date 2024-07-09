@@ -16,16 +16,16 @@ import {
   BtnColorWhite,
   SmStyle,
   MarginB8,
-  CaffeineFilterLabel,
+  CaffeineFilterHomeLabel,
   Medium
 } from '@/styles/styles';
 
 const { coffeeOption } = CAFFEINE_FILTER_TEXTS;
 
 const CoffeeOptionSelection = () => {
-  const { postid } = useParams();
+  const { postId } = useParams();
 
-  const register = postid === 'register';
+  const register = postId === 'register';
   const size: string[] = ['Regular', 'Large', 'Venti'];
 
   const [caffeine, setCaffeine] = useRecoilState(caffeineFilterState);
@@ -97,7 +97,7 @@ const CoffeeOptionSelection = () => {
 
   return (
     <div className={cx(Column, SmStyle)}>
-      <span className={CaffeineFilterLabel}>
+      <span className={CaffeineFilterHomeLabel}>
         {!register ? (
           coffeeOption.size
         ) : (
@@ -119,7 +119,7 @@ const CoffeeOptionSelection = () => {
           />
         ))}
       </SizeBtnContainer>
-      <span className={CaffeineFilterLabel}>
+      <span className={CaffeineFilterHomeLabel}>
         {!register ? (
           coffeeOption.shot.title
         ) : (
@@ -173,6 +173,7 @@ const CoffeeOptionSelection = () => {
 const PersonalOptionContainer = styled.div`
   padding: 12px 0;
   height: 46px;
+  margin-bottom: 8px;
   border-bottom: 1px solid var(--colors-border-grey);
   background: #fff;
 `;
@@ -206,9 +207,6 @@ const RadioBtnColor = css`
   &:focus-within {
     border: 1px solid var(--colors-main);
   }
-`;
-const InactiveColor = css`
-  border: 1px solid var(--colors-btn-grey);
 `;
 
 export default CoffeeOptionSelection;

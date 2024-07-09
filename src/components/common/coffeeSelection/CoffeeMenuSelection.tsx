@@ -10,15 +10,15 @@ import { CoffeeDataTypes } from '@/types/types';
 
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { CaffeineFilterLabel, SmStyle } from '@/styles/styles';
+import { CaffeineFilterHomeLabel } from '@/styles/styles';
 import { Column, Grid } from '@/styles/layout';
 
 const { coffeeMenu } = CAFFEINE_FILTER_TEXTS;
 const SelectBox = lazy(() => import('@/components/common/SelectBox'));
 
 const CoffeeMenuSelection = () => {
-  const { postid } = useParams();
-  const register = postid === 'register';
+  const { postId } = useParams();
+  const register = postId === 'register';
   const [registInfo, setRegistInfo] = useRecoilState(registPostState);
   const setCaffeine = useSetRecoilState(caffeineFilterState);
   const coffeeData = useGetCoffeeList() as CoffeeDataTypes;
@@ -88,22 +88,28 @@ const CoffeeMenuSelection = () => {
   return (
     <div className={MarginTop}>
       {!register && (
-        <span className={CaffeineFilterLabel}>{coffeeMenu.title}</span>
+        <span className={CaffeineFilterHomeLabel}>{coffeeMenu.title}</span>
       )}
       <CoffeeSelectContainer className={cx(register ? Column : Grid)}>
-        {register && (
-          <RegisterLabel
-            label={coffeeMenu.brand}
-            essential
-          />
-        )}
         <Suspense>
+          {register && (
+            <RegisterLabel
+              label={coffeeMenu.brand}
+              essential
+            />
+          )}
           <SelectBox
             value={registInfo.brand}
             defaultValue={registInfo.brand || coffeeMenu.brand}
             data={brandList}
             onClick={selectBrand}
           />
+          {register && (
+            <RegisterLabel
+              label={coffeeMenu.menu}
+              essential
+            />
+          )}
           <SelectBox
             value={registInfo.menu}
             defaultValue={coffeeMenu.menu}
