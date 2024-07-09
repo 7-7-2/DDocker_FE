@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import { nanoid } from 'nanoid';
@@ -7,6 +7,7 @@ import PostInputTitle from '@/components/post/PostInputTitle';
 import RegisterLabel from '@/components/post/RegisterLabel';
 import CoffeeMenuSelection from '@/components/common/coffeeSelection/CoffeeMenuSelection';
 import CoffeeOptionSelection from '@/components/common/coffeeSelection/CoffeeOptionSelection';
+import PostInputDescription from '@/components/post/PostInputDescription';
 import ImgRegister from '@/components/common/ImgRegister';
 import ImgCropper from '@/components/common/ImgCropper';
 import Button from '@/components/common/Button';
@@ -46,6 +47,7 @@ const PostRegister = ({
   const { updateTodayCoffeeData: getTodayCoffeeData } = useGetTodayCoffeeData();
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
   const { userId } = useCachedUserInfo();
   const { uploadStorage } = useCloudStorage();
@@ -153,8 +155,8 @@ const PostRegister = ({
       <Container>
         <CoffeeMenuSelection />
         <CoffeeOptionSelection />
-        <RegisterLabel label={LABEL_TEXTS.title} />
         <PostInputTitle inputRef={inputRef} />
+        <PostInputDescription inputRef={textAreaRef} />
         <RegisterLabel
           label={LABEL_TEXTS.photo}
           essential
@@ -186,7 +188,8 @@ const PostRegister = ({
 const Container = styled.div`
   padding-bottom: 28px;
   margin-bottom: 20px;
-  overflow-x: visible;
+  padding: 0 2px;
+  margin: 0 -2px;
   overflow-y: auto;
 `;
 
