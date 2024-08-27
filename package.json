@@ -13,8 +13,6 @@
     "panda:dev": "pnpm exec panda --watch"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.540.0",
-    "@aws-sdk/s3-request-presigner": "^3.540.0",
     "axios": "^1.6.7",
     "browser-image-compression": "^2.0.2",
     "dayjs": "^1.11.10",
