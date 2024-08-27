@@ -1,74 +1,30 @@
-import {
-  S3Client,
-  PutObjectCommand,
-  DeleteObjectCommand,
-  ListObjectsV2Command,
-  DeleteObjectsCommand,
-  ObjectIdentifier
-} from '@aws-sdk/client-s3';
-import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
-
-export const r2 = new S3Client({
-  region: 'auto',
-  endpoint: `https://${import.meta.env.VITE_R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
-  credentials: {
-    accessKeyId: import.meta.env.VITE_R2_ACCESS_KEY_ID || '',
-    secretAccessKey: import.meta.env.VITE_R2_SECRET_ACCESS_KEY || ''
-  }
-});
+import { authInstance } from '@/api/axiosInterceptor';
 
 //r2 cloud storage upload, e.g.) /post/${userId}/{postId}, /user/{userId}
-export const getPresignedUploadUrl = async (
-  instance: S3Client,
-  dir: string
-) => {
-  const signedUrl = await getSignedUrl(
-    instance,
-    new PutObjectCommand({
-      Bucket: import.meta.env.VITE_R2_BUCKET_NAME,
-      Key: `assets/${dir}`
-    }),
-    { expiresIn: 20 }
-  );
-  return { url: signedUrl };
+export const getPresignedUploadUrl = async (route: string) => {
+  const signedUrl = await authInstance
+    .get(`/posts/presigned-upload-url/${route}`)
+    .catch(e => {
+      console.log(e);
+    });
+  return { url: signedUrl && signedUrl.data.url };
 };
 
 //r2 cloud storage delete, e.g.) /post/${userId}/{postId}, /user/{userId}
-export const getPresignedDeleteUrl = async (
-  instance: S3Client,
-  dir: string
-) => {
-  const signedUrl = await getSignedUrl(
-    instance,
-    new DeleteObjectCommand({
-      Bucket: import.meta.env.VITE_R2_BUCKET_NAME,
-      Key: `assets/${dir}`
-    }),
-    { expiresIn: 20 }
-  );
-  return { url: signedUrl };
+export const getPresignedDeleteUrl = async (route: string) => {
+  const signedUrl = await authInstance
+    .get(`/posts/presigned-delete-url/${route}`)
+    .catch(e => {
+      console.log(e);
+    });
+  return { url: signedUrl && signedUrl.data.url };
 };
 
-export const deleteAllFolderItems = async (
-  instance: S3Client,
-  folderPath: string
-) => {
-  const listObjectsResult = await instance.send(
-    new ListObjectsV2Command({
-      Bucket: import.meta.env.VITE_R2_BUCKET_NAME,
-      Prefix: `assets/${folderPath}`
-    })
-  );
-  const keys: ObjectIdentifier[] | undefined =
-    listObjectsResult.Contents &&
-    listObjectsResult.Contents.map(item => ({ Key: item.Key }));
-  if (keys?.length) {
-    await instance.send(
-      new DeleteObjectsCommand({
-        Bucket: import.meta.env.VITE_R2_BUCKET_NAME,
-        Delete: { Objects: keys }
-      })
-    );
-  }
-  return;
+export const deleteAllFolderItems = async (folderPath: string) => {
+  const signedUrl = await authInstance
+    .get(`/posts/presigned-delete-all-url/${folderPath}`)
+    .catch(e => {
+      console.log(e);
+    });
+  return signedUrl;
 };
