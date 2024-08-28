@@ -13,6 +13,7 @@ import { useSetRecoilState } from 'recoil';
 import { commentState } from '@/atoms/atoms';
 import { useIntersection } from '@/hooks/useIntersection';
 import NoProfileImg from '@/components/common/NoProfileImg';
+import { useNavigateTo } from '@/hooks/useNavigateTo';
 
 const CommentAction = React.lazy(() => import('./CommentAction'));
 
@@ -24,7 +25,8 @@ const CommentProto = ({
   created_at,
   postNum = '',
   id,
-  parentCommentId
+  parentCommentId,
+  public_id
 }: CommentPrototype) => {
   const { signedIn } = useGetSignedIn();
   const { userData } = useCachedUserInfo();
@@ -32,6 +34,7 @@ const CommentProto = ({
   const myComment = nickname === myUsername;
   const [profile, setProfile] = useState(profileUrl);
   const handleImgError = () => setProfile('');
+  const toProfilePage = useNavigateTo(`/profile/${public_id}`);
 
   const setSelectedComment = useSetRecoilState(commentState);
   const { scrollRef, setIsIntersected, isIntersected } = useDetectSlide(
@@ -62,11 +65,13 @@ const CommentProto = ({
           <ImgContainer
             url={profile}
             comment={true}
+            onClick={toProfilePage}
+            onError={handleImgError}
           />
         )}
         {!profile && (
           <NoProfileImg
-            onClick={handleImgError}
+            onClick={toProfilePage}
             comment={true}
           />
         )}

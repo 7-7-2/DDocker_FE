@@ -11,7 +11,8 @@ const Comment = ({
   created_at,
   reply_count,
   postNum,
-  id
+  id,
+  public_id
 }: CommentType) => {
   const { toggle, handleToggle } = useToggle();
   return (
@@ -23,6 +24,7 @@ const Comment = ({
         created_at={created_at}
         postNum={postNum}
         id={id}
+        public_id={public_id}
       />
       <Replies
         replies={toggle}
