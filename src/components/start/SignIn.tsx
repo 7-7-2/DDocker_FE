@@ -3,7 +3,6 @@ import { SIGININ_TEXTS } from '@/constants/start';
 import { getSocialAuth } from '@/api/user';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
-import { useVerifyMembership } from '@/hooks/start/useVerifyMembership';
 
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
@@ -16,19 +15,22 @@ import {
   MarginAuto
 } from '@/styles/layout';
 import { StartBtn, NoneBtn, SignInBtn } from '@/styles/styles';
+import { useMutation } from '@tanstack/react-query';
 
 const { signInBtn, startText } = SIGININ_TEXTS;
 
 const SignIn = () => {
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: async (social: string) => {
+      await getSocialAuth(social);
+    }
+  });
+
   const handleSocialAuth: React.MouseEventHandler<HTMLButtonElement> = async (
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
-    try {
-      const social = e.currentTarget.value;
-      await getSocialAuth(social);
-    } catch (error) {
-      console.log(error);
-    }
+    const social = e.currentTarget.value;
+    !isPending && (await mutateAsync(social));
   };
 
   return (
