@@ -27,8 +27,13 @@ const CafeDetailContent = ({
   onClick,
   menu,
   caffeine,
-  shot
+  shot,
+  intensity,
+  size
 }: CafeDetailContent) => {
+  const mild = intensity === '연하게';
+  const base = intensity === '기본' && shot === 0;
+
   return (
     <>
       <div className={posts ? cx(PostsCafe, Align) : Cafe}>
@@ -38,9 +43,9 @@ const CafeDetailContent = ({
       <div
         className={CaffeineDetail}
         onClick={onClick}>
-        {`${menu} ${shot !== '0' ? `(+${shot}` : ''}${
-          shot !== '0' ? '샷)' : ''
-        }`}
+        {mild && `${menu} (${intensity}, ${size})`}
+        {!mild && !base && `${menu} (+${shot}샷, ${size})`}
+        {!mild && base && `${menu} (${intensity}, ${size})`}
         <br />
         {!mini && including}
         <span className={ColorMain}>

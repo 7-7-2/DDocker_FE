@@ -119,6 +119,8 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
             menu={postData.data.menu}
             caffeine={postData.data.caffeine}
             shot={postData.data.shot}
+            intensity={postData.data.intensity}
+            size={postData.data.size}
           />
           <PostedAt at={timestampToDate(postData.data.created_at)} />
           <div className={Divider} />
