@@ -36,6 +36,7 @@ const TodayCaffeineText = () => {
           alt="coffee"
           srcSet="/png/coffee_mainimg.webp 120w"
           sizes="(min-width: 360px) 120px, (max-width: 500px) 120px"
+          fetchpriority="high"
         />
       </div>
       <AlertBubble
