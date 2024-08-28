@@ -11,6 +11,7 @@ const PostDetail = lazy(() => import('../components/post/PostDetail'));
 const Post = () => {
   const { postId } = useParams();
   const { type } = useParams();
+
   const register = postId === 'register';
   const update = type === 'update';
 

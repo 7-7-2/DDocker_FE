@@ -51,8 +51,8 @@ export const CAFFEINE_FILTER_TEXTS = {
   },
   coffeeOption: {
     size: '사이즈',
-    shot: { title: '퍼스널 옵션', input: '샷 추가', concentration: '농도' },
-    concentrationOption: ['연하게', '기본']
+    shot: { title: '퍼스널 옵션', input: '샷 추가', intensity: '농도' },
+    intensityOption: ['연하게', '기본']
   }
 };
 

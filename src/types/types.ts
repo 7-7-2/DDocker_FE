@@ -135,10 +135,10 @@ export interface RegisterPostTypes {
   menu: string;
   size: string;
   shot: number;
-  concentration: string;
+  intensity: string;
   caffeine: number;
   post_title: string | undefined;
-  description: string | undefined;
+  description: string | null;
   photo: string | undefined;
   postId: string;
 }
