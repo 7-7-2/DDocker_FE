@@ -24,8 +24,9 @@ const { coffeeOption } = CAFFEINE_FILTER_TEXTS;
 
 const CoffeeOptionSelection = () => {
   const { postId } = useParams();
+  const { type } = useParams();
 
-  const register = postId === 'register';
+  const register = postId === 'register' || type === 'update';
   const size: string[] = ['Regular', 'Large', 'Venti'];
 
   const [caffeine, setCaffeine] = useRecoilState(caffeineFilterState);
@@ -79,7 +80,7 @@ const CoffeeOptionSelection = () => {
       caffeine:
         registInfo.menu &&
         e.currentTarget.id === coffeeOption.intensityOption[0]
-          ? menuCaffeineValue - 75
+          ? menuCaffeineValue + size - 75
           : menuCaffeineValue + size,
       menuCaffeine: menuCaffeineValue
     });
@@ -170,7 +171,9 @@ const CoffeeOptionSelection = () => {
           />
           <Icon
             {...iconPropsGenerator(
-              mild || registInfo.shot >= 5 ? 'input-plus' : 'input-plus:active'
+              !registInfo.menu || mild || registInfo.shot >= 5
+                ? 'input-plus'
+                : 'input-plus:active'
             )}
             onClick={selectPlusBtn}
           />
