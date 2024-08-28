@@ -18,7 +18,6 @@ interface CafeDetailContent extends CafeDetailTypes {
 }
 
 const { unit, including, is } = COFFEE_TEXTS;
-const { mgLabel } = TEXT;
 
 const CafeDetailContent = ({
   mini = false,
@@ -43,15 +42,15 @@ const CafeDetailContent = ({
       <div
         className={CaffeineDetail}
         onClick={onClick}>
-        {mild && `${menu} (${intensity}, ${size})`}
-        {!mild && !base && `${menu} (+${shot}샷, ${size})`}
-        {!mild && base && `${menu} (${intensity}, ${size})`}
+        {!mini && mild && `${menu} (${intensity}, ${size})`}
+        {!mini && !mild && !base && `${menu} (+${shot}샷, ${size})`}
+        {!mini && !mild && base && `${menu} (${intensity}, ${size})`}
+        {mini && `${menu} (+${shot}샷)`}
         <br />
         {!mini && including}
         <span className={ColorMain}>
           {caffeine}
-          {!mini && unit}
-          {mini && mgLabel}
+          {unit}
         </span>
         {!mini && is}
       </div>
