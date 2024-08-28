@@ -36,10 +36,19 @@ const CoffeeOptionSelection = () => {
   const mild = registInfo.intensity === coffeeOption.intensityOption[0];
 
   const setRegisterData = (key: string, value: string | number) => {
-    const newRegistData = {
-      ...registInfo,
-      [key]: value
-    };
+    let newRegistData;
+    if (key === 'intensity' && value === coffeeOption.intensityOption[0]) {
+      newRegistData = {
+        ...registInfo,
+        shot: 0,
+        [key]: value
+      };
+    } else {
+      newRegistData = {
+        ...registInfo,
+        [key]: value
+      };
+    }
     setRegistInfo(newRegistData);
   };
 
@@ -65,11 +74,12 @@ const CoffeeOptionSelection = () => {
     const size =
       registInfo.size === 'Large' ? 75 : registInfo.size === 'Venti' ? 150 : 0;
     setRegisterData('intensity', e.currentTarget.id);
+
     setCaffeine({
       caffeine:
         registInfo.menu &&
         e.currentTarget.id === coffeeOption.intensityOption[0]
-          ? caffeineValue - 75
+          ? menuCaffeineValue - 75
           : menuCaffeineValue + size,
       menuCaffeine: menuCaffeineValue
     });
