@@ -266,10 +266,16 @@ export const PostsContainer = css`
   padding: 12px 0 0;
 `;
 
-export const PostContent = styled.div`
+export const PostTitle = styled.div`
+  font-weight: 500;
   font-size: var(--font-sizes-sm);
   line-height: 22px;
-  padding-bottom: 16px;
+  padding-bottom: 6px;
+`;
+export const PostContent = styled.p`
+  font-size: var(--font-sizes-sm);
+  line-height: 20px;
+  padding-bottom: 20px;
 `;
 
 export const CaffeineDetail = cx(
