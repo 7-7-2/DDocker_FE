@@ -841,3 +841,11 @@ export const RadioBtnContainer = css`
   height: 16px;
   position: relative;
 `;
+
+export const MiniUserTitle = css`
+  font-size: var(--font-sizes-sm);
+`;
+
+export const PostsUserContainer = css`
+  padding: 3px 0;
+`;

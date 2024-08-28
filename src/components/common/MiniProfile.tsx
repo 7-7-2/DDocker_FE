@@ -1,12 +1,18 @@
 import ImgContainer from '@/components/common/ImgContainer';
 import { TEXT } from '@/constants/texts';
 import { MiniProfileProps } from '@/types/types';
-import { Column, Flex, FlexCenter, Justify } from '@/styles/layout';
-import { LineH18, Semibold } from '@/styles/styles';
+import { Between, Column, Flex, FlexCenter, Justify } from '@/styles/layout';
+import {
+  LineH18,
+  Semibold,
+  MiniUserTitle,
+  PostsUserContainer
+} from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import NoProfileImg from '@/components/common/NoProfileImg';
+import { useLocation } from 'react-router-dom';
 
 const MiniProfile = ({
   url,
@@ -17,6 +23,8 @@ const MiniProfile = ({
   mini = false
 }: MiniProfileProps) => {
   const toProfilePage = useNavigateTo(`/profile/${userId}`);
+  const { pathname } = useLocation();
+  const postsTitle = pathname.startsWith('/post');
   return (
     <>
       <Container className={Flex}>
@@ -37,8 +45,18 @@ const MiniProfile = ({
             />
           )}
         </div>
-        <div className={cx(Column, Justify)}>
-          <UserTitle className={cx(LineH18, Semibold)}>
+        <div
+          className={
+            post && postsTitle
+              ? cx(Column, Between, PostsUserContainer)
+              : cx(Column, Justify)
+          }>
+          <UserTitle
+            className={
+              post && postsTitle
+                ? cx(LineH18, Semibold)
+                : cx(LineH18, Semibold, MiniUserTitle)
+            }>
             <span onClick={toProfilePage}>{nickname}</span>
           </UserTitle>
           <UserCaffeine
@@ -56,9 +74,9 @@ const Container = styled.div`
   gap: 12px;
 `;
 const UserTitle = styled.div`
-  font-size: var(--font-sizes-sm);
   color: var(--colors-main-dark);
 `;
+
 const UserCaffeine = styled.div`
   font-size: var(--font-sizes-xs);
   color: var(--colors-mid-grey);
