@@ -35,6 +35,7 @@ const Replies = ({
               comment={false}
               parentCommentId={commentId}
               key={id + idx}
+              public_id={reply.public_id}
             />
           ))}
         </>
