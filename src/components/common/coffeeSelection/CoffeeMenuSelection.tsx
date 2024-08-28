@@ -18,7 +18,8 @@ const SelectBox = lazy(() => import('@/components/common/SelectBox'));
 
 const CoffeeMenuSelection = () => {
   const { postId } = useParams();
-  const register = postId === 'register';
+  const { type } = useParams();
+  const register = postId === 'register' || type === 'update';
   const [registInfo, setRegistInfo] = useRecoilState(registPostState);
   const setCaffeine = useSetRecoilState(caffeineFilterState);
   const coffeeData = useGetCoffeeList() as CoffeeDataTypes;
