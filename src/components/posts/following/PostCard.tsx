@@ -14,6 +14,7 @@ import { useNavigateTo } from '@/hooks/useNavigateTo';
 import PostBody from '@/components/posts/following/PostBody';
 import { useVerifyOwner } from '@/hooks/post/useVerifyOwner';
 import React, { Suspense } from 'react';
+import { Divider } from '@/styles/styles';
 
 const PublicOption = React.lazy(
   () => import('../../post/overlay/PublicOption')
@@ -38,9 +39,20 @@ const PostCard = ({ ...props }: FollowingPost) => {
     caffeine,
     shot,
     menu,
-    brand
+    brand,
+    intensity,
+    size
   } = props;
-  const PostBodyProps = { postTitle, photo, caffeine, shot, menu, brand };
+  const PostBodyProps = {
+    postTitle,
+    photo,
+    caffeine,
+    shot,
+    menu,
+    brand,
+    intensity,
+    size
+  };
   const MiniProfileProps = { url: profileUrl, nickname, caffeine: sum, userId };
 
   const { postOwner } = useVerifyOwner(postId);
@@ -109,6 +121,8 @@ const PostCard = ({ ...props }: FollowingPost) => {
           onClick={handleToPost}
         />
 
+        <CardDivider className={Divider} />
+
         <div>
           {socialCounts && (
             <PostSocial
@@ -135,6 +149,11 @@ const Container = styled.div`
 
 const UserProfile = styled.div`
   padding-bottom: 12px;
+`;
+
+const CardDivider = styled.div`
+  padding-top: 16px;
+  margin: 0 16px;
 `;
 
 export default PostCard;
