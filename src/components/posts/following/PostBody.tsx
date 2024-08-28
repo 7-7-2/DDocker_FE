@@ -16,16 +16,28 @@ const PostBody = ({
   shot,
   menu,
   brand,
+  intensity,
+  size,
+
   onClick
 }: Pick<
   FollowingPost,
-  'postTitle' | 'photo' | 'caffeine' | 'shot' | 'menu' | 'brand'
+  | 'postTitle'
+  | 'photo'
+  | 'caffeine'
+  | 'shot'
+  | 'menu'
+  | 'brand'
+  | 'intensity'
+  | 'size'
 > & { onClick: () => void }) => {
   const CafeDetailProps = {
     brand,
     caffeine,
     shot,
     menu,
+    intensity,
+    size,
     className: PaddingT12,
     posts: true,
     onClick

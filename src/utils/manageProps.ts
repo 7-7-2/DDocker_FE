@@ -19,6 +19,8 @@ export const generatePostCardProps = (
     shot: post.shot,
     menu: post.menu,
     brand: selected ? selected : post.brand,
-    userId: post.userId
+    userId: post.userId,
+    intensity: post.intensity,
+    size: post.size
   };
 };

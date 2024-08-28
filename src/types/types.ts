@@ -1,9 +1,4 @@
-import {
-  TouchEventHandler,
-  RefObject,
-  ChangeEvent,
-  MouseEventHandler
-} from 'react';
+import { RefObject, ChangeEvent, MouseEventHandler } from 'react';
 
 export interface LazyRouteType {
   index: boolean;
@@ -179,6 +174,7 @@ export interface CommentType {
   reply_count: number;
   postNum: string;
   id: number;
+  public_id: string;
 }
 
 export interface CommentPrototype
@@ -189,7 +185,7 @@ export interface CommentPrototype
 }
 export type Reply = Pick<
   CommentType,
-  'profileUrl' | 'nickname' | 'content' | 'created_at' | 'id'
+  'profileUrl' | 'nickname' | 'content' | 'created_at' | 'id' | 'public_id'
 >;
 
 export interface FollowingPost extends SimplifyUser {
@@ -204,6 +200,8 @@ export interface FollowingPost extends SimplifyUser {
   menu: string;
   brand: string;
   userId: string;
+  intensity: string;
+  size: number;
 }
 
 export interface Fetched {
@@ -254,7 +252,7 @@ export interface CafeDetailTypes {
   shot?: string | number;
   posts?: boolean;
   intensity: string;
-  size: string;
+  size: number;
   onClick?: () => void;
 }
 
