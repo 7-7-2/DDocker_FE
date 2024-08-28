@@ -22,7 +22,7 @@ import { InputContext } from '@/context/contexts';
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Between, Align, Flex } from '@/styles/layout';
-import { PostContent, Divider } from '@/styles/styles';
+import { PostTitle, PostContent, Divider } from '@/styles/styles';
 
 const ReplyToPanel = React.lazy(() => import('./ReplyToPanel'));
 const PublicOption = React.lazy(() => import('./overlay/PublicOption'));
@@ -112,7 +112,8 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
             postId={postNum}
             userId={postData.data.userId}
           />
-          <PostContent>{postData.data.post_title}</PostContent>
+          <PostTitle>{postData.data.post_title}</PostTitle>
+          <PostContent>{postData.data.description}</PostContent>
           <CaffeineInfo
             brand={postData.data.brand}
             menu={postData.data.menu}
