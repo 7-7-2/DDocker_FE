@@ -1,11 +1,11 @@
 import React from 'react';
-import { useRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
 
 import Button from '@/components/common/Button';
 import Icon from '@/components/common/Icon';
 import { BackgroundLayer } from '@/components/post/overlay/BackgroundLayer';
 import { MODAL_CTA_TEXTS } from '@/constants/common';
-import { isModalState } from '@/atoms/atoms';
+import { useVerifyModalCTA } from '@/hooks/useVerifyModalCTA';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
 import { Align, Between, Column, Flex } from '@/styles/layout';
@@ -19,18 +19,24 @@ const ModalCTA = ({
   actionText,
   text,
   subBtnText,
+  type,
   isConfirm,
   fn: handleActions
 }: {
   actionText: string;
   text: string;
+  type?: string;
   subBtnText?: string;
   isConfirm?: boolean;
   fn: React.MouseEventHandler<HTMLButtonElement>;
 }) => {
-  const [isModal, setIsModal] = useRecoilState(isModalState);
+  const { isModal, setIsModal } = useVerifyModalCTA();
+  const navigate = useNavigate();
 
   const HandleOnclick = () => {
+    if (type === 'register') {
+      navigate('/');
+    }
     isModal && setIsModal(!isModal);
   };
 
@@ -73,7 +79,11 @@ const ModalCTA = ({
             </TextContainer>
             {!isConfirm ? DefalutBtn : confirmDeleteAuth}
           </Container>
-          <SubBtn onClick={HandleOnclick}>{subBtnText || signIn.subBtn}</SubBtn>
+          {!type && (
+            <SubBtn onClick={HandleOnclick}>
+              {subBtnText || signIn.subBtn}
+            </SubBtn>
+          )}
         </ModalContainer>
       </BackgroundLayer>
     )
