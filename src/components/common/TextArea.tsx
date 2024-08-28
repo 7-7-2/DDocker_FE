@@ -60,6 +60,7 @@ const DefaultBox = css`
 
 const Textarea = styled.textarea`
   height: 64px;
+  resize: none;
 `;
 
 const InputByteBox = styled.div`
