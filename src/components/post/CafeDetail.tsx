@@ -10,7 +10,9 @@ const CafeDetail = ({
   menu,
   shot,
   posts = false,
-  onClick
+  onClick,
+  intensity,
+  size
 }: CafeDetailTypes) => {
   const CafeDetailProps = {
     brand,
@@ -18,7 +20,9 @@ const CafeDetail = ({
     menu,
     shot,
     posts,
-    onClick
+    onClick,
+    intensity,
+    size
   };
   return (
     <div className={cx(Column, className)}>
