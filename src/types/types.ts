@@ -251,8 +251,8 @@ export interface CafeDetailTypes {
   menu?: string;
   shot?: string | number;
   posts?: boolean;
-  intensity: string;
-  size: number;
+  intensity?: string;
+  size?: number;
   onClick?: () => void;
 }
 
