@@ -1,7 +1,8 @@
-import { useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { lazy, useRef } from 'react';
 import { nanoid } from 'nanoid';
+import { useRecoilValue } from 'recoil';
+import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
 
 import PostInputTitle from '@/components/post/PostInputTitle';
 import RegisterLabel from '@/components/post/RegisterLabel';
@@ -15,7 +16,7 @@ import Button from '@/components/common/Button';
 import { getMyInfo } from '@/api/user';
 import { setPostRegist, updatePost } from '@/api/post';
 import { caffeineFilterState, registPostState } from '@/atoms/atoms';
-import { BUTTON_TEXTS, LABEL_TEXTS } from '@/constants/common';
+import { BUTTON_TEXTS, LABEL_TEXTS, MODAL_CTA_TEXTS } from '@/constants/common';
 
 import { useUpadatePost } from '@/hooks/post/useUpadatePost';
 import { useImageCropper } from '@/hooks/post/useImageCropper';
@@ -25,12 +26,18 @@ import { useCompressImage } from '@/hooks/useCompressImage';
 import { useShowFooter } from '@/hooks/useShowFooter';
 import { useResetSelectedCoffee } from '@/hooks/useResetSelectedCoffee';
 import { useGetTodayCoffeeData } from '@/hooks/home/useGetTodayCoffeeData';
+import { useVerifyModalCTA } from '@/hooks/useVerifyModalCTA';
 
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { DefaultBtn, DisabledBtn } from '@/styles/styles';
+import { DefaultBtn, DisabledBtn, Spinner } from '@/styles/styles';
+import { Align, Center } from '@/styles/layout';
 
+const ModalCTA = lazy(() => import('@/components/common/ModalCTA'));
 const imagePath = import.meta.env.VITE_R2_POST_IMAGE_PATH;
+
+const { signIn2 } = BUTTON_TEXTS;
+const { signIn } = MODAL_CTA_TEXTS;
 
 const PostRegister = ({
   update,
@@ -41,9 +48,11 @@ const PostRegister = ({
 }) => {
   useShowFooter(false);
   useUpadatePost(update, postid);
+
   const { caffeine } = useRecoilValue(caffeineFilterState);
   const registInfo = useRecoilValue(registPostState);
   const resetSelectedCoffee = useResetSelectedCoffee();
+  const { isModal } = useVerifyModalCTA();
   const { updateTodayCoffeeData: getTodayCoffeeData } = useGetTodayCoffeeData();
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -90,7 +99,8 @@ const PostRegister = ({
         ...updateInfo,
         post_title: postTitle,
         caffeine: caffeine || updateInfo.caffeine,
-        photo: storagePath
+        photo: storagePath,
+        description: textAreaRef.current?.value || updateInfo.description
       };
       return { postId, updateData };
     }
@@ -100,7 +110,8 @@ const PostRegister = ({
       caffeine: caffeine,
       post_title: postTitle,
       photo: storagePath,
-      postId: postId
+      postId: postId,
+      description: textAreaRef.current?.value || null
     };
 
     return { postId, newRegistData };
@@ -111,11 +122,9 @@ const PostRegister = ({
       inputRef.current?.value
     );
     const registered = newRegistData && (await setPostRegist(newRegistData));
-
     const imgUploaded =
       registered &&
       (await uploadStorage(`post/${userId}/${postId}`, imageFile as File));
-
     return imgUploaded && { registered, postId };
   };
 
@@ -138,20 +147,43 @@ const PostRegister = ({
     resetSelectedCoffee();
   };
 
+  const { mutateAsync, isPending } = useMutation({
+    mutationFn: async () => {
+      const { registered, postId } = !update
+        ? await handleRegister()
+        : await handleUpdate();
+      await updateTodayCoffeeData();
+      URL.revokeObjectURL(imageUrl);
+      registered &&
+        navigate(`/post/${postId}`, {
+          state: true
+        });
+    }
+  });
+
   const clickRegisterBtn = async () => {
-    const { registered, postId } = !update
-      ? await handleRegister()
-      : await handleUpdate();
-    await updateTodayCoffeeData();
-    URL.revokeObjectURL(imageUrl);
-    registered &&
-      navigate(`/post/${postId}`, {
-        state: true
-      });
+    await mutateAsync();
+  };
+
+  const handleActions: React.MouseEventHandler<HTMLButtonElement> = () => {
+    navigate('/start/1');
   };
 
   return (
     <>
+      {isPending && (
+        <LoadingPage className={cx(Align)}>
+          <div className={cx(Spinner, Center)} />
+        </LoadingPage>
+      )}
+      {isModal && (
+        <ModalCTA
+          actionText={signIn2}
+          text={signIn.register}
+          fn={handleActions}
+          type={'register'}
+        />
+      )}
       <Container>
         <CoffeeMenuSelection />
         <CoffeeOptionSelection />
@@ -167,10 +199,9 @@ const PostRegister = ({
           {...cropperProps}
         />
       </Container>
-
       <Button
         text={!update ? BUTTON_TEXTS.register : BUTTON_TEXTS.update}
-        onClick={userId && clickRegisterBtn}
+        onClick={!isPending && userId && clickRegisterBtn}
         className={cx(
           imageFile && caffeine
             ? undefined
@@ -196,6 +227,17 @@ const Container = styled.div`
 const BtnContainer = css`
   position: sticky;
   bottom: 10px;
+`;
+
+const LoadingPage = styled.div`
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(255, 255, 255, 0.724);
 `;
 
 export default PostRegister;
