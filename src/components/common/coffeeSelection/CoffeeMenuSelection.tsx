@@ -41,7 +41,7 @@ const CoffeeMenuSelection = () => {
         [key]: value as string,
         shot: 0,
         size: 'Regular',
-        concentration: '기본'
+        intensity: '기본'
       };
       setRegistInfo(newRegistData);
       return;

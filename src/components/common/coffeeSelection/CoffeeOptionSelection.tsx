@@ -33,7 +33,7 @@ const CoffeeOptionSelection = () => {
 
   const caffeineValue = caffeine.caffeine;
   const menuCaffeineValue = caffeine.menuCaffeine;
-  const mild = registInfo.concentration === coffeeOption.concentrationOption[0];
+  const mild = registInfo.intensity === coffeeOption.intensityOption[0];
 
   const setRegisterData = (key: string, value: string | number) => {
     const newRegistData = {
@@ -61,14 +61,14 @@ const CoffeeOptionSelection = () => {
   };
 
   // set personal options
-  const selectconcentrationOption = (e: React.ChangeEvent<HTMLElement>) => {
+  const selectIntensityOption = (e: React.ChangeEvent<HTMLElement>) => {
     const size =
       registInfo.size === 'Large' ? 75 : registInfo.size === 'Venti' ? 150 : 0;
-    setRegisterData('concentration', e.currentTarget.id);
+    setRegisterData('intensity', e.currentTarget.id);
     setCaffeine({
       caffeine:
         registInfo.menu &&
-        e.currentTarget.id === coffeeOption.concentrationOption[0]
+        e.currentTarget.id === coffeeOption.intensityOption[0]
           ? caffeineValue - 75
           : menuCaffeineValue + size,
       menuCaffeine: menuCaffeineValue
@@ -127,20 +127,20 @@ const CoffeeOptionSelection = () => {
         )}
       </span>
       <PersonalOptionContainer className={cx(Flex, Between, Medium)}>
-        <span>{coffeeOption.shot.concentration}</span>
+        <span>{coffeeOption.shot.intensity}</span>
         <div className={Flex}>
-          {coffeeOption.concentrationOption.map(item => (
-            <ConcentrationOptionItem
+          {coffeeOption.intensityOption.map(item => (
+            <IntensityOptionItem
               key={item}
               className={cx(Flex, Align)}>
               <RadioBtn
-                selectedOption={registInfo.concentration}
+                selectedOption={registInfo.intensity}
                 color="main"
                 className={RadioBtnColor}
                 id={item}
-                fn={selectconcentrationOption}
+                fn={selectIntensityOption}
               />
-            </ConcentrationOptionItem>
+            </IntensityOptionItem>
           ))}
         </div>
       </PersonalOptionContainer>
@@ -198,7 +198,7 @@ const SizeBtn = css`
   height: 40px;
   border-radius: 50px;
 `;
-const ConcentrationOptionItem = styled.div`
+const IntensityOptionItem = styled.div`
   gap: 4px;
   margin-left: 20px;
 `;
