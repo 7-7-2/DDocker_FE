@@ -66,6 +66,8 @@ export const MODAL_CTA_TEXTS = {
   signIn: {
     text: `로그인 후
   자세한 내용을 확인해보세요.`,
+    register: `로그인 후 
+  커피 정보를 등록해보세요.`,
     subBtn: `로그인 없이 둘러보기`
   },
   deleteAccount: {
