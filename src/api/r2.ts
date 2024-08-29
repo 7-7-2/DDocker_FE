@@ -7,7 +7,7 @@ export const getPresignedUploadUrl = async (route: string) => {
     .catch(e => {
       console.log(e);
     });
-  return { url: signedUrl && signedUrl.data.url };
+  return { url: signedUrl && signedUrl.data.data.url };
 };
 
 //r2 cloud storage delete, e.g.) /post/${userId}/{postId}, /user/{userId}
