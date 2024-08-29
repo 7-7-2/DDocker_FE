@@ -1,5 +1,5 @@
-const STATIC_CACHE_NAME = 'ddocker-static-v1';
-const DYNAMIC_CACHE_NAME = 'ddocker-dynamic-v1';
+const STATIC_CACHE_NAME = 'ddocker-static-v2';
+const DYNAMIC_CACHE_NAME = 'ddocker-dynamic-v2';
 
 const ASSETS = [
   '/index.html',
