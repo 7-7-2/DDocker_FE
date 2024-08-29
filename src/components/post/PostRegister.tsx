@@ -123,7 +123,7 @@ const PostRegister = ({
     );
     const registered = newRegistData && (await setPostRegist(newRegistData));
     const imgUploaded =
-      registered &&
+      (await registered) &&
       (await uploadStorage(`post/${userId}/${postId}`, imageFile as File));
     return imgUploaded && { registered, postId };
   };
@@ -147,7 +147,7 @@ const PostRegister = ({
     resetSelectedCoffee();
   };
 
-  const { mutateAsync, isPending } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: async () => {
       const { registered, postId } = !update
         ? await handleRegister()
@@ -161,8 +161,8 @@ const PostRegister = ({
     }
   });
 
-  const clickRegisterBtn = async () => {
-    await mutateAsync();
+  const clickRegisterBtn = () => {
+    !isPending && userId && mutate();
   };
 
   const handleActions: React.MouseEventHandler<HTMLButtonElement> = () => {
@@ -201,7 +201,7 @@ const PostRegister = ({
       </Container>
       <Button
         text={!update ? BUTTON_TEXTS.register : BUTTON_TEXTS.update}
-        onClick={!isPending && userId && clickRegisterBtn}
+        onClick={clickRegisterBtn}
         className={cx(
           imageFile && caffeine
             ? undefined
