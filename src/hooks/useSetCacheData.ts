@@ -2,7 +2,7 @@ import {
   SimplifyUser,
   TodayCoffeeInfoTypes,
   TodayTakedWaterTypes,
-  WeeklyPopularTypes
+  WeeklyPopularListTypes
 } from '@/types/types';
 
 const useSetCacheData = async (
@@ -14,7 +14,7 @@ const useSetCacheData = async (
     | number
     | SimplifyUser[]
     | TodayCoffeeInfoTypes
-    | WeeklyPopularTypes[]
+    | WeeklyPopularListTypes
     | TodayTakedWaterTypes[]
     | Notification[]
 ) => {
