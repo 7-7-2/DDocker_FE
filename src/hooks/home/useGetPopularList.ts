@@ -1,48 +1,52 @@
 import dayjs from 'dayjs';
-import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
 import { getWeeklyPopular } from '@/api/post';
-import { WeeklyPopularTypes } from '@/types/types';
 import useGetCacheData from '@/hooks/useGetCacheData';
 import useSetCacheData from '@/hooks/useSetCacheData';
+import { WeeklyPopularListTypes, WeeklyPopularTypes } from '@/types/types';
 
 const useGetPopularList = () => {
+  const currentDate = dayjs().format('D');
   const [brandList, setBrandList] = useState<WeeklyPopularTypes[]>([]);
 
-  const { data: weeklyPopularList } = useQuery({
-    queryKey: ['weeklyPopularList'],
-    queryFn: () => getWeeklyPopular(),
-    staleTime: 1000 * 60 * 60 * 24
+  const { data: newPopularList, mutate } = useMutation({
+    mutationFn: async () => {
+      const data = await getWeeklyPopular();
+      return data;
+    }
   });
 
-  const getWeeklyPopularList = async () => {
-    try {
-      const res = await useGetCacheData('brand', '/WeeklyPopular');
-      const cachedDate = res && Object.keys(res.cacheData)[0];
-      const currentDate = dayjs().format('D');
+  const updatePopularList = async (newPopularList: WeeklyPopularListTypes) => {
+    setBrandList(newPopularList[currentDate]);
+    await useSetCacheData('brand', '/WeeklyPopular', newPopularList);
+  };
 
-      if (!res && weeklyPopularList) {
-        setBrandList(weeklyPopularList[currentDate]);
-        await useSetCacheData('brand', '/WeeklyPopular', weeklyPopularList);
+  const getWeeklyPopularList = async () => {
+    const cachedPopularList = await useGetCacheData('brand', '/WeeklyPopular');
+    if (!cachedPopularList) {
+      !newPopularList && mutate();
+      newPopularList && (await updatePopularList(newPopularList));
+      return;
+    } else {
+      const cachedDate =
+        cachedPopularList.cacheData &&
+        Object.keys(cachedPopularList.cacheData)[0];
+
+      if (cachedDate === currentDate) {
+        setBrandList(cachedPopularList.cacheData[cachedDate]);
+        return;
+      } else {
+        mutate();
+        newPopularList && (await updatePopularList(newPopularList));
         return;
       }
-      if (res && weeklyPopularList && cachedDate === currentDate) {
-        setBrandList(res.cacheData[cachedDate]);
-        return;
-      }
-      if (res && weeklyPopularList && cachedDate !== currentDate) {
-        await useSetCacheData('brand', '/WeeklyPopular', weeklyPopularList);
-        setBrandList(weeklyPopularList[currentDate]);
-        return;
-      }
-    } catch (error) {
-      console.error('Failed to fetch data:', error);
     }
   };
 
   useEffect(() => {
-    weeklyPopularList && getWeeklyPopularList();
-  }, [weeklyPopularList]);
+    getWeeklyPopularList();
+  }, [newPopularList]);
 
   return brandList;
 };

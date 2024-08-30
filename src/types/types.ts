@@ -91,6 +91,9 @@ export interface EmptyUserProps {
   onClick?: () => void;
 }
 
+export interface WeeklyPopularListTypes {
+  [key: string]: WeeklyPopularTypes[];
+}
 export interface WeeklyPopularTypes {
   brand: string;
   co: number;
