@@ -37,7 +37,7 @@ const useGetPopularList = () => {
         setBrandList(cachedPopularList.cacheData[cachedDate]);
         return;
       } else {
-        mutate();
+        !newPopularList && mutate();
         newPopularList && (await updatePopularList(newPopularList));
         return;
       }
