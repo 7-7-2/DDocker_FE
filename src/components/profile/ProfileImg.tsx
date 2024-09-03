@@ -7,20 +7,24 @@ import { Cursor } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
+import { useState } from 'react';
 
 const ProfileImg = ({ imageUrl }: { imageUrl?: string }) => {
+  const [profileUrl, setProfileUrl] = useState<string>(imageUrl as string);
   const handleProfile = useNavigateTo('/mypage');
   const { userId: ProFileId } = useParams();
 
   const { userId } = useCachedUserInfo();
+  const handleError = () => setProfileUrl('');
 
   return (
     <Container className={cx(FlexCenter, MarginAuto)}>
       <Box className={cx(FlexCenter, MarginAuto)}>
         <div>
-          {imageUrl ? (
+          {profileUrl ? (
             <ImgRound
-              src={imageUrl}
+              src={profileUrl}
+              onError={handleError}
               alt="Profile"
             />
           ) : (
