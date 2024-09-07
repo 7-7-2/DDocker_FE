@@ -25,10 +25,11 @@ const MemberProfile = ({
   profileId: string | undefined;
 }) => {
   const ProfilePostIQParam: InfinitePosts = getProfilePostIQParam();
-  const { data, ref: postRef } = useTargetInfiniteScroll(
-    ProfilePostIQParam,
-    profile
-  );
+  const {
+    data,
+    ref: postRef,
+    refetch
+  } = useTargetInfiniteScroll(ProfilePostIQParam, profile);
   const postsData = data && (data as unknown as UserProfileDataTypes[]);
   const allCount = postsData && postsData[0].allCount;
 
@@ -50,6 +51,7 @@ const MemberProfile = ({
           <PostsGrid
             data={postsData}
             postRef={postRef}
+            refetch={refetch}
           />
         </Suspense>
       ) : (
