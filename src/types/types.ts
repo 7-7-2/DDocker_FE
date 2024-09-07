@@ -1,3 +1,8 @@
+import {
+  InfiniteData,
+  QueryObserverResult,
+  RefetchOptions
+} from '@tanstack/react-query';
 import { RefObject, ChangeEvent, MouseEventHandler } from 'react';
 
 export interface LazyRouteType {
@@ -158,7 +163,15 @@ export interface UserFollowCountsTypes {
 export interface PostsGridProps {
   data?: UserProfileDataTypes[];
   postRef: React.RefObject<HTMLDivElement>;
+  refetch:
+    | ((
+        options?: RefetchOptions | undefined
+      ) => Promise<
+        QueryObserverResult<InfiniteData<FetchedFollowing, unknown>, Error>
+      >)
+    | undefined;
 }
+
 export interface CaffeineFilterTypes {
   caffeine: number;
   menuCaffeine: number;
