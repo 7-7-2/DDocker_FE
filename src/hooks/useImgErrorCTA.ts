@@ -1,11 +1,15 @@
 import { useState } from 'react';
-import { useNavigateTo } from '@/hooks/useNavigateTo';
 
 export const useImgErrorCTA = () => {
   const [url, setUrl] = useState('');
   const [isError, setIsError] = useState(false);
+  const [isRefresh, setIsRefresh] = useState(false);
   const [reloadPhoto, setReloadPhoto] = useState('');
-  const refresh = useNavigateTo('0');
+
+  const handleRefreshBtn = () => {
+    setIsRefresh(true);
+    setIsError(false);
+  };
 
   const handleImgError = () => {
     setIsError(true);
@@ -20,10 +24,11 @@ export const useImgErrorCTA = () => {
 
   return {
     isError,
+    isRefresh,
     reloadPhoto,
     setUrl,
-    refresh,
     handleImgError,
-    handleReloadImg
+    handleReloadImg,
+    handleRefreshBtn
   };
 };
