@@ -13,15 +13,17 @@ import { useVerifyOwner } from '@/hooks/post/useVerifyOwner';
 import { usePostOptions } from '@/hooks/post/usePostOptions';
 import { useRefIntoView } from '@/hooks/post/useRefIntoView';
 import { useResetRegistInfo } from '@/hooks/post/useResetRegistInfo';
+import { useImgErrorCTA } from '@/hooks/useImgErrorCTA';
 
+import { ERROR_IMG_TEXTS } from '@/constants/error';
 import { getPostDetail, getSocialCounts } from '@/api/post';
 import timestampToDate from '@/utils/timestampToDate';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { InputContext } from '@/context/contexts';
 
-import { cx } from 'styled-system/css';
+import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { Between, Align, Flex } from '@/styles/layout';
+import { Between, Align, Flex, Center } from '@/styles/layout';
 import { PostTitle, PostContent, Divider } from '@/styles/styles';
 
 const ReplyToPanel = React.lazy(() => import('./ReplyToPanel'));
@@ -32,6 +34,8 @@ const ConfirmDelete = React.lazy(() => import('./overlay/ConfirmDelete'));
 const PostDetail = ({ postNum }: { postNum: string }) => {
   const { ref } = useRefIntoView(null, 'auto');
   useResetRegistInfo();
+  const { isError, handleImgError } = useImgErrorCTA();
+
   const queries = useQueries({
     queries: [
       {
@@ -60,6 +64,7 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const isPostOwner =
     postOwner && postData && postOwner === postData.data.nickname;
+
   return (
     <>
       {toggle && isPostOwner && (
@@ -104,7 +109,18 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
               onClick={cancelOptions}
             />
           </UserProfile>
-          <DetailImg src={postData?.data.photo} />
+          {!isError ? (
+            <DetailImg
+              src={postData?.data.photo}
+              onError={handleImgError}
+              className={DetailImgStyle}
+            />
+          ) : (
+            <ErrorImgContainer className={cx(Center, Flex, DetailImgStyle)}>
+              {ERROR_IMG_TEXTS.detailImg}
+            </ErrorImgContainer>
+          )}
+
           <PostSocial
             posts={false}
             likes={socialCounts.data.totalLikes}
@@ -148,7 +164,7 @@ const UserProfile = styled.div`
   padding: 12px 0;
 `;
 
-const DetailImg = styled.img`
+const DetailImgStyle = css`
   display: block;
   position: relative;
   margin-left: -20px;
@@ -163,6 +179,15 @@ const DetailImg = styled.img`
   max-height: 500px;
   object-fit: fill;
   aspect-ratio: 1/1;
+`;
+
+const DetailImg = styled.img``;
+
+const ErrorImgContainer = styled.div`
+  white-space: pre-wrap;
+  text-align: center;
+  background-color: var(--colors-tertiary);
+  color: var(--colors-subtext);
 `;
 
 export default PostDetail;
