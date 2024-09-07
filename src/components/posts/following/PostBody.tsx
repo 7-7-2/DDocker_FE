@@ -1,6 +1,7 @@
 import CafeDetail from '@/components/post/CafeDetail';
 import { useImgErrorCTA } from '@/hooks/useImgErrorCTA';
 import { FollowingPost } from '@/types/types';
+import { ERROR_IMG_TEXTS } from '@/constants/error';
 
 import { styled } from 'styled-system/jsx';
 import { PostContent } from '@/styles/styles';
@@ -58,7 +59,7 @@ const PostBody = ({
         <ImgErrorContainer>
           <Suspense>
             <ImageErrorCTA
-              text={'이미지를 로드할 수 없습니다.'}
+              text={ERROR_IMG_TEXTS.img}
               handleOnclick={handleReloadImg}
             />
           </Suspense>
