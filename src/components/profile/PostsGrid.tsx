@@ -1,25 +1,39 @@
-import { lazy, Suspense } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { lazy, Suspense, useEffect, useRef } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useImgErrorCTA } from '@/hooks/useImgErrorCTA';
 import { PostsGridProps, UserProfilePostsTypes } from '@/types/types';
 
-import { cx } from 'styled-system/css';
+import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Grid, Center } from '@/styles/layout';
 import { Cursor } from '@/styles/styles';
 
 const ImageErrorCTA = lazy(() => import('@/components/common/ImageErrorCTA'));
 
-const PostsGrid = ({ data, postRef }: PostsGridProps) => {
+const PostsGrid = ({ data, postRef, refetch }: PostsGridProps) => {
   const navigate = useNavigate();
   const posts = data && data.flatMap(item => item.posts);
 
-  const { isError, refresh, handleImgError } = useImgErrorCTA();
+  const { isError, isRefresh, handleImgError, handleRefreshBtn } =
+    useImgErrorCTA();
 
   const touchImg: React.MouseEventHandler<HTMLImageElement> = (
     e: React.MouseEvent<HTMLImageElement>
   ) => {
     navigate(`/post/${e.currentTarget.id}`);
+  };
+
+  const clickRefreshBtn = () => {
+    handleRefreshBtn();
+    refetch && !isRefresh && refetch();
+  };
+
+  const handleOnError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    if (!isRefresh) {
+      handleImgError();
+    } else {
+      e.currentTarget.style.opacity = '0';
+    }
   };
 
   return (
@@ -29,7 +43,7 @@ const PostsGrid = ({ data, postRef }: PostsGridProps) => {
           <Suspense>
             <ImageErrorCTA
               text={'게시물을 불러올 수 없습니다.'}
-              handleOnclick={refresh}
+              handleOnclick={clickRefreshBtn}
             />
           </Suspense>
         </Container>
@@ -42,10 +56,12 @@ const PostsGrid = ({ data, postRef }: PostsGridProps) => {
                   className={Cursor}
                   key={item.postId}
                   id={item.postId}
-                  onClick={touchImg}
-                  onError={handleImgError}
-                  src={item.photo}
-                />
+                  onClick={touchImg}>
+                  <PostImg
+                    onError={handleOnError}
+                    src={item.photo}
+                  />
+                </GridItem>
               </GridItemContainer>
             ))}
           <Target ref={postRef} />
@@ -74,7 +90,14 @@ const GridItemContainer = styled.div`
   }
 `;
 
-const GridItem = styled.img`
+const PostImg = styled.img`
+  /* position: absolute; */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+`;
+
+const GridItem = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
