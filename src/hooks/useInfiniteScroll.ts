@@ -91,7 +91,7 @@ export const useInfiniteScroll = (
   param: InfinitePosts | InfiniteFollowList,
   enabled: string
 ) => {
-  const { data, hasNextPage, isFetching, fetchNextPage, isLoading } =
+  const { data, hasNextPage, isFetching, fetchNextPage, isLoading, refetch } =
     useInfiniteQuery({
       queryKey: param.queryKey,
       queryFn: param.queryFn,
@@ -106,6 +106,7 @@ export const useInfiniteScroll = (
     hasNextPage,
     isFetching,
     fetchNextPage,
-    isLoading
+    isLoading,
+    refetch
   };
 };

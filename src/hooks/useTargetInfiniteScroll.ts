@@ -21,16 +21,14 @@ export const useTargetInfiniteScroll = (
   });
 
   if (enabled === '프로필') {
-    const { data, hasNextPage, isFetching, fetchNextPage } = useInfiniteScroll(
-      param,
-      enabled
-    );
+    const { data, hasNextPage, isFetching, fetchNextPage, refetch } =
+      useInfiniteScroll(param, enabled);
     const ref = useIntersection((entry, observer) => {
       observer.unobserve(entry.target);
       if (hasNextPage && !isFetching) fetchNextPage();
     });
 
-    return { data, ref };
+    return { data, ref, refetch };
   }
 
   if (enabled === '팔로워' && signedIn) {
