@@ -7,6 +7,7 @@ import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Grid, Center } from '@/styles/layout';
 import { Cursor } from '@/styles/styles';
+import { ERROR_IMG_TEXTS } from '@/constants/error';
 
 const ImageErrorCTA = lazy(() => import('@/components/common/ImageErrorCTA'));
 
@@ -42,7 +43,7 @@ const PostsGrid = ({ data, postRef, refetch }: PostsGridProps) => {
         <Container>
           <Suspense>
             <ImageErrorCTA
-              text={'게시물을 불러올 수 없습니다.'}
+              text={ERROR_IMG_TEXTS.postsGrid}
               handleOnclick={clickRefreshBtn}
             />
           </Suspense>
