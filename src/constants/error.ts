@@ -6,6 +6,5 @@ export const ERROR_TEXTS = {
 
 export const ERROR_IMG_TEXTS = {
   img: '이미지를 로드할 수 없습니다.',
-  detailImg: `게시된 이미지를 찾을 수 없습니다.
-게시물 이미지를 수정 및 삭제 하십시오.`
+  detailImg: '게시된 이미지를 찾을 수 없습니다.'
 };
