@@ -1,28 +1,28 @@
 import { useRecoilState } from 'recoil';
 import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import Icon from '@/components/common/Icon';
 import { activeState } from '@/atoms/atoms';
 import useGetCacheData from '@/hooks/useGetCacheData';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
+import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
 import { Column, Center } from '@/styles/layout';
 import { FooterTextMedium, FooterTextSelected } from '@/styles/styles';
 import { cx } from 'styled-system/css';
-import { useLocation } from 'react-router-dom';
-import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 
 const pathMap = new Map();
 pathMap.set('', 'home');
 pathMap.set('posts', 'feed');
-pathMap.set('coffee', 'coffee');
+pathMap.set('coffee', 'stats');
 pathMap.set('profile', 'my');
 
 const routeMap = new Map();
 routeMap.set('home', '/');
 routeMap.set('feed', '/posts');
-routeMap.set('coffee', '/coffee');
+routeMap.set('stats', '/coffee');
 
 const FooterIcon = ({ icon }: { icon: string }) => {
   const { userId: myId } = useCachedUserInfo();
@@ -30,7 +30,6 @@ const FooterIcon = ({ icon }: { icon: string }) => {
   const path = pathname.split('/')[1];
   const [userId, setUserId] = useState('');
   const [active, setActive] = useRecoilState(activeState);
-
   const isProfile = path === 'profile';
   const isMyPage = pathname.split('/')[2] === myId;
 
