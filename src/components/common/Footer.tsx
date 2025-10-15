@@ -1,10 +1,11 @@
 import React from 'react';
 import FooterIcon from '@/components/common/FooterIcon';
+
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 import { Flex, Between } from '@/styles/layout';
 
-const icons = ['home', 'feed', 'stats', 'my'];
+const icons = ['home', 'feed', 'register', 'stats', 'my'];
 
 // LOGIC += if(INPUT FOCUS){DISPLAY NONE}
 const Footer = () => {

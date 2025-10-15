@@ -9,19 +9,22 @@ import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
-import { Column, Center } from '@/styles/layout';
+import { Column, Center, Flex } from '@/styles/layout';
 import { FooterTextMedium, FooterTextSelected } from '@/styles/styles';
 import { cx } from 'styled-system/css';
+import { styled } from 'styled-system/jsx';
 
 const pathMap = new Map();
 pathMap.set('', 'home');
 pathMap.set('posts', 'feed');
+// pathMap.set('', 'register');
 pathMap.set('coffee', 'stats');
 pathMap.set('profile', 'my');
 
 const routeMap = new Map();
 routeMap.set('home', '/');
 routeMap.set('feed', '/posts');
+// routeMap.set('register', '/post/register');
 routeMap.set('stats', '/coffee');
 
 const FooterIcon = ({ icon }: { icon: string }) => {
@@ -56,9 +59,11 @@ const FooterIcon = ({ icon }: { icon: string }) => {
     navigateTo();
   };
 
+  const register = icon === 'register';
+
   return (
     <>
-      {icon && (
+      {!register ? (
         <div
           className={cx(Column, Center)}
           onClick={handleTouch}>
@@ -70,9 +75,21 @@ const FooterIcon = ({ icon }: { icon: string }) => {
             {icon.toUpperCase()}
           </span>
         </div>
+      ) : (
+        <RegisterBtn className={cx(Flex, Center)}>
+          <Icon {...iconPropsGenerator(icon, '16')} />
+        </RegisterBtn>
       )}
     </>
   );
 };
+
+const RegisterBtn = styled.div`
+  height: 42px;
+  width: 42px;
+  margin-top: -2px;
+  background-color: var(--colors-main);
+  border-radius: 50px;
+`;
 
 export default FooterIcon;
