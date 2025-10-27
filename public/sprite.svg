@@ -370,6 +370,17 @@
       />
     </symbol>
 
+    <symbol 
+      id="icon-register" 
+      width="16" 
+      height="16" 
+      viewBox="0 0 16 16" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg">
+      <path d="M8 1V15" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M1 8H15" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
     <symbol
       id="icon-stats"
       width="24"
@@ -475,6 +486,17 @@
       />
     </symbol>
 
+    <symbol 
+      id="icon-register-active" 
+      width="20" 
+      height="20"
+      viewBox="0 0 20 20" 
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg">
+      <path d="M14.9492 5.0498L5.04972 14.9493" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M5.04883 5.05078L14.9483 14.9503" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
     <symbol
       id="icon-stats-active"
       width="24"
@@ -523,17 +545,6 @@
         stroke="#FF701E"
         stroke-width="1.5"
       />
-    </symbol>
-
-    <symbol 
-      id="icon-register" 
-      width="16" 
-      height="16" 
-      viewBox="0 0 16 16" 
-      fill="none" 
-      xmlns="http://www.w3.org/2000/svg">
-      <path d="M8 1V15" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M1 8H15" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     </symbol>
 
     <symbol
