@@ -13,6 +13,11 @@ export const activeState = atom({
   default: 'home'
 });
 
+export const registerBtnActiveState = atom({
+  key: 'registerBtnActiveState',
+  default: false
+});
+
 export const headerLogoState = atom({
   key: 'headerLogoState',
   default: false
@@ -56,18 +61,6 @@ export const userInfoState = atom<AuthTypes>({
   }
 });
 
-export const selectedMenuInfoState = atom<CoffeeItemTypes>({
-  key: 'selectedMenuInfo',
-  default: {
-    brand: '',
-    menu: '',
-    caffeine: 0
-  }
-});
-export const registerPostTitleState = atom({
-  key: 'registerPostTitleState',
-  default: false
-});
 export const registPostState = atom<RegisterPostTypes>({
   key: 'registPostState',
   default: {

@@ -51,6 +51,8 @@ export const BUTTON_TEXTS = {
   start: '시작하기',
   register: '등록하기',
   mainRegister: '조회한 커피 등록하기',
+  coffeeRegister: '마신 커피 등록하기',
+  postRegister: '게시물로 등록하기',
   update: '수정하기',
   next: '다음으로',
   signIn1: '로그인',

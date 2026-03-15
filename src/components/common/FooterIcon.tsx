@@ -3,28 +3,27 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import Icon from '@/components/common/Icon';
-import { activeState } from '@/atoms/atoms';
+import FooterRegisterBtn from '@/components/common/FooterRegisterBtn';
+
+import { registerBtnActiveState, activeState } from '@/atoms/atoms';
 import useGetCacheData from '@/hooks/useGetCacheData';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
-import { Column, Center, Flex } from '@/styles/layout';
-import { FooterTextMedium, FooterTextSelected } from '@/styles/styles';
+import { Column, Center } from '@/styles/layout';
 import { cx } from 'styled-system/css';
-import { styled } from 'styled-system/jsx';
+import { FooterTextMedium, FooterTextSelected } from '@/styles/styles';
 
 const pathMap = new Map();
 pathMap.set('', 'home');
 pathMap.set('posts', 'feed');
-// pathMap.set('', 'register');
 pathMap.set('coffee', 'stats');
 pathMap.set('profile', 'my');
 
 const routeMap = new Map();
 routeMap.set('home', '/');
 routeMap.set('feed', '/posts');
-// routeMap.set('register', '/post/register');
 routeMap.set('stats', '/coffee');
 
 const FooterIcon = ({ icon }: { icon: string }) => {
@@ -33,8 +32,13 @@ const FooterIcon = ({ icon }: { icon: string }) => {
   const path = pathname.split('/')[1];
   const [userId, setUserId] = useState('');
   const [active, setActive] = useRecoilState(activeState);
+  const [activeRegisterBtn, setActiveRegisterBtn] = useRecoilState(
+    registerBtnActiveState
+  );
+
   const isProfile = path === 'profile';
   const isMyPage = pathname.split('/')[2] === myId;
+  const register = icon === 'register';
 
   const getUserId = async () => {
     const data = await useGetCacheData('user', '/userInfo');
@@ -56,10 +60,9 @@ const FooterIcon = ({ icon }: { icon: string }) => {
 
   const handleTouch = () => {
     setActive(icon);
+    activeRegisterBtn && setActiveRegisterBtn(!activeRegisterBtn);
     navigateTo();
   };
-
-  const register = icon === 'register';
 
   return (
     <>
@@ -76,20 +79,10 @@ const FooterIcon = ({ icon }: { icon: string }) => {
           </span>
         </div>
       ) : (
-        <RegisterBtn className={cx(Flex, Center)}>
-          <Icon {...iconPropsGenerator(icon, '16')} />
-        </RegisterBtn>
+        <FooterRegisterBtn icon={icon} />
       )}
     </>
   );
 };
-
-const RegisterBtn = styled.div`
-  height: 42px;
-  width: 42px;
-  margin-top: -2px;
-  background-color: var(--colors-main);
-  border-radius: 50px;
-`;
 
 export default FooterIcon;
