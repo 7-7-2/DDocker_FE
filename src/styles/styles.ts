@@ -64,6 +64,11 @@ export const BtnColorWhite = css`
   color: #313131;
 `;
 
+export const BtnColorSub = css`
+  background: var(--colors-sub);
+  color: #fff;
+`;
+
 export const SignInBtn = cx(
   Btn,
   css`
@@ -100,6 +105,38 @@ export const RegistBtn = cx(
     height: 46px;
   `
 );
+
+export const RegisterModalBtn = cx(
+  Btn,
+  Semibold,
+  css`
+    height: 48px;
+    width: 184px;
+    background-color: #fff;
+    border-radius: 50px;
+    font-size: var(--font-sizes-sm);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 12px;
+    padding-left: 12px;
+  `
+);
+
+export const RegisterModalBtnBubble = css`
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 85px;
+    right: 85px;
+    width: 14px;
+    height: 10px;
+    transform: rotate(45deg);
+    background-color: #fff;
+    border-radius: 0 0 2px 0;
+  }
+`;
 
 export const FollowBtn = cx(
   Btn,
