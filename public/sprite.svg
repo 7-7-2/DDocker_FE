@@ -562,6 +562,39 @@
       />
     </symbol>
 
+    <symbol 
+      id="icon-coffeeRegister"
+      width="24" 
+      height="24" 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#clip0_5058_11294)">
+      <path d="M7 21C5.89543 21 5 20.1046 5 19V3H14H19V8V19C19 20.1046 18.1046 21 17 21H7Z" stroke="#313131" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M9 11H15" stroke="#313131" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M9 7H15" stroke="#313131" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M9 15H13" stroke="#313131" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <defs>
+      <clipPath id="clip0_5058_11294">
+      <rect width="24" height="24" fill="white"/>
+      </clipPath>
+      </defs>
+    </symbol>
+
+    <symbol
+      id="icon-postRegister"
+      width="24" 
+      height="24" 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg">
+      <path d="M3 17V5H10H12H21V17C21 18.1046 20.1046 19 19 19H5C3.89543 19 3 18.1046 3 17Z" stroke="#313131" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M5 19L12 12L19 19" stroke="#313131" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="7.5" y="9.5" width="0.01" height="0.01" stroke="#313131" stroke-width="2.25" stroke-linejoin="round"/>
+    </symbol>
+
+
     <symbol
       id="icon-check"
       xmlns="http://www.w3.org/2000/svg"

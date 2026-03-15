@@ -3,7 +3,7 @@ import {
   QueryObserverResult,
   RefetchOptions
 } from '@tanstack/react-query';
-import { RefObject, ChangeEvent, MouseEventHandler } from 'react';
+import { RefObject, ChangeEvent, MouseEventHandler, ReactNode } from 'react';
 
 export interface LazyRouteType {
   index: boolean;
@@ -89,6 +89,7 @@ export interface ButtonProps {
   text: string;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   className: string;
+  children?: ReactNode;
 }
 
 export interface EmptyUserProps {
