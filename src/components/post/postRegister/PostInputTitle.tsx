@@ -1,6 +1,6 @@
 import { useRecoilValue } from 'recoil';
 import { Input } from '@/components/common/Input';
-import RegisterLabel from '@/components/post/RegisterLabel';
+import RegisterLabel from '@/components/post/postRegister/RegisterLabel';
 import { INPUT_TEXTS, LABEL_TEXTS } from '@/constants/common';
 import { registPostState } from '@/atoms/atoms';
 import { useInput } from '@/hooks/useInput';

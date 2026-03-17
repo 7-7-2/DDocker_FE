@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import TextArea from '@/components/common/TextArea';
-import RegisterLabel from '@/components/post/RegisterLabel';
+import RegisterLabel from '@/components/post/postRegister/RegisterLabel';
 import { LABEL_TEXTS, INPUT_TEXTS } from '@/constants/common';
 import { registPostState } from '@/atoms/atoms';
 import { MarginT6 } from '@/styles/styles';

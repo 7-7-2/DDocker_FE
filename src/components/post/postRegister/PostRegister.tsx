@@ -4,11 +4,11 @@ import { useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 
-import PostInputTitle from '@/components/post/PostInputTitle';
-import RegisterLabel from '@/components/post/RegisterLabel';
+import PostInputTitle from '@/components/post/postRegister/PostInputTitle';
+import RegisterLabel from '@/components/post/postRegister/RegisterLabel';
 import CoffeeMenuSelection from '@/components/common/coffeeSelection/CoffeeMenuSelection';
 import CoffeeOptionSelection from '@/components/common/coffeeSelection/CoffeeOptionSelection';
-import PostInputDescription from '@/components/post/PostInputDescription';
+import PostInputDescription from '@/components/post/postRegister/PostInputDescription';
 import ImgRegister from '@/components/common/ImgRegister';
 import ImgCropper from '@/components/common/ImgCropper';
 import Button from '@/components/common/Button';

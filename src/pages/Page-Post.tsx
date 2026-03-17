@@ -5,7 +5,9 @@ import { useComposeHeader } from '@/hooks/useComposeHeader';
 import SEOMeta from '@/components/common/SEOMeta';
 import SEO_DATA from '@/constants/SEOData';
 
-const PostRegister = lazy(() => import('../components/post/PostRegister'));
+const PostRegister = lazy(
+  () => import('../components/post/postRegister/PostRegister')
+);
 const PostDetail = lazy(() => import('../components/post/PostDetail'));
 
 const Post = () => {
