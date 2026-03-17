@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import Icon from '@/components/common/Icon';
 import Button from '@/components/common/Button';
-import RegisterLabel from '@/components/post/RegisterLabel';
+import RegisterLabel from '@/components/post/postRegister/RegisterLabel';
 import RadioBtn from '@/components/common/RadioBtn';
 import { CAFFEINE_FILTER_TEXTS } from '@/constants/home';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';

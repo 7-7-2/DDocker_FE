@@ -2,7 +2,7 @@ import { lazy, Suspense } from 'react';
 import { useParams } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
-import RegisterLabel from '@/components/post/RegisterLabel';
+import RegisterLabel from '@/components/post/postRegister/RegisterLabel';
 import { CAFFEINE_FILTER_TEXTS } from '@/constants/home';
 import useGetCoffeeList from '@/hooks/useGetCoffeeList';
 import { caffeineFilterState, registPostState } from '@/atoms/atoms';
