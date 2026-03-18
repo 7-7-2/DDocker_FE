@@ -1,29 +1,25 @@
 import { lazy, useRef } from 'react';
 import { nanoid } from 'nanoid';
-import { useRecoilValue } from 'recoil';
+import { constSelector, useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 
-import PostInputTitle from '@/components/post/postRegister/PostInputTitle';
-import RegisterLabel from '@/components/post/postRegister/RegisterLabel';
 import CoffeeMenuSelection from '@/components/common/coffeeSelection/CoffeeMenuSelection';
 import CoffeeOptionSelection from '@/components/common/coffeeSelection/CoffeeOptionSelection';
-import PostInputDescription from '@/components/post/postRegister/PostInputDescription';
-import ImgRegister from '@/components/common/ImgRegister';
-import ImgCropper from '@/components/common/ImgCropper';
+import PostWriteSection from '@/components/post/postRegister/PostWriteSection';
 import Button from '@/components/common/Button';
 
 import { getMyInfo } from '@/api/user';
 import { setPostRegist, updatePost } from '@/api/post';
 import { caffeineFilterState, registPostState } from '@/atoms/atoms';
-import { BUTTON_TEXTS, LABEL_TEXTS, MODAL_CTA_TEXTS } from '@/constants/common';
+import { BUTTON_TEXTS, MODAL_CTA_TEXTS } from '@/constants/common';
 
-import { useUpadatePost } from '@/hooks/post/useUpadatePost';
 import { useImageCropper } from '@/hooks/post/useImageCropper';
-import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 import { useCloudStorage } from '@/hooks/useCloudStorage';
 import { useCompressImage } from '@/hooks/useCompressImage';
 import { useShowFooter } from '@/hooks/useShowFooter';
+import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
+import { useUpadatePost } from '@/hooks/post/useUpadatePost';
 import { useResetSelectedCoffee } from '@/hooks/useResetSelectedCoffee';
 import { useGetTodayCoffeeData } from '@/hooks/home/useGetTodayCoffeeData';
 import { useVerifyModalCTA } from '@/hooks/useVerifyModalCTA';
@@ -32,9 +28,9 @@ import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { DefaultBtn, DisabledBtn, Spinner } from '@/styles/styles';
 import { Align, Center } from '@/styles/layout';
+import { usePostDataFormatter } from '@/hooks/post/usePostDataFormatter';
 
 const ModalCTA = lazy(() => import('@/components/common/ModalCTA'));
-const imagePath = import.meta.env.VITE_R2_POST_IMAGE_PATH;
 
 const { signIn2 } = BUTTON_TEXTS;
 const { signIn } = MODAL_CTA_TEXTS;
@@ -61,6 +57,7 @@ const PostRegister = ({
   const { userId } = useCachedUserInfo();
   const { uploadStorage } = useCloudStorage();
 
+  // 사진 업로드
   const {
     imageUrl,
     setImageUrl,
@@ -86,40 +83,12 @@ const PostRegister = ({
     compressImage
   };
 
-  const handleRequestData = async (
-    postTitle: string | undefined,
-    update?: boolean
-  ) => {
-    const postId = update ? registInfo.postId : nanoid();
-    const storagePath = `${imagePath}%2F${userId}%2F${postId}`;
-
-    if (update) {
-      const { postId, ...updateInfo } = registInfo;
-      const updateData = {
-        ...updateInfo,
-        post_title: postTitle,
-        caffeine: caffeine || updateInfo.caffeine,
-        photo: storagePath,
-        description: textAreaRef.current?.value || updateInfo.description
-      };
-      return { postId, updateData };
-    }
-
-    const newRegistData = {
-      ...registInfo,
-      caffeine: caffeine,
-      post_title: postTitle,
-      photo: storagePath,
-      postId: postId,
-      description: textAreaRef.current?.value || null
-    };
-
-    return { postId, newRegistData };
-  };
-
+  const { dataFormatter } = usePostDataFormatter();
   const handleRegister = async () => {
-    const { postId, newRegistData } = await handleRequestData(
-      inputRef.current?.value
+    const { postId, newRegistData } = await dataFormatter(
+      inputRef.current?.value,
+      caffeine,
+      textAreaRef?.current?.value
     );
     const registered = newRegistData && (await setPostRegist(newRegistData));
     const imgUploaded =
@@ -129,8 +98,10 @@ const PostRegister = ({
   };
 
   const handleUpdate = async () => {
-    const { postId, updateData } = await handleRequestData(
+    const { postId, updateData } = await dataFormatter(
       inputRef.current?.value,
+      caffeine,
+      textAreaRef?.current?.value,
       update
     );
     const registered =
@@ -187,16 +158,11 @@ const PostRegister = ({
       <Container>
         <CoffeeMenuSelection />
         <CoffeeOptionSelection />
-        <PostInputTitle inputRef={inputRef} />
-        <PostInputDescription inputRef={textAreaRef} />
-        <RegisterLabel
-          label={LABEL_TEXTS.photo}
-          essential
-        />
-        <ImgRegister {...registerProps} />
-        <ImgCropper
-          {...registerProps}
-          {...cropperProps}
+        <PostWriteSection
+          inputRef={inputRef}
+          textAreaRef={textAreaRef}
+          registerProps={registerProps}
+          cropperProps={cropperProps}
         />
       </Container>
       <Button
