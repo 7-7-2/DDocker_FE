@@ -3,7 +3,14 @@ import {
   QueryObserverResult,
   RefetchOptions
 } from '@tanstack/react-query';
-import { RefObject, ChangeEvent, MouseEventHandler, ReactNode } from 'react';
+import {
+  RefObject,
+  ChangeEvent,
+  MouseEventHandler,
+  ReactNode,
+  Dispatch,
+  SetStateAction
+} from 'react';
 
 export interface LazyRouteType {
   index: boolean;
@@ -145,6 +152,20 @@ export interface RegisterPostTypes {
   description: string | null;
   photo: string | undefined;
   postId: string;
+}
+
+export interface ImageRegisterProps {
+  setImageUrl: Dispatch<SetStateAction<string>>;
+  imageUrl: string;
+  setCropperEnabled: Dispatch<SetStateAction<boolean>>;
+  isLoading: boolean;
+}
+
+export interface ImageCropperProps {
+  aspectRatio: number;
+  setImageFile: Dispatch<SetStateAction<File | undefined>>;
+  cropperEnabled: boolean;
+  compressImage: (imageFile: File) => Promise<void | File>;
 }
 
 export interface UserProfileDataTypes {
