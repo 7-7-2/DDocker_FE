@@ -1,27 +1,27 @@
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Flex, Between } from '@/styles/layout';
-import { SelectedTap, DefaultTap } from '@/styles/styles';
+import { SelectedTab, DefaultTab } from '@/styles/styles';
 
-const Taps = ({
-  taps,
+const Tabs = ({
+  tabs,
   selectedTab,
   handleButtonClick
 }: {
-  taps: Array<string>;
+  tabs: Array<string>;
   selectedTab: string;
   handleButtonClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }) => {
   return (
     <TabContainer className={cx(Flex, Between)}>
-      {taps.map(item => (
-        <TapItem
-          className={cx(selectedTab === item ? SelectedTap : DefaultTap)}
+      {tabs.map(item => (
+        <TabItem
+          className={cx(selectedTab === item ? SelectedTab : DefaultTab)}
           onClick={handleButtonClick}
           value={item}
           key={item}>
-          <TapTitle>{item}</TapTitle>
-        </TapItem>
+          <TabTitle>{item}</TabTitle>
+        </TabItem>
       ))}
     </TabContainer>
   );
@@ -32,15 +32,15 @@ const TabContainer = styled.div`
   margin: 0 -20px;
 `;
 
-const TapItem = styled.button`
+const TabItem = styled.button`
   width: 50%;
   text-align: center;
 `;
 
-const TapTitle = styled.div`
+const TabTitle = styled.div`
   margin: 10px 0;
   line-height: 20px;
   font-size: var(--font-sizes-sm);
 `;
 
-export default Taps;
+export default Tabs;

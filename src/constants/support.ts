@@ -16,7 +16,7 @@ export const SUPPORT_TEXTS = {
 };
 
 export const CUSTOMER_SUPPORT_TEXTS = {
-  taps: ['공지사항', '자주 묻는 질문'],
+  tabs: ['공지사항', '자주 묻는 질문'],
   FAQ: {
     nonMember: '안녕하세요!',
     message: `님,
