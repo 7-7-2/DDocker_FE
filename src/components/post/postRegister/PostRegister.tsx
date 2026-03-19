@@ -1,6 +1,5 @@
 import { lazy, useRef } from 'react';
-import { nanoid } from 'nanoid';
-import { constSelector, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 
@@ -18,17 +17,16 @@ import { useImageCropper } from '@/hooks/post/useImageCropper';
 import { useCloudStorage } from '@/hooks/useCloudStorage';
 import { useCompressImage } from '@/hooks/useCompressImage';
 import { useShowFooter } from '@/hooks/useShowFooter';
-import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 import { useUpadatePost } from '@/hooks/post/useUpadatePost';
 import { useResetSelectedCoffee } from '@/hooks/useResetSelectedCoffee';
 import { useGetTodayCoffeeData } from '@/hooks/home/useGetTodayCoffeeData';
 import { useVerifyModalCTA } from '@/hooks/useVerifyModalCTA';
+import { usePostDataFormatter } from '@/hooks/post/usePostDataFormatter';
 
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { DefaultBtn, DisabledBtn, Spinner } from '@/styles/styles';
 import { Align, Center } from '@/styles/layout';
-import { usePostDataFormatter } from '@/hooks/post/usePostDataFormatter';
 
 const ModalCTA = lazy(() => import('@/components/common/ModalCTA'));
 
@@ -54,8 +52,13 @@ const PostRegister = ({
   const inputRef = useRef<HTMLInputElement | null>(null);
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
 
-  const { userId } = useCachedUserInfo();
   const { uploadStorage } = useCloudStorage();
+  const { dataFormatter, userId } = usePostDataFormatter(update);
+
+  //비회원,미로그인
+  const handleActions: React.MouseEventHandler<HTMLButtonElement> = () => {
+    navigate('/start/1');
+  };
 
   // 사진 업로드
   const {
@@ -83,7 +86,7 @@ const PostRegister = ({
     compressImage
   };
 
-  const { dataFormatter } = usePostDataFormatter();
+  //등록
   const handleRegister = async () => {
     const { postId, newRegistData } = await dataFormatter(
       inputRef.current?.value,
@@ -97,6 +100,7 @@ const PostRegister = ({
     return imgUploaded && { registered, postId };
   };
 
+  //수정
   const handleUpdate = async () => {
     const { postId, updateData } = await dataFormatter(
       inputRef.current?.value,
@@ -112,6 +116,7 @@ const PostRegister = ({
     return { registered, postId };
   };
 
+  //후처리
   const updateTodayCoffeeData = async () => {
     await getMyInfo();
     await getTodayCoffeeData();
@@ -134,10 +139,6 @@ const PostRegister = ({
 
   const clickRegisterBtn = () => {
     !isPending && userId && mutate();
-  };
-
-  const handleActions: React.MouseEventHandler<HTMLButtonElement> = () => {
-    navigate('/start/1');
   };
 
   return (
