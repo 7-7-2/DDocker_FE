@@ -40,7 +40,6 @@ const Home = () => {
 
 const Container = styled.div`
   position: relative;
-  height: calc(100vh+ 126px);
 `;
 
 export default Home;

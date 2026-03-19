@@ -63,7 +63,7 @@ const Container = styled.main`
   max-width: 500px;
   min-width: 360px;
   width: 100vw;
-  height: 100%;
+  height: 100vh;
 `;
 
 const Contents = styled.section`

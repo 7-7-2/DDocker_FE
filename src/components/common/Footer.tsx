@@ -21,14 +21,14 @@ const Footer = () => {
 };
 
 const Container = styled.footer`
-  margin: 0 20px calc(env(safe-area-inset-bottom));
-  padding: 8px 9px 0;
+  background-color: #fff;
+  padding: 8px 21px calc(14px + env(safe-area-inset-bottom));
   &::before {
     content: '';
     right: 0;
     border-top: 1px solid #edecec;
     position: absolute;
-    bottom: calc(50px + env(safe-area-inset-bottom));
+    bottom: calc(63px + env(safe-area-inset-bottom));
     width: 50%;
   }
   &::after {
@@ -36,7 +36,7 @@ const Container = styled.footer`
     border-top: 1px solid #edecec;
     position: absolute;
     left: 0;
-    bottom: calc(50px + env(safe-area-inset-bottom));
+    bottom: calc(63px + env(safe-area-inset-bottom));
     width: 50%;
   }
 `;
