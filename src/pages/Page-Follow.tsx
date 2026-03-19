@@ -1,9 +1,9 @@
 import { useLocation, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
-import Taps from '@/components/common/Taps';
+import Tabs from '@/components/common/Tabs';
 import UserListItem from '@/components/follow/UserListItem';
-import { useSelectTap } from '@/hooks/useSelectTap';
+import { useSelectTab } from '@/hooks/useSelectTab';
 import { useGetSignedIn } from '@/hooks/useGetSignedIn';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 
@@ -13,13 +13,13 @@ import { FollowCountProps } from '@/types/types';
 import SEOMeta from '@/components/common/SEOMeta';
 import SEO_DATA from '@/constants/SEOData';
 
-const { taps } = FOLLOW_TEXTS;
+const { tabs } = FOLLOW_TEXTS;
 
 const Follow: React.FC<FollowCountProps> = () => {
   const { signedIn } = useGetSignedIn();
   const { userId } = useParams();
   const { state: tabState } = useLocation();
-  const { seletedTap, handleSelectTap } = useSelectTap(tabState || taps[0]);
+  const { seletedTab, handleSelectTab } = useSelectTab(tabState || tabs[0]);
 
   const { data: username } = useQuery({
     queryKey: ['username', userId],
@@ -32,7 +32,7 @@ const Follow: React.FC<FollowCountProps> = () => {
   useComposeHeader(false, headerText, 'close');
 
   const pageData =
-    seletedTap === taps[0]
+    seletedTab === tabs[0]
       ? { ...SEO_DATA.follow, pageUrl: `${SEO_DATA.follow.pageUrl}/${userId}` }
       : {
           ...SEO_DATA.following,
@@ -43,14 +43,14 @@ const Follow: React.FC<FollowCountProps> = () => {
     <>
       <SEOMeta pageData={pageData} />
       {username && (
-        <Taps
-          taps={taps}
-          selectedTab={seletedTap}
-          handleButtonClick={handleSelectTap}
+        <Tabs
+          tabs={tabs}
+          selectedTab={seletedTab}
+          handleButtonClick={handleSelectTab}
         />
       )}
       <UserListItem
-        activeTab={seletedTap}
+        activeTab={seletedTab}
         pageUserId={userId}
       />
     </>
