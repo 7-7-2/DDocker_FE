@@ -7,6 +7,7 @@ import CoffeeMenuSelection from '@/components/common/coffeeSelection/CoffeeMenuS
 import CoffeeOptionSelection from '@/components/common/coffeeSelection/CoffeeOptionSelection';
 import PostWriteSection from '@/components/post/postRegister/PostWriteSection';
 import Button from '@/components/common/Button';
+import PillTabs from '@/components/common/PillTabs';
 
 import { getMyInfo } from '@/api/user';
 import { setPostRegist, updatePost } from '@/api/post';
@@ -22,6 +23,7 @@ import { useResetSelectedCoffee } from '@/hooks/useResetSelectedCoffee';
 import { useGetTodayCoffeeData } from '@/hooks/home/useGetTodayCoffeeData';
 import { useVerifyModalCTA } from '@/hooks/useVerifyModalCTA';
 import { usePostDataFormatter } from '@/hooks/post/usePostDataFormatter';
+import { useSelectTab } from '@/hooks/useSelectTab';
 
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
@@ -141,6 +143,10 @@ const PostRegister = ({
     !isPending && userId && mutate();
   };
 
+  //FillTabs component mock-up
+  const tabs = ['전체메뉴', '즐겨찾는 메뉴'];
+  const { seletedTab, handleSelectTab } = useSelectTab(tabs[0]);
+
   return (
     <>
       {isPending && (
@@ -156,29 +162,38 @@ const PostRegister = ({
           type={'register'}
         />
       )}
-      <Container>
-        <CoffeeMenuSelection />
-        <CoffeeOptionSelection />
-        <PostWriteSection
-          inputRef={inputRef}
-          textAreaRef={textAreaRef}
-          registerProps={registerProps}
-          cropperProps={cropperProps}
-        />
-      </Container>
-      <Button
-        text={!update ? BUTTON_TEXTS.register : BUTTON_TEXTS.update}
-        onClick={clickRegisterBtn}
-        className={cx(
-          imageFile && caffeine
-            ? undefined
-            : registInfo.caffeine
-              ? undefined
-              : DisabledBtn,
-          DefaultBtn,
-          BtnContainer
-        )}
+      <PillTabs
+        tabs={tabs}
+        selectedTab={seletedTab}
+        handleButtonClick={handleSelectTab}
       />
+      {seletedTab === tabs[0] && (
+        <>
+          <Container>
+            <CoffeeMenuSelection />
+            <CoffeeOptionSelection />
+            <PostWriteSection
+              inputRef={inputRef}
+              textAreaRef={textAreaRef}
+              registerProps={registerProps}
+              cropperProps={cropperProps}
+            />
+          </Container>
+          <Button
+            text={!update ? BUTTON_TEXTS.register : BUTTON_TEXTS.update}
+            onClick={clickRegisterBtn}
+            className={cx(
+              imageFile && caffeine
+                ? undefined
+                : registInfo.caffeine
+                  ? undefined
+                  : DisabledBtn,
+              DefaultBtn,
+              BtnContainer
+            )}
+          />
+        </>
+      )}
     </>
   );
 };
