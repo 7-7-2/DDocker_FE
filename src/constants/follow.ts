@@ -1,3 +1,3 @@
 export const FOLLOW_TEXTS = {
-  taps: ['팔로워', '팔로잉']
+  tabs: ['팔로워', '팔로잉']
 };

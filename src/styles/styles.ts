@@ -383,7 +383,7 @@ export const ButtonArea = cx(
   `
 );
 
-export const SelectedTap = cx(
+export const SelectedTab = cx(
   Semibold,
   css`
     color: var(--colors-main);
@@ -391,11 +391,29 @@ export const SelectedTap = cx(
   `
 );
 
-export const DefaultTap = cx(
+export const DefaultTab = cx(
   Medium,
   css`
     color: var(--colors-subtext);
     border-bottom: 1px solid var(--colors-btn-grey);
+  `
+);
+
+export const SelectedFillTab = cx(
+  Medium,
+  css`
+    color: var(--colors-maindark);
+    background-color: #fff;
+    font-size: var(--font-size-sm);
+  `
+);
+
+export const DefaultFillTab = cx(
+  Medium,
+  css`
+    color: var(--colors-subtext);
+    background-color: var(--colors-tertiary);
+    font-size: var(--font-size-sm);
   `
 );
 
@@ -432,7 +450,7 @@ export const DeleteAllBtn = cx(
 
 export const SearchPageHeight = css`
   height: calc(
-    100dvh - 50px - env(safe-area-inset-bottom) - env(safe-area-inset-top)
+    100dvh - 64px - env(safe-area-inset-bottom) - env(safe-area-inset-top)
   );
 `;
 
@@ -444,7 +462,7 @@ export const RegisterPageHeight = css`
 
 export const GeneralHeight = css`
   height: calc(
-    100dvh - 46px - 50px - env(safe-area-inset-bottom) - env(
+    100dvh - 46px - 64px - env(safe-area-inset-bottom) - env(
         safe-area-inset-top
       )
   );
