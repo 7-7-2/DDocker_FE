@@ -97,6 +97,7 @@ export interface ButtonProps {
   onClick?: MouseEventHandler<HTMLButtonElement>;
   className: string;
   children?: ReactNode;
+  disabled?: boolean;
 }
 
 export interface EmptyUserProps {
