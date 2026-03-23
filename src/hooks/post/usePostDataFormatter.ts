@@ -10,23 +10,20 @@ export const usePostDataFormatter = (update?: boolean) => {
   const registInfo = useRecoilValue(registPostState);
   const { userId } = useCachedUserInfo();
   const postId = update ? registInfo.postId : nanoid();
-
   const storagePath = `${imagePath}%2F${userId}%2F${postId}`;
 
   const dataFormatter = async (
-    postTitle: string | undefined,
     caffeine: number,
-    textAreaRef?: string | null,
+    nonImgPost: boolean,
+    description: string | null,
     update?: boolean
   ) => {
     if (update) {
       const { postId, ...updateInfo } = registInfo;
       const updateData = {
         ...updateInfo,
-        post_title: postTitle,
-        caffeine: caffeine || updateInfo.caffeine,
-        photo: storagePath,
-        description: textAreaRef || updateInfo.description
+        photo: !nonImgPost ? storagePath : null,
+        description: description || updateInfo.description
       };
       return { postId, updateData };
     }
@@ -34,10 +31,9 @@ export const usePostDataFormatter = (update?: boolean) => {
     const newRegistData = {
       ...registInfo,
       caffeine: caffeine,
-      post_title: postTitle,
-      photo: storagePath,
+      photo: !nonImgPost ? storagePath : null,
       postId: postId,
-      description: textAreaRef || null
+      description: description
     };
 
     return { postId, newRegistData };

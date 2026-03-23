@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { useQuery } from '@tanstack/react-query';
 
