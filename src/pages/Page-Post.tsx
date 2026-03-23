@@ -1,9 +1,13 @@
 import { Suspense, lazy } from 'react';
 import { useParams } from 'react-router-dom';
-import { useComposeHeader } from '@/hooks/useComposeHeader';
 
 import SEOMeta from '@/components/common/SEOMeta';
+
+import { useComposeHeader } from '@/hooks/useComposeHeader';
+import { HEADER_TEXTS } from '@/constants/common';
 import SEO_DATA from '@/constants/SEOData';
+
+const { post } = HEADER_TEXTS;
 
 const PostRegister = lazy(
   () => import('../components/post/postRegister/PostRegister')
@@ -15,16 +19,20 @@ const Post = () => {
   const { type } = useParams();
 
   const register = postId === 'register';
+  const caffeineRegister = type === 'caffeine';
   const update = type === 'update';
 
   const headerText = () => {
-    if (register) {
-      return '커피 등록 추가';
+    if (register && !caffeineRegister) {
+      return post.postRegister;
+    }
+    if (register && caffeineRegister) {
+      return post.caffeineRegister;
     }
     if (!register && update) {
-      return '수정하기';
+      return post.update;
     }
-    return '게시물';
+    return post.post;
   };
 
   useComposeHeader(false, headerText(), 'close');
