@@ -1,0 +1,103 @@
+import { useRecoilValue } from 'recoil';
+import { useNavigate } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+
+import { getMyInfo } from '@/api/user';
+import { setPostRegist, updatePost } from '@/api/post';
+import { caffeineFilterState, registPostState } from '@/atoms/atoms';
+
+import { useResetSelectedCoffee } from '@/hooks/useResetSelectedCoffee';
+import { useGetTodayCoffeeData } from '@/hooks/home/useGetTodayCoffeeData';
+import { usePostDataFormatter } from '@/hooks/post/usePostDataFormatter';
+import { usePostImageEditor } from '@/hooks/post/usePostImageEditor';
+
+export const usePostMutation = (
+  update: boolean | undefined,
+  descriptions: string | null
+) => {
+  const registInfo = useRecoilValue(registPostState);
+  // 이미지
+  const { imageUrl, imageFile, uploadStorage, registerProps, cropperProps } =
+    usePostImageEditor(registInfo);
+  const nonImgPost = !imageFile;
+
+  //데이터 가공
+  const { caffeine } = useRecoilValue(caffeineFilterState);
+  const { dataFormatter, userId } = usePostDataFormatter(update);
+
+  // 후처리
+  const navigate = useNavigate();
+  const { updateTodayCoffeeData: getTodayCoffeeData } = useGetTodayCoffeeData();
+  const resetSelectedCoffee = useResetSelectedCoffee();
+
+  //등록 로직
+  const handleRegister = async () => {
+    const { postId, newRegistData } = await dataFormatter(
+      caffeine,
+      nonImgPost,
+      descriptions,
+      nonImgPost
+    );
+    const registered = newRegistData && (await setPostRegist(newRegistData));
+    if (!nonImgPost) {
+      const imgUploaded =
+        (await registered) &&
+        (await uploadStorage(`post/${userId}/${postId}`, imageFile as File));
+      return imgUploaded && { registered, postId };
+    }
+    return { registered, postId };
+  };
+
+  //수정 로직
+  const handleUpdate = async () => {
+    const { postId, updateData } = await dataFormatter(
+      registInfo.caffeine,
+      nonImgPost,
+      descriptions,
+      update
+    );
+    const registered =
+      postId && updateData && (await updatePost(postId, updateData));
+    if (!nonImgPost) {
+      const imgUpdated =
+        (await registered) &&
+        imageFile &&
+        (await uploadStorage(`post/${userId}/${postId}`, imageFile as File));
+      return imgUpdated && { registered, postId };
+    }
+    return { registered, postId };
+  };
+
+  //후처리 로직
+  const updateTodayCoffeeData = async () => {
+    await getMyInfo();
+    await getTodayCoffeeData();
+    resetSelectedCoffee();
+  };
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: async () => {
+      const res = !update ? await handleRegister() : await handleUpdate();
+      return res.postId;
+    },
+    onSuccess: (postId: string) => {
+      updateTodayCoffeeData();
+      if (imageUrl?.startsWith('blob:')) {
+        URL.revokeObjectURL(imageUrl);
+      }
+      navigate(`/post/${postId}`, {
+        state: true
+      });
+    }
+  });
+
+  return {
+    mutate,
+    isPending,
+    userId,
+    registerProps,
+    cropperProps,
+    imageFile,
+    caffeine
+  };
+};
