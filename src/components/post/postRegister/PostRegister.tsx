@@ -1,33 +1,20 @@
-import { lazy, useRef } from 'react';
-import { useRecoilValue } from 'recoil';
+import { lazy } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useMutation } from '@tanstack/react-query';
+import { useIsMutating } from '@tanstack/react-query';
 
-import CoffeeMenuSelection from '@/components/common/coffeeSelection/CoffeeMenuSelection';
-import CoffeeOptionSelection from '@/components/common/coffeeSelection/CoffeeOptionSelection';
-import PostWriteSection from '@/components/post/postRegister/PostWriteSection';
-import Button from '@/components/common/Button';
 import PillTabs from '@/components/common/PillTabs';
+import PostRegisterForm from '@/components/post/postRegister/PostRegisterForm';
 
-import { getMyInfo } from '@/api/user';
-import { setPostRegist, updatePost } from '@/api/post';
-import { caffeineFilterState, registPostState } from '@/atoms/atoms';
 import { BUTTON_TEXTS, MODAL_CTA_TEXTS } from '@/constants/common';
 
-import { useImageCropper } from '@/hooks/post/useImageCropper';
-import { useCloudStorage } from '@/hooks/useCloudStorage';
-import { useCompressImage } from '@/hooks/useCompressImage';
 import { useShowFooter } from '@/hooks/useShowFooter';
 import { useUpadatePost } from '@/hooks/post/useUpadatePost';
-import { useResetSelectedCoffee } from '@/hooks/useResetSelectedCoffee';
-import { useGetTodayCoffeeData } from '@/hooks/home/useGetTodayCoffeeData';
 import { useVerifyModalCTA } from '@/hooks/useVerifyModalCTA';
-import { usePostDataFormatter } from '@/hooks/post/usePostDataFormatter';
 import { useSelectTab } from '@/hooks/useSelectTab';
 
-import { css, cx } from 'styled-system/css';
+import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { DefaultBtn, DisabledBtn, Spinner } from '@/styles/styles';
+import { Spinner } from '@/styles/styles';
 import { Align, Center } from '@/styles/layout';
 
 const ModalCTA = lazy(() => import('@/components/common/ModalCTA'));
@@ -44,116 +31,21 @@ const PostRegister = ({
 }) => {
   useShowFooter(false);
   useUpadatePost(update, postid);
-
-  const { caffeine } = useRecoilValue(caffeineFilterState);
-  const registInfo = useRecoilValue(registPostState);
-  const resetSelectedCoffee = useResetSelectedCoffee();
   const { isModal } = useVerifyModalCTA();
-  const { updateTodayCoffeeData: getTodayCoffeeData } = useGetTodayCoffeeData();
   const navigate = useNavigate();
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
-
-  const { uploadStorage } = useCloudStorage();
-  const { dataFormatter, userId } = usePostDataFormatter(update);
+  const isPending = useIsMutating({ mutationKey: ['postRegister'] });
 
   //비회원,미로그인
   const handleActions: React.MouseEventHandler<HTMLButtonElement> = () => {
     navigate('/start/1');
   };
 
-  // 사진 업로드
-  const {
-    imageUrl,
-    setImageUrl,
-    setImageFile,
-    imageFile,
-    setCropperEnabled,
-    cropperEnabled
-  } = useImageCropper(registInfo.photo);
-
-  const { compressImage, isLoading } = useCompressImage();
-
-  const registerProps = {
-    setImageUrl,
-    imageUrl,
-    setCropperEnabled,
-    isLoading
-  };
-
-  const cropperProps = {
-    aspectRatio: 1,
-    setImageFile,
-    cropperEnabled,
-    compressImage
-  };
-
-  //등록
-  const handleRegister = async () => {
-    const { postId, newRegistData } = await dataFormatter(
-      inputRef.current?.value,
-      caffeine,
-      textAreaRef?.current?.value
-    );
-    const registered = newRegistData && (await setPostRegist(newRegistData));
-    const imgUploaded =
-      (await registered) &&
-      (await uploadStorage(`post/${userId}/${postId}`, imageFile as File));
-    return imgUploaded && { registered, postId };
-  };
-
-  //수정
-  const handleUpdate = async () => {
-    const { postId, updateData } = await dataFormatter(
-      inputRef.current?.value,
-      caffeine,
-      textAreaRef?.current?.value,
-      update
-    );
-    const registered =
-      postId && updateData && (await updatePost(postId, updateData));
-    registered &&
-      imageFile &&
-      (await uploadStorage(`post/${userId}/${postId}`, imageFile as File));
-    return { registered, postId };
-  };
-
-  //후처리
-  const updateTodayCoffeeData = async () => {
-    await getMyInfo();
-    await getTodayCoffeeData();
-    resetSelectedCoffee();
-  };
-
-  const { mutate, isPending } = useMutation({
-    mutationFn: async () => {
-      const { registered, postId } = !update
-        ? await handleRegister()
-        : await handleUpdate();
-      await updateTodayCoffeeData();
-      URL.revokeObjectURL(imageUrl);
-      registered &&
-        navigate(`/post/${postId}`, {
-          state: true
-        });
-    }
-  });
-
-  const clickRegisterBtn = () => {
-    !isPending && userId && mutate();
-  };
-
-  //FillTabs component mock-up
+  //FillTabs component mock-up Data
   const tabs = ['전체메뉴', '즐겨찾는 메뉴'];
   const { seletedTab, handleSelectTab } = useSelectTab(tabs[0]);
 
   return (
     <>
-      {isPending && (
-        <LoadingPage className={cx(Align)}>
-          <div className={cx(Spinner, Center)} />
-        </LoadingPage>
-      )}
       {isModal && (
         <ModalCTA
           actionText={signIn2}
@@ -162,54 +54,22 @@ const PostRegister = ({
           type={'register'}
         />
       )}
-      <PillTabs
-        tabs={tabs}
-        selectedTab={seletedTab}
-        handleButtonClick={handleSelectTab}
-      />
-      {seletedTab === tabs[0] && (
-        <>
-          <Container>
-            <CoffeeMenuSelection />
-            <CoffeeOptionSelection />
-            <PostWriteSection
-              inputRef={inputRef}
-              textAreaRef={textAreaRef}
-              registerProps={registerProps}
-              cropperProps={cropperProps}
-            />
-          </Container>
-          <Button
-            text={!update ? BUTTON_TEXTS.register : BUTTON_TEXTS.update}
-            onClick={clickRegisterBtn}
-            className={cx(
-              imageFile && caffeine
-                ? undefined
-                : registInfo.caffeine
-                  ? undefined
-                  : DisabledBtn,
-              DefaultBtn,
-              BtnContainer
-            )}
-          />
-        </>
+      {isPending && (
+        <LoadingPage className={cx(Align)}>
+          <div className={cx(Spinner, Center)} />
+        </LoadingPage>
       )}
+      {!update && (
+        <PillTabs
+          tabs={tabs}
+          selectedTab={seletedTab}
+          handleButtonClick={handleSelectTab}
+        />
+      )}
+      {seletedTab === tabs[0] && <PostRegisterForm update={update} />}
     </>
   );
 };
-
-const Container = styled.div`
-  padding-bottom: 28px;
-  margin-bottom: 20px;
-  padding: 0 2px;
-  margin: 0 -2px;
-  overflow-y: auto;
-`;
-
-const BtnContainer = css`
-  position: sticky;
-  bottom: 10px;
-`;
 
 const LoadingPage = styled.div`
   position: absolute;

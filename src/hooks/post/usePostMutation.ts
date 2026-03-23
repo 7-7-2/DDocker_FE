@@ -76,6 +76,7 @@ export const usePostMutation = (
   };
 
   const { mutate, isPending } = useMutation({
+    mutationKey: ['postRegister'],
     mutationFn: async () => {
       const res = !update ? await handleRegister() : await handleUpdate();
       return res.postId;

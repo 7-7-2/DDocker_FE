@@ -1,33 +1,31 @@
-import { RefObject } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 import ImgCropper from '@/components/common/ImgCropper';
 import ImgRegister from '@/components/common/ImgRegister';
 import PostInputDescription from '@/components/post/postRegister/PostInputDescription';
-import PostInputTitle from '@/components/post/postRegister/PostInputTitle';
 import RegisterLabel from '@/components/post/postRegister/RegisterLabel';
 
 import { LABEL_TEXTS } from '@/constants/common';
 import { ImageCropperProps, ImageRegisterProps } from '@/types/types';
 
 const PostWriteSection = ({
-  inputRef,
-  textAreaRef,
+  descriptions,
+  setDescriptions,
   registerProps,
   cropperProps
 }: {
-  inputRef: RefObject<HTMLInputElement>;
-  textAreaRef: RefObject<HTMLTextAreaElement>;
+  descriptions: string | null;
+  setDescriptions: Dispatch<SetStateAction<string | null>>;
   registerProps: ImageRegisterProps;
   cropperProps: ImageCropperProps;
 }) => {
   return (
     <>
-      <PostInputTitle inputRef={inputRef} />
-      <PostInputDescription inputRef={textAreaRef} />
-      <RegisterLabel
-        label={LABEL_TEXTS.photo}
-        essential
+      <PostInputDescription
+        descriptions={descriptions}
+        setDescriptions={setDescriptions}
       />
+      <RegisterLabel label={LABEL_TEXTS.photo} />
       <ImgRegister {...registerProps} />
       <ImgCropper
         {...registerProps}

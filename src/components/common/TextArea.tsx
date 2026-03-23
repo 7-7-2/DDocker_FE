@@ -13,8 +13,8 @@ const TextArea = ({
   type
 }: {
   placeholder: string;
-  inputValue: string | undefined;
-  inputRef: React.RefObject<HTMLTextAreaElement>;
+  inputValue: string | null;
+  inputRef?: React.RefObject<HTMLTextAreaElement>;
   handleChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   inputLength: number;
   type?: string;
@@ -26,7 +26,7 @@ const TextArea = ({
         placeholder={placeholder}
         cols={28}
         rows={3}
-        value={inputValue}
+        value={inputValue || ''}
         ref={inputRef}
         onChange={handleChange}
         maxLength={inputLength}
