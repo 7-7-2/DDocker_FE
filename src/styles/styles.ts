@@ -904,3 +904,12 @@ export const MiniUserTitle = css`
 export const PostsUserContainer = css`
   padding: 3px 0;
 `;
+
+export const ToggleActiveState = css`
+  position: absolute;
+  right: 0px;
+`;
+
+export const ToggleActiveColor = css`
+  background-color: var(--colors-main);
+`;
