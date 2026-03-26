@@ -8,12 +8,14 @@ const SelectBox = ({
   value: selectedValue,
   defaultValue,
   data,
-  onClick: handleClick
+  onClick: handleClick,
+  className
 }: {
   value?: string;
   defaultValue: string;
   data: string[];
   onClick: React.MouseEventHandler<HTMLElement>;
+  className?: string;
 }) => {
   const selectRef = useRef<HTMLButtonElement>(null);
   const { isSelect, handleSelectClick } = useSelectBox(selectRef);
@@ -28,6 +30,7 @@ const SelectBox = ({
         isSelect={isSelect}
         onClick={handleSelectClick}
         disabled={disabled}
+        className={className}
       />
       <SelectOption
         data={data}
