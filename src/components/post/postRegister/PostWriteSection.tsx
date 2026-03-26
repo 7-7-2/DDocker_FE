@@ -24,7 +24,7 @@ const PostWriteSection = ({
   registerProps: ImageRegisterProps;
   cropperProps: ImageCropperProps;
 }) => {
-  const [isVisibility, setVisibility] = useState(true);
+  const [isVisibility, setVisibility] = useState(false);
   const handlePrivateToggle = () => {
     setVisibility(!isVisibility);
   };

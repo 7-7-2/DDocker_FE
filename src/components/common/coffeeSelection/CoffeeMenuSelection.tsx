@@ -3,18 +3,19 @@ import { useParams } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import RegisterLabel from '@/components/post/postRegister/RegisterLabel';
+const SelectBox = lazy(() => import('@/components/common/SelectBox'));
+
 import { CAFFEINE_FILTER_TEXTS } from '@/constants/home';
 import useGetCoffeeList from '@/hooks/useGetCoffeeList';
 import { caffeineFilterState, registPostState } from '@/atoms/atoms';
 import { CoffeeDataTypes } from '@/types/types';
 
-import { css, cx } from 'styled-system/css';
+import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { CaffeineFilterHomeLabel } from '@/styles/styles';
 import { Column, Grid } from '@/styles/layout';
 
-const { coffeeMenu } = CAFFEINE_FILTER_TEXTS;
-const SelectBox = lazy(() => import('@/components/common/SelectBox'));
+const { coffeeMenu, coffeeOption } = CAFFEINE_FILTER_TEXTS;
 
 const CoffeeMenuSelection = () => {
   const { postId } = useParams();
@@ -41,7 +42,7 @@ const CoffeeMenuSelection = () => {
         ...registInfo,
         [key]: value as string,
         shot: 0,
-        size: 'Regular',
+        size: coffeeOption.sizeOption[0],
         intensity: '기본'
       };
       setRegistInfo(newRegistData);
@@ -86,52 +87,43 @@ const CoffeeMenuSelection = () => {
     setRegisterData('menu', e.currentTarget.value);
   };
 
+  const slectBoxType = register ? 'commonBaseSize' : 'commonSmSize';
+
   return (
-    <div className={MarginTop}>
+    <>
       {!register && (
         <span className={CaffeineFilterHomeLabel}>{coffeeMenu.title}</span>
       )}
       <CoffeeSelectContainer className={cx(register ? Column : Grid)}>
         <Suspense>
-          {register && (
-            <RegisterLabel
-              label={coffeeMenu.brand}
-              essential
-            />
-          )}
+          {register && <RegisterLabel label={coffeeMenu.brand} />}
           <SelectBox
             value={registInfo.brand}
             defaultValue={registInfo.brand || coffeeMenu.brand}
             data={brandList}
             onClick={selectBrand}
+            className={slectBoxType}
           />
-          {register && (
-            <RegisterLabel
-              label={coffeeMenu.menu}
-              essential
-            />
-          )}
+          {register && <RegisterLabel label={coffeeMenu.menu} />}
           <SelectBox
             value={registInfo.menu}
             defaultValue={coffeeMenu.menu}
             data={menuList}
             onClick={selectMenu}
+            className={slectBoxType}
           />
         </Suspense>
       </CoffeeSelectContainer>
-    </div>
+    </>
   );
 };
 
 const CoffeeSelectContainer = styled.div`
   position: relative;
   margin: 6px 0 8px;
-  gap: 8px;
+  gap: 6px;
+  column-gap: 8px;
   grid-template-columns: calc(50% - 4px) calc(50% - 4px);
-`;
-
-const MarginTop = css`
-  padding-top: 12px;
 `;
 
 export default CoffeeMenuSelection;

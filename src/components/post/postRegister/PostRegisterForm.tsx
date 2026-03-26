@@ -81,32 +81,36 @@ const PostRegisterForm = ({
           />
         )}
       </Container>
+      <BtnArea />
       <Button
         text={!update ? BUTTON_TEXTS.register : BUTTON_TEXTS.update}
         onClick={clickRegisterBtn}
         disabled={isInvalid}
-        className={cx(
-          isInvalid ? DisabledBtn : undefined,
-          DefaultBtn,
-          BtnContainer
-        )}
+        className={cx(isInvalid ? DisabledBtn : undefined, DefaultBtn, Stiky)}
       />
     </>
   );
 };
 
 const Container = styled.div`
-  padding-bottom: 28px;
-  margin-bottom: 20px;
   padding: 0 2px;
   margin: 0 -2px;
-  height: 100vh;
   overflow-y: auto;
 `;
 
-const BtnContainer = css`
+const BtnArea = styled.div`
+  position: sticky;
+  height: 48px;
+  margin: 0 -20px;
+  bottom: 0;
+  background-color: #fff;
+  overscroll-behavior: none;
+`;
+
+const Stiky = css`
   position: sticky;
   bottom: 10px;
+  overscroll-behavior: none;
 `;
 
 export default PostRegisterForm;

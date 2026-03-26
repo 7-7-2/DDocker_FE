@@ -18,7 +18,7 @@ const CoffeeSelection = () => {
   return (
     <div className={SmStyle}>
       <span className={cx(SumTitle, Flex, Between)}>
-        <span>{title.title}</span>
+        <Title>{title.title}</Title>
         <ResetBtn
           className={cx(Align, SumBoardTitle)}
           onClick={touchResetBtn}>
@@ -34,6 +34,9 @@ const CoffeeSelection = () => {
 
 const ResetBtn = styled.button`
   gap: 5px;
+`;
+const Title = styled.span`
+  margin-bottom: 8px;
 `;
 
 export default CoffeeSelection;

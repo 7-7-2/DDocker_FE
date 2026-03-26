@@ -27,7 +27,6 @@ const CoffeeOptionSelection = () => {
   const { type } = useParams();
 
   const register = postId === 'register' || type === 'update';
-  const size: string[] = ['Regular', 'Large', 'Venti'];
 
   const [caffeine, setCaffeine] = useRecoilState(caffeineFilterState);
   const [registInfo, setRegistInfo] = useRecoilState(registPostState);
@@ -55,11 +54,13 @@ const CoffeeOptionSelection = () => {
 
   // set coffee size info
   const selectSize = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log(registInfo.size);
     setRegisterData('size', e.currentTarget.value);
     const size =
-      registInfo.menu && e.currentTarget.value === 'Large'
+      registInfo.menu && e.currentTarget.value === coffeeOption.sizeOption[1]
         ? 75
-        : registInfo.menu && e.currentTarget.value === 'Venti'
+        : registInfo.menu &&
+            e.currentTarget.value === coffeeOption.sizeOption[2]
           ? 150
           : 0;
 
@@ -71,15 +72,19 @@ const CoffeeOptionSelection = () => {
   };
 
   // set personal options
-  const selectIntensityOption = (e: React.ChangeEvent<HTMLElement>) => {
+  const selectIntensityOption = (e: React.MouseEvent<HTMLButtonElement>) => {
     const size =
-      registInfo.size === 'Large' ? 75 : registInfo.size === 'Venti' ? 150 : 0;
-    setRegisterData('intensity', e.currentTarget.id);
+      registInfo.size === coffeeOption.sizeOption[1]
+        ? 75
+        : registInfo.size === coffeeOption.sizeOption[2]
+          ? 150
+          : 0;
+    setRegisterData('intensity', e.currentTarget.value);
 
     setCaffeine({
       caffeine:
         registInfo.menu &&
-        e.currentTarget.id === coffeeOption.intensityOption[0]
+        e.currentTarget.value === coffeeOption.intensityOption[0]
           ? menuCaffeineValue + size - 75
           : menuCaffeineValue + size,
       menuCaffeine: menuCaffeineValue
@@ -97,7 +102,7 @@ const CoffeeOptionSelection = () => {
   };
 
   const selectPlusBtn = () => {
-    const isValid = registInfo.menu && !mild && registInfo.shot <= 5;
+    const isValid = registInfo.menu && !mild && registInfo.shot < 6;
     isValid && setRegisterData('shot', registInfo.shot + 1);
     isValid &&
       setCaffeine({
@@ -105,6 +110,8 @@ const CoffeeOptionSelection = () => {
         menuCaffeine: menuCaffeineValue
       });
   };
+
+  const shotPlusBtnActive = !registInfo.menu || mild || registInfo.shot >= 6;
 
   return (
     <div className={cx(Column, SmStyle)}>
@@ -116,7 +123,7 @@ const CoffeeOptionSelection = () => {
         )}
       </span>
       <SizeBtnContainer className={cx(Flex, MarginB8)}>
-        {size.map(item => (
+        {coffeeOption.sizeOption.map(item => (
           <Button
             key={item}
             value={item}
@@ -139,25 +146,23 @@ const CoffeeOptionSelection = () => {
       </span>
       <PersonalOptionContainer className={cx(Flex, Between, Medium)}>
         <span>{coffeeOption.shot.intensity}</span>
-        <div className={Flex}>
+        <OptionInterface className={Flex}>
           {coffeeOption.intensityOption.map(item => (
             <IntensityOptionItem
               key={item}
               className={cx(Flex, Align)}>
               <RadioBtn
+                option={item}
                 selectedOption={registInfo.intensity}
-                color="main"
-                className={RadioBtnColor}
-                id={item}
-                fn={selectIntensityOption}
+                selectIntensityOption={selectIntensityOption}
               />
             </IntensityOptionItem>
           ))}
-        </div>
+        </OptionInterface>
       </PersonalOptionContainer>
       <PersonalOptionContainer className={cx(Align, Between, Medium)}>
         <span>{coffeeOption.shot.input}</span>
-        <div className={Align}>
+        <OptionInterface className={Align}>
           <Icon
             {...iconPropsGenerator(
               !registInfo.shot ? 'input-minus' : 'input-minus:active'
@@ -171,13 +176,11 @@ const CoffeeOptionSelection = () => {
           />
           <Icon
             {...iconPropsGenerator(
-              !registInfo.menu || mild || registInfo.shot >= 5
-                ? 'input-plus'
-                : 'input-plus:active'
+              shotPlusBtnActive ? 'input-plus' : 'input-plus:active'
             )}
             onClick={selectPlusBtn}
           />
-        </div>
+        </OptionInterface>
       </PersonalOptionContainer>
     </div>
   );
@@ -192,7 +195,7 @@ const PersonalOptionContainer = styled.div`
 `;
 const ShotOptionInput = styled.input`
   text-align: center;
-  width: 40px;
+  width: 10px;
   background-color: transparent;
   color: var(--colors-main-dark);
   font-size: var(--font-sizes-base);
@@ -200,6 +203,16 @@ const ShotOptionInput = styled.input`
 const SizeBtnContainer = styled.div`
   gap: 4px;
 `;
+
+const OptionInterface = styled.div`
+  width: 126px;
+  justify-content: space-between;
+`;
+
+const IntensityOptionItem = styled.div`
+  gap: 4px;
+`;
+
 const SelectSizeBtn = css`
   border: 1px solid var(--colors-main);
   background-color: var(--colors-main);
@@ -211,10 +224,7 @@ const SizeBtn = css`
   height: 40px;
   border-radius: 50px;
 `;
-const IntensityOptionItem = styled.div`
-  gap: 4px;
-  margin-left: 20px;
-`;
+
 const RadioBtnColor = css`
   border: 1px solid var(--colors-btn-grey);
   &:focus-within {

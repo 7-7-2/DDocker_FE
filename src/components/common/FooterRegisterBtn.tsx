@@ -29,7 +29,7 @@ const FooterRegisterBtn = ({ icon }: { icon: string }) => {
 
   const registerBtnColor = !activeRegisterBtn ? BtnColorMain : BtnColorSub;
   const registerPost = useNavigateTo('/post/register');
-  const registerCoffee = useNavigateTo('/post/register/coffee');
+  const registerCoffee = useNavigateTo('/post/register/caffeine');
 
   return (
     <>

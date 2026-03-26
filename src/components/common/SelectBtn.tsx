@@ -3,7 +3,17 @@ import convertBrandName from '@/utils/convertBrandName';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { DisabledBtn, SmStyle } from '@/styles/styles';
+import {
+  commonBaseSize,
+  commonSmSize,
+  defalutInput,
+  DefaultBorder,
+  DisabledBtn,
+  OnSelectBorder,
+  SelectedInput,
+  SeletedBorder,
+  SmStyle
+} from '@/styles/styles';
 import { Align, Flex } from '@/styles/layout';
 
 const SelectBtn = ({
@@ -12,7 +22,8 @@ const SelectBtn = ({
   isSelect,
   selectRef,
   onClick: handleTouch,
-  disabled
+  disabled,
+  className
 }: {
   defalutValue: string;
   selectedValue?: string;
@@ -20,10 +31,15 @@ const SelectBtn = ({
   selectRef: React.RefObject<HTMLButtonElement>;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
   disabled: boolean;
+  className?: string;
 }) => {
+  const slectBoxStyle =
+    className === 'commonBaseSize' ? commonBaseSize : commonSmSize;
+
   return (
     <SelectBox
       className={cx(
+        slectBoxStyle,
         Align,
         disabled ? DisabledBtn : undefined,
         selectedValue
@@ -34,7 +50,12 @@ const SelectBtn = ({
       )}
       onClick={handleTouch}
       ref={selectRef}>
-      <DefalutOption className={cx(Flex, SelectInput, SmStyle)}>
+      <DefalutOption
+        className={cx(
+          Flex,
+          SmStyle,
+          selectedValue ? SelectedInput : isSelect ? undefined : defalutInput
+        )}>
         {convertBrandName(selectedValue || defalutValue)}
       </DefalutOption>
       <Icon {...iconPropsGenerator('select', '18')} />
@@ -44,15 +65,9 @@ const SelectBtn = ({
 
 const SelectBox = styled.button`
   width: 100%;
-  height: 46px;
   border-radius: 10px;
   padding: 16px;
   justify-content: space-between;
-`;
-
-const SelectInput = css`
-  background-color: transparent;
-  outline: none;
 `;
 
 const DefalutOption = styled.div`
@@ -60,21 +75,8 @@ const DefalutOption = styled.div`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-`;
-
-const DefaultBorder = css`
-  border: 1px solid #ccc;
-  background-color: #fff;
-`;
-
-const OnSelectBorder = css`
-  border: 1px solid var(--colors-main);
-  background-color: #fff;
-`;
-
-const SeletedBorder = css`
-  border: 1px solid var(--colors-main);
-  background-color: #fff4ee;
+  font-weight: 400;
+  color: var(--colors-mainDark);
 `;
 
 export default SelectBtn;

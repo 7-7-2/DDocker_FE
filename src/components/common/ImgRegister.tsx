@@ -16,7 +16,7 @@ const ImgRegister = ({
 
   const resetImage = () => {
     setImageUrl('');
-    setImageFile(undefined);
+    setImageFile(null);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,15 +60,16 @@ const ImgRegister = ({
 };
 
 const RegistPhoto = styled.label`
-  max-width: 100%;
-  max-height: 100%;
+  width: 106px;
+  height: 106px;
   aspect-ratio: 1;
   border-radius: 10px;
   background: var(--colors-tertiary);
 `;
 
 const PostImgContainer = styled.div`
-  max-width: 100%;
+  width: 106px;
+  height: 106px;
   height: auto;
   aspect-ratio: 1;
   border-radius: 10px;
@@ -76,8 +77,8 @@ const PostImgContainer = styled.div`
 `;
 
 const Img = styled.img`
-  width: 100%;
-  height: 100%;
+  width: 106px;
+  height: 106px;
   object-fit: 'cover';
 `;
 

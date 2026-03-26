@@ -748,80 +748,85 @@
       />
     </symbol>
 
-    <symbol
-      id="icon-input-plus"
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none">
+    <symbol 
+      id="icon-input-plus" 
+      width="24" 
+      height="24" 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg">
       <circle
-        cx="12"
-        cy="11.999"
-        r="9"
-        fill="#f5f5f5"
-      />
-      <path
-        d="M12 9V15"
-        stroke="#fff"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-      <path
-        d="M9 12H15"
-        stroke="#Fff"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
+        cx="12" 
+        cy="11.999" 
+        r="10" 
+        stroke="#cccccc" 
+        stroke-width="1.5" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
+      <path 
+        d="M12 9V15" 
+        stroke="#cccccc" 
+        stroke-width="1.5" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
+      <path 
+        d="M9 12H15" 
+        stroke="#cccccc" 
+        stroke-width="1.5" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
     </symbol>
 
-    <symbol
-      id="icon-input-plus:active"
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none">
+    <symbol 
+      id="icon-input-plus:active" 
+      width="24" 
+      height="24" 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg">
       <circle
-        cx="12"
-        cy="11.999"
-        r="9"
-        stroke="#313131"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-      <path
-        d="M12 9V15"
-        stroke="#313131"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-      <path
-        d="M9 12H15"
-        stroke="#313131"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
+        cx="12" 
+        cy="11.999" 
+        r="10" 
+        stroke="#313131" 
+        stroke-width="1.5" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
+      <path 
+        d="M12 9V15" 
+        stroke="#313131" 
+        stroke-width="1.5" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
+      <path 
+        d="M9 12H15" 
+        stroke="#313131" 
+        stroke-width="1.5" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
     </symbol>
 
-    <symbol
+    <symbol 
       id="icon-input-minus"
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none">
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="M2 11.999C2 6.47618 6.47715 1.99902 12 1.99902C17.5228 1.99902 22 6.47618 22 11.999C22 17.5219 17.5228 21.999 12 21.999C6.47715 21.999 2 17.5219 2 11.999ZM9 11C8.44772 11 8 11.4477 8 12C8 12.5523 8.44772 13 9 13H15C15.5523 13 16 12.5523 16 12C16 11.4477 15.5523 11 15 11H9Z"
-        fill="#F5F5F5"
-      />
+      width="24" 
+      height="24" 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg">
+      <circle 
+        cx="12" 
+        cy="11.999" 
+        r="10" 
+        stroke="#CCCCCC" 
+        stroke-width="1.5" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
+      <path 
+        d="M9 12H15"
+        stroke="#CCCCCC" 
+        stroke-width="1.5" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
     </symbol>
 
     <symbol
@@ -850,6 +855,42 @@
     </symbol>
 
     <symbol
+      id="icon-radio" 
+      width="20" 
+      height="20" 
+      viewBox="0 0 20 20"
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg">
+      <circle 
+        cx="10" 
+        cy="10" 
+        r="7.9" 
+        stroke="#CCCCCC" 
+        stroke-width="1.2"/>
+      </symbol>
+
+    <symbol
+      id="icon-radio:active"
+      width="20" 
+      height="20"
+       viewBox="0 0 20 20" 
+       fill="none" 
+       xmlns="http://www.w3.org/2000/svg">
+      <circle 
+        cx="10" 
+        cy="10" 
+        r="7.9" 
+        stroke="#FF701E" 
+        stroke-width="1.2"/>
+      <circle 
+        cx="10" 
+        cy="10" 
+        r="5.25" 
+        fill="#FF701E"/>
+    </symbol>
+
+
+    <symbol
       id="icon-reset"
       xmlns="http://www.w3.org/2000/svg"
       width="14"
@@ -871,6 +912,7 @@
         stroke-linejoin="round"
       />
     </symbol>
+
     <symbol
       id="icon-user-more"
       width="24"

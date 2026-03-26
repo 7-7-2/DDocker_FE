@@ -54,7 +54,7 @@ const PostRegister = ({
           type={'register'}
         />
       )}
-      {isPending && (
+      {!!isPending && (
         <LoadingPage className={cx(Align)}>
           <div className={cx(Spinner, Center)} />
         </LoadingPage>

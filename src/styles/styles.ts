@@ -1,6 +1,8 @@
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 
+// Common
+// Font-weight
 export const Regular = css`
   font-style: normal;
   font-weight: 400;
@@ -19,7 +21,65 @@ export const Bold = css`
   font-weight: 700;
 `;
 
-// Button
+// Padding
+export const PaddingL12 = css`
+  padding-left: 12px;
+`;
+
+export const PaddingL63 = css`
+  padding-left: 63px;
+`;
+
+export const PaddingL24 = css`
+  padding-left: 24px;
+`;
+
+export const PaddingT12 = css`
+  padding-top: 12px;
+`;
+
+export const PaddingT20 = css`
+  padding-top: 20px;
+`;
+
+export const PaddingT22 = css`
+  padding-top: 22px;
+`;
+
+export const PaddingB20 = css`
+  padding-bottom: 20px;
+`;
+
+export const PaddingTB10 = css`
+  padding: 10px 0;
+`;
+
+// Margin
+export const MarginT6 = css`
+  margin-top: 6px;
+`;
+
+export const MarginT12 = css`
+  margin-top: 12px;
+`;
+
+export const MarginT16 = css`
+  margin-top: 16px;
+`;
+
+export const MarginT28 = css`
+  margin-top: 28px;
+`;
+
+export const MarginB6 = css`
+  margin-bottom: 6px;
+`;
+
+export const MarginB8 = css`
+  margin-bottom: 8px;
+`;
+
+// Button Styles
 export const Btn = cx(
   Medium,
   css`
@@ -190,7 +250,16 @@ export const SizeBtn = cx(
   `
 );
 
-// Input
+export const SearchBtn = cx(
+  Regular,
+  css`
+    color: #313131;
+    font-size: var(--font-sizes-sm);
+    line-height: 22px;
+  `
+);
+
+// Input styles
 export const InputFontSm = cx(
   Regular,
   css`
@@ -223,6 +292,87 @@ export const InputByteCheck = cx(
   `
 );
 
+export const SearchInput = cx(
+  Regular,
+  css`
+    width: 100%;
+    color: var(--colors-main-dark);
+    font-size: var(--font-sizes-sm);
+    line-height: 22px;
+    background-color: transparent;
+    &:focus {
+      outline: none;
+    }
+  `
+);
+
+// LineHeight
+export const LineH18 = css`
+  line-height: 18px;
+`;
+
+// BorderRadius
+export const Border16 = css`
+  border-radius: 16px;
+`;
+
+//cursor
+export const Cursor = css`
+  cursor: pointer;
+`;
+
+// Tab
+export const SelectedTab = cx(
+  Semibold,
+  css`
+    color: var(--colors-main);
+    border-bottom: 2px solid var(--colors-main);
+  `
+);
+
+export const DefaultTab = cx(
+  Medium,
+  css`
+    color: var(--colors-subtext);
+    border-bottom: 1px solid var(--colors-btn-grey);
+  `
+);
+
+export const SelectedFillTab = cx(
+  Medium,
+  css`
+    color: var(--colors-maindark);
+    background-color: #fff;
+    font-size: var(--font-size-sm);
+  `
+);
+
+export const DefaultFillTab = cx(
+  Medium,
+  css`
+    color: var(--colors-subtext);
+    background-color: var(--colors-tertiary);
+    font-size: var(--font-size-sm);
+  `
+);
+
+// Page - Post
+//ImgSpinner
+export const Spinner = css`
+  width: 40px;
+  height: 40px;
+  position: relative;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto auto;
+  border: 4px solid var(--colors-main);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: loader 0.7s infinite ease-in-out;
+`;
+
 export const Cafe = css`
   color: var(--colors-mid-grey);
   font-size: var(--font-sizes-xs);
@@ -234,58 +384,6 @@ export const CafeMedium = cx(Medium, Cafe);
 export const BgF5 = css`
   background-color: var(--colors-tertiary);
   border: 1px solid var(--colors-tertiary);
-`;
-
-export const PaddingL12 = css`
-  padding-left: 12px;
-`;
-
-export const PaddingL63 = css`
-  padding-left: 63px;
-`;
-
-export const PaddingL24 = css`
-  padding-left: 24px;
-`;
-
-export const PaddingT12 = css`
-  padding-top: 12px;
-`;
-
-export const PaddingT20 = css`
-  padding-top: 20px;
-`;
-
-export const PaddingT22 = css`
-  padding-top: 22px;
-`;
-
-export const PaddingB20 = css`
-  padding-bottom: 20px;
-`;
-
-export const MarginT6 = css`
-  margin-top: 6px;
-`;
-
-export const MarginT12 = css`
-  margin-top: 12px;
-`;
-
-export const MarginT16 = css`
-  margin-top: 16px;
-`;
-
-export const MarginT28 = css`
-  margin-top: 28px;
-`;
-
-export const MarginB6 = css`
-  margin-bottom: 6px;
-`;
-
-export const MarginB8 = css`
-  margin-bottom: 8px;
 `;
 
 export const PostsCafe = css`
@@ -324,20 +422,7 @@ export const CaffeineDetail = cx(
   `
 );
 
-export const SearchInput = cx(
-  Regular,
-  css`
-    width: 100%;
-    color: var(--colors-main-dark);
-    font-size: var(--font-sizes-sm);
-    line-height: 22px;
-    background-color: transparent;
-    &:focus {
-      outline: none;
-    }
-  `
-);
-
+// Page - Start
 export const StartPageBtnContainer = css`
   position: absolute;
   background-color: #ffffff;
@@ -348,85 +433,13 @@ export const StartPageBtnContainer = css`
   left: 0;
 `;
 
-export const Cursor = css`
-  cursor: pointer;
-`;
-
-export const LineH18 = css`
-  line-height: 18px;
-`;
-
-export const Border16 = css`
-  border-radius: 16px;
-`;
-
+// Page - Profile
 export const TextArea = cx(
   Regular,
   css`
     color: #fff;
     font-size: var(--font-sizes-xs);
     line-height: 20px;
-  `
-);
-
-export const ButtonArea = cx(
-  Medium,
-  css`
-    width: auto;
-    height: 40px;
-    padding: 9px 35px;
-    margin-top: 16px;
-    background-color: red;
-    border: 1px solid #ccc;
-    border-radius: 50px;
-    background: #fff;
-  `
-);
-
-export const SelectedTab = cx(
-  Semibold,
-  css`
-    color: var(--colors-main);
-    border-bottom: 2px solid var(--colors-main);
-  `
-);
-
-export const DefaultTab = cx(
-  Medium,
-  css`
-    color: var(--colors-subtext);
-    border-bottom: 1px solid var(--colors-btn-grey);
-  `
-);
-
-export const SelectedFillTab = cx(
-  Medium,
-  css`
-    color: var(--colors-maindark);
-    background-color: #fff;
-    font-size: var(--font-size-sm);
-  `
-);
-
-export const DefaultFillTab = cx(
-  Medium,
-  css`
-    color: var(--colors-subtext);
-    background-color: var(--colors-tertiary);
-    font-size: var(--font-size-sm);
-  `
-);
-
-export const PaddingTB10 = css`
-  padding: 10px 0;
-`;
-
-export const SearchBtn = cx(
-  Regular,
-  css`
-    color: #313131;
-    font-size: var(--font-sizes-sm);
-    line-height: 22px;
   `
 );
 
@@ -795,19 +808,66 @@ export const Transition = css`
   }
 `;
 
-export const Spinner = css`
-  width: 40px;
-  height: 40px;
-  position: relative;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  margin: auto auto;
-  border: 4px solid var(--colors-main);
-  border-top-color: transparent;
-  border-radius: 50%;
-  animation: loader 0.7s infinite ease-in-out;
+// toggle Btn
+export const ToggleActiveState = css`
+  position: absolute;
+  right: 0px;
+`;
+
+export const ToggleActiveColor = css`
+  background-color: var(--colors-main);
+`;
+
+// selexBox
+export const SelectedInput = css`
+  background-color: transparent;
+  outline: none;
+  color: var(--colors-mainDark);
+  font-weight: 500;
+`;
+
+export const defalutInput = css`
+  color: var(--colors-subtext);
+`;
+
+export const DefaultBorder = css`
+  border: 1px solid #ccc;
+  background-color: #fff;
+`;
+
+export const OnSelectBorder = css`
+  border: 1px solid var(--colors-main);
+  background-color: #fff;
+`;
+
+export const SeletedBorder = css`
+  border: 1px solid var(--colors-main);
+  background-color: #fff4ee;
+`;
+
+// common 40 48 52 variaition size
+export const commonBaseSize = css`
+  height: 52px;
+  font-size: var(--fontSizes-base);
+`;
+
+export const commonSmSize = css`
+  height: 48px;
+  font-size: var(--fontSizes-sm);
+`;
+
+// MiniProfile.tsx
+export const MiniUserTitle = css`
+  font-size: var(--font-sizes-sm);
+`;
+
+export const PostsUserContainer = css`
+  padding: 3px 0;
+`;
+
+//Page - Notification
+export const NotificationContainer = css`
+  margin-top: -20px;
 `;
 
 export const AlignCTA = css`
@@ -819,10 +879,7 @@ export const AlignCTA = css`
   margin: auto 0;
 `;
 
-export const NotificationContainer = css`
-  margin-top: -20px;
-`;
-
+// Page - Support
 export const CustomerItem = css`
   border-bottom: 1px solid var(--colors-border-grey);
   color: var(--colors-main-dark);
@@ -861,6 +918,7 @@ export const SupportContentsContainer = css`
     border-radius: 20px;
   }
 `;
+
 export const SupportChpater = cx(
   Semibold,
   css`
@@ -873,6 +931,7 @@ export const SupportChpater = cx(
     display: block;
   `
 );
+
 export const SupportContentTitle = cx(
   Semibold,
   css`
@@ -888,28 +947,4 @@ export const SupportContent = css`
   display: inline-block;
   text-align: justify;
   display: block;
-`;
-
-export const RadioBtnContainer = css`
-  border-radius: 50%;
-  width: 16px;
-  height: 16px;
-  position: relative;
-`;
-
-export const MiniUserTitle = css`
-  font-size: var(--font-sizes-sm);
-`;
-
-export const PostsUserContainer = css`
-  padding: 3px 0;
-`;
-
-export const ToggleActiveState = css`
-  position: absolute;
-  right: 0px;
-`;
-
-export const ToggleActiveColor = css`
-  background-color: var(--colors-main);
 `;
