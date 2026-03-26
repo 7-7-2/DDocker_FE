@@ -149,11 +149,23 @@ export interface RegisterPostTypes {
   shot: number;
   intensity: string;
   caffeine: number;
-  post_title: string | undefined;
+  post_title: string | null;
   description: string | null;
-  photo: string | undefined;
+  photo: string | null;
   postId: string;
 }
+// export interface RegisterPostTypesMockup {
+//   brand: string;
+//   menu: string;
+//   size: string;
+//   shot: number;
+//   intensity: string;
+//   caffeine: number;
+//   description: string | null;
+//   photo: string | null;
+//   postId: string;
+//   visibility: number;
+// }
 
 export interface ImageRegisterProps {
   setImageUrl: Dispatch<SetStateAction<string>>;
@@ -164,7 +176,7 @@ export interface ImageRegisterProps {
 
 export interface ImageCropperProps {
   aspectRatio: number;
-  setImageFile: Dispatch<SetStateAction<File | undefined>>;
+  setImageFile: Dispatch<SetStateAction<File | null>>;
   cropperEnabled: boolean;
   compressImage: (imageFile: File) => Promise<void | File>;
 }

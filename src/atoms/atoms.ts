@@ -2,9 +2,9 @@ import { atom } from 'recoil';
 import dayjs from 'dayjs';
 import {
   AuthTypes,
-  CoffeeItemTypes,
   RegisterPostTypes,
   CaffeineFilterTypes
+  // RegisterPostTypesMockup
 } from '@/types/types';
 import { BRANDS } from '@/constants/coffee';
 
@@ -66,16 +66,32 @@ export const registPostState = atom<RegisterPostTypes>({
   default: {
     brand: '',
     menu: '',
-    size: 'Regular',
+    size: 'Tall',
     shot: 0,
     intensity: '기본',
     caffeine: 0,
-    post_title: '',
+    post_title: 'title 항목 삭제 예정',
     description: '',
     photo: '',
     postId: ''
   }
 });
+
+// export const registPostStateMockup = atom<RegisterPostTypesMockup>({
+//   key: 'registPostState',
+//   default: {
+//     brand: '',
+//     menu: '',
+//     size: 'Tall',
+//     shot: 0,
+//     intensity: '기본',
+//     caffeine: 0,
+//     description: '',
+//     photo: '',
+//     postId: '',
+//     visibility: 1
+//   }
+// });
 
 export const caffeineFilterState = atom<CaffeineFilterTypes>({
   key: 'caffeineFilterState',
@@ -138,4 +154,9 @@ export const commentState = atom({
     comment: true,
     commentId: 0
   }
+});
+
+export const toggleState = atom({
+  key: 'toggleState',
+  default: true
 });
