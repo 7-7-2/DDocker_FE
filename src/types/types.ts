@@ -142,30 +142,26 @@ export interface CoffeeDataTypes {
   [brand: string]: CoffeeItemTypes[];
 }
 
-export interface RegisterPostTypes {
-  brand: string;
-  menu: string;
-  size: string;
-  shot: number;
-  intensity: string;
-  caffeine: number;
-  post_title: string | null;
+export interface postContentsTypes {
+  postId: string;
   description: string | null;
   photo: string | null;
-  postId: string;
+  // visibility: number;
+  post_title: string;
 }
-// export interface RegisterPostTypesMockup {
-//   brand: string;
-//   menu: string;
-//   size: string;
-//   shot: number;
-//   intensity: string;
-//   caffeine: number;
-//   description: string | null;
-//   photo: string | null;
-//   postId: string;
-//   visibility: number;
-// }
+
+export interface caffeineIntakeTypes {
+  caffeine: number;
+  brand: string;
+  productName: string;
+  size: string;
+  intensity: string;
+  shot: number;
+}
+
+export interface RegisterPostTypes
+  extends postContentsTypes,
+    caffeineIntakeTypes {}
 
 export interface ImageRegisterProps {
   setImageUrl: Dispatch<SetStateAction<string>>;
@@ -248,7 +244,7 @@ export interface FollowingPost extends SimplifyUser {
   photo: string;
   caffeine: number;
   shot: number;
-  menu: string;
+  productName: string;
   brand: string;
   userId: string;
   intensity: string;
@@ -299,7 +295,7 @@ export interface CafeDetailTypes {
   brand: string;
   className?: string;
   caffeine?: string | number;
-  menu?: string;
+  productName?: string;
   shot?: string | number;
   posts?: boolean;
   intensity?: string;
@@ -310,7 +306,7 @@ export interface CafeDetailTypes {
 export interface DailyTrendCardProps {
   photo: string;
   brand: string;
-  menu: string;
+  productName: string;
   shot: number;
   caffeine: number;
   postId: string;
