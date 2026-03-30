@@ -118,10 +118,15 @@ export const BtnColorMain = css`
   color: #fff;
 `;
 
-export const BtnColorWhite = css`
+export const BtnColorBorderWhite = css`
   border: 1px solid #ccc;
   background: #fff;
-  color: #313131;
+  color: var(--colors-main-dark);
+`;
+
+export const BtnColorWhite = css`
+  background-color: #fff;
+  color: var(--colors-main-dark);
 `;
 
 export const BtnColorSub = css`
@@ -150,7 +155,7 @@ export const DefaultBtn = cx(
   Btn,
   BtnColorMain,
   css`
-    height: 60px;
+    height: 52px;
     border-radius: 16px;
     font-size: var(--font-sizes-base);
     line-height: 24px;
@@ -167,36 +172,20 @@ export const RegistBtn = cx(
 );
 
 export const RegisterModalBtn = cx(
-  Btn,
-  Semibold,
+  Medium,
+  BtnColorWhite,
   css`
-    height: 48px;
-    width: 184px;
-    background-color: #fff;
+    height: 54px;
+    width: 220px;
     border-radius: 50px;
-    font-size: var(--font-sizes-sm);
+    font-size: var(--font-sizes-base);
     display: flex;
     flex-direction: row;
+    column-gap: 8px;
     align-items: center;
-    column-gap: 12px;
-    padding-left: 12px;
+    justify-content: center;
   `
 );
-
-export const RegisterModalBtnBubble = css`
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 85px;
-    right: 85px;
-    width: 14px;
-    height: 10px;
-    transform: rotate(45deg);
-    background-color: #fff;
-    border-radius: 0 0 2px 0;
-  }
-`;
 
 export const FollowBtn = cx(
   Btn,
@@ -210,7 +199,7 @@ export const FollowBtn = cx(
 export const FollowingBtn = cx(
   Btn,
   ThinBtn,
-  BtnColorWhite,
+  BtnColorBorderWhite,
   css`
     height: 40px;
   `
@@ -228,11 +217,21 @@ export const ShortBtn = cx(
 
 export const FollowBtnSm = cx(BtnColorMain, ShortBtn);
 
-export const FollowingBtnSm = cx(BtnColorWhite, ShortBtn);
+export const FollowingBtnSm = cx(BtnColorBorderWhite, ShortBtn);
+
+export const PostRegisterBtn = cx(
+  BtnColorMain,
+  Semibold,
+  css`
+    border-radius: 10px;
+    height: 48px;
+    width: 100%;
+  `
+);
 
 export const LoginBtn = cx(
   Medium,
-  BtnColorWhite,
+  BtnColorBorderWhite,
   css`
     width: 120px;
     height: 40px;
@@ -242,6 +241,12 @@ export const LoginBtn = cx(
     line-height: 22px;
   `
 );
+
+export const AddFavMenuBtn = css`
+  padding: 10px auto;
+  margin: 0 auto;
+  width: 130px;
+`;
 
 export const SizeBtn = cx(
   LoginBtn,

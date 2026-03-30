@@ -1,5 +1,5 @@
 import { COFFEE_TEXTS } from '@/constants/coffee';
-import convertBrandName from '@/utils/convertBrandName';
+import { brandMapToKor } from '@/utils/convertBrandName';
 import { TodayCoffeeInfoItemTypes } from '@/types/types';
 import { Column, Flex } from '@/styles/layout';
 import { RecentSearch, SumType } from '@/styles/styles';
@@ -21,7 +21,7 @@ const TodayMenuItem = (data: { data: TodayCoffeeInfoItemTypes }) => {
           {data.data.caffeine}
           {unit}
         </span>
-        <span className={SumType}>{convertBrandName(data.data.brand)}</span>
+        <span className={SumType}>{brandMapToKor(data.data.brand)}</span>
       </div>
     </Container>
   );

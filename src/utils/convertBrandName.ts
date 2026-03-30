@@ -1,5 +1,5 @@
 //  방문 목적 한/영 변환 유틸 함수
-const changeVisitPurpose = (brandName: string) => {
+export const brandMapToKor = (brandName: string) => {
   if (brandName === 'angelinus') {
     return '엔젤리너스';
   }
@@ -47,8 +47,6 @@ const changeVisitPurpose = (brandName: string) => {
   }
   return `${brandName}`;
 };
-
-export default changeVisitPurpose;
 
 export const brandMapToEng = (brandName: string) => {
   const brandObj: Record<string, string> = {

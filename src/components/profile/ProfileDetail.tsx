@@ -4,7 +4,7 @@ import ProfileImg from '@/components/profile/ProfileImg';
 import { TEXT } from '@/constants/texts';
 import { cahceImgState, userInfoState } from '@/atoms/atoms';
 import useGetUserInfo from '@/hooks/useGetUserInfo';
-import convertBrandName from '@/utils/convertBrandName';
+import { brandMapToKor } from '@/utils/convertBrandName';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
 import { cx } from 'styled-system/css';
@@ -46,7 +46,7 @@ const ProfileDetail = ({ userId }: { userId: string | undefined }) => {
         <UserBrand className={cx(FlexCenter, Border16)}>
           <Icon {...iconPropsGenerator('brand')} />
           <div className={TextArea}>
-            {user.brand && convertBrandName(user.brand)}
+            {user.brand && brandMapToKor(user.brand)}
           </div>
         </UserBrand>
         <UserSubTitle className={cx(FlexCenter, Border16)}>
