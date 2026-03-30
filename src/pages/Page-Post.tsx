@@ -4,14 +4,19 @@ import { useParams } from 'react-router-dom';
 import SEOMeta from '@/components/common/SEOMeta';
 
 import { useComposeHeader } from '@/hooks/useComposeHeader';
-import { HEADER_TEXTS } from '@/constants/common';
+
 import SEO_DATA from '@/constants/SEOData';
+import { HEADER_TEXTS } from '@/constants/common';
 
 const { post } = HEADER_TEXTS;
 
 const PostRegister = lazy(
   () => import('../components/post/postRegister/PostRegister')
 );
+const RegistrationSuccessView = lazy(
+  () => import('../components/post/postRegister/RegistrationSuccessView')
+);
+
 const PostDetail = lazy(() => import('../components/post/PostDetail'));
 
 const Post = () => {
@@ -19,18 +24,21 @@ const Post = () => {
   const { type } = useParams();
 
   const register = postId === 'register';
-  const caffeineRegister = type === 'caffeine';
+  const caffeine = type === 'caffeine';
   const update = type === 'update';
 
   const headerText = () => {
-    if (register && !caffeineRegister) {
+    if (register && !caffeine) {
       return post.postRegister;
     }
-    if (register && caffeineRegister) {
+    if (register && caffeine) {
       return post.caffeineRegister;
     }
     if (!register && update) {
       return post.update;
+    }
+    if (!register && caffeine) {
+      return '';
     }
     return post.post;
   };
@@ -45,6 +53,12 @@ const Post = () => {
       return {
         ...SEO_DATA.update,
         pageUrl: `${SEO_DATA.update.pageUrl}/${postId}/update`
+      };
+    }
+    if (!register && caffeine) {
+      return {
+        ...SEO_DATA.registerSuccess,
+        pageUrl: `${SEO_DATA.registerSuccess.pageUrl}/${postId}/caffeine`
       };
     }
     return {
@@ -69,7 +83,12 @@ const Post = () => {
           />
         </Suspense>
       )}
-      {!update && !register && postId && (
+      {!register && caffeine && (
+        <Suspense>
+          <RegistrationSuccessView />
+        </Suspense>
+      )}
+      {!update && !register && !caffeine && postId && (
         <Suspense>
           <PostDetail postNum={postId} />
         </Suspense>

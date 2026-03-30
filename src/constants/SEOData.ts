@@ -50,6 +50,12 @@ const SEO_DATA = {
     description:
       '똑커 게시물을 등록해보세요. 브랜드, 메뉴, 샷 이나 사이즈 등의 추가정보를 입력해 보다 더 정확하게 내가 마신 카페인을 기록 할 수 있습니다.'
   },
+  registerSuccess: {
+    title: '게시물 등록',
+    pageUrl: `${routes[5]}`,
+    description:
+      '똑커 게시물 등록을 완료했어요. 브랜드, 메뉴, 샷 이나 사이즈 등의 카페인 섭취 정보를 확인하고 즐겨찾는 메뉴로 등록해보세요.'
+  },
   update: {
     title: '게시물 수정',
     pageUrl: routes[5],

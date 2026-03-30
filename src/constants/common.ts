@@ -67,7 +67,9 @@ export const BUTTON_TEXTS = {
   follow2: '팔로우',
   follow1: '팔로우 하기',
   home: '홈으로 돌아가기',
-  deleteAccount: '탈퇴하기'
+  deleteAccount: '탈퇴하기',
+  favoriteMenu: '+ 즐겨찾기 추가',
+  confirm: '확인'
 };
 
 export const MODAL_CTA_TEXTS = {
@@ -88,4 +90,8 @@ export const MODAL_CTA_TEXTS = {
 
 export const SCROLL_INDUCER_TEXTS = {
   text: '스크롤 해보세요.'
+};
+
+export const CAFFEINE_TEXTS = {
+  recommendedCaffeine: 400
 };

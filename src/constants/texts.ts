@@ -62,3 +62,26 @@ export const POST_TEXTS = {
   delete: '이 게시물을 삭제하시겠습니까?',
   warn: '게시글 삭제시, 카페인 데이터가 함께 삭제됩니다.'
 };
+
+export const POST_REGISTER_TEXTS = {
+  success: {
+    heroText: {
+      prefix: '카페인',
+      suffix: 'mg',
+      text: '등록이 완료되었습니다!'
+    },
+    description: {
+      prefix: '일일 카페인 권장량',
+      unit: 'mg',
+      recommend: {
+        prefix: '까지',
+        suffix: '남았어요.'
+      },
+      excessive: {
+        prefix: '을',
+        suffix: '초과했어요.'
+      }
+    },
+    coffeeOptionText: ['커피 브랜드', '커피 메뉴', '커피 옵션', '등록일']
+  }
+};

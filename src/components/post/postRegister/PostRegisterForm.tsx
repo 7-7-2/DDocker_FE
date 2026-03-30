@@ -13,8 +13,9 @@ import { BUTTON_TEXTS } from '@/constants/common';
 import { useUpadatePost } from '@/hooks/post/useUpadatePost';
 import { usePostMutation } from '@/hooks/post/usePostMutation';
 
-import { css, cx } from 'styled-system/css';
+import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
+import { Stiky } from '@/styles/layout';
 import { DefaultBtn, DisabledBtn } from '@/styles/styles';
 
 const PostRegisterForm = ({
@@ -104,12 +105,6 @@ const BtnArea = styled.div`
   margin: 0 -20px;
   bottom: 0;
   background-color: #fff;
-  overscroll-behavior: none;
-`;
-
-const Stiky = css`
-  position: sticky;
-  bottom: 10px;
   overscroll-behavior: none;
 `;
 
