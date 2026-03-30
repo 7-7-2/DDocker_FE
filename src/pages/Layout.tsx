@@ -1,16 +1,17 @@
-import { Outlet } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
-import { styled } from 'styled-system/jsx';
-import { useLocation } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
+import { useLocation, Outlet } from 'react-router-dom';
+
 import { footerShowState } from '@/atoms/atoms';
+import { useFetchSSE } from '@/hooks/notification/useFetchSSE';
+
+import { styled } from 'styled-system/jsx';
 import {
   GeneralHeight,
   SearchPageHeight,
   StartPageHeight,
   RegisterPageHeight
 } from '@/styles/styles';
-import { useFetchSSE } from '@/hooks/notification/useFetchSSE';
 
 const Header = lazy(() => import('../components/common/Header'));
 const Footer = lazy(() => import('../components/common/Footer'));
@@ -19,14 +20,15 @@ let PagesHeight;
 
 const Layout = () => {
   useFetchSSE();
-
   const { pathname } = useLocation();
   const footerState = useRecoilValue(footerShowState);
   const searchPredi = pathname.startsWith('/search');
   const startPredi = pathname.startsWith('/start');
   const reportPredi = pathname.startsWith('/report');
   const registerPredi =
-    pathname.startsWith('/post/register') || pathname.endsWith('/update');
+    pathname.startsWith('/post/register') ||
+    pathname.endsWith('/update') ||
+    pathname.endsWith('/caffeine');
 
   const getHeight = () => {
     if (searchPredi) {
@@ -43,6 +45,7 @@ const Layout = () => {
     }
     return (PagesHeight = GeneralHeight);
   };
+
   return (
     <>
       <Container>
