@@ -23,8 +23,10 @@ const Footer = () => {
 const Container = styled.footer`
   background-color: #fff;
   padding: 8px 21px calc(14px + env(safe-area-inset-bottom));
+  position: relative;
   &::before {
     content: '';
+    top: 1px;
     right: 0;
     border-top: 1px solid #edecec;
     position: absolute;
@@ -35,6 +37,7 @@ const Container = styled.footer`
     content: '';
     border-top: 1px solid #edecec;
     position: absolute;
+    top: 1px;
     left: 0;
     bottom: calc(63px + env(safe-area-inset-bottom));
     width: 50%;
