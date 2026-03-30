@@ -10,12 +10,7 @@ import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import {
-  BtnColorMain,
-  BtnColorSub,
-  RegisterModalBtn,
-  RegisterModalBtnBubble
-} from '@/styles/styles';
+import { BtnColorMain, BtnColorWhite, RegisterModalBtn } from '@/styles/styles';
 import { Center, Flex } from '@/styles/layout';
 
 const FooterRegisterBtn = ({ icon }: { icon: string }) => {
@@ -27,7 +22,7 @@ const FooterRegisterBtn = ({ icon }: { icon: string }) => {
     setActiveRegisterBtn(!activeRegisterBtn);
   };
 
-  const registerBtnColor = !activeRegisterBtn ? BtnColorMain : BtnColorSub;
+  const registerBtnColor = !activeRegisterBtn ? BtnColorMain : BtnColorWhite;
   const registerPost = useNavigateTo('/post/register');
   const registerCoffee = useNavigateTo('/post/register/caffeine');
 
@@ -45,7 +40,7 @@ const FooterRegisterBtn = ({ icon }: { icon: string }) => {
             <Button
               text={postRegister}
               onClick={registerPost}
-              className={cx(RegisterModalBtn, RegisterModalBtnBubble)}>
+              className={cx(RegisterModalBtn)}>
               <Icon {...iconPropsGenerator(`postRegister`)} />
             </Button>
           </ModalContainer>
@@ -68,6 +63,7 @@ const RegisterBtn = styled.div`
   height: 42px;
   width: 42px;
   margin-top: -2px;
+  z-index: 999;
   border-radius: 50px;
 `;
 
@@ -76,20 +72,20 @@ const Background = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(100vh - 64px);
+  height: 100%;
+  z-index: 999;
   background-color: rgba(0, 0, 0, 0.6);
 `;
 
 const ModalContainer = styled.div`
   position: absolute;
-  bottom: 0;
+  bottom: 60px;
   left: 0;
   right: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin: 0 auto 20px;
-  width: 184px;
+  gap: 14px;
+  margin: 0 auto 22px;
 `;
 
 export default FooterRegisterBtn;

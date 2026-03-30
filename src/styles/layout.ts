@@ -46,3 +46,9 @@ export const MarginAuto = css`
 export const Grid = css`
   display: grid;
 `;
+
+export const Stiky = css`
+  position: sticky;
+  bottom: 10px;
+  overscroll-behavior: none;
+`;
