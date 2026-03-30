@@ -1,9 +1,8 @@
 import { useImageCropper } from '@/hooks/post/useImageCropper';
 import { useCloudStorage } from '@/hooks/useCloudStorage';
 import { useCompressImage } from '@/hooks/useCompressImage';
-import { RegisterPostTypes } from '@/types/types';
 
-export const usePostImageEditor = (registInfo: RegisterPostTypes) => {
+export const usePostImageEditor = (registPhoto: string | null) => {
   const { uploadStorage } = useCloudStorage();
   const { compressImage, isLoading } = useCompressImage();
   const {
@@ -13,7 +12,7 @@ export const usePostImageEditor = (registInfo: RegisterPostTypes) => {
     imageFile,
     setCropperEnabled,
     cropperEnabled
-  } = useImageCropper(registInfo?.photo || null);
+  } = useImageCropper(registPhoto || null);
 
   const registerProps = {
     setImageUrl,

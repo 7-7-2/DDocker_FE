@@ -7,7 +7,7 @@ const SelectBox = lazy(() => import('@/components/common/SelectBox'));
 
 import { CAFFEINE_FILTER_TEXTS } from '@/constants/home';
 import useGetCoffeeList from '@/hooks/useGetCoffeeList';
-import { caffeineFilterState, registPostState } from '@/atoms/atoms';
+import { caffeineFilterState, caffeineIntakeState } from '@/atoms/atoms';
 import { CoffeeDataTypes } from '@/types/types';
 
 import { cx } from 'styled-system/css';
@@ -21,7 +21,9 @@ const CoffeeMenuSelection = () => {
   const { postId } = useParams();
   const { type } = useParams();
   const register = postId === 'register' || type === 'update';
-  const [registInfo, setRegistInfo] = useRecoilState(registPostState);
+
+  const [caffeineIntake, setCaffeineIntake] =
+    useRecoilState(caffeineIntakeState);
   const setCaffeine = useSetRecoilState(caffeineFilterState);
   const coffeeData = useGetCoffeeList() as CoffeeDataTypes;
   const brandList = useGetCoffeeList('brand') as string[];
@@ -29,23 +31,23 @@ const CoffeeMenuSelection = () => {
   const setRegisterData = (key: string, value: string | number) => {
     if (key === 'brand') {
       const newRegistData = {
-        ...registInfo,
+        ...caffeineIntake,
         [key]: value as string,
-        menu: ''
+        productName: ''
       };
-      setRegistInfo(newRegistData);
+      setCaffeineIntake(newRegistData);
       return;
     }
 
-    if (key === 'menu') {
+    if (key === 'productName') {
       const newRegistData = {
-        ...registInfo,
+        ...caffeineIntake,
         [key]: value as string,
         shot: 0,
         size: coffeeOption.sizeOption[0],
         intensity: '기본'
       };
-      setRegistInfo(newRegistData);
+      setCaffeineIntake(newRegistData);
       return;
     }
   };
@@ -62,7 +64,7 @@ const CoffeeMenuSelection = () => {
     const res = coffeeData?.[selectedBrand]?.map(item => item.menu);
     return res;
   };
-  const menuList = coffeeData && getMenuList(registInfo.brand);
+  const menuList = coffeeData && getMenuList(caffeineIntake.brand);
 
   // 커피 브랜드 선택
   const selectBrand = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -73,7 +75,7 @@ const CoffeeMenuSelection = () => {
 
   // 선택한 커피 메뉴 정보 조회
   const getMenuInfo = (selectedMenu: string) => {
-    const res = coffeeData?.[registInfo.brand]?.filter(
+    const res = coffeeData?.[caffeineIntake.brand]?.filter(
       item => item.menu === selectedMenu
     );
     // caffeine Info Update
@@ -84,7 +86,8 @@ const CoffeeMenuSelection = () => {
   // 커피 메뉴 선택
   const selectMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
     getMenuInfo(e.currentTarget.value);
-    setRegisterData('menu', e.currentTarget.value);
+    setRegisterData('productName', e.currentTarget.value);
+    console.log(e.currentTarget.value);
   };
 
   const slectBoxType = register ? 'commonBaseSize' : 'commonSmSize';
@@ -98,15 +101,15 @@ const CoffeeMenuSelection = () => {
         <Suspense>
           {register && <RegisterLabel label={coffeeMenu.brand} />}
           <SelectBox
-            value={registInfo.brand}
-            defaultValue={registInfo.brand || coffeeMenu.brand}
+            value={caffeineIntake.brand}
+            defaultValue={caffeineIntake.brand || coffeeMenu.brand}
             data={brandList}
             onClick={selectBrand}
             className={slectBoxType}
           />
           {register && <RegisterLabel label={coffeeMenu.menu} />}
           <SelectBox
-            value={registInfo.menu}
+            value={caffeineIntake.productName}
             defaultValue={coffeeMenu.menu}
             data={menuList}
             onClick={selectMenu}
