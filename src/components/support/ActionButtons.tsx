@@ -4,7 +4,7 @@ import { ACTION_BTN_TEXTS, SUPPORT_TEXTS } from '@/constants/support';
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Flex } from '@/styles/layout';
-import { BtnColorWhite, DisabledBtn, RegistBtn } from '@/styles/styles';
+import { DisabledBtn, RegistBtn } from '@/styles/styles';
 
 const btn = ACTION_BTN_TEXTS;
 const { type: tos } = SUPPORT_TEXTS.termsOfService;

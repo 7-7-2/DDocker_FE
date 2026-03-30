@@ -1,4 +1,4 @@
-import convertBrandName from '@/utils/convertBrandName';
+import { brandMapToKor } from '@/utils/convertBrandName';
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Column } from '@/styles/layout';
@@ -23,7 +23,7 @@ const SelectOption = ({
                   key={item}
                   onClick={handleCilck}
                   value={item}>
-                  {convertBrandName(item)}
+                  {brandMapToKor(item)}
                 </SelectOptionItem>
               ))}
           </OptionCotainer>

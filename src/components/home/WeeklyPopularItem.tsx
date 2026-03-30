@@ -1,5 +1,5 @@
 import { WeeklyPopularTypes } from '@/types/types';
-import convertBrandName from '@/utils/convertBrandName';
+import { brandMapToKor } from '@/utils/convertBrandName';
 import { styled } from 'styled-system/jsx';
 import { Align } from '@/styles/layout';
 
@@ -21,7 +21,7 @@ const WeeklyPopularItem = ({
             src={data && icon}
             alt={data?.brand}
           />
-          <span>{convertBrandName(data?.brand)}</span>
+          <span>{brandMapToKor(data?.brand)}</span>
         </BrandInfo>
       </Container>
     )

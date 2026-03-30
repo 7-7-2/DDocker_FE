@@ -2,7 +2,7 @@ import { useRecoilState } from 'recoil';
 import { brandState } from '@/atoms/atoms';
 import useGetCacheData from '@/hooks/useGetCacheData';
 import { useGetSignedIn } from '@/hooks/useGetSignedIn';
-import changeVisitPurpose from '@/utils/convertBrandName';
+import { brandMapToKor } from '@/utils/convertBrandName';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 
@@ -16,7 +16,7 @@ export const useSetInitialBrand = () => {
   });
 
   useEffect(() => {
-    userInfo && setSelected(changeVisitPurpose(userInfo.cacheData.data.brand));
+    userInfo && setSelected(brandMapToKor(userInfo.cacheData.data.brand));
   }, [userInfo]);
 
   return { selected, setSelected };

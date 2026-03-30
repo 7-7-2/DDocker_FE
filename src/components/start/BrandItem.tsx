@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil';
 import Icon from '@/components/common/Icon';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import convertBrandName from '@/utils/convertBrandName';
+import { brandMapToKor } from '@/utils/convertBrandName';
 import { BrnadItemProps } from '@/types/types';
 import { authState } from '@/atoms/atoms';
 import { styled } from 'styled-system/jsx';
@@ -48,7 +48,7 @@ const BrandItem = (brandInfo: BrnadItemProps) => {
             alt={brandInfo.brand}
           />
         </IconContainer>
-        <span>{convertBrandName(brandInfo.brand)}</span>
+        <span>{brandMapToKor(brandInfo.brand)}</span>
       </ItemContainer>
     </Container>
   );

@@ -1,5 +1,5 @@
 import Icon from '@/components/common/Icon';
-import convertBrandName from '@/utils/convertBrandName';
+import { brandMapToKor } from '@/utils/convertBrandName';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
@@ -56,7 +56,7 @@ const SelectBtn = ({
           SmStyle,
           selectedValue ? SelectedInput : isSelect ? undefined : defalutInput
         )}>
-        {convertBrandName(selectedValue || defalutValue)}
+        {brandMapToKor(selectedValue || defalutValue)}
       </DefalutOption>
       <Icon {...iconPropsGenerator('select', '18')} />
     </SelectBox>
