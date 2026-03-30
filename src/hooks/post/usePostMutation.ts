@@ -1,12 +1,15 @@
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 
 import { getMyInfo } from '@/api/user';
 import { setPostRegist, updatePost } from '@/api/post';
-import { caffeineFilterState, registPostState } from '@/atoms/atoms';
+import {
+  caffeineFilterState,
+  caffeineIntakeState,
+  registPostState
+} from '@/atoms/atoms';
 
-import { useResetSelectedCoffee } from '@/hooks/useResetSelectedCoffee';
 import { useGetTodayCoffeeData } from '@/hooks/home/useGetTodayCoffeeData';
 import { usePostDataFormatter } from '@/hooks/post/usePostDataFormatter';
 import { usePostImageEditor } from '@/hooks/post/usePostImageEditor';
@@ -16,9 +19,12 @@ export const usePostMutation = (
   descriptions: string | null
 ) => {
   const registInfo = useRecoilValue(registPostState);
+  const [caffeineIntake, setCaffeineIntake] =
+    useRecoilState(caffeineIntakeState);
+
   // 이미지
   const { imageUrl, imageFile, uploadStorage, registerProps, cropperProps } =
-    usePostImageEditor(registInfo);
+    usePostImageEditor(registInfo.photo);
   const nonImgPost = !imageFile;
 
   //데이터 가공
@@ -28,7 +34,9 @@ export const usePostMutation = (
   // 후처리
   const navigate = useNavigate();
   const { updateTodayCoffeeData: getTodayCoffeeData } = useGetTodayCoffeeData();
-  const resetSelectedCoffee = useResetSelectedCoffee();
+  const registrationSuccessViewData = async () => {
+    setCaffeineIntake({ ...caffeineIntake, ['caffeine']: caffeine });
+  };
 
   //등록 로직
   const handleRegister = async () => {
@@ -72,7 +80,7 @@ export const usePostMutation = (
   const updateTodayCoffeeData = async () => {
     await getMyInfo();
     await getTodayCoffeeData();
-    resetSelectedCoffee();
+    await registrationSuccessViewData();
   };
 
   const { mutate, isPending } = useMutation({
@@ -86,7 +94,7 @@ export const usePostMutation = (
       if (imageUrl?.startsWith('blob:')) {
         URL.revokeObjectURL(imageUrl);
       }
-      navigate(`/post/${postId}`, {
+      navigate(`/post/${postId}/caffeine`, {
         state: true
       });
     }

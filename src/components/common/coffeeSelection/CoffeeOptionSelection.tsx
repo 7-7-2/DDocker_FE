@@ -7,13 +7,13 @@ import RegisterLabel from '@/components/post/postRegister/RegisterLabel';
 import RadioBtn from '@/components/common/RadioBtn';
 import { CAFFEINE_FILTER_TEXTS } from '@/constants/home';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import { caffeineFilterState, registPostState } from '@/atoms/atoms';
+import { caffeineFilterState, caffeineIntakeState } from '@/atoms/atoms';
 
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Align, Between, Column, Flex } from '@/styles/layout';
 import {
-  BtnColorWhite,
+  BtnColorBorderWhite,
   SmStyle,
   MarginB8,
   CaffeineFilterHomeLabel,
@@ -29,44 +29,45 @@ const CoffeeOptionSelection = () => {
   const register = postId === 'register' || type === 'update';
 
   const [caffeine, setCaffeine] = useRecoilState(caffeineFilterState);
-  const [registInfo, setRegistInfo] = useRecoilState(registPostState);
+  const [caffeineIntake, setCaffeineIntake] =
+    useRecoilState(caffeineIntakeState);
 
   const caffeineValue = caffeine.caffeine;
   const menuCaffeineValue = caffeine.menuCaffeine;
-  const mild = registInfo.intensity === coffeeOption.intensityOption[0];
+  const mild = caffeineIntake.intensity === coffeeOption.intensityOption[0];
 
   const setRegisterData = (key: string, value: string | number) => {
     let newRegistData;
     if (key === 'intensity' && value === coffeeOption.intensityOption[0]) {
       newRegistData = {
-        ...registInfo,
+        ...caffeineIntake,
         shot: 0,
         [key]: value
       };
     } else {
       newRegistData = {
-        ...registInfo,
+        ...caffeineIntake,
         [key]: value
       };
     }
-    setRegistInfo(newRegistData);
+    setCaffeineIntake(newRegistData);
   };
 
   // set coffee size info
   const selectSize = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(registInfo.size);
     setRegisterData('size', e.currentTarget.value);
     const size =
-      registInfo.menu && e.currentTarget.value === coffeeOption.sizeOption[1]
+      caffeineIntake.productName &&
+      e.currentTarget.value === coffeeOption.sizeOption[1]
         ? 75
-        : registInfo.menu &&
+        : caffeineIntake.productName &&
             e.currentTarget.value === coffeeOption.sizeOption[2]
           ? 150
           : 0;
 
     setCaffeine({
       caffeine:
-        menuCaffeineValue + size + registInfo.shot * 75 - (mild ? 75 : 0),
+        menuCaffeineValue + size + caffeineIntake.shot * 75 - (mild ? 75 : 0),
       menuCaffeine: menuCaffeineValue
     });
   };
@@ -74,16 +75,16 @@ const CoffeeOptionSelection = () => {
   // set personal options
   const selectIntensityOption = (e: React.MouseEvent<HTMLButtonElement>) => {
     const size =
-      registInfo.size === coffeeOption.sizeOption[1]
+      caffeineIntake.size === coffeeOption.sizeOption[1]
         ? 75
-        : registInfo.size === coffeeOption.sizeOption[2]
+        : caffeineIntake.size === coffeeOption.sizeOption[2]
           ? 150
           : 0;
     setRegisterData('intensity', e.currentTarget.value);
 
     setCaffeine({
       caffeine:
-        registInfo.menu &&
+        caffeineIntake.productName &&
         e.currentTarget.value === coffeeOption.intensityOption[0]
           ? menuCaffeineValue + size - 75
           : menuCaffeineValue + size,
@@ -92,8 +93,8 @@ const CoffeeOptionSelection = () => {
   };
 
   const selectMinusBtn = () => {
-    const isValid = registInfo.menu && registInfo.shot >= 1;
-    isValid && setRegisterData('shot', registInfo.shot - 1);
+    const isValid = caffeineIntake.productName && caffeineIntake.shot >= 1;
+    isValid && setRegisterData('shot', caffeineIntake.shot - 1);
     isValid &&
       setCaffeine({
         caffeine: caffeineValue - 75,
@@ -102,8 +103,9 @@ const CoffeeOptionSelection = () => {
   };
 
   const selectPlusBtn = () => {
-    const isValid = registInfo.menu && !mild && registInfo.shot < 6;
-    isValid && setRegisterData('shot', registInfo.shot + 1);
+    const isValid =
+      caffeineIntake.productName && !mild && caffeineIntake.shot < 6;
+    isValid && setRegisterData('shot', caffeineIntake.shot + 1);
     isValid &&
       setCaffeine({
         caffeine: caffeineValue + 75,
@@ -111,7 +113,8 @@ const CoffeeOptionSelection = () => {
       });
   };
 
-  const shotPlusBtnActive = !registInfo.menu || mild || registInfo.shot >= 6;
+  const shotPlusBtnActive =
+    !caffeineIntake.productName || mild || caffeineIntake.shot >= 6;
 
   return (
     <div className={cx(Column, SmStyle)}>
@@ -130,7 +133,9 @@ const CoffeeOptionSelection = () => {
             text={item}
             onClick={selectSize}
             className={cx(
-              registInfo.size === item ? SelectSizeBtn : BtnColorWhite,
+              caffeineIntake.size === item
+                ? SelectSizeBtn
+                : BtnColorBorderWhite,
               SizeBtn,
               SmStyle
             )}
@@ -153,7 +158,7 @@ const CoffeeOptionSelection = () => {
               className={cx(Flex, Align)}>
               <RadioBtn
                 option={item}
-                selectedOption={registInfo.intensity}
+                selectedOption={caffeineIntake.intensity}
                 selectIntensityOption={selectIntensityOption}
               />
             </IntensityOptionItem>
@@ -165,13 +170,13 @@ const CoffeeOptionSelection = () => {
         <OptionInterface className={Align}>
           <Icon
             {...iconPropsGenerator(
-              !registInfo.shot ? 'input-minus' : 'input-minus:active'
+              !caffeineIntake.shot ? 'input-minus' : 'input-minus:active'
             )}
             onClick={selectMinusBtn}
           />
           <ShotOptionInput
             type="number"
-            value={registInfo.shot}
+            value={caffeineIntake.shot}
             readOnly
           />
           <Icon

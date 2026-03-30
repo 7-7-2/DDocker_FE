@@ -4,7 +4,7 @@ import { useRecoilValue } from 'recoil';
 import TextArea from '@/components/common/TextArea';
 import RegisterLabel from '@/components/post/postRegister/RegisterLabel';
 
-import { registPostState } from '@/atoms/atoms';
+import { caffeineIntakeState, registPostState } from '@/atoms/atoms';
 import { LABEL_TEXTS, INPUT_TEXTS } from '@/constants/common';
 
 import { MarginT6 } from '@/styles/styles';
@@ -18,7 +18,7 @@ const PostInputDescription = ({
   descriptions: string | null;
   setDescriptions: Dispatch<SetStateAction<string | null>>;
 }) => {
-  const { brand } = useRecoilValue(registPostState);
+  const { brand } = useRecoilValue(caffeineIntakeState);
   const myCafe = brand === 'private';
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

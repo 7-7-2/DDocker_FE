@@ -1,10 +1,10 @@
-import { atom } from 'recoil';
+import { atom, selector } from 'recoil';
 import dayjs from 'dayjs';
 import {
   AuthTypes,
-  RegisterPostTypes,
-  CaffeineFilterTypes
-  // RegisterPostTypesMockup
+  CaffeineFilterTypes,
+  caffeineIntakeTypes,
+  postContentsTypes
 } from '@/types/types';
 import { BRANDS } from '@/constants/coffee';
 
@@ -61,37 +61,58 @@ export const userInfoState = atom<AuthTypes>({
   }
 });
 
-export const registPostState = atom<RegisterPostTypes>({
+export const registPostState = selector<
+  postContentsTypes & caffeineIntakeTypes
+>({
   key: 'registPostState',
-  default: {
-    brand: '',
-    menu: '',
-    size: 'Tall',
-    shot: 0,
-    intensity: '기본',
-    caffeine: 0,
-    post_title: 'title 항목 삭제 예정',
-    description: '',
-    photo: '',
-    postId: ''
+  get: ({ get }) => {
+    const postContents = get(postContentsState);
+    const caffeineIntake = get(caffeineIntakeState);
+    const postData = {
+      post_title: 'title 항목 삭제 예정',
+      postId: postContents.postId,
+      description: postContents.description,
+      photo: postContents.photo,
+      // visibility: postContents.visibility,
+      caffeine: caffeineIntake.caffeine,
+      brand: caffeineIntake.brand,
+      productName: caffeineIntake.productName,
+      size: caffeineIntake.size,
+      intensity: caffeineIntake.intensity,
+      shot: caffeineIntake.shot
+    };
+    return postData;
+  },
+  set: ({ set, reset }, newValue) => {
+    if ('postId' in newValue) set(postContentsState, newValue);
+    if ('caffeine' in newValue) set(caffeineIntakeState, newValue);
+    reset(postContentsState);
+    reset(caffeineIntakeState);
   }
 });
 
-// export const registPostStateMockup = atom<RegisterPostTypesMockup>({
-//   key: 'registPostState',
-//   default: {
-//     brand: '',
-//     menu: '',
-//     size: 'Tall',
-//     shot: 0,
-//     intensity: '기본',
-//     caffeine: 0,
-//     description: '',
-//     photo: '',
-//     postId: '',
-//     visibility: 1
-//   }
-// });
+export const postContentsState = atom<postContentsTypes>({
+  key: 'postContentsState',
+  default: {
+    postId: '',
+    description: '',
+    photo: '',
+    // visibility: 0,
+    post_title: 'title 항목 삭제 예정'
+  }
+});
+
+export const caffeineIntakeState = atom<caffeineIntakeTypes>({
+  key: 'caffeineIntakeState',
+  default: {
+    caffeine: 0,
+    brand: '',
+    productName: '',
+    size: 'Tall',
+    intensity: '기본',
+    shot: 0
+  }
+});
 
 export const caffeineFilterState = atom<CaffeineFilterTypes>({
   key: 'caffeineFilterState',
