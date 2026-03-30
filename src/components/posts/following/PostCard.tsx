@@ -38,7 +38,7 @@ const PostCard = ({ ...props }: FollowingPost) => {
     photo,
     caffeine,
     shot,
-    menu,
+    productName,
     brand,
     intensity,
     size
@@ -48,7 +48,7 @@ const PostCard = ({ ...props }: FollowingPost) => {
     photo,
     caffeine,
     shot,
-    menu,
+    productName,
     brand,
     intensity,
     size

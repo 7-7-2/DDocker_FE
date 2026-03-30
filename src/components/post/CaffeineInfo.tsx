@@ -7,14 +7,14 @@ import pathMap from '@/utils/getBrandPath';
 
 const CaffeineInfo = ({
   brand,
-  menu,
+  productName,
   caffeine,
   shot,
   intensity,
   size
 }: {
   brand: string;
-  menu: string;
+  productName: string;
   caffeine: number;
   shot: number;
   intensity: string;
@@ -27,7 +27,7 @@ const CaffeineInfo = ({
         brand={brand}
         className={PaddingL12}
         caffeine={caffeine}
-        menu={menu}
+        productName={productName}
         shot={shot}
         intensity={intensity}
         size={size}

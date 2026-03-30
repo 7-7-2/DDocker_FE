@@ -56,7 +56,9 @@ const PostsBrandPopular = () => {
         <AlertBubble
           type="trends"
           message={
-            <TrendBubbleText menu={weeklyPopularBrandMenu.data[0].menu} />
+            <TrendBubbleText
+              productName={weeklyPopularBrandMenu.data[0].menu}
+            />
           }
         />
       )}
