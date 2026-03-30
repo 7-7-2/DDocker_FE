@@ -15,7 +15,7 @@ const PostBody = ({
   photo,
   caffeine,
   shot,
-  menu,
+  productName,
   brand,
   intensity,
   size,
@@ -27,7 +27,7 @@ const PostBody = ({
   | 'photo'
   | 'caffeine'
   | 'shot'
-  | 'menu'
+  | 'productName'
   | 'brand'
   | 'intensity'
   | 'size'
@@ -36,7 +36,7 @@ const PostBody = ({
     brand,
     caffeine,
     shot,
-    menu,
+    productName,
     intensity,
     size,
     className: PaddingT12,

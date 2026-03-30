@@ -11,21 +11,13 @@ export default function PostInputTitle({
 }: {
   inputRef: React.RefObject<HTMLInputElement>;
 }) {
-  const { post_title } = useRecoilValue(registPostState);
-  const { value, onChange: handleChange } = useInput(post_title);
-
   return (
     <>
-      <RegisterLabel
-        label={LABEL_TEXTS.title}
-        essential
-      />
+      <RegisterLabel label={LABEL_TEXTS.title} />
       <div className={MarginTop6}>
         <Input
           type={INPUT_TEXTS.type.title.typeName}
           inputRef={inputRef}
-          inputValue={value}
-          handleChange={handleChange}
         />
       </div>
     </>

@@ -21,7 +21,7 @@ const DailyTrendCard = ({ post }: { post: DailyTrendCardProps }) => {
         mini={true}
         posts={true}
         brand={getBrandPath(post.brand)}
-        menu={post.menu}
+        productName={post.productName}
         shot={post.shot}
         caffeine={post.caffeine}
         onClick={toPost}

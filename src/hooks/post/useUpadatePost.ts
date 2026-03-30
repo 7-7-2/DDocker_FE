@@ -27,7 +27,7 @@ export const useUpadatePost = (
       postid &&
       setRegistInfo({
         brand: brandMapToEng(postData.brand),
-        menu: postData.menu,
+        productName: postData.productName,
         size: postData.size,
         shot: postData.shot,
         description: postData.description,

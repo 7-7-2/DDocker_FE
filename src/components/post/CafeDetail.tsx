@@ -7,7 +7,7 @@ const CafeDetail = ({
   brand,
   className,
   caffeine,
-  menu,
+  productName,
   shot,
   posts = false,
   onClick,
@@ -17,7 +17,7 @@ const CafeDetail = ({
   const CafeDetailProps = {
     brand,
     caffeine,
-    menu,
+    productName,
     shot,
     posts,
     onClick,

@@ -144,7 +144,10 @@ export const deleteImage = async (url: string) => {
 // PostRegister
 export const setPostRegist = async (postInfo: RegisterPostTypes) => {
   try {
-    const data = postInfo;
+    // 임시 > 변경 예정
+    const { productName, ...rest } = postInfo;
+    const data = { menu: productName, ...rest };
+    // const data = postInfo;
     const res = await authInstance.post('/posts/register', data);
     return res.data.data;
   } catch (error) {

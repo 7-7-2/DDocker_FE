@@ -24,7 +24,7 @@ const CafeDetailContent = ({
   posts,
   brand,
   onClick,
-  menu,
+  productName,
   caffeine,
   shot,
   intensity,
@@ -42,10 +42,10 @@ const CafeDetailContent = ({
       <div
         className={CaffeineDetail}
         onClick={onClick}>
-        {!mini && mild && `${menu} (${intensity}, ${size})`}
-        {!mini && !mild && !base && `${menu} (+${shot}샷, ${size})`}
-        {!mini && !mild && base && `${menu} (${intensity}, ${size})`}
-        {mini && `${menu} (+${shot}샷)`}
+        {!mini && mild && `${productName} (${intensity}, ${size})`}
+        {!mini && !mild && !base && `${productName} (+${shot}샷, ${size})`}
+        {!mini && !mild && base && `${productName} (${intensity}, ${size})`}
+        {mini && `${productName} (+${shot}샷)`}
         <br />
         {!mini && including}
         <span className={ColorMain}>

@@ -17,7 +17,7 @@ export const generatePostCardProps = (
     photo: post.photo,
     caffeine: post.caffeine,
     shot: post.shot,
-    menu: post.menu,
+    productName: post.productName,
     brand: selected ? selected : post.brand,
     userId: post.userId,
     intensity: post.intensity,
