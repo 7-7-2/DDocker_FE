@@ -26,7 +26,7 @@ const Container = styled.footer`
   position: relative;
   &::before {
     content: '';
-    top: 1px;
+    top: 0;
     right: 0;
     border-top: 1px solid #edecec;
     position: absolute;
@@ -37,7 +37,7 @@ const Container = styled.footer`
     content: '';
     border-top: 1px solid #edecec;
     position: absolute;
-    top: 1px;
+    top: 0;
     left: 0;
     bottom: calc(63px + env(safe-area-inset-bottom));
     width: 50%;

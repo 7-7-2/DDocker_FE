@@ -1,5 +1,31 @@
+import { Flex } from '@/styles/layout';
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
+
+// PageHeight
+export const SearchPageHeight = css`
+  height: calc(
+    100dvh - 64px - env(safe-area-inset-bottom) - env(safe-area-inset-top)
+  );
+`;
+
+export const RegisterPageHeight = css`
+  height: calc(
+    100dvh - 46px - env(safe-area-inset-bottom) - env(safe-area-inset-top)
+  );
+`;
+
+export const GeneralHeight = css`
+  height: calc(
+    100dvh - 46px - 64px - env(safe-area-inset-bottom) - env(
+        safe-area-inset-top
+      )
+  );
+`;
+
+export const StartPageHeight = css`
+  height: calc(100dvh - env(safe-area-inset-bottom) - env(safe-area-inset-top));
+`;
 
 // Common
 // Font-weight
@@ -79,23 +105,44 @@ export const MarginB8 = css`
   margin-bottom: 8px;
 `;
 
-// Button Styles
-export const Btn = cx(
-  Medium,
+// Button
+// Button Container
+export const BottomBtnContainer = cx(
+  Flex,
   css`
+    height: 72px;
     width: 100%;
+    padding: 10px 20px;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
   `
 );
 
-export const StartBtn = cx(
-  Btn,
+//Button Size type
+export const Btn = cx(css`
+  width: 100vw;
+  max-width: 460px;
+  margin: 0 auto;
+`);
+
+export const ShortBtn = cx(
+  Medium,
   css`
-    color: #313131;
+    width: 85px;
+    height: 34px;
+    border-radius: 6px;
     font-size: var(--font-sizes-sm);
-    line-height: 22px;
-    text-align: center;
   `
 );
+
+export const DubbleShortBtn = css`
+  width: 130px;
+  height: 48px;
+  border-radius: 10px;
+  font-size: var(--font-sizes-sm);
+`;
 
 export const NoneBtn = cx(
   Btn,
@@ -113,6 +160,7 @@ export const ThinBtn = css`
   line-height: 22px;
 `;
 
+// Button Color type
 export const BtnColorMain = css`
   background: var(--colors-main);
   color: #fff;
@@ -133,6 +181,17 @@ export const BtnColorSub = css`
   background: var(--colors-sub);
   color: #fff;
 `;
+
+// Button Style
+export const StartBtn = cx(
+  Btn,
+  css`
+    color: #313131;
+    font-size: var(--font-sizes-sm);
+    line-height: 22px;
+    text-align: center;
+  `
+);
 
 export const SignInBtn = cx(
   Btn,
@@ -205,27 +264,29 @@ export const FollowingBtn = cx(
   `
 );
 
-export const ShortBtn = cx(
-  Medium,
+export const FollowBtnSm = cx(
+  BtnColorMain,
+  ShortBtn,
   css`
-    width: 80px;
-    height: 30px;
-    border-radius: 6px;
     font-size: var(--font-size-xs);
   `
 );
 
-export const FollowBtnSm = cx(BtnColorMain, ShortBtn);
-
-export const FollowingBtnSm = cx(BtnColorBorderWhite, ShortBtn);
+export const FollowingBtnSm = cx(
+  BtnColorBorderWhite,
+  ShortBtn,
+  css`
+    font-size: var(--font-size-xs);
+  `
+);
 
 export const PostRegisterBtn = cx(
+  Btn,
   BtnColorMain,
   Semibold,
   css`
     border-radius: 10px;
     height: 48px;
-    width: 100%;
   `
 );
 
@@ -236,7 +297,7 @@ export const LoginBtn = cx(
     width: 120px;
     height: 40px;
     border-radius: 50px;
-    color: var(--colors-mid-grey);
+    color: var(--colors-mid-grey) !important;
     font-size: var(--font-sizes-sm);
     line-height: 22px;
   `
@@ -263,6 +324,17 @@ export const SearchBtn = cx(
     line-height: 22px;
   `
 );
+
+// Modal styles
+export const RegisterModal = cx(css`
+  z-index: 999;
+  width: 300px;
+  height: 262px;
+  margin: auto 0;
+  background-color: #fff;
+  border-radius: 16px;
+  padding: 30px 16px 16px;
+`);
 
 // Input styles
 export const InputFontSm = cx(
@@ -465,30 +537,6 @@ export const DeleteAllBtn = cx(
     line-height: 20px;
   `
 );
-
-export const SearchPageHeight = css`
-  height: calc(
-    100dvh - 64px - env(safe-area-inset-bottom) - env(safe-area-inset-top)
-  );
-`;
-
-export const RegisterPageHeight = css`
-  height: calc(
-    100dvh - 46px - env(safe-area-inset-bottom) - env(safe-area-inset-top)
-  );
-`;
-
-export const GeneralHeight = css`
-  height: calc(
-    100dvh - 46px - 64px - env(safe-area-inset-bottom) - env(
-        safe-area-inset-top
-      )
-  );
-`;
-
-export const StartPageHeight = css`
-  height: calc(100dvh - env(safe-area-inset-bottom) - env(safe-area-inset-top));
-`;
 
 export const SumTitle = cx(
   Semibold,
