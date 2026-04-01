@@ -3,8 +3,13 @@ import { BUTTON_TEXTS } from '@/constants/common';
 import { ERROR_TEXTS } from '@/constants/error';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 
-import { Align, Column, MarginAuto } from '@/styles/layout';
-import { DefaultBtn, Regular, Semibold } from '@/styles/styles';
+import { Align, Column, DVW, MarginAuto } from '@/styles/layout';
+import {
+  BottomBtnContainer,
+  DefaultBtn,
+  Regular,
+  Semibold
+} from '@/styles/styles';
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 
@@ -12,7 +17,7 @@ const { home } = BUTTON_TEXTS;
 const { title, text } = ERROR_TEXTS;
 const Error = () => {
   return (
-    <Container className={cx(Align, Column)}>
+    <Container className={cx(Align, Column, DVW)}>
       <ContentsContainer>
         <svg
           width={'158'}
@@ -23,22 +28,20 @@ const Error = () => {
         <Title className={Semibold}>{title}</Title>
         <Text className={Regular}>{text}</Text>
       </ContentsContainer>
-      <Button
-        text={home}
-        className={cx(DefaultBtn)}
-        onClick={useNavigateTo('/')}
-      />
+      <div className={BottomBtnContainer}>
+        <Button
+          text={home}
+          className={cx(DefaultBtn)}
+          onClick={useNavigateTo('/')}
+        />
+      </div>
     </Container>
   );
 };
 
 const Container = styled.div`
-  position: relative;
-  max-width: 500px;
-  min-width: 360px;
-  width: 100vw;
   height: calc(100dvh - env(safe-area-inset-bottom) - env(safe-area-inset-top));
-  padding: 0 20px 20px;
+  padding: 0 20px;
 `;
 
 const ContentsContainer = styled.div`
