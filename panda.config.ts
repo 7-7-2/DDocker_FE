@@ -27,6 +27,7 @@ export default defineConfig({
           subGrey: { value: '#DCDCDC' },
           borderGrey: { value: '#EDECEC' },
           midGrey: { value: '#767676' },
+          darkGrey: { value: '#555555' },
           btnGrey: { value: '#ccc' },
           reportGrey: { value: '#cbcbcb' },
           deleteRed: { value: '#f3372b' }
