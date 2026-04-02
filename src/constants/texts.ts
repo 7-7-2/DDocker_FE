@@ -66,7 +66,7 @@ export const POST_TEXTS = {
 export const POST_REGISTER_TEXTS = {
   success: {
     heroText: {
-      prefix: '카페인',
+      prefix: '카페인 ',
       suffix: 'mg',
       text: '등록이 완료되었습니다!'
     },
@@ -82,6 +82,10 @@ export const POST_REGISTER_TEXTS = {
         suffix: '초과했어요.'
       }
     },
-    coffeeOptionText: ['커피 브랜드', '커피 메뉴', '커피 옵션', '등록일']
+    coffeeOptionText: ['커피 브랜드', '커피 메뉴', '커피 옵션', '등록일'],
+    addFavoriteMenu: {
+      ModalText: '즐겨찾는 메뉴로 등록하시겠어요?',
+      addedText: '즐겨찾는 메뉴로 등록되었어요.'
+    }
   }
 };
