@@ -1,6 +1,6 @@
 import { useRecoilState, useRecoilValue } from 'recoil';
 import dayjs from 'dayjs';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 
 import Icon from '@/components/common/Icon';
 import Button from '@/components/common/Button';
