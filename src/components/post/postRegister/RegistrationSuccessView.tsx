@@ -7,14 +7,15 @@ import Icon from '@/components/common/Icon';
 import Button from '@/components/common/Button';
 import FavoriteMenuAddModal from '@/components/post/postRegister/FavoriteMenuAddModal';
 
+import { useShowFooter } from '@/hooks/useShowFooter';
+import { useNavigateTo } from '@/hooks/useNavigateTo';
+import { brandMapToKor } from '@/utils/convertBrandName';
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+import { coffeeInfoFormatter } from '@/utils/coffeeInfoFormatter';
+
 import { caffeineIntakeState, isModalState } from '@/atoms/atoms';
 import { POST_REGISTER_TEXTS } from '@/constants/texts';
 import { CAFFEINE_TEXTS, BUTTON_TEXTS } from '@/constants/common';
-import { useShowFooter } from '@/hooks/useShowFooter';
-import { brandMapToKor } from '@/utils/convertBrandName';
-import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import { customOptionFormmater } from '@/utils/customOptionFormmater';
-import { useNavigateTo } from '@/hooks/useNavigateTo';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
@@ -42,7 +43,8 @@ const { heroText, description, coffeeOptionText } = POST_REGISTER_TEXTS.success;
 
 const RegistrationSuccessView = () => {
   useShowFooter(false);
-  const { caffeine, ...coffeeInfo } = useRecoilValue(caffeineIntakeState);
+  const caffeineIntake = useRecoilValue(caffeineIntakeState);
+  const { caffeine, coffeeInfo } = coffeeInfoFormatter(caffeineIntake);
   const [isModal, setIsModal] = useRecoilState(isModalState);
 
   const { postId } = useParams();
@@ -66,16 +68,8 @@ const RegistrationSuccessView = () => {
   const descriptionText = `${prefix} ${sum}${description.unit} ${suffix}`;
 
   // coffeeInfo
-  const coffeeInfoValues = Object.values(coffeeInfo);
-  const customOption = coffeeInfoValues.slice(2, 5);
   const registeredDay = dayjs(new Date()).format('YYYY.MM.DD');
-
-  const coffeeintakeValues = [
-    brandMapToKor(coffeeInfoValues[0] as string),
-    coffeeInfoValues[1],
-    customOptionFormmater(customOption),
-    registeredDay
-  ];
+  const coffeeintakeValues = [...coffeeInfo, registeredDay];
 
   const coffeeIntakeEntries = coffeeOptionText.map((label, index) => ({
     label: label,
