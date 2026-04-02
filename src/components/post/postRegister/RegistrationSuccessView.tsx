@@ -1,6 +1,7 @@
+import { useParams } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import dayjs from 'dayjs';
-import { Toaster } from 'react-hot-toast';
 
 import Icon from '@/components/common/Icon';
 import Button from '@/components/common/Button';
@@ -43,7 +44,12 @@ const RegistrationSuccessView = () => {
   useShowFooter(false);
   const { caffeine, ...coffeeInfo } = useRecoilValue(caffeineIntakeState);
   const [isModal, setIsModal] = useRecoilState(isModalState);
+
+  const { postId } = useParams();
+  const postTypeCheck = postId !== 'caffeineIntake';
+
   const goToHome = useNavigateTo('0');
+  const goToPost = useNavigateTo(`/post/${postId}`);
 
   // descriptionText 가공
   const generateDescriptionText = () => {
@@ -80,8 +86,8 @@ const RegistrationSuccessView = () => {
     setIsModal(!isModal);
   };
 
-  const navToHome = () => {
-    goToHome();
+  const navToWhere = () => {
+    postTypeCheck ? goToPost() : goToHome();
   };
 
   return (
@@ -129,8 +135,8 @@ const RegistrationSuccessView = () => {
       <Toaster />
       <div className={BottomBtnContainer}>
         <Button
-          text={BUTTON_TEXTS.confirm}
-          onClick={navToHome}
+          text={postTypeCheck ? BUTTON_TEXTS.post : BUTTON_TEXTS.confirm}
+          onClick={navToWhere}
           className={cx(PostRegisterBtn, Sticky)}
         />
       </div>

@@ -68,6 +68,7 @@ export const BUTTON_TEXTS = {
   follow2: '팔로우',
   follow1: '팔로우 하기',
   home: '홈으로 돌아가기',
+  post: '게시물로 이동하기',
   deleteAccount: '탈퇴하기',
   favoriteMenu: '+ 즐겨찾기 추가',
   confirm: '확인',
