@@ -1,6 +1,7 @@
 import toast from 'react-hot-toast';
 
 import Button from '@/components/common/Button';
+import CoffeeInfo from '@/components/post/postRegister/CoffeeInfo';
 
 import { BUTTON_TEXTS } from '@/constants/common';
 import { POST_REGISTER_TEXTS } from '@/constants/texts';
@@ -11,7 +12,6 @@ import {
   BtnColorBorderWhite,
   BtnColorMain,
   DubbleShortBtn,
-  Medium,
   RegisterModal,
   Regular,
   Semibold
@@ -54,9 +54,10 @@ const FavoriteMenuAddModal = ({
       <div className={cx(RegisterModal)}>
         <ModalText className={Semibold}>{addFavoriteMenu.ModalText}</ModalText>
         <CaffeineIntake className={cx(Column, Regular)}>
-          <Item>{contents[0]}</Item>
-          <ProductNameItem className={Medium}>{contents[1]}</ProductNameItem>
-          <Item>({contents[2]})</Item>
+          <CoffeeInfo
+            contents={contents}
+            type="modal"
+          />
         </CaffeineIntake>
         <BtnContainer className={cx(Flex, Between)}>
           <Button
@@ -98,17 +99,6 @@ const CaffeineIntake = styled.div`
   margin: 20px 0 28px;
   border-radius: 10px;
   background-color: var(--colors-tertiary);
-`;
-
-const ProductNameItem = styled.span`
-  line-height: 20px;
-  font-size: var(--font-sizes-sm);
-  color: var(--colors-main-dark);
-`;
-
-const Item = styled.div`
-  font-size: var(--font-sizes-xs);
-  color: var(--colors-mid-grey);
 `;
 
 const BtnContainer = styled.div`
