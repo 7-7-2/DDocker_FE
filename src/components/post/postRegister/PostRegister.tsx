@@ -4,6 +4,7 @@ import { useIsMutating } from '@tanstack/react-query';
 
 import PillTabs from '@/components/common/PillTabs';
 import PostRegisterForm from '@/components/post/postRegister/PostRegisterForm';
+import FavoriteMenuTab from '@/components/post/postRegister/FavoriteMenuTab';
 
 import { BUTTON_TEXTS, MODAL_CTA_TEXTS } from '@/constants/common';
 
@@ -66,7 +67,11 @@ const PostRegister = ({
           handleButtonClick={handleSelectTab}
         />
       )}
-      {seletedTab === tabs[0] && <PostRegisterForm update={update} />}
+      {seletedTab === tabs[0] ? (
+        <PostRegisterForm update={update} />
+      ) : (
+        <FavoriteMenuTab />
+      )}
     </>
   );
 };
