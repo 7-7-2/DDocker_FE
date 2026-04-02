@@ -1,28 +1,34 @@
+import { useRecoilState, useRecoilValue } from 'recoil';
 import dayjs from 'dayjs';
-import { useRecoilValue } from 'recoil';
+import toast, { Toaster } from 'react-hot-toast';
 
 import Icon from '@/components/common/Icon';
 import Button from '@/components/common/Button';
+import FavoriteMenuAddModal from '@/components/post/postRegister/FavoriteMenuAddModal';
 
-import { caffeineIntakeState } from '@/atoms/atoms';
+import { caffeineIntakeState, isModalState } from '@/atoms/atoms';
 import { POST_REGISTER_TEXTS } from '@/constants/texts';
 import { CAFFEINE_TEXTS, BUTTON_TEXTS } from '@/constants/common';
 import { useShowFooter } from '@/hooks/useShowFooter';
 import { brandMapToKor } from '@/utils/convertBrandName';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+import { customOptionFormmater } from '@/utils/customOptionFormmater';
+import { useNavigateTo } from '@/hooks/useNavigateTo';
 
-import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
+import { styled } from 'styled-system/jsx';
 import {
   Align,
   Between,
   Column,
   Flex,
   FlexCenter,
-  Stiky
+  Sticky
 } from '@/styles/layout';
 import {
   AddFavMenuBtn,
+  Bold,
+  BottomBtnContainer,
   LoginBtn,
   Medium,
   PostRegisterBtn,
@@ -31,12 +37,13 @@ import {
 } from '@/styles/styles';
 
 const { recommendedCaffeine } = CAFFEINE_TEXTS;
-const { favoriteMenu, confirm } = BUTTON_TEXTS;
 const { heroText, description, coffeeOptionText } = POST_REGISTER_TEXTS.success;
 
 const RegistrationSuccessView = () => {
   useShowFooter(false);
   const { caffeine, ...coffeeInfo } = useRecoilValue(caffeineIntakeState);
+  const [isModal, setIsModal] = useRecoilState(isModalState);
+  const goToHome = useNavigateTo('0');
 
   // descriptionText 가공
   const generateDescriptionText = () => {
@@ -57,16 +64,10 @@ const RegistrationSuccessView = () => {
   const customOption = coffeeInfoValues.slice(2, 5);
   const registeredDay = dayjs(new Date()).format('YYYY.MM.DD');
 
-  const customOptionValue = (customOption: Array<string | number>) => {
-    const shotText = `+${customOption.length - 1}샷`;
-    return customOption.map((item, index) => (
-      <>{index !== 2 ? <span>{item}, </span> : <span>{shotText}</span>}</>
-    ));
-  };
-
   const coffeeintakeValues = [
-    ...coffeeInfoValues.slice(0, 2),
-    customOption,
+    brandMapToKor(coffeeInfoValues[0] as string),
+    coffeeInfoValues[1],
+    customOptionFormmater(customOption),
     registeredDay
   ];
 
@@ -75,70 +76,71 @@ const RegistrationSuccessView = () => {
     value: coffeeintakeValues[index]
   }));
 
-  const addFavoriteMenu = () => {
-    console.log('등록');
+  const handleModal = () => {
+    setIsModal(!isModal);
   };
 
   const navToHome = () => {
-    console.log('나가기');
+    goToHome();
   };
 
   return (
     <>
-      <Container>
-        <CaffeineInfoContainer className={cx(Column, Align)}>
-          <Icon {...iconPropsGenerator(`register-success`, `41`)} />
-          <HeroText className={cx(Semibold)}>
-            <CaffeineInfo>
-              {heroText.prefix}
-              {caffeine}
-              {heroText.suffix}
-            </CaffeineInfo>
-            {heroText.text}
-          </HeroText>
-          <Description className={Regular}>
-            {description.prefix}
-            {descriptionText}
-          </Description>
-        </CaffeineInfoContainer>
-        <CoffeeOptionContainer className={cx(Flex, Column)}>
-          <div></div>
-          {coffeeIntakeEntries.map((item, index) => (
-            <CoffeeOptionItem className={cx(Flex, Between, Medium)}>
-              <CoffeeOptionLabel className={Regular}>
-                {item.label}
-              </CoffeeOptionLabel>
-              {!index ? (
-                <span>{brandMapToKor(item.value as string)}</span>
-              ) : Array.isArray(item.value) ? (
-                <span>{customOptionValue(item.value)}</span>
-              ) : (
-                <span>{item.value}</span>
-              )}
-            </CoffeeOptionItem>
-          ))}
-        </CoffeeOptionContainer>
-        <Button
-          text={favoriteMenu}
-          onClick={addFavoriteMenu}
-          className={cx(LoginBtn, AddFavMenuBtn, FlexCenter)}
+      {isModal && (
+        <FavoriteMenuAddModal
+          handleModal={handleModal}
+          contents={coffeeintakeValues}
         />
-      </Container>
+      )}
+      <CaffeineInfoContainer className={cx(Column, Align)}>
+        <Icon {...iconPropsGenerator(`register-success`, `41`)} />
+        <HeroText className={Semibold}>
+          <CaffeineInfo className={Bold}>
+            {heroText.prefix}
+            {caffeine}
+            {heroText.suffix}
+          </CaffeineInfo>
+          {heroText.text}
+        </HeroText>
+        <Description className={Regular}>
+          {description.prefix}
+          {descriptionText}
+        </Description>
+      </CaffeineInfoContainer>
+      <CoffeeOptionContainer className={cx(Flex, Column)}>
+        {coffeeIntakeEntries.map((item, index) => (
+          <CoffeeOptionItem className={cx(Flex, Between, Medium)}>
+            <CoffeeOptionLabel className={Regular}>
+              {item.label}
+            </CoffeeOptionLabel>
+            {!index ? (
+              <span>{brandMapToKor(item.value as string)}</span>
+            ) : (
+              <span>{item.value}</span>
+            )}
+          </CoffeeOptionItem>
+        ))}
+      </CoffeeOptionContainer>
       <Button
-        text={confirm}
-        onClick={navToHome}
-        className={cx(PostRegisterBtn, Stiky)}
+        text={BUTTON_TEXTS.favoriteMenu}
+        onClick={handleModal}
+        className={cx(LoginBtn, AddFavMenuBtn, FlexCenter)}
       />
+      <Toaster />
+      <div className={BottomBtnContainer}>
+        <Button
+          text={BUTTON_TEXTS.confirm}
+          onClick={navToHome}
+          className={cx(PostRegisterBtn, Sticky)}
+        />
+      </div>
     </>
   );
 };
 
-const Container = styled.div`
-  height: 100vh;
-`;
-
 const CaffeineInfoContainer = styled.div`
   margin-top: 30px;
+  display: flex;
 `;
 
 const HeroText = styled.span`

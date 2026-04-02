@@ -55,7 +55,8 @@ export const LABEL_TEXTS = {
 
 export const BUTTON_TEXTS = {
   start: '시작하기',
-  register: '등록완료',
+  registered: '등록완료',
+  register: '등록하기',
   mainRegister: '조회한 커피 등록하기',
   coffeeRegister: '마신 커피 등록하기',
   postRegister: '게시물로 등록하기',
@@ -69,7 +70,8 @@ export const BUTTON_TEXTS = {
   home: '홈으로 돌아가기',
   deleteAccount: '탈퇴하기',
   favoriteMenu: '+ 즐겨찾기 추가',
-  confirm: '확인'
+  confirm: '확인',
+  cancel: '취소'
 };
 
 export const MODAL_CTA_TEXTS = {
