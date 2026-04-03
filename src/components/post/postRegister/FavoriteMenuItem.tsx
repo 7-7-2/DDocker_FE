@@ -3,18 +3,38 @@ import Button from '@/components/common/Button';
 
 import { caffeineIntakeTypes } from '@/types/types';
 import { coffeeInfoFormatter } from '@/utils/coffeeInfoFormatter';
-import { BUTTON_TEXTS, CAFFEINE_TEXTS } from '@/constants/common';
+import {
+  BUTTON_TEXTS,
+  CAFFEINE_TEXTS,
+  FILL_TABS_TEXTS
+} from '@/constants/common';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Between, Column, Flex, FlexCenter } from '@/styles/layout';
 import { Bold, BtnColorMain, ShortBtn, TertiaryBtn } from '@/styles/styles';
+import { useSetRecoilState } from 'recoil';
+import { caffeineIntakeState } from '@/atoms/atoms';
 
-const FavoriteMenuItem = ({ itemData }: { itemData: caffeineIntakeTypes }) => {
+const FavoriteMenuItem = ({
+  itemData,
+  backInitialTab
+}: {
+  itemData: caffeineIntakeTypes;
+  backInitialTab: () => void;
+}) => {
   const { caffeine, coffeeInfo } = coffeeInfoFormatter(itemData);
+  const setCaffeineIntake = useSetRecoilState(caffeineIntakeState);
+
   // 임시
-  const deleteItem = () => [console.log('삭제')];
-  const useCoffeeData = () => {};
+  const deleteItem = () => {
+    // 삭제 api
+    console.log('삭제');
+  };
+  const useCoffeeData = () => {
+    setCaffeineIntake(itemData);
+    backInitialTab();
+  };
 
   return (
     <>
