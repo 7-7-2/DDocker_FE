@@ -6,7 +6,11 @@ import PillTabs from '@/components/common/PillTabs';
 import PostRegisterForm from '@/components/post/postRegister/PostRegisterForm';
 import FavoriteMenuTab from '@/components/post/postRegister/FavoriteMenuTab';
 
-import { BUTTON_TEXTS, MODAL_CTA_TEXTS } from '@/constants/common';
+import {
+  BUTTON_TEXTS,
+  FILL_TABS_TEXTS,
+  MODAL_CTA_TEXTS
+} from '@/constants/common';
 
 import { useShowFooter } from '@/hooks/useShowFooter';
 import { useUpadatePost } from '@/hooks/post/useUpadatePost';
@@ -22,6 +26,7 @@ const ModalCTA = lazy(() => import('@/components/common/ModalCTA'));
 
 const { signIn2 } = BUTTON_TEXTS;
 const { signIn } = MODAL_CTA_TEXTS;
+const { register } = FILL_TABS_TEXTS;
 
 const PostRegister = ({
   update,
@@ -35,15 +40,14 @@ const PostRegister = ({
   const { isModal } = useVerifyModalCTA();
   const navigate = useNavigate();
   const isPending = useIsMutating({ mutationKey: ['postRegister'] });
+  const { selectedTab, handleSelectTab, backInitialTab } = useSelectTab(
+    register[0]
+  );
 
   //비회원,미로그인
   const handleActions: React.MouseEventHandler<HTMLButtonElement> = () => {
     navigate('/start/1');
   };
-
-  //FillTabs component mock-up Data
-  const tabs = ['전체메뉴', '즐겨찾는 메뉴'];
-  const { seletedTab, handleSelectTab } = useSelectTab(tabs[0]);
 
   return (
     <>
@@ -62,15 +66,15 @@ const PostRegister = ({
       )}
       {!update && (
         <PillTabs
-          tabs={tabs}
-          selectedTab={seletedTab}
+          tabs={register}
+          selectedTab={selectedTab}
           handleButtonClick={handleSelectTab}
         />
       )}
-      {seletedTab === tabs[0] ? (
+      {selectedTab === register[0] ? (
         <PostRegisterForm update={update} />
       ) : (
-        <FavoriteMenuTab />
+        <FavoriteMenuTab backInitialTab={backInitialTab} />
       )}
     </>
   );

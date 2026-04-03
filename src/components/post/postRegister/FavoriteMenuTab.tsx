@@ -24,11 +24,19 @@ const res = [
   }
 ];
 
-const FavoriteMenuTab = () => {
+const FavoriteMenuTab = ({
+  backInitialTab
+}: {
+  backInitialTab: () => void;
+}) => {
+  // facvorite menu data api
   return (
     <Container className={cx(Flex)}>
       {res.map(item => (
-        <FavoriteMenuItem itemData={item} />
+        <FavoriteMenuItem
+          itemData={item}
+          backInitialTab={backInitialTab}
+        />
       ))}
     </Container>
   );
