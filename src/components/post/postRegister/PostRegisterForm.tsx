@@ -15,8 +15,7 @@ import { usePostMutation } from '@/hooks/post/usePostMutation';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { Stiky } from '@/styles/layout';
-import { DefaultBtn, DisabledBtn } from '@/styles/styles';
+import { BottomBtnContainer, DefaultBtn, DisabledBtn } from '@/styles/styles';
 
 const PostRegisterForm = ({
   update,
@@ -50,7 +49,7 @@ const PostRegisterForm = ({
     cropperProps,
     imageFile,
     caffeine
-  } = usePostMutation(update, descriptions);
+  } = usePostMutation(descriptions, update, caffeineRegister);
 
   //유효성 검사
   const hasContents = descriptions || imageFile || registInfo.photo;
@@ -82,30 +81,27 @@ const PostRegisterForm = ({
           />
         )}
       </Container>
-      <BtnArea />
-      <Button
-        text={!update ? BUTTON_TEXTS.register : BUTTON_TEXTS.update}
-        onClick={clickRegisterBtn}
-        disabled={isInvalid}
-        className={cx(isInvalid ? DisabledBtn : undefined, DefaultBtn, Stiky)}
-      />
+      <ButtonContainer className={BottomBtnContainer}>
+        <Button
+          text={!update ? BUTTON_TEXTS.registered : BUTTON_TEXTS.update}
+          onClick={clickRegisterBtn}
+          disabled={isInvalid}
+          className={cx(isInvalid && DisabledBtn, DefaultBtn)}
+        />
+      </ButtonContainer>
     </>
   );
 };
 
 const Container = styled.div`
   padding: 0 2px;
-  margin: 0 -2px;
+  margin: 0 0 50px;
   overflow-y: auto;
 `;
 
-const BtnArea = styled.div`
-  position: sticky;
-  height: 48px;
-  margin: 0 -20px;
-  bottom: 0;
+const ButtonContainer = styled.div`
   background-color: #fff;
-  overscroll-behavior: none;
+  box-shadow: 1px 0 0 0#fff;
 `;
 
 export default PostRegisterForm;

@@ -9,7 +9,6 @@ import Toggle from '@/components/common/Toggle';
 import { LABEL_TEXTS } from '@/constants/common';
 import { ImageCropperProps, ImageRegisterProps } from '@/types/types';
 
-import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Between } from '@/styles/layout';
 
@@ -29,7 +28,7 @@ const PostWriteSection = ({
     setVisibility(!isVisibility);
   };
   return (
-    <>
+    <Container>
       <PostInputDescription
         descriptions={descriptions}
         setDescriptions={setDescriptions}
@@ -40,16 +39,20 @@ const PostWriteSection = ({
         {...registerProps}
         {...cropperProps}
       />
-      <PostPrivateToggle className={cx(Between)}>
+      <PostPrivateToggle className={Between}>
         <RegisterLabel label={LABEL_TEXTS.postPrivate} />
         <Toggle
           toggleState={isVisibility}
           onClick={handlePrivateToggle}
         />
       </PostPrivateToggle>
-    </>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  margin-bottom: 74px;
+`;
 
 const PostPrivateToggle = styled.div`
   display: flex;
