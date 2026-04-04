@@ -1,3 +1,5 @@
+import { TabsText } from '@/types/types';
+
 export const HEADER_TEXTS = {
   start: '기본정보',
   post: {
@@ -72,7 +74,17 @@ export const BUTTON_TEXTS = {
   deleteAccount: '탈퇴하기',
   favoriteMenu: '+ 즐겨찾기 추가',
   confirm: '확인',
-  cancel: '취소'
+  cancel: '취소',
+  delete: '삭제'
+};
+
+export const TABS_TEXTS: TabsText = {
+  trend: ['trend', '트렌드'],
+  following: ['following', '팔로잉']
+};
+
+export const FILL_TABS_TEXTS = {
+  register: ['전체메뉴', '즐겨찾는 메뉴']
 };
 
 export const MODAL_CTA_TEXTS = {
@@ -96,5 +108,6 @@ export const SCROLL_INDUCER_TEXTS = {
 };
 
 export const CAFFEINE_TEXTS = {
-  recommendedCaffeine: 400
+  recommendedCaffeine: 400,
+  unit: 'mg'
 };

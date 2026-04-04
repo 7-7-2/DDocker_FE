@@ -1,5 +1,3 @@
-import { TabsText } from '@/types/types';
-
 export const TEXT = {
   deleteAccount: '회원 탈퇴',
   signOutBtn: '로그아웃',
@@ -23,11 +21,6 @@ export const COMMENT_TEXTS = {
   loadMore: '개의 답글 더보기',
   at: '@',
   onReply: '님의 댓글에 답글 작성 중'
-};
-
-export const TABS_TEXTS: TabsText = {
-  trend: ['trend', '트렌드'],
-  following: ['following', '팔로잉']
 };
 
 export const TREND_TEXTS = {

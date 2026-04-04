@@ -1,7 +1,7 @@
 import { Align } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
 import PostTab from '@/components/posts/PostsTab';
-import { TABS_TEXTS } from '@/constants/texts';
+import { TABS_TEXTS } from '@/constants/common';
 
 const PostsTabs = ({
   setPostsTab,
