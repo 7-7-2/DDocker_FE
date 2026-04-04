@@ -1,6 +1,6 @@
 import { Column } from '@/styles/layout';
 import { css } from 'styled-system/css';
-import { TABS_TEXTS } from '@/constants/texts';
+import { TABS_TEXTS } from '@/constants/common';
 
 const PostsTab = ({
   tab,

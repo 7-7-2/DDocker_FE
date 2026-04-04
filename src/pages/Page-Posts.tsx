@@ -1,7 +1,7 @@
 import { useState, lazy, Suspense } from 'react';
 import PostTabs from '@/components/posts/PostsTabs';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
-import { TABS_TEXTS } from '@/constants/texts';
+import { TABS_TEXTS } from '@/constants/common';
 import { Divider } from '@/styles/styles';
 
 const PostsFollowing = lazy(
