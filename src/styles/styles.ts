@@ -1,6 +1,6 @@
-import { Flex } from '@/styles/layout';
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
+import { Flex } from '@/styles/layout';
 
 // PageHeight
 export const SearchPageHeight = css`
@@ -11,13 +11,13 @@ export const SearchPageHeight = css`
 
 export const RegisterPageHeight = css`
   height: calc(
-    100dvh - 46px - env(safe-area-inset-bottom) - env(safe-area-inset-top)
+    100dvh - 56px - env(safe-area-inset-bottom) - env(safe-area-inset-top)
   );
 `;
 
 export const GeneralHeight = css`
   height: calc(
-    100dvh - 46px - 64px - env(safe-area-inset-bottom) - env(
+    100dvh - 56px - 64px - env(safe-area-inset-bottom) - env(
         safe-area-inset-top
       )
   );
@@ -160,6 +160,14 @@ export const ThinBtn = css`
   line-height: 22px;
 `;
 
+export const TertiaryBtn = css`
+  height: 21px;
+  line-height: 20px;
+  color: var(--colors-mid-grey);
+  font-size: var(--font-sizes-xs);
+  border-bottom: 1px solid var(--colors-mid-grey);
+`;
+
 // Button Color type
 export const BtnColorMain = css`
   background: var(--colors-main);
@@ -226,7 +234,16 @@ export const RegistBtn = cx(
   ThinBtn,
   BtnColorMain,
   css`
-    height: 46px;
+    height: 52px;
+  `
+);
+
+export const MainRegisterBtn = cx(
+  Btn,
+  BtnColorMain,
+  ThinBtn,
+  css`
+    height: 48px;
   `
 );
 
@@ -286,7 +303,7 @@ export const PostRegisterBtn = cx(
   Semibold,
   css`
     border-radius: 10px;
-    height: 48px;
+    height: 52px;
   `
 );
 
@@ -335,6 +352,14 @@ export const RegisterModal = cx(css`
   border-radius: 16px;
   padding: 30px 16px 16px;
 `);
+
+export const caffineModalStyle = cx(
+  Medium,
+  css`
+    line-height: 22px;
+    font-size: var(--font-sizes-sm);
+  `
+);
 
 // Input styles
 export const InputFontSm = cx(
@@ -1000,4 +1025,9 @@ export const SupportContent = css`
   display: inline-block;
   text-align: justify;
   display: block;
+`;
+
+export const ToastStyle = css`
+  background-color: var(--colors-dark-grey);
+  border-radius: 10px;
 `;

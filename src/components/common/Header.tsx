@@ -50,7 +50,7 @@ const Container = styled.header`
   position: sticky;
   top: 0;
   padding: calc(env(safe-area-inset-top)) 20px 0;
-  height: 46px;
+  height: 56px;
   background-color: #fff;
   z-index: 99;
 `;
