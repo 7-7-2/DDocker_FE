@@ -1,11 +1,14 @@
 import { lazy, Suspense } from 'react';
+
 import Button from '@/components/common/Button';
+
 import { BUTTON_TEXTS } from '@/constants/common';
-import { useNavigateTo } from '@/hooks/useNavigateTo';
-import { styled } from 'styled-system/jsx';
-import { RegistBtn } from '@/styles/styles';
-import { css, cx } from 'styled-system/css';
 import { useGetSignedIn } from '@/hooks/useGetSignedIn';
+import { useNavigateTo } from '@/hooks/useNavigateTo';
+
+import { styled } from 'styled-system/jsx';
+import { MainRegisterBtn } from '@/styles/styles';
+import { Flex } from '@/styles/layout';
 
 const CaffeineInfo = lazy(() => import('@/components/home/CaffeineInfo'));
 const CoffeeSelection = lazy(() => import('@/components/home/CoffeeSelection'));
@@ -23,21 +26,20 @@ const CaffeineFilter = () => {
         <CaffeineInfo />
       </Suspense>
       {signedIn && (
-        <Button
-          text={BUTTON_TEXTS.mainRegister}
-          onClick={registPage}
-          className={cx(RegistBtn, MarginBottom)}
-        />
+        <div className={Flex}>
+          <Button
+            text={BUTTON_TEXTS.mainRegister}
+            onClick={registPage}
+            className={MainRegisterBtn}
+          />
+        </div>
       )}
     </Container>
   );
 };
 
 const Container = styled.div`
-  margin: 32px 0 0;
-`;
-const MarginBottom = css`
-  margin-bottom: 32px;
+  margin: 32px 0;
 `;
 
 export default CaffeineFilter;
