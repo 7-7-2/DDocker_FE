@@ -15,8 +15,9 @@ import { usePostDataFormatter } from '@/hooks/post/usePostDataFormatter';
 import { usePostImageEditor } from '@/hooks/post/usePostImageEditor';
 
 export const usePostMutation = (
-  update: boolean | undefined,
-  descriptions: string | null
+  descriptions: string | null,
+  update?: boolean,
+  caffeineRegister?: boolean
 ) => {
   const registInfo = useRecoilValue(registPostState);
   const [caffeineIntake, setCaffeineIntake] =
@@ -38,7 +39,14 @@ export const usePostMutation = (
     setCaffeineIntake({ ...caffeineIntake, ['caffeine']: caffeine });
   };
 
-  //등록 로직
+  // caffieneIntake 등록 로직
+  // 임시
+  const handleCaffeineRegister = async () => {
+    const caffeineIntakeData = { ...caffeineIntake, ['caffeine']: caffeine };
+    return caffeineIntakeData;
+  };
+
+  //post 등록 로직
   const handleRegister = async () => {
     const { postId, newRegistData } = await dataFormatter(
       caffeine,
@@ -56,7 +64,7 @@ export const usePostMutation = (
     return { registered, postId };
   };
 
-  //수정 로직
+  //post수정 로직
   const handleUpdate = async () => {
     const { postId, updateData } = await dataFormatter(
       registInfo.caffeine,
@@ -86,15 +94,28 @@ export const usePostMutation = (
   const { mutate, isPending } = useMutation({
     mutationKey: ['postRegister'],
     mutationFn: async () => {
-      const res = !update ? await handleRegister() : await handleUpdate();
+      if (update && !caffeineRegister) {
+        const res = await handleUpdate();
+        return res.postId;
+      }
+      if (caffeineRegister) {
+        await handleCaffeineRegister();
+        return null;
+      }
+      const res = await handleRegister();
       return res.postId;
     },
-    onSuccess: (postId: string) => {
+    onSuccess: (postId: string | null) => {
       updateTodayCoffeeData();
       if (imageUrl?.startsWith('blob:')) {
         URL.revokeObjectURL(imageUrl);
       }
-      navigate(`/post/${postId}/caffeine`, {
+
+      const navigateUrl =
+        postId !== null
+          ? `/post/${postId}/caffeine`
+          : '/post/caffeineIntake/caffeine';
+      navigate(navigateUrl, {
         state: true
       });
     }
