@@ -1,6 +1,6 @@
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { Flex } from '@/styles/layout';
+import { Column, Flex } from '@/styles/layout';
 
 // PageHeight
 export const SearchPageHeight = css`
@@ -104,6 +104,38 @@ export const MarginB8 = css`
   margin-bottom: 8px;
 `;
 
+//Text-Deco
+export const TextUnderLine = css`
+  text-decoration-line: underline;
+  text-decoration-color: var(--colors-mid-grey);
+  text-underline-offset: 2px;
+`;
+
+// Divider
+export const Divider = css`
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    border-top: 1px solid var(--colors-border-grey);
+    left: -20px;
+    width: calc(50% + 20px);
+  }
+  &::before {
+    content: '';
+    position: absolute;
+    border-top: 1px solid var(--colors-border-grey);
+    right: -20px;
+    width: calc(50% + 20px);
+  }
+`;
+
+export const SectionDivier = css`
+  width: 100vw;
+  margin-left: -20px;
+  border-top: 12px solid var(--colors-tertiary);
+`;
+
 // Button
 // Button Container
 export const BottomBtnContainer = cx(
@@ -121,7 +153,7 @@ export const BottomBtnContainer = cx(
 
 //Button Size type
 export const Btn = cx(css`
-  width: 100vw;
+  width: 100%;
   max-width: 460px;
   margin: 0 auto;
 `);
@@ -211,6 +243,32 @@ export const SignInBtn = cx(
     color: #202020;
   `
 );
+
+export const DisabledBrandBtn = cx(
+  Regular,
+  css`
+    border: 1px solid var(--colors-border-grey);
+    color: var(--colors-main-dark);
+  `
+);
+
+export const selectedBrandBtn = cx(
+  BtnColorMain,
+  Semibold,
+  css`
+    border-radius: 1px solid var(--colors-main);
+  `
+);
+
+export const BrandBtn = css`
+  width: auto;
+  height: 38px;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: var(--font-sizes-sm);
+  line-height: 22px;
+`;
+
 export const DisabledBtn = css`
   background: #ccc;
   color: #fff;
@@ -471,6 +529,19 @@ export const DefaultFillTab = cx(
   `
 );
 
+// Label
+export const RegisterContentsStyle = cx(
+  Column,
+  css`
+    gap: 8px;
+    margin-top: 28px;
+  `
+);
+
+export const HomeLabelStyle = css`
+  margin: 6px 0 12px;
+`;
+
 // Page - Post
 //ImgSpinner
 export const Spinner = css`
@@ -628,6 +699,8 @@ export const HomeRegistContainer = cx(
     color: #313131;
     font-size: var(--font-sizes-base);
     line-height: 24px;
+    position: relative;
+    top: 1px;
   `
 );
 
@@ -637,7 +710,6 @@ export const CaffeineFilterHomeLabel = cx(
     color: #313131;
     font-size: var(--font-sizes-sm);
     line-height: 22px;
-    margin: 4px 0 6px;
   `
 );
 
@@ -783,24 +855,6 @@ export const AlertMessage = cx(
 export const ColorMain = css`
   font-weight: 500;
   color: var(--colors-main);
-`;
-
-export const Divider = css`
-  position: relative;
-  &::after {
-    content: '';
-    position: absolute;
-    border-top: 1px solid var(--colors-border-grey);
-    left: -20px;
-    width: calc(50% + 20px);
-  }
-  &::before {
-    content: '';
-    position: absolute;
-    border-top: 1px solid var(--colors-border-grey);
-    right: -20px;
-    width: calc(50% + 20px);
-  }
 `;
 
 export const Blur = css`
