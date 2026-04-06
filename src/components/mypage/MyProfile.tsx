@@ -6,6 +6,8 @@ import InputAboutMe from '@/components/mypage/InputAboutMe';
 import EditProfileImg from '@/components/mypage/EditProfileImg';
 import CheckNickname from '@/components/start/CheckNickname';
 import ImgCropper from '@/components/common/ImgCropper';
+import PrivateAccountToggle from '@/components/mypage/PrivateAccountToggle';
+import FavoriteBrandEditer from '@/components/mypage/FavoriteBrandEditer';
 
 import { TEXT } from '@/constants/texts';
 import { MYPAGE_TEXTS } from '@/constants/profile';
@@ -18,16 +20,21 @@ import { useImageCropper } from '@/hooks/post/useImageCropper';
 import { useCloudStorage } from '@/hooks/useCloudStorage';
 import { useCompressImage } from '@/hooks/useCompressImage';
 import { useHandleAuth } from '@/hooks/MyPage/useHandleAuth';
+import { useShowFooter } from '@/hooks/useShowFooter';
 
-import { css, cx } from 'styled-system/css';
+import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import {
   Cursor,
   SumType,
-  Border16,
-  HomeRegistContainer
+  SectionDivier,
+  TextUnderLine,
+  Medium,
+  BottomBtnContainer,
+  RegistBtn,
+  Semibold
 } from '@/styles/styles';
-import { FlexCenter, Justify } from '@/styles/layout';
+import { Column } from '@/styles/layout';
 
 const ConfirmDeleteUser = lazy(
   () => import('@/components/post/overlay/ConfirmDeleteUser')
@@ -37,7 +44,9 @@ const imagePath = import.meta.env.VITE_R2_USER_IMAGE_PATH;
 const { btn } = MYPAGE_TEXTS;
 
 const MyProfile = () => {
-  useComposeHeader(false, '프로필 수정', 'close');
+  useShowFooter(false);
+  // header 수정 예정
+  useComposeHeader(false, '내 프로필 수정', 'close');
   const navigate = useNavigate();
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
   const { userData, userId } = useCachedUserInfo();
@@ -112,24 +121,30 @@ const MyProfile = () => {
           {...cropperProps}
           {...editProps}
         />
-        <CheckNickname userNickname={userData && userData.nickname} />
-        <InputAboutMe
-          inputRef={inputRef}
-          userAboutMe={userData && userData.aboutMe}
-        />
-        {btn.map(item => (
-          <ExitButton
-            key={item}
-            className={cx(Cursor, SumType)}
-            onClick={item === btn[0] ? handleDeleteAccount : handleSignOut}>
-            {item}
-          </ExitButton>
-        ))}
+        <ProfileTextEditer className={Column}>
+          <CheckNickname userNickname={userData && userData.nickname} />
+          <InputAboutMe
+            inputRef={inputRef}
+            userAboutMe={userData && userData.aboutMe}
+          />
+          <FavoriteBrandEditer userBrand={userData && userData.brand} />
+          <div className={SectionDivier} />
+          <PrivateAccountToggle />
+        </ProfileTextEditer>
+        <ExitButtonContainer className={cx(Column, Medium)}>
+          {btn.map(item => (
+            <ExitButton
+              key={item}
+              className={cx(Cursor, SumType, item === btn[1] && TextUnderLine)}
+              onClick={item === btn[1] ? handleDeleteAccount : handleSignOut}>
+              {item}
+            </ExitButton>
+          ))}
+        </ExitButtonContainer>
       </>
-
-      <ButtonArea className={Justify}>
+      <ButtonArea className={BottomBtnContainer}>
         <SaveButton
-          className={cx(FlexCenter, Cursor, Border16, HomeRegistContainer)}
+          className={cx(RegistBtn, Semibold)}
           onClick={handlClickBtn(
             'user',
             userId,
@@ -143,27 +158,29 @@ const MyProfile = () => {
   );
 };
 
+const ProfileTextEditer = styled.div`
+  gap: 28px;
+`;
+
 const ExitButton = styled.span`
-  margin: 16px 6px 0 0;
   display: inline-block;
-  text-decoration-line: underline;
+  line-height: 22px;
 `;
 
 const ButtonArea = styled.div`
-  width: auto;
-  height: calc(100% - 487px);
-  align-items: end;
+  background-color: #fff;
 `;
 
 const SaveButton = styled.button`
-  width: 100%;
-  height: 60px;
   background-color: var(--colors-main);
-  color: #fff !important;
+  color: #fff;
 `;
 
-const ClickNone = css`
-  pointer-events: none;
+const ExitButtonContainer = styled.div`
+  gap: 18px;
+  margin: 42px 0 92px;
+  font-size: var(--font-sizes-sm);
+  color: var(--colors-mid-grey);
 `;
 
 export default MyProfile;

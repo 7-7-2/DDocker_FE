@@ -25,6 +25,7 @@ const Layout = () => {
   const searchPredi = pathname.startsWith('/search');
   const startPredi = pathname.startsWith('/start');
   const reportPredi = pathname.startsWith('/report');
+  const mypagePredi = pathname.endsWith('/mypage');
   const registerPredi =
     pathname.startsWith('/post/register') ||
     pathname.endsWith('/update') ||
@@ -40,7 +41,7 @@ const Layout = () => {
     if (startPredi) {
       return (PagesHeight = StartPageHeight);
     }
-    if (reportPredi) {
+    if (reportPredi || mypagePredi) {
       return (PagesHeight = RegisterPageHeight);
     }
     return (PagesHeight = GeneralHeight);

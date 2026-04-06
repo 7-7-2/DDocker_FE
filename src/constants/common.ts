@@ -46,12 +46,14 @@ export const LABEL_TEXTS = {
       validate: '닉네임은 특수문자와 공백을 포함 할 수 없습니다'
     }
   },
+  favBrand: '선호 브랜드',
   title: '제목',
   description: '내용',
   photo: '사진',
   postPrivate: '게시글 비공개',
+  accountPrivate: '비공개 계정',
   aboutMe: {
-    label: '소개글'
+    label: '소개'
   }
 };
 
