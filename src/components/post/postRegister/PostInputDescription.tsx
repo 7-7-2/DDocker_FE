@@ -4,10 +4,10 @@ import { useRecoilValue } from 'recoil';
 import TextArea from '@/components/common/TextArea';
 import RegisterLabel from '@/components/post/postRegister/RegisterLabel';
 
-import { caffeineIntakeState, registPostState } from '@/atoms/atoms';
+import { caffeineIntakeState } from '@/atoms/atoms';
 import { LABEL_TEXTS, INPUT_TEXTS } from '@/constants/common';
 
-import { MarginT6 } from '@/styles/styles';
+import { RegisterContentsStyle } from '@/styles/styles';
 
 const { description } = INPUT_TEXTS.type;
 
@@ -26,18 +26,16 @@ const PostInputDescription = ({
   };
 
   return (
-    <>
+    <div className={RegisterContentsStyle}>
       <RegisterLabel label={LABEL_TEXTS.description} />
-      <div className={MarginT6}>
-        <TextArea
-          placeholder={!myCafe ? description.placeholder : description.myCafe}
-          inputValue={descriptions}
-          handleChange={handleChange}
-          inputLength={description.inputLength}
-          type={description.typeName}
-        />
-      </div>
-    </>
+      <TextArea
+        placeholder={!myCafe ? description.placeholder : description.myCafe}
+        inputValue={descriptions}
+        handleChange={handleChange}
+        inputLength={description.inputLength}
+        type={description.typeName}
+      />
+    </div>
   );
 };
 

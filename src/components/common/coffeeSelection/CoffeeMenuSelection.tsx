@@ -10,9 +10,13 @@ import useGetCoffeeList from '@/hooks/useGetCoffeeList';
 import { caffeineFilterState, caffeineIntakeState } from '@/atoms/atoms';
 import { CoffeeDataTypes } from '@/types/types';
 
-import { cx } from 'styled-system/css';
+import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { CaffeineFilterHomeLabel } from '@/styles/styles';
+import {
+  CaffeineFilterHomeLabel,
+  HomeLabelStyle,
+  RegisterContentsStyle
+} from '@/styles/styles';
 import { Column, Grid } from '@/styles/layout';
 
 const { coffeeMenu, coffeeOption } = CAFFEINE_FILTER_TEXTS;
@@ -97,24 +101,28 @@ const CoffeeMenuSelection = () => {
       {!register && (
         <span className={CaffeineFilterHomeLabel}>{coffeeMenu.title}</span>
       )}
-      <CoffeeSelectContainer className={cx(register ? Column : Grid)}>
+      <CoffeeSelectContainer className={cx(register ? Column : HomeStyle)}>
         <Suspense>
-          {register && <RegisterLabel label={coffeeMenu.brand} />}
-          <SelectBox
-            value={caffeineIntake.brand}
-            defaultValue={caffeineIntake.brand || coffeeMenu.brand}
-            data={brandList}
-            onClick={selectBrand}
-            className={slectBoxType}
-          />
-          {register && <RegisterLabel label={coffeeMenu.menu} />}
-          <SelectBox
-            value={caffeineIntake.productName}
-            defaultValue={coffeeMenu.menu}
-            data={menuList}
-            onClick={selectMenu}
-            className={slectBoxType}
-          />
+          <div className={cx(register && RegisterContentsStyle)}>
+            {register && <RegisterLabel label={coffeeMenu.brand} />}
+            <SelectBox
+              value={caffeineIntake.brand}
+              defaultValue={caffeineIntake.brand || coffeeMenu.brand}
+              data={brandList}
+              onClick={selectBrand}
+              className={slectBoxType}
+            />
+          </div>
+          <div className={cx(register && RegisterContentsStyle)}>
+            {register && <RegisterLabel label={coffeeMenu.menu} />}
+            <SelectBox
+              value={caffeineIntake.productName}
+              defaultValue={coffeeMenu.menu}
+              data={menuList}
+              onClick={selectMenu}
+              className={slectBoxType}
+            />
+          </div>
         </Suspense>
       </CoffeeSelectContainer>
     </>
@@ -123,10 +131,15 @@ const CoffeeMenuSelection = () => {
 
 const CoffeeSelectContainer = styled.div`
   position: relative;
-  margin: 6px 0 8px;
-  gap: 6px;
-  column-gap: 8px;
   grid-template-columns: calc(50% - 4px) calc(50% - 4px);
 `;
+
+const HomeStyle = cx(
+  Grid,
+  HomeLabelStyle,
+  css`
+    gap: 9px;
+  `
+);
 
 export default CoffeeMenuSelection;

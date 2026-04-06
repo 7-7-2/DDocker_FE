@@ -95,7 +95,7 @@ const PostRegisterForm = ({
 
 const Container = styled.div`
   padding: 0 2px;
-  margin: 0 0 50px;
+  margin-bottom: 50px;
   overflow-y: auto;
 `;
 

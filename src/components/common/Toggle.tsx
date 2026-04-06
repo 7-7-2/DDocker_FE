@@ -25,7 +25,6 @@ const ToggleContainer = styled.div`
   width: 46px;
   height: 26px;
   background-color: #ddd;
-  margin-top: 18px;
   border-radius: 60px;
 `;
 

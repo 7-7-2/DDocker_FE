@@ -10,7 +10,8 @@ import { LABEL_TEXTS } from '@/constants/common';
 import { ImageCropperProps, ImageRegisterProps } from '@/types/types';
 
 import { styled } from 'styled-system/jsx';
-import { Between } from '@/styles/layout';
+import { Between, Column } from '@/styles/layout';
+import { RegisterContentsStyle } from '@/styles/styles';
 
 const PostWriteSection = ({
   descriptions,
@@ -28,17 +29,19 @@ const PostWriteSection = ({
     setVisibility(!isVisibility);
   };
   return (
-    <Container>
+    <Container className={Column}>
       <PostInputDescription
         descriptions={descriptions}
         setDescriptions={setDescriptions}
       />
-      <RegisterLabel label={LABEL_TEXTS.photo} />
-      <ImgRegister {...registerProps} />
-      <ImgCropper
-        {...registerProps}
-        {...cropperProps}
-      />
+      <div className={RegisterContentsStyle}>
+        <RegisterLabel label={LABEL_TEXTS.photo} />
+        <ImgRegister {...registerProps} />
+        <ImgCropper
+          {...registerProps}
+          {...cropperProps}
+        />
+      </div>
       <PostPrivateToggle className={Between}>
         <RegisterLabel label={LABEL_TEXTS.postPrivate} />
         <Toggle
@@ -57,7 +60,8 @@ const Container = styled.div`
 const PostPrivateToggle = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: Center;
+  align-items: center;
+  margin-top: 26px;
 `;
 
 export default PostWriteSection;

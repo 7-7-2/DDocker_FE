@@ -3,33 +3,33 @@ import { Label } from '@/components/common/Label';
 import TextArea from '@/components/common/TextArea';
 import { INPUT_TEXTS, LABEL_TEXTS } from '@/constants/common';
 
-import { styled } from 'styled-system/jsx';
+import { Column } from '@/styles/layout';
 
 const { aboutMe } = LABEL_TEXTS;
 const { placeholder, inputLength } = INPUT_TEXTS.type.aboutMe;
 
 const InputAboutMe = ({
   inputRef,
-  Icon = true,
+  icon = true,
   userAboutMe
 }: {
   inputRef: React.RefObject<HTMLTextAreaElement>;
-  Icon?: boolean;
+  icon?: boolean;
   userAboutMe?: string | null;
 }) => {
-  const [inputValue, setInputValue] = useState(userAboutMe || undefined);
+  const [inputValue, setInputValue] = useState(userAboutMe || null);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value);
   };
 
   return (
-    <Container>
+    <div className={Column}>
       <Label
-        inputValue={inputValue}
         label={aboutMe.label}
-        Icon={Icon}
-        userAboutMe={userAboutMe}
+        icon={icon}
+        inputValue={inputValue}
+        initValue={userAboutMe}
       />
       <TextArea
         placeholder={placeholder}
@@ -38,12 +38,8 @@ const InputAboutMe = ({
         handleChange={handleChange}
         inputLength={inputLength}
       />
-    </Container>
+    </div>
   );
 };
-
-const Container = styled.div`
-  margin-top: 24px;
-`;
 
 export default InputAboutMe;
