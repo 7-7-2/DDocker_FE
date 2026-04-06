@@ -4,7 +4,7 @@ import { TODAY_CAFFEINE_INFO_TEXTS } from '@/constants/home';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 import { Grid } from '@/styles/layout';
-import { SmStyle, SumTitle, MarginT12 } from '@/styles/styles';
+import { SmStyle, SumTitle, MarginT12, SectionDivier } from '@/styles/styles';
 
 const WeeklyPopularItem = lazy(
   () => import('@/components/home/WeeklyPopularItem')
@@ -16,7 +16,7 @@ const WeeklyPopular = () => {
 
   return (
     <div>
-      <Dividerline />
+      <div className={SectionDivier} />
       <WeeklyPopularTitle className={SumTitle}>
         {weeklyPopular}
       </WeeklyPopularTitle>
@@ -45,9 +45,4 @@ const WeeklyPopularList = styled.div`
   gap: 8px 0;
 `;
 
-const Dividerline = styled.div`
-  width: 100vw;
-  margin-left: -20px;
-  border-top: 12px solid var(--colors-tertiary);
-`;
 export default WeeklyPopular;

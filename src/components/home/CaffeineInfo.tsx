@@ -25,7 +25,7 @@ const Title = styled.span`
   color: var(--colors-main-dark);
 `;
 const Container = styled.div`
-  margin: 22px 3px 28px;
+  margin: 6px 0 28px;
 `;
 
 export default CaffeineInfo;

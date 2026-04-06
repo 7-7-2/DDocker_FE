@@ -71,10 +71,10 @@ export interface FollowCountProps {
 
 export interface LabelProps {
   label: string | undefined;
-  Icon?: boolean | undefined;
+  icon?: boolean;
   message?: string | undefined;
-  inputValue?: string | undefined;
-  userAboutMe?: string | null;
+  inputValue?: string | null;
+  initValue?: string | null;
 }
 
 export interface InputProps {

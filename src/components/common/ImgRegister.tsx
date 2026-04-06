@@ -28,7 +28,7 @@ const ImgRegister = ({
   };
 
   return (
-    <div className={MarginT6}>
+    <>
       {imageUrl && !isLoadingImg && (
         <PostImgContainer>
           <Img
@@ -55,7 +55,7 @@ const ImgRegister = ({
           {imageFile && <div className={Spinner} />}
         </RegistPhoto>
       )}
-    </div>
+    </>
   );
 };
 

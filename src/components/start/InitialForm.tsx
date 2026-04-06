@@ -89,13 +89,13 @@ const InitialForm = () => {
           {...cropperProps}
         />
       </ProfileContainer>
-      <CheckNickname />
-      <InputAboutMeContainer>
+      <InputContainer className={Column}>
+        <CheckNickname />
         <InputAboutMe
           inputRef={inputRef}
-          Icon={false}
+          icon={false}
         />
-      </InputAboutMeContainer>
+      </InputContainer>
 
       <div className={StartPageBtnContainer}>
         <Button
@@ -120,7 +120,8 @@ const ProfileContainer = styled.div`
   margin: 50px 36px;
 `;
 
-const InputAboutMeContainer = styled.div`
+const InputContainer = styled.div`
+  gap: 28px;
   margin-bottom: 100px;
 `;
 

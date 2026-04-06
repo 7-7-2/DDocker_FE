@@ -15,9 +15,10 @@ import { Align, Between, Column, Flex } from '@/styles/layout';
 import {
   BtnColorBorderWhite,
   SmStyle,
-  MarginB8,
   CaffeineFilterHomeLabel,
-  Medium
+  Medium,
+  RegisterContentsStyle,
+  HomeLabelStyle
 } from '@/styles/styles';
 
 const { coffeeOption } = CAFFEINE_FILTER_TEXTS;
@@ -118,83 +119,86 @@ const CoffeeOptionSelection = () => {
 
   return (
     <div className={cx(Column, SmStyle)}>
-      <span className={CaffeineFilterHomeLabel}>
+      <div className={cx(register && RegisterContentsStyle)}>
         {!register ? (
-          coffeeOption.size
+          <span className={CaffeineFilterHomeLabel}>{coffeeOption.size}</span>
         ) : (
           <RegisterLabel label={coffeeOption.size} />
         )}
-      </span>
-      <SizeBtnContainer className={cx(Flex, MarginB8)}>
-        {coffeeOption.sizeOption.map(item => (
-          <Button
-            key={item}
-            value={item}
-            text={item}
-            onClick={selectSize}
-            className={cx(
-              caffeineIntake.size === item
-                ? SelectSizeBtn
-                : BtnColorBorderWhite,
-              SizeBtn,
-              SmStyle
-            )}
-          />
-        ))}
-      </SizeBtnContainer>
-      <span className={CaffeineFilterHomeLabel}>
+        <SizeBtnContainer className={cx(!register && HomeLabelStyle, Flex)}>
+          {coffeeOption.sizeOption.map(item => (
+            <Button
+              key={item}
+              value={item}
+              text={item}
+              onClick={selectSize}
+              className={cx(
+                caffeineIntake.size === item
+                  ? SelectSizeBtn
+                  : BtnColorBorderWhite,
+                SizeBtn,
+                SmStyle
+              )}
+            />
+          ))}
+        </SizeBtnContainer>
+      </div>
+      <div className={cx(register && RegisterContentsStyle)}>
         {!register ? (
-          coffeeOption.shot.title
+          <span className={CaffeineFilterHomeLabel}>
+            {coffeeOption.shot.title}
+          </span>
         ) : (
           <RegisterLabel label={coffeeOption.shot.title} />
         )}
-      </span>
-      <PersonalOptionContainer className={cx(Flex, Between, Medium)}>
-        <span>{coffeeOption.shot.intensity}</span>
-        <OptionInterface className={Flex}>
-          {coffeeOption.intensityOption.map(item => (
-            <IntensityOptionItem
-              key={item}
-              className={cx(Flex, Align)}>
-              <RadioBtn
-                option={item}
-                selectedOption={caffeineIntake.intensity}
-                selectIntensityOption={selectIntensityOption}
+        <div className={cx(!register && HomeLabelStyle, Medium)}>
+          <PersonalOptionContainer className={cx(Flex, Between)}>
+            <span>{coffeeOption.shot.intensity}</span>
+            <OptionInterface className={Flex}>
+              {coffeeOption.intensityOption.map(item => (
+                <IntensityOptionItem
+                  key={item}
+                  className={cx(Flex, Align)}>
+                  <RadioBtn
+                    option={item}
+                    selectedOption={caffeineIntake.intensity}
+                    selectIntensityOption={selectIntensityOption}
+                  />
+                </IntensityOptionItem>
+              ))}
+            </OptionInterface>
+          </PersonalOptionContainer>
+          <PersonalOptionContainer className={cx(Align, Between, Medium)}>
+            <span>{coffeeOption.shot.input}</span>
+            <OptionInterface className={Align}>
+              <Icon
+                {...iconPropsGenerator(
+                  !caffeineIntake.shot ? 'input-minus' : 'input-minus:active'
+                )}
+                onClick={selectMinusBtn}
               />
-            </IntensityOptionItem>
-          ))}
-        </OptionInterface>
-      </PersonalOptionContainer>
-      <PersonalOptionContainer className={cx(Align, Between, Medium)}>
-        <span>{coffeeOption.shot.input}</span>
-        <OptionInterface className={Align}>
-          <Icon
-            {...iconPropsGenerator(
-              !caffeineIntake.shot ? 'input-minus' : 'input-minus:active'
-            )}
-            onClick={selectMinusBtn}
-          />
-          <ShotOptionInput
-            type="number"
-            value={caffeineIntake.shot}
-            readOnly
-          />
-          <Icon
-            {...iconPropsGenerator(
-              shotPlusBtnActive ? 'input-plus' : 'input-plus:active'
-            )}
-            onClick={selectPlusBtn}
-          />
-        </OptionInterface>
-      </PersonalOptionContainer>
+              <ShotOptionInput
+                type="number"
+                value={caffeineIntake.shot}
+                readOnly
+              />
+              <Icon
+                {...iconPropsGenerator(
+                  shotPlusBtnActive ? 'input-plus' : 'input-plus:active'
+                )}
+                onClick={selectPlusBtn}
+              />
+            </OptionInterface>
+          </PersonalOptionContainer>
+        </div>
+      </div>
     </div>
   );
 };
 
 const PersonalOptionContainer = styled.div`
   padding: 12px 0;
-  height: 46px;
-  margin-bottom: 8px;
+  height: 52px;
   border-bottom: 1px solid var(--colors-border-grey);
   background: #fff;
 `;
@@ -228,13 +232,6 @@ const SizeBtn = css`
   width: 100%;
   height: 40px;
   border-radius: 50px;
-`;
-
-const RadioBtnColor = css`
-  border: 1px solid var(--colors-btn-grey);
-  &:focus-within {
-    border: 1px solid var(--colors-main);
-  }
 `;
 
 export default CoffeeOptionSelection;

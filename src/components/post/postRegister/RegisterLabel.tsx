@@ -11,7 +11,6 @@ const Continer = styled.div`
   font-size: var(--font-sizes-base);
   color: var(--colors-main-dark);
   line-height: 24px;
-  margin-top: 18px;
 `;
 
 export default RegisterLabel;
