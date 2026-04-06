@@ -19,7 +19,7 @@ export const PROFILE_TEXTS = {
 };
 
 export const MYPAGE_TEXTS = {
-  btn: ['회원탈퇴', '로그아웃'],
+  btn: ['로그아웃', '회원탈퇴'],
   signOutUrls: [
     '/userInfo',
     '/userId',
@@ -27,5 +27,7 @@ export const MYPAGE_TEXTS = {
     '/coffee',
     '/social',
     '/socialToken'
-  ]
+  ],
+  description:
+    '비공개로 설정할 경우, 팔로워만 내 게시물, 팔로워 및 팔로잉 리스트를 볼 수 있습니다. 프로필 이미지, 닉네임, 소개글, 선호 브랜드, 누적 카페인 등 특정 정보는 모든 사람들에게 공개됩니다.'
 };
