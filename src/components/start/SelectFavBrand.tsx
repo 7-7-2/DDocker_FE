@@ -44,21 +44,19 @@ const SelectFavBrand = () => {
   const brandList = useGetCoffeeList('brand') as string[];
   const handleStartBtn = (file: File) => async () => {
     const userId = nanoid();
-    const social = await useGetCacheData('user', '/social');
-    const email = await useGetCacheData('user', '/socialEmail');
+    const socialToken = await useGetCacheData('user', '/socialToken');
 
-    const route = `user/${userId}`;
-    file && (await uploadStorage(route, file));
+    file && (await uploadStorage('user', userId, '', file));
     const storagePath = `${imagePath}%2F${userId}`;
 
     const userInfo: InitialformTypes = {
-      useremail: email.cacheData,
-      social: social.cacheData,
+      socialToken: socialToken.cacheData,
       userId: userId,
       nickname: user.nickname,
       brand: user.brand,
       aboutMe: user.aboutMe || null,
-      profileUrl: file ? storagePath : ''
+      profileUrl: file ? storagePath : '',
+      visibility: 1 // Default to Public
     };
 
     await setUserInitInfo(userInfo);

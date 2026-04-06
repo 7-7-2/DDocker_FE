@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { useQuery } from '@tanstack/react-query';
 
@@ -33,9 +33,9 @@ export const useUpadatePost = (
         description: postData.description,
         intensity: postData.intensity,
         caffeine: postData.caffeine,
-        post_title: postData.post_title || '',
         photo: postData.photo,
-        postId: postid
+        postId: postid,
+        visibility: postData.visibility
       });
   };
 

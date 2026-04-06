@@ -37,14 +37,14 @@ export interface ddockerSignInType {
 }
 
 export interface InitialformTypes extends AuthTypes {
-  useremail?: string;
-  social?: string;
+  socialToken?: string;
+  visibility?: number;
 }
 
 export interface SimplifyUser {
   userId?: string | undefined;
   nickname?: string | undefined;
-  caffeine?: number;
+  caffeineSum?: number;
   url?: string;
   keyword?: string;
 }
@@ -109,7 +109,7 @@ export interface WeeklyPopularListTypes {
   [key: string]: WeeklyPopularTypes[];
 }
 export interface WeeklyPopularTypes {
-  brand: string;
+  brandName: string;
   co: number;
 }
 
@@ -146,8 +146,7 @@ export interface postContentsTypes {
   postId: string;
   description: string | null;
   photo: string | null;
-  // visibility: number;
-  post_title: string;
+  visibility: number;
 }
 
 export interface caffeineIntakeTypes {
@@ -179,7 +178,9 @@ export interface ImageCropperProps {
 
 export interface UserProfileDataTypes {
   allCount: number;
-  posts: UserProfilePostsTypes[];
+  photo: string;
+  postId: string;
+  visibility: number;
 }
 
 export interface UserProfilePostsTypes {
@@ -188,7 +189,7 @@ export interface UserProfilePostsTypes {
 }
 
 export interface UserFollowCountsTypes {
-  followed: number;
+  follower: number;
   following: number;
 }
 export interface PostsGridProps {
@@ -258,28 +259,40 @@ export interface Fetched {
 
 export interface InfinitePosts {
   queryKey: string[];
-  queryFn: ({ pageParam }: { pageParam: number }) => Promise<Fetched>;
-  initialPageParam: number;
+  queryFn: ({
+    pageParam
+  }: {
+    pageParam: string | number | null;
+  }) => Promise<Fetched>;
+  initialPageParam: string | number | null;
   getNextPageParam: (
     lastPage: Fetched | FetchedFollowing
-  ) => number | undefined;
+  ) => string | number | undefined | null;
 }
 export interface InfiniteFollowList {
   queryKey: string[];
-  queryFn: ({ pageParam }: { pageParam: number }) => Promise<FetchedFollowing>;
-  initialPageParam: number;
+  queryFn: ({
+    pageParam
+  }: {
+    pageParam: string | number | null;
+  }) => Promise<FetchedFollowing>;
+  initialPageParam: string | number | null;
   getNextPageParam: (
     lastPage: Fetched | FetchedFollowing
-  ) => number | undefined;
+  ) => string | number | undefined | null;
 }
 
 export interface InfiniteSearchList {
   queryKey: string[];
-  queryFn: ({ pageParam }: { pageParam: number }) => Promise<Fetched>;
-  initialPageParam: number;
+  queryFn: ({
+    pageParam
+  }: {
+    pageParam: string | number | null;
+  }) => Promise<Fetched>;
+  initialPageParam: string | number | null;
   getNextPageParam: (
     lastPage: Fetched | FetchedFollowing
-  ) => number | undefined;
+  ) => string | number | undefined | null;
 }
 
 export interface CommentInput {
@@ -305,7 +318,7 @@ export interface CafeDetailTypes {
 
 export interface DailyTrendCardProps {
   photo: string;
-  brand: string;
+  brandName: string;
   productName: string;
   shot: number;
   caffeine: number;

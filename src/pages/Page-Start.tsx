@@ -23,6 +23,9 @@ const Start = () => {
   const goToStartPage = useNavigateTo('/start/1');
 
   useEffect(() => {
+    const hasTypeParam = new URLSearchParams(window.location.search).has('type');
+    if(hasTypeParam) return;
+
     notAllowedPages && goToStartPage();
     notSignUp ? goToStartPage() : goToHomePage();
   }, []);

@@ -53,7 +53,12 @@ const PostCard = ({ ...props }: FollowingPost) => {
     intensity,
     size
   };
-  const MiniProfileProps = { url: profileUrl, nickname, caffeine: sum, userId };
+  const MiniProfileProps = {
+    url: profileUrl,
+    nickname,
+    caffeineSum: sum,
+    userId
+  };
 
   const { postOwner } = useVerifyOwner(postId);
   const isPostOwner = postOwner && postOwner === nickname;

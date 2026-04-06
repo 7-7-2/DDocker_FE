@@ -26,12 +26,11 @@ const ConfirmDelete = ({
   const navigate = posts ? useNavigateTo('0') : useNavigateTo('/posts');
 
   const { userId } = useCachedUserInfo();
-  const route = `post/${userId}/${postId}`;
   const { deleteStorage } = useCloudStorage();
   const { recoverFooterState } = usePostOptions();
 
   const handleStorage = async () => {
-    await deleteStorage(route);
+    await deleteStorage('post', userId, postId);
     recoverFooterState();
     navigate();
   };

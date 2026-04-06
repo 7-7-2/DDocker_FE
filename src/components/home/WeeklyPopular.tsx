@@ -25,7 +25,7 @@ const WeeklyPopular = () => {
           brandList.map(
             (item, idx) =>
               item && (
-                <Suspense key={item?.brand}>
+                <Suspense key={item?.brandName}>
                   <WeeklyPopularItem
                     data={item}
                     idx={idx}

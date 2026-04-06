@@ -37,7 +37,7 @@ const HistoryList = () => {
               <MiniProfile
                 url={user.url}
                 nickname={user.nickname}
-                caffeine={user.caffeine}
+                caffeineSum={user.caffeineSum}
                 userId={user.userId}
                 mini={true}
               />

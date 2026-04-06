@@ -1,36 +1,44 @@
 import React, { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import useGetCacheData from '@/hooks/useGetCacheData';
+import useSetCacheData from '@/hooks/useSetCacheData';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
-import { ddockerSignIn, getMyInfo } from '@/api/user';
-import { ddockerSignInType } from '@/types/types';
+import { getMyInfo } from '@/api/user';
 
 export const useVerifyMembership = () => {
   const [searchParams] = useSearchParams();
-  const code = searchParams.get('code');
+  const token = searchParams.get('token');
+  const socialToken = searchParams.get('socialToken');
+  const socialEmail = searchParams.get('socialEmail');
+  const type = searchParams.get('type');
+
   const navToHome = useNavigateTo('/');
   const navToSignUp = useNavigateTo('/start/2');
 
   const verifyMembership = async () => {
-    const accessToken = await useGetCacheData('user', '/accessToken');
-    if (accessToken) return navToHome();
-    const social = await useGetCacheData('user', '/social');
-    const res =
-      !accessToken &&
-      code &&
-      social.cacheData &&
-      (await ddockerSignIn(code, social.cacheData));
-    if (res) {
-      const { accessToken } = (await res) as ddockerSignInType;
-      const singIn = async () => {
-        (await getMyInfo()) && navToHome();
-      };
-      return accessToken ? await singIn() : navToSignUp();
+    // 1. Check if already logged in
+    const cachedToken = await useGetCacheData('user', '/accessToken');
+    if (cachedToken) return navToHome();
+
+    // 2. Handle Login Flow from Backend
+    if (type === 'login' && token) {
+      await useSetCacheData('user', '/accessToken', token);
+      await getMyInfo();
+      return navToHome();
     }
-    accessToken && navToHome();
+
+    // 3. Handle Signup Flow from Backend
+    if (type === 'signup' && socialToken && socialEmail) {
+      await useSetCacheData('user', '/socialToken', socialToken);
+      await useSetCacheData('user', '/socialEmail', socialEmail);
+      await useSetCacheData('user', '/isRegistering', 'true');
+      return navToSignUp();
+    }
   };
 
   useEffect(() => {
-    code && verifyMembership();
-  }, []);
+    if (type) {
+      verifyMembership();
+    }
+  }, [type, token, socialToken, socialEmail]);
 };

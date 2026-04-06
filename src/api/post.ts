@@ -102,17 +102,17 @@ export const getReply = async (commentId: number) => {
 export const getFollowingPosts = async ({
   pageParam
 }: {
-  pageParam: number;
+  pageParam: string | null;
 }) => {
   const res = await authInstance
-    .get(`/posts/following/${pageParam}`)
+    .get(`/posts/following?cursor=${pageParam}`)
     .catch(e => {
       console.log(e);
     });
   const data = res && res.data;
   return {
-    data: data.data.results,
-    next: data.data.next
+    data: data.data.posts,
+    next: data.data.nextCursor
   } as Fetched;
 };
 
@@ -148,7 +148,7 @@ export const setPostRegist = async (postInfo: RegisterPostTypes) => {
     const { productName, ...rest } = postInfo;
     const data = { menu: productName, ...rest };
     // const data = postInfo;
-    const res = await authInstance.post('/posts/register', data);
+    const res = await authInstance.post('/posts/register', postInfo);
     return res.data.data;
   } catch (error) {
     console.log('Failed to regist post', error);
@@ -158,9 +158,8 @@ export const setPostRegist = async (postInfo: RegisterPostTypes) => {
 // TodayCoffeeInfo
 export const getTodayCoffeeInfo = async () => {
   try {
-    const res = await authInstance.get('/coffee');
-
-    return res.data[0];
+    const res = await authInstance.get('/caffeine/today');
+    return res.data.data.items;
   } catch (error) {
     console.log('Failed to get Today coffee Info', error);
   }
@@ -169,8 +168,9 @@ export const getTodayCoffeeInfo = async () => {
 // WeeklyPopular
 export const getWeeklyPopular = async () => {
   try {
-    const res = await baseInstance.get('/posts/popular');
-    return res && res.data.data;
+    const res = await baseInstance.get('/discovery/ranking');
+
+    return res && res.data;
   } catch (error) {
     console.log('Failed to get Weekly Popular List', error);
   }
@@ -180,13 +180,8 @@ export const getWeeklyPopular = async () => {
 export const getCoffeeMenu = async () => {
   try {
     const res = await baseInstance.get('/brand');
-    res &&
-      (await useSetCacheData(
-        'brand',
-        '/coffeeMenu',
-        res.data.data[0].coffee_menus
-      ));
-    return res && res.data.data[0].coffee_menus;
+    res && (await useSetCacheData('brand', '/coffeeMenu', res.data.data));
+    return res && res.data.data;
   } catch (error) {
     console.log('Failed to get coffee menu List', error);
   }

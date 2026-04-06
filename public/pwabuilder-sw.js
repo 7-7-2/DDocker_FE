@@ -114,7 +114,7 @@ const CACHE = 'pwabuilder-page';
 //1. SW  -  install (would last only small amout of time => apply waitUntil to make callback works properly)
 const cacheAssets = async () => {
   const cache = await caches.open(STATIC_CACHE_NAME);
-  await cache.addAll(ASSETS);
+  await cache.addAll(ASSETS).catch(err => console.log(err));
 };
 
 self.addEventListener('install', async event => {

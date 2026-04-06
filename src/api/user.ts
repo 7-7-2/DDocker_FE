@@ -6,37 +6,38 @@ import useSetCacheData from '@/hooks/useSetCacheData';
 export const getSocialAuth = async (social: string, unlink?: boolean) => {
   try {
     const res = !unlink
-      ? await baseInstance.get(`users/signIn/${social}`)
-      : await baseInstance.get(`users/signIn/${social}/unlink`);
+      ? await baseInstance.get(`auth/${social}/url`)
+      : await baseInstance.get(`auth/${social}/unlink`);
+    console.log(res);
     // redirect url
-    window.location.href = res.data.url;
+    window.location.href = res.data.data.url;
     await useSetCacheData('user', '/social', social);
   } catch (error) {
     console.error('Error fetching social authentication:', error);
   }
 };
 
-// DDocker verify membership
-export const ddockerSignIn = async (code: string | null, social: string) => {
-  try {
-    const res = await baseInstance.get(
-      `/users/${social}/redirect?code=${code}`
-    );
-    if (res.status === 200) {
-      await useSetCacheData('user', '/accessToken', res.data.accessToken);
-      return { accessToken: res.data.accessToken };
-    }
-    if (res.status === 201) {
-      await useSetCacheData('user', '/socialEmail', res.data.socialEmail);
-      await useSetCacheData('user', '/socialToken', res.data.socialToken);
-      await useSetCacheData('user', '/isRegistering', 'true');
-      return { socialEmail: res.data.socialEmail };
-    }
-  } catch (error) {
-    console.error('Error fetching social authentication:', error);
-  }
-  return;
-};
+// DDocker verify membership : deprecated
+// export const ddockerSignIn = async (code: string | null, social: string) => {
+//   try {
+//     const res = await baseInstance.get(
+//       `/auth/${social}/callback?code=${code}`
+//     );
+//     if (res.status === 200) {
+//       await useSetCacheData('user', '/accessToken', res.data.accessToken);
+//       return { accessToken: res.data.accessToken };
+//     }
+//     if (res.status === 201) {
+//       await useSetCacheData('user', '/socialEmail', res.data.socialEmail);
+//       await useSetCacheData('user', '/socialToken', res.data.socialToken);
+//       await useSetCacheData('user', '/isRegistering', 'true');
+//       return { socialEmail: res.data.socialEmail };
+//     }
+//   } catch (error) {
+//     console.error('Error fetching social authentication:', error);
+//   }
+//   return;
+// };
 
 // Unlink Social Auth
 export const unlinkSocialAuth = async (social: string, token: string) => {
@@ -104,12 +105,16 @@ export const getMyInfo = async () => {
 // Profile page posts
 export const getUserProfilePosts = async (
   userId: string | undefined,
-  nextPage: number
+  type: string,
+  cursor?: string | number | null
 ) => {
   try {
-    const res = await baseInstance.get(`/users/${userId}/posts/${nextPage}`);
-    const resData = res.data;
-    return { data: resData.data, next: resData.next };
+    const res = await baseInstance.get(`/users/${userId}/posts`, {
+      params: { type, cursor }
+    });
+    const resData = res.data.data;
+    const data = type === 'grid' ? resData.posts : resData.listPosts;
+    return { data, next: resData.nextCursor };
   } catch (err) {
     console.log(err);
     return;
@@ -133,5 +138,15 @@ export const editProfile = async (editInfo: {}) => {
     await authInstance.patch('/users/userInfo', data);
   } catch (error) {
     console.log('Failed to save user initial info on DB', error);
+  }
+};
+
+// Profile Post Count
+export const getPostCounts = async (userId: string) => {
+  try {
+    const res = await baseInstance.get(`users/${userId}/posts/count`);
+    return res.data.data;
+  } catch (err) {
+    console.log(err);
   }
 };

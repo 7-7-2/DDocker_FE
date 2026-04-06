@@ -47,7 +47,7 @@ const FollowCount = ({ data }: FollowCountProps) => {
 
   const count = [
     { number: postCount, label: followCountText[0] },
-    { number: userFollowCount?.followed, label: followCountText[1] },
+    { number: userFollowCount?.follower, label: followCountText[1] },
     { number: userFollowCount?.following, label: followCountText[2] }
   ];
 

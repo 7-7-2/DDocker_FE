@@ -15,29 +15,35 @@ export const unfollowUser = async (userId: string) => {
   return res && res.data;
 };
 // 3. 유저의 팔로잉 목록 확인
-export const getFollowingList = async (userId: string, pageParam: number) => {
+export const getFollowingList = async (
+  userId: string,
+  cursor: string | number | null
+) => {
   const res = await baseInstance
-    .get(`/follow/${userId}/following/${pageParam}`)
+    .get(`/follow/${userId}/following`, { params: { cursor } })
     .catch(e => {
       console.log(e);
     });
   const data = res && res.data;
   return {
-    data: data.data.results,
-    next: data.data.next
+    data: data.data.users,
+    next: data.data.nextCursor
   };
 };
 // 4. 유저의 팔로우 목록 확인
-export const getFollowerList = async (userId: string, pageParam: number) => {
+export const getFollowerList = async (
+  userId: string,
+  cursor: string | number | null
+) => {
   const res = await baseInstance
-    .get(`/follow/${userId}/follower/${pageParam}`)
+    .get(`/follow/${userId}/followers`, { params: { cursor } })
     .catch(e => {
       console.log(e);
     });
   const data = res && res.data;
   return {
-    data: data.data.results,
-    next: data.data.next
+    data: data.data.users,
+    next: data.data.nextCursor
   };
 };
 // 5. 프로필 진입시 팔로잉 중인 유저인지 확인

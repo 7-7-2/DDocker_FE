@@ -15,7 +15,7 @@ import { getSearchMoreUser } from '@/api/search';
 export const FollowingPostIQParam = {
   queryKey: ['followingPosts'],
   queryFn: getFollowingPosts,
-  initialPageParam: 1,
+  initialPageParam: null,
   getNextPageParam: (lastPage: Fetched) => {
     if (!lastPage.next) return undefined;
     return lastPage.next;
@@ -26,13 +26,13 @@ export const FollowingListIQParam = () => {
   const { userId } = useParams();
   return {
     queryKey: ['followingList', userId as string],
-    queryFn: ({ pageParam }: { pageParam: number }) => {
+    queryFn: ({ pageParam }: { pageParam: string | number | null }) => {
       return getFollowingList(
         userId as string,
         pageParam
       ) as Promise<FetchedFollowing>;
     },
-    initialPageParam: 1,
+    initialPageParam: null,
     getNextPageParam: (lastPage: FetchedFollowing) => {
       if (!lastPage.next) return undefined;
       return lastPage.next;
@@ -44,13 +44,13 @@ export const FollowerListIQParam = () => {
   const { userId } = useParams();
   return {
     queryKey: ['followerList', userId as string],
-    queryFn: ({ pageParam }: { pageParam: number }) => {
+    queryFn: ({ pageParam }: { pageParam: string | number | null }) => {
       return getFollowerList(
         userId as string,
         pageParam
       ) as Promise<FetchedFollowing>;
     },
-    initialPageParam: 1,
+    initialPageParam: null,
     getNextPageParam: (lastPage: FetchedFollowing) => {
       if (!lastPage.next) return undefined;
       return lastPage.next;
@@ -58,13 +58,16 @@ export const FollowerListIQParam = () => {
   };
 };
 
-export const SearchListMoreUserIQParam = (nickname: string) => {
+export const SearchListMoreUserIQParam = (
+  nickname: string,
+  initialCursor: string | null = null
+): InfinitePosts => {
   return {
     queryKey: ['searchListMoreUser', nickname],
-    queryFn: ({ pageParam }: { pageParam: number }) => {
-      return getSearchMoreUser(nickname, pageParam) as Promise<Fetched>;
+    queryFn: ({ pageParam }: { pageParam: string | number | null }) => {
+      return getSearchMoreUser(nickname, pageParam as string | null) as Promise<Fetched>;
     },
-    initialPageParam: 1,
+    initialPageParam: initialCursor,
     getNextPageParam: (lastPage: Fetched | FetchedFollowing) => {
       if (!lastPage.next) return undefined;
       return lastPage.next;
@@ -72,14 +75,18 @@ export const SearchListMoreUserIQParam = (nickname: string) => {
   };
 };
 
-export const getProfilePostIQParam = (): InfinitePosts => {
+export const getProfilePostIQParam = (type: string): InfinitePosts => {
   const { userId } = useParams();
   return {
-    queryKey: ['ProFilePosts', userId as string],
-    queryFn: ({ pageParam }: { pageParam: number }) => {
-      return getUserProfilePosts(userId, pageParam) as Promise<Fetched>;
+    queryKey: ['ProFilePosts', userId as string, type],
+    queryFn: ({ pageParam }: { pageParam: string | number | null }) => {
+      return getUserProfilePosts(
+        userId,
+        type as 'grid' | 'list',
+        pageParam as string | null
+      ) as Promise<Fetched>;
     },
-    initialPageParam: 0,
+    initialPageParam: null,
     getNextPageParam: (lastPage: Fetched | FetchedFollowing) => {
       if (!lastPage.next) return undefined;
       return lastPage.next;
@@ -102,7 +109,7 @@ export const useInfiniteScroll = (
 
   const pages = data?.pages.map(i => i.data).flat(2);
   return {
-    data: pages as FollowingPost[],
+    data: pages as any[],
     hasNextPage,
     isFetching,
     fetchNextPage,
