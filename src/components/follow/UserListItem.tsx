@@ -32,14 +32,14 @@ const UserListItem = ({
   const isFollowerTab = activeTab === '팔로워';
 
   const mapMiniProfile = useCallback(
-    ({ url, nickname, caffeine, userId }: SimplifyUser) => (
+    ({ url, nickname, caffeineSum, userId }: SimplifyUser) => (
       <div
         key={userId}
         className={cx(Align, Between, PaddingT20)}>
         <MiniProfile
           url={url}
           nickname={nickname}
-          caffeine={caffeine}
+          caffeineSum={caffeineSum}
           userId={userId}
           post={true}
         />

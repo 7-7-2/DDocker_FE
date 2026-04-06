@@ -70,8 +70,8 @@ const MyProfile = () => {
   };
 
   const handlClickBtn =
-    (route: string, file: File | null, path: string) => async () => {
-      const uploaded = route && file && (await uploadStorage(route, file));
+    (dir: string, userId: string, file: File | null, path: string) => async () => {
+      const uploaded = dir && file && (await uploadStorage(dir, userId, '', file));
       const editData = uploaded
         ? await handleEditProfileData(path)
         : await handleEditProfileData();
@@ -131,7 +131,8 @@ const MyProfile = () => {
         <SaveButton
           className={cx(FlexCenter, Cursor, Border16, HomeRegistContainer)}
           onClick={handlClickBtn(
-            `user/${userId}`,
+            'user',
+            userId,
             imageFile ? imageFile : null,
             storagePath
           )}>

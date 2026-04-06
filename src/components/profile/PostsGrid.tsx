@@ -1,9 +1,9 @@
-import { lazy, Suspense, useEffect, useRef } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useImgErrorCTA } from '@/hooks/useImgErrorCTA';
-import { PostsGridProps, UserProfilePostsTypes } from '@/types/types';
+import { PostsGridProps } from '@/types/types';
 
-import { css, cx } from 'styled-system/css';
+import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Grid, Center } from '@/styles/layout';
 import { Cursor } from '@/styles/styles';
@@ -11,10 +11,8 @@ import { ERROR_IMG_TEXTS } from '@/constants/error';
 
 const ImageErrorCTA = lazy(() => import('@/components/common/ImageErrorCTA'));
 
-const PostsGrid = ({ data, postRef, refetch }: PostsGridProps) => {
+const PostsGrid = ({ data: posts, postRef, refetch }: PostsGridProps) => {
   const navigate = useNavigate();
-  const posts = data && data.flatMap(item => item.posts);
-
   const { isError, isRefresh, handleImgError, handleRefreshBtn } =
     useImgErrorCTA();
 
@@ -51,7 +49,7 @@ const PostsGrid = ({ data, postRef, refetch }: PostsGridProps) => {
       ) : (
         <GridContainer className={cx(Grid, Center)}>
           {posts &&
-            posts.map((item: UserProfilePostsTypes) => (
+            posts.map(item => (
               <GridItemContainer key={item.postId}>
                 <GridItem
                   className={Cursor}

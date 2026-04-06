@@ -7,20 +7,27 @@ import { SEARCH_TEXTS } from '@/constants/search';
 
 const { search: searchText } = SEARCH_TEXTS;
 
-const SearchMoreList = ({ search }: { search: string }) => {
+const SearchMoreList = ({
+  search,
+  initialCursor
+}: {
+  search: string;
+  initialCursor: string | null;
+}) => {
   const { searchMoreList, ref } = useTargetInfiniteScroll(
-    SearchListMoreUserIQParam(search),
+    SearchListMoreUserIQParam(search, initialCursor),
     searchText
   );
-
+  console.log(searchMoreList)
   const mapSearchList = (user: SimplifyUser) => {
     return (
       <Container key={user.userId}>
         <MiniProfile
           url={user.url}
           nickname={user.nickname}
-          caffeine={user.caffeine}
+          caffeineSum={user.caffeineSum}
           userId={user.userId}
+          mini={true}
         />
       </Container>
     );

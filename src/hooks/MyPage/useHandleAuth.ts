@@ -22,8 +22,6 @@ export const useHandleAuth = () => {
   const { userId } = useCachedUserInfo();
 
   const { deleteStorage, deleteFolder } = useCloudStorage();
-  const userRoute = `user/${userId}`;
-  const postRoute = `post/${userId}`;
 
   const handleSignOut = async () => {
     await useDeleteCacheData('user', signOutUrls);
@@ -62,8 +60,8 @@ export const useHandleAuth = () => {
     const social = await useGetCacheData('user', '/social');
     await deleteUserAccount(social.cacheData, code);
     await handleDeleteHistory();
-    await deleteStorage(userRoute);
-    await deleteFolder(postRoute);
+    await deleteStorage('user/', userId);
+    await deleteFolder('post/', userId);
     await handleSignOut();
   };
 

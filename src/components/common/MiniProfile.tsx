@@ -17,7 +17,7 @@ import { useLocation } from 'react-router-dom';
 const MiniProfile = ({
   url,
   nickname,
-  caffeine,
+  caffeineSum,
   userId,
   post = false,
   mini = false
@@ -63,7 +63,7 @@ const MiniProfile = ({
             className={cx(Flex, LineH18)}
             onClick={
               toProfilePage
-            }>{`${TEXT.addedcaffeine} ${caffeine} ${TEXT.mgLabel}`}</UserCaffeine>
+            }>{`${TEXT.addedcaffeine} ${caffeineSum} ${TEXT.mgLabel}`}</UserCaffeine>
         </div>
       </Container>
     </>

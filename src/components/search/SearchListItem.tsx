@@ -11,7 +11,7 @@ const SearchMoreList = lazy(() => import('@/components/search/SearchMoreList'));
 
 const SearchListItem = memo(({ users, search }: SearchList) => {
   const [loadMore, setLoadMore] = useState(false);
-
+  console.log(users)
   const { mutate, mutateHistory } = useSetHistory();
   const handleAddUserHistory = (user: SimplifyUser) => () => {
     mutate(user);
@@ -32,7 +32,7 @@ const SearchListItem = memo(({ users, search }: SearchList) => {
               <MiniProfile
                 url={user.url}
                 nickname={user.nickname}
-                caffeine={user.caffeine}
+                caffeineSum={user.caffeineSum}
                 userId={user.userId}
                 mini={true}
               />
@@ -46,7 +46,16 @@ const SearchListItem = memo(({ users, search }: SearchList) => {
       )}
       {loadMore && (
         <Suspense>
-          <SearchMoreList search={search} />
+          <SearchMoreList
+            search={search}
+            initialCursor={
+              users.length > 0
+                ? btoa(
+                    `${users[users.length - 1].nickname}:${users[users.length - 1].userId}`
+                  )
+                : null
+            }
+          />
         </Suspense>
       )}
     </>

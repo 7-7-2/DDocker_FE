@@ -58,7 +58,7 @@ export const usePostMutation = (
     if (!nonImgPost) {
       const imgUploaded =
         (await registered) &&
-        (await uploadStorage(`post/${userId}/${postId}`, imageFile as File));
+        (await uploadStorage('post', userId, postId, imageFile as File));
       return imgUploaded && { registered, postId };
     }
     return { registered, postId };
@@ -78,7 +78,7 @@ export const usePostMutation = (
       const imgUpdated =
         (await registered) &&
         imageFile &&
-        (await uploadStorage(`post/${userId}/${postId}`, imageFile as File));
+        (await uploadStorage('post', userId, postId, imageFile as File));
       return imgUpdated && { registered, postId };
     }
     return { registered, postId };

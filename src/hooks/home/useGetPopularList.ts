@@ -18,7 +18,7 @@ const useGetPopularList = () => {
   });
 
   const updatePopularList = async (newPopularList: WeeklyPopularListTypes) => {
-    setBrandList(newPopularList[currentDate]);
+    setBrandList(newPopularList.data);
     await useSetCacheData('brand', '/WeeklyPopular', newPopularList);
   };
 

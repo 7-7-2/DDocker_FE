@@ -2,7 +2,7 @@ import { baseInstance } from '@/api/axiosInterceptor';
 
 // 1. 유저 검색
 export const getSearchUser = async (nickname: string) => {
-  const res = await baseInstance.get(`/search/${nickname}`).catch(e => {
+  const res = await baseInstance.get(`/search?q=${nickname}`).catch(e => {
     console.log(e);
   });
   return res && res.data;
@@ -10,16 +10,23 @@ export const getSearchUser = async (nickname: string) => {
 // 2. 유저 더보기
 export const getSearchMoreUser = async (
   nickname: string,
-  pageParam: number
+  cursor?: string | null
 ) => {
-  const res = await baseInstance
-    .get(`/search/${nickname}/more/${pageParam}`)
-    .catch(e => {
-      console.log(e);
+  try {
+    const res = await baseInstance.get('/search', {
+      params: {
+        q: nickname,
+        cursor: cursor,
+        limit: 10 // Increase limit for "more" view
+      }
     });
-  const data = res && res.data;
-  return {
-    data: data.data.results,
-    next: data.data.next
-  };
+    const resData = res.data.data;
+    return {
+      data: resData.results,
+      next: resData.nextCursor
+    };
+  } catch (e) {
+    console.log(e);
+    return { data: [], next: null };
+  }
 };

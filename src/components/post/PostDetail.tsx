@@ -100,7 +100,7 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
             <MiniProfile
               url={postData?.data?.profileUrl}
               nickname={postData.data.nickname}
-              caffeine={postData.data.sum}
+              caffeineSum={postData.data.sum}
               userId={postData.data.userId}
               post={true}
             />
@@ -128,11 +128,12 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
             postId={postNum}
             userId={postData.data.userId}
           />
-          <PostTitle>{postData.data.post_title}</PostTitle>
+          {/* UI change => deprecated
+          <PostTitle>{postData.data.post_title}</PostTitle> */}
           <PostContent>{postData.data.description}</PostContent>
           <CaffeineInfo
             brand={postData.data.brand}
-            menu={postData.data.menu}
+            productName={postData.data.productName}
             caffeine={postData.data.caffeine}
             shot={postData.data.shot}
             intensity={postData.data.intensity}

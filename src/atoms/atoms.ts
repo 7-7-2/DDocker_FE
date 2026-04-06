@@ -69,11 +69,11 @@ export const registPostState = selector<
     const postContents = get(postContentsState);
     const caffeineIntake = get(caffeineIntakeState);
     const postData = {
-      post_title: 'title 항목 삭제 예정',
+      //post_title: 'title 항목 삭제 예정',
       postId: postContents.postId,
       description: postContents.description,
       photo: postContents.photo,
-      // visibility: postContents.visibility,
+      visibility: postContents.visibility,
       caffeine: caffeineIntake.caffeine,
       brand: caffeineIntake.brand,
       productName: caffeineIntake.productName,
@@ -97,8 +97,8 @@ export const postContentsState = atom<postContentsTypes>({
     postId: '',
     description: '',
     photo: '',
-    // visibility: 0,
-    post_title: 'title 항목 삭제 예정'
+    visibility: 1,
+    //post_title: 'title 항목 삭제 예정'
   }
 });
 

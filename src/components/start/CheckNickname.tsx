@@ -20,10 +20,10 @@ const CheckNickname = ({ userNickname }: { userNickname?: string }) => {
 
   const cilckIdCheckBtn = async () => {
     try {
-      const res = validate && (await checkNickname(value));
-      res === 1 ? setIsapproval(false) : setIsapproval(res);
+      const exists = validate && (await checkNickname(value));
+      setIsapproval(!exists);
 
-      validate
+      validate && !exists
         ? setUserInit({ ...userInit, nickname: value })
         : setUserInit({ ...userInit, nickname: '' });
     } catch (error) {

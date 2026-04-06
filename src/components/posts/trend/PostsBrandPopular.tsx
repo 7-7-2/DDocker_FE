@@ -52,13 +52,11 @@ const PostsBrandPopular = () => {
 
   return (
     <div className={Container}>
-      {weeklyPopularBrandMenu && weeklyPopularBrandMenu.data[0] && (
+      {weeklyPopularBrandMenu && weeklyPopularBrandMenu.data &&(
         <AlertBubble
           type="trends"
           message={
-            <TrendBubbleText
-              productName={weeklyPopularBrandMenu.data[0].menu}
-            />
+            <TrendBubbleText productName={weeklyPopularBrandMenu.data.productName} />
           }
         />
       )}
