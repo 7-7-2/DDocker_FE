@@ -10,7 +10,7 @@ const { placeholder, inputLength } = INPUT_TEXTS.type.aboutMe;
 
 const InputAboutMe = ({
   inputRef,
-  icon = true,
+  icon,
   userAboutMe
 }: {
   inputRef: React.RefObject<HTMLTextAreaElement>;
@@ -22,7 +22,6 @@ const InputAboutMe = ({
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value);
   };
-
   return (
     <div className={Column}>
       <Label
