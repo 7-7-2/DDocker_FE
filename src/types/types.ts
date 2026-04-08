@@ -28,7 +28,8 @@ export interface AuthTypes {
   brand?: string;
   sum?: number;
   userId?: string;
-  aboutMe?: string | null;
+  bio?: string | null;
+  visibility?: number;
 }
 
 export interface ddockerSignInType {
@@ -38,7 +39,6 @@ export interface ddockerSignInType {
 
 export interface InitialformTypes extends AuthTypes {
   socialToken?: string;
-  visibility?: number;
 }
 
 export interface SimplifyUser {
@@ -129,8 +129,8 @@ export interface TodayCoffeeInfoItemTypes {
 }
 
 export interface CoffeeItemTypes {
-  brand: string;
   menu: string;
+  brand: string;
   caffeine: number;
 }
 
