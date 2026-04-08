@@ -7,19 +7,34 @@ import { MYPAGE_TEXTS } from '@/constants/profile';
 import { styled } from 'styled-system/jsx';
 import { Between, Column } from '@/styles/layout';
 import { Regular } from '@/styles/styles';
+import { useRecoilState } from 'recoil';
+import { authState } from '@/atoms/atoms';
+import { useState } from 'react';
 
 const { description } = MYPAGE_TEXTS;
 
 const PrivateAccountToggle = () => {
-  const handleToggle = () => {};
+  const [userInit, setUserInit] = useRecoilState(authState);
+  const [isToggle, setIsToggle] = useState(!userInit?.visibility);
+
+  const editUserInfo = () => {
+    setUserInit({ visibility: accountVisibilty });
+  };
+  const accountVisibilty = !isToggle ? 0 : 1;
+
+  const handleToggle = () => {
+    setIsToggle(!isToggle);
+    editUserInfo();
+  };
 
   return (
     <Container className={Column}>
       <InterFace className={Between}>
         <Label label={LABEL_TEXTS.accountPrivate} />
         <Toggle
-          toggleState={false}
-          onClick={handleToggle}></Toggle>
+          toggleState={isToggle}
+          onClick={handleToggle}
+        />
       </InterFace>
       <Description className={Regular}>{description}</Description>
     </Container>

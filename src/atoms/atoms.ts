@@ -46,7 +46,8 @@ export const authState = atom<AuthTypes>({
     nickname: '',
     brand: '',
     profileUrl: '',
-    aboutMe: ''
+    bio: '',
+    visibility: 1
   }
 });
 
@@ -57,7 +58,8 @@ export const userInfoState = atom<AuthTypes>({
     brand: '',
     sum: 0,
     profileUrl: '',
-    userId: ''
+    userId: '',
+    visibility: 1
   }
 });
 
@@ -97,7 +99,7 @@ export const postContentsState = atom<postContentsTypes>({
     postId: '',
     description: '',
     photo: '',
-    visibility: 1,
+    visibility: 1
     //post_title: 'title 항목 삭제 예정'
   }
 });

@@ -8,7 +8,7 @@ import { styled } from 'styled-system/jsx';
 import { Align, Between } from '@/styles/layout';
 import { HomeRegistContainer, InputByteCheck } from '@/styles/styles';
 
-const { nickname } = LABEL_TEXTS;
+const { nickname, aboutMe, favBrand } = LABEL_TEXTS;
 
 export const Label = ({
   inputValue,
@@ -18,9 +18,12 @@ export const Label = ({
   message
 }: LabelProps) => {
   const nicknameCheckIcon =
-    icon && inputValue && message === nickname.message.approval;
-  const aboutMeIcon = icon && initValue !== inputValue;
-  const favBrandIcon = icon && initValue !== inputValue;
+    label == nickname.label && message && message === nickname.message.approval;
+  const aboutMeIcon =
+    label === aboutMe.label && initValue && initValue !== inputValue;
+  const favBrandIcon =
+    label === favBrand &&
+    ((initValue && initValue !== inputValue) || (!initValue && inputValue));
   const alretMessage =
     message && message !== nickname.message.approval
       ? ErrorMessage
@@ -30,10 +33,14 @@ export const Label = ({
     <LabelContainer className={cx(Align, Between)}>
       <div className={Align}>
         <LabelText className={HomeRegistContainer}>{label}</LabelText>
-        {nicknameCheckIcon || aboutMeIcon || favBrandIcon ? (
-          <Icon {...iconPropsGenerator('check-done', '18')} />
-        ) : (
-          <Icon {...iconPropsGenerator('check', '18')} />
+        {icon && (
+          <>
+            {nicknameCheckIcon || aboutMeIcon || favBrandIcon ? (
+              <Icon {...iconPropsGenerator('check-done', '18')} />
+            ) : (
+              <Icon {...iconPropsGenerator('check', '18')} />
+            )}
+          </>
         )}
       </div>
       {inputValue !== '' && (

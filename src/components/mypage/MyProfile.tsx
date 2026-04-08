@@ -11,6 +11,7 @@ import FavoriteBrandEditer from '@/components/mypage/FavoriteBrandEditer';
 
 import { TEXT } from '@/constants/texts';
 import { MYPAGE_TEXTS } from '@/constants/profile';
+import { BUTTON_TEXTS } from '@/constants/common';
 import { editProfile, getMyInfo } from '@/api/user';
 import { authState, cahceImgState } from '@/atoms/atoms';
 
@@ -34,7 +35,7 @@ import {
   RegistBtn,
   Semibold
 } from '@/styles/styles';
-import { Column } from '@/styles/layout';
+import { Align, Column } from '@/styles/layout';
 
 const ConfirmDeleteUser = lazy(
   () => import('@/components/post/overlay/ConfirmDeleteUser')
@@ -50,7 +51,7 @@ const MyProfile = () => {
   const navigate = useNavigate();
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
   const { userData, userId } = useCachedUserInfo();
-  const { nickname: editNickname } = useRecoilValue(authState);
+  const { nickname: editNickname, visibility } = useRecoilValue(authState);
   const { isModal, handleDeleteAccount, handleSignOut } = useHandleAuth();
   const setCacheState = useSetRecoilState(cahceImgState);
   const goToMyProfile = (status = 0) =>
@@ -71,18 +72,21 @@ const MyProfile = () => {
 
   const handleEditProfileData = async (path?: string) => {
     const editData: {}[] = [];
-    userData.aboutMe !== inputRef.current?.value &&
-      editData.push({ aboutMe: inputRef.current?.value });
+    userData.bio !== inputRef.current?.value &&
+      editData.push({ bio: inputRef.current?.value });
     editNickname && editData.push({ nickname: editNickname });
-    path && editData.push({ proFileUrl: path });
+    path && editData.push({ profileUrl: path });
+    editData.push({ visibility: visibility });
     return Object.assign({}, ...editData);
   };
 
   const handlClickBtn =
-    (dir: string, userId: string, file: File | null, path: string) => async () => {
-      const uploaded = dir && file && (await uploadStorage(dir, userId, '', file));
+    (dir: string, userId: string, file: File | null) => async () => {
+      const uploaded =
+        dir && file && (await uploadStorage(dir, userId, '', file));
+      console.log(storagePath, file, uploaded);
       const editData = uploaded
-        ? await handleEditProfileData(path)
+        ? await handleEditProfileData(storagePath)
         : await handleEditProfileData();
       await editProfile(editData);
       await getMyInfo();
@@ -111,26 +115,34 @@ const MyProfile = () => {
         </Suspense>
       )}
       <>
-        <EditProfileImg
-          profileImg={userData && userData.profileUrl}
-          {...editProps}
-        />
-        <ImgCropper
-          stencilType={TEXT.circle}
-          aspectRatio={1}
-          {...cropperProps}
-          {...editProps}
-        />
-        <ProfileTextEditer className={Column}>
+        <ProfileEditer className={Column}>
+          <div className={cx(Align, Column)}>
+            <EditProfileImg
+              profileImg={userData && userData.profileUrl}
+              {...editProps}
+            />
+            <ImgCropper
+              stencilType={TEXT.circle}
+              aspectRatio={1}
+              {...cropperProps}
+              {...editProps}
+            />
+            <ImgDeleteBtn
+              className={Medium}
+              onClick={() => {}}>
+              {BUTTON_TEXTS.imgDelete}
+            </ImgDeleteBtn>
+          </div>
           <CheckNickname userNickname={userData && userData.nickname} />
           <InputAboutMe
             inputRef={inputRef}
-            userAboutMe={userData && userData.aboutMe}
+            userAboutMe={userData && userData.bio}
+            icon
           />
           <FavoriteBrandEditer userBrand={userData && userData.brand} />
           <div className={SectionDivier} />
           <PrivateAccountToggle />
-        </ProfileTextEditer>
+        </ProfileEditer>
         <ExitButtonContainer className={cx(Column, Medium)}>
           {btn.map(item => (
             <ExitButton
@@ -145,20 +157,20 @@ const MyProfile = () => {
       <ButtonArea className={BottomBtnContainer}>
         <SaveButton
           className={cx(RegistBtn, Semibold)}
-          onClick={handlClickBtn(
-            'user',
-            userId,
-            imageFile ? imageFile : null,
-            storagePath
-          )}>
-          {TEXT.saveButton}
+          onClick={handlClickBtn('user', userId, imageFile ? imageFile : null)}>
+          {BUTTON_TEXTS.save}
         </SaveButton>
       </ButtonArea>
     </>
   );
 };
 
-const ProfileTextEditer = styled.div`
+const ImgDeleteBtn = styled.button`
+  font-size: var(--font-sizes-sm);
+  color: var(--colors-mid-grey);
+  margin-top: 16px;
+`;
+const ProfileEditer = styled.div`
   gap: 28px;
 `;
 
