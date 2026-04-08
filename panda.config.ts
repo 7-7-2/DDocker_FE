@@ -71,6 +71,26 @@ export default defineConfig({
           '100%': {
             transform: 'rotate(360deg)'
           }
+        },
+
+        popup_bottom: {
+          '0%': { transform: 'translateY(0)', opacity: '1' },
+          '10%': { transform: 'translateY(4px)', opacity: '1' },
+          '25%': { transform: 'translateY(12px)', opacity: '1' },
+          '50%': { transform: 'translateY(18px)', opacity: '1' },
+          '75%': { transform: 'translateY(12px)', opacity: '1' },
+          '90%': { transform: 'translateY(4px)', opacity: '1' },
+          '100%': { transform: 'translateY(0)', opacity: '1' }
+        },
+
+        popup_top: {
+          '0%': { transform: 'translateY(0)', opacity: '0' },
+          '15%': { transform: 'translateY(20px)', opacity: '0' },
+          '35%': { transform: 'translateY(60px)', opacity: '0' },
+          '50%': { transform: 'translateY(90px)', opacity: '0.2' },
+          '65%': { transform: 'translateY(60px)', opacity: '0.5' },
+          '85%': { transform: 'translateY(20px)', opacity: '0.8' },
+          '100%': { transform: 'translateY(0)', opacity: '1' }
         }
       }
     }

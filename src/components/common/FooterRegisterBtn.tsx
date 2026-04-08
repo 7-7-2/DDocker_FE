@@ -10,7 +10,7 @@ import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { BtnColorMain, BtnColorWhite, RegisterModalBtn } from '@/styles/styles';
+import { BtnColorMain, BtnColorWhite, RegisterModalBtnTop, RegisterModalBtnBottom } from '@/styles/styles';
 import { Center, Flex } from '@/styles/layout';
 
 const FooterRegisterBtn = ({ icon }: { icon: string }) => {
@@ -34,13 +34,13 @@ const FooterRegisterBtn = ({ icon }: { icon: string }) => {
             <Button
               text={coffeeRegister}
               onClick={registerCoffee}
-              className={cx(RegisterModalBtn)}>
+              className={cx(RegisterModalBtnTop)}>
               <Icon {...iconPropsGenerator(`coffeeRegister`)} />
             </Button>
             <Button
               text={postRegister}
               onClick={registerPost}
-              className={cx(RegisterModalBtn)}>
+              className={cx(RegisterModalBtnBottom)}>
               <Icon {...iconPropsGenerator(`postRegister`)} />
             </Button>
           </ModalContainer>
@@ -48,7 +48,10 @@ const FooterRegisterBtn = ({ icon }: { icon: string }) => {
       )}
       <RegisterBtn
         className={cx(Flex, Center, registerBtnColor)}
-        onClick={handleRegister}>
+        onClick={handleRegister}
+        style={{
+          transform: activeRegisterBtn ? 'rotate(135deg)' : 'rotate(0deg)'
+        }}>
         {activeRegisterBtn ? (
           <Icon {...iconPropsGenerator(`${icon}-active`, `20`)} />
         ) : (
@@ -65,6 +68,7 @@ const RegisterBtn = styled.div`
   margin-top: -2px;
   z-index: 999;
   border-radius: 50px;
+  transition: background-color 0.2s, transform 0.2s ease-in-out;
 `;
 
 const Background = styled.div`
