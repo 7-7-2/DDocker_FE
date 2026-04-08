@@ -46,7 +46,7 @@ const SelectFavBrand = () => {
     const userId = nanoid();
     const socialToken = await useGetCacheData('user', '/socialToken');
 
-    file && (await uploadStorage('user', userId, '', file));
+
     const storagePath = `${imagePath}%2F${userId}`;
 
     const userInfo: InitialformTypes = {
@@ -60,6 +60,9 @@ const SelectFavBrand = () => {
     };
 
     await setUserInitInfo(userInfo);
+
+    file && (await uploadStorage('user', userId, '', file));
+
     await useDeleteCacheData('user', [
       '/socialEmail',
       '/isRegistering',

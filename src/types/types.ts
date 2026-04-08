@@ -404,3 +404,9 @@ export interface ChpaterType {
   chapter: string;
   chapterContents: ChapterContentsType[];
 }
+
+export interface EditInfoType {
+  aboutMe?: string;
+  proFileUrl?: string;
+  nickname?: string;
+}

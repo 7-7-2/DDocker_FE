@@ -7,7 +7,7 @@ import { Cursor } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const ProfileImg = ({ imageUrl }: { imageUrl?: string }) => {
   const [profileUrl, setProfileUrl] = useState<string>(imageUrl as string);
@@ -16,6 +16,10 @@ const ProfileImg = ({ imageUrl }: { imageUrl?: string }) => {
 
   const { userId } = useCachedUserInfo();
   const handleError = () => setProfileUrl('');
+
+  useEffect(() => { 
+    imageUrl && setProfileUrl(imageUrl)
+  }, [profileUrl, imageUrl]);
 
   return (
     <Container className={cx(FlexCenter, MarginAuto)}>

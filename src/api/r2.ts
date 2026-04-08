@@ -6,7 +6,7 @@ export const getPresignedUploadUrl = async (
   userId: string,
   postId: string = "",
 ) => {
-  const endpoint = `/storage/upload/${dir}/${userId}/${postId}`;
+  const endpoint = postId ? `/storage/upload/${dir}/${userId}?postId=${postId}` : `/storage/upload/${dir}/${userId}`;
 
   const signedUrl = await authInstance.get(endpoint).catch((e) => {
     console.log(e);
@@ -20,7 +20,7 @@ export const getPresignedDeleteUrl = async (
   userId: string,
   postId: string = "",
 ) => {
-  const endpoint = `/storage/delete/${dir}/${userId}/${postId}`;
+  const endpoint = postId ? `/storage/upload/${dir}/${userId}?postId=${postId}` : `/storage/upload/${dir}/${userId}`;
 
   const signedUrl = await authInstance.get(endpoint).catch((e) => {
     console.log(e);
