@@ -17,9 +17,8 @@ export const RegisterPageHeight = css`
 
 export const GeneralHeight = css`
   height: calc(
-    100dvh - 56px - 64px - env(safe-area-inset-bottom) - env(
-        safe-area-inset-top
-      )
+    100dvh - 56px - 64px - env(safe-area-inset-bottom) -
+      env(safe-area-inset-top)
   );
 `;
 
@@ -260,6 +259,20 @@ export const RegisterModalBtn = cx(
     column-gap: 8px;
     align-items: center;
     justify-content: center;
+  `
+);
+
+export const RegisterModalBtnTop = cx(
+  RegisterModalBtn,
+  css`
+    animation: popup_top 0.2s;
+  `
+);
+
+export const RegisterModalBtnBottom = cx(
+  RegisterModalBtn,
+  css`
+    animation: popup_bottom 0.2s;
   `
 );
 
@@ -950,9 +963,8 @@ export const NotificationContainer = css`
 
 export const AlignCTA = css`
   height: calc(
-    100dvh - 46px - 50px - env(safe-area-inset-bottom) - env(
-        safe-area-inset-top
-      )
+    100dvh - 46px - 50px - env(safe-area-inset-bottom) -
+      env(safe-area-inset-top)
   );
   margin: auto 0;
 `;
