@@ -1,5 +1,5 @@
 import { authInstance, baseInstance } from '@/api/axiosInterceptor';
-import { AuthTypes } from '@/types/types';
+import { AuthTypes, EditInfoType } from '@/types/types';
 import useSetCacheData from '@/hooks/useSetCacheData';
 
 // Social Auth
@@ -132,10 +132,10 @@ export const getUserFollowCounts = async (userId: string) => {
 };
 
 //Profile edit
-export const editProfile = async (editInfo: {}) => {
+export const editProfile = async (editInfo: EditInfoType) => {
   try {
-    const data = editInfo;
-    await authInstance.patch('/users/userInfo', data);
+    const {aboutMe , proFileUrl, ...data} = editInfo;
+    await authInstance.patch('/users/userInfo', {bio: aboutMe, profileUrl: proFileUrl, ...data});
   } catch (error) {
     console.log('Failed to save user initial info on DB', error);
   }
