@@ -69,7 +69,7 @@ const InitialForm = () => {
 
   const handleNextPage = () => {
     inputRef.current?.value &&
-      setUserInit({ ...userInit, aboutMe: inputRef.current?.value || null });
+      setUserInit({ ...userInit, bio: inputRef.current?.value || null });
     navigate('/start/3', { state: imageFile });
   };
 
@@ -96,7 +96,6 @@ const InitialForm = () => {
           icon={false}
         />
       </InputContainer>
-
       <div className={StartPageBtnContainer}>
         <Button
           text={BUTTON_TEXTS.next}

@@ -54,7 +54,7 @@ const SelectFavBrand = () => {
       userId: userId,
       nickname: user.nickname,
       brand: user.brand,
-      aboutMe: user.aboutMe || null,
+      bio: user.bio || null,
       profileUrl: file ? storagePath : '',
       visibility: 1 // Default to Public
     };

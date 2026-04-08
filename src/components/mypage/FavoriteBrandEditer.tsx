@@ -38,7 +38,8 @@ const FavoriteBrandEditer = ({
               BrandBtn
             )}
             onClick={selectbrand}
-            value={item}>
+            value={item}
+            key={item}>
             {brandMapToKor(item)}
           </button>
         ))}
