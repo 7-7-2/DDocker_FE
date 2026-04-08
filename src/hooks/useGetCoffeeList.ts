@@ -4,7 +4,9 @@ import { setBrnadList } from '@/utils/setBrandList';
 import useGetCacheData from '@/hooks/useGetCacheData';
 import { CoffeeDataTypes } from '@/types/types';
 
-function useGetCoffeeList(dataType?: string) {
+function useGetCoffeeList<T extends string[] | CoffeeDataTypes>(
+  dataType?: string
+) {
   const [coffeeData, setCoffeeData] = useState<CoffeeDataTypes>({});
 
   const getBrandList = async () => {
@@ -15,13 +17,12 @@ function useGetCoffeeList(dataType?: string) {
     }
     cachedData && setCoffeeData(cachedData.cacheData);
   };
-
   useEffect(() => {
     getBrandList();
   }, []);
 
   const brandList = coffeeData && setBrnadList(coffeeData);
-  return dataType === 'brand' ? brandList : coffeeData;
+  return (dataType === 'brand' ? brandList : coffeeData) as T;
 }
 
 export default useGetCoffeeList;

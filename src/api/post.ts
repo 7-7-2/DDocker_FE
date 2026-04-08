@@ -182,12 +182,17 @@ export const getWeeklyPopular = async () => {
   }
 };
 
-// selectMenu
+// 커피 메뉴 조회
 export const getCoffeeMenu = async () => {
   try {
     const res = await baseInstance.get('/brand');
-    res && (await useSetCacheData('brand', '/coffeeMenu', res.data.data));
-    return res && res.data.data;
+    res &&
+      (await useSetCacheData(
+        'brand',
+        '/coffeeMenu',
+        JSON.parse(res.data.data)
+      ));
+    return res && JSON.parse(res.data.data);
   } catch (error) {
     console.log('Failed to get coffee menu List', error);
   }
