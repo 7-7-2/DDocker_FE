@@ -1,14 +1,16 @@
-import { authInstance } from "@/api/axiosInterceptor";
+import { authInstance } from '@/api/axiosInterceptor';
 
 //r2 cloud storage upload
 export const getPresignedUploadUrl = async (
   dir: string,
   userId: string,
-  postId: string = "",
+  postId: string = ''
 ) => {
-  const endpoint = postId ? `/storage/upload/${dir}/${userId}?postId=${postId}` : `/storage/upload/${dir}/${userId}`;
+  const endpoint = postId
+    ? `/storage/upload/${dir}/${userId}?postId=${postId}`
+    : `/storage/upload/${dir}/${userId}`;
 
-  const signedUrl = await authInstance.get(endpoint).catch((e) => {
+  const signedUrl = await authInstance.get(endpoint).catch(e => {
     console.log(e);
   });
   return { url: signedUrl && signedUrl.data.data.url };
@@ -18,11 +20,13 @@ export const getPresignedUploadUrl = async (
 export const getPresignedDeleteUrl = async (
   dir: string,
   userId: string,
-  postId: string = "",
+  postId: string = ''
 ) => {
-  const endpoint = postId ? `/storage/delete/${dir}/${userId}?postId=${postId}` : `/storage/delete/${dir}/${userId}`;
+  const endpoint = postId
+    ? `/storage/delete/${dir}/${userId}?postId=${postId}`
+    : `/storage/delete/${dir}/${userId}`;
 
-  const signedUrl = await authInstance.get(endpoint).catch((e) => {
+  const signedUrl = await authInstance.get(endpoint).catch(e => {
     console.log(e);
   });
   return { url: signedUrl && signedUrl.data.data.url };
@@ -31,7 +35,7 @@ export const getPresignedDeleteUrl = async (
 export const deleteAllFolderItems = async (dir: string, userId: string) => {
   const res = await authInstance
     .delete(`/storage/folder/${dir}/${userId}`)
-    .catch((e) => {
+    .catch(e => {
       console.log(e);
     });
   return res;

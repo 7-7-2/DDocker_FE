@@ -1,15 +1,16 @@
-import { Suspense, lazy, useRef } from 'react';
+import { MouseEventHandler, Suspense, lazy, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 import InputAboutMe from '@/components/mypage/InputAboutMe';
-import EditProfileImg from '@/components/mypage/EditProfileImg';
 import CheckNickname from '@/components/start/CheckNickname';
-import ImgCropper from '@/components/common/ImgCropper';
 import PrivateAccountToggle from '@/components/mypage/PrivateAccountToggle';
 import FavoriteBrandEditer from '@/components/mypage/FavoriteBrandEditer';
+import ProfileImgEditer from '@/components/mypage/ProfileImgEditer';
+const ConfirmDeleteUser = lazy(
+  () => import('@/components/post/overlay/ConfirmDeleteUser')
+);
 
-import { TEXT } from '@/constants/texts';
 import { MYPAGE_TEXTS } from '@/constants/profile';
 import { BUTTON_TEXTS } from '@/constants/common';
 import { editProfile, getMyInfo } from '@/api/user';
@@ -17,11 +18,9 @@ import { authState, cahceImgState } from '@/atoms/atoms';
 
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
-import { useImageCropper } from '@/hooks/post/useImageCropper';
-import { useCloudStorage } from '@/hooks/useCloudStorage';
-import { useCompressImage } from '@/hooks/useCompressImage';
 import { useHandleAuth } from '@/hooks/MyPage/useHandleAuth';
 import { useShowFooter } from '@/hooks/useShowFooter';
+import { useEditProfileImg } from '@/hooks/MyPage/useEditProfileImg';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
@@ -35,13 +34,8 @@ import {
   RegistBtn,
   Semibold
 } from '@/styles/styles';
-import { Align, Column } from '@/styles/layout';
+import { Column } from '@/styles/layout';
 
-const ConfirmDeleteUser = lazy(
-  () => import('@/components/post/overlay/ConfirmDeleteUser')
-);
-
-const imagePath = import.meta.env.VITE_R2_USER_IMAGE_PATH;
 const { btn } = MYPAGE_TEXTS;
 
 const MyProfile = () => {
@@ -51,60 +45,51 @@ const MyProfile = () => {
   const navigate = useNavigate();
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
   const { userData, userId } = useCachedUserInfo();
+  const [selectedFavBrand, selectFavBrand] = useState(userData.brand);
   const { nickname: editNickname, visibility } = useRecoilValue(authState);
   const { isModal, handleDeleteAccount, handleSignOut } = useHandleAuth();
   const setCacheState = useSetRecoilState(cahceImgState);
+
+  const {
+    cropperProps,
+    editProps,
+    storagePath,
+    isDeleted,
+    handleDeleteImg,
+    handleProfileImg
+  } = useEditProfileImg();
+
   const goToMyProfile = (status = 0) =>
     navigate(`/profile/${userId}`, { state: status });
 
-  const {
-    imageUrl,
-    setImageUrl,
-    setImageFile,
-    imageFile,
-    setCropperEnabled,
-    cropperEnabled
-  } = useImageCropper();
-  const { compressImage, isLoading } = useCompressImage();
-
-  const { uploadStorage } = useCloudStorage();
-  const storagePath = `${imagePath}%2F${userId}`;
-
-  const handleEditProfileData = async (path?: string) => {
-    const editData: {}[] = [];
-    userData.bio !== inputRef.current?.value &&
-      editData.push({ bio: inputRef.current?.value });
-    editNickname && editData.push({ nickname: editNickname });
-    path && editData.push({ profileUrl: path });
-    editData.push({ visibility: visibility });
-    return Object.assign({}, ...editData);
+  const selectbrand: MouseEventHandler<HTMLButtonElement> = e => {
+    selectFavBrand(e.currentTarget.value);
   };
 
-  const handlClickBtn =
-    (dir: string, userId: string, file: File | null) => async () => {
-      const uploaded =
-        dir && file && (await uploadStorage(dir, userId, '', file));
-      console.log(storagePath, file, uploaded);
-      const editData = uploaded
-        ? await handleEditProfileData(storagePath)
-        : await handleEditProfileData();
-      await editProfile(editData);
-      await getMyInfo();
-      uploaded && setCacheState(false);
-      return uploaded ? goToMyProfile(uploaded) : goToMyProfile();
+  const handleEditProfileData = async (path?: string | null) => {
+    const currentBio = inputRef.current?.value;
+    const currentPath = path === null ? null : (path as string);
+    return {
+      ...(userData !== currentBio && { bio: currentBio }),
+      ...(editNickname && { nickname: editNickname }),
+      ...(path !== undefined && { profileUrl: currentPath }),
+      ...(userData.brand !== selectedFavBrand && { brand: selectedFavBrand }),
+      ...(visibility !== userData.visibility && { visibility: visibility })
     };
-
-  const cropperProps = {
-    setImageFile,
-    cropperEnabled,
-    compressImage,
-    isLoading
   };
 
-  const editProps = {
-    imageUrl,
-    setImageUrl,
-    setCropperEnabled
+  const handlClickBtn = () => async () => {
+    const imgState = await handleProfileImg();
+    console.log(imgState, storagePath);
+    const editData = imgState
+      ? await handleEditProfileData(storagePath)
+      : isDeleted
+        ? await handleEditProfileData(null)
+        : await handleEditProfileData();
+    await editProfile(editData);
+    await getMyInfo();
+    ((imgState && !isDeleted) || isDeleted) && setCacheState(false);
+    return imgState ? goToMyProfile(imgState) : goToMyProfile();
   };
 
   return (
@@ -116,30 +101,23 @@ const MyProfile = () => {
       )}
       <>
         <ProfileEditer className={Column}>
-          <div className={cx(Align, Column)}>
-            <EditProfileImg
-              profileImg={userData && userData.profileUrl}
-              {...editProps}
-            />
-            <ImgCropper
-              stencilType={TEXT.circle}
-              aspectRatio={1}
-              {...cropperProps}
-              {...editProps}
-            />
-            <ImgDeleteBtn
-              className={Medium}
-              onClick={() => {}}>
-              {BUTTON_TEXTS.imgDelete}
-            </ImgDeleteBtn>
-          </div>
+          <ProfileImgEditer
+            cropperProps={cropperProps}
+            editProps={editProps}
+            handleDeleteImg={handleDeleteImg}
+            initProfileImg={isDeleted ? undefined : userData?.profileUrl}
+          />
           <CheckNickname userNickname={userData && userData.nickname} />
           <InputAboutMe
             inputRef={inputRef}
-            userAboutMe={userData && userData.bio}
+            userAboutMe={userData && userData.aboutMe}
             icon
           />
-          <FavoriteBrandEditer userBrand={userData && userData.brand} />
+          <FavoriteBrandEditer
+            userBrand={userData && userData.brand}
+            selectedFavBrand={selectedFavBrand}
+            selectbrand={selectbrand}
+          />
           <div className={SectionDivier} />
           <PrivateAccountToggle />
         </ProfileEditer>
@@ -157,7 +135,7 @@ const MyProfile = () => {
       <ButtonArea className={BottomBtnContainer}>
         <SaveButton
           className={cx(RegistBtn, Semibold)}
-          onClick={handlClickBtn('user', userId, imageFile ? imageFile : null)}>
+          onClick={handlClickBtn()}>
           {BUTTON_TEXTS.save}
         </SaveButton>
       </ButtonArea>
@@ -165,11 +143,6 @@ const MyProfile = () => {
   );
 };
 
-const ImgDeleteBtn = styled.button`
-  font-size: var(--font-sizes-sm);
-  color: var(--colors-mid-grey);
-  margin-top: 16px;
-`;
 const ProfileEditer = styled.div`
   gap: 28px;
 `;
