@@ -28,7 +28,7 @@ export interface AuthTypes {
   brand?: string;
   sum?: number;
   userId?: string;
-  bio?: string | null;
+  aboutMe?: string | null;
   visibility?: number;
 }
 
@@ -174,6 +174,18 @@ export interface ImageCropperProps {
   setImageFile: Dispatch<SetStateAction<File | null>>;
   cropperEnabled: boolean;
   compressImage: (imageFile: File) => Promise<void | File>;
+}
+
+export interface ImageEditProps {
+  imageUrl: string;
+  setImageUrl: Dispatch<SetStateAction<string>>;
+  setCropperEnabled: Dispatch<SetStateAction<boolean>>;
+}
+export interface ImageEditCropperProps {
+  setImageFile: Dispatch<SetStateAction<File | null>>;
+  cropperEnabled: boolean;
+  compressImage: (imageFile: File) => Promise<void | File>;
+  isLoading: boolean;
 }
 
 export interface UserProfileDataTypes {
@@ -406,7 +418,9 @@ export interface ChpaterType {
 }
 
 export interface EditInfoType {
-  aboutMe?: string;
-  proFileUrl?: string;
-  nickname?: string;
+  visibility?: number | undefined;
+  brand?: string | undefined;
+  profileUrl?: string | null;
+  nickname?: string | undefined;
+  aboutMe?: string | undefined;
 }

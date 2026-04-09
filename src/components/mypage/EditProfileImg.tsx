@@ -1,11 +1,12 @@
 import Icon from '@/components/common/Icon';
 import { EditProfileImgProps } from '@/types/types';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+import { useImageCropper } from '@/hooks/post/useImageCropper';
+
 import { FlexCenter, Column } from '@/styles/layout';
 import { Cursor } from '@/styles/styles';
 import { styled } from 'styled-system/jsx';
 import { cx } from 'styled-system/css';
-import { useImageCropper } from '@/hooks/post/useImageCropper';
 
 const EditProfileImg = ({
   profileImg,
@@ -23,40 +24,38 @@ const EditProfileImg = ({
   };
 
   return (
-    <>
-      <Wrapper className={cx(FlexCenter, Column)}>
-        <ImgContainer>
-          {(profileImg || imageUrl) && (
-            <ImgRound>
-              <Img
-                src={imageUrl ? imageUrl : profileImg}
-                alt="profile image"
-              />
-            </ImgRound>
-          )}
-          {!profileImg && !imageUrl && (
-            <Icon {...iconPropsGenerator('user', '100')} />
-          )}
-          <Edit className={Cursor}>
-            <label>
-              <Icon {...iconPropsGenerator('edit-photo', '32')} />
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleFileChange}
-                style={{ display: 'none' }}
-              />
-            </label>
-          </Edit>
-        </ImgContainer>
-      </Wrapper>
-    </>
+    <Wrapper className={cx(FlexCenter, Column)}>
+      <ImgContainer>
+        {(profileImg || imageUrl) && (
+          <ImgRound>
+            <Img
+              src={imageUrl ? imageUrl : profileImg}
+              alt="profile image"
+            />
+          </ImgRound>
+        )}
+        {!profileImg && !imageUrl && (
+          <Icon {...iconPropsGenerator('user', '100')} />
+        )}
+        <Edit className={Cursor}>
+          <label>
+            <Icon {...iconPropsGenerator('edit-photo', '32')} />
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              style={{ display: 'none' }}
+            />
+          </label>
+        </Edit>
+      </ImgContainer>
+    </Wrapper>
   );
 };
 
 const Wrapper = styled.div`
-  padding: 20px 0 40px 0;
+  padding-top: 20px;
 `;
 const ImgContainer = styled.div`
   position: relative;
