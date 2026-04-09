@@ -17,7 +17,6 @@ export const useHandleAuth = () => {
   const [searchParams] = useSearchParams();
   const code = searchParams.get('code');
   const [isModal, setIsModal] = useRecoilState(isModalState);
-  const [isConfirm, setIsConfirm] = useState(false);
   const goToStart = useNavigateTo('/start/1');
   const { userId } = useCachedUserInfo();
 
@@ -34,10 +33,6 @@ export const useHandleAuth = () => {
       `/user-${userId}`,
       `/unread-${userId}`
     ]);
-  };
-
-  const handleConfirmBtn = () => {
-    setIsConfirm(!isConfirm);
   };
 
   const handleDeleteAccount = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -71,9 +66,7 @@ export const useHandleAuth = () => {
 
   return {
     isModal,
-    isConfirm,
     handleSignOut,
-    handleDeleteAccount,
-    handleConfirmBtn
+    handleDeleteAccount
   };
 };

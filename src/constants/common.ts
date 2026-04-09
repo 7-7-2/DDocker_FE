@@ -74,10 +74,13 @@ export const BUTTON_TEXTS = {
   home: '홈으로 돌아가기',
   post: '게시물로 이동하기',
   deleteAccount: '탈퇴하기',
+  notNow: '안할래요',
   favoriteMenu: '+ 즐겨찾기 추가',
   confirm: '확인',
   cancel: '취소',
-  delete: '삭제'
+  delete: '삭제',
+  imgDelete: '이미지 삭제',
+  save: '저장하기'
 };
 
 export const TABS_TEXTS: TabsText = {
@@ -98,10 +101,9 @@ export const MODAL_CTA_TEXTS = {
     subBtn: `로그인 없이 둘러보기`
   },
   deleteAccount: {
-    confirm: '정말 탈퇴하시겠습니까?',
-    warning: `회원 탈퇴 시 
-  누적 데이터가 모두 삭제됩니다`,
-    subBtn: '이전화면으로 돌아가기'
+    confirm: '정말 탈퇴하시겠어요?',
+    warning: `커피 기록, 카페인 섭취량, 분석, 게시물 등
+모든 개인 기록이 삭제되며 복구할 수 없습니다.`
   }
 };
 

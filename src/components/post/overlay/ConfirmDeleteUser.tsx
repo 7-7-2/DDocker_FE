@@ -2,18 +2,18 @@ import ModalCTA from '@/components/common/ModalCTA';
 import { BUTTON_TEXTS, MODAL_CTA_TEXTS } from '@/constants/common';
 import { useHandleAuth } from '@/hooks/MyPage/useHandleAuth';
 
-const { confirm, warning, subBtn } = MODAL_CTA_TEXTS.deleteAccount;
+const { confirm, warning } = MODAL_CTA_TEXTS.deleteAccount;
+const { notNow, deleteAccount } = BUTTON_TEXTS;
 
 const ConfirmDeleteUser = () => {
-  const { isConfirm, handleConfirmBtn, handleDeleteAccount } = useHandleAuth();
+  const { handleDeleteAccount } = useHandleAuth();
 
   return (
     <ModalCTA
-      actionText={BUTTON_TEXTS.deleteAccount}
-      text={!isConfirm ? confirm : warning}
-      subBtnText={subBtn}
-      isConfirm={isConfirm}
-      fn={!isConfirm ? handleConfirmBtn : handleDeleteAccount}
+      buttonText={[deleteAccount, notNow]}
+      title={confirm}
+      description={warning}
+      fn={handleDeleteAccount}
     />
   );
 };
