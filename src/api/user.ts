@@ -134,8 +134,7 @@ export const getUserFollowCounts = async (userId: string) => {
 //Profile edit
 export const editProfile = async (editInfo: EditInfoType) => {
   try {
-    const {aboutMe , proFileUrl, ...data} = editInfo;
-    await authInstance.patch('/users/userInfo', {bio: aboutMe, profileUrl: proFileUrl, ...data});
+    await authInstance.patch('/users/userInfo', editInfo);
   } catch (error) {
     console.log('Failed to save user initial info on DB', error);
   }

@@ -1,4 +1,4 @@
-import { MouseEventHandler, useState } from 'react';
+import { MouseEventHandler } from 'react';
 
 import { Label } from '@/components/common/Label';
 import { LABEL_TEXTS } from '@/constants/common';
@@ -12,29 +12,29 @@ import { Column } from '@/styles/layout';
 import { BrandBtn, DisabledBrandBtn, selectedBrandBtn } from '@/styles/styles';
 
 const FavoriteBrandEditer = ({
-  userBrand
+  userBrand,
+  selectedFavBrand,
+  selectbrand
 }: {
   userBrand: string | undefined;
+  selectedFavBrand: string | undefined;
+  selectbrand: MouseEventHandler<HTMLButtonElement>;
 }) => {
   const brandList = useGetCoffeeList('brand') as string[];
-  const [selectedValue, selectValue] = useState(userBrand);
-  const selectbrand: MouseEventHandler<HTMLButtonElement> = e => {
-    selectValue(e.currentTarget.value);
-  };
 
   return (
     <div className={Column}>
       <Label
         label={LABEL_TEXTS.favBrand}
         icon={true}
-        inputValue={selectedValue}
+        inputValue={selectedFavBrand}
         initValue={userBrand}
       />
       <BrandList>
         {brandList.map(item => (
           <button
             className={cx(
-              selectedValue === item ? selectedBrandBtn : DisabledBrandBtn,
+              selectedFavBrand === item ? selectedBrandBtn : DisabledBrandBtn,
               BrandBtn
             )}
             onClick={selectbrand}
