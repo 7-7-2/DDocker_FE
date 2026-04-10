@@ -237,7 +237,7 @@ export type Reply = Pick<
 >;
 
 export interface FollowingPost extends SimplifyUser {
-  sum: number;
+  userSum: number;
   postTitle: string;
   postId: string;
   profileUrl: string;

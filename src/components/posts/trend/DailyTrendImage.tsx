@@ -26,7 +26,7 @@ const DailyTrendImage = ({
           onAnimationStart={handleLikeOnPost}>
           <Icon
             {...iconPropsGenerator(
-              myLike && myLike.success ? 'liked' : 'like-white'
+              myLike && myLike.liked ? 'liked' : 'like-white'
             )}
           />
         </div>

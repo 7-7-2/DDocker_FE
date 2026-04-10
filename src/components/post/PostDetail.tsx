@@ -100,7 +100,7 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
             <MiniProfile
               url={postData?.data?.profileUrl}
               nickname={postData.data.nickname}
-              caffeineSum={postData.data.sum}
+              caffeineSum={postData.data.userSum}
               userId={postData.data.userId}
               post={true}
             />
@@ -123,8 +123,8 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
 
           <PostSocial
             posts={false}
-            likes={socialCounts.data.totalLikes}
-            comments={socialCounts.data.totalComments}
+            likes={socialCounts.likeCount}
+            comments={socialCounts.commentCount}
             postId={postNum}
             userId={postData.data.userId}
           />
@@ -145,7 +145,7 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
           <InputContext.Provider value={{ inputRef }}>
             <PostComments
               postNum={postNum}
-              commentCount={socialCounts.data.totalComments}
+              commentCount={socialCounts.commentCount}
             />
           </InputContext.Provider>
           <Suspense>

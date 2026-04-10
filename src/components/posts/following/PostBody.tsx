@@ -7,6 +7,7 @@ import { styled } from 'styled-system/jsx';
 import { PostContent } from '@/styles/styles';
 import { PaddingT12 } from '@/styles/styles';
 import { Suspense, lazy } from 'react';
+import { brandMapToKor } from '@/utils/convertBrandName';
 
 const ImageErrorCTA = lazy(() => import('../../common/ImageErrorCTA'));
 
@@ -33,7 +34,7 @@ const PostBody = ({
   | 'size'
 > & { onClick: () => void }) => {
   const CafeDetailProps = {
-    brand,
+    brand: brandMapToKor(brand),
     caffeine,
     shot,
     productName,

@@ -19,5 +19,5 @@ export const getMyLikeOnPost = async (postId: string) => {
   const res = await authInstance.get(`/likes/${postId}`).catch(e => {
     console.log(e);
   });
-  return res && res.data;
+  return res && res.data.data;
 };

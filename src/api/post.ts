@@ -84,7 +84,7 @@ export const deleteReply = async (commentId: number) => {
 
 // 9. 포스트 진입시 댓글목록 조회
 export const getComments = async (postId: string) => {
-  const res = await baseInstance.get(`/posts/${postId}/comments`).catch(e => {
+  const res = await baseInstance.get(`/comments/post/${postId}`).catch(e => {
     console.log(e);
   });
   return res && res.data;
@@ -121,7 +121,7 @@ export const getSocialCounts = async (postId: string) => {
   const res = await baseInstance.get(`/posts/${postId}/counts`).catch(e => {
     console.log(e);
   });
-  return res && res.data;
+  return res && res.data.data;
 };
 
 //13. 메인 페이지 인기 브랜드 순위 랭킹 조회

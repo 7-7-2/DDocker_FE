@@ -29,7 +29,7 @@ const ConfirmDelete = React.lazy(
 const PostCard = ({ ...props }: FollowingPost) => {
   const {
     nickname,
-    sum,
+    userSum,
     postTitle,
     postId,
     userId,
@@ -56,7 +56,7 @@ const PostCard = ({ ...props }: FollowingPost) => {
   const MiniProfileProps = {
     url: profileUrl,
     nickname,
-    caffeineSum: sum,
+    caffeineSum: userSum,
     userId
   };
 
@@ -132,8 +132,8 @@ const PostCard = ({ ...props }: FollowingPost) => {
           {socialCounts && (
             <PostSocial
               posts={true}
-              likes={socialCounts.data.totalLikes}
-              comments={socialCounts.data.totalComments}
+              likes={socialCounts.likeCount}
+              comments={socialCounts.commentCount}
               createdAt={timestampToDate(createdAt)}
               postId={postId}
               onClick={handleToPost}
