@@ -4,6 +4,7 @@ import { Align, Flex } from '@/styles/layout';
 import { PaddingL12 } from '@/styles/styles';
 import { cx } from 'styled-system/css';
 import pathMap from '@/utils/getBrandPath';
+import { brandMapToKor } from '@/utils/convertBrandName';
 
 const CaffeineInfo = ({
   brand,
@@ -20,11 +21,12 @@ const CaffeineInfo = ({
   intensity: string;
   size: number;
 }) => {
+  const converted = brandMapToKor(brand)
   return (
     <Container className={cx(Flex, Align)}>
-      <CafeIcon src={pathMap(brand)} />
+      <CafeIcon src={pathMap(converted)} />
       <CafeDetail
-        brand={brand}
+        brand={converted}
         className={PaddingL12}
         caffeine={caffeine}
         productName={productName}

@@ -59,7 +59,7 @@ const PostSocial = ({
       <div className={Flex}>
         <PostSocialCount
           count={likes}
-          icon={myLike && myLike.success ? 'liked' : 'like'}
+          icon={myLike && myLike.liked ? 'liked' : 'like'}
           onClick={handleLikeOnPost}
         />
         <PostSocialCount

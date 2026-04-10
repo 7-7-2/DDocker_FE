@@ -1,6 +1,5 @@
 import Icon from '@/components/common/Icon';
 import { COFFEE_TEXTS } from '@/constants/coffee';
-import { TEXT } from '@/constants/texts';
 import { Align } from '@/styles/layout';
 import {
   PostsCafe,
@@ -17,7 +16,7 @@ interface CafeDetailContent extends CafeDetailTypes {
   mini?: boolean;
 }
 
-const { unit, including, is } = COFFEE_TEXTS;
+const { unit, containing, is } = COFFEE_TEXTS;
 
 const CafeDetailContent = ({
   mini = false,
@@ -47,7 +46,7 @@ const CafeDetailContent = ({
         {!mini && !mild && base && `${productName} (${intensity}, ${size})`}
         {mini && `${productName} (+${shot}샷)`}
         <br />
-        {!mini && including}
+        {!mini && containing}
         <span className={ColorMain}>
           {caffeine}
           {unit}

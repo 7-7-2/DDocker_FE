@@ -9,7 +9,7 @@ export const generatePostCardProps = (
   return {
     key: id + idx,
     nickname: post.nickname,
-    sum: post.sum,
+    userSum: post.userSum,
     postTitle: post.postTitle,
     postId: post.postId,
     profileUrl: post.profileUrl,

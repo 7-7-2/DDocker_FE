@@ -14,7 +14,7 @@ export const useLikeOnPost = (postId: string | undefined) => {
     enabled: !!postId && !!signedIn
   });
 
-  const toggleLike = myLike && myLike.success ? undoLikePost : likePost;
+  const toggleLike = myLike && myLike.liked ? undoLikePost : likePost;
   const { mutate } = useMutation({ mutationFn: toggleLike });
   const handleLikeOnPost = () => {
     mutate(postId as string, {
