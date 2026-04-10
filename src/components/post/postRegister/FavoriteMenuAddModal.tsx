@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 import Button from '@/components/common/Button';
 import CoffeeInfo from '@/components/post/postRegister/CoffeeInfo';
 
-import { BUTTON_TEXTS } from '@/constants/common';
+import { BUTTON_TEXTS, TOAST_TEXT } from '@/constants/common';
 import { POST_REGISTER_TEXTS } from '@/constants/texts';
 
 import { cx } from 'styled-system/css';
@@ -19,6 +19,7 @@ import {
 import { Between, Column, DVW, Flex, FlexCenter } from '@/styles/layout';
 
 const { addFavoriteMenu } = POST_REGISTER_TEXTS.success;
+const { style: toastStyle, text } = TOAST_TEXT;
 
 const FavoriteMenuAddModal = ({
   handleModal,
@@ -30,21 +31,7 @@ const FavoriteMenuAddModal = ({
   const registerFavMenu = () => {
     //post > 즐겨찾는 메뉴 등록
     handleModal();
-    toast.success(addFavoriteMenu.addedText, {
-      duration: 2000,
-      position: 'bottom-center',
-      icon: null,
-      style: {
-        borderRadius: '50px',
-        backgroundColor: 'var(--colors-main-dark)',
-        color: '#fff',
-        fontSize: 'var(--font-sizes-sm)',
-        fontWeight: '500',
-        height: '42px',
-        width: '208px',
-        marginBottom: '94px'
-      }
-    });
+    toast.success(text.favMenu, toastStyle);
   };
 
   return (

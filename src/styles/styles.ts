@@ -17,8 +17,9 @@ export const RegisterPageHeight = css`
 
 export const GeneralHeight = css`
   height: calc(
-    100dvh - 56px - 64px - env(safe-area-inset-bottom) -
-      env(safe-area-inset-top)
+    100dvh - 56px - 64px - env(safe-area-inset-bottom) - env(
+        safe-area-inset-top
+      )
   );
 `;
 
@@ -323,14 +324,14 @@ export const RegisterModalBtn = cx(
 export const RegisterModalBtnTop = cx(
   RegisterModalBtn,
   css`
-    animation: popup_top 0.2s;
+    animation: popup_top 0.3s;
   `
 );
 
 export const RegisterModalBtnBottom = cx(
   RegisterModalBtn,
   css`
-    animation: popup_bottom 0.2s;
+    animation: popup_bottom 0.3s;
   `
 );
 
@@ -1017,8 +1018,9 @@ export const NotificationContainer = css`
 
 export const AlignCTA = css`
   height: calc(
-    100dvh - 46px - 50px - env(safe-area-inset-bottom) -
-      env(safe-area-inset-top)
+    100dvh - 46px - 50px - env(safe-area-inset-bottom) - env(
+        safe-area-inset-top
+      )
   );
   margin: auto 0;
 `;
@@ -1091,9 +1093,4 @@ export const SupportContent = css`
   display: inline-block;
   text-align: justify;
   display: block;
-`;
-
-export const ToastStyle = css`
-  background-color: var(--colors-dark-grey);
-  border-radius: 10px;
 `;
