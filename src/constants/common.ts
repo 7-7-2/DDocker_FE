@@ -41,9 +41,10 @@ export const LABEL_TEXTS = {
   nickname: {
     label: '닉네임',
     message: {
-      approval: '사용가능한 닉네임입니다.',
-      disapproval: '이미 존재하는 닉네임입니다.',
-      validate: '닉네임은 특수문자와 공백을 포함 할 수 없습니다'
+      approval: '사용 가능한 닉네임이에요.',
+      disapproval: '이미 존재하는 닉네임이에요.',
+      Insufficien: '2자 이상 입력해주세요.',
+      Invalid: '사용할 수 없는 닉네임이에요.'
     }
   },
   favBrand: '선호 브랜드',
@@ -114,4 +115,27 @@ export const SCROLL_INDUCER_TEXTS = {
 export const CAFFEINE_TEXTS = {
   recommendedCaffeine: 400,
   unit: 'mg'
+};
+
+export const TOAST_TEXT = {
+  style: {
+    id: 'toast',
+    duration: 2000,
+    position: 'bottom-center',
+    icon: null,
+    style: {
+      borderRadius: '50px',
+      backgroundColor: 'var(--colors-main-dark)',
+      color: '#fff',
+      fontSize: 'var(--font-sizes-sm)',
+      fontWeight: '500',
+      height: '42px',
+      width: '208px',
+      marginBottom: '94px'
+    }
+  } as const,
+  text: {
+    nickname: '닉네임 중복확인을 해주세요.',
+    favMenu: '즐겨찾는 메뉴로 등록되었어요.'
+  }
 };

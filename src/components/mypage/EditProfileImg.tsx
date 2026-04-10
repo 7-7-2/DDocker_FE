@@ -56,6 +56,7 @@ const EditProfileImg = ({
 
 const Wrapper = styled.div`
   padding-top: 20px;
+  margin-right: 5px;
 `;
 const ImgContainer = styled.div`
   position: relative;

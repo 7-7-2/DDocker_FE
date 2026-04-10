@@ -1,6 +1,7 @@
 import { MouseEventHandler, Suspense, lazy, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { Toaster, toast } from 'react-hot-toast';
 
 import InputAboutMe from '@/components/mypage/InputAboutMe';
 import CheckNickname from '@/components/start/CheckNickname';
@@ -12,9 +13,9 @@ const ConfirmDeleteUser = lazy(
 );
 
 import { MYPAGE_TEXTS } from '@/constants/profile';
-import { BUTTON_TEXTS } from '@/constants/common';
+import { BUTTON_TEXTS, TOAST_TEXT } from '@/constants/common';
 import { editProfile, getMyInfo } from '@/api/user';
-import { authState, cahceImgState } from '@/atoms/atoms';
+import { authState, cahceImgState, CheckNicknameState } from '@/atoms/atoms';
 
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
@@ -37,6 +38,7 @@ import {
 import { Column } from '@/styles/layout';
 
 const { btn } = MYPAGE_TEXTS;
+const { style: toastStyle, text } = TOAST_TEXT;
 
 const MyProfile = () => {
   useShowFooter(false);
@@ -49,6 +51,7 @@ const MyProfile = () => {
   const { nickname: editNickname, visibility } = useRecoilValue(authState);
   const { isModal, handleDeleteAccount, handleSignOut } = useHandleAuth();
   const setCacheState = useSetRecoilState(cahceImgState);
+  const isApproval = useRecoilValue(CheckNicknameState);
 
   const {
     cropperProps,
@@ -70,17 +73,20 @@ const MyProfile = () => {
     const currentBio = inputRef.current?.value;
     const currentPath = path === null ? null : (path as string);
     return {
-      ...(userData !== currentBio && { bio: currentBio }),
-      ...(editNickname && { nickname: editNickname }),
+      ...(userData.aboutMe !== currentBio && { bio: currentBio }),
+      ...(userData.nickname !== editNickname && { nickname: editNickname }),
       ...(path !== undefined && { profileUrl: currentPath }),
       ...(userData.brand !== selectedFavBrand && { brand: selectedFavBrand }),
-      ...(visibility !== userData.visibility && { visibility: visibility })
+      ...(userData.visibility !== visibility && { visibility: visibility })
     };
   };
 
   const handlClickBtn = () => async () => {
+    if (userData.nickname !== editNickname && editNickname && !isApproval) {
+      toast.success(text.nickname, toastStyle);
+      return;
+    }
     const imgState = await handleProfileImg();
-    console.log(imgState, storagePath);
     const editData = imgState
       ? await handleEditProfileData(storagePath)
       : isDeleted
@@ -88,7 +94,7 @@ const MyProfile = () => {
         : await handleEditProfileData();
     await editProfile(editData);
     await getMyInfo();
-    ((imgState && !isDeleted) || isDeleted) && setCacheState(false);
+    (imgState || isDeleted) && setCacheState(false);
     return imgState ? goToMyProfile(imgState) : goToMyProfile();
   };
 
@@ -100,6 +106,7 @@ const MyProfile = () => {
         </Suspense>
       )}
       <>
+        <Toaster />
         <ProfileEditer className={Column}>
           <ProfileImgEditer
             cropperProps={cropperProps}
@@ -154,6 +161,7 @@ const ExitButton = styled.span`
 
 const ButtonArea = styled.div`
   background-color: #fff;
+  box-shadow: 1px 0 0 0#fff;
 `;
 
 const SaveButton = styled.button`
