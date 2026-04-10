@@ -24,10 +24,18 @@ export const Label = ({
   const favBrandIcon =
     label === favBrand &&
     ((initValue && initValue !== inputValue) || (!initValue && inputValue));
+
   const alretMessage =
-    message && message !== nickname.message.approval
-      ? ErrorMessage
-      : DefaultMessage;
+    message && message === nickname.message.approval
+      ? ConfirmMessage
+      : ErrorMessage;
+
+  const defaultIconStyle = aboutMeIcon || favBrandIcon ? 'check-done' : 'check';
+  const nicknameIconStyle = nicknameCheckIcon
+    ? 'check-done'
+    : !message
+      ? 'check'
+      : 'check-fail';
 
   return (
     <LabelContainer className={cx(Align, Between)}>
@@ -35,16 +43,16 @@ export const Label = ({
         <LabelText className={HomeRegistContainer}>{label}</LabelText>
         {icon && (
           <>
-            {nicknameCheckIcon || aboutMeIcon || favBrandIcon ? (
-              <Icon {...iconPropsGenerator('check-done', '18')} />
+            {label != nickname.label ? (
+              <Icon {...iconPropsGenerator(defaultIconStyle, '18')} />
             ) : (
-              <Icon {...iconPropsGenerator('check', '18')} />
+              <Icon {...iconPropsGenerator(nicknameIconStyle, '18')} />
             )}
           </>
         )}
       </div>
       {inputValue !== '' && (
-        <span className={cx(alretMessage, InputByteCheck)}>{message}</span>
+        <Message className={alretMessage}>{message}</Message>
       )}
     </LabelContainer>
   );
@@ -59,11 +67,15 @@ export const LabelContainer = styled.div`
 export const LabelText = styled.span`
   margin-right: 2px;
 `;
+export const Message = styled.span`
+  font-size: var(--font-sizes-xs);
+  line-height: 20px;
+`;
 
 export const ErrorMessage = css`
   color: #f00;
 `;
 
-export const DefaultMessage = css`
+export const ConfirmMessage = css`
   color: var(--colors-main);
 `;
