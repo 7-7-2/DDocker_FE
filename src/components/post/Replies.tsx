@@ -7,10 +7,12 @@ import { useId } from 'react';
 
 const Replies = ({
   replies,
-  commentId
+  commentId,
+  postNum
 }: {
   replies: boolean;
   commentId: number;
+  postNum: string;
 }) => {
   const { data: replyList } = useQuery({
     queryKey: ['replyList', commentId],
@@ -30,12 +32,13 @@ const Replies = ({
               profileUrl={reply.profileUrl}
               nickname={reply.nickname}
               content={reply.content}
-              created_at={reply.created_at}
+              createdAt={reply.createdAt}
               id={reply.id}
               comment={false}
+              postNum={postNum}
               parentCommentId={commentId}
               key={id + idx}
-              public_id={reply.public_id}
+              userId={reply.userId}
             />
           ))}
         </>

@@ -22,11 +22,11 @@ const CommentProto = ({
   profileUrl,
   nickname,
   content,
-  created_at,
-  postNum = '',
+  createdAt,
+  postNum,
   id,
   parentCommentId,
-  public_id
+  userId
 }: CommentPrototype) => {
   const { signedIn } = useGetSignedIn();
   const { userData } = useCachedUserInfo();
@@ -34,7 +34,7 @@ const CommentProto = ({
   const myComment = nickname === myUsername;
   const [profile, setProfile] = useState(profileUrl);
   const handleImgError = () => setProfile('');
-  const toProfilePage = useNavigateTo(`/profile/${public_id}`);
+  const toProfilePage = useNavigateTo(`/profile/${userId}`);
 
   const setSelectedComment = useSetRecoilState(commentState);
   const { scrollRef, setIsIntersected, isIntersected } = useDetectSlide(
@@ -81,7 +81,7 @@ const CommentProto = ({
           <UserName>{nickname}</UserName>
           <CommentText>{content}</CommentText>
           <OnComment className={Flex}>
-            <CommentedAt>{timestampToDate(created_at)}</CommentedAt>
+            <CommentedAt>{timestampToDate(createdAt)}</CommentedAt>
             {comment && (
               <Reply
                 nickname={nickname}

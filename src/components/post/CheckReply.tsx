@@ -14,13 +14,13 @@ const CheckReply = ({
 }) => {
   return (
     <>
-      {count !== 0 && !replies && (
+      {Number(count) > 0 && !replies && (
         <Container>
           <ToggleReply
             onClick={handleShowReplies}>{`${count}${loadMore}`}</ToggleReply>
         </Container>
       )}
-      {count !== 0 && replies && (
+      {Number(count) > 0 && replies && (
         <Container>
           <ToggleReply onClick={handleShowReplies}>{hide}</ToggleReply>
         </Container>
