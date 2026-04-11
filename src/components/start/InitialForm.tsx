@@ -34,10 +34,9 @@ import {
 const { message } = INITIAL_FORM_TEXTS;
 
 const InitialForm = () => {
-  useComposeHeader(false, '기본정보', 'close');
+  useComposeHeader('', '기본정보', 'close');
   useCancelSignUp();
   const navigate = useNavigate();
-  const inputRef = useRef<HTMLTextAreaElement | null>(null);
   const [userInit, setUserInit] = useRecoilState(authState);
   const isApproval = useRecoilValue(CheckNicknameState);
 
@@ -68,8 +67,6 @@ const InitialForm = () => {
   };
 
   const handleNextPage = () => {
-    inputRef.current?.value &&
-      setUserInit({ ...userInit, bio: inputRef.current?.value || null });
     navigate('/start/3', { state: imageFile });
   };
 
@@ -91,10 +88,10 @@ const InitialForm = () => {
       </ProfileContainer>
       <InputContainer className={Column}>
         <CheckNickname />
-        <InputAboutMe
+        {/* <InputAboutMe
           inputRef={inputRef}
           icon={false}
-        />
+        /> */}
       </InputContainer>
       <div className={StartPageBtnContainer}>
         <Button

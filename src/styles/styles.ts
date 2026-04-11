@@ -751,7 +751,7 @@ export const FooterTextSelected = cx(
 );
 
 export const HeaderText = cx(
-  Medium,
+  Semibold,
   css`
     color: #313131;
     font-size: var(--font-sizes-lg);

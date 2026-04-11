@@ -43,7 +43,7 @@ const Post = () => {
     return post.post;
   };
 
-  useComposeHeader(false, headerText(), 'close');
+  useComposeHeader('back', headerText(), '');
 
   const metaData = () => {
     if (register) {
