@@ -1,28 +1,34 @@
 import { useRecoilValue } from 'recoil';
 import {
   headerTextState,
-  headerLogoState,
-  headerIconsState
+  headerRightState,
+  headerLeftState
 } from '@/atoms/atoms';
 import HeaderCloseIcon from '@/components/common/HeaderCloseIcon';
 import HeaderIcons from '@/components/common/HeaderIcons';
+import Icon from '@/components/common/Icon';
+
 import { useNavigateTo } from '@/hooks/useNavigateTo';
-import { styled } from 'styled-system/jsx';
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+
 import { cx } from 'styled-system/css';
-import { Between, Flex, Align } from '@/styles/layout';
-import { HeaderText, PaddingL63, PaddingL24 } from '@/styles/styles';
+import { styled } from 'styled-system/jsx';
+import { Flex } from '@/styles/layout';
+import { HeaderText } from '@/styles/styles';
 
 const Header = () => {
-  const logo = useRecoilValue(headerLogoState);
+  const left = useRecoilValue(headerLeftState);
   const text = useRecoilValue(headerTextState);
-  const icon = useRecoilValue(headerIconsState);
+  const right = useRecoilValue(headerRightState);
 
-  const icons = icon === 'icons';
-  const close = icon === 'close';
+  const logo = left === 'logo';
+  const back = left === 'back';
+  const icons = right === 'icons';
+  const close = right === 'close';
 
   return (
-    <Container className={cx(Between, Align)}>
-      <Left onClick={useNavigateTo('/')}>
+    <Container>
+      <Left onClick={logo ? useNavigateTo('/') : useNavigateTo('-1')}>
         {logo && (
           <svg
             width={'80'}
@@ -30,14 +36,9 @@ const Header = () => {
             <use href={`/sprite.svg#icon-ddocker`} />
           </svg>
         )}
+        {back && <Icon {...iconPropsGenerator('back')} />}
       </Left>
-      <h2
-        className={cx(
-          icons ? PaddingL63 : close ? PaddingL24 : '',
-          HeaderText
-        )}>
-        {text}
-      </h2>
+      <H2 className={cx(HeaderText)}>{text}</H2>
       <Right className={Flex}>
         {icons && <HeaderIcons />}
         {close && <HeaderCloseIcon />}
@@ -47,22 +48,26 @@ const Header = () => {
 };
 
 const Container = styled.header`
+  height: 56px;
+  padding: calc(env(safe-area-inset-top)) 20px 0;
   position: sticky;
   top: 0;
-  padding: calc(env(safe-area-inset-top)) 20px 0;
-  height: 56px;
   background-color: #fff;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr auto 1fr;
   z-index: 99;
 `;
 
-const Nav = styled.nav`
-  display: inline-block;
+const H2 = styled.h2`
+  text-align: center;
 `;
 
-const Left = styled(Nav)``;
+const Left = styled.nav``;
 
 const Right = styled.span`
   gap: 15px;
+  justify-content: flex-end;
 `;
 
 export default Header;

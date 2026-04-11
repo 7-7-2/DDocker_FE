@@ -10,11 +10,12 @@ const CaffeineFilter = lazy(() => import('../components/home/CaffeineFilter'));
 const TodayCaffeineInfo = lazy(
   () => import('../components/home/TodayCaffeineInfo')
 );
-const HomeFooter = lazy(() => import('../components/home/HomeFooter'));
+const BrandCategory = lazy(() => import('../components/home/BrandCategory'));
 const WeeklyPopular = lazy(() => import('../components/home/WeeklyPopular'));
+const HomeFooter = lazy(() => import('../components/home/HomeFooter'));
 
 const Home = () => {
-  useComposeHeader(true, '', 'icons');
+  useComposeHeader('logo', '', 'icons');
   useGetUserInfo();
 
   return (
@@ -23,6 +24,9 @@ const Home = () => {
       <Container>
         <Suspense>
           <TodayCaffeineInfo />
+        </Suspense>
+        <Suspense>
+          <BrandCategory />
         </Suspense>
         <Suspense>
           <CaffeineFilter />

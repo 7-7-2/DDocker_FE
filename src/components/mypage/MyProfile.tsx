@@ -42,8 +42,7 @@ const { style: toastStyle, text } = TOAST_TEXT;
 
 const MyProfile = () => {
   useShowFooter(false);
-  // header 수정 예정
-  useComposeHeader(false, '내 프로필 수정', 'close');
+  useComposeHeader('back', '내 프로필 수정', '');
   const navigate = useNavigate();
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
   const { userData, userId } = useCachedUserInfo();

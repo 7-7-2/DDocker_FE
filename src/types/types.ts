@@ -17,9 +17,9 @@ export interface LazyRouteType {
   path: string;
 }
 export interface HeaderType {
-  logo?: boolean;
+  left?: string;
   text?: string;
-  icon?: string;
+  right?: string;
 }
 
 export interface AuthTypes {
@@ -118,13 +118,13 @@ export interface CachedData {
 }
 
 export interface TodayCoffeeInfoTypes {
-  caffeineSum: number;
-  allCount: number;
-  item: [TodayCoffeeInfoItemTypes];
+  todayCaffeine: number;
+  todayCups: number;
+  items: [TodayCoffeeInfoItemTypes];
 }
 
 export interface TodayCoffeeInfoItemTypes {
-  brand: string;
+  brandName: string;
   caffeine: number;
 }
 

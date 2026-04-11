@@ -26,9 +26,9 @@ const MemberProfile = ({
   userId: string;
   profileId: string | undefined;
 }) => {
-  //TODO : list type 
-  const [viewTypsState, setViewTypeState] = useState('grid')
-  const ProfilePostIQParam: InfinitePosts = getProfilePostIQParam(viewTypsState);
+  const [viewTypsState, setViewTypeState] = useState('grid');
+  const ProfilePostIQParam: InfinitePosts =
+    getProfilePostIQParam(viewTypsState);
   const {
     data,
     ref: postRef,
@@ -42,7 +42,6 @@ const MemberProfile = ({
       return getPostCounts(userId);
     }
   });
-
 
   const followCountData = {
     userId: profileId,

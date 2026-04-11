@@ -18,17 +18,17 @@ export const registerBtnActiveState = atom({
   default: false
 });
 
-export const headerLogoState = atom({
-  key: 'headerLogoState',
-  default: false
+export const headerLeftState = atom({
+  key: 'headerLeftState',
+  default: ''
 });
 
 export const headerTextState = atom({
   key: 'headerTextState',
   default: ''
 });
-export const headerIconsState = atom({
-  key: 'headerIconsState',
+export const headerRightState = atom({
+  key: 'headerRightState',
   default: ''
 });
 export const footerShowState = atom({

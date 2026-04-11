@@ -1,25 +1,25 @@
 import { useLayoutEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 import {
-  headerLogoState,
-  headerTextState,
-  headerIconsState
+  headerLeftState,
+  headerRightState,
+  headerTextState
 } from '@/atoms/atoms';
 import { HeaderType } from '@/types/types';
 
 export const useComposeHeader = <T extends HeaderType>(
-  logo: T['logo'] = false,
+  left: T['left'] = '',
   text: T['text'] = '',
-  icon: T['icon'] = ''
+  right: T['right'] = ''
 ) => {
-  const setLogoState = useSetRecoilState(headerLogoState);
+  const setLeftState = useSetRecoilState(headerLeftState);
   const setTextState = useSetRecoilState(headerTextState);
-  const setIconsState = useSetRecoilState(headerIconsState);
+  const setRightState = useSetRecoilState(headerRightState);
 
   useLayoutEffect(() => {
-    setLogoState(logo);
+    setLeftState(left);
     setTextState(text);
-    setIconsState(icon);
+    setRightState(right);
   }, [text]);
 
   return null;

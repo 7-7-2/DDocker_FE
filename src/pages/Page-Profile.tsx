@@ -24,12 +24,18 @@ const { signIn2 } = BUTTON_TEXTS;
 const { signIn } = MODAL_CTA_TEXTS;
 
 const Profile = () => {
-  useComposeHeader(true, '', 'icons');
   const { userId: profileId } = useParams();
   const { userId } = useCachedUserInfo();
   const isModal = useRecoilValue(isModalState);
   const goToSignIn = useNavigateTo('/start/1');
   const nonMembers = profileId === nonMemberId;
+  const haneleProfileHeader = () => {
+    if (nonMembers) {
+      return ['back', `${profileId}`, ''];
+    }
+    return ['', 'MY PAGE', 'icons'];
+  };
+  useComposeHeader(...haneleProfileHeader());
 
   const handleActions: React.MouseEventHandler<HTMLButtonElement> = () => {
     goToSignIn();
@@ -39,13 +45,13 @@ const Profile = () => {
     ...SEO_DATA.profile,
     pageUrl: `${SEO_DATA.profile.pageUrl}/${profileId}`
   };
-
+  console.log(nonMembers, profileId);
   return (
     <>
       <SEOMeta pageData={pageData} />
       {!nonMembers ? (
         <>
-          {isModal && !userId && (
+          {/* {isModal && !userId && (
             <Suspense>
               <ModalCTA
                 actionText={signIn2}
@@ -53,7 +59,7 @@ const Profile = () => {
                 fn={handleActions}
               />
             </Suspense>
-          )}
+          )} */}
           <Suspense>
             <MemberProfile
               userId={userId}
