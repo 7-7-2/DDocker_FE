@@ -23,6 +23,7 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true, //함수에서 return 빼먹으면 에러내기
     "baseUrl": "./", // baseUrl을 기준으로 관련된 위치에 모듈 이름의 경로 매핑 목록을 나열합니다.
+    "ignoreDeprecations": "6.0",
     "paths": {
       "@/*": ["src/*"],
       "pages/*": ["src/pages/*"],
