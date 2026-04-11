@@ -165,7 +165,7 @@ export const setPostRegist = async (postInfo: RegisterPostTypes) => {
 export const getTodayCoffeeInfo = async () => {
   try {
     const res = await authInstance.get('/caffeine/today');
-    return res.data.data.items;
+    return res.data.data;
   } catch (error) {
     console.log('Failed to get Today coffee Info', error);
   }
