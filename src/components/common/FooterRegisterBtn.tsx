@@ -10,7 +10,12 @@ import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { BtnColorMain, BtnColorWhite, RegisterModalBtnTop, RegisterModalBtnBottom } from '@/styles/styles';
+import {
+  BtnColorMain,
+  BtnColorWhite,
+  RegisterModalBtnTop,
+  RegisterModalBtnBottom
+} from '@/styles/styles';
 import { Center, Flex } from '@/styles/layout';
 
 const FooterRegisterBtn = ({ icon }: { icon: string }) => {
@@ -68,7 +73,9 @@ const RegisterBtn = styled.div`
   margin-top: -2px;
   z-index: 999;
   border-radius: 50px;
-  transition: background-color 0.2s, transform 0.2s ease-in-out;
+  transition:
+    background-color 0.2s,
+    transform 0.2s ease-in-out;
 `;
 
 const Background = styled.div`
