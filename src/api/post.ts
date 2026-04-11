@@ -45,7 +45,7 @@ export const updatePost = async (postId: string, postInfo: Object) => {
 // 5. 댓글 작성(+JWT 인증)
 export const writeComment = async (comment: CommentInput) => {
   const res = await authInstance
-    .post(`/posts/${comment.parentId}/comments`, { content: comment.content })
+    .post(`/comments`, { postId: comment.parentId, content: comment.content })
     .catch(e => {
       console.log(e);
     });
@@ -55,7 +55,7 @@ export const writeComment = async (comment: CommentInput) => {
 // 6. 댓글 삭제(+JWT 인증)
 export const deleteComment = async (postId: string, commentId: number) => {
   const res = await authInstance
-    .delete(`/posts/${postId}/comments/${commentId}`)
+    .delete(`/comments`, { data: { commentId: commentId, postId: postId } })
     .catch(e => {
       console.log(e);
     });
@@ -65,7 +65,11 @@ export const deleteComment = async (postId: string, commentId: number) => {
 // 7. 답글 작성(+JWT 인증)
 export const replyComment = async (comment: CommentInput) => {
   const res = await authInstance
-    .post(`/posts/${comment.parentId}/reply`, { content: comment.content })
+    .post(`/comments/reply`, {
+      postId: comment.postId,
+      commentId: comment.parentId,
+      content: comment.content
+    })
     .catch(e => {
       console.log(e);
     });
@@ -73,9 +77,9 @@ export const replyComment = async (comment: CommentInput) => {
 };
 
 // 8. 답글 삭제(+JWT 인증)
-export const deleteReply = async (commentId: number) => {
+export const deleteReply = async (postId: string, replyId: number, parentCommentId: number) => {
   const res = await authInstance
-    .delete(`/posts/reply/${commentId}`)
+    .delete(`/comments/reply`, { data: { replyId: replyId, postId: postId, commentId: parentCommentId } })
     .catch(e => {
       console.log(e);
     });
@@ -92,9 +96,11 @@ export const getComments = async (postId: string) => {
 
 // 10. 댓글 하단 더보기 클릭시 답글목록 조회
 export const getReply = async (commentId: number) => {
-  const res = await baseInstance.get(`/posts/${commentId}/reply`).catch(e => {
-    console.log(e);
-  });
+  const res = await baseInstance
+    .get(`/comments/${commentId}/replies`)
+    .catch(e => {
+      console.log(e);
+    });
   return res && res.data;
 };
 

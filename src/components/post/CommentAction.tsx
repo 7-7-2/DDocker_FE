@@ -28,15 +28,15 @@ const CommentAction = ({
     mutationFn: async () => {
       if (comment && postNum) {
         await deleteComment(postNum, id);
-      } else {
-        await deleteReply(id);
+      } else if (postNum && parentCommentId && !comment) {
+        await deleteReply(postNum, id, parentCommentId);
       }
     },
     onSuccess: () => {
       if (comment && postNum) {
         queryClient.invalidateQueries({ queryKey: ['commentData', postNum] });
         queryClient.invalidateQueries({ queryKey: ['socialCounts', postNum] });
-      } else {
+      } else if (postNum && parentCommentId && !comment) {
         queryClient.invalidateQueries({
           queryKey: ['replyList', parentCommentId]
         });

@@ -31,10 +31,17 @@ const PostInput = memo(
 
     const commentTo =
       selectedReply && selectedReply.id === 0 ? postId : selectedReply.id;
-    const commentValue = {
-      parentId: commentTo,
-      content: value
-    };
+    const commentValue =
+      selectedReply && selectedReply.id === 0
+        ? {
+            parentId: commentTo,
+            content: value
+          }
+        : {
+            postId: postId,
+            parentId: commentTo,
+            content: value
+          };
 
     const commentOrReply =
       selectedReply && selectedReply.id === 0 ? writeComment : replyComment;

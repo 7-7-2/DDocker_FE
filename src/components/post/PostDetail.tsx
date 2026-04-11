@@ -139,7 +139,7 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
             intensity={postData.data.intensity}
             size={postData.data.size}
           />
-          <PostedAt at={timestampToDate(postData.data.created_at)} />
+          <PostedAt at={timestampToDate(postData.data.createdAt)} />
           <div className={Divider} />
 
           <InputContext.Provider value={{ inputRef }}>

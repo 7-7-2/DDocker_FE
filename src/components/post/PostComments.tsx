@@ -43,11 +43,11 @@ const PostComments = ({
                   profileUrl={comment.profileUrl}
                   nickname={comment.nickname}
                   content={comment.content}
-                  created_at={comment.created_at}
-                  reply_count={comment.reply_count}
+                  createdAt={comment.createdAt}
+                  replyCount={comment.replyCount}
                   postNum={postNum}
                   id={comment.id}
-                  public_id={comment.public_id}
+                  userId={comment.userId}
                 />
               </React.Fragment>
             ))}

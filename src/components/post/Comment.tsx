@@ -8,11 +8,11 @@ const Comment = ({
   profileUrl,
   nickname,
   content,
-  created_at,
-  reply_count,
+  createdAt,
+  replyCount,
   postNum,
   id,
-  public_id
+  userId
 }: CommentType) => {
   const { toggle, handleToggle } = useToggle();
   return (
@@ -21,17 +21,18 @@ const Comment = ({
         profileUrl={profileUrl}
         nickname={nickname}
         content={content}
-        created_at={created_at}
+        createdAt={createdAt}
         postNum={postNum}
         id={id}
-        public_id={public_id}
+        userId={userId}
       />
       <Replies
         replies={toggle}
         commentId={id}
+        postNum={postNum}
       />
       <CheckReply
-        count={reply_count}
+        count={replyCount}
         replies={toggle}
         handleShowReplies={handleToggle}
       />

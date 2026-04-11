@@ -218,22 +218,21 @@ export interface CommentType {
   profileUrl: string;
   nickname: string;
   content: string;
-  created_at: string;
-  reply_count: number;
+  createdAt: string;
+  replyCount: number;
   postNum: string;
   id: number;
-  public_id: string;
+  userId: string;
 }
 
 export interface CommentPrototype
-  extends Omit<CommentType, 'reply_count' | 'postNum'> {
+  extends Omit<CommentType, 'replyCount'> {
   comment?: boolean;
-  postNum?: string;
   parentCommentId?: number;
 }
 export type Reply = Pick<
   CommentType,
-  'profileUrl' | 'nickname' | 'content' | 'created_at' | 'id' | 'public_id'
+  'profileUrl' | 'nickname' | 'content' | 'createdAt' | 'id' | 'userId'
 >;
 
 export interface FollowingPost extends SimplifyUser {
@@ -298,6 +297,7 @@ export interface InfiniteSearchList {
 export interface CommentInput {
   parentId: string | number;
   content: string;
+  postId?: string
 }
 
 export interface TabsText {
