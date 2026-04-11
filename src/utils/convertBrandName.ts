@@ -42,6 +42,9 @@ export const brandMapToKor = (brandName: string) => {
   if (brandName === 'mammoth') {
     return '매머드커피';
   }
+  if (brandName === 'twosome') {
+    return '투썸플레이스';
+  }
   if (brandName === 'private') {
     return '나만의 카페';
   }
@@ -64,6 +67,7 @@ export const brandMapToEng = (brandName: string) => {
     탐앤탐스: 'tomntoms',
     커피빈: 'coffeebean',
     매머드커피: 'mammoth',
+    투썸플레이스: 'twosome',
     '나만의 카페': 'private'
   };
   return brandObj[brandName];
