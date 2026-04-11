@@ -39,7 +39,7 @@ const CaffeineFilter = () => {
 };
 
 const Container = styled.div`
-  margin: 32px 0;
+  margin: 24px 0 28px;
 `;
 
 export default CaffeineFilter;

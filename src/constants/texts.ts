@@ -1,7 +1,4 @@
 export const TEXT = {
-  deleteAccount: '회원 탈퇴',
-  signOutBtn: '로그아웃',
-  saveButton: '저장하기',
   addedcaffeine: '누적 카페인',
   mgLabel: 'mg',
   cancelBtn: '취소',
@@ -77,8 +74,7 @@ export const POST_REGISTER_TEXTS = {
     },
     coffeeOptionText: ['커피 브랜드', '커피 메뉴', '커피 옵션', '등록일'],
     addFavoriteMenu: {
-      ModalText: '즐겨찾는 메뉴로 등록하시겠어요?',
-      addedText: '즐겨찾는 메뉴로 등록되었어요.'
+      ModalText: '즐겨찾는 메뉴로 등록하시겠어요?'
     }
   }
 };

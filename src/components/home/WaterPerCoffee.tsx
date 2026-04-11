@@ -32,10 +32,11 @@ const WaterPerCoffee = () => {
   const { coffeeInfo: todayCoffeeData } = useGetTodayCoffeeData();
   const navigateToStart = useNavigateTo('/start/1');
   const navigateToRegister = useNavigateTo('/post/register');
+
   return (
     <Container
       className={cx(
-        todayCoffeeData?.allCount && todayCoffeeData?.allCount >= 1
+        todayCoffeeData?.todayCups && todayCoffeeData?.todayCups >= 1
           ? CosumedCoffee
           : Default,
         Align,
@@ -53,7 +54,7 @@ const WaterPerCoffee = () => {
           </Suspense>
         </div>
       )}
-      {user.nickname && !todayCoffeeData?.allCount && (
+      {user.nickname && !todayCoffeeData?.todayCups && (
         <div className={cx(Column, Center, MarginAuto)}>
           <span className={AlertMessage}>{signedIn.card.notConsumed}</span>
           <Suspense>
@@ -66,20 +67,20 @@ const WaterPerCoffee = () => {
         </div>
       )}
       {user.nickname &&
-        todayCoffeeData?.allCount &&
-        todayCoffeeData?.allCount >= 1 && (
+        todayCoffeeData?.todayCups &&
+        todayCoffeeData?.todayCups >= 1 && (
           <ConsumedCoffeeContainer className={Column}>
             <div className={cx(Flex, Between)}>
               <Suspense>
                 <CoffeeIntake data={todayCoffeeData} />
               </Suspense>
               <Suspense>
-                <WaterIntake coffeeCount={todayCoffeeData?.allCount} />
+                <WaterIntake coffeeCount={todayCoffeeData?.todayCups} />
               </Suspense>
             </div>
             <TodayMenuList className={Flex}>
-              {todayCoffeeData?.allCount !== null &&
-                todayCoffeeData?.item.map((item, idx) => (
+              {todayCoffeeData?.todayCups !== null &&
+                todayCoffeeData?.items.map((item, idx) => (
                   <TodayMenuItem
                     data={item}
                     key={idx}

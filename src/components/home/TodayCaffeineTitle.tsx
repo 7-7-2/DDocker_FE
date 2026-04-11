@@ -16,8 +16,10 @@ const TodayCaffeineTitle = ({
   caffeineSum: number | undefined;
 }) => {
   const user = useRecoilValue(userInfoState);
-  const remained = caffeineSum && 400 - caffeineSum;
+  const remained = caffeineSum !== undefined && 400 - caffeineSum;
   const over = remained && remained > 0;
+  // 수정예정
+  const notCounsumed = String(allCount) === '0';
 
   return (
     <div>
@@ -26,30 +28,30 @@ const TodayCaffeineTitle = ({
           {user?.nickname}
           {signedIn.sir}
         </span>
-        {allCount && <span>{over ? sub.default[0] : sub.over[0]}</span>}
+        {!notCounsumed && <span>{over ? sub.default[0] : sub.over[0]}</span>}
         <div>
-          <CaffeineInfo className={Bold}>
-            {!allCount
+          <EmphasizeText className={Bold}>
+            {notCounsumed
               ? emphasize.notCounsumed
               : over
                 ? `${remained}${emphasize.default}`
                 : emphasize.over}
-          </CaffeineInfo>
+          </EmphasizeText>
           <span>
-            {!allCount
+            {notCounsumed
               ? sub.notCounsumed[0]
               : over
                 ? sub.default[1]
                 : sub.over[1]}
           </span>
         </div>
-        <span>{!allCount && sub.notCounsumed[1]}</span>
+        <span>{notCounsumed && sub.notCounsumed[1]}</span>
       </div>
     </div>
   );
 };
 
-const CaffeineInfo = styled.span`
+const EmphasizeText = styled.span`
   color: var(--colors-main);
 `;
 

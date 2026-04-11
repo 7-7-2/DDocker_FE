@@ -81,7 +81,8 @@ export const BUTTON_TEXTS = {
   cancel: '취소',
   delete: '삭제',
   imgDelete: '이미지 삭제',
-  save: '저장하기'
+  save: '저장하기',
+  viewAll: '전체보기'
 };
 
 export const TABS_TEXTS: TabsText = {

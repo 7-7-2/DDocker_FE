@@ -56,6 +56,12 @@ export const CAFFEINE_FILTER_TEXTS = {
     intensityOption: ['연하게', '기본']
   }
 };
+export const HOME_TEXTS = {
+  brandCategory: {
+    brandList: ['starbucks', 'megacoffee', 'twosome', 'bbak', 'ediya'],
+    title: '브랜드 카테고리'
+  }
+};
 
 export const CAFFEINE_INFO_TEXTS = {
   title: '총 카페인 함량',
