@@ -31,7 +31,7 @@ export const useGetTodayCoffeeData = () => {
     if (
       data &&
       todayCoffeeData &&
-      todayCoffeeData.allCount === data.cacheData.allCount
+      todayCoffeeData.todayCups === data.cacheData.todayCups
     ) {
       setCoffeeInfo(data.cacheData);
       return;
@@ -39,7 +39,7 @@ export const useGetTodayCoffeeData = () => {
     if (
       data &&
       todayCoffeeData &&
-      todayCoffeeData.allCount !== data.cacheData.allCount
+      todayCoffeeData.todayCups !== data.cacheData.todayCups
     ) {
       useSetCacheData('user', '/coffee', todayCoffeeData);
       useDeleteCacheData('user', userUrl);

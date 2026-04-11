@@ -16,10 +16,9 @@ const TodayCaffeineText = () => {
   const takedWater = useRecoilValue(takedWaterState);
   const user = useRecoilValue(userInfoState);
   const { coffeeInfo: todayCoffeeData } = user && useGetTodayCoffeeData();
-  const caffeineSum = todayCoffeeData?.caffeineSum;
-  const allCount = todayCoffeeData?.allCount;
+  const caffeineSum = todayCoffeeData?.todayCaffeine;
+  const allCount = todayCoffeeData?.todayCups;
   const waterPerCoffeeCount = allCount && allCount * 2 - takedWater;
-
   return (
     <div className={HomeHeaderContent}>
       <div className={cx(Align, Between)}>
