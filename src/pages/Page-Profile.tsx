@@ -45,7 +45,7 @@ const Profile = () => {
     ...SEO_DATA.profile,
     pageUrl: `${SEO_DATA.profile.pageUrl}/${profileId}`
   };
-  console.log(nonMembers, profileId);
+
   return (
     <>
       <SEOMeta pageData={pageData} />

@@ -91,7 +91,6 @@ const CoffeeMenuSelection = () => {
   const selectMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
     getMenuInfo(e.currentTarget.value);
     setRegisterData('productName', e.currentTarget.value);
-    console.log(e.currentTarget.value);
   };
 
   const slectBoxType = register ? 'commonBaseSize' : 'commonSmSize';
