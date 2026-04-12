@@ -1,4 +1,5 @@
 import Icon from '@/components/common/Icon';
+
 import { LABEL_TEXTS } from '@/constants/common';
 import { LabelProps } from '@/types/types';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
@@ -6,7 +7,7 @@ import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Align, Between } from '@/styles/layout';
-import { HomeRegistContainer, InputByteCheck } from '@/styles/styles';
+import { HomeRegistContainer } from '@/styles/styles';
 
 const { nickname, aboutMe, favBrand } = LABEL_TEXTS;
 
@@ -20,17 +21,18 @@ export const Label = ({
   const nicknameCheckIcon =
     label == nickname.label && message && message === nickname.message.approval;
   const aboutMeIcon =
-    label === aboutMe.label && initValue && initValue !== inputValue;
+    label === aboutMe.label && initValue
+      ? initValue !== inputValue
+      : inputValue;
   const favBrandIcon =
-    label === favBrand &&
-    ((initValue && initValue !== inputValue) || (!initValue && inputValue));
-
+    label === favBrand && initValue && initValue !== inputValue;
   const alretMessage =
     message && message === nickname.message.approval
       ? ConfirmMessage
       : ErrorMessage;
 
-  const defaultIconStyle = aboutMeIcon || favBrandIcon ? 'check-done' : 'check';
+  const favBrnadIconStyle = favBrandIcon ? 'check-done' : 'check';
+  const aboutMeIconStyle = aboutMeIcon ? 'check-done' : 'check';
   const nicknameIconStyle = nicknameCheckIcon
     ? 'check-done'
     : !message
@@ -43,10 +45,12 @@ export const Label = ({
         <LabelText className={HomeRegistContainer}>{label}</LabelText>
         {icon && (
           <>
-            {label != nickname.label ? (
-              <Icon {...iconPropsGenerator(defaultIconStyle, '18')} />
-            ) : (
+            {label === nickname.label ? (
               <Icon {...iconPropsGenerator(nicknameIconStyle, '18')} />
+            ) : label === favBrand ? (
+              <Icon {...iconPropsGenerator(favBrnadIconStyle, '18')} />
+            ) : (
+              <Icon {...iconPropsGenerator(aboutMeIconStyle, '18')} />
             )}
           </>
         )}
