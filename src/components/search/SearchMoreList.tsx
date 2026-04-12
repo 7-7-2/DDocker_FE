@@ -18,7 +18,6 @@ const SearchMoreList = ({
     SearchListMoreUserIQParam(search, initialCursor),
     searchText
   );
-  console.log(searchMoreList)
   const mapSearchList = (user: SimplifyUser) => {
     return (
       <Container key={user.userId}>

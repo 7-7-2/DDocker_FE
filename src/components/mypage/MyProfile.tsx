@@ -73,7 +73,8 @@ const MyProfile = () => {
     const currentPath = path === null ? null : (path as string);
     return {
       ...(userData.aboutMe !== currentBio && { bio: currentBio }),
-      ...(userData.nickname !== editNickname && { nickname: editNickname }),
+      ...(editNickname &&
+        userData.nickname !== editNickname && { nickname: editNickname }),
       ...(path !== undefined && { profileUrl: currentPath }),
       ...(userData.brand !== selectedFavBrand && { brand: selectedFavBrand }),
       ...(userData.visibility !== visibility && { visibility: visibility })
@@ -81,8 +82,12 @@ const MyProfile = () => {
   };
 
   const handlClickBtn = () => async () => {
-    if (userData.nickname !== editNickname && editNickname && !isApproval) {
+    if (isApproval === null) {
       toast.success(text.nickname, toastStyle);
+      return;
+    }
+    if (isApproval === false) {
+      toast.success(text.unavailable, toastStyle);
       return;
     }
     const imgState = await handleProfileImg();
@@ -91,8 +96,8 @@ const MyProfile = () => {
       : isDeleted
         ? await handleEditProfileData(null)
         : await handleEditProfileData();
-    await editProfile(editData);
-    await getMyInfo();
+    editData && (await editProfile(editData));
+    editData && (await getMyInfo());
     (imgState || isDeleted) && setCacheState(false);
     return imgState ? goToMyProfile(imgState) : goToMyProfile();
   };

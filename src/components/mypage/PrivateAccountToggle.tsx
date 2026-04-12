@@ -18,7 +18,7 @@ const PrivateAccountToggle = () => {
   const [isToggle, setIsToggle] = useState(!userInit?.visibility);
 
   const editUserInfo = () => {
-    setUserInit({ visibility: accountVisibilty });
+    setUserInit({ ...userInit, visibility: accountVisibilty });
   };
   const accountVisibilty = !isToggle ? 0 : 1;
 

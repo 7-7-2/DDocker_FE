@@ -82,6 +82,7 @@ export interface InputProps {
   handleEvent?: () => void;
   inputRef?: RefObject<HTMLInputElement>;
   inputValue?: string;
+  placeholder?: string;
   handleChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   handleKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
