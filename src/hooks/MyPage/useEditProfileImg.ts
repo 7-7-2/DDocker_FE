@@ -39,15 +39,12 @@ export const useEditProfileImg = () => {
   };
 
   const handleProfileImg = async () => {
-    console.log(isDeleted);
     if (isDeleted) {
       await deleteStorage('user', userId, '');
       return null;
     }
     const uploaded =
       imageFile && (await uploadStorage('user', userId, '', imageFile));
-    console.log(uploaded);
-
     return uploaded;
   };
 
