@@ -18,7 +18,8 @@ export const Input = ({
   inputRef,
   inputValue,
   handleChange,
-  handleKeyDown
+  handleKeyDown,
+  placeholder
 }: InputProps) => {
   const { nickname, comment, title, search } = INPUT_TEXTS.type;
   let submitBtn;
@@ -37,6 +38,18 @@ export const Input = ({
       );
       inputLength = 8;
       inputPlaceholder = nickname.placeholder;
+      break;
+    case nickname.edit:
+      submitBtn = (
+        <button
+          className={cx(nicknameBtn, InputFontSm)}
+          type="button"
+          onClick={handleEvent}>
+          {nickname.btnText}
+        </button>
+      );
+      inputLength = 8;
+      inputPlaceholder = placeholder;
       break;
     case comment.typeName:
       submitBtn = (

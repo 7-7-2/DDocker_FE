@@ -8,7 +8,6 @@ export const getSocialAuth = async (social: string, unlink?: boolean) => {
     const res = !unlink
       ? await baseInstance.get(`auth/${social}/url`)
       : await baseInstance.get(`auth/${social}/unlink`);
-    console.log(res);
     // redirect url
     window.location.href = res.data.data.url;
     await useSetCacheData('user', '/social', social);

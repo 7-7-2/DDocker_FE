@@ -17,12 +17,12 @@ const { nickname } = INPUT_TEXTS.type;
 const { message } = LABEL_TEXTS.nickname;
 
 const CheckNickname = ({ userNickname }: { userNickname?: string }) => {
-  const [userInit, setUserInit] = useRecoilState(authState);
   const [isApproval, setIsapproval] = useRecoilState(CheckNicknameState);
   const [initValue, setInitValue] = useState<string>('');
   const { value, onChange: handleChange } = useInput(userNickname);
 
-  const { isInvalid, isInsufficient } = useValidateNickname(value);
+  const { isInvalid, isInsufficient, noneEdit, setNickname } =
+    useValidateNickname(value, setIsapproval, userNickname);
 
   const cilckIdCheckBtn = async () => {
     try {
@@ -30,14 +30,19 @@ const CheckNickname = ({ userNickname }: { userNickname?: string }) => {
       const exists = validate && !(await checkNickname(value));
       setIsapproval(exists);
       setInitValue(value);
-      validate && exists
-        ? setUserInit({ ...userInit, nickname: value })
-        : setUserInit({ ...userInit, nickname: '' });
+      validate && exists && setNickname();
     } catch (error) {
       console.log(error);
     }
   };
+
   const getAllertMessage = () => {
+    if (noneEdit) {
+      return undefined;
+    }
+    if (userNickname && value.length === 0) {
+      return undefined;
+    }
     if (userNickname !== value && isInsufficient) {
       return message.Insufficien;
     }
@@ -47,7 +52,7 @@ const CheckNickname = ({ userNickname }: { userNickname?: string }) => {
     if (isApproval && initValue === value) {
       return message.approval;
     }
-    if (!isApproval === false && !initValue) {
+    if (isApproval === false) {
       return message.disapproval;
     }
     return undefined;
@@ -65,9 +70,10 @@ const CheckNickname = ({ userNickname }: { userNickname?: string }) => {
       />
       <Input
         inputValue={value}
-        type={nickname.typeName}
+        type={nickname.edit}
         handleEvent={cilckIdCheckBtn}
         handleChange={handleChange}
+        placeholder={userNickname}
       />
     </div>
   );

@@ -26,18 +26,18 @@ export const Label = ({
       : inputValue;
   const favBrandIcon =
     label === favBrand && initValue && initValue !== inputValue;
-  const alretMessage =
-    message && message === nickname.message.approval
-      ? ConfirmMessage
-      : ErrorMessage;
-
   const favBrnadIconStyle = favBrandIcon ? 'check-done' : 'check';
   const aboutMeIconStyle = aboutMeIcon ? 'check-done' : 'check';
   const nicknameIconStyle = nicknameCheckIcon
     ? 'check-done'
-    : !message
+    : message === undefined
       ? 'check'
       : 'check-fail';
+
+  const alretMessage =
+    message && message === nickname.message.approval
+      ? ConfirmMessage
+      : ErrorMessage;
 
   return (
     <LabelContainer className={cx(Align, Between)}>

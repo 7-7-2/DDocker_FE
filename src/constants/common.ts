@@ -14,6 +14,7 @@ export const INPUT_TEXTS = {
   type: {
     nickname: {
       typeName: 'nickname',
+      edit: 'nicknameEdit',
       btnText: '중복확인',
       placeholder: '닉네임을 입력하세요.'
     },
@@ -137,6 +138,7 @@ export const TOAST_TEXT = {
   } as const,
   text: {
     nickname: '닉네임 중복확인을 해주세요.',
+    unavailable: '닉네임 설정을 완료해주세요.',
     favMenu: '즐겨찾는 메뉴로 등록되었어요.'
   }
 };

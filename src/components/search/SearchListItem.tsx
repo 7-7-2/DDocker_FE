@@ -11,7 +11,6 @@ const SearchMoreList = lazy(() => import('@/components/search/SearchMoreList'));
 
 const SearchListItem = memo(({ users, search }: SearchList) => {
   const [loadMore, setLoadMore] = useState(false);
-  console.log(users)
   const { mutate, mutateHistory } = useSetHistory();
   const handleAddUserHistory = (user: SimplifyUser) => () => {
     mutate(user);
