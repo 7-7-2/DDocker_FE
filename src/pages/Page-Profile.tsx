@@ -29,13 +29,6 @@ const Profile = () => {
   const isModal = useRecoilValue(isModalState);
   const goToSignIn = useNavigateTo('/start/1');
   const nonMembers = profileId === nonMemberId;
-  const haneleProfileHeader = () => {
-    if (nonMembers) {
-      return ['back', `${profileId}`, ''];
-    }
-    return ['', 'MY PAGE', 'icons'];
-  };
-  useComposeHeader(...haneleProfileHeader());
 
   const handleActions: React.MouseEventHandler<HTMLButtonElement> = () => {
     goToSignIn();
