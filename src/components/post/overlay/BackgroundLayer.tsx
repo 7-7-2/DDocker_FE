@@ -1,3 +1,4 @@
+import { DVW } from '@/styles/layout';
 import { styled } from 'styled-system/jsx';
 export const BackgroundLayer = ({
   children,
@@ -8,7 +9,10 @@ export const BackgroundLayer = ({
 }) => {
   return (
     <>
-      <Background onClick={onClick} />
+      <Background
+        onClick={onClick}
+        className={DVW}
+      />
       {children}
     </>
   );
@@ -18,8 +22,8 @@ const Background = styled.div`
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
   z-index: 99;
-  width: 100%;
-  height: calc(100%);
+  height: 100dvh;
   background-color: rgba(0, 0, 0, 0.55);
 `;
