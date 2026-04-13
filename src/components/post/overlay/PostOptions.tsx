@@ -1,19 +1,20 @@
-import { Column } from '@/styles/layout';
+import { Column, DVW } from '@/styles/layout';
 import { ReactNode } from 'react';
+import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 
 export const PostOptions = ({ children }: { children: ReactNode }) => {
-  return <Overlay className={Column}>{children}</Overlay>;
+  return <Container className={cx(Column, DVW)}>{children}</Container>;
 };
 
-const Overlay = styled.div`
+const Container = styled.div`
   border-radius: 16px 16px 0 0;
-  width: 100%;
-  padding: 28px 0 28px 20px;
+  padding: 30px 0 30px 20px;
   background-color: white;
-  bottom: -50px;
   left: 0;
-  position: absolute;
-  z-index: 999;
-  gap: 24px;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  z-index: 9999;
+  gap: 32px;
 `;
