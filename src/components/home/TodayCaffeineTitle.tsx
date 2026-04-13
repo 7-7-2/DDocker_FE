@@ -18,8 +18,7 @@ const TodayCaffeineTitle = ({
   const user = useRecoilValue(userInfoState);
   const remained = caffeineSum !== undefined && 400 - caffeineSum;
   const over = remained && remained > 0;
-  // 수정예정
-  const notCounsumed = String(allCount) === '0';
+  const notCounsumed = allCount === 0;
 
   return (
     <div>
