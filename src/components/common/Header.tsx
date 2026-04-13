@@ -1,13 +1,15 @@
 import { useRecoilValue } from 'recoil';
+
+import HeaderCloseIcon from '@/components/common/HeaderCloseIcon';
+import HeaderActionIcon from '@/components/common/HeaderActionIcon';
+import HeaderIcons from '@/components/common/HeaderIcons';
+import Icon from '@/components/common/Icon';
+
 import {
   headerTextState,
   headerRightState,
   headerLeftState
 } from '@/atoms/atoms';
-import HeaderCloseIcon from '@/components/common/HeaderCloseIcon';
-import HeaderIcons from '@/components/common/HeaderIcons';
-import Icon from '@/components/common/Icon';
-
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
@@ -25,6 +27,7 @@ const Header = () => {
   const back = left === 'back';
   const icons = right === 'icons';
   const close = right === 'close';
+  const action = right === 'action';
 
   return (
     <Container>
@@ -42,6 +45,7 @@ const Header = () => {
       <Right className={Flex}>
         {icons && <HeaderIcons />}
         {close && <HeaderCloseIcon />}
+        {action && <HeaderActionIcon />}
       </Right>
     </Container>
   );

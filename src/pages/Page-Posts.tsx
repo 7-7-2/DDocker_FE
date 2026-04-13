@@ -10,7 +10,7 @@ const PostsFollowing = lazy(
 const PostsTrend = lazy(() => import('../components/posts/trend/PostsTrend'));
 
 export const Posts = () => {
-  useComposeHeader(true, '', 'icons');
+  useComposeHeader('logo', '', 'icons');
   const [postsTab, setPostsTab] = useState(TABS_TEXTS.trend[0]);
 
   return (
