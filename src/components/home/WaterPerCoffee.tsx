@@ -66,29 +66,27 @@ const WaterPerCoffee = () => {
           </Suspense>
         </div>
       )}
-      {user.nickname &&
-        todayCoffeeData?.todayCups &&
-        todayCoffeeData?.todayCups >= 1 && (
-          <ConsumedCoffeeContainer className={Column}>
-            <div className={cx(Flex, Between)}>
-              <Suspense>
-                <CoffeeIntake data={todayCoffeeData} />
-              </Suspense>
-              <Suspense>
-                <WaterIntake coffeeCount={todayCoffeeData?.todayCups} />
-              </Suspense>
-            </div>
-            <TodayMenuList className={Flex}>
-              {todayCoffeeData?.todayCups !== null &&
-                todayCoffeeData?.items.map((item, idx) => (
-                  <TodayMenuItem
-                    data={item}
-                    key={idx}
-                  />
-                ))}
-            </TodayMenuList>
-          </ConsumedCoffeeContainer>
-        )}
+      {user.nickname && todayCoffeeData && todayCoffeeData.todayCups > 0 && (
+        <ConsumedCoffeeContainer className={Column}>
+          <div className={cx(Flex, Between)}>
+            <Suspense>
+              <CoffeeIntake data={todayCoffeeData} />
+            </Suspense>
+            <Suspense>
+              <WaterIntake coffeeCount={todayCoffeeData?.todayCups} />
+            </Suspense>
+          </div>
+          <TodayMenuList className={Flex}>
+            {todayCoffeeData?.todayCups !== null &&
+              todayCoffeeData?.items.map((item, idx) => (
+                <TodayMenuItem
+                  data={item}
+                  key={idx}
+                />
+              ))}
+          </TodayMenuList>
+        </ConsumedCoffeeContainer>
+      )}
     </Container>
   );
 };

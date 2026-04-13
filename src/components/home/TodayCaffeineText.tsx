@@ -19,6 +19,7 @@ const TodayCaffeineText = () => {
   const caffeineSum = todayCoffeeData?.todayCaffeine;
   const allCount = todayCoffeeData?.todayCups;
   const waterPerCoffeeCount = allCount && allCount * 2 - takedWater;
+
   return (
     <div className={HomeHeaderContent}>
       <div className={cx(Align, Between)}>
