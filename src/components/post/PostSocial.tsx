@@ -1,11 +1,13 @@
-import PostSocialCount from '@/components/post/PostSocialCount';
 import Icon from '@/components/common/Icon';
 import PostedAt from '@/components/post/PostedAt';
-import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import { PostContainer, PostsContainer } from '@/styles/styles';
-import { Flex, Between } from '@/styles/layout';
-import { cx } from 'styled-system/css';
+import PostSocialCount from '@/components/post/PostSocialCount';
+
 import { useLikeOnPost } from '@/hooks/post/useLikeOnPost';
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+
+import { cx } from 'styled-system/css';
+import { Flex, Between } from '@/styles/layout';
+import { PostContainer, PostsContainer } from '@/styles/styles';
 
 const imagePath = import.meta.env.VITE_R2_POST_IMAGE_PATH;
 

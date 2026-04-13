@@ -7,6 +7,9 @@ export const HEADER_TEXTS = {
     caffeineRegister: '마신 커피 추가',
     update: '수정하기',
     post: '게시물'
+  },
+  profile: {
+    MyProfile: 'MY PAGE'
   }
 };
 
@@ -83,7 +86,9 @@ export const BUTTON_TEXTS = {
   delete: '삭제',
   imgDelete: '이미지 삭제',
   save: '저장하기',
-  viewAll: '전체보기'
+  viewAll: '전체보기',
+  profileShare: '이 프로필 공유하기',
+  userReport: '사용자 신고하기'
 };
 
 export const TABS_TEXTS: TabsText = {
@@ -139,6 +144,10 @@ export const TOAST_TEXT = {
   text: {
     nickname: '닉네임 중복확인을 해주세요.',
     unavailable: '닉네임 설정을 완료해주세요.',
-    favMenu: '즐겨찾는 메뉴로 등록되었어요.'
+    favMenu: '즐겨찾는 메뉴로 등록되었어요.',
+    clipboard: {
+      success: '링크가 복사되었습니다!',
+      error: '링크 복사에 실패했습니다.'
+    }
   }
 };

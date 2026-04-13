@@ -238,8 +238,7 @@ export interface CommentType {
   userId: string;
 }
 
-export interface CommentPrototype
-  extends Omit<CommentType, 'replyCount'> {
+export interface CommentPrototype extends Omit<CommentType, 'replyCount'> {
   comment?: boolean;
   parentCommentId?: number;
 }
@@ -310,7 +309,7 @@ export interface InfiniteSearchList {
 export interface CommentInput {
   parentId: string | number;
   content: string;
-  postId?: string
+  postId?: string;
 }
 
 export interface TabsText {
@@ -424,4 +423,14 @@ export interface EditInfoType {
   profileUrl?: string | null;
   nickname?: string | undefined;
   aboutMe?: string | undefined;
+}
+
+export interface SEODataItemType {
+  title: string;
+  pageUrl: string;
+  description: string;
+}
+
+export interface SEO_DATAType {
+  [key: string]: SEODataItemType;
 }
