@@ -10,21 +10,11 @@ import useGetCacheData from '@/hooks/useGetCacheData';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+import { pathMap, routeMap } from '@/utils/getRoute';
 
 import { Column, Center } from '@/styles/layout';
 import { cx } from 'styled-system/css';
 import { FooterTextMedium, FooterTextSelected } from '@/styles/styles';
-
-const pathMap = new Map();
-pathMap.set('', 'home');
-pathMap.set('posts', 'feed');
-pathMap.set('coffee', 'stats');
-pathMap.set('profile', 'my');
-
-const routeMap = new Map();
-routeMap.set('home', '/');
-routeMap.set('feed', '/posts');
-routeMap.set('stats', '/coffee');
 
 const FooterIcon = ({ icon }: { icon: string }) => {
   const { userId: myId } = useCachedUserInfo();
@@ -50,10 +40,9 @@ const FooterIcon = ({ icon }: { icon: string }) => {
   }, []);
 
   useEffect(() => {
-    if (isProfile && !isMyPage) return;
+    if (isProfile && !isMyPage) return setActive('feed');
     pathMap.get(path) && setActive(pathMap.get(path));
   }, [path]);
-
   routeMap.set('my', `/profile/${userId}`);
 
   const navigateTo = useNavigateTo(routeMap.get(icon));
