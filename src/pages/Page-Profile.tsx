@@ -3,7 +3,6 @@ import { useRecoilValue } from 'recoil';
 import { useParams } from 'react-router-dom';
 
 import { useNavigateTo } from '@/hooks/useNavigateTo';
-import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 
 import { BUTTON_TEXTS, MODAL_CTA_TEXTS } from '@/constants/common';
@@ -43,23 +42,12 @@ const Profile = () => {
     <>
       <SEOMeta pageData={pageData} />
       {!nonMembers ? (
-        <>
-          {/* {isModal && !userId && (
-            <Suspense>
-              <ModalCTA
-                actionText={signIn2}
-                text={signIn.text}
-                fn={handleActions}
-              />
-            </Suspense>
-          )} */}
-          <Suspense>
-            <MemberProfile
-              userId={userId}
-              profileId={profileId}
-            />
-          </Suspense>
-        </>
+        <Suspense>
+          <MemberProfile
+            userId={userId}
+            profileId={profileId}
+          />
+        </Suspense>
       ) : (
         <Suspense>
           <AnonymousUserCard />
