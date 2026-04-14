@@ -5,15 +5,19 @@ import { useRecoilValue } from 'recoil';
 import ActionModal from '@/components/common/ActionModal';
 import Icon from '@/components/common/Icon';
 
-const EmptyPostGrid = lazy(() => import('@/components/profile/EmptyPostGrid'));
-const PostsGrid = lazy(() => import('@/components/profile/PostsGrid'));
-const FollowCount = lazy(() => import('@/components/profile/FollowCount'));
 const ProfileDetail = lazy(() => import('@/components/profile/ProfileDetail'));
+const FollowCount = lazy(() => import('@/components/profile/FollowCount'));
+const PostsGrid = lazy(() => import('@/components/profile/PostsGrid'));
+const EmptyPostGrid = lazy(() => import('@/components/profile/EmptyPostGrid'));
+const PrivateAccountPostGrid = lazy(
+  () => import('@/components/profile/PrivateAccountPostGrid')
+);
 
 import useGetUserInfo from '@/hooks/useGetUserInfo';
 import { getProfilePostIQParam } from '@/hooks/useInfiniteScroll';
 import { useTargetInfiniteScroll } from '@/hooks/useTargetInfiniteScroll';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
+import { useSharePage } from '@/hooks/useSharePage';
 
 import { getPostCounts } from '@/api/user';
 import { isModalState, userInfoState } from '@/atoms/atoms';
@@ -25,7 +29,6 @@ import { PROFILE_TEXTS } from '@/constants/profile';
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Align, Between, Column, Flex } from '@/styles/layout';
-import { useSharePage } from '@/hooks/useSharePage';
 import { Medium } from '@/styles/styles';
 
 const { profile } = PROFILE_TEXTS;
@@ -38,11 +41,12 @@ const MemberProfile = ({
   profileId: string | undefined;
 }) => {
   useGetUserInfo(profileId);
-  const { nickname: profileNickname } = useRecoilValue(userInfoState);
+  const { nickname: profileNickname, visibility } =
+    useRecoilValue(userInfoState);
   const myProfile = userId === profileId;
 
   const headerContent = myProfile
-    ? ['back', HEADER_TEXTS.profile.MyProfile, 'icons']
+    ? ['', HEADER_TEXTS.profile.MyProfile, 'icons']
     : ['back', profileNickname, 'action'];
   useComposeHeader(...headerContent);
 
@@ -61,11 +65,10 @@ const MemberProfile = ({
     refetch
   } = useTargetInfiniteScroll(ProfilePostIQParam, profile);
   const postsData = data && (data as unknown as UserProfileDataTypes[]);
-
   const { data: allCount, isLoading } = useQuery({
-    queryKey: ['postCount', userId],
+    queryKey: ['postCount', profileId],
     queryFn: () => {
-      return getPostCounts(userId);
+      return profileId && getPostCounts(profileId);
     }
   });
 
@@ -99,14 +102,20 @@ const MemberProfile = ({
             <FollowCount data={followCountData} />
           </Suspense>
         </div>
-        {!isLoading && allCount !== 0 ? (
+        {!myProfile && visibility === 0 ? (
           <Suspense>
-            <PostsGrid
-              data={postsData}
-              postRef={postRef}
-              refetch={refetch}
-            />
+            <PrivateAccountPostGrid />
           </Suspense>
+        ) : !isLoading && allCount !== 0 ? (
+          <>
+            <Suspense>
+              <PostsGrid
+                data={postsData}
+                postRef={postRef}
+                refetch={refetch}
+              />
+            </Suspense>
+          </>
         ) : (
           <Suspense>
             <EmptyPostGrid
@@ -121,10 +130,9 @@ const MemberProfile = ({
 };
 
 const Container = styled.div`
-  position: relative;
-  width: auto;
-  margin-top: 20px;
-  gap: 20px;
+  padding-top: 22px;
+  height: 100%;
+  gap: 10px;
 `;
 
 const ActionModalItem = styled.button`

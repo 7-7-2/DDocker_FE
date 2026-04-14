@@ -7,11 +7,15 @@ export const PROFILE_TEXTS = {
   },
   user: {
     my: {
-      text: `아직 등록된 게시물이 없어요.
-    오늘 마신 커피를 공유하고 기록해보세요.`,
-      actionText: '홈으로'
+      text: `아직 등록된 게시물이 없어요.`,
+      actionText: '게시물 등록하기'
     },
-    another: `아직 등록된 게시물이 없어요.`
+    another: {
+      text: `피드에 올린 게시물이 없어요.`,
+      actionText: '피드 둘러보기',
+      private: `비공개 계정입니다.
+서로 팔로우하고 게시물을 공유해보세요.`
+    }
   },
   profile: '프로필',
   nonMemberId: 'nonMember',
