@@ -1,13 +1,13 @@
 import { lazy, Suspense } from 'react';
-import { PROFILE_TEXTS } from '@/constants/profile';
 
-import { css, cx } from 'styled-system/css';
-import { Justify } from '@/styles/layout';
-import { styled } from 'styled-system/jsx';
+const CTA = lazy(() => import('@/components/common/CTA'));
+import { PROFILE_TEXTS } from '@/constants/profile';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { usePostOptions } from '@/hooks/post/usePostOptions';
 
-const CTA = lazy(() => import('@/components/common/CTA'));
+import { styled } from 'styled-system/jsx';
+import { Justify } from '@/styles/layout';
+
 const { my, another } = PROFILE_TEXTS.user;
 
 const EmptyPostGrid = ({
@@ -18,20 +18,25 @@ const EmptyPostGrid = ({
   userId?: string;
 }) => {
   const goToHome = useNavigateTo('/');
+  const goToRegister = useNavigateTo('/post/register');
   const { recoverFooterState } = usePostOptions();
   const myProfile = userId === profileId;
   const handleClickBtn = () => {
-    goToHome();
-    recoverFooterState();
+    if (myProfile) {
+      return goToRegister();
+    } else {
+      goToHome();
+      recoverFooterState();
+    }
   };
 
   return (
-    <Container className={cx(Justify, userId === profileId && DefaultHeight)}>
+    <Container className={Justify}>
       <Suspense>
         <CTA
-          text={myProfile ? my.text : another}
-          actionText={myProfile ? my.actionText : ''}
-          fn={myProfile ? handleClickBtn : undefined}
+          text={myProfile ? my.text : another.text}
+          actionText={myProfile ? my.actionText : another.actionText}
+          fn={handleClickBtn}
         />
       </Suspense>
     </Container>
@@ -39,12 +44,8 @@ const EmptyPostGrid = ({
 };
 
 const Container = styled.div`
-  padding: auto 0;
-  height: calc(100vh - 520px);
-`;
-
-const DefaultHeight = css`
-  height: calc(100vh - 470px);
+  display: flex;
+  flex-grow: 1;
 `;
 
 export default EmptyPostGrid;
