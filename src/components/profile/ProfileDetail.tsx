@@ -1,11 +1,15 @@
-import Icon from '@/components/common/Icon';
+import { useLayoutEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
+
+import Icon from '@/components/common/Icon';
 import ProfileImg from '@/components/profile/ProfileImg';
-import { TEXT } from '@/constants/texts';
+
 import { cahceImgState, userInfoState } from '@/atoms/atoms';
 import useGetUserInfo from '@/hooks/useGetUserInfo';
 import { brandMapToKor } from '@/utils/convertBrandName';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+import { TEXT } from '@/constants/texts';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
@@ -16,13 +20,11 @@ import {
   ProfileAboutMe,
   TextArea
 } from '@/styles/styles';
-import { useLayoutEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 
 const ProfileDetail = ({ userId }: { userId: string | undefined }) => {
   const { state: statusCode } = useLocation();
-  const user = useRecoilValue(userInfoState);
   useGetUserInfo(userId);
+  const user = useRecoilValue(userInfoState);
 
   const [cacheState, setCacheState] = useRecoilState(cahceImgState);
   useLayoutEffect(() => {
