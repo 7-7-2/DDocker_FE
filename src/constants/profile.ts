@@ -18,8 +18,10 @@ export const PROFILE_TEXTS = {
     }
   },
   profile: '프로필',
+  profileTabs: ['사진', '전체'],
   nonMemberId: 'nonMember',
-  followCount: ['게시물', '팔로워', '팔로잉']
+  followCount: ['게시물', '팔로워', '팔로잉'],
+  privatePost: '나만보기'
 };
 
 export const MYPAGE_TEXTS = {

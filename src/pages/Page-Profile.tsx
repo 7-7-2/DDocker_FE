@@ -1,37 +1,23 @@
 import { Suspense, lazy } from 'react';
-import { useRecoilValue } from 'recoil';
 import { useParams } from 'react-router-dom';
 
-import { useNavigateTo } from '@/hooks/useNavigateTo';
-import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
-
-import { BUTTON_TEXTS, MODAL_CTA_TEXTS } from '@/constants/common';
-import { PROFILE_TEXTS } from '@/constants/profile';
-import { isModalState } from '@/atoms/atoms';
-
-import SEO_DATA from '@/constants/SEOData';
 import SEOMeta from '@/components/common/SEOMeta';
 
+import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
+import { PROFILE_TEXTS } from '@/constants/profile';
+import SEO_DATA from '@/constants/SEOData';
+
 const MemberProfile = lazy(() => import('../components/profile/MemberProfile'));
-const ModalCTA = lazy(() => import('../components/common/ModalCTA'));
 const AnonymousUserCard = lazy(
   () => import('../components/profile/AnonymousUserCard')
 );
 
 const { nonMemberId } = PROFILE_TEXTS;
-const { signIn2 } = BUTTON_TEXTS;
-const { signIn } = MODAL_CTA_TEXTS;
 
 const Profile = () => {
   const { userId: profileId } = useParams();
   const { userId } = useCachedUserInfo();
-  const isModal = useRecoilValue(isModalState);
-  const goToSignIn = useNavigateTo('/start/1');
-  const nonMembers = profileId === nonMemberId;
-
-  const handleActions: React.MouseEventHandler<HTMLButtonElement> = () => {
-    goToSignIn();
-  };
+  const nonMember = !userId || profileId === nonMemberId;
 
   const pageData = {
     ...SEO_DATA.profile,
@@ -41,7 +27,7 @@ const Profile = () => {
   return (
     <>
       <SEOMeta pageData={pageData} />
-      {!nonMembers ? (
+      {!nonMember ? (
         <Suspense>
           <MemberProfile
             userId={userId}

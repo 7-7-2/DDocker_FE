@@ -4,10 +4,12 @@ import { useRecoilValue } from 'recoil';
 
 import ActionModal from '@/components/common/ActionModal';
 import Icon from '@/components/common/Icon';
+import Tabs from '@/components/common/Tabs';
 
 const ProfileDetail = lazy(() => import('@/components/profile/ProfileDetail'));
 const FollowCount = lazy(() => import('@/components/profile/FollowCount'));
 const PostsGrid = lazy(() => import('@/components/profile/PostsGrid'));
+const PostsList = lazy(() => import('@/components/profile/PostsList'));
 const EmptyPostGrid = lazy(() => import('@/components/profile/EmptyPostGrid'));
 const PrivateAccountPostGrid = lazy(
   () => import('@/components/profile/PrivateAccountPostGrid')
@@ -22,7 +24,7 @@ import { useSharePage } from '@/hooks/useSharePage';
 import { getPostCounts } from '@/api/user';
 import { isModalState, userInfoState } from '@/atoms/atoms';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import { InfinitePosts, UserProfileDataTypes } from '@/types/types';
+import { InfinitePosts, UserProfileListDataTypes } from '@/types/types';
 import { BUTTON_TEXTS, HEADER_TEXTS } from '@/constants/common';
 import { PROFILE_TEXTS } from '@/constants/profile';
 
@@ -31,7 +33,7 @@ import { styled } from 'styled-system/jsx';
 import { Align, Between, Column, Flex } from '@/styles/layout';
 import { Medium } from '@/styles/styles';
 
-const { profile } = PROFILE_TEXTS;
+const { profile, profileTabs } = PROFILE_TEXTS;
 
 const MemberProfile = ({
   userId,
@@ -40,38 +42,49 @@ const MemberProfile = ({
   userId: string;
   profileId: string | undefined;
 }) => {
+  //USER INFO
   useGetUserInfo(profileId);
   const { nickname: profileNickname, visibility } =
     useRecoilValue(userInfoState);
   const myProfile = userId === profileId;
 
+  // HRADER
   const headerContent = myProfile
     ? ['', HEADER_TEXTS.profile.MyProfile, 'icons']
     : ['back', profileNickname, 'action'];
   useComposeHeader(...headerContent);
 
+  // ACTION BUTTON
   const isModal = useRecoilValue(isModalState);
   const handleShare = useSharePage();
   const handleReport = () => {
     console.log('계정신고');
   };
 
-  const [viewTypsState, setViewTypeState] = useState('grid');
+  //TABS
+  const [selectedTab, setSelectedTab] = useState(profileTabs[0]);
+  const handleSelectTab = (e: React.MouseEvent<HTMLButtonElement>) => {
+    setSelectedTab(e.currentTarget.value);
+    setViewTypeState('list');
+  };
+
+  // IMG POSTS
+  const [viewTypeState, setViewTypeState] = useState('grid');
   const ProfilePostIQParam: InfinitePosts =
-    getProfilePostIQParam(viewTypsState);
+    getProfilePostIQParam(viewTypeState);
   const {
-    data,
+    data: postsData,
     ref: postRef,
     refetch
   } = useTargetInfiniteScroll(ProfilePostIQParam, profile);
-  const postsData = data && (data as unknown as UserProfileDataTypes[]);
+  const allpostsData = postsData as UserProfileListDataTypes[];
+  const imgPostData = postsData?.filter(item => item.photo);
   const { data: allCount, isLoading } = useQuery({
     queryKey: ['postCount', profileId],
     queryFn: () => {
       return profileId && getPostCounts(profileId);
     }
   });
-
   const followCountData = {
     userId: profileId,
     postCount: allCount
@@ -107,15 +120,24 @@ const MemberProfile = ({
             <PrivateAccountPostGrid />
           </Suspense>
         ) : !isLoading && allCount !== 0 ? (
-          <>
-            <Suspense>
-              <PostsGrid
-                data={postsData}
-                postRef={postRef}
-                refetch={refetch}
+          <Suspense>
+            <PostsContiner>
+              <Tabs
+                tabs={profileTabs}
+                selectedTab={selectedTab}
+                handleButtonClick={handleSelectTab}
               />
-            </Suspense>
-          </>
+              {profileTabs[0] === selectedTab ? (
+                <PostsGrid
+                  data={imgPostData}
+                  postRef={postRef}
+                  refetch={refetch}
+                />
+              ) : (
+                <PostsList data={allpostsData} />
+              )}
+            </PostsContiner>
+          </Suspense>
         ) : (
           <Suspense>
             <EmptyPostGrid
@@ -134,6 +156,8 @@ const Container = styled.div`
   height: 100%;
   gap: 10px;
 `;
+
+const PostsContiner = styled.div``;
 
 const ActionModalItem = styled.button`
   gap: 12px;

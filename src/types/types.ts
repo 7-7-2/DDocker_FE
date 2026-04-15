@@ -189,16 +189,21 @@ export interface ImageEditCropperProps {
   isLoading: boolean;
 }
 
-export interface UserProfileDataTypes {
-  allCount: number;
+export interface UserProfileGridDataTypes {
   photo: string;
   postId: string;
   visibility: number;
 }
-
-export interface UserProfilePostsTypes {
-  photo: string;
+export interface UserProfileListDataTypes {
+  brand: string;
+  brandId: number;
+  caffeine: number;
+  createdAt: string;
+  description: string;
+  photo: string | null;
   postId: string;
+  productName: string;
+  visibility: number;
 }
 
 export interface UserFollowCountsTypes {
@@ -206,7 +211,7 @@ export interface UserFollowCountsTypes {
   following: number;
 }
 export interface PostsGridProps {
-  data?: UserProfileDataTypes[];
+  data?: UserProfileGridDataTypes[];
   postRef: React.RefObject<HTMLDivElement>;
   refetch:
     | ((

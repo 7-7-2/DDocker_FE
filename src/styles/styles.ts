@@ -500,7 +500,15 @@ export const SelectedTab = cx(
   Semibold,
   css`
     color: var(--colors-main);
-    border-bottom: 2px solid var(--colors-main);
+    box-shadow: inset 0 -2px 0 0 var(--colors-main);
+  `
+);
+
+export const ProfileSelectedTab = cx(
+  Semibold,
+  css`
+    color: var(--colors-main-dark);
+    box-shadow: inset 0 -2px 0 0 var(--colors-main-dark);
   `
 );
 
@@ -508,7 +516,7 @@ export const DefaultTab = cx(
   Medium,
   css`
     color: var(--colors-subtext);
-    border-bottom: 1px solid var(--colors-btn-grey);
+    box-shadow: inset 0 -1px 0 0 var(--colors-btn-grey);
   `
 );
 

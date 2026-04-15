@@ -1,13 +1,15 @@
 import { lazy, Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Icon from '@/components/common/Icon';
 import { useImgErrorCTA } from '@/hooks/useImgErrorCTA';
 import { PostsGridProps } from '@/types/types';
+import { ERROR_IMG_TEXTS } from '@/constants/error';
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { Grid, Center } from '@/styles/layout';
+import { Grid, Center, Flex } from '@/styles/layout';
 import { Cursor } from '@/styles/styles';
-import { ERROR_IMG_TEXTS } from '@/constants/error';
 
 const ImageErrorCTA = lazy(() => import('@/components/common/ImageErrorCTA'));
 
@@ -38,14 +40,14 @@ const PostsGrid = ({ data: posts, postRef, refetch }: PostsGridProps) => {
   return (
     <>
       {isError ? (
-        <Container>
+        <ErrorContainer className={Flex}>
           <Suspense>
             <ImageErrorCTA
               text={ERROR_IMG_TEXTS.postsGrid}
               handleOnclick={clickRefreshBtn}
             />
           </Suspense>
-        </Container>
+        </ErrorContainer>
       ) : (
         <GridContainer className={cx(Grid, Center)}>
           {posts &&
@@ -56,6 +58,11 @@ const PostsGrid = ({ data: posts, postRef, refetch }: PostsGridProps) => {
                   key={item.postId}
                   id={item.postId}
                   onClick={touchImg}>
+                  {item.visibility === 0 && (
+                    <PrivateIcon>
+                      <Icon {...iconPropsGenerator('lock-grid', '20')} />
+                    </PrivateIcon>
+                  )}
                   <PostImg
                     onError={handleOnError}
                     src={item.photo}
@@ -70,11 +77,13 @@ const PostsGrid = ({ data: posts, postRef, refetch }: PostsGridProps) => {
   );
 };
 
-const Container = styled.div`
-  height: calc(100vh - 460px);
+const ErrorContainer = styled.div`
+  flex-grow: 1;
 `;
 
 const GridContainer = styled.div`
+  width: 100dvw;
+  margin-left: -20px;
   grid-template-columns: repeat(3, 1fr);
   gap: 1px;
 `;
@@ -87,6 +96,11 @@ const GridItemContainer = styled.div`
     display: block;
     padding-bottom: 100%;
   }
+`;
+const PrivateIcon = styled.div`
+  position: absolute;
+  top: 6px;
+  right: 6px;
 `;
 
 const PostImg = styled.img`
