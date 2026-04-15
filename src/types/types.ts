@@ -213,13 +213,12 @@ export interface UserFollowCountsTypes {
 export interface PostsGridProps {
   data?: UserProfileGridDataTypes[];
   postRef: React.RefObject<HTMLDivElement>;
-  refetch:
-    | ((
-        options?: RefetchOptions | undefined
-      ) => Promise<
-        QueryObserverResult<InfiniteData<FetchedFollowing, unknown>, Error>
-      >)
-    | undefined;
+  handleOnError: (e: React.SyntheticEvent<HTMLImageElement>) => void;
+}
+export interface PostsListProps {
+  data?: UserProfileListDataTypes[];
+  postRef: React.RefObject<HTMLDivElement>;
+  handleOnError: (e: React.SyntheticEvent<HTMLImageElement>) => void;
 }
 
 export interface CaffeineFilterTypes {
