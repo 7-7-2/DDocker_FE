@@ -6,22 +6,20 @@ export const PROFILE_TEXTS = {
     actionText: '로그인'
   },
   user: {
-    my: {
-      text: `아직 등록된 게시물이 없어요.`,
-      actionText: '게시물 등록하기'
-    },
-    another: {
-      text: `피드에 올린 게시물이 없어요.`,
-      actionText: '피드 둘러보기',
-      private: `비공개 계정입니다.
-서로 팔로우하고 게시물을 공유해보세요.`
+    actionText: '게시물 등록하기',
+    private: `쉿, 서로 팔로우하고 있을 경우에만
+볼 수 있는 비공개 계정이에요`,
+    text: {
+      grid: '작성한 사진 게시물이 없어요',
+      list: '작성한 게시물이 없어요'
     }
   },
   profile: '프로필',
   profileTabs: ['사진', '전체'],
+  type: ['grid', 'list'],
   nonMemberId: 'nonMember',
   followCount: ['게시물', '팔로워', '팔로잉'],
-  privatePost: '나만보기'
+  privatePost: ` · 나만보기`
 };
 
 export const MYPAGE_TEXTS = {

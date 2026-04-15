@@ -9,14 +9,14 @@ import { Regular } from '@/styles/styles';
 import { Center, Column, Flex } from '@/styles/layout';
 
 const { user } = PROFILE_TEXTS;
-const PrivateAccountPostGrid = () => {
+const PrivateAccountPosts = () => {
   return (
     <Container className={cx(Center, Flex)}>
       <div className={cx(Center, Column)}>
         <IconContainer className={cx(Center, Flex)}>
           <Icon {...iconPropsGenerator('lock', '34')} />
         </IconContainer>
-        <Description className={Regular}>{user.another.private}</Description>
+        <Description className={Regular}>{user.private}</Description>
       </div>
     </Container>
   );
@@ -42,4 +42,4 @@ const Description = styled.span`
   color: var(--colors-mid-grey);
 `;
 
-export default PrivateAccountPostGrid;
+export default PrivateAccountPosts;

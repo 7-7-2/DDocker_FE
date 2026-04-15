@@ -499,21 +499,21 @@ export const Cursor = css`
 export const SelectedTab = cx(
   Semibold,
   css`
-    color: var(--colors-main);
-    box-shadow: inset 0 -2px 0 0 var(--colors-main);
-  `
-);
-
-export const ProfileSelectedTab = cx(
-  Semibold,
-  css`
     color: var(--colors-main-dark);
     box-shadow: inset 0 -2px 0 0 var(--colors-main-dark);
   `
 );
 
+export const DisabledTab = cx(
+  Semibold,
+  css`
+    color: var(--colors-subtext);
+    box-shadow: inset 0 -2px 0 0 var(--colors-subtext);
+  `
+);
+
 export const DefaultTab = cx(
-  Medium,
+  Semibold,
   css`
     color: var(--colors-subtext);
     box-shadow: inset 0 -1px 0 0 var(--colors-btn-grey);

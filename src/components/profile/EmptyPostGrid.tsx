@@ -6,21 +6,21 @@ import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { usePostOptions } from '@/hooks/post/usePostOptions';
 
 import { styled } from 'styled-system/jsx';
-import { Justify } from '@/styles/layout';
+import { Center, Column, Justify } from '@/styles/layout';
 
-const { my, another } = PROFILE_TEXTS.user;
+const { text, actionText } = PROFILE_TEXTS.user;
 
 const EmptyPostGrid = ({
-  profileId,
-  userId
+  myProfile,
+  isGrid
 }: {
-  profileId: string | undefined;
-  userId?: string;
+  myProfile: boolean;
+  isGrid: boolean;
 }) => {
   const goToHome = useNavigateTo('/');
   const goToRegister = useNavigateTo('/post/register');
   const { recoverFooterState } = usePostOptions();
-  const myProfile = userId === profileId;
+
   const handleClickBtn = () => {
     if (myProfile) {
       return goToRegister();
@@ -31,11 +31,11 @@ const EmptyPostGrid = ({
   };
 
   return (
-    <Container className={Justify}>
+    <Container className={Center}>
       <Suspense>
         <CTA
-          text={myProfile ? my.text : another.text}
-          actionText={myProfile ? my.actionText : another.actionText}
+          text={isGrid ? text.grid : text.list}
+          actionText={myProfile ? actionText : undefined}
           fn={handleClickBtn}
         />
       </Suspense>
