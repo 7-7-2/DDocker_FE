@@ -1,8 +1,8 @@
-import { caffeineIntakeTypes } from '@/types/types';
+import { CaffeineIntakeTypes } from '@/types/types';
 import { brandMapToKor } from '@/utils/convertBrandName';
 import { customOptionFormmater } from '@/utils/customOptionFormmater';
 
-export const coffeeInfoFormatter = (caffeineIntake: caffeineIntakeTypes) => {
+export const coffeeInfoFormatter = (caffeineIntake: CaffeineIntakeTypes) => {
   const { caffeine, ...rest } = caffeineIntake;
   const coffeeInfoValues = Object.values(rest);
   const customOption = coffeeInfoValues.slice(2, 5);

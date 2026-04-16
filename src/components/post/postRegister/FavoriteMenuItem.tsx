@@ -1,26 +1,23 @@
+import { useSetRecoilState } from 'recoil';
+
 import CoffeeInfo from '@/components/post/postRegister/CoffeeInfo';
 import Button from '@/components/common/Button';
 
-import { caffeineIntakeTypes } from '@/types/types';
+import { CaffeineIntakeTypes } from '@/types/types';
 import { coffeeInfoFormatter } from '@/utils/coffeeInfoFormatter';
-import {
-  BUTTON_TEXTS,
-  CAFFEINE_TEXTS,
-  FILL_TABS_TEXTS
-} from '@/constants/common';
+import { caffeineIntakeState } from '@/atoms/atoms';
+import { BUTTON_TEXTS, CAFFEINE_TEXTS } from '@/constants/common';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Between, Column, Flex, FlexCenter } from '@/styles/layout';
 import { Bold, BtnColorMain, ShortBtn, TertiaryBtn } from '@/styles/styles';
-import { useSetRecoilState } from 'recoil';
-import { caffeineIntakeState } from '@/atoms/atoms';
 
 const FavoriteMenuItem = ({
   itemData,
   backInitialTab
 }: {
-  itemData: caffeineIntakeTypes;
+  itemData: CaffeineIntakeTypes;
   backInitialTab: () => void;
 }) => {
   const { caffeine, coffeeInfo } = coffeeInfoFormatter(itemData);
