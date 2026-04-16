@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useState } from 'react';
+import { useRecoilState } from 'recoil';
 
 import ImgCropper from '@/components/common/ImgCropper';
 import ImgRegister from '@/components/common/ImgRegister';
@@ -6,8 +7,9 @@ import PostInputDescription from '@/components/post/postRegister/PostInputDescri
 import RegisterLabel from '@/components/post/postRegister/RegisterLabel';
 import Toggle from '@/components/common/Toggle';
 
-import { LABEL_TEXTS } from '@/constants/common';
+import { postContentsState } from '@/atoms/atoms';
 import { ImageCropperProps, ImageRegisterProps } from '@/types/types';
+import { LABEL_TEXTS } from '@/constants/common';
 
 import { styled } from 'styled-system/jsx';
 import { Between, Column } from '@/styles/layout';
@@ -25,9 +27,13 @@ const PostWriteSection = ({
   cropperProps: ImageCropperProps;
 }) => {
   const [isVisibility, setVisibility] = useState(false);
+  const [postContents, setPostcontents] = useRecoilState(postContentsState);
+
   const handlePrivateToggle = () => {
     setVisibility(!isVisibility);
+    setPostcontents({ ...postContents, visibility: isVisibility ? 1 : 0 });
   };
+
   return (
     <Container className={Column}>
       <PostInputDescription

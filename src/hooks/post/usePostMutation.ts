@@ -51,8 +51,7 @@ export const usePostMutation = (
     const { postId, newRegistData } = await dataFormatter(
       caffeine,
       nonImgPost,
-      descriptions,
-      nonImgPost
+      descriptions
     );
     const registered = newRegistData && (await setPostRegist(newRegistData));
     if (!nonImgPost) {
@@ -64,7 +63,7 @@ export const usePostMutation = (
     return { registered, postId };
   };
 
-  //post수정 로직
+  //post 수정 로직
   const handleUpdate = async () => {
     const { postId, updateData } = await dataFormatter(
       registInfo.caffeine,
