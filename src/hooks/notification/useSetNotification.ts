@@ -1,3 +1,4 @@
+import { getNotificationHistory, markAllAsRead } from '@/api/notification';
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 import useGetCacheData from '@/hooks/useGetCacheData';
 import useSetCacheData from '@/hooks/useSetCacheData';
@@ -12,17 +13,53 @@ export const useSetNotification = () => {
     enabled: !!userId
   });
 
+  const checkUnreadNoti = async (res: any) => {
+    const { data } = res;
+    const hasUnread = data?.items.some((item: any) => !item.isRead);
+    if (hasUnread) {
+      await useSetCacheData('notification', `/unread-${userId}`, true);
+    }
+
+    await useSetCacheData('notification', `/user-${userId}`, data.items);
+
+    await useSetCacheData(
+      'notification',
+      `/lastNotiRead-${userId}`,
+      data.lastReadAt
+    );
+    await queryClient.invalidateQueries({
+      queryKey: ['cachedNotification', userId]
+    });
+    await queryClient.invalidateQueries({ queryKey: ['unread', userId] });
+  };
+
+  const { mutate: getHistory } = useMutation({
+    mutationFn: (limit: number) => getNotificationHistory(limit),
+    onSuccess: checkUnreadNoti
+  });
+
   const onInitialNotification = async (data: Notification[]) => {
     await useSetCacheData('notification', `/unread-${userId}`, true);
     await useSetCacheData('notification', `/user-${userId}`, data);
   };
+
+  const {mutate: updateRead} = useMutation({
+    mutationFn: markAllAsRead,
+    onSuccess: async data => {
+      await useSetCacheData(
+        'notification',
+        `/lastNotiRead-${userId}`,
+        data
+      );
+    }
+  });
 
   const onNotifications = async (data: Notification[]) => {
     await useSetCacheData('notification', `/unread-${userId}`, true);
     await useSetCacheData(
       'notification',
       `/user-${userId}`,
-      [...cachedNotification.cacheData, ...data].slice(-100)
+      [...data, ...cachedNotification.cacheData].slice(-100)
     );
   };
   const mutateCache = cachedNotification
@@ -38,5 +75,6 @@ export const useSetNotification = () => {
       await queryClient.invalidateQueries({ queryKey: ['unread', userId] });
     }
   });
-  return { mutate };
+
+  return { mutate, getHistory, updateRead };
 };

@@ -21,7 +21,6 @@ const PostSocialCount = ({
         onAnimationStart={onClick}>
         <Icon
           {...iconPropsGenerator(icon)}
-          onClick={onClick}
         />
       </div>
       <Count className={CaffeineDetail}>{count}</Count>

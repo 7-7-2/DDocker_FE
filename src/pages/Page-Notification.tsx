@@ -18,6 +18,8 @@ import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { AlignCTA, NotificationContainer } from '@/styles/styles';
 import { FlexCenter } from '@/styles/layout';
+import { markAllAsRead } from '@/api/notification';
+import { useSetNotification } from '@/hooks/notification/useSetNotification';
 
 const SignInCTA = React.lazy(
   () => import('../components/posts/following/SignInCTA')
@@ -27,6 +29,7 @@ const Notification = () => {
   useComposeHeader(false, '알림', 'close');
   const { signedIn } = useGetSignedIn();
   const { userId } = useCachedUserInfo();
+  const { updateRead } = useSetNotification();
 
   const id = useId();
   const { data: cachedNotification } = useQuery({
@@ -38,7 +41,12 @@ const Notification = () => {
   });
 
   useEffect(() => {
+    markAllAsRead();
     useSetCacheData('notification', `/unread-${userId}`, false);
+    return () => {
+      updateRead();
+      useSetCacheData('notification', `/unread-${userId}`, false);
+    };
   }, [userId]);
 
   return (
@@ -48,21 +56,24 @@ const Notification = () => {
         className={signedIn && !cachedNotification && NotificationContainer}>
         {signedIn &&
           cachedNotification &&
+          cachedNotification.cacheData &&
           cachedNotification.cacheData.map((notification: any, idx: number) => (
             <NoticeItem
               key={id + idx}
               type={notification.type}
               senderId={notification.senderId}
               time={notification.time}
-              nickname={notification.nickname}
+              senderNickname={notification.senderNickname}
               postId={notification.postId || ''}
             />
           ))}
-        {signedIn && !cachedNotification && (
-          <div className={cx(AlignCTA, FlexCenter)}>
-            <CTA text={CTA_TEXTS.emptyNotification} />
-          </div>
-        )}
+        {(signedIn && !cachedNotification) ||
+          (cachedNotification.cacheData &&
+            cachedNotification.cacheData.length === 0 && (
+              <div className={cx(AlignCTA, FlexCenter)}>
+                <CTA text={CTA_TEXTS.emptyNotification} />
+              </div>
+            ))}
         {!signedIn && (
           <Suspense>
             <SignInCTA location="notice" />
