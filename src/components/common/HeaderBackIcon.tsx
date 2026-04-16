@@ -8,8 +8,11 @@ import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { routeMap } from '@/utils/getRoute';
 
 const HeaderBackIcon = () => {
-  const footeractiveState = useRecoilValue(activeState);
-  const navigateTo = useNavigateTo(routeMap.get(footeractiveState));
+  const footerActiveState = useRecoilValue(activeState);
+  const myPage = footerActiveState === 'my';
+  const navigateTo = myPage
+    ? useNavigateTo('-1')
+    : useNavigateTo(routeMap.get(footerActiveState));
   const navTofooterState = () => {
     navigateTo();
   };
