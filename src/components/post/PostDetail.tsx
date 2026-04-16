@@ -8,33 +8,37 @@ import CaffeineInfo from '@/components/post/CaffeineInfo';
 import PostedAt from '@/components/post/PostedAt';
 import Icon from '@/components/common/Icon';
 import PostInput from '@/components/post/PostInput';
+import PostDetailImg from '@/components/post/PostDetailImg';
 
 import { useVerifyOwner } from '@/hooks/post/useVerifyOwner';
 import { usePostOptions } from '@/hooks/post/usePostOptions';
 import { useRefIntoView } from '@/hooks/post/useRefIntoView';
 import { useResetRegistInfo } from '@/hooks/post/useResetRegistInfo';
-import { useImgErrorCTA } from '@/hooks/useImgErrorCTA';
+import { useShowFooter } from '@/hooks/useShowFooter';
 
-import { ERROR_IMG_TEXTS } from '@/constants/error';
 import { getPostDetail, getSocialCounts } from '@/api/post';
 import timestampToDate from '@/utils/timestampToDate';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { InputContext } from '@/context/contexts';
+import { PostDetailTypes } from '@/types/types';
+import { PROFILE_TEXTS } from '@/constants/profile';
 
-import { css, cx } from 'styled-system/css';
+import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { Between, Align, Flex, Center } from '@/styles/layout';
-import { PostTitle, PostContent, Divider } from '@/styles/styles';
+import { Between, Align, Flex, Column } from '@/styles/layout';
+import { PostContent, Divider, Medium, Regular } from '@/styles/styles';
 
 const ReplyToPanel = React.lazy(() => import('./ReplyToPanel'));
 const PublicOption = React.lazy(() => import('./overlay/PublicOption'));
 const PostOwnerOption = React.lazy(() => import('./overlay/PostOwnerOption'));
 const ConfirmDelete = React.lazy(() => import('./overlay/ConfirmDelete'));
 
+const { privatePost } = PROFILE_TEXTS;
+
 const PostDetail = ({ postNum }: { postNum: string }) => {
+  useShowFooter(false);
   const { ref } = useRefIntoView(null, 'auto');
   useResetRegistInfo();
-  const { isError, handleImgError } = useImgErrorCTA();
 
   const queries = useQueries({
     queries: [
@@ -50,7 +54,7 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
       }
     ]
   });
-  const postData = queries[0].data;
+  const postData = queries[0].data?.data as PostDetailTypes;
   const socialCounts = queries[1].data;
 
   const { postOwner } = useVerifyOwner(postNum);
@@ -62,8 +66,7 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
   } = usePostOptions();
 
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const isPostOwner =
-    postOwner && postData && postOwner === postData.data.nickname;
+  const isPostOwner = postOwner && postData && postOwner === postData.nickname;
 
   return (
     <>
@@ -93,15 +96,15 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
         </Suspense>
       )}
       {postData && socialCounts && (
-        <>
+        <Container className={Column}>
           <UserProfile
             className={cx(Flex, Between, Align)}
             ref={ref}>
             <MiniProfile
-              url={postData?.data?.profileUrl}
-              nickname={postData.data.nickname}
-              caffeineSum={postData.data.userSum}
-              userId={postData.data.userId}
+              url={postData?.profileUrl}
+              nickname={postData.nickname}
+              caffeineSum={postData.userSum}
+              userId={postData.userId}
               post={true}
             />
             <Icon
@@ -109,53 +112,46 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
               onClick={cancelOptions}
             />
           </UserProfile>
-          {!isError ? (
-            <DetailImg
-              src={postData?.data.photo}
-              onError={handleImgError}
-              className={DetailImgStyle}
-            />
-          ) : (
-            <ErrorImgContainer className={cx(Center, Flex, DetailImgStyle)}>
-              {ERROR_IMG_TEXTS.detailImg}
-            </ErrorImgContainer>
-          )}
-
+          <PostContent>{postData.description}</PostContent>
+          {postData?.photo && <PostDetailImg postImg={postData?.photo} />}
           <PostSocial
             posts={false}
             likes={socialCounts.likeCount}
             comments={socialCounts.commentCount}
             postId={postNum}
-            userId={postData.data.userId}
+            userId={postData.userId}
           />
-          {/* UI change => deprecated
-          <PostTitle>{postData.data.post_title}</PostTitle> */}
-          <PostContent>{postData.data.description}</PostContent>
           <CaffeineInfo
-            brand={postData.data.brand}
-            productName={postData.data.productName}
-            caffeine={postData.data.caffeine}
-            shot={postData.data.shot}
-            intensity={postData.data.intensity}
-            size={postData.data.size}
+            brand={postData.brand}
+            productName={postData.productName}
+            caffeine={postData.caffeine}
+            shot={postData.shot}
+            intensity={postData.intensity}
+            size={postData.size}
           />
-          <PostedAt at={timestampToDate(postData.data.createdAt)} />
+          <PostOption className={cx(Regular, Align)}>
+            <PostedAt at={timestampToDate(postData.createdAt)} />
+            {postData.visibility === 0 && (
+              <span className={cx(Medium, Flex)}>{privatePost}</span>
+            )}
+          </PostOption>
           <div className={Divider} />
-
           <InputContext.Provider value={{ inputRef }}>
             <PostComments
               postNum={postNum}
               commentCount={socialCounts.commentCount}
             />
           </InputContext.Provider>
-          <Suspense>
-            <ReplyToPanel />
-          </Suspense>
-          <PostInput
-            inputRef={inputRef}
-            postId={postNum}
-          />
-        </>
+          <PostInputContainer>
+            <Suspense>
+              <ReplyToPanel />
+            </Suspense>
+            <PostInput
+              inputRef={inputRef}
+              postId={postNum}
+            />
+          </PostInputContainer>
+        </Container>
       )}
     </>
   );
@@ -163,32 +159,26 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
 
 const UserProfile = styled.div`
   padding: 12px 0;
+  margin-bottom: 12px;
 `;
 
-const DetailImgStyle = css`
-  display: block;
-  position: relative;
-  margin-left: -20px;
-  margin-right: -20px;
-  height: 100vw;
-  @media (max-width: 500px) {
-    min-width: 100vw;
-  }
-  @media (min-width: 500px) {
-    max-width: 500px;
-  }
-  max-height: 500px;
-  object-fit: fill;
-  aspect-ratio: 1/1;
+const Container = styled.div`
+  height: 100%;
 `;
 
-const DetailImg = styled.img``;
-
-const ErrorImgContainer = styled.div`
+const PostOption = styled.div`
+  line-height: 20px;
+  font-size: var(--font-sizes-xs);
+  color: var(--colors-mid-grey);
   white-space: pre-wrap;
-  text-align: center;
-  background-color: var(--colors-tertiary);
-  color: var(--colors-subtext);
+`;
+
+const PostInputContainer = styled.div`
+  position: fixed;
+  padding: 0 20px;
+  bottom: 0;
+  left: 0;
+  right: 0;
 `;
 
 export default PostDetail;

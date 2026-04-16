@@ -27,6 +27,14 @@ export const StartPageHeight = css`
   height: calc(100dvh - env(safe-area-inset-bottom) - env(safe-area-inset-top));
 `;
 
+export const PostPageHeight = css`
+  height: calc(
+    100dvh - 56px - 68px - env(safe-area-inset-bottom) - env(
+        safe-area-inset-top
+      )
+  );
+`;
+
 // Common
 // Font-weight
 export const Regular = css`
@@ -480,6 +488,14 @@ export const SearchInput = cx(
   `
 );
 
+export const CommentHeight = css`
+  height: 48px;
+`;
+
+export const DefaultHeight = css`
+  height: 52px;
+`;
+
 // LineHeight
 export const LineH18 = css`
   line-height: 18px;
@@ -589,7 +605,7 @@ export const PostsCafe = css`
 `;
 
 export const PostContainer = css`
-  padding: 12px 0;
+  padding: 6px 0;
 `;
 
 export const PostsContainer = css`
@@ -605,7 +621,7 @@ export const PostTitle = styled.div`
 export const PostContent = styled.p`
   font-size: var(--font-sizes-sm);
   line-height: 20px;
-  padding-bottom: 20px;
+  margin-bottom: 16px;
 `;
 
 export const CaffeineDetail = cx(

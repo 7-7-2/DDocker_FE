@@ -10,7 +10,7 @@ export const COFFEE_TEXTS = {
   coffee: '커피',
   caffeine: '카페인',
   containing: '포함된 카페인 함량은 ',
-  is: '입니다.'
+  is: '이에요'
 };
 
 export const COFFEE_CALENDAR_TEXTS = {

@@ -1,15 +1,15 @@
-import { INPUT_TEXTS } from '@/constants/common';
-import { PaddingTB10 } from '@/styles/styles';
-import { Input } from '@/components/common/Input';
-import { RefObject } from 'react';
-import { useInput } from '@/hooks/useInput';
-import { useMutation } from '@tanstack/react-query';
-import { writeComment, replyComment } from '@/api/post';
 import { memo } from 'react';
+import { RefObject } from 'react';
+import { useQueryClient, useMutation } from '@tanstack/react-query';
 import { useRecoilValue, useResetRecoilState } from 'recoil';
-import { replyState } from '@/atoms/atoms';
-import { useQueryClient } from '@tanstack/react-query';
+
+import { Input } from '@/components/common/Input';
+import { useInput } from '@/hooks/useInput';
 import { useGetSignedIn } from '@/hooks/useGetSignedIn';
+import { writeComment, replyComment } from '@/api/post';
+import { replyState } from '@/atoms/atoms';
+import { INPUT_TEXTS } from '@/constants/common';
+import { styled } from 'styled-system/jsx';
 
 const { type } = INPUT_TEXTS;
 const { comment } = type;
@@ -79,7 +79,7 @@ const PostInput = memo(
     };
 
     return (
-      <div className={PaddingTB10}>
+      <Container>
         <Input
           type={comment.typeName}
           handleEvent={handleSubmitComment}
@@ -88,9 +88,13 @@ const PostInput = memo(
           inputValue={value}
           handleChange={onChange}
         />
-      </div>
+      </Container>
     );
   }
 );
+
+const Container = styled.div`
+  padding: 10px 0;
+`;
 
 export default PostInput;

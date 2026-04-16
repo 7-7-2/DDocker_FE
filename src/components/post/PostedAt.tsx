@@ -18,8 +18,7 @@ const Posted = styled.div`
 `;
 
 const PaddingPost = css`
-  padding-top: 12px;
-  padding-bottom: 20px;
+  padding: 16px 0;
 `;
 
 export default PostedAt;

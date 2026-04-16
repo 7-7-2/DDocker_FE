@@ -3,10 +3,11 @@ import { useId } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Comment from '@/components/post/Comment';
 import { getComments } from '@/api/post';
-import { styled } from 'styled-system/jsx';
-import { COMMENT_TEXTS, POST_TEXTS } from '@/constants/texts';
-import { PaddingTB60 } from '@/styles/styles';
 import { CommentType } from '@/types/types';
+import { COMMENT_TEXTS, POST_TEXTS } from '@/constants/texts';
+import { cx } from 'styled-system/css';
+import { styled } from 'styled-system/jsx';
+import { Center, Column } from '@/styles/layout';
 
 const CTA = React.lazy(() => import('../common/CTA'));
 const { count } = COMMENT_TEXTS;
@@ -54,12 +55,12 @@ const PostComments = ({
         </Container>
       )}
       {commentData && commentData.data.length === 0 && (
-        <div className={PaddingTB60}>
+        <EmptyCommentContainer className={cx(Column, Center)}>
           <CTA
             btn={false}
             text={POST_TEXTS.noComments}
           />
-        </div>
+        </EmptyCommentContainer>
       )}
     </>
   );
@@ -74,6 +75,11 @@ const Length = styled.div`
   font-size: var(--font-sizes-sm);
   line-height: 22px;
   color: var(--colors-mid-grey);
+`;
+
+const EmptyCommentContainer = styled.div`
+  min-height: 140px;
+  flex-grow: 1;
 `;
 
 export default PostComments;
