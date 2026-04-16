@@ -1,15 +1,18 @@
 import Icon from '@/components/common/Icon';
+
 import { INPUT_TEXTS } from '@/constants/common';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { InputProps } from '@/types/types';
+
+import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Align, Between } from '@/styles/layout';
-import { css, cx } from 'styled-system/css';
 import {
   InputFontSm,
   InputFontBase,
   InputByteCheck,
-  BgF5
+  CommentHeight,
+  DefaultHeight
 } from '@/styles/styles';
 
 export const Input = ({
@@ -21,10 +24,11 @@ export const Input = ({
   handleKeyDown,
   placeholder
 }: InputProps) => {
-  const { nickname, comment, title, search } = INPUT_TEXTS.type;
+  const { nickname, comment, search } = INPUT_TEXTS.type;
   let submitBtn;
   let inputLength;
   let inputPlaceholder;
+  let inputHeight = DefaultHeight;
 
   switch (type) {
     case nickname.typeName:
@@ -50,6 +54,7 @@ export const Input = ({
       );
       inputLength = 8;
       inputPlaceholder = placeholder;
+
       break;
     case comment.typeName:
       submitBtn = (
@@ -60,10 +65,7 @@ export const Input = ({
         </button>
       );
       inputPlaceholder = comment.placeholder;
-      break;
-    case title.typeName:
-      inputLength = 16;
-      inputPlaceholder = title.placeholder;
+      inputHeight = CommentHeight;
       break;
     case search.typeName:
       inputPlaceholder = search.placeholder;
@@ -73,11 +75,7 @@ export const Input = ({
   return (
     <InputContainer
       tabIndex={0}
-      className={cx(
-        Align,
-        Between,
-        type === title.typeName ? BgF5 : DefaultBorder
-      )}>
+      className={cx(Align, Between, inputHeight, DefaultBorder)}>
       <input
         className={InputFontBase}
         type="text"
@@ -88,7 +86,7 @@ export const Input = ({
         ref={inputRef}
         maxLength={inputLength}
       />
-      <InputBox className={Align}>
+      <InputBox className={cx(inputHeight, Align)}>
         {inputLength && (
           <div className={cx(Align, InputByteCheck)}>
             {inputValue?.length}
@@ -105,7 +103,6 @@ const InputContainer = styled.div`
   width: 100%;
   border-radius: 10px;
   padding: 14px 16px;
-  height: 50px;
   &:focus-within {
     border: 1px solid var(--colors-main);
   }
@@ -116,7 +113,6 @@ const DefaultBorder = css`
 `;
 
 const InputBox = styled.div`
-  height: 50px;
   gap: 8px;
 `;
 

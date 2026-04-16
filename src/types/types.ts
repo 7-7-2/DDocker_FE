@@ -143,14 +143,14 @@ export interface CoffeeDataTypes {
   [brand: string]: CoffeeItemTypes[];
 }
 
-export interface postContentsTypes {
+export interface PostContentsTypes {
   postId: string;
   description: string | null;
   photo: string | null;
   visibility: number;
 }
 
-export interface caffeineIntakeTypes {
+export interface CaffeineIntakeTypes {
   caffeine: number;
   brand: string;
   productName: string;
@@ -158,10 +158,22 @@ export interface caffeineIntakeTypes {
   intensity: string;
   shot: number;
 }
+export interface PostDetailTypes
+  extends CaffeineIntakeTypes,
+    PostContentsTypes {
+  commentCount: number;
+  brandId: number;
+  createdAt: string;
+  likeCount: number;
+  profileUrl: string;
+  nickname: string;
+  userId: string;
+  userSum: number;
+}
 
 export interface RegisterPostTypes
-  extends postContentsTypes,
-    caffeineIntakeTypes {}
+  extends PostContentsTypes,
+    CaffeineIntakeTypes {}
 
 export interface ImageRegisterProps {
   setImageUrl: Dispatch<SetStateAction<string>>;
@@ -328,7 +340,7 @@ export interface CafeDetailTypes {
   shot?: string | number;
   posts?: boolean;
   intensity?: string;
-  size?: number;
+  size?: string;
   onClick?: () => void;
 }
 

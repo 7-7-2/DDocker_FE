@@ -1,15 +1,16 @@
 import Icon from '@/components/common/Icon';
 import { COFFEE_TEXTS } from '@/constants/coffee';
-import { Align } from '@/styles/layout';
+import { CafeDetailTypes } from '@/types/types';
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import {
   PostsCafe,
   Cafe,
   PaddingL4,
   CaffeineDetail,
-  ColorMain
+  ColorMain,
+  Regular
 } from '@/styles/styles';
-import { CafeDetailTypes } from '@/types/types';
-import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+import { Align } from '@/styles/layout';
 import { cx } from 'styled-system/css';
 
 interface CafeDetailContent extends CafeDetailTypes {
@@ -36,14 +37,17 @@ const CafeDetailContent = ({
     <>
       <div className={posts ? cx(PostsCafe, Align) : Cafe}>
         {posts && <Icon {...iconPropsGenerator('shop', '16')} />}
-        <span className={posts ? PaddingL4 : ''}>{brand}</span>
+        <span className={posts ? PaddingL4 : Regular}>{brand}</span>
       </div>
       <div
         className={CaffeineDetail}
         onClick={onClick}>
         {!mini && mild && `${productName} (${intensity}, ${size})`}
-        {!mini && !mild && !base && `${productName} (+${shot}샷, ${size})`}
-        {!mini && !mild && base && `${productName} (${intensity}, ${size})`}
+        {!mini &&
+          !mild &&
+          !base &&
+          `${productName} (${size}, ${intensity}, +${shot}샷)`}
+        {!mini && !mild && base && `${productName} (${size}, ${intensity})`}
         {mini && `${productName} (+${shot}샷)`}
         <br />
         {!mini && containing}

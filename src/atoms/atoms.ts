@@ -3,8 +3,8 @@ import dayjs from 'dayjs';
 import {
   AuthTypes,
   CaffeineFilterTypes,
-  caffeineIntakeTypes,
-  postContentsTypes
+  CaffeineIntakeTypes,
+  PostContentsTypes
 } from '@/types/types';
 import { BRANDS } from '@/constants/coffee';
 
@@ -64,14 +64,13 @@ export const userInfoState = atom<AuthTypes>({
 });
 
 export const registPostState = selector<
-  postContentsTypes & caffeineIntakeTypes
+  PostContentsTypes & CaffeineIntakeTypes
 >({
   key: 'registPostState',
   get: ({ get }) => {
     const postContents = get(postContentsState);
     const caffeineIntake = get(caffeineIntakeState);
     const postData = {
-      //post_title: 'title 항목 삭제 예정',
       postId: postContents.postId,
       description: postContents.description,
       photo: postContents.photo,
@@ -93,18 +92,17 @@ export const registPostState = selector<
   }
 });
 
-export const postContentsState = atom<postContentsTypes>({
+export const postContentsState = atom<PostContentsTypes>({
   key: 'postContentsState',
   default: {
     postId: '',
     description: '',
     photo: '',
     visibility: 1
-    //post_title: 'title 항목 삭제 예정'
   }
 });
 
-export const caffeineIntakeState = atom<caffeineIntakeTypes>({
+export const caffeineIntakeState = atom<CaffeineIntakeTypes>({
   key: 'caffeineIntakeState',
   default: {
     caffeine: 0,

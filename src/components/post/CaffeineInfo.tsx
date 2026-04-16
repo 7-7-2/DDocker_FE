@@ -1,10 +1,11 @@
 import CafeDetail from '@/components/post/CafeDetail';
+import { brandMapToKor } from '@/utils/convertBrandName';
+import pathMap from '@/utils/getBrandPath';
+
+import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Align, Flex } from '@/styles/layout';
 import { PaddingL12 } from '@/styles/styles';
-import { cx } from 'styled-system/css';
-import pathMap from '@/utils/getBrandPath';
-import { brandMapToKor } from '@/utils/convertBrandName';
 
 const CaffeineInfo = ({
   brand,
@@ -19,9 +20,9 @@ const CaffeineInfo = ({
   caffeine: number;
   shot: number;
   intensity: string;
-  size: number;
+  size: string;
 }) => {
-  const converted = brandMapToKor(brand)
+  const converted = brandMapToKor(brand);
   return (
     <Container className={cx(Flex, Align)}>
       <CafeIcon src={pathMap(converted)} />
@@ -40,9 +41,11 @@ const CaffeineInfo = ({
 
 const Container = styled.div`
   width: 100%;
-  border: 1px solid #ccc;
+  height: 88px;
+  border: 1px solid var(--colors-btn-grey);
   padding: 12px;
   border-radius: 10px;
+  margin-top: 10px;
 `;
 
 const CafeIcon = styled.img`

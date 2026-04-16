@@ -10,7 +10,8 @@ import {
   GeneralHeight,
   SearchPageHeight,
   StartPageHeight,
-  RegisterPageHeight
+  RegisterPageHeight,
+  PostPageHeight
 } from '@/styles/styles';
 
 const Header = lazy(() => import('../components/common/Header'));
@@ -26,6 +27,7 @@ const Layout = () => {
   const startPredi = pathname.startsWith('/start');
   const reportPredi = pathname.startsWith('/report');
   const mypagePredi = pathname.endsWith('/mypage');
+  const postPredi = pathname.startsWith('/post');
   const registerPredi =
     pathname.startsWith('/post/register') ||
     pathname.endsWith('/update') ||
@@ -43,6 +45,9 @@ const Layout = () => {
     }
     if (reportPredi || mypagePredi) {
       return (PagesHeight = RegisterPageHeight);
+    }
+    if (postPredi) {
+      return (PagesHeight = PostPageHeight);
     }
     return (PagesHeight = GeneralHeight);
   };
