@@ -9,8 +9,9 @@ dayjs.extend(timezone);
 
 const KST = 'Asia/Seoul';
 
-const getTimeDiff = (timeToCompare: string): string => {
-  const timeToCompareKST: Dayjs = dayjs.tz(timeToCompare, KST);
+const getTimeDiff = (timeToCompare: string, utc=false): string => {
+  const processedTime = utc ? dayjs(timeToCompare).add(9, 'hour').toISOString() : timeToCompare
+  const timeToCompareKST: Dayjs = dayjs.tz(processedTime, KST);
   const nowKST: Dayjs = dayjs().tz(KST);
 
   const timeDiffDuration: Duration = dayjs.duration(

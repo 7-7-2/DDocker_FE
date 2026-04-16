@@ -18,7 +18,7 @@ const NoticeItem = ({
   type,
   postId = '',
   senderId,
-  nickname,
+  senderNickname,
   time
 }: Notification) => {
   const followNotice = type === 'follow';
@@ -52,9 +52,9 @@ const NoticeItem = ({
         />
       )}
       <Notice
-        username={nickname}
+        username={senderNickname}
         text={NOTICE_TEXTS[type]}
-        time={getTimeDiff(time)}
+        time={getTimeDiff(time, true)}
         onClick={followNotice ? toProfile : toPost}
       />
       <Right>

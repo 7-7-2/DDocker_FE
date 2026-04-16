@@ -190,9 +190,9 @@ export const getCoffeeMenu = async () => {
       (await useSetCacheData(
         'brand',
         '/coffeeMenu',
-        JSON.parse(res.data.data)
+        res.data.data
       ));
-    return res && JSON.parse(res.data.data);
+    return res && res.data.data;
   } catch (error) {
     console.log('Failed to get coffee menu List', error);
   }

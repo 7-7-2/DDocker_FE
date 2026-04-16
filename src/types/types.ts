@@ -379,10 +379,12 @@ export type ImgRegisterProps = Omit<
 >;
 
 export interface Notification {
+  notificationId?: string;
+  isRead?: boolean;
   type: string;
   postId?: string;
   senderId: string;
-  nickname: string;
+  senderNickname: string;
   time: string;
 }
 

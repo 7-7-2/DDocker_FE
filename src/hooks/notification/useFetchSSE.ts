@@ -11,7 +11,7 @@ export const useFetchSSE = () => {
   const { userId } = useCachedUserInfo();
   const { signedIn } = useGetSignedIn();
   const accessToken = signedIn && signedIn.cacheData;
-  const { mutate: saveNotification } = useSetNotification();
+  const { mutate: saveNotification, getHistory } = useSetNotification();
   const notificationBuffer = useRef<Notification[]>([]);
 
   const flushBuffer = useThrottle(() => {
@@ -23,13 +23,15 @@ export const useFetchSSE = () => {
 
   useEffect(() => {
     if (userId && accessToken) {
+      getHistory(100);
+
       const eventSource = new EventSource(
         `${import.meta.env.VITE_BASE_URL}/notification/${userId}`,
         {
           headers: {
             Authorization: `${accessToken}`
           },
-          heartbeatTimeout: 120000,
+          heartbeatTimeout: 1000 * 60 * 10,
           withCredentials: true
         }
       );
@@ -40,7 +42,7 @@ export const useFetchSSE = () => {
       eventSource.addEventListener(
         'message',
         e => {
-          notificationBuffer.current.push(JSON.parse(e.data));
+          notificationBuffer.current.push(JSON.parse(e.data).data);
           flushBuffer();
         },
         { signal }
@@ -54,9 +56,7 @@ export const useFetchSSE = () => {
         { signal }
       );
 
-      eventSource.onerror = () => {
-        eventSource.close();
-      };
+      eventSource.onerror = () => {};
 
       return () => {
         controller.abort();
@@ -64,5 +64,5 @@ export const useFetchSSE = () => {
       };
     }
     return;
-  }, [userId, accessToken]);
+  }, [userId, accessToken, getHistory]);
 };
