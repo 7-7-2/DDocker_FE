@@ -77,9 +77,15 @@ export const replyComment = async (comment: CommentInput) => {
 };
 
 // 8. 답글 삭제(+JWT 인증)
-export const deleteReply = async (postId: string, replyId: number, parentCommentId: number) => {
+export const deleteReply = async (
+  postId: string,
+  replyId: number,
+  parentCommentId: number
+) => {
   const res = await authInstance
-    .delete(`/comments/reply`, { data: { replyId: replyId, postId: postId, commentId: parentCommentId } })
+    .delete(`/comments/reply`, {
+      data: { replyId: replyId, postId: postId, commentId: parentCommentId }
+    })
     .catch(e => {
       console.log(e);
     });
@@ -150,10 +156,6 @@ export const deleteImage = async (url: string) => {
 // PostRegister
 export const setPostRegist = async (postInfo: RegisterPostTypes) => {
   try {
-    // 임시 > 변경 예정
-    const { productName, ...rest } = postInfo;
-    const data = { menu: productName, ...rest };
-    // const data = postInfo;
     const res = await authInstance.post('/posts/register', postInfo);
     return res.data.data;
   } catch (error) {
@@ -186,12 +188,7 @@ export const getWeeklyPopular = async () => {
 export const getCoffeeMenu = async () => {
   try {
     const res = await baseInstance.get('/brand');
-    res &&
-      (await useSetCacheData(
-        'brand',
-        '/coffeeMenu',
-        res.data.data
-      ));
+    res && (await useSetCacheData('brand', '/coffeeMenu', res.data.data));
     return res && res.data.data;
   } catch (error) {
     console.log('Failed to get coffee menu List', error);

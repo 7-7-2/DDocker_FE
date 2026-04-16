@@ -23,11 +23,11 @@ export const usePostDataFormatter = (update?: boolean) => {
       const updateData = {
         ...updateInfo,
         photo: !nonImgPost ? storagePath : null,
-        description: description || updateInfo.description
+        description: description || updateInfo.description,
+        visibility: updateInfo.visibility
       };
       return { postId, updateData };
     }
-
     const newRegistData = {
       ...registInfo,
       caffeine: caffeine,
