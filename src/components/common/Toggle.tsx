@@ -2,6 +2,8 @@ import { MouseEventHandler } from 'react';
 
 import { styled } from 'styled-system/jsx';
 import { ToggleActiveColor, ToggleActiveState } from '@/styles/styles';
+import { Align } from '@/styles/layout';
+import { cx } from 'styled-system/css';
 
 const Toggle = ({
   toggleState,
@@ -11,16 +13,15 @@ const Toggle = ({
   onClick: MouseEventHandler<HTMLButtonElement>;
 }) => {
   return (
-    <ToggleContainer className={toggleState ? ToggleActiveColor : undefined}>
-      <ToggleBtn
-        className={toggleState ? ToggleActiveState : undefined}
-        onClick={onClick}
-      />
+    <ToggleContainer
+      onClick={onClick}
+      className={cx(Align, toggleState ? ToggleActiveColor : undefined)}>
+      <ToggleBtn className={toggleState ? ToggleActiveState : undefined} />
     </ToggleContainer>
   );
 };
 
-const ToggleContainer = styled.div`
+const ToggleContainer = styled.button`
   position: relative;
   width: 46px;
   height: 26px;
@@ -28,7 +29,7 @@ const ToggleContainer = styled.div`
   border-radius: 60px;
 `;
 
-const ToggleBtn = styled.button`
+const ToggleBtn = styled.div`
   width: 22px;
   height: 22px;
   margin: 2px;
