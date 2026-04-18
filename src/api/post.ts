@@ -4,7 +4,12 @@ import {
   storageInstance
 } from '@/api/axiosInterceptor';
 import useSetCacheData from '@/hooks/useSetCacheData';
-import { RegisterPostTypes, CommentInput, Fetched } from '@/types/types';
+import {
+  RegisterPostTypes,
+  CommentInput,
+  Fetched,
+  CaffeineIntakeTypes
+} from '@/types/types';
 
 // 1. 포스트 조회
 export const getPostDetail = async (postId: string) => {
@@ -153,14 +158,27 @@ export const deleteImage = async (url: string) => {
     });
 };
 
-// PostRegister
-export const setPostRegist = async (postInfo: RegisterPostTypes) => {
+// 포스트 등록
+export const registerPost = async (postInfo: RegisterPostTypes) => {
   try {
     const res = await authInstance.post('/posts/register', postInfo);
     return res.data.data;
   } catch (error) {
     console.log('Failed to regist post', error);
   }
+};
+
+// 카페인 기록하기
+export const registerCaffeineIntake = async (
+  caffieneIntake: CaffeineIntakeTypes
+) => {
+  const { brand, ...rest } = caffieneIntake;
+  const res = await authInstance
+    .post('/caffeine/intake', { brandId: brand, ...rest })
+    .catch(e => {
+      console.log(e);
+    });
+  return res && res.data;
 };
 
 // TodayCoffeeInfo
