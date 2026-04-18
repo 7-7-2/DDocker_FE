@@ -1,9 +1,9 @@
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 
 import { getMyInfo } from '@/api/user';
-import { setPostRegist, updatePost } from '@/api/post';
+import { registerCaffeineIntake, registerPost, updatePost } from '@/api/post';
 import {
   caffeineFilterState,
   caffeineIntakeState,
@@ -13,6 +13,7 @@ import {
 import { useGetTodayCoffeeData } from '@/hooks/home/useGetTodayCoffeeData';
 import { usePostDataFormatter } from '@/hooks/post/usePostDataFormatter';
 import { usePostImageEditor } from '@/hooks/post/usePostImageEditor';
+import { useResetRegistInfo } from '@/hooks/post/useResetRegistInfo';
 
 export const usePostMutation = (
   descriptions: string | null,
@@ -22,6 +23,7 @@ export const usePostMutation = (
   const registInfo = useRecoilValue(registPostState);
   const [caffeineIntake, setCaffeineIntake] =
     useRecoilState(caffeineIntakeState);
+  const { resetRegistInfo } = useResetRegistInfo();
 
   // 이미지
   const { imageUrl, imageFile, uploadStorage, registerProps, cropperProps } =
@@ -40,10 +42,10 @@ export const usePostMutation = (
   };
 
   // caffieneIntake 등록 로직
-  // 임시
   const handleCaffeineRegister = async () => {
     const caffeineIntakeData = { ...caffeineIntake, ['caffeine']: caffeine };
-    return caffeineIntakeData;
+    const registered = await registerCaffeineIntake(caffeineIntakeData);
+    return registered;
   };
 
   //post 등록 로직
@@ -53,7 +55,7 @@ export const usePostMutation = (
       nonImgPost,
       descriptions
     );
-    const registered = newRegistData && (await setPostRegist(newRegistData));
+    const registered = newRegistData && (await registerPost(newRegistData));
     if (!nonImgPost) {
       const imgUploaded =
         (await registered) &&
@@ -98,8 +100,9 @@ export const usePostMutation = (
         return res.postId;
       }
       if (caffeineRegister) {
-        await handleCaffeineRegister();
-        return null;
+        const res = await handleCaffeineRegister();
+        console.log(res);
+        return;
       }
       const res = await handleRegister();
       return res.postId;
@@ -109,14 +112,14 @@ export const usePostMutation = (
       if (imageUrl?.startsWith('blob:')) {
         URL.revokeObjectURL(imageUrl);
       }
-
-      const navigateUrl =
-        postId !== null
-          ? `/post/${postId}/caffeine`
-          : '/post/caffeineIntake/caffeine';
-      navigate(navigateUrl, {
-        state: true
-      });
+      if (update) {
+        resetRegistInfo();
+        return navigate(`/post/${postId}`);
+      }
+      const navigateUrl = !caffeineRegister
+        ? `/post/${postId}/caffeine`
+        : '/post/caffeineIntake/caffeine';
+      navigate(navigateUrl);
     }
   });
 
