@@ -1,12 +1,12 @@
 import { useResetRecoilState } from 'recoil';
-import { caffeineFilterState, registPostState } from '@/atoms/atoms';
+import { caffeineFilterState, caffeineIntakeState } from '@/atoms/atoms';
 
 export const useResetSelectedCoffee = () => {
-  const resetstate = useResetRecoilState(registPostState);
+  const resetSelectedCoffeeState = useResetRecoilState(caffeineIntakeState);
   const resetCaffeineState = useResetRecoilState(caffeineFilterState);
 
   const touchResetBtn = () => {
-    resetstate();
+    resetSelectedCoffeeState();
     resetCaffeineState();
   };
 

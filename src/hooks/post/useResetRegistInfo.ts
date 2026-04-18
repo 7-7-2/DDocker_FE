@@ -1,13 +1,15 @@
 import { useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
-import { registPostState } from '@/atoms/atoms';
+import { useResetRecoilState } from 'recoil';
+import { postContentsState } from '@/atoms/atoms';
 import { useResetSelectedCoffee } from '@/hooks/useResetSelectedCoffee';
 
 export const useResetRegistInfo = () => {
-  const { caffeine } = useRecoilValue(registPostState);
-  const touchResetBtn = useResetSelectedCoffee();
+  const resetSelectedCoffee = useResetSelectedCoffee();
+  const resetPostContentsState = useResetRecoilState(postContentsState);
 
-  useEffect(() => {
-    caffeine !== 0 && touchResetBtn();
-  }, []);
+  const resetRegistInfo = () => {
+    resetSelectedCoffee();
+    resetPostContentsState();
+  };
+  return { resetRegistInfo };
 };

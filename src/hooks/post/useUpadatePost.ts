@@ -3,15 +3,16 @@ import { useSetRecoilState } from 'recoil';
 import { useQuery } from '@tanstack/react-query';
 
 import { getPostDetail } from '@/api/post';
-import { registPostState } from '@/atoms/atoms';
+import { caffeineIntakeState, postContentsState } from '@/atoms/atoms';
 import { RegisterPostTypes } from '@/types/types';
-import { brandMapToEng } from '@/utils/convertBrandName';
 
 export const useUpadatePost = (
   update: boolean | undefined,
   postid: string | undefined
 ) => {
-  const setRegistInfo = useSetRecoilState(registPostState);
+  const setCaffeineIntake = useSetRecoilState(caffeineIntakeState);
+  const setPostContentsState = useSetRecoilState(postContentsState);
+
   const postNum = postid as string;
 
   const { data: postData } = useQuery({
@@ -25,16 +26,20 @@ export const useUpadatePost = (
   const updatePostInfo = (postData: RegisterPostTypes) => {
     postData &&
       postid &&
-      setRegistInfo({
-        brand: brandMapToEng(postData.brand),
+      setCaffeineIntake({
+        caffeine: postData.caffeine,
+        brand: postData.brand,
         productName: postData.productName,
         size: postData.size,
-        shot: postData.shot,
-        description: postData.description,
         intensity: postData.intensity,
-        caffeine: postData.caffeine,
-        photo: postData.photo,
+        shot: postData.shot
+      });
+    postData &&
+      postid &&
+      setPostContentsState({
         postId: postid,
+        description: postData.description,
+        photo: postData.photo,
         visibility: postData.visibility
       });
   };

@@ -13,7 +13,6 @@ import PostDetailImg from '@/components/post/PostDetailImg';
 import { useVerifyOwner } from '@/hooks/post/useVerifyOwner';
 import { usePostOptions } from '@/hooks/post/usePostOptions';
 import { useRefIntoView } from '@/hooks/post/useRefIntoView';
-import { useResetRegistInfo } from '@/hooks/post/useResetRegistInfo';
 import { useShowFooter } from '@/hooks/useShowFooter';
 
 import { getPostDetail, getSocialCounts } from '@/api/post';
@@ -38,7 +37,7 @@ const { privatePost } = PROFILE_TEXTS;
 const PostDetail = ({ postNum }: { postNum: string }) => {
   useShowFooter(false);
   const { ref } = useRefIntoView(null, 'auto');
-  useResetRegistInfo();
+  const { postOwner } = useVerifyOwner(postNum);
 
   const queries = useQueries({
     queries: [
@@ -57,12 +56,11 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
   const postData = queries[0].data?.data as PostDetailTypes;
   const socialCounts = queries[1].data;
 
-  const { postOwner } = useVerifyOwner(postNum);
-  const { toggle, cancelOptions } = usePostOptions();
   const {
-    toggle: confirm,
-    handleToggle: setConfirm,
-    cancelConfirm
+    toggle: openActionModal,
+    isModal,
+    cancelOptions,
+    confirmDelete
   } = usePostOptions();
 
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -70,16 +68,16 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
 
   return (
     <>
-      {toggle && isPostOwner && (
+      {openActionModal && isPostOwner && (
         <Suspense>
           <PostOwnerOption
             cancleOptions={cancelOptions}
-            setConfirm={setConfirm}
+            confirmDelete={confirmDelete}
             postId={postNum}
           />
         </Suspense>
       )}
-      {toggle && !isPostOwner && (
+      {openActionModal && !isPostOwner && (
         <Suspense>
           <PublicOption
             handleToggle={cancelOptions}
@@ -87,12 +85,9 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
           />
         </Suspense>
       )}
-      {confirm && (
+      {isModal && (
         <Suspense>
-          <ConfirmDelete
-            cancelConfirm={cancelConfirm}
-            postId={postNum}
-          />
+          <ConfirmDelete postId={postNum} />
         </Suspense>
       )}
       {postData && socialCounts && (

@@ -6,16 +6,22 @@ import CoffeeMenuSelection from '@/components/common/coffeeSelection/CoffeeMenuS
 import CoffeeOptionSelection from '@/components/common/coffeeSelection/CoffeeOptionSelection';
 import PostWriteSection from '@/components/post/postRegister/PostWriteSection';
 import Button from '@/components/common/Button';
+import ModalCTA from '@/components/common/ModalCTA';
 
 import { registPostState } from '@/atoms/atoms';
-import { BUTTON_TEXTS } from '@/constants/common';
+import { BUTTON_TEXTS, MODAL_CTA_TEXTS } from '@/constants/common';
 
 import { useUpadatePost } from '@/hooks/post/useUpadatePost';
 import { usePostMutation } from '@/hooks/post/usePostMutation';
+import { useVerifyModalCTA } from '@/hooks/useVerifyModalCTA';
+import { useSmartBack } from '@/hooks/post/useSmartBack';
+import { useResetRegistInfo } from '@/hooks/post/useResetRegistInfo';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { BottomBtnContainer, DefaultBtn, DisabledBtn } from '@/styles/styles';
+
+const { title, description } = MODAL_CTA_TEXTS.register;
 
 const PostRegisterForm = ({
   update,
@@ -24,14 +30,26 @@ const PostRegisterForm = ({
   update?: boolean;
   postid?: string;
 }) => {
-  useUpadatePost(update, postid);
-  const { type } = useParams();
-  const caffeineRegister = type === 'caffeine';
-
   const registInfo = useRecoilValue(registPostState);
   const [descriptions, setDescriptions] = useState<string | null>(
     registInfo.description || ''
   );
+
+  //post type
+  const { type } = useParams();
+  const caffeineRegister = type === 'caffeine';
+  useUpadatePost(update, postid);
+
+  // 등록 중단
+  const { isModal, setIsModal } = useVerifyModalCTA();
+  const { smartBack } = useSmartBack();
+  const { resetRegistInfo } = useResetRegistInfo();
+  const handleQuitbtn = () => {
+    isModal && setIsModal(!isModal);
+    resetRegistInfo();
+    smartBack();
+    return;
+  };
 
   // update && description update
   useEffect(() => {
@@ -69,9 +87,20 @@ const PostRegisterForm = ({
 
   return (
     <>
+      {isModal && (
+        <ModalCTA
+          buttonText={[BUTTON_TEXTS.quit, BUTTON_TEXTS.continue]}
+          title={caffeineRegister ? title.caffeineIntake : title.post}
+          description={description}
+          type={BUTTON_TEXTS.type}
+          fn={handleQuitbtn}
+        />
+      )}
       <Container>
-        <CoffeeMenuSelection />
-        <CoffeeOptionSelection />
+        <Update aria-disabled={update ? true : false}>
+          <CoffeeMenuSelection />
+          <CoffeeOptionSelection />
+        </Update>
         {!caffeineRegister && (
           <PostWriteSection
             descriptions={descriptions}
@@ -104,4 +133,11 @@ const ButtonContainer = styled.div`
   box-shadow: 1px 0 0 0#fff;
 `;
 
+const Update = styled.div`
+  &[aria-disabled='true'] {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 40%;
+  }
+`;
 export default PostRegisterForm;

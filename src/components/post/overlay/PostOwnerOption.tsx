@@ -2,29 +2,19 @@ import { BackgroundLayer } from '@/components/post/overlay/BackgroundLayer';
 import { PostOptions } from '@/components/post/overlay/PostOptions';
 import { Option } from '@/components/post/overlay/Option';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
-import { useSetRecoilState } from 'recoil';
-import { footerShowState } from '@/atoms/atoms';
+
+import { BUTTON_TEXTS } from '@/constants/common';
 
 const PostOwnerOption = ({
   cancleOptions,
-  postId,
-  setConfirm
+  confirmDelete,
+  postId
 }: {
   cancleOptions: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  confirmDelete: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   postId: string;
-  setConfirm: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }) => {
-  const setFooterState = useSetRecoilState(footerShowState);
   const goToUpdate = useNavigateTo(`/post/${postId}/update`);
-
-  const confirmDelete = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    e.preventDefault();
-    cancleOptions(e);
-    setFooterState(false);
-    setConfirm(e);
-  };
-
-  //등록 페이지 수정시 postId 전달 혹은 수정 페이지로 이동
   const handleUpdate = () => {
     goToUpdate();
   };
@@ -34,12 +24,12 @@ const PostOwnerOption = ({
       <PostOptions>
         <Option
           icon="update-post"
-          option="수정하기"
+          option={BUTTON_TEXTS.update2}
           onClick={handleUpdate}
         />
         <Option
           icon="delete-post"
-          option="삭제"
+          option={BUTTON_TEXTS.delete2}
           onClick={confirmDelete}
         />
       </PostOptions>
