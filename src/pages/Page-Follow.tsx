@@ -29,7 +29,7 @@ const Follow: React.FC<FollowCountProps> = () => {
     enabled: !!userId && !!signedIn
   });
   const headerText = username && username.data;
-  useComposeHeader(false, headerText, 'close');
+  useComposeHeader('back', headerText, '');
 
   const pageData =
     selectedTab === tabs[0]

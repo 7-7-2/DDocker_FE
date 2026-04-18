@@ -84,11 +84,11 @@ export const registPostState = selector<
     };
     return postData;
   },
-  set: ({ set, reset }, newValue) => {
-    if ('postId' in newValue) set(postContentsState, newValue);
-    if ('caffeine' in newValue) set(caffeineIntakeState, newValue);
-    reset(postContentsState);
-    reset(caffeineIntakeState);
+  set: ({ set }, newValue) => {
+    if (newValue) {
+      if ('postId' in newValue) set(postContentsState, newValue);
+      if ('caffeine' in newValue) set(caffeineIntakeState, newValue);
+    }
   }
 });
 

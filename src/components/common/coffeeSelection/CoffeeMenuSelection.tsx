@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import RegisterLabel from '@/components/post/postRegister/RegisterLabel';
-const SelectBox = lazy(() => import('@/components/common/SelectBox'));
+import useGetUserInfo from '@/hooks/useGetUserInfo';
 
 import { CAFFEINE_FILTER_TEXTS } from '@/constants/home';
 import useGetCoffeeList from '@/hooks/useGetCoffeeList';
@@ -19,13 +19,15 @@ import {
 } from '@/styles/styles';
 import { Column, Grid } from '@/styles/layout';
 
+const SelectBox = lazy(() => import('@/components/common/SelectBox'));
+
 const { coffeeMenu, coffeeOption } = CAFFEINE_FILTER_TEXTS;
 
 const CoffeeMenuSelection = () => {
   const { postId } = useParams();
   const { type } = useParams();
   const register = postId === 'register' || type === 'update';
-
+  useGetUserInfo();
   const [caffeineIntake, setCaffeineIntake] =
     useRecoilState(caffeineIntakeState);
   const setCaffeine = useSetRecoilState(caffeineFilterState);
@@ -63,19 +65,19 @@ const CoffeeMenuSelection = () => {
     });
   };
 
-  // 선택한 커피 브랜드 메뉴 리스트 조회
-  const getMenuList = (selectedBrand: string) => {
-    const res = coffeeData?.[selectedBrand]?.map(item => item.menu);
-    return res;
-  };
-  const menuList = coffeeData && getMenuList(caffeineIntake.brand);
-
   // 커피 브랜드 선택
   const selectBrand = (e: React.MouseEvent<HTMLButtonElement>) => {
     getMenuList(e.currentTarget.value);
     setRegisterData('brand', e.currentTarget.value);
     setCaffeineInfo(0);
   };
+
+  // 선택한 커피 브랜드 메뉴 리스트 조회
+  const getMenuList = (selectedBrand: string) => {
+    const res = coffeeData?.[selectedBrand]?.map(item => item.menu);
+    return res;
+  };
+  const menuList = coffeeData && getMenuList(caffeineIntake.brand);
 
   // 선택한 커피 메뉴 정보 조회
   const getMenuInfo = (selectedMenu: string) => {

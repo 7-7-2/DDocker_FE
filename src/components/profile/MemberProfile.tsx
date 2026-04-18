@@ -26,7 +26,7 @@ import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Between, Column } from '@/styles/layout';
 
-const { profile, profileTabs, type } = PROFILE_TEXTS;
+const { profileTabs, type } = PROFILE_TEXTS;
 
 const MemberProfile = ({
   userId,
@@ -70,6 +70,7 @@ const MemberProfile = ({
       return profileId && getPostCounts(profileId);
     }
   });
+
   const followCountData = {
     userId: profileId,
     postCount: allCount
