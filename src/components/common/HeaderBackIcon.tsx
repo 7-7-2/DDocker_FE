@@ -3,10 +3,10 @@ import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { useSmartBack } from '@/hooks/post/useSmartBack';
 
 const HeaderBackIcon = () => {
-  const { navigateTo } = useSmartBack();
+  const { smartBack } = useSmartBack();
 
   const navTofooterState = () => {
-    navigateTo();
+    smartBack();
   };
 
   return (

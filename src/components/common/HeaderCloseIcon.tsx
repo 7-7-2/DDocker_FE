@@ -1,16 +1,18 @@
-import { footerShowState } from '@/atoms/atoms';
-import Icon from '@/components/common/Icon';
-import { useNavigateTo } from '@/hooks/useNavigateTo';
-import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { useRecoilState } from 'recoil';
+import Icon from '@/components/common/Icon';
+import { footerShowState } from '@/atoms/atoms';
+import { useSmartBack } from '@/hooks/post/useSmartBack';
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
 const HeaderCloseIcon = () => {
-  const goToBack = useNavigateTo('-1');
+  const { smartClose } = useSmartBack();
   const [footerState, setFooterState] = useRecoilState(footerShowState);
+
   const handleTouch = () => {
+    smartClose();
     !footerState && setFooterState(true);
-    goToBack();
   };
+
   return (
     <>
       <Icon

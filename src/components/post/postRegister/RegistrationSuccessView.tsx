@@ -1,6 +1,6 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import dayjs from 'dayjs';
 
 import Icon from '@/components/common/Icon';
@@ -13,7 +13,7 @@ import { brandMapToKor } from '@/utils/convertBrandName';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { coffeeInfoFormatter } from '@/utils/coffeeInfoFormatter';
 
-import { caffeineIntakeState, isModalState } from '@/atoms/atoms';
+import { caffeineIntakeState } from '@/atoms/atoms';
 import { POST_REGISTER_TEXTS } from '@/constants/texts';
 import { CAFFEINE_TEXTS, BUTTON_TEXTS } from '@/constants/common';
 
@@ -37,7 +37,8 @@ import {
   Regular,
   Semibold
 } from '@/styles/styles';
-
+import { useVerifyModalCTA } from '@/hooks/useVerifyModalCTA';
+import { useSmartBack } from '@/hooks/post/useSmartBack';
 const { recommendedCaffeine } = CAFFEINE_TEXTS;
 const { heroText, description, coffeeOptionText } = POST_REGISTER_TEXTS.success;
 
@@ -45,13 +46,19 @@ const RegistrationSuccessView = () => {
   useShowFooter(false);
   const caffeineIntake = useRecoilValue(caffeineIntakeState);
   const { caffeine, coffeeInfo } = coffeeInfoFormatter(caffeineIntake);
-  const [isModal, setIsModal] = useRecoilState(isModalState);
+  const { isModal, setIsModal } = useVerifyModalCTA();
 
+  // post type check
   const { postId } = useParams();
-  const postTypeCheck = postId !== 'caffeineIntake';
+  const caffeineIntakePost = postId === 'caffeineIntake';
 
-  const goToHome = useNavigateTo('0');
-  const goToPost = useNavigateTo(`/post/${postId}`);
+  // button contents
+  const navigate = useNavigate();
+  const { smartBack } = useSmartBack();
+  const goToPost = () =>
+    navigate(`/post/${postId}`, {
+      state: { from: 'resgister' }
+    });
 
   // descriptionText 가공
   const generateDescriptionText = () => {
@@ -81,7 +88,7 @@ const RegistrationSuccessView = () => {
   };
 
   const navToWhere = () => {
-    postTypeCheck ? goToPost() : goToHome();
+    !caffeineIntakePost ? goToPost() : smartBack();
   };
 
   return (
@@ -109,7 +116,9 @@ const RegistrationSuccessView = () => {
       </CaffeineInfoContainer>
       <CoffeeOptionContainer className={cx(Flex, Column)}>
         {coffeeIntakeEntries.map((item, index) => (
-          <CoffeeOptionItem className={cx(Flex, Between, Medium)}>
+          <CoffeeOptionItem
+            key={item.label}
+            className={cx(Flex, Between, Medium)}>
             <CoffeeOptionLabel className={Regular}>
               {item.label}
             </CoffeeOptionLabel>
@@ -129,7 +138,7 @@ const RegistrationSuccessView = () => {
       <Toaster />
       <div className={BottomBtnContainer}>
         <Button
-          text={postTypeCheck ? BUTTON_TEXTS.post : BUTTON_TEXTS.confirm}
+          text={!caffeineIntakePost ? BUTTON_TEXTS.post : BUTTON_TEXTS.confirm}
           onClick={navToWhere}
           className={cx(PostRegisterBtn, Sticky)}
         />
