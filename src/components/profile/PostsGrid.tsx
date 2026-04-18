@@ -7,7 +7,7 @@ import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { Grid, Center } from '@/styles/layout';
+import { Grid, Center, DVW } from '@/styles/layout';
 import { Cursor } from '@/styles/styles';
 
 const PostsGrid = ({ data: posts, postRef, handleOnError }: PostsGridProps) => {
@@ -20,7 +20,7 @@ const PostsGrid = ({ data: posts, postRef, handleOnError }: PostsGridProps) => {
   };
 
   return (
-    <GridContainer className={cx(Grid, Center)}>
+    <GridContainer className={cx(Grid, Center, DVW)}>
       {posts &&
         posts.map(item => (
           <GridItemContainer key={item.postId}>
@@ -46,12 +46,7 @@ const PostsGrid = ({ data: posts, postRef, handleOnError }: PostsGridProps) => {
   );
 };
 
-const ErrorContainer = styled.div`
-  flex-grow: 1;
-`;
-
 const GridContainer = styled.div`
-  width: 100dvw;
   margin: 0 -20px;
   grid-template-columns: repeat(3, 1fr);
   gap: 1px;
@@ -59,6 +54,7 @@ const GridContainer = styled.div`
 
 const GridItemContainer = styled.div`
   width: 100%;
+
   position: relative;
   padding-top: 1px;
   &::after {
