@@ -5,7 +5,7 @@ export const HEADER_TEXTS = {
   post: {
     postRegister: '새 게시물',
     caffeineRegister: '마신 커피 추가',
-    update: '수정하기',
+    update: '게시물 수정',
     post: '게시물'
   },
   profile: {
@@ -25,7 +25,6 @@ export const INPUT_TEXTS = {
       typeName: 'comment',
       placeholder: '댓글을 작성해보세요.'
     },
-    title: { typeName: 'title', placeholder: '제목을 입력하세요.' },
     description: {
       typeName: 'title',
       placeholder: '내용을 입력하세요.',
@@ -63,13 +62,15 @@ export const LABEL_TEXTS = {
 };
 
 export const BUTTON_TEXTS = {
+  type: 'retention',
   start: '시작하기',
   registered: '등록완료',
   register: '등록하기',
   mainRegister: '조회한 커피 등록하기',
   coffeeRegister: '마신 커피 등록하기',
   postRegister: '게시물로 등록하기',
-  update: '수정하기',
+  update: '수정완료',
+  update2: '수정하기',
   next: '다음으로',
   signIn1: '로그인',
   signIn2: '로그인하기',
@@ -84,11 +85,14 @@ export const BUTTON_TEXTS = {
   confirm: '확인',
   cancel: '취소',
   delete: '삭제',
+  delete2: '삭제하기',
   imgDelete: '이미지 삭제',
   save: '저장하기',
   viewAll: '전체보기',
   profileShare: '이 프로필 공유하기',
-  userReport: '사용자 신고하기'
+  userReport: '사용자 신고하기',
+  continue: '계속하기',
+  quit: '나가기'
 };
 
 export const TABS_TEXTS: TabsText = {
@@ -112,6 +116,13 @@ export const MODAL_CTA_TEXTS = {
     confirm: '정말 탈퇴하시겠어요?',
     warning: `커피 기록, 카페인 섭취량, 분석, 게시물 등
 모든 개인 기록이 삭제되며 복구할 수 없습니다.`
+  },
+  register: {
+    title: {
+      caffeineIntake: '커피 등록을 그만두시겠어요?',
+      post: '게시물 작성을 그만두시겠어요?'
+    },
+    description: '작성 중인 내용이 삭제됩니다.'
   }
 };
 

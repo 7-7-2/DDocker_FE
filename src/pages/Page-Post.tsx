@@ -2,9 +2,7 @@ import { Suspense, lazy } from 'react';
 import { useParams } from 'react-router-dom';
 
 import SEOMeta from '@/components/common/SEOMeta';
-
 import { useComposeHeader } from '@/hooks/useComposeHeader';
-
 import SEO_DATA from '@/constants/SEOData';
 import { HEADER_TEXTS } from '@/constants/common';
 
@@ -16,7 +14,6 @@ const PostRegister = lazy(
 const RegistrationSuccessView = lazy(
   () => import('../components/post/postRegister/RegistrationSuccessView')
 );
-
 const PostDetail = lazy(() => import('../components/post/PostDetail'));
 
 const Post = () => {
@@ -27,23 +24,23 @@ const Post = () => {
   const caffeine = type === 'caffeine';
   const update = type === 'update';
 
-  const headerText = () => {
+  const header = () => {
     if (register && !caffeine) {
-      return post.postRegister;
+      return ['', post.postRegister, 'close'];
     }
     if (register && caffeine) {
-      return post.caffeineRegister;
+      return ['', post.caffeineRegister, 'close'];
     }
     if (!register && update) {
-      return post.update;
+      return ['', post.update, 'close'];
     }
     if (!register && caffeine) {
-      return '';
+      return ['', '', 'close'];
     }
-    return post.post;
+    return ['back', post.post, ''];
   };
 
-  useComposeHeader('back', headerText(), '');
+  useComposeHeader(...header());
 
   const metaData = () => {
     if (register) {

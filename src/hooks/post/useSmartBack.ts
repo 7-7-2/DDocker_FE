@@ -1,17 +1,48 @@
 import { useRecoilValue } from 'recoil';
 import { useLocation } from 'react-router-dom';
+
+import { activeState } from '@/atoms/atoms';
 import { routeMap } from '@/utils/getRoute';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
-import { activeState } from '@/atoms/atoms';
+import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
+import { useVerifyModalCTA } from '@/hooks/useVerifyModalCTA';
+import { useResetRegistInfo } from '@/hooks/post/useResetRegistInfo';
+
 export const useSmartBack = () => {
+  //back
   const footerActiveState = useRecoilValue(activeState);
-  const myPage = footerActiveState === 'my';
-  const { state } = useLocation();
+  const { userId } = useCachedUserInfo();
+  const naveToBack = useNavigateTo('-1');
+  console.log(footerActiveState);
+  const smartBack = useNavigateTo(routeMap.get(footerActiveState));
 
-  const navigateTo =
-    !state && myPage
-      ? useNavigateTo('-1')
-      : useNavigateTo(routeMap.get(footerActiveState));
+  //close
+  const { pathname } = useLocation();
+  const registerPage = pathname.startsWith('/post/register');
+  const { isModal, setIsModal } = useVerifyModalCTA();
 
-  return { navigateTo };
+  const registeredPage = pathname.endsWith('/caffeine');
+  const { resetRegistInfo } = useResetRegistInfo();
+
+  const updatePage = pathname.endsWith('/update');
+  const updateClose = useNavigateTo(
+    `${routeMap.get(footerActiveState)}${userId}`
+  );
+
+  const smartClose = () => {
+    if (registerPage) {
+      return setIsModal(!isModal);
+    }
+    if (updatePage) {
+      resetRegistInfo();
+      return smartBack();
+    }
+    if (registeredPage) {
+      resetRegistInfo();
+      return smartBack();
+    }
+    return naveToBack();
+  };
+
+  return { smartBack, smartClose };
 };
