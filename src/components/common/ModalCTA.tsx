@@ -10,10 +10,10 @@ import {
   BtnColorBorderWhite,
   BtnColorMain,
   DubbleShortBtn,
-  Medium,
-  Regular
+  Regular,
+  Semibold
 } from '@/styles/styles';
-import { cx } from 'styled-system/css';
+import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 
 const ModalCTA = ({
@@ -25,30 +25,31 @@ const ModalCTA = ({
 }: {
   buttonText: Array<string>;
   title: string;
-  description: string;
+  description?: string;
   type?: string;
   fn: React.MouseEventHandler<HTMLButtonElement>;
 }) => {
   const { isModal, setIsModal } = useVerifyModalCTA();
   const navigate = useNavigate();
+  const deleteAccount = type === 'retention';
 
-  const HandleOnclick = () => {
+  const handleCancle = () => {
     if (type === 'register') {
       navigate('/');
     }
     isModal && setIsModal(!isModal);
   };
 
-  const confirmDeleteAuth = (
+  const confirmContainer = (
     <ConfirmContainer className={cx(Flex, Between)}>
       <Button
         text={buttonText[0]}
-        onClick={handleActions}
-        className={cx(BtnColorBorderWhite, DubbleShortBtn)}
+        onClick={deleteAccount ? handleActions : handleCancle}
+        className={cx(BtnColorBorderWhite, DubbleShortBtn, BtnTextColor)}
       />
       <Button
         text={buttonText[1]}
-        onClick={HandleOnclick}
+        onClick={!deleteAccount ? handleActions : handleCancle}
         className={cx(BtnColorMain, DubbleShortBtn)}
       />
     </ConfirmContainer>
@@ -56,13 +57,13 @@ const ModalCTA = ({
 
   return (
     isModal && (
-      <BackgroundLayer onClick={HandleOnclick}>
+      <BackgroundLayer onClick={handleCancle}>
         <ModalContainer className={cx(Column, Between, Align)}>
           <TextContainer className={cx(Column, Align)}>
-            <Text className={Medium}>{title}</Text>
+            <Text className={Semibold}>{title}</Text>
             <Description className={Regular}>{description}</Description>
           </TextContainer>
-          {confirmDeleteAuth}
+          {confirmContainer}
         </ModalContainer>
       </BackgroundLayer>
     )
@@ -72,7 +73,7 @@ const ModalCTA = ({
 const ModalContainer = styled.div`
   position: absolute;
   width: 300px;
-  height: 198px;
+  height: fit-content;
   margin: auto;
   background-color: #ffffff;
   padding: 30px 16px 16px 16px;
@@ -105,6 +106,9 @@ const Text = styled.div`
 const ConfirmContainer = styled.div`
   width: 100%;
   gap: 8px;
+  margin-top: 28px;
 `;
-
+const BtnTextColor = css`
+  color: var(--colors-mid-grey) !important;
+`;
 export default ModalCTA;

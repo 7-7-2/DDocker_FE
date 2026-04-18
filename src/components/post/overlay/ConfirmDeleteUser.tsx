@@ -3,7 +3,7 @@ import { BUTTON_TEXTS, MODAL_CTA_TEXTS } from '@/constants/common';
 import { useHandleAuth } from '@/hooks/MyPage/useHandleAuth';
 
 const { confirm, warning } = MODAL_CTA_TEXTS.deleteAccount;
-const { notNow, deleteAccount } = BUTTON_TEXTS;
+const { notNow, deleteAccount, type } = BUTTON_TEXTS;
 
 const ConfirmDeleteUser = () => {
   const { handleDeleteAccount } = useHandleAuth();
@@ -13,6 +13,7 @@ const ConfirmDeleteUser = () => {
       buttonText={[deleteAccount, notNow]}
       title={confirm}
       description={warning}
+      type={type}
       fn={handleDeleteAccount}
     />
   );

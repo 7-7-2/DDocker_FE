@@ -177,12 +177,15 @@ export const ShortBtn = cx(
   `
 );
 
-export const DubbleShortBtn = css`
-  width: 130px;
-  height: 48px;
-  border-radius: 10px;
-  font-size: var(--font-sizes-sm);
-`;
+export const DubbleShortBtn = cx(
+  Semibold,
+  css`
+    width: 130px;
+    height: 48px;
+    border-radius: 10px;
+    font-size: var(--font-sizes-sm);
+  `
+);
 
 export const NoneBtn = cx(
   Btn,
@@ -215,9 +218,9 @@ export const BtnColorMain = css`
 `;
 
 export const BtnColorBorderWhite = css`
-  border: 1px solid #ccc;
+  border: 1px solid var(--colors-btn-grey);
   background: #fff;
-  color: var(--colors-main-dark);
+  color: var(--colors-subtext);
 `;
 
 export const BtnColorWhite = css`

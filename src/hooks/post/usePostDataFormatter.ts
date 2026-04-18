@@ -21,7 +21,6 @@ export const usePostDataFormatter = (update?: boolean) => {
     if (update) {
       const { postId, ...updateInfo } = registInfo;
       const updateData = {
-        ...updateInfo,
         photo: !nonImgPost ? storagePath : null,
         description: description || updateInfo.description,
         visibility: updateInfo.visibility
