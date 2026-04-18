@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useResetRecoilState } from 'recoil';
 import { postContentsState } from '@/atoms/atoms';
 import { useResetSelectedCoffee } from '@/hooks/useResetSelectedCoffee';

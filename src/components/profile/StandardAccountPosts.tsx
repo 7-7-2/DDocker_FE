@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { Suspense } from 'react';
 
 import EmptyPostGrid from '@/components/profile/EmptyPostGrid';
 import PostsGrid from '@/components/profile/PostsGrid';
@@ -46,7 +46,6 @@ const StandardAccountPosts = ({
   };
 
   const handleOnError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-    console.log('ff');
     if (!isRefresh) {
       handleImgError();
     } else {

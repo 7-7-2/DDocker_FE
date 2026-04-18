@@ -24,7 +24,7 @@ import { DisabledBtn, RegistBtn } from '@/styles/styles';
 const { type, btn } = POST_REPORT_TEXTS;
 
 const Report = () => {
-  useComposeHeader(false, '신고하기', 'close');
+  useComposeHeader('back', '신고하기', '');
   const { postId } = useParams();
   const { state } = useLocation();
   const { selectedOption, handleSelectOption } = useSelectRadio();

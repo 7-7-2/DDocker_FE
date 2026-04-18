@@ -35,7 +35,7 @@ const imagePath = import.meta.env.VITE_R2_USER_IMAGE_PATH;
 const { message } = SELECTFAVBRAND_TEXTS;
 
 const SelectFavBrand = () => {
-  useComposeHeader(false, '기본정보', 'close');
+  useComposeHeader('', '기본정보', 'close');
   useCancelSignUp();
   const navigateToHome = useNavigateTo('/');
   const { state: imageFile } = useLocation();
@@ -46,7 +46,6 @@ const SelectFavBrand = () => {
     const userId = nanoid();
     const socialToken = await useGetCacheData('user', '/socialToken');
 
-
     const storagePath = `${imagePath}%2F${userId}`;
 
     const userInfo: InitialformTypes = {
@@ -54,7 +53,6 @@ const SelectFavBrand = () => {
       userId: userId,
       nickname: user.nickname,
       brand: user.brand,
-      bio: user.bio || null,
       profileUrl: file ? storagePath : '',
       visibility: 1 // Default to Public
     };
