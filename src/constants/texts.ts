@@ -75,7 +75,12 @@ export const POST_REGISTER_TEXTS = {
     },
     coffeeOptionText: ['커피 브랜드', '커피 메뉴', '커피 옵션', '등록일'],
     addFavoriteMenu: {
-      ModalText: '즐겨찾는 메뉴로 등록하시겠어요?'
+      ModalText: {
+        add: '즐겨찾는 메뉴로 추가하시겠어요?',
+        max: '기존 즐겨찾는 메뉴를 삭제해주세요'
+      },
+      description: `즐겨찾는 메뉴는 최대 3개까지
+등록할 수 있어요`
     }
   }
 };
