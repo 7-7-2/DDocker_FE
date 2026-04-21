@@ -158,7 +158,7 @@ export const deleteImage = async (url: string) => {
     });
 };
 
-// 포스트 등록
+// 15. 포스트 등록
 export const registerPost = async (postInfo: RegisterPostTypes) => {
   try {
     const res = await authInstance.post('/posts/register', postInfo);
@@ -168,7 +168,7 @@ export const registerPost = async (postInfo: RegisterPostTypes) => {
   }
 };
 
-// 카페인 기록하기
+//16. 카페인 기록하기
 export const registerCaffeineIntake = async (
   caffieneIntake: CaffeineIntakeTypes
 ) => {
@@ -181,7 +181,7 @@ export const registerCaffeineIntake = async (
   return res && res.data;
 };
 
-// TodayCoffeeInfo
+//17. 홈 화면 오늘의 섭취 커피 조회
 export const getTodayCoffeeInfo = async () => {
   try {
     const res = await authInstance.get('/caffeine/today');
@@ -191,18 +191,17 @@ export const getTodayCoffeeInfo = async () => {
   }
 };
 
-// WeeklyPopular
+//18. 홈 화면 이번주 인기 커피 브랜드
 export const getWeeklyPopular = async () => {
   try {
     const res = await baseInstance.get('/discovery/ranking');
-
     return res && res.data;
   } catch (error) {
     console.log('Failed to get Weekly Popular List', error);
   }
 };
 
-// 커피 메뉴 조회
+//19. 커피 메뉴 조회
 export const getCoffeeMenu = async () => {
   try {
     const res = await baseInstance.get('/brand');
@@ -211,4 +210,30 @@ export const getCoffeeMenu = async () => {
   } catch (error) {
     console.log('Failed to get coffee menu List', error);
   }
+};
+
+//20. 즐겨찾는 메뉴 등록
+export const setFavoriteMenu = async (caffieneIntake: CaffeineIntakeTypes) => {
+  await authInstance.post('/favorites', caffieneIntake).catch(e => {
+    console.log(e);
+  });
+};
+
+//20. 즐겨찾는 메뉴 조회
+export const getFavoriteMenu = async () => {
+  const res = await authInstance.get('/favorites').catch(e => {
+    console.log(e);
+  });
+  return res && res.data.data;
+};
+
+// 21. 즐겨찾는 메뉴 삭제
+export const deleteFavoriteMenu = async (id: number) => {
+  const data = { id: id };
+  const res = await authInstance
+    .delete('/favorites', { data: data })
+    .catch(e => {
+      console.log(e);
+    });
+  return;
 };
