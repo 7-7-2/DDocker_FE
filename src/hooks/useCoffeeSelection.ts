@@ -187,6 +187,7 @@ export const useCoffeeSelection = () => {
 
   return {
     register,
+    caffeineValue,
     caffeineIntake,
     brandList,
     menuList,

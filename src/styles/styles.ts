@@ -237,7 +237,7 @@ export const BtnColorSub = css`
 export const StartBtn = cx(
   Btn,
   css`
-    color: #313131;
+    color: var(--colors-main-dark);
     font-size: var(--font-sizes-sm);
     line-height: 22px;
     text-align: center;
@@ -282,8 +282,8 @@ export const BrandBtn = css`
 `;
 
 export const DisabledBtn = css`
-  background: #ccc;
-  color: #fff;
+  background: var(--colors-tertiary);
+  color: var(--colors-subtext);
   pointer-events: none;
 `;
 
@@ -419,7 +419,7 @@ export const SizeBtn = cx(
 export const SearchBtn = cx(
   Regular,
   css`
-    color: #313131;
+    color: var(--colors-main-dark);
     font-size: var(--font-sizes-sm);
     line-height: 22px;
   `
@@ -471,7 +471,7 @@ export const InputFontBase = cx(
 export const InputByteCheck = cx(
   Regular,
   css`
-    color: #313131;
+    color: var(--colors-main-dark);
     font-size: var(--font-sizes-xs);
     line-height: 20px;
   `
@@ -601,7 +601,7 @@ export const BgF5 = css`
 `;
 
 export const PostsCafe = css`
-  color: #313131;
+  color: var(--colors-main-dark);
   font-size: var(--font-sizes-sm);
   font-weight: 600;
   line-height: 22px;
@@ -630,7 +630,7 @@ export const PostContent = styled.p`
 export const CaffeineDetail = cx(
   Regular,
   css`
-    color: #313131;
+    color: var(--colors-main-dark);
     font-size: var(--font-sizes-sm);
     line-height: 22px;
   `
@@ -661,7 +661,7 @@ export const RecentSearch = cx(
   Semibold,
   css`
     font-size: var(--font-sizes-base);
-    color: #313131;
+    color: var(--colors-main-dark);
     line-height: 24px;
   `
 );
@@ -678,7 +678,7 @@ export const DeleteAllBtn = cx(
 export const SumTitle = cx(
   Semibold,
   css`
-    color: #313131;
+    color: var(--colors-main-dark);
     font-size: var(--font-sizes-lg);
     line-height: 26px;
   `
@@ -687,7 +687,7 @@ export const SumTitle = cx(
 export const SumBoardTitle = cx(
   Medium,
   css`
-    color: #313131;
+    color: var(--colors-main-dark);
     font-size: var(--font-sizes-sm);
     line-height: 22px;
   `
@@ -714,7 +714,7 @@ export const SumTypeAmount = cx(
 export const SumTypeUnit = cx(
   Medium,
   css`
-    color: #313131;
+    color: var(--colors-main-dark);
     font-size: var(--font-sizes-sm);
     line-height: 24px;
     transform: translateY(7%);
@@ -724,7 +724,7 @@ export const SumTypeUnit = cx(
 export const HomeRegistContainer = cx(
   Medium,
   css`
-    color: #313131;
+    color: var(--colors-main-dark);
     font-size: var(--font-sizes-base);
     line-height: 24px;
     position: relative;
@@ -735,16 +735,16 @@ export const HomeRegistContainer = cx(
 export const CaffeineFilterHomeLabel = cx(
   Semibold,
   css`
-    color: #313131;
+    color: var(--colors-main-dark);
     font-size: var(--font-sizes-sm);
     line-height: 22px;
   `
 );
 
 export const HomeInfoCaffeine = cx(
-  Semibold,
+  Bold,
   css`
-    color: var(--colors-main);
+    color: var(--colors-main-dark);
     font-size: var(--font-sizes-xl);
     line-height: 28px;
   `
@@ -753,7 +753,7 @@ export const HomeInfoCaffeine = cx(
 export const SmStyle = cx(
   Medium,
   css`
-    color: #313131;
+    color: var(--colors-main-dark);
     font-size: var(--font-sizes-sm);
     line-height: 22px;
   `
@@ -762,7 +762,7 @@ export const SmStyle = cx(
 export const FooterTextMedium = cx(
   Medium,
   css`
-    color: #313131;
+    color: var(--colors-main-dark);
     font-size: var(--font-sizes-xxs);
     line-height: 18px;
   `
@@ -780,7 +780,7 @@ export const FooterTextSelected = cx(
 export const HeaderText = cx(
   Semibold,
   css`
-    color: #313131;
+    color: var(--colors-main-dark);
     font-size: var(--font-sizes-lg);
     line-height: 26px;
   `
@@ -806,7 +806,7 @@ export const HomeContentBigNum = cx(
 export const HomeContentNum = cx(
   Semibold,
   css`
-    color: #313131;
+    color: var(--colors-main-dark);
     font-size: var(--font-sizes-base);
     line-height: 36px;
   `
@@ -815,7 +815,7 @@ export const HomeContentNum = cx(
 export const HomeHeaderContent = cx(
   Medium,
   css`
-    color: #313131;
+    color: var(--colors-main-dark);
     font-size: var(--font-sizes-xl);
     line-height: 28px;
   `
@@ -824,7 +824,7 @@ export const HomeHeaderContent = cx(
 export const PrfileTitle = cx(
   Bold,
   css`
-    color: #313131;
+    color: var(--colors-main-dark);
     font-size: var(--font-sizes-xxl);
     line-height: 32px;
   `
@@ -842,7 +842,7 @@ export const ProfileAboutMe = cx(
 export const StartBrand = cx(
   Semibold,
   css`
-    color: #313131;
+    color: var(--colors-main-dark);
     font-size: var(--font-sizes-xxl);
     line-height: 32px;
     margin-top: 28px;
