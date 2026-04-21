@@ -5,9 +5,11 @@ import Button from '@/components/common/Button';
 import { BUTTON_TEXTS } from '@/constants/common';
 import { useGetSignedIn } from '@/hooks/useGetSignedIn';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
+import { useCoffeeSelection } from '@/hooks/useCoffeeSelection';
 
+import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { MainRegisterBtn } from '@/styles/styles';
+import { DisabledBtn, MainRegisterBtn } from '@/styles/styles';
 import { Flex } from '@/styles/layout';
 
 const CaffeineInfo = lazy(() => import('@/components/home/CaffeineInfo'));
@@ -16,6 +18,8 @@ const CoffeeSelection = lazy(() => import('@/components/home/CoffeeSelection'));
 const CaffeineFilter = () => {
   const registPage = useNavigateTo('/post/register');
   const { signedIn } = useGetSignedIn();
+  const { caffeineValue } = useCoffeeSelection();
+  const DisabledRegisterBtn = cx(DisabledBtn, MainRegisterBtn);
 
   return (
     <Container>
@@ -30,7 +34,7 @@ const CaffeineFilter = () => {
           <Button
             text={BUTTON_TEXTS.mainRegister}
             onClick={registPage}
-            className={MainRegisterBtn}
+            className={caffeineValue ? MainRegisterBtn : DisabledRegisterBtn}
           />
         </div>
       )}
