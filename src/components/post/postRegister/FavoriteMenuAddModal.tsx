@@ -1,9 +1,7 @@
-import toast from 'react-hot-toast';
-
 import Button from '@/components/common/Button';
 import CoffeeInfo from '@/components/post/postRegister/CoffeeInfo';
 
-import { BUTTON_TEXTS, TOAST_TEXT } from '@/constants/common';
+import { BUTTON_TEXTS } from '@/constants/common';
 import { POST_REGISTER_TEXTS } from '@/constants/texts';
 
 import { cx } from 'styled-system/css';
@@ -19,27 +17,24 @@ import {
 import { Between, Column, DVW, Flex, FlexCenter } from '@/styles/layout';
 
 const { addFavoriteMenu } = POST_REGISTER_TEXTS.success;
-const { style: toastStyle, text } = TOAST_TEXT;
 
 const FavoriteMenuAddModal = ({
   handleModal,
+  handleOnclick,
   contents
 }: {
   handleModal: () => void;
+  handleOnclick: () => void;
   contents: Array<string | number>;
 }) => {
-  const registerFavMenu = () => {
-    //post > 즐겨찾는 메뉴 등록
-    handleModal();
-    toast.success(text.favMenu, toastStyle);
-  };
-
   return (
     <Background
       onClick={handleModal}
       className={cx(FlexCenter, DVW)}>
       <div className={cx(RegisterModal)}>
-        <ModalText className={Semibold}>{addFavoriteMenu.ModalText}</ModalText>
+        <ModalText className={Semibold}>
+          {addFavoriteMenu.ModalText.add}
+        </ModalText>
         <CaffeineIntake className={cx(Column, Regular)}>
           <CoffeeInfo
             contents={contents}
@@ -54,7 +49,7 @@ const FavoriteMenuAddModal = ({
           />
           <Button
             text={BUTTON_TEXTS.register}
-            onClick={registerFavMenu}
+            onClick={handleOnclick}
             className={cx(BtnColorMain, DubbleShortBtn)}
           />
         </BtnContainer>

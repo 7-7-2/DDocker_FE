@@ -10,11 +10,22 @@ import { useResetRegistInfo } from '@/hooks/post/useResetRegistInfo';
 
 export const useSmartBack = () => {
   //back
-  const footerActiveState = useRecoilValue(activeState);
   const { userId } = useCachedUserInfo();
+  const footerActiveState = useRecoilValue(activeState);
+
+  const { state } = useLocation();
+  const favorites = state === 'favoriteEdit';
+
+  const myPageBack = `/profile/${userId}`;
   const naveToBack = useNavigateTo('-1');
-  console.log(footerActiveState);
-  const smartBack = useNavigateTo(routeMap.get(footerActiveState));
+
+  const smartBack = useNavigateTo(
+    favorites
+      ? naveToBack
+      : footerActiveState === 'my'
+        ? myPageBack
+        : routeMap.get(footerActiveState)
+  );
 
   //close
   const { pathname } = useLocation();

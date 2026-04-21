@@ -5,7 +5,7 @@ import { customOptionFormmater } from '@/utils/customOptionFormmater';
 export const coffeeInfoFormatter = (caffeineIntake: CaffeineIntakeTypes) => {
   const { caffeine, ...rest } = caffeineIntake;
   const coffeeInfoValues = Object.values(rest);
-  const customOption = coffeeInfoValues.slice(2, 5);
+  const customOption = [rest.size, rest.intensity, rest.shot];
 
   const coffeeInfo = [
     brandMapToKor(coffeeInfoValues[0] as string),

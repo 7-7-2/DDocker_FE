@@ -216,6 +216,7 @@ export const getCoffeeMenu = async () => {
 export const setFavoriteMenu = async (caffieneIntake: CaffeineIntakeTypes) => {
   await authInstance.post('/favorites', caffieneIntake).catch(e => {
     console.log(e);
+    throw e;
   });
 };
 
