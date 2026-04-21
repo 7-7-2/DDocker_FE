@@ -14,7 +14,8 @@ import {
   BtnColorMain,
   BtnColorWhite,
   RegisterModalBtnTop,
-  RegisterModalBtnBottom
+  RegisterModalBtnBottom,
+  Medium
 } from '@/styles/styles';
 import { Center, Flex } from '@/styles/layout';
 
@@ -39,13 +40,13 @@ const FooterRegisterBtn = ({ icon }: { icon: string }) => {
             <Button
               text={coffeeRegister}
               onClick={registerCoffee}
-              className={cx(RegisterModalBtnTop)}>
+              className={cx(RegisterModalBtnTop, Medium)}>
               <Icon {...iconPropsGenerator(`coffeeRegister`)} />
             </Button>
             <Button
               text={postRegister}
               onClick={registerPost}
-              className={cx(RegisterModalBtnBottom)}>
+              className={cx(RegisterModalBtnBottom, Medium)}>
               <Icon {...iconPropsGenerator(`postRegister`)} />
             </Button>
           </ModalContainer>
@@ -55,7 +56,7 @@ const FooterRegisterBtn = ({ icon }: { icon: string }) => {
         className={cx(Flex, Center, registerBtnColor)}
         onClick={handleRegister}
         style={{
-          transform: activeRegisterBtn ? 'rotate(135deg)' : 'rotate(0deg)'
+          transform: activeRegisterBtn ? 'rotate(90deg)' : 'rotate(0deg)'
         }}>
         {activeRegisterBtn ? (
           <Icon {...iconPropsGenerator(`${icon}-active`, `20`)} />
