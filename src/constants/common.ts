@@ -6,7 +6,8 @@ export const HEADER_TEXTS = {
     postRegister: '새 게시물',
     caffeineRegister: '마신 커피 추가',
     update: '게시물 수정',
-    post: '게시물'
+    post: '게시물',
+    favorites: '즐겨찾는 메뉴'
   },
   profile: {
     MyProfile: 'MY PAGE'
@@ -92,7 +93,9 @@ export const BUTTON_TEXTS = {
   profileShare: '이 프로필 공유하기',
   userReport: '사용자 신고하기',
   continue: '계속하기',
-  quit: '나가기'
+  quit: '나가기',
+  close: '닫기',
+  edit: '편집하기'
 };
 
 export const TABS_TEXTS: TabsText = {
@@ -148,14 +151,17 @@ export const TOAST_TEXT = {
       fontSize: 'var(--font-sizes-sm)',
       fontWeight: '500',
       height: '42px',
-      width: '208px',
+      padding: '10px 20px',
       marginBottom: '94px'
     }
   } as const,
   text: {
     nickname: '닉네임 중복확인을 해주세요.',
     unavailable: '닉네임 설정을 완료해주세요.',
-    favMenu: '즐겨찾는 메뉴로 등록되었어요.',
+    favMenu: {
+      sucess: '즐겨찾는 메뉴로 추가되었어요.',
+      error: '이미 즐겨찾기에 추가된 메뉴예요'
+    },
     clipboard: {
       success: '링크가 복사되었습니다!',
       error: '링크 복사에 실패했습니다.'

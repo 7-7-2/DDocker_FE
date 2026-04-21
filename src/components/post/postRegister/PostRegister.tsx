@@ -1,13 +1,23 @@
 import { useIsMutating } from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
 
 import PillTabs from '@/components/common/PillTabs';
 import PostRegisterForm from '@/components/post/postRegister/PostRegisterForm';
 import FavoriteMenuTab from '@/components/post/postRegister/FavoriteMenuTab';
+import ModalCTA from '@/components/common/ModalCTA';
 
 import { useShowFooter } from '@/hooks/useShowFooter';
 import { useSelectTab } from '@/hooks/useSelectTab';
 import { useUpadatePost } from '@/hooks/post/useUpadatePost';
-import { FILL_TABS_TEXTS } from '@/constants/common';
+import { useVerifyModalCTA } from '@/hooks/useVerifyModalCTA';
+import { useSmartBack } from '@/hooks/post/useSmartBack';
+import { useResetRegistInfo } from '@/hooks/post/useResetRegistInfo';
+
+import {
+  BUTTON_TEXTS,
+  FILL_TABS_TEXTS,
+  MODAL_CTA_TEXTS
+} from '@/constants/common';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
@@ -15,6 +25,7 @@ import { Spinner } from '@/styles/styles';
 import { Align, Center } from '@/styles/layout';
 
 const { register } = FILL_TABS_TEXTS;
+const { title, description } = MODAL_CTA_TEXTS.register;
 
 const PostRegister = ({
   update,
@@ -30,8 +41,31 @@ const PostRegister = ({
     register[0]
   );
 
+  // 등록 중단
+  const { type } = useParams();
+  const caffeineRegister = type === 'caffeine';
+  const { isModal, setIsModal } = useVerifyModalCTA();
+  const { smartBack } = useSmartBack();
+  const { resetRegistInfo } = useResetRegistInfo();
+
+  const handleQuitbtn = () => {
+    isModal && setIsModal(!isModal);
+    resetRegistInfo();
+    smartBack();
+    return;
+  };
+
   return (
     <>
+      {isModal && (
+        <ModalCTA
+          buttonText={[BUTTON_TEXTS.quit, BUTTON_TEXTS.continue]}
+          title={caffeineRegister ? title.caffeineIntake : title.post}
+          description={description}
+          type={BUTTON_TEXTS.type}
+          fn={handleQuitbtn}
+        />
+      )}
       {!!isPending && (
         <LoadingPage className={cx(Align)}>
           <div className={cx(Spinner, Center)} />

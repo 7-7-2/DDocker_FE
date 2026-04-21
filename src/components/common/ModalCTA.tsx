@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '@/components/common/Button';
 import { BackgroundLayer } from '@/components/post/overlay/BackgroundLayer';
 import { useVerifyModalCTA } from '@/hooks/useVerifyModalCTA';
+import { useShowFooter } from '@/hooks/useShowFooter';
 
 import { Align, Between, Column, Flex } from '@/styles/layout';
 import {
@@ -29,6 +30,7 @@ const ModalCTA = ({
   type?: string;
   fn: React.MouseEventHandler<HTMLButtonElement>;
 }) => {
+  useShowFooter(false);
   const { isModal, setIsModal } = useVerifyModalCTA();
   const navigate = useNavigate();
   const deleteAccount = type === 'retention';
