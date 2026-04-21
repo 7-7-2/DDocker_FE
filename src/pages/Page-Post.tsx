@@ -1,10 +1,12 @@
 import { Suspense, lazy } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import SEOMeta from '@/components/common/SEOMeta';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import SEO_DATA from '@/constants/SEOData';
 import { HEADER_TEXTS } from '@/constants/common';
+import FavoriteMenuEditPage from '@/components/post/postRegister/FavoriteMenuEditPage';
+import { useShowFooter } from '@/hooks/useShowFooter';
 
 const { post } = HEADER_TEXTS;
 
@@ -17,12 +19,15 @@ const RegistrationSuccessView = lazy(
 const PostDetail = lazy(() => import('../components/post/PostDetail'));
 
 const Post = () => {
+  useShowFooter(false);
   const { postId } = useParams();
   const { type } = useParams();
+  const { state } = useLocation();
 
   const register = postId === 'register';
-  const caffeine = type === 'caffeine';
   const update = type === 'update';
+  const caffeine = type === 'caffeine';
+  const favorites = state === 'favoriteEdit';
 
   const header = () => {
     if (register && !caffeine) {
@@ -34,8 +39,11 @@ const Post = () => {
     if (!register && update) {
       return ['', post.update, 'close'];
     }
-    if (!register && caffeine) {
+    if (!register && caffeine && !favorites) {
       return ['', '', 'close'];
+    }
+    if (!register && caffeine && !favorites) {
+      return ['back', post.favorites, ''];
     }
     return ['back', post.post, ''];
   };
@@ -80,9 +88,14 @@ const Post = () => {
           />
         </Suspense>
       )}
-      {!register && caffeine && (
+      {!register && caffeine && !favorites && (
         <Suspense>
           <RegistrationSuccessView />
+        </Suspense>
+      )}
+      {!register && caffeine && favorites && (
+        <Suspense>
+          <FavoriteMenuEditPage />
         </Suspense>
       )}
       {!update && !register && !caffeine && postId && (

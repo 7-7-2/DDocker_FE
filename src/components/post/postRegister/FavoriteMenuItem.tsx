@@ -1,11 +1,13 @@
+import { MouseEventHandler } from 'react';
 import { useSetRecoilState } from 'recoil';
 
 import CoffeeInfo from '@/components/post/postRegister/CoffeeInfo';
 import Button from '@/components/common/Button';
 
-import { CaffeineIntakeTypes } from '@/types/types';
+import { useCoffeeSelection } from '@/hooks/useCoffeeSelection';
 import { coffeeInfoFormatter } from '@/utils/coffeeInfoFormatter';
 import { caffeineIntakeState } from '@/atoms/atoms';
+import { FavoriteMenuTypes } from '@/types/types';
 import { BUTTON_TEXTS, CAFFEINE_TEXTS } from '@/constants/common';
 
 import { cx } from 'styled-system/css';
@@ -15,22 +17,27 @@ import { Bold, BtnColorMain, ShortBtn, TertiaryBtn } from '@/styles/styles';
 
 const FavoriteMenuItem = ({
   itemData,
-  backInitialTab
+  deleteItem,
+  backInitialTab,
+  type
 }: {
-  itemData: CaffeineIntakeTypes;
-  backInitialTab: () => void;
+  itemData: FavoriteMenuTypes;
+  deleteItem: MouseEventHandler<HTMLButtonElement>;
+  backInitialTab?: () => void;
+  type?: boolean;
 }) => {
-  const { caffeine, coffeeInfo } = coffeeInfoFormatter(itemData);
-  const setCaffeineIntake = useSetRecoilState(caffeineIntakeState);
+  const { id, userId, ...caffieneIntake } = itemData;
+  console.log('🚀 ~ FavoriteMenuItem ~ caffieneIntake:', caffieneIntake);
+  const { caffeine, coffeeInfo } = coffeeInfoFormatter(caffieneIntake);
+  console.log('🚀 ~ FavoriteMenuItem ~ coffeeInfo:', coffeeInfo);
 
-  // 임시
-  const deleteItem = () => {
-    // 삭제 api
-    console.log('삭제');
-  };
+  // 등록에서 사용하기
+  const setCaffeineIntake = useSetRecoilState(caffeineIntakeState);
+  const { mutate: setCaffineFilter } = useCoffeeSelection();
   const useCoffeeData = () => {
-    setCaffeineIntake(itemData);
-    backInitialTab();
+    setCaffeineIntake(caffieneIntake);
+    setCaffineFilter();
+    backInitialTab?.();
   };
 
   return (
@@ -46,18 +53,21 @@ const FavoriteMenuItem = ({
             </Caffeine>
           </CoffeeInfoContainer>
           <Button
+            value={id}
             text={BUTTON_TEXTS.delete}
             onClick={deleteItem}
             className={cx(TertiaryBtn)}
           />
         </FavoriteMenu>
-        <BtnContainer className={cx(Column)}>
-          <Button
-            text={BUTTON_TEXTS.register}
-            onClick={useCoffeeData}
-            className={cx(ShortBtn, BtnColorMain)}
-          />
-        </BtnContainer>
+        {!type && (
+          <BtnContainer className={cx(Column)}>
+            <Button
+              text={BUTTON_TEXTS.register}
+              onClick={useCoffeeData}
+              className={cx(ShortBtn, BtnColorMain)}
+            />
+          </BtnContainer>
+        )}
       </Container>
     </>
   );

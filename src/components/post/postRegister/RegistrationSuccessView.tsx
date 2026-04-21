@@ -5,10 +5,15 @@ import dayjs from 'dayjs';
 
 import Icon from '@/components/common/Icon';
 import Button from '@/components/common/Button';
+import ModalCTA from '@/components/common/ModalCTA';
 import FavoriteMenuAddModal from '@/components/post/postRegister/FavoriteMenuAddModal';
 
 import { useShowFooter } from '@/hooks/useShowFooter';
-import { useNavigateTo } from '@/hooks/useNavigateTo';
+import { useVerifyModalCTA } from '@/hooks/useVerifyModalCTA';
+import { useSmartBack } from '@/hooks/post/useSmartBack';
+import { useFavoriteMenu } from '@/hooks/post/useFavoriteMenu';
+import { useResetRegistInfo } from '@/hooks/post/useResetRegistInfo';
+
 import { brandMapToKor } from '@/utils/convertBrandName';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { coffeeInfoFormatter } from '@/utils/coffeeInfoFormatter';
@@ -37,10 +42,10 @@ import {
   Regular,
   Semibold
 } from '@/styles/styles';
-import { useVerifyModalCTA } from '@/hooks/useVerifyModalCTA';
-import { useSmartBack } from '@/hooks/post/useSmartBack';
+
 const { recommendedCaffeine } = CAFFEINE_TEXTS;
-const { heroText, description, coffeeOptionText } = POST_REGISTER_TEXTS.success;
+const { heroText, description, coffeeOptionText, addFavoriteMenu } =
+  POST_REGISTER_TEXTS.success;
 
 const RegistrationSuccessView = () => {
   useShowFooter(false);
@@ -52,13 +57,18 @@ const RegistrationSuccessView = () => {
   const { postId } = useParams();
   const caffeineIntakePost = postId === 'caffeineIntake';
 
-  // button contents
+  // 확인 버튼
   const navigate = useNavigate();
   const { smartBack } = useSmartBack();
+  const { resetRegistInfo } = useResetRegistInfo();
   const goToPost = () =>
     navigate(`/post/${postId}`, {
       state: { from: 'resgister' }
     });
+  const navToWhere = () => {
+    resetRegistInfo();
+    !caffeineIntakePost ? goToPost() : smartBack();
+  };
 
   // descriptionText 가공
   const generateDescriptionText = () => {
@@ -77,28 +87,34 @@ const RegistrationSuccessView = () => {
   // coffeeInfo
   const registeredDay = dayjs(new Date()).format('YYYY.MM.DD');
   const coffeeintakeValues = [...coffeeInfo, registeredDay];
-
   const coffeeIntakeEntries = coffeeOptionText.map((label, index) => ({
     label: label,
     value: coffeeintakeValues[index]
   }));
 
+  // favorieMenu
+  const { handleOnClick, isfailed, moveFavoriteTab } = useFavoriteMenu();
   const handleModal = () => {
     setIsModal(!isModal);
   };
 
-  const navToWhere = () => {
-    !caffeineIntakePost ? goToPost() : smartBack();
-  };
-
   return (
     <>
-      {isModal && (
+      {isModal && !isfailed ? (
         <FavoriteMenuAddModal
           handleModal={handleModal}
+          handleOnclick={handleOnClick}
           contents={coffeeintakeValues}
         />
+      ) : (
+        <ModalCTA
+          buttonText={[BUTTON_TEXTS.close, BUTTON_TEXTS.edit]}
+          title={addFavoriteMenu.ModalText.max}
+          description={addFavoriteMenu.description}
+          fn={moveFavoriteTab}
+        />
       )}
+
       <CaffeineInfoContainer className={cx(Column, Align)}>
         <Icon {...iconPropsGenerator(`register-success`, `41`)} />
         <HeroText className={Semibold}>

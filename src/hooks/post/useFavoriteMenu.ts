@@ -73,8 +73,8 @@ export const useFavoriteMenu = () => {
       setIsModal(false);
       setIsFailed(false);
     } finally {
-      navigate('/post/register', {
-        state: 'favoriteMenu'
+      navigate(location, {
+        state: 'favoriteEdit'
       });
     }
   };

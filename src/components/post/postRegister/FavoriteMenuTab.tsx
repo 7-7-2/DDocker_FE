@@ -3,39 +3,33 @@ import FavoriteMenuItem from '@/components/post/postRegister/FavoriteMenuItem';
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Flex } from '@/styles/layout';
-
-// mock-up
-const res = [
-  {
-    caffeine: 243,
-    brand: 'ediya',
-    productName: '아메리카노',
-    size: 'Tall',
-    intensity: '기본',
-    shot: 0
-  },
-  {
-    caffeine: 111,
-    brand: 'starbucks',
-    productName: '카페라떼',
-    size: 'Tall',
-    intensity: '기본',
-    shot: 0
-  }
-];
+import { useFavoriteMenu } from '@/hooks/post/useFavoriteMenu';
+import { MouseEventHandler } from 'react';
 
 const FavoriteMenuTab = ({
+  type,
   backInitialTab
 }: {
-  backInitialTab: () => void;
+  type?: boolean;
+  backInitialTab?: () => void;
 }) => {
-  // facvorite menu data api
+  const { res, deleteFavMenu } = useFavoriteMenu();
+
+  // 삭제
+  const deleteItem: MouseEventHandler<HTMLButtonElement> = e => {
+    const id = Number(e.currentTarget.value);
+    deleteFavMenu(id);
+  };
+
   return (
     <Container className={cx(Flex)}>
-      {res.map(item => (
+      {res?.map(item => (
         <FavoriteMenuItem
+          key={item.id}
           itemData={item}
           backInitialTab={backInitialTab}
+          deleteItem={deleteItem}
+          type={type ? true : false}
         />
       ))}
     </Container>
