@@ -41,9 +41,30 @@ export const usePostMutation = (
     setCaffeineIntake({ ...caffeineIntake, ['caffeine']: caffeine });
   };
 
+  //버튼 활성화 유효성 검사
+  const hasContents = descriptions || imageFile || registInfo.photo;
+
+  const validateButtonState = () => {
+    const checkCaffeineData =
+      caffeine === 0 ? caffeineIntake.caffeine : caffeine;
+    if (update)
+      return (
+        descriptions === registInfo?.description &&
+        (!imageFile || !registInfo?.photo)
+      );
+    if (caffeineRegister) return checkCaffeineData === 0;
+    if (!caffeineRegister) return !hasContents && checkCaffeineData === 0;
+    else return true;
+  };
+
+  const isInvalid = validateButtonState();
+
   // caffieneIntake 등록 로직
   const handleCaffeineRegister = async () => {
-    const caffeineIntakeData = { ...caffeineIntake, ['caffeine']: caffeine };
+    const caffeineIntakeData = {
+      ...caffeineIntake,
+      ['caffeine']: caffeine || caffeineIntake.caffeine
+    };
     const registered = await registerCaffeineIntake(caffeineIntakeData);
     return registered;
   };
@@ -101,7 +122,6 @@ export const usePostMutation = (
       }
       if (caffeineRegister) {
         const res = await handleCaffeineRegister();
-        console.log(res);
         return;
       }
       const res = await handleRegister();
@@ -130,6 +150,7 @@ export const usePostMutation = (
     registerProps,
     cropperProps,
     imageFile,
+    isInvalid,
     caffeine
   };
 };

@@ -1,9 +1,4 @@
 import {
-  InfiniteData,
-  QueryObserverResult,
-  RefetchOptions
-} from '@tanstack/react-query';
-import {
   RefObject,
   ChangeEvent,
   MouseEventHandler,
@@ -175,6 +170,12 @@ export interface RegisterPostTypes
   extends PostContentsTypes,
     CaffeineIntakeTypes {}
 
+export interface FavoriteMenuTypes extends CaffeineIntakeTypes {
+  id: string;
+  userId: string;
+}
+
+// Img
 export interface ImageRegisterProps {
   setImageUrl: Dispatch<SetStateAction<string>>;
   imageUrl: string;

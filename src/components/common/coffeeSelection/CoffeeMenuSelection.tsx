@@ -1,14 +1,10 @@
 import { lazy, Suspense } from 'react';
-import { useParams } from 'react-router-dom';
-import { useRecoilState, useSetRecoilState } from 'recoil';
 
 import RegisterLabel from '@/components/post/postRegister/RegisterLabel';
 import useGetUserInfo from '@/hooks/useGetUserInfo';
 
 import { CAFFEINE_FILTER_TEXTS } from '@/constants/home';
-import useGetCoffeeList from '@/hooks/useGetCoffeeList';
-import { caffeineFilterState, caffeineIntakeState } from '@/atoms/atoms';
-import { CoffeeDataTypes } from '@/types/types';
+import { useCoffeeSelection } from '@/hooks/useCoffeeSelection';
 
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
@@ -21,79 +17,18 @@ import { Column, Grid } from '@/styles/layout';
 
 const SelectBox = lazy(() => import('@/components/common/SelectBox'));
 
-const { coffeeMenu, coffeeOption } = CAFFEINE_FILTER_TEXTS;
+const { coffeeMenu } = CAFFEINE_FILTER_TEXTS;
 
 const CoffeeMenuSelection = () => {
-  const { postId } = useParams();
-  const { type } = useParams();
-  const register = postId === 'register' || type === 'update';
   useGetUserInfo();
-  const [caffeineIntake, setCaffeineIntake] =
-    useRecoilState(caffeineIntakeState);
-  const setCaffeine = useSetRecoilState(caffeineFilterState);
-  const coffeeData = useGetCoffeeList() as CoffeeDataTypes;
-  const brandList = useGetCoffeeList('brand') as string[];
-
-  const setRegisterData = (key: string, value: string | number) => {
-    if (key === 'brand') {
-      const newRegistData = {
-        ...caffeineIntake,
-        [key]: value as string,
-        productName: ''
-      };
-      setCaffeineIntake(newRegistData);
-      return;
-    }
-
-    if (key === 'productName') {
-      const newRegistData = {
-        ...caffeineIntake,
-        [key]: value as string,
-        shot: 0,
-        size: coffeeOption.sizeOption[0],
-        intensity: '기본'
-      };
-      setCaffeineIntake(newRegistData);
-      return;
-    }
-  };
-
-  const setCaffeineInfo = (caffeinie: number) => {
-    setCaffeine({
-      caffeine: caffeinie,
-      menuCaffeine: caffeinie
-    });
-  };
-
-  // 커피 브랜드 선택
-  const selectBrand = (e: React.MouseEvent<HTMLButtonElement>) => {
-    getMenuList(e.currentTarget.value);
-    setRegisterData('brand', e.currentTarget.value);
-    setCaffeineInfo(0);
-  };
-
-  // 선택한 커피 브랜드 메뉴 리스트 조회
-  const getMenuList = (selectedBrand: string) => {
-    const res = coffeeData?.[selectedBrand]?.map(item => item.menu);
-    return res;
-  };
-  const menuList = coffeeData && getMenuList(caffeineIntake.brand);
-
-  // 선택한 커피 메뉴 정보 조회
-  const getMenuInfo = (selectedMenu: string) => {
-    const res = coffeeData?.[caffeineIntake.brand]?.filter(
-      item => item.menu === selectedMenu
-    );
-    // caffeine Info Update
-    const caffeine = res && res[0].caffeine;
-    res && setCaffeineInfo(Number(caffeine));
-  };
-
-  // 커피 메뉴 선택
-  const selectMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
-    getMenuInfo(e.currentTarget.value);
-    setRegisterData('productName', e.currentTarget.value);
-  };
+  const {
+    register,
+    caffeineIntake,
+    brandList,
+    menuList,
+    selectBrand,
+    selectMenu
+  } = useCoffeeSelection();
 
   const slectBoxType = register ? 'commonBaseSize' : 'commonSmSize';
 

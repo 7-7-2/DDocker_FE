@@ -1,13 +1,11 @@
-import { useRecoilState } from 'recoil';
-import { useParams } from 'react-router-dom';
-
 import Icon from '@/components/common/Icon';
 import Button from '@/components/common/Button';
 import RegisterLabel from '@/components/post/postRegister/RegisterLabel';
 import RadioBtn from '@/components/common/RadioBtn';
+
 import { CAFFEINE_FILTER_TEXTS } from '@/constants/home';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import { caffeineFilterState, caffeineIntakeState } from '@/atoms/atoms';
+import { useCoffeeSelection } from '@/hooks/useCoffeeSelection';
 
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
@@ -24,98 +22,15 @@ import {
 const { coffeeOption } = CAFFEINE_FILTER_TEXTS;
 
 const CoffeeOptionSelection = () => {
-  const { postId } = useParams();
-  const { type } = useParams();
-
-  const register = postId === 'register' || type === 'update';
-
-  const [caffeine, setCaffeine] = useRecoilState(caffeineFilterState);
-  const [caffeineIntake, setCaffeineIntake] =
-    useRecoilState(caffeineIntakeState);
-
-  const caffeineValue = caffeine.caffeine;
-  const menuCaffeineValue = caffeine.menuCaffeine;
-  const mild = caffeineIntake.intensity === coffeeOption.intensityOption[0];
-
-  const setRegisterData = (key: string, value: string | number) => {
-    let newRegistData;
-    if (key === 'intensity' && value === coffeeOption.intensityOption[0]) {
-      newRegistData = {
-        ...caffeineIntake,
-        shot: 0,
-        [key]: value
-      };
-    } else {
-      newRegistData = {
-        ...caffeineIntake,
-        [key]: value
-      };
-    }
-    setCaffeineIntake(newRegistData);
-  };
-
-  // set coffee size info
-  const selectSize = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setRegisterData('size', e.currentTarget.value);
-    const size =
-      caffeineIntake.productName &&
-      e.currentTarget.value === coffeeOption.sizeOption[1]
-        ? 75
-        : caffeineIntake.productName &&
-            e.currentTarget.value === coffeeOption.sizeOption[2]
-          ? 150
-          : 0;
-
-    setCaffeine({
-      caffeine:
-        menuCaffeineValue + size + caffeineIntake.shot * 75 - (mild ? 75 : 0),
-      menuCaffeine: menuCaffeineValue
-    });
-  };
-
-  // set personal options
-  const selectIntensityOption = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const size =
-      caffeineIntake.size === coffeeOption.sizeOption[1]
-        ? 75
-        : caffeineIntake.size === coffeeOption.sizeOption[2]
-          ? 150
-          : 0;
-    setRegisterData('intensity', e.currentTarget.value);
-
-    setCaffeine({
-      caffeine:
-        caffeineIntake.productName &&
-        e.currentTarget.value === coffeeOption.intensityOption[0]
-          ? menuCaffeineValue + size - 75
-          : menuCaffeineValue + size,
-      menuCaffeine: menuCaffeineValue
-    });
-  };
-
-  const selectMinusBtn = () => {
-    const isValid = caffeineIntake.productName && caffeineIntake.shot >= 1;
-    isValid && setRegisterData('shot', caffeineIntake.shot - 1);
-    isValid &&
-      setCaffeine({
-        caffeine: caffeineValue - 75,
-        menuCaffeine: menuCaffeineValue
-      });
-  };
-
-  const selectPlusBtn = () => {
-    const isValid =
-      caffeineIntake.productName && !mild && caffeineIntake.shot < 6;
-    isValid && setRegisterData('shot', caffeineIntake.shot + 1);
-    isValid &&
-      setCaffeine({
-        caffeine: caffeineValue + 75,
-        menuCaffeine: menuCaffeineValue
-      });
-  };
-
-  const shotPlusBtnActive =
-    !caffeineIntake.productName || mild || caffeineIntake.shot >= 6;
+  const {
+    register,
+    caffeineIntake,
+    selectSize,
+    selectIntensityOption,
+    selectMinusBtn,
+    selectPlusBtn,
+    shotPlusBtnActive
+  } = useCoffeeSelection();
 
   return (
     <div className={cx(Column, SmStyle)}>
@@ -178,7 +93,7 @@ const CoffeeOptionSelection = () => {
                 onClick={selectMinusBtn}
               />
               <ShotOptionInput
-                type="number"
+                type="text"
                 value={caffeineIntake.shot}
                 readOnly
               />
@@ -203,12 +118,12 @@ const PersonalOptionContainer = styled.div`
   background: #fff;
 `;
 const ShotOptionInput = styled.input`
+  width: 30px;
   text-align: center;
-  width: 10px;
-  background-color: transparent;
   color: var(--colors-main-dark);
   font-size: var(--font-sizes-base);
 `;
+
 const SizeBtnContainer = styled.div`
   gap: 4px;
 `;
