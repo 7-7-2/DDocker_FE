@@ -16,10 +16,10 @@ import { useRefIntoView } from '@/hooks/post/useRefIntoView';
 import { useShowFooter } from '@/hooks/useShowFooter';
 
 import { getPostDetail, getSocialCounts } from '@/api/post';
+import { PostDetailTypes } from '@/types/types';
 import timestampToDate from '@/utils/timestampToDate';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { InputContext } from '@/context/contexts';
-import { PostDetailTypes } from '@/types/types';
 import { PROFILE_TEXTS } from '@/constants/profile';
 
 import { cx } from 'styled-system/css';
