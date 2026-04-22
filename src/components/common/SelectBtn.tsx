@@ -53,7 +53,6 @@ const SelectBtn = ({
       <DefalutOption
         className={cx(
           Flex,
-          SmStyle,
           selectedValue ? SelectedInput : isSelect ? undefined : defalutInput
         )}>
         {brandMapToKor(selectedValue || defalutValue)}
@@ -75,8 +74,6 @@ const DefalutOption = styled.div`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  font-weight: 400;
-  color: var(--colors-mainDark);
 `;
 
 export default SelectBtn;

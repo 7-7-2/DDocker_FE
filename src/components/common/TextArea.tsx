@@ -1,6 +1,6 @@
+import React from 'react';
 import { Align } from '@/styles/layout';
 import { InputByteCheck, InputFontBase } from '@/styles/styles';
-import React from 'react';
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 
@@ -19,18 +19,39 @@ const TextArea = ({
   inputLength: number;
   type?: string;
 }) => {
+  const report = type === 'report';
+  const post = type === 'post';
+  const handleHeight = (e: React.FormEvent<HTMLTextAreaElement>) => {
+    const target = e.currentTarget;
+    target.style.height = `${target.scrollHeight}px`;
+  };
+
   return (
-    <TextAreaBox className={type ? ReportBox : DefaultBox}>
-      <Textarea
-        className={InputFontBase}
-        placeholder={placeholder}
-        cols={28}
-        rows={3}
-        value={inputValue || ''}
-        ref={inputRef}
-        onChange={handleChange}
-        maxLength={inputLength}
-      />
+    <TextAreaBox className={report || post ? ReportBox : DefaultBox}>
+      {!post ? (
+        <Textarea
+          className={InputFontBase}
+          placeholder={placeholder}
+          cols={28}
+          rows={3}
+          value={inputValue || ''}
+          ref={inputRef}
+          onChange={handleChange}
+          maxLength={inputLength}
+        />
+      ) : (
+        <Textarea
+          className={InputFontBase}
+          placeholder={placeholder}
+          cols={28}
+          value={inputValue || ''}
+          ref={inputRef}
+          onChange={handleChange}
+          maxLength={inputLength}
+          onInput={handleHeight}
+          style={{ minHeight: '68px' }}
+        />
+      )}
       <InputByteBox className={cx(Align, InputByteCheck)}>
         {inputValue?.length}
         <LengthLimit>/{inputLength}</LengthLimit>
@@ -59,7 +80,7 @@ const DefaultBox = css`
 `;
 
 const Textarea = styled.textarea`
-  height: 64px;
+  min-height: 68px;
   resize: none;
 `;
 

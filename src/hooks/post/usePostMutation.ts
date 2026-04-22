@@ -14,16 +14,30 @@ import { useGetTodayCoffeeData } from '@/hooks/home/useGetTodayCoffeeData';
 import { usePostDataFormatter } from '@/hooks/post/usePostDataFormatter';
 import { usePostImageEditor } from '@/hooks/post/usePostImageEditor';
 import { useResetRegistInfo } from '@/hooks/post/useResetRegistInfo';
-
+import { useEffect, useState } from 'react';
+import { useSelectTab } from '@/hooks/useSelectTab';
+import { FILL_TABS_TEXTS } from '@/constants/common';
+const { register } = FILL_TABS_TEXTS;
 export const usePostMutation = (
-  descriptions: string | null,
+  // descriptions: string | null,
   update?: boolean,
   caffeineRegister?: boolean
 ) => {
-  const registInfo = useRecoilValue(registPostState);
+  const [registInfo, setRegistInfo] = useRecoilState(registPostState);
+  const { resetRegistInfo } = useResetRegistInfo();
   const [caffeineIntake, setCaffeineIntake] =
     useRecoilState(caffeineIntakeState);
-  const { resetRegistInfo } = useResetRegistInfo();
+
+  // 내용저장
+  const { selectedTab } = useSelectTab(register[0]);
+  const [descriptions, setDescriptions] = useState<string | null>(
+    registInfo.description || ''
+  );
+  useEffect(() => {
+    return () => {
+      setRegistInfo({ ...registInfo, description: descriptions });
+    };
+  }, [descriptions, selectedTab]);
 
   // 이미지
   const { imageUrl, imageFile, uploadStorage, registerProps, cropperProps } =
@@ -43,7 +57,6 @@ export const usePostMutation = (
 
   //버튼 활성화 유효성 검사
   const hasContents = descriptions || imageFile || registInfo.photo;
-
   const validateButtonState = () => {
     const checkCaffeineData =
       caffeine === 0 ? caffeineIntake.caffeine : caffeine;
@@ -53,7 +66,7 @@ export const usePostMutation = (
         (!imageFile || !registInfo?.photo)
       );
     if (caffeineRegister) return checkCaffeineData === 0;
-    if (!caffeineRegister) return !hasContents && checkCaffeineData === 0;
+    if (!caffeineRegister) return !hasContents || checkCaffeineData === 0;
     else return true;
   };
 
@@ -151,6 +164,8 @@ export const usePostMutation = (
     cropperProps,
     imageFile,
     isInvalid,
-    caffeine
+    caffeine,
+    descriptions,
+    setDescriptions
   };
 };

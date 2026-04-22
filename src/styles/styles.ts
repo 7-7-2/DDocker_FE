@@ -219,8 +219,8 @@ export const BtnColorMain = css`
 
 export const BtnColorBorderWhite = css`
   border: 1px solid var(--colors-btn-grey);
+  color: var(--colors-subtext) !important;
   background: #fff;
-  color: var(--colors-subtext);
 `;
 
 export const BtnColorWhite = css`
@@ -992,12 +992,14 @@ export const ToggleActiveColor = css`
 `;
 
 // selexBox
-export const SelectedInput = css`
-  background-color: transparent;
-  outline: none;
-  color: var(--colors-mainDark);
-  font-weight: 500;
-`;
+export const SelectedInput = cx(
+  Semibold,
+  css`
+    background-color: transparent;
+    outline: none;
+    color: var(--colors-mainDark);
+  `
+);
 
 export const defalutInput = css`
   color: var(--colors-subtext);

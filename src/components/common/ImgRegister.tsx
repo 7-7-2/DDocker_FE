@@ -33,25 +33,21 @@ const ImgRegister = ({
     <>
       {imageUrl && !isLoadingImg && (
         <PostImgContainer>
-          <ImgEditBtnIcons className={Flex}>
-            <BtnItem>
-              <Icon {...iconPropsGenerator('regist-photo-change', '40')} />
-              <EditBtn
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleFileChange}
-              />
-            </BtnItem>
-            <BtnItem onClick={resetImage}>
-              <Icon {...iconPropsGenerator('regist-photo-delete', '40')} />
-            </BtnItem>
-          </ImgEditBtnIcons>
-          <Img
-            src={imageUrl}
-            alt="posted coffee"
-            onClick={resetImage}
-          />
+          <BtnItem onClick={resetImage}>
+            <Icon {...iconPropsGenerator('regist-photo-delete', '26')} />
+          </BtnItem>
+          <ImgContainer>
+            <EditBtn
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+            />
+            <Img
+              src={imageUrl}
+              alt="posted coffee"
+            />
+          </ImgContainer>
         </PostImgContainer>
       )}
       {!imageUrl && (
@@ -84,40 +80,36 @@ const RegistPhoto = styled.label`
 `;
 
 const PostImgContainer = styled.div`
-  height: 100%;
+  height: 106px;
+  width: 106px;
   aspect-ratio: 1;
   border-radius: 10px;
   overflow: hidden;
   position: relative;
 `;
 
-const ImgEditBtnIcons = styled.div`
+const BtnItem = styled.div`
   position: absolute;
-  right: 12px;
-  bottom: 12px;
+  right: 6px;
+  top: 6px;
+  border-radius: 50%;
   z-index: 3;
-  gap: 10px;
 `;
 
-const BtnItem = styled.div`
+const ImgContainer = styled.div`
   position: relative;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
 `;
 
 const EditBtn = styled.input`
   position: absolute;
-  opacity: 0;
-  top: 0;
   height: 100%;
   width: 100%;
-  border-radius: 50%;
+  opacity: 0;
 `;
 
 const Img = styled.img`
-  height: 100%;
-  width: 100%;
+  height: 106px;
+  width: 106px;
   object-fit: 'cover';
 `;
 
