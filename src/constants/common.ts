@@ -27,7 +27,7 @@ export const INPUT_TEXTS = {
       placeholder: '댓글을 작성해보세요.'
     },
     description: {
-      typeName: 'title',
+      typeName: 'post',
       placeholder: '내용을 입력하세요.',
       myCafe: '나만의 카페에 대한 정보를 공유해보세요.',
       inputLength: 200
@@ -55,7 +55,7 @@ export const LABEL_TEXTS = {
   title: '제목',
   description: '내용',
   photo: '사진',
-  postPrivate: '게시글 비공개',
+  postPrivate: '게시물 나만 보기',
   accountPrivate: '비공개 계정',
   aboutMe: {
     label: '소개'
@@ -65,7 +65,8 @@ export const LABEL_TEXTS = {
 export const BUTTON_TEXTS = {
   type: 'retention',
   start: '시작하기',
-  registered: '등록완료',
+  registered: '등록 완료',
+  registered2: '작성 완료',
   register: '등록하기',
   mainRegister: '조회한 커피 등록하기',
   coffeeRegister: '빠르게 기록하기',

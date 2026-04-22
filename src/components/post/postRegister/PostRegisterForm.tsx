@@ -25,9 +25,6 @@ const PostRegisterForm = ({
   postid?: string;
 }) => {
   const registInfo = useRecoilValue(registPostState);
-  const [descriptions, setDescriptions] = useState<string | null>(
-    registInfo.description || ''
-  );
 
   //post type
   const { type } = useParams();
@@ -42,8 +39,16 @@ const PostRegisterForm = ({
   }, [registInfo.description]);
 
   //포스트 등록 맟 수정 Hook
-  const { mutate, isPending, userId, registerProps, cropperProps, isInvalid } =
-    usePostMutation(descriptions, update, caffeineRegister);
+  const {
+    mutate,
+    isPending,
+    userId,
+    registerProps,
+    cropperProps,
+    isInvalid,
+    descriptions,
+    setDescriptions
+  } = usePostMutation(update, caffeineRegister);
 
   // 등록 및 수정 버튼
   const clickRegisterBtn = () => {
@@ -68,7 +73,13 @@ const PostRegisterForm = ({
       </Container>
       <ButtonContainer className={BottomBtnContainer}>
         <Button
-          text={!update ? BUTTON_TEXTS.registered : BUTTON_TEXTS.update}
+          text={
+            update
+              ? BUTTON_TEXTS.update
+              : caffeineRegister
+                ? BUTTON_TEXTS.registered
+                : BUTTON_TEXTS.registered2
+          }
           onClick={clickRegisterBtn}
           disabled={isInvalid}
           className={cx(!isInvalid ? DefaultBtn : DisabledBtn, DefaultBtn)}

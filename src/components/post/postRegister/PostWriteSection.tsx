@@ -26,12 +26,14 @@ const PostWriteSection = ({
   registerProps: ImageRegisterProps;
   cropperProps: ImageCropperProps;
 }) => {
-  const [isVisibility, setVisibility] = useState(false);
   const [postContents, setPostcontents] = useRecoilState(postContentsState);
+  const [isInVisibility, setVisibility] = useState(
+    !postContents.visibility || false
+  );
 
   const handlePrivateToggle = () => {
-    setVisibility(!isVisibility);
-    setPostcontents({ ...postContents, visibility: isVisibility ? 1 : 0 });
+    setVisibility(!isInVisibility);
+    setPostcontents({ ...postContents, visibility: isInVisibility ? 1 : 0 });
   };
 
   return (
@@ -51,7 +53,7 @@ const PostWriteSection = ({
       <PostPrivateToggle className={Between}>
         <RegisterLabel label={LABEL_TEXTS.postPrivate} />
         <Toggle
-          toggleState={isVisibility}
+          toggleState={isInVisibility}
           onClick={handlePrivateToggle}
         />
       </PostPrivateToggle>
