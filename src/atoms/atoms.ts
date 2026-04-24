@@ -40,6 +40,11 @@ export const isModalState = atom({
   default: false
 });
 
+export const isActionModalState = atom({
+  key: 'isActionModal',
+  default: false
+});
+
 export const authState = atom<AuthTypes>({
   key: 'authState',
   default: {
@@ -180,4 +185,21 @@ export const commentState = atom({
 export const toggleState = atom({
   key: 'toggleState',
   default: true
+});
+
+export const deleteCommentState = atom({
+  key: 'deleteCommentState',
+  default: {
+    postId: '',
+    commentId: 0
+  }
+});
+
+export const deleteReplyState = atom({
+  key: 'deleteReplyState',
+  default: {
+    postId: '',
+    commentId: 0,
+    replyId: 0
+  }
 });

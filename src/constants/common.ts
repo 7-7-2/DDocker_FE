@@ -96,7 +96,8 @@ export const BUTTON_TEXTS = {
   continue: '계속하기',
   quit: '나가기',
   close: '닫기',
-  edit: '편집하기'
+  edit: '편집하기',
+  report: '신고하기'
 };
 
 export const TABS_TEXTS: TabsText = {
@@ -127,6 +128,9 @@ export const MODAL_CTA_TEXTS = {
       post: '게시물 작성을 그만두시겠어요?'
     },
     description: '작성 중인 내용이 삭제됩니다.'
+  },
+  postComment: {
+    title: '이 댓글을 삭제하시겠어요?'
   }
 };
 

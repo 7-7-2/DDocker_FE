@@ -1,10 +1,12 @@
-import React from 'react';
-import { useId } from 'react';
+import React, { useId } from 'react';
 import { useQuery } from '@tanstack/react-query';
+
 import Comment from '@/components/post/Comment';
+
 import { getComments } from '@/api/post';
 import { CommentType } from '@/types/types';
 import { COMMENT_TEXTS, POST_TEXTS } from '@/constants/texts';
+
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Center, Column } from '@/styles/layout';
@@ -27,7 +29,6 @@ const PostComments = ({
     enabled: !!postNum
   });
   const id = useId();
-
   return (
     <>
       {commentData && commentData.data.length !== 0 && (

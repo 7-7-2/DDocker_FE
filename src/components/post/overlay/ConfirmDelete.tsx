@@ -22,10 +22,11 @@ const ConfirmDelete = ({
 
   const { userId } = useCachedUserInfo();
   const { deleteStorage } = useCloudStorage();
-  const { recoverFooterState } = usePostOptions();
+  const { setIsPostOption, recoverFooterState } = usePostOptions();
 
   const handleStorage = async () => {
     await deleteStorage('post', userId, postId);
+    setIsPostOption(false);
     recoverFooterState();
     navigate();
   };
