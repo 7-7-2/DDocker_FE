@@ -1,8 +1,17 @@
-import { useToggle } from '@/hooks/post/useToggle';
 import CommentProto from '@/components/post/CommentProto';
 import CheckReply from '@/components/post/CheckReply';
 import Replies from '@/components/post/Replies';
+import Icon from '@/components/common/Icon';
+import CommentActionModal from '@/components/post/CommentActionModal';
+
+import { useToggle } from '@/hooks/post/useToggle';
+import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
+import { useCommentAction } from '@/hooks/post/useCommentAction';
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { CommentType } from '@/types/types';
+
+import { cx } from 'styled-system/css';
+import { Between, Flex } from '@/styles/layout';
 
 const Comment = ({
   profileUrl,
@@ -15,17 +24,29 @@ const Comment = ({
   userId
 }: CommentType) => {
   const { toggle, handleToggle } = useToggle();
+  const { userId: myId } = useCachedUserInfo();
+  const myComment = userId === myId;
+  const { isActionModal, handleOnClickComment } = useCommentAction();
   return (
     <>
-      <CommentProto
-        profileUrl={profileUrl}
-        nickname={nickname}
-        content={content}
-        createdAt={createdAt}
-        postNum={postNum}
-        id={id}
-        userId={userId}
-      />
+      {isActionModal && <CommentActionModal myComment={myComment} />}
+      <div className={cx(Flex, Between)}>
+        <CommentProto
+          profileUrl={profileUrl}
+          nickname={nickname}
+          content={content}
+          createdAt={createdAt}
+          postNum={postNum}
+          id={id}
+          userId={userId}
+        />
+        <button
+          value={id}
+          className={Flex}
+          onClick={handleOnClickComment}>
+          <Icon {...iconPropsGenerator('action-comment', '18')} />
+        </button>
+      </div>
       <Replies
         replies={toggle}
         commentId={id}

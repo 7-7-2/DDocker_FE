@@ -32,11 +32,10 @@ const CheckReply = ({
 const Container = styled.div`
   padding-left: 44px;
   padding-bottom: 20px;
-  margin-top: -12px;
   color: var(--colors-mid-grey);
-  font-weight: 500;
-  line-height: 20px;
-  font-size: var(--font-sizes-sm);
+  font-weight: 600;
+  line-height: 14px;
+  font-size: var(--font-sizes-xs);
 `;
 
 const ToggleReply = styled.span``;

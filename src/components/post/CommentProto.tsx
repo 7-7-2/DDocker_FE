@@ -1,21 +1,15 @@
-import React, { Suspense, useState } from 'react';
-import { styled } from 'styled-system/jsx';
-import { Flex, Column } from '@/styles/layout';
+import { useState } from 'react';
 
 import ImgContainer from '@/components/common/ImgContainer';
 import timestampToDate from '@/utils/timestampToDate';
-import { CommentPrototype } from '@/types/types';
-import Reply from '@/components/post/Reply';
-import { useGetSignedIn } from '@/hooks/useGetSignedIn';
-import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
-import { useDetectSlide } from '@/hooks/post/useDetectSlide';
-import { useSetRecoilState } from 'recoil';
-import { commentState } from '@/atoms/atoms';
-import { useIntersection } from '@/hooks/useIntersection';
 import NoProfileImg from '@/components/common/NoProfileImg';
-import { useNavigateTo } from '@/hooks/useNavigateTo';
+import Reply from '@/components/post/Reply';
 
-const CommentAction = React.lazy(() => import('./CommentAction'));
+import { useNavigateTo } from '@/hooks/useNavigateTo';
+import { CommentPrototype } from '@/types/types';
+
+import { styled } from 'styled-system/jsx';
+import { Flex, Column } from '@/styles/layout';
 
 const CommentProto = ({
   comment = true,
@@ -23,40 +17,12 @@ const CommentProto = ({
   nickname,
   content,
   createdAt,
-  postNum,
   id,
-  parentCommentId,
   userId
 }: CommentPrototype) => {
-  const { signedIn } = useGetSignedIn();
-  const { userData } = useCachedUserInfo();
-  const { nickname: myUsername } = userData || {};
-  const myComment = nickname === myUsername;
   const [profile, setProfile] = useState(profileUrl);
   const handleImgError = () => setProfile('');
   const toProfilePage = useNavigateTo(`/profile/${userId}`);
-
-  const setSelectedComment = useSetRecoilState(commentState);
-  const { scrollRef, setIsIntersected, isIntersected } = useDetectSlide(
-    comment,
-    id
-  );
-
-  const ref = useIntersection(
-    (entry, observer) => {
-      if (!isIntersected) {
-        setIsIntersected(true);
-        setSelectedComment({
-          comment,
-          commentId: id
-        });
-        observer.unobserve(entry.target);
-      }
-    },
-    {
-      threshold: 1
-    }
-  );
 
   return (
     <>
@@ -75,9 +41,7 @@ const CommentProto = ({
             comment={true}
           />
         )}
-        <CommentDetail
-          className={Column}
-          ref={scrollRef}>
+        <CommentDetail className={Column}>
           <UserName>{nickname}</UserName>
           <CommentText>{content}</CommentText>
           <OnComment className={Flex}>
@@ -90,20 +54,6 @@ const CommentProto = ({
             )}
           </OnComment>
         </CommentDetail>
-        {signedIn && (
-          <>
-            <Target ref={ref} />
-            <Suspense>
-              <CommentAction
-                myComment={myComment}
-                comment={comment}
-                id={id}
-                postNum={postNum}
-                parentCommentId={parentCommentId}
-              />
-            </Suspense>
-          </>
-        )}
       </Container>
     </>
   );
@@ -141,9 +91,5 @@ const OnComment = styled.div`
 `;
 
 const CommentedAt = styled.div``;
-
-const Target = styled.div`
-  padding: 1px;
-`;
 
 export default CommentProto;

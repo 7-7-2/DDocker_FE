@@ -59,6 +59,7 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
   const {
     toggle: openActionModal,
     isModal,
+    isPostOption,
     cancelOptions,
     confirmDelete
   } = usePostOptions();
@@ -85,7 +86,7 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
           />
         </Suspense>
       )}
-      {isModal && (
+      {isModal && isPostOwner && isPostOption && (
         <Suspense>
           <ConfirmDelete postId={postNum} />
         </Suspense>

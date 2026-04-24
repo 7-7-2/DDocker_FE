@@ -1,9 +1,17 @@
-import { useQuery } from '@tanstack/react-query';
-import { getReply } from '@/api/post';
-import CommentProto from '@/components/post/CommentProto';
-import { Reply } from '@/types/types';
-import { styled } from 'styled-system/jsx';
 import { useId } from 'react';
+import { useQuery } from '@tanstack/react-query';
+
+import Icon from '@/components/common/Icon';
+import CommentProto from '@/components/post/CommentProto';
+
+import { useCommentAction } from '@/hooks/post/useCommentAction';
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+import { getReply } from '@/api/post';
+
+import { cx } from 'styled-system/css';
+import { styled } from 'styled-system/jsx';
+import { Reply } from '@/types/types';
+import { Between, Flex } from '@/styles/layout';
 
 const Replies = ({
   replies,
@@ -14,6 +22,7 @@ const Replies = ({
   commentId: number;
   postNum: string;
 }) => {
+  const id = useId();
   const { data: replyList } = useQuery({
     queryKey: ['replyList', commentId],
     queryFn: () => {
@@ -21,13 +30,16 @@ const Replies = ({
     },
     enabled: !!commentId && !!replies
   });
-  const id = useId();
+  const { handleOnClickReply } = useCommentAction();
 
   return (
     <Container>
-      {replies && replyList && (
-        <>
-          {replyList.data.map((reply: Reply, idx: number) => (
+      {replies &&
+        replyList &&
+        replyList.data.map((reply: Reply, idx: number) => (
+          <div
+            key={id + idx}
+            className={cx(Flex, Between)}>
             <CommentProto
               profileUrl={reply.profileUrl}
               nickname={reply.nickname}
@@ -37,12 +49,15 @@ const Replies = ({
               comment={false}
               postNum={postNum}
               parentCommentId={commentId}
-              key={id + idx}
               userId={reply.userId}
             />
-          ))}
-        </>
-      )}
+            <button
+              className={Flex}
+              onClick={() => handleOnClickReply(commentId, reply.id)}>
+              <Icon {...iconPropsGenerator('action-comment', '18')} />
+            </button>
+          </div>
+        ))}
     </Container>
   );
 };

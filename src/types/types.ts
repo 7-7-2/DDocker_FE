@@ -244,6 +244,12 @@ export interface EditProfileImgProps
   profileImg?: string;
 }
 
+export interface DeleteCommentDataType {
+  postId: string;
+  commentId: number;
+  replyId?: number;
+}
+
 export interface CommentType {
   profileUrl: string;
   nickname: string;
