@@ -1,4 +1,4 @@
-import { atom, selector } from 'recoil';
+import { atom, DefaultValue, selector } from 'recoil';
 import dayjs from 'dayjs';
 import {
   AuthTypes,
@@ -89,7 +89,12 @@ export const registPostState = selector<
     };
     return postData;
   },
-  set: ({ set }, newValue) => {
+  set: ({ set, reset }, newValue) => {
+    if (newValue instanceof DefaultValue) {
+      reset(postContentsState);
+      reset(caffeineIntakeState);
+      return;
+    }
     if (newValue) {
       if ('postId' in newValue) set(postContentsState, newValue);
       if ('caffeine' in newValue) set(caffeineIntakeState, newValue);

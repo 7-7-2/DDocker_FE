@@ -1,41 +1,44 @@
+import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-
-import { getMyInfo } from '@/api/user';
-import { registerCaffeineIntake, registerPost, updatePost } from '@/api/post';
-import {
-  caffeineFilterState,
-  caffeineIntakeState,
-  registPostState
-} from '@/atoms/atoms';
 
 import { useGetTodayCoffeeData } from '@/hooks/home/useGetTodayCoffeeData';
 import { usePostDataFormatter } from '@/hooks/post/usePostDataFormatter';
 import { usePostImageEditor } from '@/hooks/post/usePostImageEditor';
 import { useResetRegistInfo } from '@/hooks/post/useResetRegistInfo';
-import { useEffect, useState } from 'react';
 import { useSelectTab } from '@/hooks/useSelectTab';
+
+import {
+  caffeineFilterState,
+  caffeineIntakeState,
+  postContentsState,
+  registPostState
+} from '@/atoms/atoms';
+import { getMyInfo } from '@/api/user';
+import { registerCaffeineIntake, registerPost, updatePost } from '@/api/post';
 import { FILL_TABS_TEXTS } from '@/constants/common';
+
 const { register } = FILL_TABS_TEXTS;
+
 export const usePostMutation = (
-  // descriptions: string | null,
   update?: boolean,
   caffeineRegister?: boolean
 ) => {
-  const [registInfo, setRegistInfo] = useRecoilState(registPostState);
-  const { resetRegistInfo } = useResetRegistInfo();
+  const registInfo = useRecoilValue(registPostState);
+  const [postContents, setPostContents] = useRecoilState(postContentsState);
   const [caffeineIntake, setCaffeineIntake] =
     useRecoilState(caffeineIntakeState);
+  const { resetRegistInfo } = useResetRegistInfo();
 
   // 내용저장
   const { selectedTab } = useSelectTab(register[0]);
   const [descriptions, setDescriptions] = useState<string | null>(
-    registInfo.description || ''
+    postContents.description || ''
   );
   useEffect(() => {
     return () => {
-      setRegistInfo({ ...registInfo, description: descriptions });
+      setPostContents({ ...registInfo, description: descriptions });
     };
   }, [descriptions, selectedTab]);
 
