@@ -3,22 +3,32 @@ import ActionModal from '@/components/common/ActionModal';
 import { Option } from '@/components/post/overlay/Option';
 
 import { useVerifyModalCTA } from '@/hooks/useVerifyModalCTA';
-import { useCommentAction } from '@/hooks/post/useCommentAction';
 import { BUTTON_TEXTS, MODAL_CTA_TEXTS } from '@/constants/common';
 
-const CommentActionModal = ({ myComment }: { myComment: boolean }) => {
-  const { handleDelete, handleReport } = useCommentAction();
+const CommentActionModal = ({
+  myComment,
+  handleActionModal,
+  handleDelete,
+  handleReport
+}: {
+  myComment: boolean;
+  handleActionModal: () => void;
+  handleDelete: () => void;
+  handleReport: () => void;
+}) => {
   const { isModal, setIsModal } = useVerifyModalCTA();
+
   return (
     <>
-      {isModal ? (
+      {isModal && (
         <ModalCTA
           buttonText={[BUTTON_TEXTS.cancel, BUTTON_TEXTS.delete]}
           title={MODAL_CTA_TEXTS.postComment.title}
           fn={handleDelete}
         />
-      ) : (
-        <ActionModal type={'comment'}>
+      )}
+      {!isModal && (
+        <ActionModal handleActionModal={handleActionModal}>
           {myComment ? (
             <Option
               icon="delete-post"

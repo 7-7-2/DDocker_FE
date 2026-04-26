@@ -25,5 +25,6 @@ const Background = styled.div`
   right: 0;
   z-index: 99;
   height: 100dvh;
-  background-color: rgba(0, 0, 0, 0.55);
+  background-color: #000000;
+  opacity: 60%;
 `;

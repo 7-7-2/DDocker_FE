@@ -1,8 +1,10 @@
 import Icon from '@/components/common/Icon';
-import { Align, Flex } from '@/styles/layout';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
+import { Medium } from '@/styles/styles';
+import { Align, Flex } from '@/styles/layout';
 
 export const Option = ({
   icon,
@@ -21,7 +23,11 @@ export const Option = ({
         {...iconPropsGenerator(`${icon}`)}
         onClick={onClick}
       />
-      <OptionText onClick={onClick}>{option}</OptionText>
+      <OptionText
+        className={Medium}
+        onClick={onClick}>
+        {option}
+      </OptionText>
     </div>
   );
 };

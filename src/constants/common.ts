@@ -170,6 +170,7 @@ export const TOAST_TEXT = {
     clipboard: {
       success: '링크가 복사되었습니다!',
       error: '링크 복사에 실패했습니다.'
-    }
+    },
+    comment: '댓글이 삭제되었어요'
   }
 };

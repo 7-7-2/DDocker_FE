@@ -26,10 +26,25 @@ const Comment = ({
   const { toggle, handleToggle } = useToggle();
   const { userId: myId } = useCachedUserInfo();
   const myComment = userId === myId;
-  const { isActionModal, handleOnClickComment } = useCommentAction();
+  const {
+    isActionModal,
+    handleActionModal,
+    handleOnClickComment,
+    handleDelete,
+    handleReport
+  } = useCommentAction();
+
   return (
     <>
-      {isActionModal && <CommentActionModal myComment={myComment} />}
+      {isActionModal && (
+        <CommentActionModal
+          myComment={myComment}
+          handleActionModal={handleActionModal}
+          handleDelete={handleDelete}
+          handleReport={handleReport}
+        />
+      )}
+
       <div className={cx(Flex, Between)}>
         <CommentProto
           profileUrl={profileUrl}
@@ -43,7 +58,10 @@ const Comment = ({
         <button
           value={id}
           className={Flex}
-          onClick={handleOnClickComment}>
+          onClick={e => {
+            handleOnClickComment(e);
+            handleActionModal();
+          }}>
           <Icon {...iconPropsGenerator('action-comment', '18')} />
         </button>
       </div>

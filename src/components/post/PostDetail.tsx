@@ -1,5 +1,6 @@
 import React, { Suspense, useRef } from 'react';
 import { useQueries } from '@tanstack/react-query';
+import { Toaster } from 'react-hot-toast';
 
 import MiniProfile from '@/components/common/MiniProfile';
 import PostSocial from '@/components/post/PostSocial';
@@ -66,7 +67,6 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
 
   const inputRef = useRef<HTMLInputElement | null>(null);
   const isPostOwner = postOwner && postData && postOwner === postData.nickname;
-
   return (
     <>
       {openActionModal && isPostOwner && (
@@ -147,6 +147,7 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
               postId={postNum}
             />
           </PostInputContainer>
+          <Toaster />
         </Container>
       )}
     </>

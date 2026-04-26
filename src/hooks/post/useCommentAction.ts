@@ -1,37 +1,36 @@
 import { MouseEventHandler } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
+import toast from 'react-hot-toast';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { useVerifyModalCTA } from '@/hooks/useVerifyModalCTA';
+import { useActionModal } from '@/hooks/post/useActionModal';
 import { deleteComment, deleteReply } from '@/api/post';
-import {
-  deleteCommentState,
-  deleteReplyState,
-  footerShowState,
-  isActionModalState
-} from '@/atoms/atoms';
+import { deleteCommentState, deleteReplyState } from '@/atoms/atoms';
+import { TOAST_TEXT } from '@/constants/common';
 
 export const useCommentAction = () => {
   const { postId } = useParams();
+  const { isModal, setIsModal } = useVerifyModalCTA();
+  const { isActionModal, handleActionModal, setIsActionModal } =
+    useActionModal();
+
+  // 신고
+  const navigate = useNavigate();
+  const comment = true;
+  const handleReport = () => {
+    // navigate(`/report/${postId}`, { state: { comment, id} });
+  };
+
+  // 삭제
+  const queryClient = useQueryClient();
   const [isDeleteComment, setIsDeleteComment] =
     useRecoilState(deleteCommentState);
   const [isDeleteReply, setIsDeleteReply] = useRecoilState(deleteReplyState);
 
-  const { isModal, setIsModal } = useVerifyModalCTA();
-  const [isActionModal, setIsActionMaodal] = useRecoilState(isActionModalState);
-  const displayFooter = useSetRecoilState(footerShowState);
-
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
-
   const handleDelete = () => {
     mutate();
-  };
-
-  const handleReport = () => {
-    // navigate(`/report/${postId}`, { state: { comment, id } });
-    displayFooter(false);
   };
 
   const { mutate } = useMutation({
@@ -48,7 +47,8 @@ export const useCommentAction = () => {
     },
     onSuccess: () => {
       setIsModal(!isModal);
-      setIsActionMaodal(!isActionModal);
+      setIsActionModal(false);
+      toast.success(TOAST_TEXT.text.comment, TOAST_TEXT.style);
       if (postId) {
         queryClient.invalidateQueries({ queryKey: ['commentData', postId] });
         queryClient.invalidateQueries({
@@ -72,8 +72,7 @@ export const useCommentAction = () => {
         postId: postId,
         commentId: Number(e.currentTarget.value)
       });
-    setIsActionMaodal(true);
-    displayFooter(false);
+    setIsActionModal(true);
   };
 
   const handleOnClickReply = (commentId: number, replyId: number) => {
@@ -83,13 +82,12 @@ export const useCommentAction = () => {
         commentId: commentId,
         replyId: replyId
       });
-    setIsActionMaodal(true);
-    displayFooter(false);
+    setIsActionModal(true);
   };
 
   return {
     isActionModal,
-    setIsActionMaodal,
+    handleActionModal,
     handleOnClickComment,
     handleOnClickReply,
     handleDelete,
