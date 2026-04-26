@@ -27,9 +27,7 @@ const FavoriteMenuItem = ({
   type?: boolean;
 }) => {
   const { id, userId, ...caffieneIntake } = itemData;
-  console.log('🚀 ~ FavoriteMenuItem ~ caffieneIntake:', caffieneIntake);
   const { caffeine, coffeeInfo } = coffeeInfoFormatter(caffieneIntake);
-  console.log('🚀 ~ FavoriteMenuItem ~ coffeeInfo:', coffeeInfo);
 
   // 등록에서 사용하기
   const setCaffeineIntake = useSetRecoilState(caffeineIntakeState);
