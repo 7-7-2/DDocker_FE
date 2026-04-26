@@ -4,7 +4,6 @@ import { useQuery } from '@tanstack/react-query';
 import Icon from '@/components/common/Icon';
 import CommentProto from '@/components/post/CommentProto';
 
-import { useCommentAction } from '@/hooks/post/useCommentAction';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { getReply } from '@/api/post';
 
@@ -16,11 +15,13 @@ import { Between, Flex } from '@/styles/layout';
 const Replies = ({
   replies,
   commentId,
-  postNum
+  postNum,
+  handleOnClickReply
 }: {
   replies: boolean;
   commentId: number;
   postNum: string;
+  handleOnClickReply: (commentId: number, replyId: number) => void;
 }) => {
   const id = useId();
   const { data: replyList } = useQuery({
@@ -30,7 +31,6 @@ const Replies = ({
     },
     enabled: !!commentId && !!replies
   });
-  const { handleOnClickReply } = useCommentAction();
 
   return (
     <Container>
