@@ -30,6 +30,7 @@ const Comment = ({
     isActionModal,
     handleActionModal,
     handleOnClickComment,
+    handleOnClickReply,
     handleDelete,
     handleReport
   } = useCommentAction();
@@ -69,6 +70,7 @@ const Comment = ({
         replies={toggle}
         commentId={id}
         postNum={postNum}
+        handleOnClickReply={handleOnClickReply}
       />
       <CheckReply
         count={replyCount}
