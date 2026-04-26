@@ -1,27 +1,26 @@
-import { isActionModalState, isModalState } from '@/atoms/atoms';
-import { BackgroundLayer } from '@/components/post/overlay/BackgroundLayer';
-import { PostOptions } from '@/components/post/overlay/PostOptions';
-import { useCommentAction } from '@/hooks/post/useCommentAction';
-import { DVW } from '@/styles/layout';
 import React from 'react';
 import { useRecoilState } from 'recoil';
+
+import { BackgroundLayer } from '@/components/post/overlay/BackgroundLayer';
+import { PostOptions } from '@/components/post/overlay/PostOptions';
+import { isModalState } from '@/atoms/atoms';
+
 import { styled } from 'styled-system/jsx';
+import { DVW } from '@/styles/layout';
+
+type NewType = React.ReactNode;
 
 const ActionModal = ({
-  type,
+  handleActionModal,
   children
 }: {
-  type?: string;
-  children: React.ReactNode;
+  handleActionModal?: () => void;
+  children: NewType;
 }) => {
   const [isModal, setIsModal] = useRecoilState(isModalState);
-  const [isActionModal, setIsActionMaodal] = useRecoilState(isActionModalState);
   const handleModal = () => {
-    type === 'comment'
-      ? setIsActionMaodal(!isActionModal)
-      : setIsModal(!isModal);
+    handleActionModal ? handleActionModal() : setIsModal(!isModal);
   };
-
   return (
     <Container className={DVW}>
       <BackgroundLayer onClick={handleModal}>
