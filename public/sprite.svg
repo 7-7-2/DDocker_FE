@@ -993,6 +993,32 @@
     </symbol>
 
     <symbol
+      id="icon-like-sm" 
+      width="20" 
+      height="20" 
+      viewBox="0 0 20 20" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg">
+      <path d="M15.799 11.1099L11.2519 15.7284C10.5637 16.4275 9.43633 16.4275 8.7481 15.7284L4.20101 11.1099C2.59966 9.48344 2.59966 6.84637 4.20101 5.21987C5.80236 3.59338 8.39865 3.59338 10 5.21987C11.6013 3.59338 14.1976 3.59338 15.799 5.21987C17.4003 6.84637 17.4003 9.48344 15.799 11.1099Z" stroke="#767676" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol
+      id="icon-liked-sm" 
+      width="20" 
+      height="20" 
+      viewBox="0 0 20 20" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg">
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd" 
+        d="M13.549 7.85994L9.0019 12.4784C8.31367 13.1775 7.18633 13.1775 6.4981 12.4784L1.95101 7.85994C0.349663 6.23344 0.349663 3.59637 1.95101 1.96987C3.55236 0.343376 6.14865 0.343376 7.75 1.96987C9.35135 0.343376 11.9476 0.343376 13.549 1.96987C15.1503 3.59637 15.1503 6.23344 13.549 7.85994Z" stroke="#767676" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+        fill="#FF701E"
+      />
+    </symbol>
+
+
+    <symbol
       id="icon-comments"
       width="24"
       height="24"
@@ -1018,6 +1044,17 @@
         </clipPath>
       </defs>
     </symbol>
+
+    <svg 
+      id="icon-comments-sm"
+      width="20" 
+      height="20" 
+      viewBox="0 0 20 20" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg">
+      <path d="M10 17C13.866 17 17 13.866 17 10C17 6.13401 13.866 3 10 3C6.13401 3 3 6.13401 3 10C3 11.157 3.28072 12.2485 3.77778 13.21L3 17L6.78995 16.2222C7.75147 16.7193 8.84295 17 10 17Z" stroke="#767676" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+
 
     <symbol
       id="icon-share"
@@ -2038,6 +2075,17 @@
       fill="none" 
       xmlns="http://www.w3.org/2000/svg">
     <path d="M9.99805 2.25C12.1401 2.25024 13.8894 3.97239 13.8896 6.11133V7.44531H15.4961C16.0482 7.4455 16.4961 7.89314 16.4961 8.44531V15C16.4956 16.6563 15.1525 17.9998 13.4961 18H6.5C4.84348 18 3.50053 16.6564 3.5 15V8.44531C3.5 7.89303 3.94772 7.44532 4.5 7.44531H6.10645V6.11133C6.10664 3.97228 7.85589 2.25007 9.99805 2.25ZM11.9619 12.7295H11.9688V12.7227H11.9619V12.7295ZM9.99805 3.75C8.67031 3.75007 7.60665 4.81464 7.60645 6.11133V7.44531H12.3896V6.11133C12.3894 4.81474 11.3256 3.75024 9.99805 3.75Z" fill="white"/>
+    </symbol>
+
+    <symbol
+      id="icon-sort" 
+      width="20" 
+      height="20" 
+      viewBox="0 0 20 20" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg">
+      <path d="M9.14299 7.25L6.57149 4.5M6.57149 4.5L4 7.25M6.57149 4.5L6.57149 15.5" stroke="#313131" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M10.857 12.75L13.4285 15.5M13.4285 15.5L16 12.75M13.4285 15.5L13.4285 4.5" stroke="#313131" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
     </symbol>
 
   </defs>

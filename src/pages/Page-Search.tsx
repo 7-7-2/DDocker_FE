@@ -4,14 +4,21 @@ import SEO_DATA from '@/constants/SEOData';
 import { SearchContext } from '@/context/contexts';
 import { useSearchInput } from '@/hooks/search/useSearchInput';
 
-const SearchListItem = lazy(
-  () => import('../components/search/SearchListItem')
-);
+const SearchList = lazy(() => import('@/components/search/SearchList'));
 const SearchHistory = lazy(() => import('../components/search/SearchHistory'));
 const SearchBar = lazy(() => import('../components/search/SearchBar'));
 
 const Search = () => {
-  const { results, search, handleChange, reset, setSearch } = useSearchInput();
+  const {
+    results,
+    search,
+    handleChange,
+    reset,
+    setSearch,
+    selectedTab,
+    setSelectedTab,
+    setSortType
+  } = useSearchInput();
   return (
     <>
       <SEOMeta pageData={SEO_DATA.search} />
@@ -22,11 +29,12 @@ const Search = () => {
           reset={reset}
         />
       </Suspense>
-
       {search && (
         <Suspense>
-          <SearchListItem
-            users={results}
+          <SearchList
+            selectedTab={selectedTab}
+            setSelectedTab={setSelectedTab}
+            results={results}
             search={search}
           />
         </Suspense>
