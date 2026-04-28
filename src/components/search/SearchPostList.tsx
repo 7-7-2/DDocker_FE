@@ -8,12 +8,28 @@ import { SearchPostListProps } from '@/types/types';
 import { styled } from 'styled-system/jsx';
 import { Flex } from '@/styles/layout';
 import { Medium } from '@/styles/styles';
+import { useState } from 'react';
 
-const SearchPostList = ({ posts, search }: SearchPostListProps) => {
+const SearchPostList = ({
+  posts,
+  search,
+  clickSortBtn
+}: SearchPostListProps) => {
+  const [isLabelText, setIsLabelText] = useState(false);
+  const handleOnclick = () => {
+    clickSortBtn();
+    setIsLabelText(!isLabelText);
+  };
   return (
     <>
-      <SortBtn className={Flex}>
-        <SortText className={Medium}>{SEARCH_TEXTS.sortOption[0]}</SortText>
+      <SortBtn
+        className={Flex}
+        onClick={handleOnclick}>
+        <SortText className={Medium}>
+          {!isLabelText
+            ? SEARCH_TEXTS.sortOption[0]
+            : SEARCH_TEXTS.sortOption[1]}
+        </SortText>
         <Icon {...iconPropsGenerator('sort', '20')} />
       </SortBtn>
       {posts.map(item => (

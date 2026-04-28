@@ -1,7 +1,6 @@
 import React, { Suspense, lazy } from 'react';
 
 import Tabs from '@/components/common/Tabs';
-import SearchPostList from '@/components/search/SearchPostList';
 
 import {
   SearchListTypes,
@@ -10,11 +9,13 @@ import {
 } from '@/types/types';
 import { SEARCH_TEXTS } from '@/constants/search';
 
+const SearchPostList = lazy(() => import('@/components/search/SearchPostList'));
 const SearchUserList = lazy(() => import('@/components/search/SearchUserList'));
 
 const SearchList = ({
   selectedTab,
   setSelectedTab,
+  clickSortBtn,
   results,
   search
 }: SearchListTypes) => {
@@ -34,6 +35,7 @@ const SearchList = ({
           <SearchPostList
             posts={results as SearchPostListTypes[]}
             search={search}
+            clickSortBtn={clickSortBtn}
           />
         </Suspense>
       ) : (

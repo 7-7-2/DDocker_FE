@@ -3,5 +3,8 @@ export const SEARCH_TEXTS = {
   moveToHome: '취소',
   recentSearch: '최근 검색',
   deleteAllBtn: '전체 삭제',
-  search: '검색'
+  search: '검색',
+  tabs: ['게시물', '사용자'],
+  sortOption: ['최신순', '좋아요순'],
+  type: { type: ['post', 'user'], sort: ['recent', 'likes'] }
 };

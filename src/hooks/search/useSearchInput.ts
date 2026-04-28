@@ -13,7 +13,7 @@ export const useSearchInput = () => {
     SimplifyUser[] | SearchPostListTypes[]
   >([]);
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
-  const [isSortType, setSortType] = useState(sortOption[0]);
+  const [isSortType, setSortType] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,7 +26,11 @@ export const useSearchInput = () => {
 
   const debounceVal = useDebounce(search);
   const searchType = selectedTab === tabs[0] ? type.type[0] : type.type[1];
-  const sortType = isSortType === sortOption[0] ? type.sort[0] : type.sort[1];
+  const sortType = isSortType === false ? type.sort[0] : type.sort[1];
+
+  const clickSortBtn = () => {
+    setSortType(!isSortType);
+  };
 
   useEffect(() => {
     if (debounceVal) {
@@ -34,7 +38,7 @@ export const useSearchInput = () => {
         setResults(res.data.results);
       });
     }
-  }, [debounceVal]);
+  }, [debounceVal, isSortType, searchType]);
 
   useEffect(() => {
     if (searchRef.current) {
@@ -46,7 +50,7 @@ export const useSearchInput = () => {
   return {
     selectedTab,
     setSelectedTab,
-    setSortType,
+    clickSortBtn,
     results,
     search,
     handleChange,
