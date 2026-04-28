@@ -1,8 +1,10 @@
 import { lazy, Suspense } from 'react';
+
 import SEOMeta from '@/components/common/SEOMeta';
-import SEO_DATA from '@/constants/SEOData';
-import { SearchContext } from '@/context/contexts';
+
 import { useSearchInput } from '@/hooks/search/useSearchInput';
+import { SearchContext } from '@/context/contexts';
+import SEO_DATA from '@/constants/SEOData';
 
 const SearchList = lazy(() => import('@/components/search/SearchList'));
 const SearchHistory = lazy(() => import('../components/search/SearchHistory'));
@@ -17,7 +19,7 @@ const Search = () => {
     setSearch,
     selectedTab,
     setSelectedTab,
-    setSortType
+    clickSortBtn
   } = useSearchInput();
   return (
     <>
@@ -34,6 +36,7 @@ const Search = () => {
           <SearchList
             selectedTab={selectedTab}
             setSelectedTab={setSelectedTab}
+            clickSortBtn={clickSortBtn}
             results={results}
             search={search}
           />

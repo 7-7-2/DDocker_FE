@@ -23,7 +23,7 @@ const { privatePost } = PROFILE_TEXTS;
 const PostItem = ({ item: postData, search, handleOnError }: PostItemProps) => {
   const profileData = 'visibility' in postData;
   const searchData = 'likeCount' in postData;
-  const { myLike, handleLikeOnPost } = useLikeOnPost(postData.postId);
+  const { handleLikeOnPost } = useLikeOnPost(postData.postId);
 
   const searchHighlightGenerator = () => {
     const splitDescription =
@@ -86,7 +86,7 @@ const PostItem = ({ item: postData, search, handleOnError }: PostItemProps) => {
           <SocialContainer className={Flex}>
             <PostSocialCount
               count={postData.likeCount}
-              icon={myLike && myLike.liked ? 'liked-sm' : 'like-sm'}
+              icon={'like-sm'}
               size="20"
               onClick={handleLikeOnPost}
             />

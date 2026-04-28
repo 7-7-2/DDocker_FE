@@ -396,10 +396,12 @@ export interface SearchUserListProps {
 export interface SearchPostListProps {
   posts: SearchPostListTypes[];
   search: string;
+  clickSortBtn: () => void;
 }
 export interface SearchListTypes {
   selectedTab: string;
   setSelectedTab: Dispatch<SetStateAction<string>>;
+  clickSortBtn: () => void;
   results: SimplifyUser[] | SearchPostListTypes[];
   search: string;
 }
