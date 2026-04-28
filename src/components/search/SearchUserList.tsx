@@ -1,15 +1,18 @@
-import MiniProfile from '@/components/common/MiniProfile';
-import { SimplifyUser, SearchList } from '@/types/types';
-import { Align, Between } from '@/styles/layout';
-import { styled } from 'styled-system/jsx';
-import { cx } from 'styled-system/css';
-import { useSetHistory } from '@/hooks/search/useSetHistory';
 import { memo, lazy, useState, Suspense } from 'react';
+
+import MiniProfile from '@/components/common/MiniProfile';
+
+import { useSetHistory } from '@/hooks/search/useSetHistory';
+import { SimplifyUser, SearchUserListProps } from '@/types/types';
+
+import { cx } from 'styled-system/css';
+import { styled } from 'styled-system/jsx';
+import { Align, Between } from '@/styles/layout';
 
 const SearchMore = lazy(() => import('@/components/search/SearchMore'));
 const SearchMoreList = lazy(() => import('@/components/search/SearchMoreList'));
 
-const SearchListItem = memo(({ users, search }: SearchList) => {
+const SearchUserList = memo(({ users, search }: SearchUserListProps) => {
   const [loadMore, setLoadMore] = useState(false);
   const { mutate, mutateHistory } = useSetHistory();
   const handleAddUserHistory = (user: SimplifyUser) => () => {
@@ -64,4 +67,4 @@ const SearchListItem = memo(({ users, search }: SearchList) => {
 const Container = styled.div`
   margin: 20px 0;
 `;
-export default SearchListItem;
+export default SearchUserList;

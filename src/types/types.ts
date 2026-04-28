@@ -207,6 +207,8 @@ export interface UserProfileGridDataTypes {
   postId: string;
   visibility: number;
 }
+
+// Post Item Types
 export interface UserProfileListDataTypes {
   brand: string;
   brandId: number;
@@ -217,6 +219,23 @@ export interface UserProfileListDataTypes {
   postId: string;
   productName: string;
   visibility: number;
+}
+
+export interface SearchPostListTypes {
+  brandName: string;
+  commentCount: number;
+  createdAt: string;
+  description: string;
+  likeCount: number;
+  photo: string | null;
+  postId: string;
+  productName: string;
+}
+
+export interface PostItemProps {
+  item: UserProfileListDataTypes | SearchPostListTypes;
+  search?: string;
+  handleOnError?: (e: React.SyntheticEvent<HTMLImageElement>) => void;
 }
 
 export interface UserFollowCountsTypes {
@@ -370,8 +389,18 @@ export interface FetchedPosts {
   next: number | undefined;
 }
 
-export interface SearchList {
+export interface SearchUserListProps {
   users: SimplifyUser[];
+  search: string;
+}
+export interface SearchPostListProps {
+  posts: SearchPostListTypes[];
+  search: string;
+}
+export interface SearchListTypes {
+  selectedTab: string;
+  setSelectedTab: Dispatch<SetStateAction<string>>;
+  results: SimplifyUser[] | SearchPostListTypes[];
   search: string;
 }
 

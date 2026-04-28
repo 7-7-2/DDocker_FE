@@ -1,11 +1,19 @@
-import { useDebounce } from '@/hooks/search/useDebounce';
 import { useState, useEffect, useRef } from 'react';
+
+import { useDebounce } from '@/hooks/search/useDebounce';
 import { getSearchUser } from '@/api/search';
-import { SimplifyUser } from '@/types/types';
+import { SearchPostListTypes, SimplifyUser } from '@/types/types';
+import { SEARCH_TEXTS } from '@/constants/search';
+
+const { tabs, type, sortOption } = SEARCH_TEXTS;
 
 export const useSearchInput = () => {
   const [search, setSearch] = useState('');
-  const [results, setResults] = useState<SimplifyUser[]>([]);
+  const [results, setResults] = useState<
+    SimplifyUser[] | SearchPostListTypes[]
+  >([]);
+  const [selectedTab, setSelectedTab] = useState(tabs[0]);
+  const [isSortType, setSortType] = useState(sortOption[0]);
   const searchRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,10 +25,12 @@ export const useSearchInput = () => {
   };
 
   const debounceVal = useDebounce(search);
+  const searchType = selectedTab === tabs[0] ? type.type[0] : type.type[1];
+  const sortType = isSortType === sortOption[0] ? type.sort[0] : type.sort[1];
 
   useEffect(() => {
     if (debounceVal) {
-      getSearchUser(debounceVal).then(res => {
+      getSearchUser(debounceVal, searchType, sortType).then(res => {
         setResults(res.data.results);
       });
     }
@@ -33,5 +43,15 @@ export const useSearchInput = () => {
       }, 0);
     }
   }, []);
-  return { results, search, handleChange, reset, setSearch, searchRef };
+  return {
+    selectedTab,
+    setSelectedTab,
+    setSortType,
+    results,
+    search,
+    handleChange,
+    reset,
+    setSearch,
+    searchRef
+  };
 };
