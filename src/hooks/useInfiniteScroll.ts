@@ -4,13 +4,12 @@ import { getUserProfilePosts } from '@/api/user';
 import {
   Fetched,
   FetchedFollowing,
-  FollowingPost,
   InfiniteFollowList,
   InfinitePosts
 } from '@/types/types';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
-import { getSearchMoreUser } from '@/api/search';
+import { getSearchMorePost, getSearchMoreUser } from '@/api/search';
 
 export const FollowingPostIQParam = {
   queryKey: ['followingPosts'],
@@ -65,7 +64,32 @@ export const SearchListMoreUserIQParam = (
   return {
     queryKey: ['searchListMoreUser', nickname],
     queryFn: ({ pageParam }: { pageParam: string | number | null }) => {
-      return getSearchMoreUser(nickname, pageParam as string | null) as Promise<Fetched>;
+      return getSearchMoreUser(
+        nickname,
+        pageParam as string | null
+      ) as Promise<Fetched>;
+    },
+    initialPageParam: initialCursor,
+    getNextPageParam: (lastPage: Fetched | FetchedFollowing) => {
+      if (!lastPage.next) return undefined;
+      return lastPage.next;
+    }
+  };
+};
+
+export const SearchListMorePostIQParam = (
+  search: string,
+  sort: string,
+  initialCursor: string | null = null
+): InfinitePosts => {
+  return {
+    queryKey: ['searchListMorePost', search, sort],
+    queryFn: ({ pageParam }: { pageParam: string | number | null }) => {
+      return getSearchMorePost(
+        search,
+        sort,
+        pageParam as string | null
+      ) as Promise<Fetched>;
     },
     initialPageParam: initialCursor,
     getNextPageParam: (lastPage: Fetched | FetchedFollowing) => {
