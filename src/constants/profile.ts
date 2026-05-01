@@ -28,6 +28,7 @@ export const MYPAGE_TEXTS = {
     '/userInfo',
     '/userId',
     '/accessToken',
+    '/refreshToken',
     '/coffee',
     '/social',
     '/socialToken'

@@ -148,3 +148,12 @@ export const getPostCounts = async (userId: string) => {
     console.log(err);
   }
 };
+
+// Sign Out
+export const signOut = async () => {
+  try {
+    await authInstance.post('/auth/logout');
+  } catch (error) {
+    console.error('Logout failed:', error);
+  }
+};
