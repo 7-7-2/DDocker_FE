@@ -1,7 +1,17 @@
-import axios, { AxiosError, AxiosInstance } from 'axios';
+import axios, {
+  AxiosError,
+  AxiosInstance,
+  InternalAxiosRequestConfig
+} from 'axios';
 import useGetCacheData from '@/hooks/useGetCacheData';
+import useSetCacheData from '@/hooks/useSetCacheData';
+import {useDeleteCacheData} from '@/hooks/useDeleteCacheData';
 
 axios.defaults.withCredentials = true;
+
+interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
+  _retry?: boolean;
+}
 
 const authInterceptors = (instance: AxiosInstance): AxiosInstance => {
   instance.interceptors.request.use(
@@ -13,6 +23,40 @@ const authInterceptors = (instance: AxiosInstance): AxiosInstance => {
       return config;
     },
     (error: AxiosError): Promise<AxiosError> => {
+      return Promise.reject(error);
+    }
+  );
+  //Refresh token flow
+  instance.interceptors.response.use(
+    response => response,
+    async (error: AxiosError) => {
+      const originalRequest = error.config as CustomAxiosRequestConfig;
+
+      if (
+        error.response?.status === 401 &&
+        originalRequest &&
+        !originalRequest._retry &&
+        !originalRequest.url?.includes('auth/refresh')
+      ) {
+        originalRequest._retry = true;
+
+        try {
+          const res = await axios.post(
+            `${import.meta.env.VITE_BASE_URL}/auth/refresh`,
+            {},
+            { withCredentials: true }
+          );
+
+          const newAccessToken = res.data.accessToken;
+          await useSetCacheData('user', '/accessToken', newAccessToken);
+
+          originalRequest.headers.Authorization = newAccessToken;
+          return instance(originalRequest);
+        } catch (refreshError) {
+          await useDeleteCacheData('user', '/accessToken');
+          return Promise.reject(refreshError);
+        }
+      }
       return Promise.reject(error);
     }
   );

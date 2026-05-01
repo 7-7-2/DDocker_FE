@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom';
 
 import { useDeleteCacheData } from '@/hooks/useDeleteCacheData';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
-import { deleteUserAccount, getSocialAuth } from '@/api/user';
+import { deleteUserAccount, getSocialAuth, signOut } from '@/api/user';
 import { isModalState } from '@/atoms/atoms';
 import { MYPAGE_TEXTS } from '@/constants/profile';
 import { useCloudStorage } from '@/hooks/useCloudStorage';
@@ -23,6 +23,7 @@ export const useHandleAuth = () => {
   const { deleteStorage, deleteFolder } = useCloudStorage();
 
   const handleSignOut = async () => {
+    await signOut();
     await useDeleteCacheData('user', signOutUrls);
     goToStart();
   };
