@@ -1,23 +1,16 @@
-import { useQuery } from '@tanstack/react-query';
-import useGetCacheData from '@/hooks/useGetCacheData';
 import MiniProfile from '@/components/common/MiniProfile';
-import { styled } from 'styled-system/jsx';
-import { Align, Between, Flex } from '@/styles/layout';
-import { cx } from 'styled-system/css';
 import Icon from '@/components/common/Icon';
-import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import { useSetHistory } from '@/hooks/search/useSetHistory';
-import { SimplifyUser } from '@/types/types';
 import KeywordHistory from '@/components/search/KeywordHistory';
 
-const HistoryList = () => {
-  const { data: cachedHistory } = useQuery({
-    queryKey: ['cachedHistory'],
-    queryFn: () => {
-      return useGetCacheData('search', '/user');
-    }
-  });
+import { useSetHistory } from '@/hooks/search/useSetHistory';
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+import { SimplifyUser } from '@/types/types';
 
+import { cx } from 'styled-system/css';
+import { styled } from 'styled-system/jsx';
+import { Align, Between, Flex } from '@/styles/layout';
+
+const HistoryList = ({ cachedHistory }: { cachedHistory: SimplifyUser[] }) => {
   const { remove, removeHistory } = useSetHistory();
   const removeUserHistory = (user: SimplifyUser) => () => {
     remove(user);
@@ -29,33 +22,33 @@ const HistoryList = () => {
   return (
     <>
       {cachedHistory &&
-        cachedHistory.cacheData.map((user: any) =>
-          user.userId ? (
+        cachedHistory.map((item: any) =>
+          item.userId ? (
             <Container
-              key={user.userId}
+              key={item.userId}
               className={cx(Align, Between)}>
               <MiniProfile
-                url={user.url}
-                nickname={user.nickname}
-                caffeineSum={user.caffeineSum}
-                userId={user.userId}
+                url={item.url}
+                nickname={item.nickname}
+                caffeineSum={item.caffeineSum}
+                userId={item.userId}
                 mini={true}
               />
               <div
                 className={Flex}
-                onClick={removeUserHistory(user)}>
-                <Icon {...iconPropsGenerator('cancel', '24')} />
+                onClick={removeUserHistory(item)}>
+                <Icon {...iconPropsGenerator('cancel-search', '18')} />
               </div>
             </Container>
           ) : (
             <Container
               className={cx(Align, Between)}
-              key={user.keyword}>
-              <KeywordHistory keyword={user.keyword} />
+              key={item.keyword}>
+              <KeywordHistory keyword={item} />
               <div
                 className={Flex}
-                onClick={removeKeywordHistory(user)}>
-                <Icon {...iconPropsGenerator('cancel', '24')} />
+                onClick={removeKeywordHistory(item)}>
+                <Icon {...iconPropsGenerator('cancel-search', '18')} />
               </div>
             </Container>
           )
