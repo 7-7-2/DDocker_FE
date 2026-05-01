@@ -12,6 +12,7 @@ const useSetCacheData = async (
     | string
     | boolean
     | number
+    | (SimplifyUser | string)[]
     | SimplifyUser[]
     | TodayCoffeeInfoTypes
     | WeeklyPopularListTypes

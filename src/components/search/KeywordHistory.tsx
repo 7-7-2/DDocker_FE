@@ -1,10 +1,13 @@
-import Icon from '@/components/common/Icon';
-import { FlexCenter } from '@/styles/layout';
-import { LineH18, Semibold } from '@/styles/styles';
-import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import { css, cx } from 'styled-system/css';
 import { useContext } from 'react';
 import { SearchContext } from '@/context/contexts';
+
+import Icon from '@/components/common/Icon';
+
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+
+import { css, cx } from 'styled-system/css';
+import { LineH18, Semibold } from '@/styles/styles';
+import { FlexCenter } from '@/styles/layout';
 
 const KeywordHistory = ({ keyword }: { keyword: string }) => {
   const { setSearch } = useContext(SearchContext);
@@ -15,9 +18,9 @@ const KeywordHistory = ({ keyword }: { keyword: string }) => {
   return (
     <div className={FlexCenter}>
       <div
-        className={cx(Container, FlexCenter)}
+        className={cx(FlexCenter)}
         onClick={handleSearchKeyword}>
-        <Icon {...iconPropsGenerator('search', '24')} />
+        <Icon {...iconPropsGenerator('search-history', '24')} />
       </div>
       <span
         className={cx(Keyword, LineH18, Semibold)}
@@ -28,17 +31,9 @@ const KeywordHistory = ({ keyword }: { keyword: string }) => {
   );
 };
 
-const Container = css`
-  min-width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid var(--colors-border-grey);
-`;
-
 const Keyword = css`
-  padding-left: 12px;
+  padding-left: 6px;
   color: var(--colors-main-dark);
-
   font-size: var(--font-sizes-sm);
 `;
 

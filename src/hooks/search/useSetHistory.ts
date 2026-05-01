@@ -1,18 +1,20 @@
+import { useQueryClient, useMutation, useQuery } from '@tanstack/react-query';
+
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 import useGetCacheData from '@/hooks/useGetCacheData';
 import useSetCacheData from '@/hooks/useSetCacheData';
+
 import { SimplifyUser } from '@/types/types';
-import { useQueryClient, useMutation, useQuery } from '@tanstack/react-query';
 
 export const useSetHistory = () => {
   const { userId } = useCachedUserInfo();
+  const queryClient = useQueryClient();
   const { data: cachedHistory } = useQuery({
     queryKey: ['cachedHistory'],
     queryFn: () => useGetCacheData('search', `/user-${userId}`),
     enabled: !!userId
   });
-  
-  const queryClient = useQueryClient();
+
   const { mutate } = useMutation({
     mutationFn: async (data: SimplifyUser) => {
       if (!userId) return;
@@ -44,6 +46,24 @@ export const useSetHistory = () => {
           (await useSetCacheData('search', `/user-${userId}`, [
             ...cachedHistory.cacheData,
             data
+          ]));
+      }
+    }
+  });
+
+  const { mutate: mutateSearchText } = useMutation({
+    mutationFn: async (search: string) => {
+      if (!userId) return;
+      !cachedHistory &&
+        (await useSetCacheData('search', `/user-${userId}`, [search]));
+      if (cachedHistory) {
+        const newDataExists = cachedHistory.cacheData.some(
+          (item: string) => item === search
+        );
+        !newDataExists &&
+          (await useSetCacheData('search', `/user-${userId}`, [
+            ...cachedHistory.cacheData,
+            search
           ]));
       }
     }
@@ -85,5 +105,12 @@ export const useSetHistory = () => {
     }
   });
 
-  return { mutate, reset, remove, mutateHistory, removeHistory };
+  return {
+    mutate,
+    reset,
+    remove,
+    mutateSearchText,
+    mutateHistory,
+    removeHistory
+  };
 };
