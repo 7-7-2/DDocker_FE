@@ -4,9 +4,7 @@ import { Column, Flex } from '@/styles/layout';
 
 // PageHeight
 export const SearchPageHeight = css`
-  height: calc(
-    100dvh - 64px - env(safe-area-inset-bottom) - env(safe-area-inset-top)
-  );
+  height: calc(100dvh - env(safe-area-inset-bottom) - env(safe-area-inset-top));
 `;
 
 export const RegisterPageHeight = css`
@@ -481,6 +479,7 @@ export const SearchInput = cx(
   Regular,
   css`
     width: 100%;
+    height: 100%;
     color: var(--colors-main-dark);
     font-size: var(--font-sizes-sm);
     line-height: 22px;
@@ -585,6 +584,14 @@ export const Spinner = css`
   border-top-color: transparent;
   border-radius: 50%;
   animation: loader 0.7s infinite ease-in-out;
+`;
+
+// postItem
+export const hasImgWidth = css`
+  width: calc(100dvw - 128px);
+`;
+export const defaultWidth = css`
+  width: calc(100dvw - 40px);
 `;
 
 export const Cafe = css`
