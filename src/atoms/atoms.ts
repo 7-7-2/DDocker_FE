@@ -12,7 +12,10 @@ export const activeState = atom({
   key: 'activeState',
   default: 'home'
 });
-
+export const backToSearchState = atom({
+  key: 'backToSearchState',
+  default: false
+});
 export const registerBtnActiveState = atom({
   key: 'registerBtnActiveState',
   default: false
