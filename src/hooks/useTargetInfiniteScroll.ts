@@ -60,6 +60,7 @@ export const useTargetInfiniteScroll = (
 
     return { followingList, ref };
   }
+
   if (enabled === '검색') {
     const {
       data: searchMoreList,

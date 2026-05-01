@@ -1,19 +1,23 @@
 import { useState, useEffect, useRef } from 'react';
+import { useSetRecoilState } from 'recoil';
 
 import { useDebounce } from '@/hooks/search/useDebounce';
 import { getSearchUser } from '@/api/search';
+import { backToSearchState } from '@/atoms/atoms';
 import { SearchPostListTypes, SimplifyUser } from '@/types/types';
 import { SEARCH_TEXTS } from '@/constants/search';
 
-const { tabs, type, sortOption } = SEARCH_TEXTS;
+const { tabs, type } = SEARCH_TEXTS;
 
 export const useSearchInput = () => {
   const [search, setSearch] = useState('');
   const [results, setResults] = useState<
     SimplifyUser[] | SearchPostListTypes[]
   >([]);
+  const [initialCursor, setinitialCursor] = useState('');
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
   const [isSortType, setSortType] = useState(false);
+  const setIsSearch = useSetRecoilState(backToSearchState);
   const searchRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,6 +26,7 @@ export const useSearchInput = () => {
 
   const reset = () => {
     setSearch('');
+    setIsSearch(false);
   };
 
   const debounceVal = useDebounce(search);
@@ -36,6 +41,7 @@ export const useSearchInput = () => {
     if (debounceVal) {
       getSearchUser(debounceVal, searchType, sortType).then(res => {
         setResults(res.data.results);
+        setinitialCursor(res.data.nextCursor);
       });
     }
   }, [debounceVal, isSortType, searchType]);
@@ -47,11 +53,17 @@ export const useSearchInput = () => {
       }, 0);
     }
   }, []);
+
+  useEffect(() => {
+    setIsSearch(true);
+  }, []);
+
   return {
     selectedTab,
     setSelectedTab,
     clickSortBtn,
     results,
+    initialCursor,
     search,
     handleChange,
     reset,

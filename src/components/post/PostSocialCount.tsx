@@ -32,7 +32,6 @@ const PostSocialCount = ({
 
 const Container = styled.div`
   gap: 4px;
-  padding-right: 16px;
 `;
 
 const Count = styled.span`

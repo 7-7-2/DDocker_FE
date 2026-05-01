@@ -1,18 +1,16 @@
 import PostItem from '@/components/common/PostItem';
 
 import { PostsListProps } from '@/types/types';
-import { PROFILE_TEXTS } from '@/constants/profile';
 
 import { styled } from 'styled-system/jsx';
 import { Column } from '@/styles/layout';
-
-const { privatePost } = PROFILE_TEXTS;
 
 const PostsList = ({ data, postRef, handleOnError }: PostsListProps) => {
   return (
     <AllPostsList className={Column}>
       {data?.map(item => (
         <PostItem
+          key={item.postId}
           item={item}
           handleOnError={handleOnError}
         />

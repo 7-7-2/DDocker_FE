@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
 import { useLocation } from 'react-router-dom';
 
-import { activeState } from '@/atoms/atoms';
+import { activeState, backToSearchState } from '@/atoms/atoms';
 import { routeMap } from '@/utils/getRoute';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
@@ -12,6 +12,7 @@ export const useSmartBack = () => {
   //back
   const { userId } = useCachedUserInfo();
   const footerActiveState = useRecoilValue(activeState);
+  const searchPage = useRecoilValue(backToSearchState);
 
   const { state } = useLocation();
   const favorites = state === 'favoriteEdit';
@@ -19,13 +20,15 @@ export const useSmartBack = () => {
   const myPageBack = `/profile/${userId}`;
   const naveToBack = useNavigateTo('-1');
 
-  const smartBack = useNavigateTo(
-    favorites
-      ? naveToBack
-      : footerActiveState === 'my'
-        ? myPageBack
-        : routeMap.get(footerActiveState)
-  );
+  const smartBack = searchPage
+    ? naveToBack
+    : useNavigateTo(
+        favorites
+          ? naveToBack
+          : footerActiveState === 'my'
+            ? myPageBack
+            : routeMap.get(footerActiveState)
+      );
 
   //close
   const { pathname } = useLocation();

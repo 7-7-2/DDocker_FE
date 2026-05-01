@@ -16,7 +16,13 @@ import { PROFILE_TEXTS } from '@/constants/profile';
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Between, Column, Flex } from '@/styles/layout';
-import { Medium, Regular, Semibold } from '@/styles/styles';
+import {
+  defaultWidth,
+  hasImgWidth,
+  Medium,
+  Regular,
+  Semibold
+} from '@/styles/styles';
 
 const { privatePost } = PROFILE_TEXTS;
 
@@ -27,7 +33,7 @@ const PostItem = ({ item: postData, search, handleOnError }: PostItemProps) => {
 
   const searchHighlightGenerator = () => {
     const splitDescription =
-      search && postData.description.split(new RegExp(`(${search})`, 'gi'));
+      search && postData.description?.split(new RegExp(`(${search})`, 'gi'));
     if (Array.isArray(splitDescription)) {
       return splitDescription;
     } else return [postData.description];
@@ -48,7 +54,7 @@ const PostItem = ({ item: postData, search, handleOnError }: PostItemProps) => {
       onClick={goToPostDetail}
       className={cx(Column, Between)}>
       <div className={cx(Flex, Between)}>
-        <div className={Column}>
+        <div className={cx(Column, postData.photo && hasImgWidth)}>
           <Brand>
             {brandMapToKor(
               (postData as SearchPostListTypes).brandName ||
@@ -56,23 +62,29 @@ const PostItem = ({ item: postData, search, handleOnError }: PostItemProps) => {
             )}
           </Brand>
           <ProductName className={Semibold}>{postData.productName}</ProductName>
-          {profileData ? (
-            <Description>{postData.description}</Description>
-          ) : (
-            <Description>
-              {description.map(item => (
-                <span className={item === search ? Semibold : Regular}>
-                  {item}
-                </span>
-              ))}
-            </Description>
-          )}
+          <div className={postData.photo ? hasImgWidth : defaultWidth}>
+            {profileData ? (
+              <Description>{postData.description}</Description>
+            ) : (
+              <Description>
+                {description.map((item, id) => (
+                  <span
+                    key={id}
+                    className={item === search ? Semibold : Regular}>
+                    {item}
+                  </span>
+                ))}
+              </Description>
+            )}
+          </div>
         </div>
         {postData.photo && (
+          // <Img>
           <Img
             src={postData.photo}
             onError={handleOnError}
           />
+          // </Img>
         )}
       </div>
       <PostOption className={cx(Regular, Flex, Between)}>
@@ -105,14 +117,17 @@ const PostItem = ({ item: postData, search, handleOnError }: PostItemProps) => {
 
 const PostItemContainer = styled.div`
   height: 130px;
+
+  max-width: 460px;
   box-shadow: inset 0 -1px 0 0 var(--colors-border-grey);
   padding: 12px 0;
   gap: 12px;
+  overflow: hidden;
 `;
 const Brand = styled.span`
   line-height: 18px;
-  font-size: var(--font-siezs-xs);
   color: var(--colors-mid-grey);
+  font-size: var(--font-sizes-xs);
 `;
 const ProductName = styled.span`
   padding-top: 2px;
@@ -120,16 +135,21 @@ const ProductName = styled.span`
   font-size: var(--font-sizes-base);
   color: var(--colors-main-dark);
 `;
-const Description = styled.span`
+const Description = styled.p`
   margin-top: 6px;
   line-height: 18px;
   font-size: var(--font-sizes-sm);
   color: var(--colors-main-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
+
 const Img = styled.img`
   width: 75px;
   height: 75px;
   border-radius: 6px;
+  border: 1px solid var(--colors-tertiary);
 `;
 
 const PostOption = styled.div`
@@ -140,6 +160,6 @@ const PostOption = styled.div`
 `;
 
 const SocialContainer = styled.div`
-  margin-right: -10px;
+  gap: 6px;
 `;
 export default PostItem;
