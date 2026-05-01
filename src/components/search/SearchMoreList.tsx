@@ -1,24 +1,43 @@
 import { useTargetInfiniteScroll } from '@/hooks/useTargetInfiniteScroll';
 import { styled } from 'styled-system/jsx';
-import { SearchListMoreUserIQParam } from '@/hooks/useInfiniteScroll';
+import PostItem from '@/components/common/PostItem';
 import MiniProfile from '@/components/common/MiniProfile';
-import { SimplifyUser } from '@/types/types';
+
+import {
+  SearchListMorePostIQParam,
+  SearchListMoreUserIQParam
+} from '@/hooks/useInfiniteScroll';
+
+import {
+  InfiniteSearchList,
+  SearchPostListTypes,
+  SimplifyUser
+} from '@/types/types';
 import { SEARCH_TEXTS } from '@/constants/search';
 
 const { search: searchText } = SEARCH_TEXTS;
 
 const SearchMoreList = ({
   search,
-  initialCursor
+  type,
+  initialCursor,
+  sort
 }: {
   search: string;
+  type: string;
   initialCursor: string | null;
+  sort?: string;
 }) => {
+  const searchListMoreIQParam: InfiniteSearchList = !sort
+    ? SearchListMoreUserIQParam(search, initialCursor)
+    : SearchListMorePostIQParam(search, sort, initialCursor);
+
   const { searchMoreList, ref } = useTargetInfiniteScroll(
-    SearchListMoreUserIQParam(search, initialCursor),
+    searchListMoreIQParam,
     searchText
   );
-  const mapSearchList = (user: SimplifyUser) => {
+
+  const mapSearchUserList = (user: SimplifyUser) => {
     return (
       <Container key={user.userId}>
         <MiniProfile
@@ -31,11 +50,23 @@ const SearchMoreList = ({
       </Container>
     );
   };
+  const mapSearchPostList = (post: SearchPostListTypes) => {
+    return (
+      <Container key={post.postId}>
+        <PostItem
+          item={post}
+          search={search}
+        />
+      </Container>
+    );
+  };
   return (
     <>
       {searchMoreList && searchMoreList.length !== 0 && (
         <>
-          {searchMoreList && searchMoreList.map(mapSearchList)}
+          {type === 'user'
+            ? searchMoreList.map(mapSearchUserList)
+            : searchMoreList.map(mapSearchPostList)}
           <Target ref={ref} />
         </>
       )}

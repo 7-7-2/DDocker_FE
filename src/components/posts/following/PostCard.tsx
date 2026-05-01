@@ -65,7 +65,7 @@ const PostCard = ({ ...props }: FollowingPost) => {
   const {
     toggle: confirm,
     handleToggle: setConfirm,
-    cancelConfirm
+    confirmDelete
   } = usePostOptions();
 
   const { data: socialCounts } = useQuery({
@@ -96,14 +96,14 @@ const PostCard = ({ ...props }: FollowingPost) => {
           <PostOwnerOption
             cancleOptions={cancelOptions}
             postId={postId}
-            setConfirm={setConfirm}
+            confirmDelete={confirmDelete}
           />
         </Suspense>
       )}
       {confirm && (
         <Suspense>
           <ConfirmDelete
-            cancelConfirm={cancelConfirm}
+            // cancelConfirm={cancelConfirm}
             postId={postId}
             posts={true}
           />

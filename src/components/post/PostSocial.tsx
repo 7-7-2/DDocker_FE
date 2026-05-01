@@ -8,6 +8,7 @@ import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { cx } from 'styled-system/css';
 import { Flex, Between } from '@/styles/layout';
 import { PostContainer, PostsContainer } from '@/styles/styles';
+import { styled } from 'styled-system/jsx';
 
 const imagePath = import.meta.env.VITE_R2_POST_IMAGE_PATH;
 
@@ -58,7 +59,7 @@ const PostSocial = ({
 
   return (
     <div className={cx(Flex, Between, posts ? PostsContainer : PostContainer)}>
-      <div className={Flex}>
+      <Container className={Flex}>
         <PostSocialCount
           count={likes}
           icon={myLike && myLike.liked ? 'liked' : 'like'}
@@ -69,7 +70,7 @@ const PostSocial = ({
           icon={'comments'}
           onClick={onClick}
         />
-      </div>
+      </Container>
 
       {!posts && (
         <Icon
@@ -86,5 +87,7 @@ const PostSocial = ({
     </div>
   );
 };
-
+const Container = styled.div`
+  gap: 16px;
+`;
 export default PostSocial;
