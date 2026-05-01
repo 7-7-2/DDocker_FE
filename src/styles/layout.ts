@@ -44,6 +44,10 @@ export const Column = cx(
   `
 );
 
+export const FlexGrow = css`
+  flex-grow: 1;
+`;
+
 export const MarginAuto = css`
   margin: auto;
 `;
