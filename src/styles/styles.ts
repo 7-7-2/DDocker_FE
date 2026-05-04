@@ -111,11 +111,9 @@ export const MarginB8 = css`
   margin-bottom: 8px;
 `;
 
-//Text-Deco
-export const TextUnderLine = css`
-  text-decoration-line: underline;
-  text-decoration-color: var(--colors-mid-grey);
-  text-underline-offset: 2px;
+// gap
+export const Gap12 = css`
+  gap: 12px;
 `;
 
 // Divider
@@ -630,8 +628,10 @@ export const PostTitle = styled.div`
 `;
 export const PostContent = styled.p`
   font-size: var(--font-sizes-sm);
-  line-height: 20px;
-  margin-bottom: 16px;
+  line-height: 22px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const CaffeineDetail = cx(
@@ -908,8 +908,7 @@ export const Gap6 = css`
   gap: 6px;
 `;
 
-export const SectionHeader = css`
-  padding-bottom: 12px;
+export const SectionHeaderText = css`
   font-size: var(--font-sizes-lg);
   font-weight: 600;
   color: var(--colors-main-dark);
@@ -944,7 +943,7 @@ export const TrendDivider = css`
     content: '';
     display: block;
     margin-top: 32px;
-    height: 8px;
+    height: 12px;
     background-color: var(--colors-tertiary);
   }
 `;

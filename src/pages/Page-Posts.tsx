@@ -4,10 +4,10 @@ import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { TABS_TEXTS } from '@/constants/common';
 import { Divider } from '@/styles/styles';
 
+const PostsTrend = lazy(() => import('../components/posts/trend/PostsTrend'));
 const PostsFollowing = lazy(
   () => import('../components/posts/following/PostsFollowing')
 );
-const PostsTrend = lazy(() => import('../components/posts/trend/PostsTrend'));
 
 export const Posts = () => {
   useComposeHeader('logo', '', 'icons');
@@ -20,7 +20,6 @@ export const Posts = () => {
         postsTab={postsTab}
       />
       <div className={Divider} />
-
       {postsTab === TABS_TEXTS.trend[0] && (
         <Suspense>
           <PostsTrend />
