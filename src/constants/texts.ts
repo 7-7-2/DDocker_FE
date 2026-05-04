@@ -22,11 +22,7 @@ export const COMMENT_TEXTS = {
 
 export const TREND_TEXTS = {
   daily: '오늘의 인기 게시글',
-  popularPost: '의 인기 게시글',
-  latestPost: '의 최신 게시글',
-  latest: '최신',
-  popularity: '인기',
-  divide: ' | ',
+  weekly: ['이번 주 ', ' 게시물'],
   WeeklyPopular: '이번 주 인기 메뉴는 ',
   is: '입니다!'
 };
