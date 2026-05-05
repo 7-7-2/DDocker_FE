@@ -1,6 +1,6 @@
 import Icon from '@/components/common/Icon';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import { useSmartBack } from '@/hooks/post/useSmartBack';
+import { useSmartBack } from '@/hooks/useSmartBack';
 
 const HeaderBackIcon = () => {
   const { smartBack } = useSmartBack();

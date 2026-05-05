@@ -1,7 +1,7 @@
 import { useRecoilState } from 'recoil';
 import Icon from '@/components/common/Icon';
 import { footerShowState } from '@/atoms/atoms';
-import { useSmartBack } from '@/hooks/post/useSmartBack';
+import { useSmartBack } from '@/hooks/useSmartBack';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
 const HeaderCloseIcon = () => {

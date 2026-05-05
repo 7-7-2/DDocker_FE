@@ -10,7 +10,7 @@ import FavoriteMenuAddModal from '@/components/post/postRegister/FavoriteMenuAdd
 
 import { useShowFooter } from '@/hooks/useShowFooter';
 import { useVerifyModalCTA } from '@/hooks/useVerifyModalCTA';
-import { useSmartBack } from '@/hooks/post/useSmartBack';
+import { useSmartBack } from '@/hooks/useSmartBack';
 import { useFavoriteMenu } from '@/hooks/post/useFavoriteMenu';
 import { useResetRegistInfo } from '@/hooks/post/useResetRegistInfo';
 
