@@ -291,7 +291,7 @@ export type Reply = Pick<
 
 export interface FollowingPost extends SimplifyUser {
   userSum: number;
-  postTitle: string;
+  description: string;
   postId: string;
   profileUrl: string;
   createdAt: string;
@@ -302,7 +302,7 @@ export interface FollowingPost extends SimplifyUser {
   brand: string;
   userId: string;
   intensity: string;
-  size: number;
+  size: string;
 }
 
 export interface Fetched {
@@ -370,13 +370,19 @@ export interface CafeDetailTypes {
   onClick?: () => void;
 }
 
-export interface DailyTrendCardProps {
+export interface DailyTrendCardProps extends PostMetaData {
+  description: string;
+  nickname: string;
   photo: string;
-  brandName: string;
-  productName: string;
-  shot: number;
-  caffeine: number;
   postId: string;
+  profileUrl: string;
+  userId: string;
+}
+export interface PostMetaData {
+  commentCount: number;
+  likeCount: number;
+  createdAt: string;
+  visibility?: number;
 }
 
 export interface FetchedFollowing {
@@ -491,4 +497,9 @@ export interface SEODataItemType {
 
 export interface SEO_DATAType {
   [key: string]: SEODataItemType;
+}
+
+export interface PostBodyProps
+  extends Pick<FollowingPost, 'description' | 'photo'> {
+  onClick: () => void;
 }
