@@ -23,7 +23,7 @@ const Background = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  z-index: 99;
+  z-index: var(--z-index-background-layer);
   height: 100dvh;
   background-color: #000000;
   opacity: 60%;

@@ -56,7 +56,8 @@ const FooterRegisterBtn = ({ icon }: { icon: string }) => {
         className={cx(Flex, Center, registerBtnColor)}
         onClick={handleRegister}
         style={{
-          transform: activeRegisterBtn ? 'rotate(90deg)' : 'rotate(0deg)'
+          transform: activeRegisterBtn ? 'rotate(90deg)' : 'rotate(0deg)',
+          zIndex: activeRegisterBtn ? 'var(--z-index-action-btn)' : '1'
         }}>
         {activeRegisterBtn ? (
           <Icon {...iconPropsGenerator(`${icon}-active`, `20`)} />
@@ -72,7 +73,6 @@ const RegisterBtn = styled.div`
   height: 42px;
   width: 42px;
   margin-top: -2px;
-  z-index: 999;
   border-radius: 50px;
   transition:
     background-color 0.2s,
@@ -85,7 +85,7 @@ const Background = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 999;
+  z-index: var(--z-index-background-layer);
   background-color: rgba(0, 0, 0, 0.6);
 `;
 

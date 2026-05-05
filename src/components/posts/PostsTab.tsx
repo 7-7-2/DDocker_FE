@@ -32,7 +32,7 @@ const Highlight = css`
     position: absolute;
     border-top: 2px solid var(--colors-main);
     top: 8px;
-    z-index: 77;
+    z-index: 1;
     width: calc(100% - 20px);
   }
 `;

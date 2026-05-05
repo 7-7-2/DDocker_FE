@@ -15,6 +15,6 @@ const Container = styled.div`
   right: 0;
   bottom: 0;
   position: fixed;
-  z-index: 9999;
+  z-index: var(--z-index-modal);
   gap: 32px;
 `;

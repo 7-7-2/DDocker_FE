@@ -10,7 +10,7 @@ import { useShowFooter } from '@/hooks/useShowFooter';
 import { useSelectTab } from '@/hooks/useSelectTab';
 import { useUpadatePost } from '@/hooks/post/useUpadatePost';
 import { useVerifyModalCTA } from '@/hooks/useVerifyModalCTA';
-import { useSmartBack } from '@/hooks/post/useSmartBack';
+import { useSmartBack } from '@/hooks/useSmartBack';
 import { useResetRegistInfo } from '@/hooks/post/useResetRegistInfo';
 
 import {
@@ -92,7 +92,7 @@ const LoadingPage = styled.div`
   display: flex;
   top: 0;
   left: 0;
-  z-index: 99;
+  z-index: var(--z-index-floating-btn);
   height: 100vh;
   width: 100vw;
   background-color: rgba(255, 255, 255, 0.724);

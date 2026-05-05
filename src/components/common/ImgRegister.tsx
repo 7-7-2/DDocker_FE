@@ -93,7 +93,7 @@ const BtnItem = styled.div`
   right: 6px;
   top: 6px;
   border-radius: 50%;
-  z-index: 3;
+  z-index: var(--z-index-contents-btn);
 `;
 
 const ImgContainer = styled.div`
