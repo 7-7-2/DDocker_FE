@@ -41,6 +41,15 @@ export default defineConfig({
           xl: { value: '20px' },
           xxl: { value: '24px' },
           xxxl: { value: '28px' }
+        },
+        zIndex: {
+          footer: { value: 10 },
+          headers: { value: 10 },
+          contentsBtn: { value: 20 },
+          floatingBtn: { value: 30 },
+          backgroundLayer: { value: 100 },
+          actionBtn: { value: 180 },
+          modal: { value: 200 }
         }
       },
       keyframes: {
