@@ -1,42 +1,61 @@
-import { styled } from 'styled-system/jsx';
-import DailyTrendCard from '@/components/posts/trend/DailyTrendCard';
-import { Flex } from '@/styles/layout';
-import { LeftCardSpacer, RightCardSpacer } from '@/styles/styles';
-import { getDailyPopular } from '@/api/trend';
-import { useQuery } from '@tanstack/react-query';
-import { DailyTrendCardProps } from '@/types/types';
 import { useId } from 'react';
-import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+
 import PostDiscoveryCTA from '@/components/posts/trend/PostDiscoveryCTA';
+import DailyPopularPage from '@/components/posts/trend/carousel/DailyPopularPage';
+import Bullets from '@/components/posts/trend/carousel/Bullets';
+import { useCarousel } from '@/hooks/post/useCarousel';
+
+import { getDailyPopular } from '@/api/trend';
+
+import { styled } from 'styled-system/jsx';
+import { Column, Flex } from '@/styles/layout';
 
 const DailyTrendSlider = () => {
+  const { curPage, setCurPage, handleScroll, containerRef } = useCarousel();
   const { data: dailyPopular } = useQuery({
     queryKey: ['dailyPopular'],
     queryFn: getDailyPopular
   });
+  const pages = Math.ceil(dailyPopular?.length / 2);
   const id = useId();
-
   return (
     <>
-      <Container className={Flex}>
-        <LeftCardSpacer />
-        {dailyPopular &&
-          dailyPopular.data.map((post: DailyTrendCardProps, idx: number) => (
-            <React.Fragment key={id + idx}>
-              <DailyTrendCard post={post} />
-            </React.Fragment>
+      <Container className={Column}>
+        <PostsContiner
+          className={Flex}
+          onScroll={handleScroll}
+          ref={containerRef}>
+          {Array.from({ length: pages }).map((_, idx) => (
+            <div key={idx + id}>
+              <DailyPopularPage
+                page={idx}
+                posts={dailyPopular}
+              />
+            </div>
           ))}
-        <RightCardSpacer />
+        </PostsContiner>
+        <Bullets
+          cur={curPage}
+          pages={pages}
+          setCurPage={setCurPage}
+        />
       </Container>
-      {dailyPopular && dailyPopular.data.length === 0 && <PostDiscoveryCTA />}
+      {dailyPopular && dailyPopular.length === 0 && <PostDiscoveryCTA />}
     </>
   );
 };
 
-const Container = styled.section`
+const Container = styled.div`
+  margin: 16px -20px 0;
+  padding: 0 20px;
+  gap: 16px;
+`;
+const PostsContiner = styled.section`
+  width: 100%;
+  gap: 20px;
   overflow-x: scroll;
-  margin-left: -20px;
-  margin-right: -20px;
+  scroll-snap-type: x mandatory;
 `;
 
 export default DailyTrendSlider;

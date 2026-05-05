@@ -1,18 +1,22 @@
-import { styled } from 'styled-system/jsx';
-import BrandPage from '@/components/posts/trend/carousel/BrandPage';
-import { Flex } from '@/styles/layout';
-import Bullets from '@/components/posts/trend/carousel/Bullets';
-import { BRANDS } from '@/constants/coffee';
-import { useCarousel } from '@/hooks/post/useCarousel';
-import { LeftCardSpacer } from '@/styles/styles';
 import React, { useId } from 'react';
+
+import BrandPage from '@/components/posts/trend/carousel/BrandPage';
+import Bullets from '@/components/posts/trend/carousel/Bullets';
+
+import { useCarousel } from '@/hooks/post/useCarousel';
 import { useSetInitialBrand } from '@/hooks/post/useSetInitialBrand';
+
+import { BRANDS } from '@/constants/coffee';
+
+import { Flex } from '@/styles/layout';
+import { styled } from 'styled-system/jsx';
+import { LeftCardSpacer } from '@/styles/styles';
 
 const pages = Math.ceil(BRANDS.length / 5);
 
 const BrandCarousel = () => {
-  const { curPage, setCurPage, handleScroll, containerRef } = useCarousel();
   const id = useId();
+  const { curPage, setCurPage, handleScroll, containerRef } = useCarousel();
   const { selected, setSelected } = useSetInitialBrand();
   return (
     <>

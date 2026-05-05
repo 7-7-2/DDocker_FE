@@ -50,8 +50,8 @@ const Img = styled.img`
 `;
 const ImgBox = styled.div`
   border-radius: 16px;
-  width: 60px;
-  height: 60px;
+  width: 59px;
+  height: 59px;
   margin-bottom: 6px;
 `;
 

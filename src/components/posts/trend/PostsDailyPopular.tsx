@@ -1,12 +1,11 @@
-import { TREND_TEXTS } from '@/constants/texts';
-import { SectionHeader } from '@/styles/styles';
 import DailyTrendSlider from '@/components/posts/trend/DailyTrendSlider';
+import { TREND_TEXTS } from '@/constants/texts';
+import { SectionHeaderText } from '@/styles/styles';
 
-//TODO : new UI
 const PostsDailyPopular = () => {
   return (
     <>
-      <h3 className={SectionHeader}>{TREND_TEXTS.daily}</h3>
+      <h3 className={SectionHeaderText}>{TREND_TEXTS.daily}</h3>
       <DailyTrendSlider />
     </>
   );
