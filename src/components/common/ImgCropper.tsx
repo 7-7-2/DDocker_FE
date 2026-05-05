@@ -81,10 +81,10 @@ const Float = css`
   position: absolute;
   top: 20px;
   right: 20px;
-  z-index: 100;
   color: white;
-  font-size: var(--font-sizes-sm);
   font-weight: 600;
+  font-size: var(--font-sizes-sm);
+  z-index: var(--z-index-action-btn);
 `;
 
 const Wrapper = css`

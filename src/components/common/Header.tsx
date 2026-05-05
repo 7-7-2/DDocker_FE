@@ -5,12 +5,12 @@ import HeaderActionIcon from '@/components/common/HeaderActionIcon';
 import HeaderIcons from '@/components/common/HeaderIcons';
 import HeaderBackIcon from '@/components/common/HeaderBackIcon';
 
+import { useNavigateTo } from '@/hooks/useNavigateTo';
 import {
   headerTextState,
   headerRightState,
   headerLeftState
 } from '@/atoms/atoms';
-import { useNavigateTo } from '@/hooks/useNavigateTo';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
@@ -62,7 +62,7 @@ const Container = styled.header`
   display: grid;
   align-items: center;
   grid-template-columns: 1fr auto 1fr;
-  z-index: 99;
+  z-index: var(--z-index-header);
 `;
 
 const H2 = styled.h2`

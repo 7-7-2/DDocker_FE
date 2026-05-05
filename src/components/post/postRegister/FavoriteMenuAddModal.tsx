@@ -61,7 +61,7 @@ const FavoriteMenuAddModal = ({
 const Background = styled.div`
   position: absolute;
   height: 100dvh;
-  z-index: 999;
+  z-index: var(--z-index-background-layer);
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0, 0.6);
