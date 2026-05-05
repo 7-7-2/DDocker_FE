@@ -1,36 +1,32 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import PostSocialCount from '@/components/post/PostSocialCount';
+import PostMeta from '@/components/common/PostMeta';
 
 import { useLikeOnPost } from '@/hooks/post/useLikeOnPost';
-import timestampToDate from '@/utils/timestampToDate';
 import { brandMapToKor } from '@/utils/convertBrandName';
 import {
   PostItemProps,
+  PostMetaData,
   SearchPostListTypes,
   UserProfileListDataTypes
 } from '@/types/types';
-import { PROFILE_TEXTS } from '@/constants/profile';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Between, Column, Flex } from '@/styles/layout';
-import {
-  defaultWidth,
-  hasImgWidth,
-  Medium,
-  Regular,
-  Semibold
-} from '@/styles/styles';
-
-const { privatePost } = PROFILE_TEXTS;
+import { defaultWidth, hasImgWidth, Regular, Semibold } from '@/styles/styles';
 
 const PostItem = ({ item: postData, search, handleOnError }: PostItemProps) => {
   const profileData = 'visibility' in postData;
   const searchData = 'likeCount' in postData;
   const { handleLikeOnPost } = useLikeOnPost(postData.postId);
-
+  const postMetaProps: PostMetaData = {
+    commentCount: searchData ? postData.commentCount : 0,
+    likeCount: searchData ? postData.likeCount : 0,
+    createdAt: postData.createdAt,
+    visibility: profileData ? postData.visibility : 1
+  };
   const searchHighlightGenerator = () => {
     const splitDescription =
       search && postData.description?.split(new RegExp(`(${search})`, 'gi'));
@@ -79,38 +75,16 @@ const PostItem = ({ item: postData, search, handleOnError }: PostItemProps) => {
           </div>
         </div>
         {postData.photo && (
-          // <Img>
           <Img
             src={postData.photo}
             onError={handleOnError}
           />
-          // </Img>
         )}
       </div>
-      <PostOption className={cx(Regular, Flex, Between)}>
-        <div>
-          <span>{timestampToDate(postData.createdAt)}</span>
-          {profileData && postData.visibility === 0 && (
-            <span className={cx(Medium, Flex)}>{privatePost}</span>
-          )}
-        </div>
-        {searchData && (
-          <SocialContainer className={Flex}>
-            <PostSocialCount
-              count={postData.likeCount}
-              icon={'like-sm'}
-              size="20"
-              onClick={handleLikeOnPost}
-            />
-            <PostSocialCount
-              count={postData.commentCount}
-              icon={'comments-sm'}
-              size="20"
-              onClick={() => {}}
-            />
-          </SocialContainer>
-        )}
-      </PostOption>
+      <PostMeta
+        postData={postMetaProps}
+        handleLikeOnPost={handleLikeOnPost}
+      />
     </PostItemContainer>
   );
 };
@@ -152,14 +126,4 @@ const Img = styled.img`
   border: 1px solid var(--colors-tertiary);
 `;
 
-const PostOption = styled.div`
-  line-height: 20px;
-  font-size: var(--font-sizes-xs);
-  color: var(--colors-mid-grey);
-  white-space: pre-wrap;
-`;
-
-const SocialContainer = styled.div`
-  gap: 6px;
-`;
 export default PostItem;
