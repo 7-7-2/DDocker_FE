@@ -1,50 +1,15 @@
-import CafeDetail from '@/components/post/CafeDetail';
+import { Suspense, lazy } from 'react';
+
 import { useImgErrorCTA } from '@/hooks/useImgErrorCTA';
-import { FollowingPost } from '@/types/types';
+import { PostBodyProps } from '@/types/types';
 import { ERROR_IMG_TEXTS } from '@/constants/error';
 
 import { styled } from 'styled-system/jsx';
 import { PostContent } from '@/styles/styles';
-import { PaddingT12 } from '@/styles/styles';
-import { Suspense, lazy } from 'react';
-import { brandMapToKor } from '@/utils/convertBrandName';
 
 const ImageErrorCTA = lazy(() => import('../../common/ImageErrorCTA'));
 
-const PostBody = ({
-  postTitle,
-  photo,
-  caffeine,
-  shot,
-  productName,
-  brand,
-  intensity,
-  size,
-
-  onClick
-}: Pick<
-  FollowingPost,
-  | 'postTitle'
-  | 'photo'
-  | 'caffeine'
-  | 'shot'
-  | 'productName'
-  | 'brand'
-  | 'intensity'
-  | 'size'
-> & { onClick: () => void }) => {
-  const CafeDetailProps = {
-    brand: brandMapToKor(brand),
-    caffeine,
-    shot,
-    productName,
-    intensity,
-    size,
-    className: PaddingT12,
-    posts: true,
-    onClick
-  };
-
+const PostBody = ({ description, photo, onClick }: PostBodyProps) => {
   const { isError, handleImgError, setUrl, handleReloadImg, reloadPhoto } =
     useImgErrorCTA();
 
@@ -55,7 +20,9 @@ const PostBody = ({
 
   return (
     <>
-      <PostContent onClick={onClick}>{postTitle}</PostContent>
+      {description && (
+        <PostContent onClick={onClick}>{description}</PostContent>
+      )}
       {isError ? (
         <ImgErrorContainer>
           <Suspense>
@@ -66,32 +33,30 @@ const PostBody = ({
           </Suspense>
         </ImgErrorContainer>
       ) : (
-        <PostImg
-          src={reloadPhoto || photo}
-          onClick={onClick}
-          onError={handleOnError}
-        />
+        (reloadPhoto || photo) && (
+          <PostImg
+            src={reloadPhoto || photo}
+            onClick={onClick}
+            onError={handleOnError}
+          />
+        )
       )}
-
-      <CafeDetail {...CafeDetailProps} />
     </>
   );
 };
 
 const PostImg = styled.img`
-  margin-top: -4px;
-  border-radius: 16px;
+  border-radius: 10px;
   width: 100%;
-  height: auto;
   object-fit: cover;
-  aspect-ratio: 1.4 / 1;
+  aspect-ratio: 1 / 1;
+  margin-top: 12px;
 `;
 
 const ImgErrorContainer = styled.div`
-  margin-top: -4px;
-  border-radius: 16px;
-  height: 220px;
+  border-radius: 10px;
   width: 100%;
+  aspect-ratio: 1 / 1;
   background-color: var(--colors-tertiary);
 `;
 

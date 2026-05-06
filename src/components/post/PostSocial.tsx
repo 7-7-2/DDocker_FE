@@ -6,9 +6,8 @@ import { useLikeOnPost } from '@/hooks/post/useLikeOnPost';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
 import { cx } from 'styled-system/css';
-import { Flex, Between } from '@/styles/layout';
-import { PostContainer, PostsContainer } from '@/styles/styles';
-import { styled } from 'styled-system/jsx';
+import { Flex, Between, Column, Align } from '@/styles/layout';
+import { Gap12, PostContainer, PostsContainer } from '@/styles/styles';
 
 const imagePath = import.meta.env.VITE_R2_POST_IMAGE_PATH;
 
@@ -59,35 +58,34 @@ const PostSocial = ({
 
   return (
     <div className={cx(Flex, Between, posts ? PostsContainer : PostContainer)}>
-      <Container className={Flex}>
-        <PostSocialCount
-          count={likes}
-          icon={myLike && myLike.liked ? 'liked' : 'like'}
-          onClick={handleLikeOnPost}
-        />
-        <PostSocialCount
-          count={comments}
-          icon={'comments'}
-          onClick={onClick}
-        />
-      </Container>
-
+      <div className={cx(Column, Gap12)}>
+        <div className={cx(Flex, Align, Gap12)}>
+          <PostSocialCount
+            count={likes}
+            icon={myLike && myLike.liked ? 'liked' : 'like'}
+            onClick={handleLikeOnPost}
+          />
+          <PostSocialCount
+            count={comments}
+            icon={'comments'}
+            onClick={onClick}
+          />
+        </div>
+        {posts && (
+          <PostedAt
+            at={createdAt}
+            posts={posts}
+          />
+        )}
+      </div>
       {!posts && (
         <Icon
           {...iconPropsGenerator('share')}
           onClick={postId && handleShare(storagePath, postId)}
         />
       )}
-      {posts && (
-        <PostedAt
-          at={createdAt}
-          posts={posts}
-        />
-      )}
     </div>
   );
 };
-const Container = styled.div`
-  gap: 16px;
-`;
+
 export default PostSocial;

@@ -1,20 +1,26 @@
+import React, { Suspense, useLayoutEffect } from 'react';
+import { useQuery } from '@tanstack/react-query';
+
 import PostSocial from '@/components/post/PostSocial';
 import MiniProfile from '@/components/common/MiniProfile';
 import Icon from '@/components/common/Icon';
-import timestampToDate from '@/utils/timestampToDate';
-import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import { styled } from 'styled-system/jsx';
-import { Flex, Between } from '@/styles/layout';
-import { cx } from 'styled-system/css';
-import { FollowingPost } from '@/types/types';
-import { useQuery } from '@tanstack/react-query';
-import { getSocialCounts } from '@/api/post';
+import PostBody from '@/components/posts/following/PostBody';
+
 import { usePostOptions } from '@/hooks/post/usePostOptions';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
-import PostBody from '@/components/posts/following/PostBody';
 import { useVerifyOwner } from '@/hooks/post/useVerifyOwner';
-import React, { Suspense } from 'react';
-import { Divider } from '@/styles/styles';
+
+import timestampToDate from '@/utils/timestampToDate';
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+import { getSocialCounts } from '@/api/post';
+import { FollowingPost } from '@/types/types';
+
+import { cx } from 'styled-system/css';
+import { styled } from 'styled-system/jsx';
+import { Flex, Between } from '@/styles/layout';
+import { splitPostCardProps } from '@/utils/splitPostCardProps';
+import { useSetRecoilState } from 'recoil';
+import { footerShowState } from '@/atoms/atoms';
 
 const PublicOption = React.lazy(
   () => import('../../post/overlay/PublicOption')
@@ -27,46 +33,11 @@ const ConfirmDelete = React.lazy(
 );
 
 const PostCard = ({ ...props }: FollowingPost) => {
-  const {
-    nickname,
-    userSum,
-    postTitle,
-    postId,
-    userId,
-    profileUrl,
-    createdAt,
-    photo,
-    caffeine,
-    shot,
-    productName,
-    brand,
-    intensity,
-    size
-  } = props;
-  const PostBodyProps = {
-    postTitle,
-    photo,
-    caffeine,
-    shot,
-    productName,
-    brand,
-    intensity,
-    size
-  };
-  const MiniProfileProps = {
-    url: profileUrl,
-    nickname,
-    caffeineSum: userSum,
-    userId
-  };
+  const { postId, createdAt, PostBodyProps, MiniProfileProps } =
+    splitPostCardProps({ ...props });
 
   const { postOwner } = useVerifyOwner(postId);
-  const isPostOwner = postOwner && postOwner === nickname;
-  const {
-    toggle: confirm,
-    handleToggle: setConfirm,
-    confirmDelete
-  } = usePostOptions();
+  const isPostOwner = postOwner && postOwner === MiniProfileProps.nickname;
 
   const { data: socialCounts } = useQuery({
     queryKey: ['socialCounts', postId],
@@ -75,12 +46,25 @@ const PostCard = ({ ...props }: FollowingPost) => {
     },
     enabled: !!postId
   });
-  const { toggle, cancelOptions } = usePostOptions();
+
+  const {
+    toggle,
+    handleToggle: setConfirm,
+    isModal,
+    cancelOptions,
+    confirmDelete,
+    isPostOption
+  } = usePostOptions();
 
   const navigateToPost = useNavigateTo(`/post/${postId}`);
   const handleToPost = () => {
     navigateToPost();
   };
+  const setFooterState = useSetRecoilState(footerShowState);
+  useLayoutEffect(() => {
+    setFooterState(true);
+  }, []);
+
   return (
     <>
       {toggle && !isPostOwner && (
@@ -100,10 +84,9 @@ const PostCard = ({ ...props }: FollowingPost) => {
           />
         </Suspense>
       )}
-      {confirm && (
+      {isModal && isPostOwner && isPostOption && (
         <Suspense>
           <ConfirmDelete
-            // cancelConfirm={cancelConfirm}
             postId={postId}
             posts={true}
           />
@@ -120,14 +103,10 @@ const PostCard = ({ ...props }: FollowingPost) => {
             onClick={cancelOptions}
           />
         </UserProfile>
-
         <PostBody
           {...PostBodyProps}
           onClick={handleToPost}
         />
-
-        <CardDivider className={Divider} />
-
         <div>
           {socialCounts && (
             <PostSocial
@@ -154,11 +133,6 @@ const Container = styled.div`
 
 const UserProfile = styled.div`
   padding-bottom: 12px;
-`;
-
-const CardDivider = styled.div`
-  padding-top: 16px;
-  margin: 0 16px;
 `;
 
 export default PostCard;
