@@ -27,7 +27,6 @@ const SortBtn = ({
 
 const Container = styled.button`
   gap: 2px;
-  margin: 20px 0 8px 0;
   justify-self: end;
 `;
 
