@@ -41,7 +41,7 @@ const DetailImgStyle = css`
 `;
 
 const Container = styled.div`
-  margin-bottom: 10px;
+  margin: 10px 0;
 `;
 
 const ErrorImgContainer = styled.div`
