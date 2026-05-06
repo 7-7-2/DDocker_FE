@@ -1,14 +1,18 @@
 import { useMutation } from '@tanstack/react-query';
+
 import ModalCTA from '@/components/common/ModalCTA';
 
-import { deletePost } from '@/api/post';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 import { useCloudStorage } from '@/hooks/useCloudStorage';
 import { usePostOptions } from '@/hooks/post/usePostOptions';
+import { deletePost } from '@/api/post';
 
 import { POST_TEXTS } from '@/constants/texts';
 import { BUTTON_TEXTS } from '@/constants/common';
+import { useSetRecoilState } from 'recoil';
+import { footerShowState } from '@/atoms/atoms';
+import { useLayoutEffect } from 'react';
 
 const ConfirmDelete = ({
   postId,
@@ -23,6 +27,11 @@ const ConfirmDelete = ({
   const { userId } = useCachedUserInfo();
   const { deleteStorage } = useCloudStorage();
   const { setIsPostOption, recoverFooterState } = usePostOptions();
+
+  const setFooterState = useSetRecoilState(footerShowState);
+  useLayoutEffect(() => {
+    posts ? setFooterState(true) : setFooterState(false);
+  }, []);
 
   const handleStorage = async () => {
     await deleteStorage('post', userId, postId);

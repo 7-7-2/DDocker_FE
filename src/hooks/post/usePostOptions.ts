@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 
 import { footerShowState } from '@/atoms/atoms';
 import { useToggle } from '@/hooks/post/useToggle';
@@ -9,14 +9,12 @@ export const usePostOptions = () => {
   const { toggle, handleToggle } = useToggle();
   const { isModal, setIsModal } = useVerifyModalCTA();
   const [isPostOption, setIsPostOption] = useState(false);
-  const [footerState, setFooterState] = useRecoilState(footerShowState);
+  const setFooterState = useSetRecoilState(footerShowState);
 
   const cancelOptions = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     handleToggle();
-    setFooterState(!footerState);
   };
-
   const recoverFooterState = () => {
     setFooterState(true);
     isModal && setIsModal(!isModal);
