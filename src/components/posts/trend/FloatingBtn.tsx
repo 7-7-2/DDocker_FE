@@ -1,6 +1,6 @@
-import { css, cx } from 'styled-system/css';
-import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import Icon from '@/components/common/Icon';
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+import { css, cx } from 'styled-system/css';
 import { FlexCenter } from '@/styles/layout';
 
 const FloatingBtn = ({
@@ -28,13 +28,13 @@ const FloatingBtn = ({
   );
 };
 const Round = css`
-  width: 50px;
-  height: 50px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
   position: absolute;
-  bottom: calc(67px + env(safe-area-inset-bottom));
+  bottom: calc(80px + env(safe-area-inset-bottom));
   right: 20px;
   background-color: var(--colors-main);
-  filter: drop-shadow(8px 16px 16px rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(2px 2px 8px rgba(0, 0, 0, 0.2));
 `;
 export default FloatingBtn;

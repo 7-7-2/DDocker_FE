@@ -10,7 +10,7 @@ export const generatePostCardProps = (
     key: id + idx,
     nickname: post.nickname,
     userSum: post.userSum,
-    postTitle: post.postTitle,
+    description: post.description,
     postId: post.postId,
     profileUrl: post.profileUrl,
     createdAt: post.createdAt,
