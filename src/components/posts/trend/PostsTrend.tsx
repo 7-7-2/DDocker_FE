@@ -20,12 +20,10 @@ const PostsTrend = () => {
       entry.boundingClientRect.top > 38.7 && setViewFloat(false);
     });
   };
-
   useEffect(() => {
     if (!ref.current) return;
     const observer = new IntersectionObserver(callback);
     observer.observe(ref.current);
-
     return () => observer.disconnect();
   }, [ref, callback]);
 

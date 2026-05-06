@@ -15,8 +15,8 @@ const WeeklyPopular = lazy(() => import('../components/home/WeeklyPopular'));
 const HomeFooter = lazy(() => import('../components/home/HomeFooter'));
 
 const Home = () => {
-  useComposeHeader('logo', '', 'icons');
   useGetUserInfo();
+  useComposeHeader('logo', '', 'icons');
 
   return (
     <>
