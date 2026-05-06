@@ -1,4 +1,4 @@
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useLayoutEffect } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 
 import SEOMeta from '@/components/common/SEOMeta';
@@ -7,6 +7,8 @@ import SEO_DATA from '@/constants/SEOData';
 import { HEADER_TEXTS } from '@/constants/common';
 import FavoriteMenuEditPage from '@/components/post/postRegister/FavoriteMenuEditPage';
 import { useShowFooter } from '@/hooks/useShowFooter';
+import { footerShowState } from '@/atoms/atoms';
+import { useSetRecoilState } from 'recoil';
 
 const { post } = HEADER_TEXTS;
 
@@ -19,7 +21,11 @@ const RegistrationSuccessView = lazy(
 const PostDetail = lazy(() => import('../components/post/PostDetail'));
 
 const Post = () => {
-  useShowFooter(false);
+  const setFooterState = useSetRecoilState(footerShowState);
+  useLayoutEffect(() => {
+    setFooterState(false);
+  }, []);
+
   const { postId } = useParams();
   const { type } = useParams();
   const { state } = useLocation();
