@@ -116,6 +116,12 @@ export const Gap12 = css`
   gap: 12px;
 `;
 
+// text-under
+export const TextUnderLine = css`
+  text-decoration: underline solid var(--colors-mid-grey) 1px;
+  text-underline-offset: 3px;
+`;
+
 // Divider
 export const Divider = css`
   position: relative;
@@ -423,7 +429,7 @@ export const SearchBtn = cx(
 
 // Modal styles
 export const RegisterModal = cx(css`
-  z-index: 999;
+  z-index: var(--z-index-modal);
   width: 300px;
   height: 262px;
   margin: auto 0;
