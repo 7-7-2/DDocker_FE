@@ -26,7 +26,7 @@ import { PROFILE_TEXTS } from '@/constants/profile';
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Between, Align, Flex, Column } from '@/styles/layout';
-import { PostContent, Divider, Medium, Regular } from '@/styles/styles';
+import { Divider, Medium, Regular } from '@/styles/styles';
 
 const ReplyToPanel = React.lazy(() => import('./ReplyToPanel'));
 const PublicOption = React.lazy(() => import('./overlay/PublicOption'));
@@ -36,7 +36,6 @@ const ConfirmDelete = React.lazy(() => import('./overlay/ConfirmDelete'));
 const { privatePost } = PROFILE_TEXTS;
 
 const PostDetail = ({ postNum }: { postNum: string }) => {
-  useShowFooter(false);
   const { ref } = useRefIntoView(null, 'auto');
   const { postOwner } = useVerifyOwner(postNum);
 
@@ -67,6 +66,7 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
 
   const inputRef = useRef<HTMLInputElement | null>(null);
   const isPostOwner = postOwner && postData && postOwner === postData.nickname;
+
   return (
     <>
       {openActionModal && isPostOwner && (
@@ -108,7 +108,7 @@ const PostDetail = ({ postNum }: { postNum: string }) => {
               onClick={cancelOptions}
             />
           </UserProfile>
-          <PostContent>{postData.description}</PostContent>
+          <Description className={Regular}>{postData.description}</Description>
           {postData?.photo && <PostDetailImg postImg={postData?.photo} />}
           <PostSocial
             posts={false}
@@ -161,6 +161,12 @@ const UserProfile = styled.div`
 
 const Container = styled.div`
   height: 100%;
+`;
+
+const Description = styled.p`
+  margin-bottom: 10px;
+  font-size: var(--font-sizes-sm);
+  color: var(--colors-main-dark);
 `;
 
 const PostOption = styled.div`
