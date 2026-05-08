@@ -30,7 +30,8 @@ export default defineConfig({
           darkGrey: { value: '#555555' },
           btnGrey: { value: '#ccc' },
           reportGrey: { value: '#cbcbcb' },
-          deleteRed: { value: '#f3372b' }
+          deleteRed: { value: '#FF391E' },
+          recommended: { value: '#2DCD9D' }
         },
         fontSizes: {
           xxs: { value: '10px' },
