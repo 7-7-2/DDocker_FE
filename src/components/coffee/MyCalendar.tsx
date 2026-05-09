@@ -1,141 +1,150 @@
+import { useLayoutEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import dayjs from 'dayjs';
-import { useState } from 'react';
-import { useRecoilState } from 'recoil';
-import ReactCalendar, { OnArgs, TileArgs } from 'react-calendar';
+import ReactCalendar, { TileArgs } from 'react-calendar';
 
-import { COFFEE_CALENDAR_TEXTS } from '@/constants/coffee';
-import { validateDay } from '@/utils/validateDay';
+import Icon from '@/components/common/Icon';
+
 import { useGetCalendarData } from 'hooks/coffee/useGetCalendarData';
-import { CalendarData } from '@/types/types';
-import { activeMonthState } from '@/atoms/atoms';
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+import { validateDay } from '@/utils/validateDay';
 
-import { Blur, InputByteCheck, SumTitle } from '@/styles/styles';
-import { Align, Flex } from '@/styles/layout';
+import { activeMonthState } from '@/atoms/atoms';
+import { CalendarData } from '@/types/types';
+import { COFFEE_CALENDAR_TEXTS } from '@/constants/coffee';
+
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
+import { Blur, InputByteCheck } from '@/styles/styles';
+import { Align, Between, Flex, FlexCenter, Justify } from '@/styles/layout';
 
-const { title, legend } = COFFEE_CALENDAR_TEXTS;
+const { legend, weekView } = COFFEE_CALENDAR_TEXTS;
 
-const MyCalendar = ({ signedIn }: { signedIn: string }) => {
+const MyCalendar = ({
+  signedIn,
+  activeStartDate,
+  data
+}: {
+  signedIn: string;
+  activeStartDate: Date;
+  data: CalendarData[];
+}) => {
   const [value] = useState(dayjs(new Date()).format('YYYY-MM-DD'));
-  const [activeMonth, setActiveMonth] = useRecoilState(activeMonthState);
+  const [isClosed, setIsClosed] = useState(false);
 
-  const { healthy, recommended, excessive } = useGetCalendarData(
-    signedIn,
-    activeMonth
-  );
+  // Data 조회
+  const activeMonth = useRecoilValue(activeMonthState);
+  const checkMonth = Number(activeMonth?.split('-')[1]);
+  const { healthy, recommended, excessive } = useGetCalendarData(data);
 
-  const handleChange = (activeStartDate: Date | null) => {
-    if (activeStartDate) {
-      setActiveMonth(dayjs(new Date(activeStartDate)).format('YYYY-MM-DD'));
-    }
+  // Drawer close
+  useLayoutEffect(() => {
+    const calendar = document.querySelector('.react-calendar');
+    const topInParent = (
+      document.querySelector('.react-calendar__tile--active') as HTMLElement
+    )?.offsetTop;
+    const focusPosition = topInParent - 58;
+    calendar?.scrollTo(0, focusPosition);
+  }, [isClosed]);
+
+  const handleOnclick = () => {
+    setIsClosed(!isClosed);
   };
 
   return (
     <Container>
-      <Title className={SumTitle}>{title}</Title>
-      <ReactCalendar
-        className={cx(MyCoffeeCalendar, !signedIn ? Blur : undefined)}
-        value={value}
-        onActiveStartDateChange={({ activeStartDate }: OnArgs) =>
-          handleChange(activeStartDate)
-        }
-        next2Label={null}
-        prev2Label={null}
-        maxDetail="month"
-        minDetail="year"
-        maxDate={new Date()}
-        calendarType="gregory"
-        formatDay={(__locale, date) => dayjs(date).format('D')}
-        formatMonthYear={(__locale, date) => dayjs(date).format('YYYY. MM')}
-        tileContent={({ date }: TileArgs) => {
-          if (
-            healthy?.find(
-              (item: CalendarData | null) => item && validateDay(item.day, date)
-            )
-          ) {
-            return <Marker className={Healthy} />;
-          }
-          if (
-            recommended?.find(
-              (item: CalendarData | null) => item && validateDay(item.day, date)
-            )
-          ) {
-            return <Marker className={Recommended} />;
-          }
-          if (
-            excessive?.find(
-              (item: CalendarData | null) => item && validateDay(item.day, date)
-            )
-          ) {
-            return <Marker className={Excessive} />;
-          }
-          return null;
-        }}
-      />
-      <MarkerLegend
-        className={cx(InputByteCheck, Flex, !signedIn ? Blur : undefined)}>
-        {legend.map(item => (
-          <MarkerKey
-            className={Align}
-            key={item.number}>
-            <Marker
-              className={
-                item.className === legend[0].className
-                  ? Healthy
-                  : item.className === legend[1].className
-                    ? Recommended
-                    : Excessive
-              }
-            />
-            {item.number}
-          </MarkerKey>
+      <WeekViewText className={cx(Flex, Between)}>
+        {weekView.map(item => (
+          <Item
+            key={item}
+            className={cx(Justify, Align)}>
+            {item}
+          </Item>
         ))}
-      </MarkerLegend>
+      </WeekViewText>
+      <Drawer>
+        <ReactCalendar
+          className={cx(
+            MyCoffeeCalendar,
+            isClosed && DrawerClose,
+            !signedIn ? Blur : undefined
+          )}
+          activeStartDate={activeStartDate}
+          value={value}
+          showNavigation={false}
+          maxDate={new Date()}
+          minDate={new Date(2026, 0, 1)}
+          calendarType="gregory"
+          formatDay={(__locale, date) => dayjs(date).format('D')}
+          formatShortWeekday={() => ''}
+          tileContent={({ date }: TileArgs) => {
+            if (
+              healthy?.find(
+                (item: CalendarData | null) =>
+                  item && validateDay(checkMonth, item.day, date)
+              )
+            ) {
+              return <Marker className={Healthy} />;
+            }
+            if (
+              recommended?.find(
+                (item: CalendarData | null) =>
+                  item && validateDay(checkMonth, item.day, date)
+              )
+            ) {
+              return <Marker className={Recommended} />;
+            }
+            if (
+              excessive?.find(
+                (item: CalendarData | null) =>
+                  item && validateDay(checkMonth, item.day, date)
+              )
+            ) {
+              return <Marker className={Excessive} />;
+            }
+            return null;
+          }}
+        />
+        {!isClosed && (
+          <MarkerLegend
+            className={cx(InputByteCheck, Flex, !signedIn ? Blur : undefined)}>
+            {legend.map(item => (
+              <MarkerKey
+                className={Align}
+                key={item.number}>
+                <Marker
+                  className={
+                    item.className === legend[0].className
+                      ? Healthy
+                      : item.className === legend[1].className
+                        ? Recommended
+                        : Excessive
+                  }
+                />
+                {item.number}
+              </MarkerKey>
+            ))}
+          </MarkerLegend>
+        )}
+        <DrawerBtn
+          className={FlexCenter}
+          onClick={handleOnclick}>
+          {isClosed ? (
+            <Icon {...iconPropsGenerator('drawer-open', '21')} />
+          ) : (
+            <Icon {...iconPropsGenerator('drawer-close', '21')} />
+          )}
+        </DrawerBtn>
+      </Drawer>
     </Container>
   );
 };
 
-const Container = styled.div`
-  width: auto;
-  margin: 60px 0 48px;
-`;
-const Title = styled.h2`
-  margin-bottom: 24px;
-`;
-
 const MyCoffeeCalendar = css`
-  width: 100%;
-  height: 100%;
   margin-bottom: 6px;
-  & .react-calendar__navigation {
-    display: flex;
-    font-size: var(--font-sizes-xl);
-    font-weight: 600;
-    padding: 0 24px;
-    margin-bottom: 8px;
-    align-items: center;
-    & button {
-      background: none;
-      border: 1px soild var(--colors-main-dark);
-    }
-  }
-
-  & .react-calendar__month-view__weekdays {
-    height: 44px;
-    display: flex;
-    text-align: center;
-    align-items: center;
-    font-size: var(--font-sizes-base);
-    color: var(--colors-mid-grey);
-
-    & abbr {
-      text-decoration: none;
-    }
-  }
 
   & .react-calendar__month-view__days__day {
-    line-height: 23px;
+    line-height: 22px;
     color: var(--colors-main-dark);
   }
 
@@ -144,31 +153,67 @@ const MyCoffeeCalendar = css`
   }
 
   & .react-calendar__tile {
-    height: 48px;
-    vertical-align: center;
-    margin-top: 4px;
+    height: 50px;
+    padding-bottom: 4px;
     display: flex;
     flex-direction: column;
     align-items: center;
     & abbr {
       box-sizing: content-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       margin-bottom: 4px;
-      padding-top: 3px;
-      height: 27px;
+      height: 28px;
     }
   }
 
   & .react-calendar__tile--active {
     & abbr {
       font-weight: 600;
-      width: 30px;
+      width: 28px;
       text-align: center;
-      line-height: 23px;
       border-radius: 50%;
-      color: #fff;
-      background-color: var(--colors-main);
+      background-color: #ffeee4;
+      color: var(--colors-main);
     }
   }
+`;
+
+const Container = styled.div`
+  position: relative;
+  margin-right: -20px;
+  margin-left: -20px;
+`;
+
+const CustomHeader = styled.div`
+  position: relative;
+  background-color: #fff;
+  z-index: 3;
+`;
+
+const WeekViewText = styled.div`
+  height: 48px;
+  padding: 0 20px;
+  font-size: var(--font-sizes-base);
+  color: #959595;
+  position: relative;
+  background-color: #fff;
+  z-index: 3;
+`;
+
+const Item = styled.div`
+  width: 48px;
+`;
+
+const Drawer = styled.div`
+  padding: 0 20px;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.14);
+`;
+
+const DrawerBtn = styled.div`
+  margin-top: 24px;
 `;
 
 const MarkerLegend = styled.div`
@@ -188,13 +233,18 @@ const Marker = styled.div`
 `;
 
 const Healthy = css`
-  background-color: #d6d6d6;
+  background-color: var(--colors-btn-grey);
 `;
 const Recommended = css`
-  background-color: #4fcaa5;
+  background-color: var(--colors-recommended);
 `;
 const Excessive = css`
-  background-color: var(--colors-main);
+  background-color: var(--colors-delete-red);
+`;
+const DrawerClose = css`
+  height: 50px;
+  overflow: hidden;
+  border: none;
 `;
 
 export default MyCalendar;
