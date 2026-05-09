@@ -4,11 +4,13 @@ import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import useGetCacheData from '@/hooks/useGetCacheData';
 import { useQuery } from '@tanstack/react-query';
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 const HeaderIcons = () => {
   const { userId } = useCachedUserInfo();
   const { userId: profileID } = useParams();
+  const { pathname } = useLocation();
+  const stats = pathname === '/coffee';
 
   const { data: unreadNotification } = useQuery({
     queryKey: ['unread', userId],
@@ -22,7 +24,7 @@ const HeaderIcons = () => {
     unreadNotification && unreadNotification.cacheData
       ? 'unread-notification'
       : 'notification';
-  const leftIconState = userId === profileID ? 'share' : 'search';
+  const leftIconState = stats ? '' : userId === profileID ? 'share' : 'search';
   const icons = [leftIconState, notification];
 
   return (

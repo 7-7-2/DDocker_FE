@@ -1,5 +1,9 @@
 import dayjs from 'dayjs';
 
-export const validateDay = (data: string, date: Date) => {
-  return data === dayjs(date).format('MM-DD');
+export const validateDay = (
+  isCurrentMonth: number,
+  data: number,
+  date: Date
+) => {
+  return `${isCurrentMonth}-${data}` === dayjs(date).format('M-D');
 };
