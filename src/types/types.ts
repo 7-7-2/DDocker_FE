@@ -152,7 +152,19 @@ export interface CaffeineIntakeTypes {
   size: string;
   intensity: string;
   shot: number;
+  // 임시 데이터 key 변경 필요
+  menu?: string;
 }
+
+export interface DailyRecordsTypes {
+  [key: number]: CaffeineIntakeTypes[];
+}
+
+export interface CaffeineHistoryTypes {
+  summary: CalendarData[];
+  details: DailyRecordsTypes;
+}
+
 export interface PostDetailTypes
   extends CaffeineIntakeTypes,
     PostContentsTypes {
@@ -415,7 +427,7 @@ export interface SearchListTypes {
 }
 
 export interface CalendarData {
-  day: string;
+  day: number;
   caffeineSum: string;
 }
 

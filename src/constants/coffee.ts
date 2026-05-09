@@ -1,4 +1,6 @@
 export const COFFEE_TEXTS = {
+  header: 'STATS',
+  tabs: ['내역', '섭취 분석'],
   sum: '나의 카페인 모아보기',
   intake: '카페인 섭취량',
   month: '월',
@@ -15,11 +17,19 @@ export const COFFEE_TEXTS = {
 
 export const COFFEE_CALENDAR_TEXTS = {
   title: '카페인 달력',
+  weekView: ['일', '월', '화', '수', '목', '금', '토'],
   legend: [
-    { className: 'Healthy', number: '0-200mg' },
+    { className: 'Healthy', number: '200mg 이하' },
     { className: 'Recommended', number: '201-400mg' },
     { className: 'Excessive', number: '400mg 초과' }
   ]
+};
+
+export const COFFEE_HISTOEY_TEXTS = {
+  filter: ['전체', '준수', '초과'],
+  count: ['총 ', '건'],
+  pre: '+',
+  suf: 'mg'
 };
 
 export const ANONYMOUS_TEXTS = {
