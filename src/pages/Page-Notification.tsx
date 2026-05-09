@@ -26,7 +26,7 @@ const SignInCTA = React.lazy(
 );
 
 const Notification = () => {
-  useComposeHeader(false, '알림', 'close');
+  useComposeHeader('', '알림', 'close');
   const { signedIn } = useGetSignedIn();
   const { userId } = useCachedUserInfo();
   const { updateRead } = useSetNotification();

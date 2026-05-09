@@ -5,6 +5,7 @@ import SEO_DATA from '@/constants/SEOData';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import useGetUserInfo from '@/hooks/useGetUserInfo';
 import { styled } from 'styled-system/jsx';
+import { useShowFooter } from '@/hooks/useShowFooter';
 
 const CaffeineFilter = lazy(() => import('../components/home/CaffeineFilter'));
 const TodayCaffeineInfo = lazy(
@@ -15,6 +16,7 @@ const WeeklyPopular = lazy(() => import('../components/home/WeeklyPopular'));
 const HomeFooter = lazy(() => import('../components/home/HomeFooter'));
 
 const Home = () => {
+  useShowFooter(true);
   useGetUserInfo();
   useComposeHeader('logo', '', 'icons');
 

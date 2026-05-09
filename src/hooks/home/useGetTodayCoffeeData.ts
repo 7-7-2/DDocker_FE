@@ -21,9 +21,9 @@ export const useGetTodayCoffeeData = () => {
   });
 
   const getDataList = async (todayCoffeeData: TodayCoffeeInfoTypes) => {
-    const data = await useGetCacheData('user', '/coffee');
+    const data = await useGetCacheData('user', '/todayCoffee');
     if (!data && todayCoffeeData) {
-      useSetCacheData('user', '/coffee', todayCoffeeData);
+      useSetCacheData('user', '/todayCoffee', todayCoffeeData);
       useDeleteCacheData('user', userUrl);
       setCoffeeInfo(todayCoffeeData);
       return;
@@ -41,7 +41,7 @@ export const useGetTodayCoffeeData = () => {
       todayCoffeeData &&
       todayCoffeeData.todayCups !== data.cacheData.todayCups
     ) {
-      useSetCacheData('user', '/coffee', todayCoffeeData);
+      useSetCacheData('user', '/todayCoffee', todayCoffeeData);
       useDeleteCacheData('user', userUrl);
       setCoffeeInfo(todayCoffeeData);
       return;
