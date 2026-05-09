@@ -17,5 +17,5 @@ export const getCoffeeCaledar = async (activeMonth: string) => {
     .catch(e => {
       console.log(e);
     });
-  return res && res.data;
+  return res && res.data.data;
 };
