@@ -87,6 +87,10 @@ export const PaddingTB10 = css`
 `;
 
 // Margin
+export const MarginS20 = css`
+  margin: 0 20px;
+`;
+
 export const MarginT6 = css`
   margin-top: 6px;
 `;
@@ -222,6 +226,11 @@ export const BtnColorMain = css`
 export const BtnColorBorderWhite = css`
   border: 1px solid var(--colors-btn-grey);
   color: var(--colors-subtext) !important;
+  background: #fff;
+`;
+export const BtnColorBorder = css`
+  border: 1px solid var(--colors-btn-grey);
+  color: var(--colors-mid-grey);
   background: #fff;
 `;
 
@@ -538,7 +547,7 @@ export const DefaultTab = cx(
   Semibold,
   css`
     color: var(--colors-subtext);
-    box-shadow: inset 0 -1px 0 0 var(--colors-btn-grey);
+    box-shadow: inset 0 -1px 0 0 var(--colors-border-grey);
   `
 );
 
