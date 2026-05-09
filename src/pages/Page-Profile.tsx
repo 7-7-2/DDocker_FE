@@ -6,6 +6,7 @@ import SEOMeta from '@/components/common/SEOMeta';
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 import { PROFILE_TEXTS } from '@/constants/profile';
 import SEO_DATA from '@/constants/SEOData';
+import { useShowFooter } from '@/hooks/useShowFooter';
 
 const MemberProfile = lazy(() => import('../components/profile/MemberProfile'));
 const AnonymousUserCard = lazy(
@@ -15,6 +16,7 @@ const AnonymousUserCard = lazy(
 const { nonMemberId } = PROFILE_TEXTS;
 
 const Profile = () => {
+  useShowFooter(true);
   const { userId: profileId } = useParams();
   const { userId } = useCachedUserInfo();
   const nonMember = !userId || profileId === nonMemberId;
