@@ -29,8 +29,8 @@ const MyCalendar = ({
   activeStartDate: Date;
   data: CalendarData[];
 }) => {
-  const [value] = useState(dayjs(new Date()).format('YYYY-MM-DD'));
-  const [isClosed, setIsClosed] = useState(false);
+  const [value] = useState(dayjs(new Date()).format('M'));
+  const [isClosed, setIsClosed] = useState(true);
 
   // Data 조회
   const activeMonth = useRecoilValue(activeMonthState);
@@ -45,7 +45,7 @@ const MyCalendar = ({
     )?.offsetTop;
     const focusPosition = topInParent - 58;
     calendar?.scrollTo(0, focusPosition);
-  }, [isClosed]);
+  }, [isClosed, checkMonth]);
 
   const handleOnclick = () => {
     setIsClosed(!isClosed);
@@ -67,10 +67,11 @@ const MyCalendar = ({
           className={cx(
             MyCoffeeCalendar,
             isClosed && DrawerClose,
+            checkMonth === Number(value) ? ActiveTile : DefaulitActiveTile,
             !signedIn ? Blur : undefined
           )}
           activeStartDate={activeStartDate}
-          value={value}
+          value={activeStartDate}
           showNavigation={false}
           maxDate={new Date()}
           minDate={new Date(2026, 0, 1)}
@@ -174,8 +175,6 @@ const MyCoffeeCalendar = css`
       width: 28px;
       text-align: center;
       border-radius: 50%;
-      background-color: #ffeee4;
-      color: var(--colors-main);
     }
   }
 `;
@@ -184,12 +183,6 @@ const Container = styled.div`
   position: relative;
   margin-right: -20px;
   margin-left: -20px;
-`;
-
-const CustomHeader = styled.div`
-  position: relative;
-  background-color: #fff;
-  z-index: 3;
 `;
 
 const WeekViewText = styled.div`
@@ -232,6 +225,22 @@ const Marker = styled.div`
   border-radius: 50%;
 `;
 
+export const ActiveTile = css`
+  & .react-calendar__tile--active {
+    & abbr {
+      background-color: #ffeee4;
+      color: var(--colors-main);
+    }
+  }
+`;
+export const DefaulitActiveTile = css`
+  & .react-calendar__tile--active {
+    & abbr {
+      background-color: var(--colors-tertiary);
+      color: var(--colors-subtext);
+    }
+  }
+`;
 const Healthy = css`
   background-color: var(--colors-btn-grey);
 `;

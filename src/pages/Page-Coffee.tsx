@@ -1,20 +1,19 @@
 import { Suspense, lazy, useRef, useState } from 'react';
 
-import MyCalendar from '@/components/coffee/MyCalendar';
-import MyCoffeeSum from '@/components/coffee/MyCoffeeSum';
 import SEOMeta from '@/components/common/SEOMeta';
+import Tabs from '@/components/common/Tabs';
+import MonthNavigaition from '@/components/coffee/MonthNavigaition';
+import HistoryTab from '@/components/coffee/HistoryTab';
 
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { useGetSignedIn } from '@/hooks/useGetSignedIn';
+import { useShowFooter } from '@/hooks/useShowFooter';
+import { useCalendarNav } from '@/hooks/coffee/useCalendarNav';
+
 import SEO_DATA from '@/constants/SEOData';
+import { COFFEE_TEXTS } from '@/constants/coffee';
 
 import { styled } from 'styled-system/jsx';
-import { COFFEE_TEXTS } from '@/constants/coffee';
-import { useShowFooter } from '@/hooks/useShowFooter';
-import Tabs from '@/components/common/Tabs';
-import HistoryTab from '@/components/coffee/HistoryTab';
-import { useCalendarNav } from '@/hooks/coffee/useCalendarNav';
-import MonthNavigaition from '@/components/coffee/MonthNavigaition';
 import { MarginS20 } from '@/styles/styles';
 
 const LogInCTA = lazy(() => import('../components/coffee/LogInCTA'));
@@ -22,16 +21,20 @@ const ScrollInducer = lazy(() => import('../components/coffee/ScrollInducer'));
 
 const { header, tabs } = COFFEE_TEXTS;
 const Coffee = () => {
-  const [selectedTab, setSelectedTab] = useState(tabs[0]);
-  const targetRef = useRef<HTMLDivElement | null>(null);
-  const { activeStartDate, nextBtnState, handleNextBtn, handlePrevBtn } =
-    useCalendarNav();
   useShowFooter(true);
   useComposeHeader('', header, 'icons');
+
+  const [selectedTab, setSelectedTab] = useState(tabs[0]);
+  const targetRef = useRef<HTMLDivElement | null>(null);
+
   const { signedIn } = useGetSignedIn();
+  const { activeStartDate, nextBtnState, handleNextBtn, handlePrevBtn } =
+    useCalendarNav();
+
   const handleSelectTab = (e: React.MouseEvent<HTMLButtonElement>) => {
     setSelectedTab(e.currentTarget.value);
   };
+
   return (
     <Container>
       <SEOMeta pageData={SEO_DATA.coffee} />
