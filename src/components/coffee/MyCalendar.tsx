@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import ReactCalendar, { TileArgs } from 'react-calendar';
 
 import Icon from '@/components/common/Icon';
+import LegendMarker from '@/components/coffee/LegendMarker';
 
 import { useGetCalendarData } from 'hooks/coffee/useGetCalendarData';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
@@ -15,7 +16,13 @@ import { COFFEE_CALENDAR_TEXTS } from '@/constants/coffee';
 
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { Blur, InputByteCheck } from '@/styles/styles';
+import {
+  Blur,
+  InputByteCheck,
+  Excessive,
+  Healthy,
+  Recommended
+} from '@/styles/styles';
 import { Align, Between, Flex, FlexCenter, Justify } from '@/styles/layout';
 
 const { legend, weekView } = COFFEE_CALENDAR_TEXTS;
@@ -113,15 +120,7 @@ const MyCalendar = ({
               <MarkerKey
                 className={Align}
                 key={item.number}>
-                <Marker
-                  className={
-                    item.className === legend[0].className
-                      ? Healthy
-                      : item.className === legend[1].className
-                        ? Recommended
-                        : Excessive
-                  }
-                />
+                <LegendMarker legend={item.className} />
                 {item.number}
               </MarkerKey>
             ))}
@@ -241,15 +240,7 @@ export const DefaulitActiveTile = css`
     }
   }
 `;
-const Healthy = css`
-  background-color: var(--colors-btn-grey);
-`;
-const Recommended = css`
-  background-color: var(--colors-recommended);
-`;
-const Excessive = css`
-  background-color: var(--colors-delete-red);
-`;
+
 const DrawerClose = css`
   height: 50px;
   overflow: hidden;
