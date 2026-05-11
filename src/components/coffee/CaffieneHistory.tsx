@@ -92,26 +92,26 @@ const CaffieneHistory = ({ data }: { data: CaffeineHistoryTypes }) => {
               <DailyRecord className={Column}>
                 {data?.details[dailyRecord.day].map(
                   (recodes: CaffeineIntakeTypes, idx: number) => (
-                    <DailyRecordItem
-                      key={idx}
-                      className={cx(Flex, Between, Gap12)}>
-                      <Logo
-                        src={`/png/${recodes.brand}.png`}
-                        alt={recodes.brand}
-                      />
-                      <div className={cx(Column, FlexGrow)}>
-                        {/* <span className={Semibold}>{recodes.productName}</span> */}
-                        <span className={Semibold}>{recodes.menu}</span>
-                        <CoffeeOption>
-                          ({coffeeInfoFormatter(recodes).coffeeInfo[2]})
-                        </CoffeeOption>
-                      </div>
-                      <span className={cx(Semibold, Align)}>
-                        {pre}
-                        {recodes.caffeine}
-                        {suf}
-                      </span>
-                    </DailyRecordItem>
+                    <React.Fragment key={idx}>
+                      <DailyRecordItem className={cx(Flex, Between, Gap12)}>
+                        <Logo
+                          src={`/png/${recodes.brand}.png`}
+                          alt={recodes.brand}
+                        />
+                        <div className={cx(Column, FlexGrow)}>
+                          {/* <span className={Semibold}>{recodes.productName}</span> */}
+                          <span className={Semibold}>{recodes.menu}</span>
+                          <CoffeeOption>
+                            ({coffeeInfoFormatter(recodes).coffeeInfo[2]})
+                          </CoffeeOption>
+                        </div>
+                        <span className={cx(Semibold, Align)}>
+                          {pre}
+                          {recodes.caffeine}
+                          {suf}
+                        </span>
+                      </DailyRecordItem>
+                    </React.Fragment>
                   )
                 )}
               </DailyRecord>
