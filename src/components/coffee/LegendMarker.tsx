@@ -4,17 +4,15 @@ import { styled } from 'styled-system/jsx';
 import { Excessive, Healthy, Recommended } from '@/styles/styles';
 const LegendMarker = ({ legend }: { legend: string }) => {
   return (
-    <>
-      <Marker
-        className={
-          legend === COFFEE_CALENDAR_TEXTS.legend[0].className
-            ? Healthy
-            : legend === COFFEE_CALENDAR_TEXTS.legend[1].className
-              ? Recommended
-              : Excessive
-        }
-      />
-    </>
+    <Marker
+      className={
+        legend === COFFEE_CALENDAR_TEXTS.legend[0].className
+          ? Healthy
+          : legend === COFFEE_CALENDAR_TEXTS.legend[1].className
+            ? Recommended
+            : Excessive
+      }
+    />
   );
 };
 

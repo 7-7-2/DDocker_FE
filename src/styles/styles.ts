@@ -103,6 +103,10 @@ export const MarginT16 = css`
   margin-top: 16px;
 `;
 
+export const MarginT24 = css`
+  margin-top: 24px;
+`;
+
 export const MarginT28 = css`
   margin-top: 28px;
 `;
@@ -1143,4 +1147,14 @@ export const SupportContent = css`
   display: inline-block;
   text-align: justify;
   display: block;
+`;
+
+export const Healthy = css`
+  background-color: var(--colors-btn-grey);
+`;
+export const Recommended = css`
+  background-color: var(--colors-recommended);
+`;
+export const Excessive = css`
+  background-color: var(--colors-delete-red);
 `;

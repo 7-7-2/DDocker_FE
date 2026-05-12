@@ -15,6 +15,7 @@ import { COFFEE_TEXTS } from '@/constants/coffee';
 
 import { styled } from 'styled-system/jsx';
 import { MarginS20 } from '@/styles/styles';
+import AnalysisTab from '@/components/coffee/AnalysisTab';
 
 const LogInCTA = lazy(() => import('../components/coffee/LogInCTA'));
 const ScrollInducer = lazy(() => import('../components/coffee/ScrollInducer'));
@@ -51,9 +52,9 @@ const Coffee = () => {
         handleNextBtn={handleNextBtn}
         handlePrevBtn={handlePrevBtn}
       />
-      {/* <MyCoffeeSum signedIn={signedIn} /> */}
+
       <ScrollContainer>
-        {selectedTab === tabs[0] && (
+        {selectedTab === tabs[0] ? (
           <TabContainer>
             <HistoryTab
               signedIn={signedIn}
@@ -70,6 +71,10 @@ const Coffee = () => {
                 <ScrollInducer targetRef={targetRef} />
               </Suspense>
             )}
+          </TabContainer>
+        ) : (
+          <TabContainer>
+            <AnalysisTab signedIn={signedIn} />
           </TabContainer>
         )}
       </ScrollContainer>

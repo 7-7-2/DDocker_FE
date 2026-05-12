@@ -25,11 +25,47 @@ export const COFFEE_CALENDAR_TEXTS = {
   ]
 };
 
-export const COFFEE_HISTOEY_TEXTS = {
+export const COFFEE_HISTORY_TEXTS = {
   filter: ['전체', '준수', '초과'],
   count: ['총 ', '건'],
   pre: '+',
   suf: 'mg'
+};
+
+export const COFFEE_ANALYSIS_TEXTS = {
+  unit: { cup: '잔', day: '일', mg: 'mg' },
+  coffeeSum: {
+    text: ['일 평균', '월간 누적', '연속 일수'],
+    tab: ['카페인', '잔']
+  },
+  guestUser: `하루 이상 기록하고
+주차별 패턴을 확인해보세요`,
+  donutChart: {
+    summary: {
+      pre: '일일 카페인 권장량을',
+      point: ['준수한 날', '초과한 날'],
+      suf: '이 더 많아요',
+      exception: ['과', '의 횟수가 같아요'],
+      guestUser: `일일 카페인 권장량을
+준수했는지 비교할 수 있어요`
+    },
+    caption: {
+      pre: '커피를 마신 ',
+      mid: ' 중 ',
+      suf: { recommended: '을 준수했어요', excessive: '을 초과했어요' }
+    },
+    legend: [
+      { key: 'Healthy', text: '마시지 않음' },
+      { key: 'Recommended', text: '권장량 준수' },
+      { key: 'Excessive', text: '권장량 초과' }
+    ]
+  },
+  brandRanking: {
+    summary: ['에서', '가장 많이 마셨어요'],
+    guestUser: `일일 카페인 권장량을
+준수했는지 비교할 수 있어요`,
+    emptyData: '기록없음'
+  }
 };
 
 export const ANONYMOUS_TEXTS = {

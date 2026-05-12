@@ -1,28 +1,29 @@
+import React, { useState } from 'react';
+import { useRecoilValue } from 'recoil';
+
+import { coffeeInfoFormatter } from '@/utils/coffeeInfoFormatter';
 import { activeMonthState } from '@/atoms/atoms';
-import { COFFEE_HISTOEY_TEXTS } from '@/constants/coffee';
-import { Align, Between, Column, DVW, Flex, FlexGrow } from '@/styles/layout';
+import {
+  CaffeineHistoryTypes,
+  CaffeineIntakeTypes,
+  CalendarData
+} from '@/types/types';
+import { COFFEE_HISTORY_TEXTS } from '@/constants/coffee';
+
+import { cx } from 'styled-system/css';
+import { styled } from 'styled-system/jsx';
+import { Align, Between, Column, Flex, FlexGrow } from '@/styles/layout';
 import {
   Bold,
   BtnColorBorder,
-  BtnColorBorderWhite,
   BtnColorMain,
   Gap12,
   Medium,
   Semibold
 } from '@/styles/styles';
-import {
-  CaffeineHistoryTypes,
-  CaffeineIntakeTypes,
-  CalendarData,
-  DailyRecordsTypes
-} from '@/types/types';
-import { coffeeInfoFormatter } from '@/utils/coffeeInfoFormatter';
-import dayjs, { Dayjs } from 'dayjs';
-import React, { useState } from 'react';
-import { useRecoilValue } from 'recoil';
-import { cx } from 'styled-system/css';
-import { styled } from 'styled-system/jsx';
-const { filter, count, pre, suf } = COFFEE_HISTOEY_TEXTS;
+
+const { filter, count, pre, suf } = COFFEE_HISTORY_TEXTS;
+
 const CaffieneHistory = ({ data }: { data: CaffeineHistoryTypes }) => {
   const [isSelected, setIsSelected] = useState(filter[0]);
   const activeMonth = Number(useRecoilValue(activeMonthState)?.split('-')[1]);
