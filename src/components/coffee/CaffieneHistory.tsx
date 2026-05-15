@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { coffeeInfoFormatter } from '@/utils/coffeeInfoFormatter';
+import { convertDateFormmater } from '@/utils/convertDateFormmater';
 import { activeMonthState } from '@/atoms/atoms';
 import {
   CaffeineHistoryTypes,
@@ -27,12 +28,6 @@ const { filter, count, pre, suf } = COFFEE_HISTORY_TEXTS;
 const CaffieneHistory = ({ data }: { data: CaffeineHistoryTypes }) => {
   const [isSelected, setIsSelected] = useState(filter[0]);
   const activeMonth = Number(useRecoilValue(activeMonthState)?.split('-')[1]);
-
-  const handleDate = (day: number) => {
-    const formattedMonth = String(activeMonth).padStart(2, '0');
-    const formattedDay = String(day).padStart(2, '0');
-    return `${formattedMonth}.${formattedDay}`;
-  };
 
   const caffeineSumState = (caffeineSum: string) => {
     const caffeine = Number(caffeineSum);
@@ -82,7 +77,9 @@ const CaffieneHistory = ({ data }: { data: CaffeineHistoryTypes }) => {
           handleFilteringData(data?.summary).map(dailyRecord => (
             <React.Fragment key={dailyRecord.day}>
               <div className={cx(Flex, Between, Align)}>
-                <Date className={Medium}>{handleDate(dailyRecord.day)}</Date>
+                <Date className={Medium}>
+                  {convertDateFormmater(activeMonth, dailyRecord.day)}
+                </Date>
                 <Caffeiene
                   className={Bold}
                   style={caffeineSumState(dailyRecord.caffeineSum)}>
