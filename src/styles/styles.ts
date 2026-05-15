@@ -85,6 +85,9 @@ export const PaddingB20 = css`
 export const PaddingTB10 = css`
   padding: 10px 0;
 `;
+export const PaddingB12 = css`
+  padding-bottom: 12px;
+`;
 
 // Margin
 export const MarginS20 = css`
