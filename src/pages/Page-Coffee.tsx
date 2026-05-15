@@ -2,35 +2,48 @@ import { Suspense, lazy, useRef, useState } from 'react';
 
 import SEOMeta from '@/components/common/SEOMeta';
 import Tabs from '@/components/common/Tabs';
-import MonthNavigaition from '@/components/coffee/MonthNavigaition';
+import Navigation from '@/components/coffee/Navigation';
 import HistoryTab from '@/components/coffee/HistoryTab';
+import ActionModal from '@/components/common/ActionModal';
+import AnalysisTab from '@/components/coffee/AnalysisTab';
 
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { useGetSignedIn } from '@/hooks/useGetSignedIn';
 import { useShowFooter } from '@/hooks/useShowFooter';
 import { useCalendarNav } from '@/hooks/coffee/useCalendarNav';
+import { useActionModal } from '@/hooks/post/useActionModal';
+import { monthFormmater } from '@/utils/convertDateFormmater';
 
 import SEO_DATA from '@/constants/SEOData';
-import { COFFEE_TEXTS } from '@/constants/coffee';
+import { COFFEE_TEXTS, COFFEE_CALENDAR_TEXTS } from '@/constants/coffee';
 
 import { styled } from 'styled-system/jsx';
-import { MarginS20 } from '@/styles/styles';
-import AnalysisTab from '@/components/coffee/AnalysisTab';
+import { MarginS20, Medium, PaddingB12 } from '@/styles/styles';
+import { FlexCenter, Grid } from '@/styles/layout';
+import { css, cx } from 'styled-system/css';
 
 const LogInCTA = lazy(() => import('../components/coffee/LogInCTA'));
 const ScrollInducer = lazy(() => import('../components/coffee/ScrollInducer'));
 
-const { header, tabs } = COFFEE_TEXTS;
+const { header, tabs, month, description } = COFFEE_TEXTS;
 const Coffee = () => {
   useShowFooter(true);
   useComposeHeader('', header, 'icons');
-
+  const { isActionModal, handleActionModal } = useActionModal();
   const [selectedTab, setSelectedTab] = useState(tabs[0]);
   const targetRef = useRef<HTMLDivElement | null>(null);
 
   const { signedIn } = useGetSignedIn();
-  const { activeStartDate, nextBtnState, handleNextBtn, handlePrevBtn } =
-    useCalendarNav();
+  const {
+    value,
+    activeStartDate,
+    nextBtnState,
+    prevBtnState,
+    handleNextBtn,
+    handlePrevBtn,
+    selectMonth,
+    activeMonth
+  } = useCalendarNav(isActionModal, handleActionModal);
 
   const handleSelectTab = (e: React.MouseEvent<HTMLButtonElement>) => {
     setSelectedTab(e.currentTarget.value);
@@ -46,13 +59,51 @@ const Coffee = () => {
           handleButtonClick={handleSelectTab}
         />
       </div>
-      <MonthNavigaition
+      <Navigation
         activeStartDate={activeStartDate}
-        nextBtnState={nextBtnState}
+        btnActiveState={nextBtnState}
         handleNextBtn={handleNextBtn}
         handlePrevBtn={handlePrevBtn}
+        isActionModal={isActionModal}
+        handleActionModal={handleActionModal}
       />
-
+      {isActionModal && (
+        <ActionModal handleActionModal={handleActionModal}>
+          <PickMonthContainer>
+            <div className={cx(Medium, MarginS20, PaddingB12)}>
+              {description}
+            </div>
+            <Navigation
+              activeStartDate={activeStartDate}
+              btnActiveState={prevBtnState}
+              handleNextBtn={handleNextBtn}
+              handlePrevBtn={handlePrevBtn}
+              isActionModal={isActionModal}
+            />
+            <MonthBtns className={cx(Grid, Medium)}>
+              {COFFEE_CALENDAR_TEXTS.month.map(item => (
+                <MonthBtn
+                  key={item}
+                  className={cx(
+                    FlexCenter,
+                    !prevBtnState &&
+                      Number(value.split('-')[1]) < item &&
+                      Disabled
+                  )}
+                  disabled={!prevBtnState && Number(value.split('-')[1]) < item}
+                  onClick={selectMonth}
+                  value={item}>
+                  {item}
+                  {month}
+                  {monthFormmater(item) === activeMonth.split('-')[1] && (
+                    <div className={selectedTile} />
+                  )}
+                </MonthBtn>
+              ))}
+            </MonthBtns>
+          </PickMonthContainer>
+        </ActionModal>
+      )}
       <ScrollContainer>
         {selectedTab === tabs[0] ? (
           <TabContainer>
@@ -94,7 +145,29 @@ const Container = styled.div`
   overflow-y: hidden;
   touch-action: none;
 `;
-
+const PickMonthContainer = styled.div`
+  margin: -10px 0 0 -20px;
+  font-size: var(--font-sizes-base);
+`;
+const MonthBtns = styled.div`
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding: 2px 20px 0;
+`;
+const MonthBtn = styled.button`
+  height: 70px;
+  font-size: var(--font-sizes-base);
+`;
+const selectedTile = css`
+  height: 56px;
+  width: 56px;
+  border-radius: 50%;
+  background-color: var(--colors-border-grey);
+  position: absolute;
+  z-index: -1;
+`;
+const Disabled = css`
+  color: var(--colors-subtext);
+`;
 const ScrollContainer = styled.div`
   height: calc(100% - 88px);
   overflow-y: scroll !important;
