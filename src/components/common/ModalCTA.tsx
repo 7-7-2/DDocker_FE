@@ -1,11 +1,16 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 
 import Button from '@/components/common/Button';
 import { BackgroundLayer } from '@/components/post/overlay/BackgroundLayer';
+
 import { useVerifyModalCTA } from '@/hooks/useVerifyModalCTA';
 import { useShowFooter } from '@/hooks/useShowFooter';
+import { footerShowState } from '@/atoms/atoms';
 
+import { css, cx } from 'styled-system/css';
+import { styled } from 'styled-system/jsx';
 import { Align, Between, Column, Flex } from '@/styles/layout';
 import {
   BtnColorBorderWhite,
@@ -14,8 +19,6 @@ import {
   Regular,
   Semibold
 } from '@/styles/styles';
-import { css, cx } from 'styled-system/css';
-import { styled } from 'styled-system/jsx';
 
 const ModalCTA = ({
   buttonText,
@@ -30,10 +33,12 @@ const ModalCTA = ({
   type?: string;
   fn: React.MouseEventHandler<HTMLButtonElement>;
 }) => {
-  useShowFooter(false);
   const { isModal, setIsModal } = useVerifyModalCTA();
   const navigate = useNavigate();
   const deleteAccount = type === 'retention';
+
+  const footerState = useRecoilValue(footerShowState);
+  !footerState && useShowFooter(false);
 
   const handleCancle = () => {
     if (type === 'register') {
