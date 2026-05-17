@@ -1,7 +1,7 @@
 import Icon from '@/components/common/Icon';
 import { brandMapToKor } from '@/utils/convertBrandName';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import { css, cx } from 'styled-system/css';
+import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import {
   commonBaseSize,
@@ -11,8 +11,7 @@ import {
   DisabledBtn,
   OnSelectBorder,
   SelectedInput,
-  SeletedBorder,
-  SmStyle
+  SeletedBorder
 } from '@/styles/styles';
 import { Align, Flex } from '@/styles/layout';
 
