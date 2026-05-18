@@ -1,22 +1,23 @@
 import { COFFEE_CALENDAR_TEXTS } from '@/constants/coffee';
 
-import { styled } from 'styled-system/jsx';
-import { Excessive, Healthy, Recommended } from '@/styles/styles';
-const LegendMarker = ({ legend }: { legend: string }) => {
+import { ChartMarker, Excessive, Healthy, Recommended } from '@/styles/styles';
+import { css, cx } from 'styled-system/css';
+const LegendMarker = ({ legend, type }: { legend: string; type?: string }) => {
   return (
-    <Marker
-      className={
+    <div
+      className={cx(
+        type ? ChartMarker : Marker,
         legend === COFFEE_CALENDAR_TEXTS.legend[0].className
           ? Healthy
           : legend === COFFEE_CALENDAR_TEXTS.legend[1].className
             ? Recommended
             : Excessive
-      }
+      )}
     />
   );
 };
 
-const Marker = styled.div`
+const Marker = css`
   width: 6px;
   height: 6px;
   border-radius: 50%;

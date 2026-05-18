@@ -32,6 +32,7 @@ interface rankingDataType {
   caffeine: number;
   cups: number;
 }
+
 const AnalysisTab = ({ signedIn }: { signedIn: string }) => {
   const [most] = useState(0);
 
@@ -188,16 +189,19 @@ const CoffeeSum = styled.div`
 const Text = styled.span`
   font-size: var(--font-sizes-xs);
 `;
+
 const ContentsBox = styled.div`
   padding: 32px 0;
 `;
-const Summary = styled.p`
+
+const Summary = styled.div`
   color: var(--colors-main-dark);
   font-size: var(--font-sizes-xl);
   line-height: 28px;
   white-space: pre-wrap;
 `;
-const Caption = styled.p`
+
+const Caption = styled.div`
   color: var(--colors-mid-grey);
   font-size: var(--font-sizes-sm);
   line-height: 22px;
