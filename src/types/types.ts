@@ -152,8 +152,7 @@ export interface CaffeineIntakeTypes {
   size: string;
   intensity: string;
   shot: number;
-  // 임시 데이터 key 변경 필요
-  menu?: string;
+  intakeId: number;
 }
 
 export interface DailyRecordsTypes {

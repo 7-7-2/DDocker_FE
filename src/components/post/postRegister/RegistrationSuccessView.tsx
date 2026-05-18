@@ -48,7 +48,6 @@ const { heroText, description, coffeeOptionText, addFavoriteMenu } =
   POST_REGISTER_TEXTS.success;
 
 const RegistrationSuccessView = () => {
-  useShowFooter(false);
   const caffeineIntake = useRecoilValue(caffeineIntakeState);
   const { caffeine, coffeeInfo } = coffeeInfoFormatter(caffeineIntake);
   const { isModal, setIsModal } = useVerifyModalCTA();

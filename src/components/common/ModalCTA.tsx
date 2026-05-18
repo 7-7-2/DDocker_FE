@@ -33,11 +33,11 @@ const ModalCTA = ({
   type?: string;
   fn: React.MouseEventHandler<HTMLButtonElement>;
 }) => {
-  const { isModal, setIsModal } = useVerifyModalCTA();
+  const footerState = useRecoilValue(footerShowState);
   const navigate = useNavigate();
+  const { isModal, setIsModal } = useVerifyModalCTA();
   const deleteAccount = type === 'retention';
 
-  const footerState = useRecoilValue(footerShowState);
   !footerState && useShowFooter(false);
 
   const handleCancle = () => {
