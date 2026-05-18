@@ -14,6 +14,13 @@ import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Align, Column, Flex } from '@/styles/layout';
 import { Gap8, Medium } from '@/styles/styles';
+import {
+  CaffeineHistoryTypes,
+  CalendarData,
+  DonutChartDataType
+} from '@/types/types';
+import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
 
 const { donutChart } = COFFEE_ANALYSIS_TEXTS;
 
@@ -23,7 +30,50 @@ const data = [
   { name: '에너지드링크', value: 200 }
 ];
 
-const DonutChart = () => {
+const DonutChart = ({
+  calendarData,
+  activeMonth
+}: {
+  calendarData: CaffeineHistoryTypes;
+  activeMonth: string;
+}) => {
+  const [chartData, setChartData] = useState<DonutChartDataType[]>([]);
+  const getDaysInMonth = (activeDate: string | Date) => {
+    const daysInMonth = dayjs(activeDate).daysInMonth();
+    const currentMonth =
+      dayjs().format('YYYY-MM') === dayjs(activeDate).format('YYYY-MM');
+    if (currentMonth) return Number(dayjs().format('D'));
+    else return daysInMonth;
+  };
+
+  useEffect(() => {
+    const daysInMonth = getDaysInMonth(activeMonth);
+    const res = handleFilteringData(calendarData.summary, daysInMonth);
+    res && setChartData(res);
+  }, [activeMonth]);
+
+  const handleFilteringData = (data: CalendarData[], daysInMonth: number) => {
+    const coffeeData = data;
+
+    const healthy = daysInMonth - coffeeData?.length;
+    console.log('🚀 ~ handleFilteringData ~ daysInMonth:', daysInMonth);
+    console.log('🚀 ~ handleFilteringData ~ healthy:', healthy);
+
+    const recommended = coffeeData?.filter(
+      item => item && Number(item.caffeineSum) <= 400
+    ).length;
+
+    const excessive = coffeeData?.filter(
+      item => item && Number(item.caffeineSum) > 401
+    ).length;
+
+    return [
+      { name: 'recommended', value: recommended },
+      { name: 'excessive', value: excessive },
+      { name: 'healthy', value: healthy }
+    ];
+  };
+
   const RADIAN = Math.PI / 180;
   const COLORS = ['#2DCD9D', '#FF391E', '#CCCCCC'];
 
@@ -82,7 +132,7 @@ const DonutChart = () => {
         height={172}
         margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
         <Pie
-          data={data}
+          data={chartData}
           labelLine={false}
           label={renderCustomizedLabel}
           dataKey="value"
