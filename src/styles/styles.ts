@@ -126,6 +126,9 @@ export const MarginB8 = css`
 export const Gap12 = css`
   gap: 12px;
 `;
+export const Gap8 = css`
+  gap: 8px;
+`;
 
 // text-under
 export const TextUnderLine = css`
@@ -1160,4 +1163,10 @@ export const Recommended = css`
 `;
 export const Excessive = css`
   background-color: var(--colors-delete-red);
+`;
+
+export const ChartMarker = css`
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
 `;
