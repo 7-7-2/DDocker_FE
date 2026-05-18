@@ -17,10 +17,10 @@ import { monthFormmater } from '@/utils/convertDateFormmater';
 import SEO_DATA from '@/constants/SEOData';
 import { COFFEE_TEXTS, COFFEE_CALENDAR_TEXTS } from '@/constants/coffee';
 
+import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { MarginS20, Medium, PaddingB12 } from '@/styles/styles';
 import { FlexCenter, Grid } from '@/styles/layout';
-import { css, cx } from 'styled-system/css';
 
 const LogInCTA = lazy(() => import('../components/coffee/LogInCTA'));
 const ScrollInducer = lazy(() => import('../components/coffee/ScrollInducer'));

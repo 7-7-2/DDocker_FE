@@ -235,8 +235,9 @@ export const ActiveTile = css`
 export const DefaulitActiveTile = css`
   & .react-calendar__tile--active {
     & abbr {
-      background-color: var(--colors-tertiary);
-      color: var(--colors-subtext);
+      background-color: var(--colors-border-grey);
+      color: var(--colors-main-dark);
+      font-weight: 400;
     }
   }
 `;
