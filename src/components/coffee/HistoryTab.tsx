@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useRecoilValue } from 'recoil';
 
 import MyCalendar from '@/components/coffee/MyCalendar';
-import CaffieneHistory from '@/components/coffee/CaffieneHistory';
+import CaffeineHistory from '@/components/coffee/CaffeineHistory';
 
 import { getCoffeeCaledar } from '@/api/coffee';
 import { activeMonthState } from '@/atoms/atoms';
@@ -31,7 +31,10 @@ const HistoryTab = ({
         activeStartDate={activeStartDate}
         data={data?.summary}
       />
-      <CaffieneHistory data={data} />
+      <CaffeineHistory
+        data={data}
+        activeMonth={activeMonth}
+      />
     </>
   );
 };
