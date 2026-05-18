@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import DonutChart from '@/components/coffee/DonutChart';
+import { useGetCalendarData } from '@/hooks/coffee/useGetCalendarData';
 import { COFFEE_ANALYSIS_TEXTS } from '@/constants/coffee';
 import {
   Align,
@@ -19,7 +21,7 @@ import {
   SectionDivier
 } from '@/styles/styles';
 import { brandMapToKor } from '@/utils/convertBrandName';
-import DonutChart from '@/components/coffee/DonutChart';
+
 const { coffeeSum, unit, donutChart, brandRanking } = COFFEE_ANALYSIS_TEXTS;
 const data = [2, 21, 4];
 const rankingData = [
@@ -35,6 +37,7 @@ interface rankingDataType {
 
 const AnalysisTab = ({ signedIn }: { signedIn: string }) => {
   const [most] = useState(0);
+  const { data: calendarData, activeMonth } = useGetCalendarData(signedIn);
 
   const brandRankingData = (rankingData: rankingDataType[]) => {
     const notEnoughData = 4 - rankingData.length;
@@ -110,7 +113,10 @@ const AnalysisTab = ({ signedIn }: { signedIn: string }) => {
           {unit.day}
           {donutChart.caption.suf['recommended']}
         </Caption>
-        <DonutChart />
+        <DonutChart
+          calendarData={calendarData}
+          activeMonth={activeMonth}
+        />
       </ContentsBox>
       <div className={SectionDivier} />
 

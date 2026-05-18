@@ -6,7 +6,7 @@ import ReactCalendar, { TileArgs } from 'react-calendar';
 import Icon from '@/components/common/Icon';
 import LegendMarker from '@/components/coffee/LegendMarker';
 
-import { useGetCalendarData } from 'hooks/coffee/useGetCalendarData';
+import { getCalendarData } from '@/utils/getCalendarData';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { validateDay } from '@/utils/validateDay';
 
@@ -42,7 +42,7 @@ const MyCalendar = ({
   // Data 조회
   const activeMonth = useRecoilValue(activeMonthState);
   const checkMonth = Number(activeMonth?.split('-')[1]);
-  const { healthy, recommended, excessive } = useGetCalendarData(data);
+  const { healthy, recommended, excessive } = getCalendarData(data);
 
   // Drawer close
   useLayoutEffect(() => {
