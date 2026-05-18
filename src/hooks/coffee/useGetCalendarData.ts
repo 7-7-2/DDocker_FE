@@ -1,23 +1,17 @@
+import { useRecoilValue } from 'recoil';
 import { useQuery } from '@tanstack/react-query';
-
+import { activeMonthState } from '@/atoms/atoms';
 import { getCoffeeCaledar } from '@/api/coffee';
-import { CalendarData } from '@/types/types';
 
-export const useGetCalendarData = (data: CalendarData[]) => {
-  const coffeeData = data;
-
-  const healthy = coffeeData?.filter(
-    item => item && Number(item.caffeineSum) <= 200
-  );
-
-  const recommended = coffeeData?.filter(
-    item =>
-      item && Number(item.caffeineSum) <= 400 && Number(item.caffeineSum) > 200
-  );
-
-  const excessive = coffeeData?.filter(
-    item => item && Number(item.caffeineSum) > 401
-  );
-
-  return { healthy, recommended, excessive };
+export const useGetCalendarData = (signedIn: string) => {
+  const activeMonth = useRecoilValue(activeMonthState);
+  const { data } = useQuery({
+    queryKey: ['coffeeCalendar', activeMonth],
+    queryFn: async () => {
+      const data = await getCoffeeCaledar(activeMonth);
+      return data;
+    },
+    enabled: !!signedIn
+  });
+  return { data, activeMonth };
 };
