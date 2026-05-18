@@ -20,7 +20,6 @@ export const COFFEE_CALENDAR_TEXTS = {
   title: '카페인 달력',
   weekView: ['일', '월', '화', '수', '목', '금', '토'],
   month: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-
   legend: [
     { className: 'Healthy', number: '200mg 이하' },
     { className: 'Recommended', number: '201-400mg' },
@@ -32,7 +31,20 @@ export const COFFEE_HISTORY_TEXTS = {
   filter: ['전체', '준수', '초과'],
   count: ['총 ', '건'],
   pre: '+',
-  suf: 'mg'
+  suf: 'mg',
+  deleteModal: {
+    title: {
+      post: `게시물로 등록된 내역이에요
+그래도 삭제하시겠어요?`,
+      intake: `커피 내역을 삭제하시겠어요?`
+    },
+    description: {
+      post: `삭제된 내역은 복구할 수 없고,
+포함된 카페인 데이터도 함께 삭제됩니다.`,
+      intake: `삭제된 내역은 복구할 수 없고,
+게시물과 카페인 데이터도 함께 삭제됩니다.`
+    }
+  }
 };
 
 export const COFFEE_ANALYSIS_TEXTS = {
