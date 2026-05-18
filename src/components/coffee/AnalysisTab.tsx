@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { COFFEE_ANALYSIS_TEXTS } from '@/constants/coffee';
 import {
   Align,
-  Between,
   Center,
   Column,
   Flex,
@@ -15,13 +14,12 @@ import { css, cx } from 'styled-system/css';
 import {
   Bold,
   BtnColorMain,
-  Gap6,
   MarginT24,
   Medium,
   SectionDivier
 } from '@/styles/styles';
-import LegendMarker from '@/components/coffee/LegendMarker';
 import { brandMapToKor } from '@/utils/convertBrandName';
+import DonutChart from '@/components/coffee/DonutChart';
 const { coffeeSum, unit, donutChart, brandRanking } = COFFEE_ANALYSIS_TEXTS;
 const data = [2, 21, 4];
 const rankingData = [
@@ -111,17 +109,7 @@ const AnalysisTab = ({ signedIn }: { signedIn: string }) => {
           {unit.day}
           {donutChart.caption.suf['recommended']}
         </Caption>
-        <DonutChartContainer className={cx(Flex, Align)}>
-          <DonutChart></DonutChart>
-          <Legend className={Column}>
-            {donutChart.legend.map(item => (
-              <div className={cx(Flex, Align, Gap6, Medium)}>
-                <LegendMarker legend={item.key} />
-                {item.text}
-              </div>
-            ))}
-          </Legend>
-        </DonutChartContainer>
+        <DonutChart />
       </ContentsBox>
       <div className={SectionDivier} />
 
@@ -214,22 +202,6 @@ const Caption = styled.p`
   font-size: var(--font-sizes-sm);
   line-height: 22px;
 `;
-const DonutChartContainer = styled.div`
-  gap: 30px;
-  margin: 38px 0 16px 26px;
-`;
-const DonutChart = styled.div`
-  height: 172px;
-  width: 172px;
-  border-radius: 50%;
-  background-color: var(--colors-btn-grey);
-`;
-
-const Legend = styled.div`
-  font-size: var(--font-sizes-sm);
-  color: var(--colors-main-dark);
-  gap: 10px;
-`;
 
 const BrandRanking = styled.div`
   height: 76px;
@@ -266,7 +238,7 @@ const PointColor = css`
   color: var(--colors-main);
 `;
 const defaultColor = css`
-  background-color: var(--colors-subtext);
+  background-color: var(--colors-btn-grey);
   color: #fff;
 `;
 export default AnalysisTab;
