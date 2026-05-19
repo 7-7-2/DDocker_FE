@@ -1170,3 +1170,29 @@ export const ChartMarker = css`
   width: 8px;
   border-radius: 50%;
 `;
+
+export const Brand = css`
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  margin-right: 12px;
+  background-color: var(--colors-btn-grey);
+`;
+
+export const BorderRight = css`
+  border-right: solid 1px rgba(255, 255, 255, 0.2);
+`;
+
+export const fontSizeXs = css`
+  font-size: var(--font-sizes-xs);
+`;
+export const colorMainDark = css`
+  color: var(--colors-main-dark);
+`;
+export const PointColor = css`
+  color: var(--colors-main);
+`;
+export const defaultColor = css`
+  background-color: var(--colors-btn-grey);
+  color: #fff;
+`;

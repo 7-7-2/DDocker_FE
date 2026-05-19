@@ -48,7 +48,7 @@ const CaffieneHistory = ({
       return commended;
     }
     if (isSelected === filter[2]) {
-      const excessive = data.filter(date => Number(date.caffeineSum) > 400);
+      const excessive = data.filter(date => Number(date.caffeineSum) > 401);
       return excessive;
     } else return data;
   };

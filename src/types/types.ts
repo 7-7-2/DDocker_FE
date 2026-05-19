@@ -154,7 +154,6 @@ export interface CaffeineIntakeTypes {
   shot: number;
   intakeId: number;
 }
-
 export interface DailyRecordsTypes {
   [key: number]: CaffeineIntakeTypes[];
 }
@@ -514,3 +513,10 @@ export interface PostBodyProps
   extends Pick<FollowingPost, 'description' | 'photo'> {
   onClick: () => void;
 }
+
+export interface DonutChartDataType {
+  name: string;
+  value: number;
+}
+
+export type RankingDataType = [string, number[]];
