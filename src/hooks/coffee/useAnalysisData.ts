@@ -1,22 +1,67 @@
+import { useEffect, useState } from 'react';
+import dayjs from 'dayjs';
+
 import {
-  CaffeineHistoryTypes,
   RankingDataType,
-  CaffeineIntakeTypes
+  CaffeineHistoryTypes,
+  CaffeineIntakeTypes,
+  CalendarData
 } from '@/types/types';
 
 export const useAnalysisData = (
   data: CaffeineHistoryTypes,
-  signedIn: string
+  signedIn: string,
+  activeMonth: string
 ) => {
+  const [circularChartData, setCircularChartData] = useState<
+    { key: string; value: number }[]
+  >([]);
+  // const [circularChartSummaryData, setCircularChartSummaryData] = useState();
   const flatDetailsData = Object.values(data.details).flat();
+  const intakeDates = Object.keys(data.details).length;
+  const currentMonth =
+    dayjs().format('YYYY-MM') === dayjs(activeMonth).format('YYYY-MM');
 
+  // CoffeeSum.tsx
   const getCoffeeSumData = () => {
-    const intakeDates = Object.keys(data.details).length;
     const monthlyAcc = flatDetailsData.length;
     const dailyAverage = Math.round(monthlyAcc / intakeDates);
     return [dailyAverage, monthlyAcc, 0];
   };
 
+  // CircularChart.tsx
+  useEffect(() => {
+    const { chartData } = handleFilteringData(data.summary);
+    chartData && setCircularChartData(chartData);
+  }, [activeMonth]);
+
+  const handleFilteringData = (coffeeData: CalendarData[]) => {
+    const recommended = coffeeData?.filter(
+      item => item && Number(item.caffeineSum) <= 400
+    ).length;
+
+    const excessive = coffeeData?.filter(
+      item => item && Number(item.caffeineSum) > 401
+    ).length;
+
+    const chartData = [
+      { key: 'recommended', value: (recommended / intakeDates) * 100 },
+      { key: 'excessive', value: (excessive / intakeDates) * 100 }
+    ];
+
+    const summaryData = {
+      intakeDates: intakeDates,
+      recommended: recommended,
+      excessive: excessive
+    };
+
+    return { summaryData, chartData };
+  };
+  const circularChartSummaryData = handleFilteringData(
+    data.summary
+  ).summaryData;
+
+  // BrandRanking.tsx
   const getbrandRankingData = () => {
     const accData = Object.entries(
       flatDetailsData.reduce<Record<string, number[]>>((acc, item) => {
@@ -56,5 +101,10 @@ export const useAnalysisData = (
     return rankingData;
   };
 
-  return { getCoffeeSumData, getbrandRankingData };
+  return {
+    getCoffeeSumData,
+    getbrandRankingData,
+    circularChartData,
+    circularChartSummaryData
+  };
 };

@@ -513,10 +513,10 @@ export interface PostBodyProps
   extends Pick<FollowingPost, 'description' | 'photo'> {
   onClick: () => void;
 }
-
-export interface DonutChartDataType {
-  name: string;
-  value: number;
+export interface circularChartSummaryDataTypes {
+  intakeDates: number;
+  recommended: number;
+  excessive: number;
 }
 
 export type RankingDataType = [string, number[]];
