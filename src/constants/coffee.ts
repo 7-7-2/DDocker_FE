@@ -55,25 +55,24 @@ export const COFFEE_ANALYSIS_TEXTS = {
   },
   guestUser: `하루 이상 기록하고
 주차별 패턴을 확인해보세요`,
-  donutChart: {
+  circularChart: {
     summary: {
       pre: '일일 카페인 권장량을',
-      point: ['준수한 날', '초과한 날'],
+      point: { recommended: '준수한 날', excessive: '초과한 날' },
+      equal: ['준수한 날', '과 ', '초과한 날', '의 횟수가 같아요'],
       suf: '이 더 많아요',
       exception: ['과', '의 횟수가 같아요'],
-      guestUser: `일일 카페인 권장량을
-준수했는지 비교할 수 있어요`
+      null: `카페인 권장량을
+얼마나 준수했는지 확인해보세요`
     },
     caption: {
       pre: '커피를 마신 ',
       mid: ' 중 ',
-      suf: { recommended: '을 준수했어요', excessive: '을 초과했어요' }
+      suf: { recommended: '을 준수했어요', excessive: '을 초과했어요' },
+      same: ['일 준수, ', '일 초과했어요']
     },
-    legend: [
-      { key: 'Healthy', text: '마시지 않음' },
-      { key: 'Recommended', text: '권장량 준수' },
-      { key: 'Excessive', text: '권장량 초과' }
-    ]
+    legend: { recommended: '권장량 준수', excessive: '권장량 초과' },
+    percent: '%'
   },
   brandRanking: {
     summary: ['에서', '가장 많이 마셨어요'],

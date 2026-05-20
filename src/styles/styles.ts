@@ -123,11 +123,14 @@ export const MarginB8 = css`
 `;
 
 // gap
+export const Gap8 = css`
+  gap: 8px;
+`;
 export const Gap12 = css`
   gap: 12px;
 `;
-export const Gap8 = css`
-  gap: 8px;
+export const Gap20 = css`
+  gap: 20px;
 `;
 
 // text-under
@@ -1195,4 +1198,17 @@ export const PointColor = css`
 export const defaultColor = css`
   background-color: var(--colors-btn-grey);
   color: #fff;
+`;
+
+export const Summary = styled.div`
+  color: var(--colors-main-dark);
+  font-size: var(--font-sizes-xl);
+  line-height: 28px;
+  white-space: pre-wrap;
+`;
+
+export const Caption = styled.div`
+  color: var(--colors-mid-grey);
+  font-size: var(--font-sizes-sm);
+  line-height: 22px;
 `;
