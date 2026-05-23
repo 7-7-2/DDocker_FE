@@ -1,3 +1,5 @@
+import { Summary } from '@/styles/styles';
+
 export const COFFEE_TEXTS = {
   header: 'STATS',
   tabs: ['내역', '섭취 분석'],
@@ -55,15 +57,34 @@ export const COFFEE_ANALYSIS_TEXTS = {
   },
   guestUser: `하루 이상 기록하고
 주차별 패턴을 확인해보세요`,
+  MonthlyChart: {
+    tabs: ['잔', '카페인'],
+    unit: {
+      week: '주',
+      mg: 'mg',
+      cup: '잔'
+    },
+    summary: {
+      week: '주차',
+      suf: '에',
+      cup: {
+        complete: '커피를 가장 많이 마셨어요',
+        incomplete: ['커피를', '마셨어요']
+      },
+      caffeine: {
+        complete: '카페인을 가장 많이 섭취했어요',
+        incomplete: ['카페인을', '섭취했어요']
+      }
+    }
+  },
   circularChart: {
     summary: {
-      pre: '일일 카페인 권장량을',
+      pre: '카페인 권장량을',
       point: { recommended: '준수한 날', excessive: '초과한 날' },
       equal: ['준수한 날', '과 ', '초과한 날', '의 횟수가 같아요'],
       suf: '이 더 많아요',
       exception: ['과', '의 횟수가 같아요'],
-      null: `카페인 권장량을
-얼마나 준수했는지 확인해보세요`
+      null: `얼마나 준수했는지 확인해보세요`
     },
     caption: {
       pre: '커피를 마신 ',
@@ -76,8 +97,8 @@ export const COFFEE_ANALYSIS_TEXTS = {
   },
   brandRanking: {
     summary: ['에서', '가장 많이 마셨어요'],
-    guestUser: `일일 카페인 권장량을
-준수했는지 비교할 수 있어요`,
+    guestUser: `가장 많이 마신
+브랜드를 확인해보세요`,
     emptyData: '기록없음'
   }
 };

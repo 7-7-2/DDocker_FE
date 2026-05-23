@@ -16,22 +16,24 @@ export const useAnalysisData = (
   const [circularChartData, setCircularChartData] = useState<
     { key: string; value: number }[]
   >([]);
-  // const [circularChartSummaryData, setCircularChartSummaryData] = useState();
-  const flatDetailsData = Object.values(data.details).flat();
-  const intakeDates = Object.keys(data.details).length;
-  const currentMonth =
-    dayjs().format('YYYY-MM') === dayjs(activeMonth).format('YYYY-MM');
+  const details = data ? data.details : [];
+  const summary = data ? data.summary : [];
+
+  const flatDetailsData = Object.values(details)?.flat();
+  const intakeDates = Object.keys(details).length;
+  // const currentMonth =
+  //   dayjs().format('YYYY-MM') === dayjs(activeMonth).format('YYYY-MM');
 
   // CoffeeSum.tsx
   const getCoffeeSumData = () => {
     const monthlyAcc = flatDetailsData.length;
-    const dailyAverage = Math.round(monthlyAcc / intakeDates);
+    const dailyAverage = Math.round(monthlyAcc / intakeDates) || 0;
     return [dailyAverage, monthlyAcc, 0];
   };
 
   // CircularChart.tsx
   useEffect(() => {
-    const { chartData } = handleFilteringData(data.summary);
+    const { chartData } = handleFilteringData(summary);
     chartData && setCircularChartData(chartData);
   }, [activeMonth]);
 
@@ -57,9 +59,7 @@ export const useAnalysisData = (
 
     return { summaryData, chartData };
   };
-  const circularChartSummaryData = handleFilteringData(
-    data.summary
-  ).summaryData;
+  const circularChartSummaryData = handleFilteringData(summary).summaryData;
 
   // BrandRanking.tsx
   const getbrandRankingData = () => {

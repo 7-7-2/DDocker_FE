@@ -31,10 +31,8 @@ const Container = styled.div`
   height: 80px;
   grid-template-columns: 1fr 1fr 1fr;
   border-radius: 10px;
-  padding: 20px 0;
-  margin-bottom: 26px;
-  font-size: var(--font-sizes-base);
   line-height: 24px;
+  font-size: var(--font-sizes-base);
   background-color: var(--colors-main);
   color: #fff;
 `;

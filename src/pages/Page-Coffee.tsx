@@ -112,7 +112,7 @@ const Coffee = () => {
               activeStartDate={activeStartDate}
             />
             <Target ref={targetRef} />
-            {!signedIn && (
+            {/* {!signedIn && (
               <Suspense>
                 <LogInCTA />
               </Suspense>
@@ -121,7 +121,7 @@ const Coffee = () => {
               <Suspense>
                 <ScrollInducer targetRef={targetRef} />
               </Suspense>
-            )}
+            )} */}
           </TabContainer>
         ) : (
           <TabContainer>

@@ -33,9 +33,13 @@ const CircularChartSummary = ({
             <span>
               {summary.equal.map((text, idx) =>
                 (idx + 2) % 2 === 0 ? (
-                  <span className={PointColor}>{text}</span>
+                  <span
+                    className={PointColor}
+                    key={idx}>
+                    {text}
+                  </span>
                 ) : (
-                  <span>{text}</span>
+                  <span key={idx}>{text}</span>
                 )
               )}
             </span>
@@ -44,30 +48,32 @@ const CircularChartSummary = ({
           )}
         </div>
       </Summary>
-      <Caption>
-        {caption.pre}
-        {intakeDates}
-        {unit.day}
-        {caption.mid}
-        {equalType ? (
-          <span>
-            {circularChartSummaryData.recommended}
-            {caption.same[0]}
-            {circularChartSummaryData.excessive}
-            {caption.same[1]}
-          </span>
-        ) : (
-          <span>
-            {
-              circularChartSummaryData[
-                typecheck as keyof typeof circularChartSummaryData
-              ]
-            }
-            {unit.day}
-            {caption.suf[typecheck as keyof typeof caption.suf]}
-          </span>
-        )}
-      </Caption>
+      {!nullType && (
+        <Caption>
+          {caption.pre}
+          {intakeDates}
+          {unit.day}
+          {caption.mid}
+          {equalType ? (
+            <span>
+              {circularChartSummaryData.recommended}
+              {caption.same[0]}
+              {circularChartSummaryData.excessive}
+              {caption.same[1]}
+            </span>
+          ) : (
+            <span>
+              {
+                circularChartSummaryData[
+                  typecheck as keyof typeof circularChartSummaryData
+                ]
+              }
+              {unit.day}
+              {caption.suf[typecheck as keyof typeof caption.suf]}
+            </span>
+          )}
+        </Caption>
+      )}
     </>
   );
 };
