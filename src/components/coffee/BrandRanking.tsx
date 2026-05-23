@@ -61,7 +61,11 @@ const BrandRanking = ({
           </span>
         )}
       </div>
-      <span className={cx(idx === 0 ? Bold : Medium, idx === 0 && PointColor)}>
+      <span
+        className={cx(
+          data[1].length !== 0 && idx === 0 ? Bold : Medium,
+          data[1].length !== 0 && idx === 0 && PointColor
+        )}>
         {data[1].length}
         {unit.cup}
       </span>
