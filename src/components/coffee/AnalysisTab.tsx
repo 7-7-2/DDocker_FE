@@ -16,13 +16,13 @@ import { Bold, PointColor, SectionDivier, Summary } from '@/styles/styles';
 
 const { brandRanking } = COFFEE_ANALYSIS_TEXTS;
 const AnalysisTab = ({ signedIn }: { signedIn: string }) => {
-  const { data: calendarData, activeMonth } = useGetCalendarData(signedIn);
+  const { data: calendarData } = useGetCalendarData(signedIn);
   const {
     getCoffeeSumData,
     getbrandRankingData,
     circularChartData,
     circularChartSummaryData
-  } = useAnalysisData(calendarData, signedIn, activeMonth);
+  } = useAnalysisData(calendarData, signedIn);
 
   const coffeeSumData = getCoffeeSumData();
   const brandRankingData = getbrandRankingData();

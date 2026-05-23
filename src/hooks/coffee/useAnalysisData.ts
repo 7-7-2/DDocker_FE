@@ -10,12 +10,8 @@ import {
 
 export const useAnalysisData = (
   data: CaffeineHistoryTypes,
-  signedIn: string,
-  activeMonth: string
+  signedIn: string
 ) => {
-  const [circularChartData, setCircularChartData] = useState<
-    { key: string; value: number }[]
-  >([]);
   const details = data ? data.details : [];
   const summary = data ? data.summary : [];
 
@@ -32,11 +28,6 @@ export const useAnalysisData = (
   };
 
   // CircularChart.tsx
-  useEffect(() => {
-    const { chartData } = handleFilteringData(summary);
-    chartData && setCircularChartData(chartData);
-  }, [activeMonth]);
-
   const handleFilteringData = (coffeeData: CalendarData[]) => {
     const recommended = coffeeData?.filter(
       item => item && Number(item.caffeineSum) <= 400
@@ -59,7 +50,11 @@ export const useAnalysisData = (
 
     return { summaryData, chartData };
   };
-  const circularChartSummaryData = handleFilteringData(summary).summaryData;
+
+  const {
+    summaryData: circularChartSummaryData,
+    chartData: circularChartData
+  } = handleFilteringData(summary);
 
   // BrandRanking.tsx
   const getbrandRankingData = () => {
