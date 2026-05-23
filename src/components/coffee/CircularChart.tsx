@@ -12,6 +12,7 @@ const CircularChart = ({
 }: {
   circularChartData: { key: string; value: number }[];
 }) => {
+  console.log('🚀 ~ CircularChart ~ circularChartData:', circularChartData);
   const CircularCharts = ['recommended', 'excessive'];
   const textColor = (key: string) => {
     return key === CircularCharts[0] ? RecommendedColor : ExcessiveColor;
