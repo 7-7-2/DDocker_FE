@@ -513,6 +513,31 @@ export interface PostBodyProps
   extends Pick<FollowingPost, 'description' | 'photo'> {
   onClick: () => void;
 }
+
+export interface MonthlyAnalysisDataTypes {
+  compraison: {
+    caffeine: {
+      currentMonth: number;
+      previousMonth: number;
+      diff: number;
+      trend: string;
+    };
+    cups: {
+      currentMonth: number;
+      previousMonth: number;
+      diff: number;
+      trend: string;
+    };
+  };
+  weeks: MonthlyAnalysisWeeksDataType[];
+}
+
+export interface MonthlyAnalysisWeeksDataType {
+  weekNum: number;
+  cups: number;
+  caffeineMg: number;
+}
+
 export interface circularChartSummaryDataTypes {
   intakeDates: number;
   recommended: number;
