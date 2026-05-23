@@ -1,5 +1,3 @@
-import { Summary } from '@/styles/styles';
-
 export const COFFEE_TEXTS = {
   header: 'STATS',
   tabs: ['내역', '섭취 분석'],
