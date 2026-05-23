@@ -98,6 +98,10 @@ export const MarginT6 = css`
   margin-top: 6px;
 `;
 
+export const MarginT8 = css`
+  margin-top: 8px;
+`;
+
 export const MarginT12 = css`
   margin-top: 12px;
 `;

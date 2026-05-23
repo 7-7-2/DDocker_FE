@@ -13,6 +13,10 @@ const CircularChart = ({
   circularChartData: { key: string; value: number }[];
 }) => {
   const CircularCharts = ['recommended', 'excessive'];
+  const textColor = (key: string) => {
+    return key === CircularCharts[0] ? RecommendedColor : ExcessiveColor;
+  };
+
   return (
     <Container className={cx(Flex, Align)}>
       {circularChartData.map(data => (
@@ -20,7 +24,7 @@ const CircularChart = ({
           key={data.key}
           className={cx(Column, Align, Gap20)}>
           <CircularProgressbarWithChildren
-            value={data.value}
+            value={data.value || 0}
             strokeWidth={10.76}
             className={cx(
               ChartStyle,
@@ -29,11 +33,9 @@ const CircularChart = ({
             <Percent
               className={cx(
                 Bold,
-                data.key === CircularCharts[0]
-                  ? RecommendedColor
-                  : ExcessiveColor
+                data.value ? textColor(data.key) : undefined
               )}>
-              {Math.round(data.value)}
+              {data.value ? Math.round(data.value) : 0}
               {circularChart.percent}
             </Percent>
           </CircularProgressbarWithChildren>
@@ -57,6 +59,7 @@ const Container = styled.div`
 
 const Percent = styled.span`
   font-size: var(--font-sizes-xl);
+  color: var(--colors-btn-grey);
 `;
 
 const Legend = styled.span`
