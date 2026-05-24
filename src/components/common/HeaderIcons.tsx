@@ -1,16 +1,21 @@
 import React from 'react';
-import HeaderIcon from '@/components/common/HeaderIcon';
-import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import useGetCacheData from '@/hooks/useGetCacheData';
-import { useQuery } from '@tanstack/react-query';
-import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 import { useLocation, useParams } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+
+import HeaderIcon from '@/components/common/HeaderIcon';
+import useGetCacheData from '@/hooks/useGetCacheData';
+import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
 const HeaderIcons = () => {
   const { userId } = useCachedUserInfo();
   const { userId: profileID } = useParams();
   const { pathname } = useLocation();
+  const { productName } = useParams();
+
   const stats = pathname === '/coffee';
+  const brand = pathname.startsWith('/brand');
+  const productDetail = brand && productName;
 
   const { data: unreadNotification } = useQuery({
     queryKey: ['unread', userId],
@@ -24,8 +29,14 @@ const HeaderIcons = () => {
     unreadNotification && unreadNotification.cacheData
       ? 'unread-notification'
       : 'notification';
-  const leftIconState = stats ? '' : userId === profileID ? 'share' : 'search';
-  const icons = [leftIconState, notification];
+
+  const iconsgenerator = () => {
+    if (stats) return ['', notification];
+    if (brand) return productDetail ? ['share', 'home'] : ['', 'home'];
+    if (userId === profileID) return ['share', notification];
+    else return ['search', notification];
+  };
+  const icons = iconsgenerator();
 
   return (
     <>

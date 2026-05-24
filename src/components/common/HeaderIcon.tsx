@@ -4,14 +4,16 @@ import { useSharePage } from '@/hooks/useSharePage';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
 const routeMap = new Map();
+routeMap.set('home', '/');
 routeMap.set('search', '/search');
 routeMap.set('notification', '/notification');
 routeMap.set('unread-notification', '/notification');
 
 const HeaderIcon = ({ icon }: { icon: string }) => {
-  const sharePrifile = icon === 'share';
+  const shareProfile = icon === 'share';
   const navigateTo = useNavigateTo(routeMap.get(icon));
   const handleShare = useSharePage();
+
   const handleTouch = () => {
     navigateTo();
   };
@@ -25,7 +27,7 @@ const HeaderIcon = ({ icon }: { icon: string }) => {
       {icon && (
         <Icon
           {...iconPropsGenerator(icon)}
-          onClick={!sharePrifile ? handleTouch : sharePage}
+          onClick={!shareProfile ? handleTouch : sharePage}
         />
       )}
     </>

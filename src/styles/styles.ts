@@ -27,7 +27,7 @@ export const StartPageHeight = css`
 
 export const PostPageHeight = css`
   height: calc(
-    100dvh - 56px - 68px - env(safe-area-inset-bottom) - env(
+    100dvh - 56px - 64px - env(safe-area-inset-bottom) - env(
         safe-area-inset-top
       )
   );
@@ -125,6 +125,9 @@ export const MarginB6 = css`
 export const MarginB8 = css`
   margin-bottom: 8px;
 `;
+export const MarginB12 = css`
+  margin-bottom: 12px;
+`;
 
 // gap
 export const Gap8 = css`
@@ -133,8 +136,14 @@ export const Gap8 = css`
 export const Gap12 = css`
   gap: 12px;
 `;
+export const Gap16 = css`
+  gap: 16px;
+`;
 export const Gap20 = css`
   gap: 20px;
+`;
+export const Gap24 = css`
+  gap: 24px;
 `;
 
 // text-under

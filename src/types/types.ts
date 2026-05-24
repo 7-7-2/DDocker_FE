@@ -152,7 +152,7 @@ export interface CaffeineIntakeTypes {
   size: string;
   intensity: string;
   shot: number;
-  intakeId: number;
+  intakeId?: number;
 }
 export interface DailyRecordsTypes {
   [key: number]: CaffeineIntakeTypes[];
