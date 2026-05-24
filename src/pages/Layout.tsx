@@ -29,6 +29,7 @@ const Layout = () => {
   const mypagePredi = pathname.endsWith('/mypage');
   const postPredi = pathname.startsWith('/post');
   const registerPredi =
+    pathname.startsWith('/brand') ||
     pathname.startsWith('/post/register') ||
     pathname.endsWith('/update') ||
     pathname.endsWith('/caffeine');
