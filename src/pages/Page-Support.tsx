@@ -35,7 +35,8 @@ const Support = () => {
     }
     return;
   };
-  useComposeHeader(false, headerText(), 'close');
+
+  useComposeHeader('back', headerText(), '');
 
   return (
     <>
