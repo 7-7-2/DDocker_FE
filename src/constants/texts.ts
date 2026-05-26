@@ -80,3 +80,15 @@ export const POST_REGISTER_TEXTS = {
     }
   }
 };
+
+export const BRAND_TEXTS = {
+  unit: 'mg',
+  brandDetail: {
+    search: ' 메뉴를 검색해보세요',
+    chart: {
+      label: '인기 메뉴 TOP 3',
+      description: '인기 메뉴 데이터가 부족해요'
+    },
+    list: { pre: '총 ', suf: '개' }
+  }
+};

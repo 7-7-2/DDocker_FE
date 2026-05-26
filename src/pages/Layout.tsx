@@ -28,8 +28,8 @@ const Layout = () => {
   const reportPredi = pathname.startsWith('/report');
   const mypagePredi = pathname.endsWith('/mypage');
   const postPredi = pathname.startsWith('/post');
+  const brandPredi = pathname.startsWith('/brand');
   const registerPredi =
-    pathname.startsWith('/brand') ||
     pathname.startsWith('/post/register') ||
     pathname.endsWith('/update') ||
     pathname.endsWith('/caffeine');
@@ -44,7 +44,7 @@ const Layout = () => {
     if (startPredi) {
       return (PagesHeight = StartPageHeight);
     }
-    if (reportPredi || mypagePredi) {
+    if (reportPredi || mypagePredi || brandPredi) {
       return (PagesHeight = RegisterPageHeight);
     }
     if (postPredi) {
