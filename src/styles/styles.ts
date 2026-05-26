@@ -142,10 +142,15 @@ export const Gap16 = css`
 export const Gap20 = css`
   gap: 20px;
 `;
+export const Gap22 = css`
+  gap: 22px;
+`;
 export const Gap24 = css`
   gap: 24px;
 `;
-
+export const Gap28 = css`
+  gap: 24px;
+`;
 // text-under
 export const TextUnderLine = css`
   text-decoration: underline solid var(--colors-mid-grey) 1px;

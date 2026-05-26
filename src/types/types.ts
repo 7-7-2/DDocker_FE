@@ -52,7 +52,7 @@ export interface MiniProfileProps extends Omit<SimplifyUser, 'keyword'> {
 export interface SearchBarProps {
   search: string;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  reset: () => void;
+  reset?: () => void;
   type?: string;
   placeholder?: string;
 }

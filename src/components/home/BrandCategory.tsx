@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import { HOME_TEXTS } from '@/constants/home';
 import { brandMapToKor } from '@/utils/convertBrandName';
 import { BUTTON_TEXTS } from '@/constants/common';
@@ -10,18 +12,28 @@ import { Align, Between, Column, Flex } from '@/styles/layout';
 const { brandList, title } = HOME_TEXTS.brandCategory;
 
 const BrandCategory = () => {
+  const navigate = useNavigate();
+  const navToBrand = () => {
+    navigate(`/brand`);
+  };
+  const navToBrandDetail = (e: React.MouseEvent<HTMLButtonElement>) => {
+    navigate(`/brand/${e.currentTarget.value}`);
+  };
   return (
     <Container>
       <div className={cx(Flex, Between)}>
         <div className={SumTitle}>{title}</div>
-        <ViewAllButton onClick={() => {}}>{BUTTON_TEXTS.viewAll}</ViewAllButton>
+        <ViewAllButton onClick={navToBrand}>
+          {BUTTON_TEXTS.viewAll}
+        </ViewAllButton>
       </div>
       <BrandList className={cx(Flex, Between)}>
         {brandList.map(brand => (
           <BrandItem
             className={cx(Column, Align)}
             key={brand}
-            onClick={() => {}}>
+            value={brand}
+            onClick={navToBrandDetail}>
             <Logo
               src={`/png/${brand}.png`}
               alt={brand}
