@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import SearchBar from '@/components/search/SearchBar';
 import ProductItem from '@/components/brand/ProductItem';
@@ -8,7 +8,7 @@ import { useSearchInput } from '@/hooks/search/useSearchInput';
 import useGetCoffeeList from '@/hooks/useGetCoffeeList';
 import { brandMapToKor } from '@/utils/convertBrandName';
 import { BRAND_TEXTS } from '@/constants/texts';
-import { CoffeeDataTypes } from '@/types/types';
+import { CoffeeDataTypes, CoffeeItemTypes } from '@/types/types';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
@@ -24,8 +24,11 @@ import {
 const { brandDetail } = BRAND_TEXTS;
 const data = ['아메리카노', '아메리카노', '아메리카노'];
 const BrandDetail = () => {
+  const navigate = useNavigate();
   const { brandName } = useParams();
+
   const { search, handleChange } = useSearchInput();
+
   const coffeeData = useGetCoffeeList() as CoffeeDataTypes;
   const getMenuList = () => {
     const res = brandName && coffeeData?.[brandName]?.map(item => item);
@@ -34,6 +37,10 @@ const BrandDetail = () => {
 
   const brand = brandName && brandMapToKor(brandName);
   const menuList = coffeeData && getMenuList();
+
+  const navToDetail = (data: CoffeeItemTypes) => {
+    navigate(`/brand/${brandName}/${data.menu}`, { state: data });
+  };
 
   return (
     <>
@@ -69,17 +76,18 @@ const BrandDetail = () => {
           <span>
             {brandDetail.list.pre}
             <span className={cx(Semibold, colorMainDark)}>
-              {menuList?.length}
+              {menuList && menuList.length}
             </span>
             {brandDetail.list.suf}
           </span>
           <div className={cx(Column, Gap28)}>
             {menuList &&
               menuList.map(item => (
-                <ProductItem
+                <div
                   key={item.menu}
-                  data={item}
-                />
+                  onClick={() => navToDetail(item)}>
+                  <ProductItem data={item} />
+                </div>
               ))}
           </div>
         </ProductList>
