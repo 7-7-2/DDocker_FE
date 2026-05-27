@@ -23,6 +23,7 @@ const { coffeeOption } = CAFFEINE_FILTER_TEXTS;
 
 const CoffeeOptionSelection = () => {
   const {
+    brand,
     register,
     caffeineIntake,
     selectSize,
@@ -34,13 +35,14 @@ const CoffeeOptionSelection = () => {
 
   return (
     <div className={cx(Column, SmStyle)}>
-      <div className={cx(register && RegisterContentsStyle)}>
-        {!register ? (
+      <div className={cx((register || brand) && RegisterContentsStyle)}>
+        {!(register || brand) ? (
           <span className={CaffeineFilterHomeLabel}>{coffeeOption.size}</span>
         ) : (
           <RegisterLabel label={coffeeOption.size} />
         )}
-        <SizeBtnContainer className={cx(!register && HomeLabelStyle, Flex)}>
+        <SizeBtnContainer
+          className={cx(!(register || brand) && HomeLabelStyle, Flex)}>
           {coffeeOption.sizeOption.map(item => (
             <Button
               key={item}
@@ -58,15 +60,15 @@ const CoffeeOptionSelection = () => {
           ))}
         </SizeBtnContainer>
       </div>
-      <div className={cx(register && RegisterContentsStyle)}>
-        {!register ? (
+      <div className={cx((register || brand) && RegisterContentsStyle)}>
+        {!(register || brand) ? (
           <span className={CaffeineFilterHomeLabel}>
             {coffeeOption.shot.title}
           </span>
         ) : (
           <RegisterLabel label={coffeeOption.shot.title} />
         )}
-        <div className={cx(!register && HomeLabelStyle, Medium)}>
+        <div className={cx(!(register || brand) && HomeLabelStyle, Medium)}>
           <PersonalOptionContainer className={cx(Flex, Between)}>
             <span>{coffeeOption.shot.intensity}</span>
             <OptionInterface className={Flex}>

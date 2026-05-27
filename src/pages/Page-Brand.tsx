@@ -1,13 +1,15 @@
+import { useParams } from 'react-router-dom';
+
 import BrandDetail from '@/components/brand/BrandDetail';
 import BrandList from '@/components/brand/BrandList';
+import ProductDetail from '@/components/brand/ProductDetail';
+
 import { useComposeHeader } from '@/hooks/useComposeHeader';
 import { useShowFooter } from '@/hooks/useShowFooter';
 import { brandMapToKor } from '@/utils/convertBrandName';
-import { useParams } from 'react-router-dom';
-import { styled } from 'styled-system/jsx';
 
 const Brand = () => {
-  const { brandName } = useParams();
+  const { brandName, productName } = useParams();
 
   const getPageHeader = () => {
     if (brandName) return ['back', `${brandMapToKor(brandName)}`, 'icons'];
@@ -20,7 +22,8 @@ const Brand = () => {
   return (
     <>
       {!brandName && <BrandList />}
-      {brandName && <BrandDetail />}
+      {brandName && !productName && <BrandDetail />}
+      {productName && <ProductDetail />}
     </>
   );
 };

@@ -58,7 +58,6 @@ const Container = styled.header`
   padding: calc(env(safe-area-inset-top)) 20px 0;
   position: sticky;
   top: 0;
-  background-color: #fff;
   display: grid;
   align-items: center;
   grid-template-columns: 1fr auto 1fr;

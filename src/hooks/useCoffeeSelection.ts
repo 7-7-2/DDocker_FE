@@ -13,13 +13,13 @@ const { coffeeOption } = CAFFEINE_FILTER_TEXTS;
 
 export const useCoffeeSelection = () => {
   useGetUserInfo();
-  const { postId } = useParams();
-  const { type } = useParams();
+  const { postId, type, brandName } = useParams();
   const register = postId === 'register' || type === 'update';
-
+  const brand = !!brandName;
   const [caffeineIntake, setCaffeineIntake] =
     useRecoilState(caffeineIntakeState);
   const [caffeine, setCaffeine] = useRecoilState(caffeineFilterState);
+
   const caffeineValue = caffeine.caffeine;
   const menuCaffeineValue = caffeine.menuCaffeine;
 
@@ -186,6 +186,7 @@ export const useCoffeeSelection = () => {
   });
 
   return {
+    brand,
     register,
     caffeineValue,
     caffeineIntake,
