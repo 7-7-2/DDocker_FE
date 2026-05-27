@@ -2189,6 +2189,46 @@
       <path d="M7 4L13 10L7 16" stroke="#767676" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     </symbol>
 
+    <symbol 
+      id="icon-fav" 
+      width="24" 
+      height="24" 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg">
+      <path d="M11.9997 2L15.1032 8.72839L22.4613 9.60081L17.0213 14.6316L18.4653 21.8992L11.9997 18.28L5.53407 21.8992L6.97813 14.6316L1.53809 9.60081L8.8962 8.72839L11.9997 2Z" stroke="#313131" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol
+      id="icon-fav-active" 
+      width="24" 
+      height="24" 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg">
+      <path d="M11.9997 2L15.1032 8.72839L22.4613 9.60081L17.0213 14.6316L18.4653 21.8992L11.9997 18.28L5.53407 21.8992L6.97813 14.6316L1.53809 9.60081L8.8962 8.72839L11.9997 2Z" fill="#FF701E" stroke="#FF701E" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol
+      id="icon-up" 
+      width="7" 
+      height="6" 
+      viewBox="0 0 7 6" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg">
+      <path d="M2.56607 0.414611C2.9652 -0.138448 3.7887 -0.138449 4.18784 0.41461L6.56306 3.70581C7.04036 4.36717 6.56778 5.29101 5.75217 5.29101L1.00174 5.29101C0.186128 5.29101 -0.286448 4.36717 0.19085 3.70581L2.56607 0.414611Z" fill="#FF391E"/>
+    </symbol>
+    
+    <symbol   
+      id="icon-down" 
+      width="7" 
+      height="6" 
+      viewBox="0 0 7 6" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg">
+      <path d="M4.18784 4.8764C3.7887 5.42946 2.9652 5.42946 2.56607 4.8764L0.19085 1.58521C-0.286449 0.923842 0.186126 2.37609e-07 1.00173 3.08912e-07L5.75217 7.24208e-07C6.56778 7.95511e-07 7.04035 0.923842 6.56306 1.58521L4.18784 4.8764Z" fill="#2DCD9D"/>
+    </symbol>
+
 
   </defs>
 </svg>;
