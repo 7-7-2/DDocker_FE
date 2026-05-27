@@ -334,7 +334,7 @@ export const DefaultBtn = cx(
   BtnColorMain,
   css`
     height: 52px;
-    border-radius: 16px;
+    border-radius: 10px;
     font-size: var(--font-sizes-base);
     line-height: 24px;
   `
@@ -1209,6 +1209,9 @@ export const fontSizeXs = css`
 `;
 export const colorMainDark = css`
   color: var(--colors-main-dark);
+`;
+export const colorMidGrey = css`
+  color: var(--colors-mid-grey);
 `;
 export const PointColor = css`
   color: var(--colors-main);
