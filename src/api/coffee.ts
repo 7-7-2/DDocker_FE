@@ -41,7 +41,7 @@ export const deleteCaffeineIntake = async (caffeineId: string) => {
 // 5. 월별 섭취 동향
 export const getMonthlyAnalysisData = async (activeMonth: string) => {
   const res = await authInstance
-    .get(`/caffeine/stats/monthly?date=${activeMonth}`)
+    .get(`/caffeine/trend?date=${activeMonth}`)
     .catch(e => {
       console.log(e);
     });
