@@ -26,7 +26,6 @@ const data = ['아메리카노', '아메리카노', '아메리카노'];
 const BrandDetail = () => {
   const navigate = useNavigate();
   const { brandName } = useParams();
-
   const { search, handleChange } = useSearchInput();
 
   const coffeeData = useGetCoffeeList() as CoffeeDataTypes;
@@ -39,7 +38,9 @@ const BrandDetail = () => {
   const menuList = coffeeData && getMenuList();
 
   const navToDetail = (data: CoffeeItemTypes) => {
-    navigate(`/brand/${brandName}/${data.menu}`, { state: data });
+    navigate(`/brand/${brandName}/${encodeURIComponent(data.menu)}`, {
+      state: data
+    });
   };
 
   return (

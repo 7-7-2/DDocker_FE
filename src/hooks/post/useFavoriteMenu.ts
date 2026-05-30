@@ -53,7 +53,7 @@ export const useFavoriteMenu = () => {
     onSuccess: async () => {
       await useDeleteCacheData('user', '/favoriteMenu');
       setIsModal(false);
-      toast.success(text.favMenu.sucess, toastStyle);
+      toast.success(text.favMenu.success, toastStyle);
     },
     onError: () => {
       toast.error(text.favMenu.error, toastStyle);
@@ -73,7 +73,7 @@ export const useFavoriteMenu = () => {
       setIsModal(false);
       setIsFailed(false);
     } finally {
-      navigate(location, {
+      navigate('/post/caffeineIntake/caffeine', {
         state: 'favoriteEdit'
       });
     }
@@ -103,6 +103,7 @@ export const useFavoriteMenu = () => {
     onSuccess: async () => {
       await useDeleteCacheData('user', '/favoriteMenu');
       await getFavMenu();
+      toast.success(text.favMenu.delete, toastStyle);
     }
   });
 
