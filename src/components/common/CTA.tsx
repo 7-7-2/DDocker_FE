@@ -57,6 +57,7 @@ const Message = styled.span`
 
 const BTN = css`
   margin-top: var(--font-sizes-base);
+  width: 96px;
 `;
 
 export default CTA;

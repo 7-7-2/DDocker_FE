@@ -1,14 +1,22 @@
-import { useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useRecoilState, useSetRecoilState } from 'recoil';
+import { Toaster } from 'react-hot-toast';
 
 import Icon from '@/components/common/Icon';
 import Button from '@/components/common/Button';
 import CoffeeOptionSelection from '@/components/common/coffeeSelection/CoffeeOptionSelection';
 import CaffeineInfo from '@/components/home/CaffeineInfo';
+import FavoriteMenuAddModal from '@/components/post/postRegister/FavoriteMenuAddModal';
+import ModalCTA from '@/components/common/ModalCTA';
 
-import { caffeineFilterState, caffeineIntakeState } from '@/atoms/atoms';
+import { useHandleHeaderBackGround } from '@/hooks/useHandleHeaderBackGround';
+import { useFavoriteMenu } from '@/hooks/post/useFavoriteMenu';
+import { useProductDetail } from '@/hooks/brand/useProductDetail';
+import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
+import { brandMapToKor } from '@/utils/convertBrandName';
+import { coffeeInfoFormatter } from '@/utils/coffeeInfoFormatter';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+
+import { BUTTON_TEXTS } from '@/constants/common';
+import { POST_REGISTER_TEXTS } from '@/constants/texts';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
@@ -21,21 +29,10 @@ import {
   Gap6,
   MarginT24,
   Medium,
+  ScrolledShadow,
   SectionDivier,
   Semibold
 } from '@/styles/styles';
-import { brandMapToKor } from '@/utils/convertBrandName';
-import { useVerifyModalCTA } from '@/hooks/useVerifyModalCTA';
-import { useFavoriteMenu } from '@/hooks/post/useFavoriteMenu';
-import FavoriteMenuAddModal from '@/components/post/postRegister/FavoriteMenuAddModal';
-import { coffeeInfoFormatter } from '@/utils/coffeeInfoFormatter';
-import { Toaster } from 'react-hot-toast';
-import ModalCTA from '@/components/common/ModalCTA';
-import { BUTTON_TEXTS } from '@/constants/common';
-import { POST_REGISTER_TEXTS } from '@/constants/texts';
-import { useHandleHeaderBackGround } from '@/hooks/useHandleHeaderBackGround';
-import { useProductDetail } from '@/hooks/brand/useProductDetail';
-import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 
 const { addFavoriteMenu } = POST_REGISTER_TEXTS.success;
 const ProductDetail = () => {
@@ -72,7 +69,10 @@ const ProductDetail = () => {
       )}
       <Toaster />
       <HeaderBackground
-        style={{ backgroundColor: `${!isScrolled ? '#f1f1f1' : '#fff'}` }}
+        className={cx(isScrolled && ScrolledShadow)}
+        style={{
+          backgroundColor: `${!isScrolled ? '#f1f1f1' : '#fff'}`
+        }}
       />
       <Container>
         <Img ref={scrollAnchor}></Img>
@@ -137,7 +137,6 @@ const ProductDetail = () => {
 
 const Container = styled.div`
   margin-left: -20px;
-  /* margin-top: -56px; */
   height: 100dvh;
   width: 100dvw;
   max-width: 500px;
@@ -150,10 +149,10 @@ const Container = styled.div`
 const HeaderBackground = styled.div`
   width: 100dvw;
   height: 56px;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  z-index: -1;
+  z-index: 2;
 `;
 
 const SimilarItemList = styled.div`

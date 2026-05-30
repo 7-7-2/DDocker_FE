@@ -45,7 +45,7 @@ export default defineConfig({
         },
         zIndex: {
           footer: { value: 10 },
-          headers: { value: 10 },
+          header: { value: 10 },
           contentsBtn: { value: 20 },
           floatingBtn: { value: 30 },
           backgroundLayer: { value: 100 },

@@ -7,7 +7,7 @@ import { useResetSelectedCoffee } from '@/hooks/useResetSelectedCoffee';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { Align, Between, Flex } from '@/styles/layout';
+import { Align, Between } from '@/styles/layout';
 import { SmStyle, SumBoardTitle, SumTitle } from '@/styles/styles';
 
 const { title } = CAFFEINE_FILTER_TEXTS;

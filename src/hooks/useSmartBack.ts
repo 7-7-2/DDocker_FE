@@ -17,18 +17,17 @@ export const useSmartBack = () => {
   const { state } = useLocation();
   const favorites = state === 'favoriteEdit';
 
-  const myPageBack = `/profile/${userId}`;
-  const naveToBack = useNavigateTo('-1');
+  const myPageBack = useNavigateTo(`/profile/${userId}`);
+  const navToBack = useNavigateTo('-1');
+  const navToFooterState = useNavigateTo(routeMap.get(footerActiveState));
 
   const smartBack = searchPage
-    ? naveToBack
-    : useNavigateTo(
-        favorites
-          ? naveToBack
-          : footerActiveState === 'my'
-            ? myPageBack
-            : routeMap.get(footerActiveState)
-      );
+    ? navToBack
+    : favorites
+      ? navToBack
+      : footerActiveState === 'my'
+        ? myPageBack
+        : navToFooterState;
 
   //close
   const { pathname } = useLocation();
@@ -55,7 +54,7 @@ export const useSmartBack = () => {
       resetRegistInfo();
       return smartBack();
     }
-    return naveToBack();
+    return navToBack();
   };
 
   return { smartBack, smartClose };

@@ -24,7 +24,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   const { searchRef } = useSearchInput();
 
   return (
-    <BackGround>
+    <BackGround className={cx(type === 'brand' && brandSearchBar)}>
       <div className={cx(Align, Between)}>
         <SearchBox className={cx(Align, Between, Flex)}>
           <IconContainer className={FlexCenter}>
@@ -83,6 +83,11 @@ const IconContainer = styled.div`
 const CancelBtnSpace = css`
   min-width: 25px;
   margin-left: 17px;
+`;
+
+const brandSearchBar = css`
+  position: relative !important;
+  margin: 0 -20px;
 `;
 
 export default SearchBar;
