@@ -127,7 +127,7 @@ const ShotOptionInput = styled.input`
 `;
 
 const SizeBtnContainer = styled.div`
-  gap: 4px;
+  gap: 8px;
 `;
 
 const OptionInterface = styled.div`
@@ -144,8 +144,10 @@ const SelectSizeBtn = css`
   background-color: var(--colors-main);
   color: #fff !important;
 `;
+
 const SizeBtn = css`
-  min-width: 104px;
+  padding: 10px 15px;
+  min-width: 92px;
   width: 100%;
   height: 40px;
   border-radius: 50px;

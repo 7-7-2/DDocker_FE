@@ -16,6 +16,7 @@ import { Align, Column, Flex, FlexCenter } from '@/styles/layout';
 import {
   colorMidGrey,
   DefaultBtn,
+  DisabledBtn,
   Gap24,
   Gap6,
   MarginT24,
@@ -23,42 +24,53 @@ import {
   SectionDivier,
   Semibold
 } from '@/styles/styles';
+import { brandMapToKor } from '@/utils/convertBrandName';
+import { useVerifyModalCTA } from '@/hooks/useVerifyModalCTA';
+import { useFavoriteMenu } from '@/hooks/post/useFavoriteMenu';
+import FavoriteMenuAddModal from '@/components/post/postRegister/FavoriteMenuAddModal';
+import { coffeeInfoFormatter } from '@/utils/coffeeInfoFormatter';
+import { Toaster } from 'react-hot-toast';
+import ModalCTA from '@/components/common/ModalCTA';
+import { BUTTON_TEXTS } from '@/constants/common';
+import { POST_REGISTER_TEXTS } from '@/constants/texts';
+import { useHandleHeaderBackGround } from '@/hooks/useHandleHeaderBackGround';
+import { useProductDetail } from '@/hooks/brand/useProductDetail';
+import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 
+const { addFavoriteMenu } = POST_REGISTER_TEXTS.success;
 const ProductDetail = () => {
-  const { state } = useLocation();
-  const [caffeineIntake, setCaffeineIntake] =
-    useRecoilState(caffeineIntakeState);
-  const setCaffeine = useSetRecoilState(caffeineFilterState);
-  useEffect(() => {
-    state &&
-      setCaffeine({ caffeine: state.caffeine, menuCaffeine: state.caffeine });
-    state &&
-      setCaffeineIntake({
-        ...caffeineIntake,
-        caffeine: state.caffeine,
-        brand: state.brand,
-        productName: state.menu
-      });
-  }, []);
+  const {
+    state,
+    isModal,
+    isFavMenu,
+    handleModal,
+    handleFavBtn,
+    handleRegisterBtn,
+    caffeineIntake
+  } = useProductDetail();
+  const { isScrolled, scrollAnchor } = useHandleHeaderBackGround();
+  const { handleOnClick, isfailed, moveFavoriteTab } = useFavoriteMenu();
+  const { userId } = useCachedUserInfo();
 
-  const [isScrolled, setIsScrolled] = useState(false);
-  const scrollAnchor = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsScrolled(!entry.isIntersecting);
-      },
-      { threshold: 0 }
-    );
-    if (scrollAnchor.current) {
-      observer.observe(scrollAnchor.current);
-    }
-    return () => observer.disconnect();
-  }, []);
+  const { coffeeInfo } = coffeeInfoFormatter(caffeineIntake);
 
   return (
     <>
+      {isModal && !isfailed ? (
+        <FavoriteMenuAddModal
+          handleModal={handleModal}
+          handleOnclick={handleOnClick}
+          contents={coffeeInfo}
+        />
+      ) : (
+        <ModalCTA
+          buttonText={[BUTTON_TEXTS.close, BUTTON_TEXTS.edit]}
+          title={addFavoriteMenu.ModalText.max}
+          description={addFavoriteMenu.description}
+          fn={moveFavoriteTab}
+        />
+      )}
+      <Toaster />
       <HeaderBackground
         style={{ backgroundColor: `${!isScrolled ? '#f1f1f1' : '#fff'}` }}
       />
@@ -66,8 +78,12 @@ const ProductDetail = () => {
         <Img ref={scrollAnchor}></Img>
         <ContentsBox>
           <div className={Column}>
-            <Brand className={Medium}>스타벅스</Brand>
-            <ProductName className={Semibold}>아메리카노</ProductName>
+            <Brand className={Medium}>
+              {brandMapToKor(state.brand || caffeineIntake.brand)}
+            </Brand>
+            <ProductName className={Semibold}>
+              {state.menu || caffeineIntake.productName}
+            </ProductName>
           </div>
           <CoffeeOptionSelection />
           <div className={cx(SectionDivier, MarginT24)} />
@@ -76,7 +92,7 @@ const ProductDetail = () => {
             <span
               className={Semibold}
               style={{ fontSize: 'var(--font-sizes-lg)' }}>
-              다른 브랜드의 '{state.menu}'
+              다른 브랜드의 '{state.menu || caffeineIntake.productName}'
             </span>
             <SimilarItem>
               <TemporaryImg />
@@ -101,13 +117,15 @@ const ProductDetail = () => {
               <CaffeineInfo />
             </div>
             <ButtonContainer className={cx(FlexCenter, Gap24)}>
-              <div>
-                <Icon {...iconPropsGenerator('fav')} />
-              </div>
+              <button onClick={handleFavBtn}>
+                <Icon
+                  {...iconPropsGenerator(isFavMenu ? 'fav-active' : 'fav')}
+                />
+              </button>
               <Button
                 text={'등록하기'}
-                onClick={() => {}}
-                className={DefaultBtn}
+                onClick={handleRegisterBtn}
+                className={userId ? DefaultBtn : DisabledBtn}
               />
             </ButtonContainer>
           </BrandFooter>

@@ -23,22 +23,22 @@ import {
 const ModalCTA = ({
   buttonText,
   title,
+  fn: handleActions,
   description,
-  type,
-  fn: handleActions
+  type
 }: {
   buttonText: Array<string>;
   title: string;
+  fn: React.MouseEventHandler<HTMLButtonElement>;
   description?: string;
   type?: string;
-  fn: React.MouseEventHandler<HTMLButtonElement>;
 }) => {
-  const footerState = useRecoilValue(footerShowState);
   const navigate = useNavigate();
+  const footerState = useRecoilValue(footerShowState);
   const { isModal, setIsModal } = useVerifyModalCTA();
-  const deleteAccount = type === 'retention';
+  useShowFooter(!!footerState);
 
-  !footerState && useShowFooter(false);
+  const deleteAccount = type === 'retention';
 
   const handleCancle = () => {
     if (type === 'register') {

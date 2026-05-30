@@ -83,7 +83,7 @@ export const BUTTON_TEXTS = {
   post: '게시물로 이동하기',
   deleteAccount: '탈퇴하기',
   notNow: '안할래요',
-  favoriteMenu: '+ 즐겨찾기 추가',
+  favoriteMenu: '+ 즐겨찾는 메뉴 추가',
   confirm: '확인',
   cancel: '취소',
   delete: '삭제',
@@ -161,15 +161,16 @@ export const TOAST_TEXT = {
     }
   } as const,
   text: {
-    nickname: '닉네임 중복확인을 해주세요.',
-    unavailable: '닉네임 설정을 완료해주세요.',
+    nickname: '닉네임 중복확인을 해주세요',
+    unavailable: '닉네임 설정을 완료해주세요',
     favMenu: {
-      sucess: '즐겨찾는 메뉴로 추가되었어요.',
-      error: '이미 즐겨찾기에 추가된 메뉴예요'
+      success: '즐겨찾는 메뉴로 추가되었어요',
+      error: '이미 즐겨찾기에 추가된 메뉴예요',
+      delete: '즐겨찾는 메뉴에서 삭제되었어요'
     },
     clipboard: {
       success: '링크가 복사되었습니다!',
-      error: '링크 복사에 실패했습니다.'
+      error: '링크 복사에 실패했습니다'
     },
     comment: '댓글이 삭제되었어요',
     stats: {

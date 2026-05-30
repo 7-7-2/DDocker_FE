@@ -436,7 +436,6 @@ export const LoginBtn = cx(
   Medium,
   BtnColorBorderWhite,
   css`
-    width: 120px;
     height: 40px;
     border-radius: 50px;
     color: var(--colors-mid-grey) !important;
@@ -446,9 +445,8 @@ export const LoginBtn = cx(
 );
 
 export const AddFavMenuBtn = css`
-  padding: 10px auto;
+  padding: 10px 20px;
   margin: 0 auto;
-  width: 130px;
 `;
 
 export const SizeBtn = cx(

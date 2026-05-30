@@ -16,6 +16,7 @@ export const useCoffeeSelection = () => {
   const { postId, type, brandName } = useParams();
   const register = postId === 'register' || type === 'update';
   const brand = !!brandName;
+
   const [caffeineIntake, setCaffeineIntake] =
     useRecoilState(caffeineIntakeState);
   const [caffeine, setCaffeine] = useRecoilState(caffeineFilterState);
@@ -82,8 +83,9 @@ export const useCoffeeSelection = () => {
   const menuList = coffeeData && getMenuList(caffeineIntake.brand);
 
   // 선택한 커피 메뉴 정보 조회 / 기준값 설정
-  const getMenuInfo = async (selectedMenu: string) => {
-    const res = coffeeData?.[caffeineIntake.brand]?.filter(
+  const getMenuInfo = async (selectedMenu: string, brand?: string) => {
+    const searchBrand = brand ? brand : caffeineIntake.brand;
+    const res = coffeeData?.[searchBrand]?.filter(
       item => item.menu === selectedMenu
     );
     // caffeine Info Update
@@ -199,6 +201,7 @@ export const useCoffeeSelection = () => {
     selectMinusBtn,
     selectPlusBtn,
     shotPlusBtnActive,
-    mutate
+    mutate,
+    getMenuInfo
   };
 };

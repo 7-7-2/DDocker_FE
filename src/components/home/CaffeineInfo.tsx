@@ -8,6 +8,7 @@ import { Align, Between } from '@/styles/layout';
 
 const CaffeineInfo = () => {
   const { caffeine } = useRecoilValue(caffeineFilterState);
+
   return (
     <Container className={cx(Between, Align, Semibold)}>
       <Title>{CAFFEINE_INFO_TEXTS.title}</Title>
