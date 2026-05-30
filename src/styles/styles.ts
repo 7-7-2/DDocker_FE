@@ -151,6 +151,12 @@ export const Gap24 = css`
 export const Gap28 = css`
   gap: 24px;
 `;
+
+// Header
+export const ScrolledShadow = css`
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+`;
+
 // text-under
 export const TextUnderLine = css`
   text-decoration: underline solid var(--colors-mid-grey) 1px;

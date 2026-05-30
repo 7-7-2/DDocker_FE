@@ -1,10 +1,13 @@
 import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useRecoilState, useResetRecoilState, useSetRecoilState } from 'recoil';
+
+import useGetCacheData from '@/hooks/useGetCacheData';
 import { getMyInfo, getUserInfo } from '@/api/user';
 import { caffeineIntakeState, userInfoState } from '@/atoms/atoms';
-import useGetCacheData from '@/hooks/useGetCacheData';
 
 function useGetUserInfo(profileId?: string | number | undefined) {
+  const { pathname } = useLocation();
   const setCachedUser = useSetRecoilState(userInfoState);
   const resetCachedUser = useResetRecoilState(userInfoState);
   const [caffeineIntake, setCaffeineIntake] =
@@ -17,7 +20,11 @@ function useGetUserInfo(profileId?: string | number | undefined) {
 
     if (userId && caffeineIntake.brand === '') {
       userData.brand &&
-        setCaffeineIntake({ ...caffeineIntake, brand: userData.brand });
+        setCaffeineIntake({
+          ...caffeineIntake,
+          brand: userData.brand,
+          productName: ''
+        });
     }
 
     if (!userId && profileId) {
@@ -48,7 +55,7 @@ function useGetUserInfo(profileId?: string | number | undefined) {
   useEffect(() => {
     resetCachedUser();
     setUserInfo();
-  }, [profileId]);
+  }, [profileId, pathname]);
 }
 
 export default useGetUserInfo;

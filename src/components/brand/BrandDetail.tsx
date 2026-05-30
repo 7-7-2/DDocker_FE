@@ -22,6 +22,7 @@ import {
 } from '@/styles/styles';
 
 const { brandDetail } = BRAND_TEXTS;
+//mock-data
 const data = ['아메리카노', '아메리카노', '아메리카노'];
 const BrandDetail = () => {
   const navigate = useNavigate();
@@ -98,7 +99,7 @@ const BrandDetail = () => {
 };
 
 const Container = styled.div`
-  margin-top: 68px;
+  margin-top: 20px;
 `;
 
 const Label = styled.span`
