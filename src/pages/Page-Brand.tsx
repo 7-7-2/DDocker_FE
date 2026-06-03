@@ -17,7 +17,6 @@ const Brand = () => {
   };
   const brandPageHeader = getPageHeader();
   useComposeHeader(...brandPageHeader);
-  useShowFooter(false);
 
   return (
     <>
