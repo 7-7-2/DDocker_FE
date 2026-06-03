@@ -1,48 +1,29 @@
-import { useNavigate, useParams } from 'react-router-dom';
-
 import SearchBar from '@/components/search/SearchBar';
 import ProductItem from '@/components/brand/ProductItem';
 import ProductRankingItem from '@/components/brand/ProductRankingItem';
 
+import { useBrandDetail } from '@/hooks/brand/useBrandDetail';
 import { useSearchInput } from '@/hooks/search/useSearchInput';
-import useGetCoffeeList from '@/hooks/useGetCoffeeList';
-import { brandMapToKor } from '@/utils/convertBrandName';
+
 import { BRAND_TEXTS } from '@/constants/texts';
-import { CoffeeDataTypes, CoffeeItemTypes } from '@/types/types';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Align, Column, Flex, FlexCenter } from '@/styles/layout';
 import {
-  colorMainDark,
   Gap22,
   Gap28,
+  colorMainDark,
   SectionDivier,
   Semibold
 } from '@/styles/styles';
+import { useShowFooter } from '@/hooks/useShowFooter';
 
 const { brandDetail } = BRAND_TEXTS;
-//mock-data
-const data = ['아메리카노', '아메리카노', '아메리카노'];
 const BrandDetail = () => {
-  const navigate = useNavigate();
-  const { brandName } = useParams();
+  useShowFooter(false);
+  const { brand, rankingData, menuList, navToDetail } = useBrandDetail();
   const { search, handleChange } = useSearchInput();
-
-  const coffeeData = useGetCoffeeList() as CoffeeDataTypes;
-  const getMenuList = () => {
-    const res = brandName && coffeeData?.[brandName]?.map(item => item);
-    return res;
-  };
-
-  const brand = brandName && brandMapToKor(brandName);
-  const menuList = coffeeData && getMenuList();
-
-  const navToDetail = (data: CoffeeItemTypes) => {
-    navigate(`/brand/${brandName}/${encodeURIComponent(data.menu)}`, {
-      state: data
-    });
-  };
 
   return (
     <>
@@ -56,19 +37,20 @@ const BrandDetail = () => {
         <div>
           <Label className={Semibold}>{brandDetail.chart.label}</Label>
           <div className={FlexCenter}>
-            {data ? (
+            {rankingData && rankingData.length === 3 ? (
               <Ranking className={cx(Flex, Gap22, Align)}>
-                {data.map((item, idx) => (
+                {rankingData.map((item, idx) => (
                   <ProductRankingItem
-                    key={idx}
+                    key={item.productName}
+                    rankingData={item}
                     ranking={idx + 1}
                   />
                 ))}
               </Ranking>
             ) : (
-              <div>
-                <Description>{brandDetail.chart.description}</Description>
-              </div>
+              <Description>
+                <span>{brandDetail.chart.description}</span>
+              </Description>
             )}
           </div>
         </div>

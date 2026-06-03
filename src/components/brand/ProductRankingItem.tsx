@@ -1,9 +1,18 @@
+import { productRankingItemTypes } from '@/types/types';
+
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Bold, Gap12, Semibold } from '@/styles/styles';
 import { Align, Center, Column, FlexCenter } from '@/styles/layout';
+import { BRAND_TEXTS } from '@/constants/texts';
 
-const ProductRankingItem = ({ ranking }: { ranking: number }) => {
+const ProductRankingItem = ({
+  rankingData,
+  ranking
+}: {
+  rankingData: productRankingItemTypes;
+  ranking: number;
+}) => {
   const itemOrder = () => {
     if (ranking === 1) return { order: '2' };
     if (ranking === 2) return { order: '1' };
@@ -39,9 +48,12 @@ const ProductRankingItem = ({ ranking }: { ranking: number }) => {
         </RakingLabel>
       </ImgContainer>
       <div className={cx(Column, Align)}>
-        <span className={Semibold}>아메리카노</span>
+        <span className={Semibold}>{rankingData.productName}</span>
         <Caffeine className={Center}>
-          <span className={Bold}>200mg</span>
+          <span className={Bold}>
+            {rankingData.caffeine}
+            {BRAND_TEXTS.unit}
+          </span>
         </Caffeine>
       </div>
     </div>

@@ -545,3 +545,9 @@ export interface circularChartSummaryDataTypes {
 }
 
 export type RankingDataType = [string, number[]];
+
+// brand-page
+export interface productRankingItemTypes {
+  productName: string;
+  caffeine: number;
+}
