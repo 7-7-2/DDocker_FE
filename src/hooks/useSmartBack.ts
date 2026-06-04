@@ -9,6 +9,8 @@ import { useVerifyModalCTA } from '@/hooks/useVerifyModalCTA';
 import { useResetRegistInfo } from '@/hooks/post/useResetRegistInfo';
 
 export const useSmartBack = () => {
+  const { pathname } = useLocation();
+
   //back
   const { userId } = useCachedUserInfo();
   const footerActiveState = useRecoilValue(activeState);
@@ -21,16 +23,19 @@ export const useSmartBack = () => {
   const navToBack = useNavigateTo('-1');
   const navToFooterState = useNavigateTo(routeMap.get(footerActiveState));
 
-  const smartBack = searchPage
-    ? navToBack
-    : favorites
-      ? navToBack
-      : footerActiveState === 'my'
-        ? myPageBack
-        : navToFooterState;
+  const smartBack = () => {
+    if (searchPage || favorites) {
+      resetRegistInfo();
+      return navToBack();
+    }
+    if (footerActiveState === 'my') {
+      return myPageBack();
+    } else {
+      return navToFooterState();
+    }
+  };
 
   //close
-  const { pathname } = useLocation();
   const registerPage = pathname.startsWith('/post/register');
   const { isModal, setIsModal } = useVerifyModalCTA();
 
@@ -38,9 +43,9 @@ export const useSmartBack = () => {
   const { resetRegistInfo } = useResetRegistInfo();
 
   const updatePage = pathname.endsWith('/update');
-  const updateClose = useNavigateTo(
-    `${routeMap.get(footerActiveState)}${userId}`
-  );
+  // const updateClose = useNavigateTo(
+  //   `${routeMap.get(footerActiveState)}${userId}`
+  // );
 
   const smartClose = () => {
     if (registerPage) {
