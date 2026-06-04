@@ -6,7 +6,9 @@ import CoffeeOptionSelection from '@/components/common/coffeeSelection/CoffeeOpt
 import CaffeineInfo from '@/components/home/CaffeineInfo';
 import FavoriteMenuAddModal from '@/components/post/postRegister/FavoriteMenuAddModal';
 import ModalCTA from '@/components/common/ModalCTA';
+import ProductComparisons from '@/components/brand/ProductComparisons';
 
+import { useShowFooter } from '@/hooks/useShowFooter';
 import { useHandleHeaderBackGround } from '@/hooks/useHandleHeaderBackGround';
 import { useFavoriteMenu } from '@/hooks/post/useFavoriteMenu';
 import { useProductDetail } from '@/hooks/brand/useProductDetail';
@@ -20,13 +22,11 @@ import { POST_REGISTER_TEXTS } from '@/constants/texts';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { Align, Column, Flex, FlexCenter } from '@/styles/layout';
+import { Column, FlexCenter } from '@/styles/layout';
 import {
-  colorMidGrey,
   DefaultBtn,
   DisabledBtn,
   Gap24,
-  Gap6,
   MarginT24,
   Medium,
   ScrolledShadow,
@@ -36,6 +36,7 @@ import {
 
 const { addFavoriteMenu } = POST_REGISTER_TEXTS.success;
 const ProductDetail = () => {
+  useShowFooter(false);
   const {
     state,
     isModal,
@@ -43,7 +44,8 @@ const ProductDetail = () => {
     handleModal,
     handleFavBtn,
     handleRegisterBtn,
-    caffeineIntake
+    caffeineIntake,
+    comparisonData
   } = useProductDetail();
   const { isScrolled, scrollAnchor } = useHandleHeaderBackGround();
   const { handleOnClick, isfailed, moveFavoriteTab } = useFavoriteMenu();
@@ -88,28 +90,12 @@ const ProductDetail = () => {
           <CoffeeOptionSelection />
           <div className={cx(SectionDivier, MarginT24)} />
 
-          <SimilarItemList className={Column}>
-            <span
-              className={Semibold}
-              style={{ fontSize: 'var(--font-sizes-lg)' }}>
-              다른 브랜드의 '{state.menu || caffeineIntake.productName}'
-            </span>
-            <SimilarItem>
-              <TemporaryImg />
-              <Info className={cx(Column, Align)}>
-                <span className={colorMidGrey}>스타벅스</span>
-                <span
-                  className={Semibold}
-                  style={{ fontSize: 'var(--font-sizes-sm)' }}>
-                  250mg
-                </span>
-                <div className={cx(Medium, Flex, Align, Gap6)}>
-                  <Icon {...iconPropsGenerator('up', '7')} />
-                  <span style={{ color: 'var(--colors-delete-red)' }}>35</span>
-                </div>
-              </Info>
-            </SimilarItem>
-          </SimilarItemList>
+          {comparisonData && (
+            <ProductComparisons
+              productName={state.menu || caffeineIntake.productName}
+              comparisonData={comparisonData?.comparisons}
+            />
+          )}
           <div style={{ height: '102px' }} />
 
           <BrandFooter className={Column}>
@@ -123,7 +109,7 @@ const ProductDetail = () => {
                 />
               </button>
               <Button
-                text={'등록하기'}
+                text={BUTTON_TEXTS.register}
                 onClick={handleRegisterBtn}
                 className={userId ? DefaultBtn : DisabledBtn}
               />
@@ -155,19 +141,6 @@ const HeaderBackground = styled.div`
   z-index: 2;
 `;
 
-const SimilarItemList = styled.div`
-  padding: 24px 0;
-  gap: 20px;
-`;
-const SimilarItem = styled.div`
-  width: fit-content;
-  align-content: center;
-`;
-const Info = styled.div`
-  margin-top: 12px;
-  font-size: var(--font-sizes-xs);
-  gap: 4px;
-`;
 const ContentsBox = styled.div`
   height: auto;
   width: 100%;
@@ -200,13 +173,6 @@ const BrandFooter = styled.div`
 `;
 const ButtonContainer = styled.div`
   margin-top: -12px;
-`;
-
-const TemporaryImg = styled.div`
-  width: 72px;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background-color: #f1f1f1;
 `;
 
 const Img = styled.div`

@@ -4,6 +4,7 @@ import ProductRankingItem from '@/components/brand/ProductRankingItem';
 
 import { useBrandDetail } from '@/hooks/brand/useBrandDetail';
 import { useSearchInput } from '@/hooks/search/useSearchInput';
+import { useShowFooter } from '@/hooks/useShowFooter';
 
 import { BRAND_TEXTS } from '@/constants/texts';
 
@@ -17,7 +18,6 @@ import {
   SectionDivier,
   Semibold
 } from '@/styles/styles';
-import { useShowFooter } from '@/hooks/useShowFooter';
 
 const { brandDetail } = BRAND_TEXTS;
 const BrandDetail = () => {
@@ -81,15 +81,17 @@ const BrandDetail = () => {
 };
 
 const Container = styled.div`
-  margin-top: 20px;
+  margin: 20px 0 10px;
 `;
 
 const Label = styled.span`
   font-size: var(--font-sizes-lg);
 `;
+
 const Ranking = styled.div`
   margin: 20px 0;
 `;
+
 const Description = styled.span`
   margin: 60px 0;
 `;
