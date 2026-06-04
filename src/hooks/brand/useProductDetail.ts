@@ -33,8 +33,8 @@ export const useProductDetail = () => {
     setCaffeineIntake({
       ...caffeineIntake,
       caffeine: state.caffeine,
-      brand: state.brand,
-      productName: state.menu,
+      brand: state.brand || brandName,
+      productName: state.menu || productName,
       size: 'Tall',
       intensity: '기본',
       shot: 0
