@@ -3,7 +3,6 @@ import ProductItem from '@/components/brand/ProductItem';
 import ProductRankingItem from '@/components/brand/ProductRankingItem';
 
 import { useBrandDetail } from '@/hooks/brand/useBrandDetail';
-import { useSearchInput } from '@/hooks/search/useSearchInput';
 import { useShowFooter } from '@/hooks/useShowFooter';
 
 import { BRAND_TEXTS } from '@/constants/texts';
@@ -22,13 +21,21 @@ import {
 const { brandDetail } = BRAND_TEXTS;
 const BrandDetail = () => {
   useShowFooter(false);
-  const { brand, rankingData, menuList, navToDetail } = useBrandDetail();
-  const { search, handleChange } = useSearchInput();
+  const {
+    brand,
+    rankingData,
+    productData,
+    navToDetail,
+    search,
+    reset,
+    handleChange
+  } = useBrandDetail();
 
   return (
     <>
       <SearchBar
         search={search}
+        reset={reset}
         handleChange={handleChange}
         type={'brand'}
         placeholder={`${brand} ${brandDetail.search}`}
@@ -60,13 +67,13 @@ const BrandDetail = () => {
           <span>
             {brandDetail.list.pre}
             <span className={cx(Semibold, colorMainDark)}>
-              {menuList && menuList.length}
+              {productData && productData.length}
             </span>
             {brandDetail.list.suf}
           </span>
           <div className={cx(Column, Gap28)}>
-            {menuList &&
-              menuList.map(item => (
+            {productData &&
+              productData.map(item => (
                 <div
                   key={item.menu}
                   onClick={() => navToDetail(item)}>

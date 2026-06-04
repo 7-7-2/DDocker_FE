@@ -18,5 +18,6 @@ export const getProductComparison = async (
     .catch(e => {
       console.log(e);
     });
+
   return res && res.data.data;
 };

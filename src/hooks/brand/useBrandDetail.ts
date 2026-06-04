@@ -2,6 +2,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
 import useGetCoffeeList from '@/hooks/useGetCoffeeList';
+import { useSearchInput } from '@/hooks/search/useSearchInput';
 import { brandMapToKor } from '@/utils/convertBrandName';
 
 import { getPopularRanking } from '@/api/brand';
@@ -14,6 +15,7 @@ import {
 export const useBrandDetail = () => {
   const navigate = useNavigate();
   const { brandName } = useParams();
+  const { search, reset, handleChange } = useSearchInput();
 
   // 메뉴 리스트 조회
   const coffeeData = useGetCoffeeList() as CoffeeDataTypes;
@@ -25,6 +27,9 @@ export const useBrandDetail = () => {
 
   const brand = brandName && brandMapToKor(brandName);
   const menuList = coffeeData && getMenuList();
+  const searchMenuList =
+    menuList && menuList.filter(item => item.menu.includes(search));
+  const productData = searchMenuList ? searchMenuList : menuList;
 
   // 브랜드 인기 메뉴 조회
   const { refetch: getRanking, data: rankingData } = useQuery({
@@ -42,5 +47,13 @@ export const useBrandDetail = () => {
     });
   };
 
-  return { brand, rankingData, menuList, navToDetail };
+  return {
+    brand,
+    rankingData,
+    productData,
+    navToDetail,
+    search,
+    reset,
+    handleChange
+  };
 };
