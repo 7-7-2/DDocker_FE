@@ -90,5 +90,6 @@ export const BRAND_TEXTS = {
       description: '인기 메뉴 데이터가 부족해요'
     },
     list: { pre: '총 ', suf: '개' }
-  }
+  },
+  productDetial: '다른 브랜드의'
 };

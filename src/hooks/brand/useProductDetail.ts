@@ -1,13 +1,14 @@
 import { useEffect, useLayoutEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 import { useVerifyModalCTA } from '@/hooks/useVerifyModalCTA';
 import { useFavoriteMenu } from '@/hooks/post/useFavoriteMenu';
-import { usePostMutation } from '@/hooks/post/usePostMutation';
 import { useCoffeeSelection } from '@/hooks/useCoffeeSelection';
 import { caffeineFilterState, caffeineIntakeState } from '@/atoms/atoms';
+import { getProductComparison } from '@/api/brand';
+import { ProductComparisonTypes } from '@/types/types';
 
 export const useProductDetail = () => {
   const { state } = useLocation();
@@ -40,7 +41,7 @@ export const useProductDetail = () => {
     });
   }, []);
 
-  // register
+  // 카페인 등록하기
   const { mutate } = useMutation({
     mutationKey: ['postRegister', false, true]
   });
@@ -49,7 +50,7 @@ export const useProductDetail = () => {
     mutate();
   };
 
-  // favorieMenu
+  // 즐겨찾는 메뉴 등록
   const handleModal = () => {
     setIsFavMenu(!isFavMenu);
     setIsModal(!isModal);
@@ -92,6 +93,18 @@ export const useProductDetail = () => {
     });
   }, [caffeine, isModal]);
 
+  // 브랜드 인기 메뉴 조회
+  const { data: comparisonData } = useQuery({
+    queryKey: ['getProductComparison'],
+    queryFn: async () => {
+      const res =
+        brandName &&
+        productName &&
+        (await getProductComparison(brandName, productName));
+      return res ? (res as ProductComparisonTypes) : null;
+    }
+  });
+
   return {
     state,
     isModal,
@@ -99,6 +112,7 @@ export const useProductDetail = () => {
     handleModal,
     handleFavBtn,
     caffeineIntake,
-    handleRegisterBtn
+    handleRegisterBtn,
+    comparisonData
   };
 };

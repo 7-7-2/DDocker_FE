@@ -551,3 +551,16 @@ export interface productRankingItemTypes {
   productName: string;
   caffeine: number;
 }
+
+export interface ProductComparisonTypes {
+  baseCaffeine: number;
+  sourceType: string;
+  comparisons: comparisonItemsTypes[];
+}
+
+export interface comparisonItemsTypes {
+  brandName: string;
+  productName: string;
+  caffeine: number;
+  diff: number;
+}

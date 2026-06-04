@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import Icon from '@/components/common/Icon';
 import useGetCoffeeList from '@/hooks/useGetCoffeeList';
+import { useShowFooter } from '@/hooks/useShowFooter';
 import { brandMapToKor } from '@/utils/convertBrandName';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
@@ -11,11 +12,13 @@ import { Between, Center, Column, Flex } from '@/styles/layout';
 import { Gap16, Gap24, MarginB12, MarginT24, Medium } from '@/styles/styles';
 
 const BrandList = () => {
+  useShowFooter(false);
   const brandList = useGetCoffeeList('brand') as string[];
   const navigate = useNavigate();
   const handleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     navigate(`/brand/${e.currentTarget.value}`);
   };
+
   return (
     <div className={cx(MarginT24, MarginB12, Gap24, Column)}>
       {brandList.map(brand => (
