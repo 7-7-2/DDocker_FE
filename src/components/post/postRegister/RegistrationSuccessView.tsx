@@ -1,26 +1,17 @@
-import { useNavigate, useParams } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
-import { useRecoilValue } from 'recoil';
-import dayjs from 'dayjs';
 
 import Icon from '@/components/common/Icon';
 import Button from '@/components/common/Button';
 import ModalCTA from '@/components/common/ModalCTA';
 import FavoriteMenuAddModal from '@/components/post/postRegister/FavoriteMenuAddModal';
 
-import { useShowFooter } from '@/hooks/useShowFooter';
-import { useVerifyModalCTA } from '@/hooks/useVerifyModalCTA';
-import { useSmartBack } from '@/hooks/useSmartBack';
-import { useFavoriteMenu } from '@/hooks/post/useFavoriteMenu';
-import { useResetRegistInfo } from '@/hooks/post/useResetRegistInfo';
+import { useRagistrationSuccessView } from '@/hooks/post/useRagistrationSuccessView';
 
 import { brandMapToKor } from '@/utils/convertBrandName';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
-import { coffeeInfoFormatter } from '@/utils/coffeeInfoFormatter';
 
-import { caffeineIntakeState } from '@/atoms/atoms';
 import { POST_REGISTER_TEXTS } from '@/constants/texts';
-import { CAFFEINE_TEXTS, BUTTON_TEXTS } from '@/constants/common';
+import { BUTTON_TEXTS } from '@/constants/common';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
@@ -43,59 +34,21 @@ import {
   Semibold
 } from '@/styles/styles';
 
-const { recommendedCaffeine } = CAFFEINE_TEXTS;
-const { heroText, description, coffeeOptionText, addFavoriteMenu } =
-  POST_REGISTER_TEXTS.success;
-
+const { heroText, description, addFavoriteMenu } = POST_REGISTER_TEXTS.success;
 const RegistrationSuccessView = () => {
-  const caffeineIntake = useRecoilValue(caffeineIntakeState);
-  const { caffeine, coffeeInfo } = coffeeInfoFormatter(caffeineIntake);
-  const { isModal, setIsModal } = useVerifyModalCTA();
-
-  // post type check
-  const { postId } = useParams();
-  const caffeineIntakePost = postId === 'caffeineIntake';
-
-  // 확인 버튼
-  const navigate = useNavigate();
-  const { smartBack } = useSmartBack();
-  const { resetRegistInfo } = useResetRegistInfo();
-  const goToPost = () =>
-    navigate(`/post/${postId}`, {
-      state: { from: 'resgister' }
-    });
-  const navToWhere = () => {
-    resetRegistInfo();
-    !caffeineIntakePost ? goToPost() : smartBack();
-  };
-
-  // descriptionText 가공
-  const generateDescriptionText = () => {
-    if (caffeine <= recommendedCaffeine) {
-      const sum = recommendedCaffeine - caffeine;
-      const { prefix, suffix } = description.recommend;
-      return { sum, prefix, suffix };
-    }
-    const sum = caffeine - recommendedCaffeine;
-    const { prefix, suffix } = description.excessive;
-    return { sum, prefix, suffix };
-  };
-  const { sum, prefix, suffix } = generateDescriptionText();
-  const descriptionText = `${prefix} ${sum}${description.unit} ${suffix}`;
-
-  // coffeeInfo
-  const registeredDay = dayjs(new Date()).format('YYYY.MM.DD');
-  const coffeeintakeValues = [...coffeeInfo, registeredDay];
-  const coffeeIntakeEntries = coffeeOptionText.map((label, index) => ({
-    label: label,
-    value: coffeeintakeValues[index]
-  }));
-
-  // favorieMenu
-  const { handleOnClick, isfailed, moveFavoriteTab } = useFavoriteMenu();
-  const handleModal = () => {
-    setIsModal(!isModal);
-  };
+  const {
+    isModal,
+    handleModal,
+    isfailed,
+    moveFavoriteTab,
+    navToWhere,
+    handleOnClick,
+    caffeine,
+    descriptionText,
+    coffeeIntakeEntries,
+    caffeineIntakePost,
+    coffeeintakeValues
+  } = useRagistrationSuccessView();
 
   return (
     <>

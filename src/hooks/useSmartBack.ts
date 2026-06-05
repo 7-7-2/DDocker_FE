@@ -14,7 +14,9 @@ export const useSmartBack = () => {
   //back
   const { userId } = useCachedUserInfo();
   const footerActiveState = useRecoilValue(activeState);
-  const searchPage = useRecoilValue(backToSearchState);
+
+  const searchState = useRecoilValue(backToSearchState);
+  const brandPage = pathname.endsWith('/brand');
 
   const { state } = useLocation();
   const favorites = state === 'favoriteEdit';
@@ -24,8 +26,8 @@ export const useSmartBack = () => {
   const navToFooterState = useNavigateTo(routeMap.get(footerActiveState));
 
   const smartBack = () => {
-    if (searchPage || favorites) {
-      resetRegistInfo();
+    if (searchState || favorites || brandPage) {
+      brandPage && resetRegistInfo();
       return navToBack();
     }
     if (footerActiveState === 'my') {

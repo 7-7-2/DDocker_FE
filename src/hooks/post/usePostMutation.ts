@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 
 import { useGetTodayCoffeeData } from '@/hooks/home/useGetTodayCoffeeData';
 import { usePostDataFormatter } from '@/hooks/post/usePostDataFormatter';
@@ -25,7 +25,6 @@ export const usePostMutation = (
   update?: boolean,
   caffeineRegister?: boolean
 ) => {
-  const queryClient = useQueryClient();
   const registInfo = useRecoilValue(registPostState);
   const [postContents, setPostContents] = useRecoilState(postContentsState);
   const [caffeineIntake, setCaffeineIntake] =
@@ -131,7 +130,8 @@ export const usePostMutation = (
   };
 
   //mutate
-  queryClient.setMutationDefaults(['postRegister', update, caffeineRegister], {
+  const { mutate, isPending } = useMutation({
+    mutationKey: ['postRegister', update, caffeineRegister],
     mutationFn: async () => {
       if (update && !caffeineRegister) {
         const res = await handleUpdate();
@@ -158,10 +158,6 @@ export const usePostMutation = (
         : '/post/caffeineIntake/caffeine';
       navigate(navigateUrl);
     }
-  });
-
-  const { mutate, isPending } = useMutation({
-    mutationKey: ['postRegister', update, caffeineRegister]
   });
 
   return {
