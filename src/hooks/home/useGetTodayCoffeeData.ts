@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { TodayCoffeeInfoTypes } from '@/types/types';
-import { getTodayCoffeeInfo } from '@/api/post';
-import { useGetSignedIn } from '@/hooks/useGetSignedIn';
+
 import useGetCacheData from '@/hooks/useGetCacheData';
 import useSetCacheData from '@/hooks/useSetCacheData';
+import { useGetSignedIn } from '@/hooks/useGetSignedIn';
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 import { useDeleteCacheData } from '@/hooks/useDeleteCacheData';
+
+import { TodayCoffeeInfoTypes } from '@/types/types';
+import { getTodayCoffeeInfo } from '@/api/post';
 
 export const useGetTodayCoffeeData = () => {
   const [coffeeInfo, setCoffeeInfo] = useState<TodayCoffeeInfoTypes>();
@@ -52,5 +54,7 @@ export const useGetTodayCoffeeData = () => {
     todayCoffeeData && getDataList(todayCoffeeData);
   }, [todayCoffeeData]);
 
-  return { coffeeInfo, updateTodayCoffeeData };
+  const todayCaffeine = coffeeInfo?.todayCaffeine || 0;
+
+  return { coffeeInfo, todayCaffeine, updateTodayCoffeeData };
 };

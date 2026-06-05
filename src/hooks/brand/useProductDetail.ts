@@ -1,30 +1,34 @@
-import { useEffect, useLayoutEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
 import { useVerifyModalCTA } from '@/hooks/useVerifyModalCTA';
 import { useFavoriteMenu } from '@/hooks/post/useFavoriteMenu';
 import { useCoffeeSelection } from '@/hooks/useCoffeeSelection';
-import { caffeineFilterState, caffeineIntakeState } from '@/atoms/atoms';
+import { useGetTodayCoffeeData } from '@/hooks/home/useGetTodayCoffeeData';
+import { registerCaffeineIntake } from '@/api/post';
 import { getProductComparison } from '@/api/brand';
+import { caffeineFilterState, caffeineIntakeState } from '@/atoms/atoms';
 import { ProductComparisonTypes } from '@/types/types';
 
 export const useProductDetail = () => {
-  const { state } = useLocation();
   const { brandName, productName } = useParams();
+  const { state } = useLocation();
+  const navigate = useNavigate();
+
   const [isFavMenu, setIsFavMenu] = useState(false);
   const [isfavId, setIsFavId] = useState('');
+  const [caffeine, setCaffeine] = useRecoilState(caffeineFilterState);
   const [caffeineIntake, setCaffeineIntake] =
     useRecoilState(caffeineIntakeState);
-  const [caffeine, setCaffeine] = useRecoilState(caffeineFilterState);
 
   const { getMenuInfo } = useCoffeeSelection();
   const { isModal, setIsModal } = useVerifyModalCTA();
   const { res, deleteFavMenu } = useFavoriteMenu();
 
   // set caffeine info
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (state) {
       setCaffeine({ caffeine: state.caffeine, menuCaffeine: state.caffeine });
     } else if (!state && productName && brandName) {
@@ -42,8 +46,18 @@ export const useProductDetail = () => {
   }, []);
 
   // 카페인 등록하기
+  const { updateTodayCoffeeData: getTodayCoffeeData } = useGetTodayCoffeeData();
+
   const { mutate } = useMutation({
-    mutationKey: ['postRegister', false, true]
+    mutationKey: ['caffeineRegister'],
+    mutationFn: async () => {
+      const res = await registerCaffeineIntake(caffeineIntake);
+      return res;
+    },
+    onSuccess: () => {
+      getTodayCoffeeData();
+      navigate('/post/caffeineIntake/caffeine');
+    }
   });
 
   const handleRegisterBtn = () => {
@@ -98,9 +112,7 @@ export const useProductDetail = () => {
     queryKey: ['getProductComparison'],
     queryFn: async () => {
       const res =
-        brandName &&
-        productName &&
-        (await getProductComparison(brandName, productName));
+        state && (await getProductComparison(state.brand, state.menu));
       return res ? (res as ProductComparisonTypes) : null;
     }
   });
@@ -116,3 +128,6 @@ export const useProductDetail = () => {
     comparisonData
   };
 };
+function handleCaffeineRegister() {
+  throw new Error('Function not implemented.');
+}
