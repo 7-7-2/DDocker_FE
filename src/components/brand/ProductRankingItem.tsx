@@ -20,7 +20,7 @@ const ProductRankingItem = ({
   };
   const imgContainerStyle = () => {
     if (ranking === 1) return { width: '111px' };
-    else return { width: '90px' };
+    else return { width: '90px', marginTop: '12px' };
   };
 
   const rankingLabelStyle = () => {
@@ -35,9 +35,9 @@ const ProductRankingItem = ({
   };
 
   return (
-    <div
+    <Container
       style={{ ...itemOrder() }}
-      className={cx(Column, Center, Gap12)}>
+      className={cx(Column, Gap12)}>
       <ImgContainer
         className={FlexCenter}
         style={{ ...imgContainerStyle() }}>
@@ -48,7 +48,9 @@ const ProductRankingItem = ({
         </RakingLabel>
       </ImgContainer>
       <div className={cx(Column, Align)}>
-        <span className={Semibold}>{rankingData.productName}</span>
+        <ProductName className={Semibold}>
+          {rankingData.productName}
+        </ProductName>
         <Caffeine className={Center}>
           <span className={Bold}>
             {rankingData.caffeine}
@@ -56,9 +58,13 @@ const ProductRankingItem = ({
           </span>
         </Caffeine>
       </div>
-    </div>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  align-self: flex-start;
+`;
 
 const ImgContainer = styled.div`
   aspect-ratio: 1;
@@ -89,4 +95,8 @@ const Caffeine = styled.div`
   border-radius: 20px;
 `;
 
+const ProductName = styled.span`
+  text-align: center;
+  word-break: keep-all;
+`;
 export default ProductRankingItem;
