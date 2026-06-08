@@ -125,8 +125,13 @@ export const MarginB6 = css`
 export const MarginB8 = css`
   margin-bottom: 8px;
 `;
+
 export const MarginB12 = css`
   margin-bottom: 12px;
+`;
+
+export const MarginB72 = css`
+  margin-bottom: 72px;
 `;
 
 // gap
@@ -585,8 +590,8 @@ export const DefaultTab = cx(
     box-shadow: inset 0 -1px 0 0 var(--colors-border-grey);
   `
 );
-
-export const SelectedFillTab = cx(
+//PillTabs
+export const SelectedPillTab = cx(
   Medium,
   css`
     color: var(--colors-maindark);
@@ -595,11 +600,40 @@ export const SelectedFillTab = cx(
   `
 );
 
-export const DefaultFillTab = cx(
+export const DefaultPillTab = cx(
   Medium,
   css`
     color: var(--colors-subtext);
     background-color: var(--colors-tertiary);
+    font-size: var(--font-size-sm);
+  `
+);
+
+export const StatsPillTabs = css`
+  width: 174px;
+  height: 52px;
+  border-radius: 40px;
+  margin: 20px auto 0;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  font-size: var(--font-sizes-base);
+`;
+
+export const SelectedStatsPillTab = cx(
+  Medium,
+  css`
+    color: #fff;
+    background-color: var(--colors-main);
+    font-size: var(--font-size-sm);
+    height: 44px !important;
+  `
+);
+
+export const DefaultStatsPillTab = cx(
+  Medium,
+  css`
+    color: var(--colors-subtext);
+    background-color: #fff;
     font-size: var(--font-size-sm);
   `
 );

@@ -78,6 +78,7 @@ const Container = styled.div`
   padding: 16px 0;
   color: var(--colors-mid-grey);
   font-size: var(--font-sizes-base);
+  border-bottom: solid 1px var(--colors-border-grey);
 `;
 
 const Rank = styled.div`
