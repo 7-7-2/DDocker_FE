@@ -1,6 +1,14 @@
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { DefaultFillTab, SelectedFillTab } from '@/styles/styles';
+import {
+  DefaultPillTab,
+  DefaultStatsPillTab,
+  Divider,
+  SelectedPillTab,
+  SelectedStatsPillTab,
+  Semibold,
+  StatsPillTabs
+} from '@/styles/styles';
 import { Center, Flex } from '@/styles/layout';
 
 const PillTabs = ({
@@ -14,23 +22,50 @@ const PillTabs = ({
   handleButtonClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   type?: string;
 }) => {
+  const statsTabs = type === 'stats-period';
+
   return (
-    <Container className={cx(Flex, Center, type && SmTypeContainer)}>
-      {tabs.map(name => (
-        <TabItem
-          className={cx(
-            selectedTab === name ? SelectedFillTab : DefaultFillTab,
-            Flex,
-            Center,
-            type && SmTypeItem
-          )}
-          onClick={handleButtonClick}
-          value={name}
-          key={name}>
-          {name}
-        </TabItem>
-      ))}
-    </Container>
+    <>
+      {!statsTabs ? (
+        <Container className={cx(Flex, Center, type && SmTypeContainer)}>
+          {tabs.map(name => (
+            <TabItem
+              className={cx(
+                selectedTab === name
+                  ? cx(Semibold, SelectedPillTab)
+                  : DefaultPillTab,
+                Flex,
+                Center,
+                type && SmTypeItem
+              )}
+              onClick={handleButtonClick}
+              value={name}
+              key={name}>
+              {name}
+            </TabItem>
+          ))}
+        </Container>
+      ) : (
+        <div className={cx(Flex, Center, StatsPillTabs)}>
+          {tabs.map(name => (
+            <TabItem
+              className={cx(
+                selectedTab === name
+                  ? cx(Semibold, SelectedStatsPillTab)
+                  : DefaultStatsPillTab,
+                Flex,
+                Center,
+                type && SmTypeItem
+              )}
+              onClick={handleButtonClick}
+              value={name}
+              key={name}>
+              {name}
+            </TabItem>
+          ))}
+        </div>
+      )}
+    </>
   );
 };
 
@@ -53,4 +88,5 @@ const SmTypeContainer = css`
 const SmTypeItem = css`
   width: 83px;
 `;
+
 export default PillTabs;

@@ -3,18 +3,26 @@ import CircularChart from '@/components/coffee/CircularChart';
 import BrandRanking from '@/components/coffee/BrandRanking';
 import CircularChartSummary from '@/components/coffee/ CircularChartSummary';
 import MonthlyAnalysis from '@/components/coffee/MonthlyAnalysis';
+import PillTabs from '@/components/common/PillTabs';
 
 import { useGetCalendarData } from '@/hooks/coffee/useGetCalendarData';
 import { useAnalysisData } from '@/hooks/coffee/useAnalysisData';
+import { useSelectTab } from '@/hooks/useSelectTab';
 import { brandMapToKor } from '@/utils/convertBrandName';
 
 import { COFFEE_ANALYSIS_TEXTS } from '@/constants/coffee';
 
 import { styled } from 'styled-system/jsx';
 import { Flex } from '@/styles/layout';
-import { Bold, PointColor, SectionDivier, Summary } from '@/styles/styles';
+import {
+  Bold,
+  MarginB72,
+  PointColor,
+  SectionDivier,
+  Summary
+} from '@/styles/styles';
 
-const { brandRanking } = COFFEE_ANALYSIS_TEXTS;
+const { brandRanking, tabs } = COFFEE_ANALYSIS_TEXTS;
 const AnalysisTab = ({ signedIn }: { signedIn: string }) => {
   const { data: calendarData } = useGetCalendarData(signedIn);
   const {
@@ -23,7 +31,7 @@ const AnalysisTab = ({ signedIn }: { signedIn: string }) => {
     circularChartData,
     circularChartSummaryData
   } = useAnalysisData(calendarData, signedIn);
-
+  const { selectedTab, handleSelectTab } = useSelectTab(tabs[0]);
   const coffeeSumData = getCoffeeSumData();
   const brandRankingData = getbrandRankingData();
 
@@ -43,7 +51,7 @@ const AnalysisTab = ({ signedIn }: { signedIn: string }) => {
       </ContentsBox>
       <div className={SectionDivier} />
 
-      <ContentsBox>
+      <ContentsBox className={MarginB72}>
         <Summary className={Bold}>
           {brandRankingData[0][0] ? (
             <>
@@ -59,7 +67,6 @@ const AnalysisTab = ({ signedIn }: { signedIn: string }) => {
             <>{brandRanking.guestUser}</>
           )}
         </Summary>
-
         {brandRankingData.map((item, idx) => (
           <BrandRanking
             key={idx}
@@ -68,6 +75,15 @@ const AnalysisTab = ({ signedIn }: { signedIn: string }) => {
           />
         ))}
       </ContentsBox>
+
+      <PillTabsContainer>
+        <PillTabs
+          tabs={tabs}
+          selectedTab={selectedTab}
+          handleButtonClick={handleSelectTab}
+          type="stats-period"
+        />
+      </PillTabsContainer>
     </>
   );
 };
@@ -75,5 +91,9 @@ const AnalysisTab = ({ signedIn }: { signedIn: string }) => {
 const ContentsBox = styled.div`
   padding: 32px 0;
 `;
-
+const PillTabsContainer = styled.div`
+  position: fixed;
+  bottom: 80px;
+  width: calc(100% - 40px);
+`;
 export default AnalysisTab;

@@ -49,6 +49,7 @@ export const COFFEE_HISTORY_TEXTS = {
 
 export const COFFEE_ANALYSIS_TEXTS = {
   unit: { cup: '잔', day: '일', mg: 'mg' },
+  tabs: ['주간', '월간'],
   coffeeSum: {
     text: ['일 평균', '월간 누적', '연속 일수'],
     tab: ['카페인', '잔']
