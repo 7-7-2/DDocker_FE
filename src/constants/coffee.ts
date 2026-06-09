@@ -56,7 +56,7 @@ export const COFFEE_ANALYSIS_TEXTS = {
   },
   guestUser: `하루 이상 기록하고
 주차별 패턴을 확인해보세요`,
-  MonthlyChart: {
+  mainChart: {
     tabs: ['잔', '카페인'],
     unit: {
       week: '주',
@@ -64,16 +64,10 @@ export const COFFEE_ANALYSIS_TEXTS = {
       cup: '잔'
     },
     summary: {
-      week: '주차',
-      suf: '에',
-      cup: {
-        complete: '커피를 가장 많이 마셨어요',
-        incomplete: ['커피를', '마셨어요']
-      },
-      caffeine: {
-        complete: '카페인을 가장 많이 섭취했어요',
-        incomplete: ['카페인을', '섭취했어요']
-      }
+      weekly: '이번 주에',
+      monthly: '이번 달에',
+      cup: ['커피를', ' 마셨어요'],
+      caffeine: ['카페인을', ' 섭취했어요']
     }
   },
   circularChart: {
