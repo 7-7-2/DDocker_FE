@@ -1,13 +1,13 @@
-import { COFFEE_ANALYSIS_TEXTS } from '@/constants/coffee';
-import { Align, Column, Flex } from '@/styles/layout';
-import { Medium } from '@/styles/styles';
 import { MonthlyAnalysisWeeksDataType } from '@/types/types';
-import React from 'react';
+import { COFFEE_ANALYSIS_TEXTS } from '@/constants/coffee';
+
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
+import { Medium } from '@/styles/styles';
+import { Align, Column, Flex } from '@/styles/layout';
 
-const { unit, tabs } = COFFEE_ANALYSIS_TEXTS.MonthlyChart;
-const MontlyAnalysisChart = ({
+const { unit, tabs } = COFFEE_ANALYSIS_TEXTS.mainChart;
+const MainAnalysisChart = ({
   analysisData,
   selectedTab
 }: {
@@ -17,7 +17,7 @@ const MontlyAnalysisChart = ({
   return (
     <Container>
       <BarChart className={cx(Flex, Medium)}>
-        {analysisData?.map(data => (
+        {analysisData?.map((data, idx) => (
           <BarItem
             className={cx(Align, Column)}
             key={data.weekNum}>
@@ -26,6 +26,7 @@ const MontlyAnalysisChart = ({
               {selectedTab === tabs[0] ? unit.cup : unit.mg}
             </ChartValue>
             <Bar
+              className={cx(idx === analysisData.length - 1 && CurrentBar)}
               style={{
                 height: `${selectedTab === tabs[0] ? data.cups * 14 : data.caffeineMg / 10}px`
               }}
@@ -40,20 +41,22 @@ const MontlyAnalysisChart = ({
     </Container>
   );
 };
+
 const Container = styled.div`
   margin: 20px auto;
-  width: 315px;
   height: 200px;
 `;
-
 const BarChart = styled.div`
   font-size: var(--font-sizes-sm);
   color: var(--colors-mid-grey);
+  & > :last-child {
+    color: var(--colors-main);
+  }
 `;
 const BarItem = styled.div`
-  width: 63px;
+  width: 48px;
   height: 200px;
-  padding: 0 10.5px 10px;
+  padding: 0 5px 10px;
   position: relative;
   justify-content: flex-end;
 `;
@@ -71,4 +74,8 @@ const Bar = styled.div`
   margin-top: 6px;
   background-color: var(--colors-border-grey);
 `;
-export default MontlyAnalysisChart;
+const CurrentBar = css`
+  background-color: var(--colors-main);
+`;
+
+export default MainAnalysisChart;

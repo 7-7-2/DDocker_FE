@@ -114,6 +114,10 @@ export const MarginT24 = css`
   margin-top: 24px;
 `;
 
+export const MarginT22 = css`
+  margin-top: 22px;
+`;
+
 export const MarginT28 = css`
   margin-top: 28px;
 `;

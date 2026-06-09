@@ -2,7 +2,7 @@ import CoffeeSum from '@/components/coffee/CoffeeSum';
 import CircularChart from '@/components/coffee/CircularChart';
 import BrandRanking from '@/components/coffee/BrandRanking';
 import CircularChartSummary from '@/components/coffee/ CircularChartSummary';
-import MonthlyAnalysis from '@/components/coffee/MonthlyAnalysis';
+import MainAnalysis from '@/components/coffee/MainAnalysis';
 import PillTabs from '@/components/common/PillTabs';
 
 import { useGetCalendarData } from '@/hooks/coffee/useGetCalendarData';
@@ -31,7 +31,7 @@ const AnalysisTab = ({ signedIn }: { signedIn: string }) => {
     circularChartData,
     circularChartSummaryData
   } = useAnalysisData(calendarData, signedIn);
-  const { selectedTab, handleSelectTab } = useSelectTab(tabs[0]);
+  const { selectedTab, handleSelectTab } = useSelectTab(tabs[1]);
   const coffeeSumData = getCoffeeSumData();
   const brandRankingData = getbrandRankingData();
 
@@ -39,7 +39,10 @@ const AnalysisTab = ({ signedIn }: { signedIn: string }) => {
     <>
       <CoffeeSum data={coffeeSumData} />
       <ContentsBox>
-        <MonthlyAnalysis signedIn={signedIn} />
+        <MainAnalysis
+          signedIn={signedIn}
+          selectedTab={selectedTab}
+        />
       </ContentsBox>
       <div className={SectionDivier} />
 
