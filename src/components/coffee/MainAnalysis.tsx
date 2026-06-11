@@ -39,8 +39,14 @@ const MainAnalysis = ({
           {selectedTab === mainChart.tabs[0]
             ? mainChart.summary.cup[0]
             : mainChart.summary.caffeine[0]}
-          <span className={PointColor}>
-            {' '}
+          <span
+            className={
+              analysisData?.weeks[6].cups ||
+              (analysisData?.weeks[6].caffeineMg && PointColor)
+            }>
+            {period === tabs[0] && selectedTab === mainChart.tabs[0]
+              ? analysisData?.weeks[6].cups
+              : analysisData?.weeks[6].caffeineMg}
             {selectedTab === mainChart.tabs[0]
               ? mainChart.unit.cup
               : mainChart.unit.mg}
@@ -52,7 +58,10 @@ const MainAnalysis = ({
       </div>
 
       <MainAnalysisChart
-        analysisData={analysisData?.weeks}
+        period={period}
+        analysisData={
+          period === tabs[0] ? analysisData?.weeks : analysisData?.months
+        }
         selectedTab={selectedTab}
       />
     </>

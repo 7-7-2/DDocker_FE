@@ -31,7 +31,7 @@ const AnalysisTab = ({ signedIn }: { signedIn: string }) => {
     circularChartData,
     circularChartSummaryData
   } = useAnalysisData(calendarData, signedIn);
-  const { selectedTab, handleSelectTab } = useSelectTab(tabs[1]);
+  const { selectedTab, handleSelectTab } = useSelectTab(tabs[0]);
   const coffeeSumData = getCoffeeSumData();
   const brandRankingData = getbrandRankingData();
 

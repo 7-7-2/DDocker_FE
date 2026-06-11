@@ -58,6 +58,7 @@ export const COFFEE_ANALYSIS_TEXTS = {
 주차별 패턴을 확인해보세요`,
   mainChart: {
     tabs: ['잔', '카페인'],
+    currentKey: ['이번 주', '이번 달'],
     unit: {
       week: '주',
       mg: 'mg',
@@ -66,8 +67,8 @@ export const COFFEE_ANALYSIS_TEXTS = {
     summary: {
       weekly: '이번 주에',
       monthly: '이번 달에',
-      cup: ['커피를', ' 마셨어요'],
-      caffeine: ['카페인을', ' 섭취했어요']
+      cup: ['커피를 ', ' 마셨어요'],
+      caffeine: ['카페인을 ', ' 섭취했어요']
     }
   },
   circularChart: {

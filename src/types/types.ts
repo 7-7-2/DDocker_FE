@@ -514,26 +514,13 @@ export interface PostBodyProps
   onClick: () => void;
 }
 
-export interface MonthlyAnalysisDataTypes {
-  compraison: {
-    caffeine: {
-      currentMonth: number;
-      previousMonth: number;
-      diff: number;
-      trend: string;
-    };
-    cups: {
-      currentMonth: number;
-      previousMonth: number;
-      diff: number;
-      trend: string;
-    };
-  };
-  weeks: MonthlyAnalysisWeeksDataType[];
+export interface MainAnalysisDataTypes {
+  weeks: MainAnalysisChartDataType[];
+  months: MainAnalysisChartDataType[];
 }
 
-export interface MonthlyAnalysisWeeksDataType {
-  weekNum: number;
+export interface MainAnalysisChartDataType {
+  label: number;
   cups: number;
   caffeineMg: number;
 }

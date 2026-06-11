@@ -1,4 +1,5 @@
-import { MonthlyAnalysisWeeksDataType } from '@/types/types';
+import { useMainAnalysisChart } from '@/hooks/coffee/useMainAnalysisChart';
+import { MainAnalysisChartDataType } from '@/types/types';
 import { COFFEE_ANALYSIS_TEXTS } from '@/constants/coffee';
 
 import { css, cx } from 'styled-system/css';
@@ -6,35 +7,57 @@ import { styled } from 'styled-system/jsx';
 import { Medium } from '@/styles/styles';
 import { Align, Column, Flex } from '@/styles/layout';
 
-const { unit, tabs } = COFFEE_ANALYSIS_TEXTS.mainChart;
+const { unit, tabs, currentKey } = COFFEE_ANALYSIS_TEXTS.mainChart;
 const MainAnalysisChart = ({
+  period,
   analysisData,
   selectedTab
 }: {
-  analysisData: MonthlyAnalysisWeeksDataType[];
+  period: string;
+  analysisData: MainAnalysisChartDataType[];
   selectedTab: string;
 }) => {
+  const { newUser, labelFormatter, referenceUnit, caffeineReferenceUnit } =
+    useMainAnalysisChart(period, analysisData);
+
   return (
     <Container>
       <BarChart className={cx(Flex, Medium)}>
         {analysisData?.map((data, idx) => (
           <BarItem
             className={cx(Align, Column)}
-            key={data.weekNum}>
-            <ChartValue>
-              {selectedTab === tabs[0] ? data.cups : data.caffeineMg}
-              {selectedTab === tabs[0] ? unit.cup : unit.mg}
-            </ChartValue>
-            <Bar
-              className={cx(idx === analysisData.length - 1 && CurrentBar)}
-              style={{
-                height: `${selectedTab === tabs[0] ? data.cups * 14 : data.caffeineMg / 10}px`
-              }}
-            />
-            <ChartKey>
-              {data?.weekNum}
-              {unit.week}
-            </ChartKey>
+            key={data.label}>
+            {!newUser && data.cups !== 0 && (
+              <>
+                <ChartValue>
+                  {selectedTab === tabs[0]
+                    ? data.cups !== 0 && data.cups
+                    : data.caffeineMg !== 0 && data.caffeineMg}
+                  {selectedTab === tabs[0] && data.cups !== 0 && unit.cup}
+                </ChartValue>
+                <Bar
+                  className={cx(idx === analysisData.length - 1 && CurrentBar)}
+                  style={{
+                    height: `${selectedTab === tabs[0] ? data.cups * referenceUnit : data.caffeineMg * caffeineReferenceUnit}px`
+                  }}
+                />
+              </>
+            )}
+            {newUser && <span>-</span>}
+            {idx === analysisData.length - 1 ? (
+              <CurrentKey>
+                {period === COFFEE_ANALYSIS_TEXTS.tabs[0]
+                  ? currentKey[0]
+                  : currentKey[1]}
+              </CurrentKey>
+            ) : (
+              <ChartKey className={Medium}>
+                {period === COFFEE_ANALYSIS_TEXTS.tabs[0] && '~'}
+                <span style={{ letterSpacing: '-0.3px' }}>
+                  {labelFormatter(String(data.label))}
+                </span>
+              </ChartKey>
+            )}
           </BarItem>
         ))}
       </BarChart>
@@ -43,7 +66,7 @@ const MainAnalysisChart = ({
 };
 
 const Container = styled.div`
-  margin: 20px auto;
+  margin: 24px auto 0;
   height: 200px;
 `;
 const BarChart = styled.div`
@@ -51,6 +74,7 @@ const BarChart = styled.div`
   color: var(--colors-mid-grey);
   & > :last-child {
     color: var(--colors-main);
+    font-weight: 700;
   }
 `;
 const BarItem = styled.div`
@@ -62,12 +86,22 @@ const BarItem = styled.div`
 `;
 const ChartValue = styled.span`
   line-height: 22px;
+  letter-spacing: 0.5px;
 `;
-const ChartKey = styled.span`
-  line-height: 22px;
+const ChartKey = styled.div`
+  margin-top: 10px;
+  line-height: 20px;
+  letter-spacing: -2px;
+  font-size: 12px;
+  white-space: nowrap;
+`;
+const CurrentKey = styled.span`
+  font-size: 12px;
+  margin-top: 10px;
+  line-height: 20px;
 `;
 const Bar = styled.div`
-  width: 42px;
+  width: 38px;
   min-height: 10px;
   max-height: 140px;
   border-radius: 10px;
