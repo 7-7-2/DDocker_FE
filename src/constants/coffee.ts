@@ -51,7 +51,7 @@ export const COFFEE_ANALYSIS_TEXTS = {
   unit: { cup: '잔', day: '일', mg: 'mg' },
   tabs: ['주간', '월간'],
   coffeeSum: {
-    text: ['일 평균', '월간 누적', '연속 일수'],
+    text: ['일 평균', ['주간 누적', '월간 누적'], '섭취일'],
     tab: ['카페인', '잔']
   },
   guestUser: `하루 이상 기록하고

@@ -211,3 +211,8 @@ export const deleteReplyState = atom({
     replyId: 0
   }
 });
+
+export const statsNavigationState = atom({
+  key: 'statsNavigationState',
+  default: ''
+});

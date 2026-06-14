@@ -6,12 +6,18 @@ import { Center, Column, Grid } from '@/styles/layout';
 import { Bold, BorderRight } from '@/styles/styles';
 
 const { coffeeSum, unit } = COFFEE_ANALYSIS_TEXTS;
-const CoffeeSum = ({ data }: { data: number[] }) => {
+const CoffeeSum = ({
+  data,
+  selectedTab
+}: {
+  data: number[];
+  selectedTab: string;
+}) => {
   return (
     <Container className={Grid}>
       {coffeeSum.text.map((item, idx) => (
         <div
-          key={item}
+          key={idx}
           className={cx(
             Column,
             Center,
@@ -21,7 +27,13 @@ const CoffeeSum = ({ data }: { data: number[] }) => {
             {data[idx]}
             {coffeeSum.text.length - 1 !== idx ? unit.cup : unit.day}
           </span>
-          <Text>{item}</Text>
+          <Text>
+            {idx === 1
+              ? selectedTab === COFFEE_ANALYSIS_TEXTS.tabs[0]
+                ? item[0]
+                : item[1]
+              : item}
+          </Text>
         </div>
       ))}
     </Container>
