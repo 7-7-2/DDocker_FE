@@ -66,6 +66,7 @@ const Coffee = () => {
         handlePrevBtn={handlePrevBtn}
         isActionModal={isActionModal}
         handleActionModal={handleActionModal}
+        selectedTab={selectedTab}
       />
       {isActionModal && (
         <ActionModal handleActionModal={handleActionModal}>

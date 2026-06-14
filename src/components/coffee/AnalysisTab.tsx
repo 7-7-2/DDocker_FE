@@ -37,7 +37,10 @@ const AnalysisTab = ({ signedIn }: { signedIn: string }) => {
 
   return (
     <>
-      <CoffeeSum data={coffeeSumData} />
+      <CoffeeSum
+        data={coffeeSumData}
+        selectedTab={selectedTab}
+      />
       <ContentsBox>
         <MainAnalysis
           signedIn={signedIn}
