@@ -42,8 +42,9 @@ const Coffee = () => {
     handleNextBtn,
     handlePrevBtn,
     selectMonth,
-    activeMonth
-  } = useCalendarNav(isActionModal, handleActionModal);
+    activeMonth,
+    weeklyAnalysis
+  } = useCalendarNav(isActionModal, selectedTab, handleActionModal);
 
   const handleSelectTab = (e: React.MouseEvent<HTMLButtonElement>) => {
     setSelectedTab(e.currentTarget.value);
@@ -61,10 +62,10 @@ const Coffee = () => {
       </div>
       <Navigation
         activeStartDate={activeStartDate}
-        btnActiveState={nextBtnState}
         handleNextBtn={handleNextBtn}
         handlePrevBtn={handlePrevBtn}
-        isActionModal={isActionModal}
+        nextBtnState={nextBtnState}
+        prevBtnState={prevBtnState}
         handleActionModal={handleActionModal}
         selectedTab={selectedTab}
       />
@@ -76,9 +77,10 @@ const Coffee = () => {
             </div>
             <Navigation
               activeStartDate={activeStartDate}
-              btnActiveState={prevBtnState}
               handleNextBtn={handleNextBtn}
               handlePrevBtn={handlePrevBtn}
+              nextBtnState={nextBtnState}
+              prevBtnState={prevBtnState}
               isActionModal={isActionModal}
             />
             <MonthBtns className={cx(Grid, Medium)}>
@@ -87,11 +89,11 @@ const Coffee = () => {
                   key={item}
                   className={cx(
                     FlexCenter,
-                    !prevBtnState &&
-                      Number(value.split('-')[1]) < item &&
+                    prevBtnState &&
+                      item > Number(value.split('-')[1]) &&
                       Disabled
                   )}
-                  disabled={!prevBtnState && Number(value.split('-')[1]) < item}
+                  disabled={prevBtnState && item > Number(value.split('-')[1])}
                   onClick={selectMonth}
                   value={item}>
                   {item}

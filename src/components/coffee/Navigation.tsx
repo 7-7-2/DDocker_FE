@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import { useRecoilValue } from 'recoil';
 
 import Icon from '@/components/common/Icon';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
@@ -8,48 +9,62 @@ import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Between, FlexCenter, FlexGrow } from '@/styles/layout';
 import { Semibold } from '@/styles/styles';
+import { statsNavigationState } from '@/atoms/atoms';
 
 const Navigation = ({
   activeStartDate,
-  btnActiveState,
+  nextBtnState,
+  prevBtnState,
   handleNextBtn,
   handlePrevBtn,
   isActionModal,
-  handleActionModal
+  handleActionModal,
+  selectedTab
 }: {
   activeStartDate: Date;
-  btnActiveState: boolean;
+  nextBtnState: boolean;
+  prevBtnState: boolean;
   handleNextBtn: () => void;
   handlePrevBtn: () => void;
-  isActionModal: boolean | undefined;
+  isActionModal?: boolean | undefined;
   handleActionModal?: () => void;
+  selectedTab?: string;
 }) => {
+  const currentWeek = useRecoilValue(statsNavigationState);
+  const weeklyAnalysis = selectedTab === COFFEE_TEXTS.tabs[1] && !!currentWeek;
+
   return (
     <>
       <Container className={cx(FlexCenter, Between, Semibold)}>
         <button
           onClick={handlePrevBtn}
-          disabled={isActionModal && !btnActiveState && true}>
-          {isActionModal && !btnActiveState ? (
+          disabled={prevBtnState && true}>
+          {prevBtnState ? (
             <Icon {...iconPropsGenerator('calendar-prev', '18')} />
           ) : (
             <Icon {...iconPropsGenerator('calendar-active-prev', '18')} />
           )}
         </button>
-
-        <div
+        <button
           className={cx(FlexCenter, FlexGrow)}
-          onClick={handleActionModal}>
-          {isActionModal
-            ? dayjs(activeStartDate).format('YYYY')
-            : dayjs(activeStartDate).format('YYYY. MM')}
-          {isActionModal && <span>{COFFEE_TEXTS.year}</span>}
-        </div>
+          onClick={handleActionModal}
+          disabled={weeklyAnalysis}>
+          {selectedTab === COFFEE_TEXTS.tabs[1] && currentWeek ? (
+            <span>{currentWeek}</span>
+          ) : (
+            <span>
+              {isActionModal
+                ? dayjs(activeStartDate).format('YYYY')
+                : dayjs(activeStartDate).format('YYYY. MM')}
+              {isActionModal && <span>{COFFEE_TEXTS.year}</span>}
+            </span>
+          )}
+        </button>
 
         <button
           onClick={handleNextBtn}
-          disabled={btnActiveState ? false : true}>
-          {btnActiveState ? (
+          disabled={nextBtnState ? false : true}>
+          {nextBtnState ? (
             <Icon {...iconPropsGenerator('calendar-active-next', '18')} />
           ) : (
             <Icon {...iconPropsGenerator('calendar-next', '18')} />

@@ -1,16 +1,22 @@
 import dayjs from 'dayjs';
 import { useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { activeMonthState } from '@/atoms/atoms';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { activeMonthState, statsNavigationState } from '@/atoms/atoms';
+import { COFFEE_TEXTS } from '@/constants/coffee';
 
 export const useCalendarNav = (
   isActionModal: boolean | undefined,
+  selectedTab: string,
   handleActionModal: () => void
 ) => {
   const [value] = useState(dayjs(new Date()).format('YYYY-MM-DD'));
   const today = dayjs().toDate();
+
   const [activeStartDate, setActiveStartDate] = useState(today);
   const [activeMonth, setActiveMonth] = useRecoilState(activeMonthState);
+
+  const weeklyDate = useRecoilValue(statsNavigationState);
+  const weeklyAnalysis = selectedTab === COFFEE_TEXTS.tabs[1] && !!weeklyDate;
 
   const handleChange = (activeStartDate: Date | null) => {
     if (activeStartDate) {
@@ -23,23 +29,36 @@ export const useCalendarNav = (
 
   // 이후 버튼 클릭
   const handleNextBtn = () => {
-    const nextMonth = dayjs(activeStartDate).add(1, 'month').toDate();
-    const nextYear = dayjs(activeStartDate).add(1, 'year').toDate();
-    setActiveStartDate(isActionModal ? nextYear : nextMonth);
-    handleChange(isActionModal ? nextYear : nextMonth);
+    if (weeklyAnalysis && weeklyDate) {
+      const nextWeek = dayjs(activeStartDate).add(1, 'week').toDate();
+      setActiveStartDate(nextWeek);
+      handleChange(nextWeek);
+    } else {
+      const nextMonth = dayjs(activeStartDate).add(1, 'month').toDate();
+      const nextYear = dayjs(activeStartDate).add(1, 'year').toDate();
+      setActiveStartDate(isActionModal ? nextYear : nextMonth);
+      handleChange(isActionModal ? nextYear : nextMonth);
+    }
   };
-  const nextBtnState =
-    activeMonth.split('-')[0] <= value.split('-')[0] &&
-    activeMonth.split('-')[1] < value.split('-')[1];
-  const prevBtnState = activeMonth.split('-')[0] <= '2025';
+
+  const nextBtnState = activeMonth !== value;
 
   // 이전 버튼 클릭
   const handlePrevBtn = () => {
-    const prevMonth = dayjs(activeStartDate).subtract(1, 'month').toDate();
-    const prevYear = dayjs(activeStartDate).subtract(1, 'year').toDate();
-    setActiveStartDate(isActionModal ? prevYear : prevMonth);
-    handleChange(isActionModal ? prevYear : prevMonth);
+    if (weeklyAnalysis && weeklyDate) {
+      const prevWeek = dayjs(activeStartDate).subtract(1, 'week').toDate();
+      setActiveStartDate(prevWeek);
+      handleChange(prevWeek);
+    } else {
+      const prevMonth = dayjs(activeStartDate).subtract(1, 'month').toDate();
+      const prevYear = dayjs(activeStartDate).subtract(1, 'year').toDate();
+      setActiveStartDate(isActionModal ? prevYear : prevMonth);
+      handleChange(isActionModal ? prevYear : prevMonth);
+    }
   };
+
+  const prevBtnState =
+    Number(activeMonth.split('-')[0]) <= 2025 || (isActionModal ? true : false);
 
   const selectMonth = (e: React.MouseEvent<HTMLButtonElement>) => {
     const selected = Number(e.currentTarget?.value);
@@ -60,6 +79,7 @@ export const useCalendarNav = (
     prevBtnState,
     handleNextBtn,
     handlePrevBtn,
-    selectMonth
+    selectMonth,
+    weeklyAnalysis
   };
 };
