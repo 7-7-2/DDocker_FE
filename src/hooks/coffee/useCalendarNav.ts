@@ -41,7 +41,10 @@ export const useCalendarNav = (
     }
   };
 
-  const nextBtnState = activeMonth !== value;
+  const activeNextBtn =
+    (!isActionModal && activeMonth !== value) ||
+    (isActionModal && activeMonth.split('-')[0] !== value.split('-')[0]) ||
+    false;
 
   // 이전 버튼 클릭
   const handlePrevBtn = () => {
@@ -57,8 +60,14 @@ export const useCalendarNav = (
     }
   };
 
-  const prevBtnState =
-    Number(activeMonth.split('-')[0]) <= 2025 || (isActionModal ? true : false);
+  const activePrevBtn =
+    (!isActionModal &&
+      Number(activeMonth.split('-')[0]) > 2025 &&
+      (weeklyAnalysis
+        ? Number(activeMonth.split('-')[1]) >= 1
+        : Number(activeMonth.split('-')[1]) > 1)) ||
+    (isActionModal && Number(activeMonth.split('-')[0]) >= 2027) ||
+    false;
 
   const selectMonth = (e: React.MouseEvent<HTMLButtonElement>) => {
     const selected = Number(e.currentTarget?.value);
@@ -75,8 +84,8 @@ export const useCalendarNav = (
     setActiveStartDate,
     activeMonth,
     activeStartDate,
-    nextBtnState,
-    prevBtnState,
+    activeNextBtn,
+    activePrevBtn,
     handleNextBtn,
     handlePrevBtn,
     selectMonth,
