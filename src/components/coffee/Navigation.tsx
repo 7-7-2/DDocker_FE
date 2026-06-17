@@ -3,13 +3,13 @@ import { useRecoilValue } from 'recoil';
 
 import Icon from '@/components/common/Icon';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+import { statsNavigationState } from '@/atoms/atoms';
 import { COFFEE_TEXTS } from '@/constants/coffee';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Between, FlexCenter, FlexGrow } from '@/styles/layout';
 import { Semibold } from '@/styles/styles';
-import { statsNavigationState } from '@/atoms/atoms';
 
 const Navigation = ({
   activeStartDate,
@@ -38,13 +38,14 @@ const Navigation = ({
       <Container className={cx(FlexCenter, Between, Semibold)}>
         <button
           onClick={handlePrevBtn}
-          disabled={prevBtnState && true}>
+          disabled={!prevBtnState}>
           {prevBtnState ? (
-            <Icon {...iconPropsGenerator('calendar-prev', '18')} />
-          ) : (
             <Icon {...iconPropsGenerator('calendar-active-prev', '18')} />
+          ) : (
+            <Icon {...iconPropsGenerator('calendar-prev', '18')} />
           )}
         </button>
+
         <button
           className={cx(FlexCenter, FlexGrow)}
           onClick={handleActionModal}
@@ -63,7 +64,7 @@ const Navigation = ({
 
         <button
           onClick={handleNextBtn}
-          disabled={nextBtnState ? false : true}>
+          disabled={!nextBtnState}>
           {nextBtnState ? (
             <Icon {...iconPropsGenerator('calendar-active-next', '18')} />
           ) : (

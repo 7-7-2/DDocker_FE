@@ -37,13 +37,12 @@ const Coffee = () => {
   const {
     value,
     activeStartDate,
-    nextBtnState,
-    prevBtnState,
+    activeNextBtn,
+    activePrevBtn,
     handleNextBtn,
     handlePrevBtn,
     selectMonth,
-    activeMonth,
-    weeklyAnalysis
+    activeMonth
   } = useCalendarNav(isActionModal, selectedTab, handleActionModal);
 
   const handleSelectTab = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -64,11 +63,12 @@ const Coffee = () => {
         activeStartDate={activeStartDate}
         handleNextBtn={handleNextBtn}
         handlePrevBtn={handlePrevBtn}
-        nextBtnState={nextBtnState}
-        prevBtnState={prevBtnState}
+        nextBtnState={activeNextBtn}
+        prevBtnState={activePrevBtn}
         handleActionModal={handleActionModal}
         selectedTab={selectedTab}
       />
+
       {isActionModal && (
         <ActionModal handleActionModal={handleActionModal}>
           <PickMonthContainer>
@@ -79,8 +79,8 @@ const Coffee = () => {
               activeStartDate={activeStartDate}
               handleNextBtn={handleNextBtn}
               handlePrevBtn={handlePrevBtn}
-              nextBtnState={nextBtnState}
-              prevBtnState={prevBtnState}
+              nextBtnState={activeNextBtn}
+              prevBtnState={activePrevBtn}
               isActionModal={isActionModal}
             />
             <MonthBtns className={cx(Grid, Medium)}>
@@ -89,11 +89,13 @@ const Coffee = () => {
                   key={item}
                   className={cx(
                     FlexCenter,
-                    prevBtnState &&
+                    !activeNextBtn &&
                       item > Number(value.split('-')[1]) &&
                       Disabled
                   )}
-                  disabled={prevBtnState && item > Number(value.split('-')[1])}
+                  disabled={
+                    !activeNextBtn && item > Number(value.split('-')[1])
+                  }
                   onClick={selectMonth}
                   value={item}>
                   {item}
@@ -107,6 +109,7 @@ const Coffee = () => {
           </PickMonthContainer>
         </ActionModal>
       )}
+
       <ScrollContainer>
         {selectedTab === tabs[0] ? (
           <TabContainer>
