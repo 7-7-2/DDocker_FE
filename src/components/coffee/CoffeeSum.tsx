@@ -1,3 +1,4 @@
+import { AnalysisDataTypes } from '@/types/types';
 import { COFFEE_ANALYSIS_TEXTS } from '@/constants/coffee';
 
 import { cx } from 'styled-system/css';
@@ -10,9 +11,10 @@ const CoffeeSum = ({
   data,
   selectedTab
 }: {
-  data: number[];
+  data: AnalysisDataTypes['metrics'] | undefined;
   selectedTab: string;
 }) => {
+  const coffeeSumData = (data && Object.values(data)) || [0, 0, 0];
   return (
     <Container className={Grid}>
       {coffeeSum.text.map((item, idx) => (
@@ -24,7 +26,7 @@ const CoffeeSum = ({
             coffeeSum.text.length - 1 !== idx && BorderRight
           )}>
           <span className={Bold}>
-            {data[idx]}
+            {coffeeSumData[idx]}
             {coffeeSum.text.length - 1 !== idx ? unit.cup : unit.day}
           </span>
           <Text>
