@@ -1,9 +1,9 @@
 import MainAnalysisChart from '@/components/coffee/MainAnalysisChart';
 import PillTabs from '@/components/common/PillTabs';
 
-import { useGetAnalysisData } from '@/hooks/coffee/useGetAnalysisData';
 import { useSelectTab } from '@/hooks/useSelectTab';
 
+import { MainAnalysisChartDataType } from '@/types/types';
 import { COFFEE_ANALYSIS_TEXTS } from '@/constants/coffee';
 
 import { cx } from 'styled-system/css';
@@ -11,15 +11,18 @@ import { Bold, MarginT22, PointColor, Summary } from '@/styles/styles';
 
 const { mainChart, tabs } = COFFEE_ANALYSIS_TEXTS;
 const MainAnalysis = ({
-  signedIn,
+  analysisData,
   selectedTab: period
 }: {
-  signedIn: string;
+  analysisData: MainAnalysisChartDataType[];
   selectedTab: string;
 }) => {
-  const { data: analysisData } = useGetAnalysisData(signedIn);
   const { selectedTab, handleSelectTab } = useSelectTab(mainChart.tabs[0]);
-
+  const currentWeekData = analysisData && analysisData[analysisData.length - 1];
+  const summaryText =
+    selectedTab === mainChart.tabs[0]
+      ? currentWeekData?.cups
+      : currentWeekData?.caffeineMg;
   return (
     <>
       <PillTabs
@@ -39,14 +42,8 @@ const MainAnalysis = ({
           {selectedTab === mainChart.tabs[0]
             ? mainChart.summary.cup[0]
             : mainChart.summary.caffeine[0]}
-          <span
-            className={
-              analysisData?.weeks[6].cups ||
-              (analysisData?.weeks[6].caffeineMg && PointColor)
-            }>
-            {period === tabs[0] && selectedTab === mainChart.tabs[0]
-              ? analysisData?.weeks[6].cups
-              : analysisData?.weeks[6].caffeineMg}
+          <span className={currentWeekData?.cups ? PointColor : undefined}>
+            {summaryText}
             {selectedTab === mainChart.tabs[0]
               ? mainChart.unit.cup
               : mainChart.unit.mg}
@@ -59,9 +56,7 @@ const MainAnalysis = ({
 
       <MainAnalysisChart
         period={period}
-        analysisData={
-          period === tabs[0] ? analysisData?.weeks : analysisData?.months
-        }
+        analysisData={analysisData}
         selectedTab={selectedTab}
       />
     </>

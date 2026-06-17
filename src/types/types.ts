@@ -514,13 +514,23 @@ export interface PostBodyProps
   onClick: () => void;
 }
 
-export interface MainAnalysisDataTypes {
-  weeks: MainAnalysisChartDataType[];
-  months: MainAnalysisChartDataType[];
+// STATS-Page
+export interface AnalysisDataTypes {
+  metrics: {
+    dailyAverage: number;
+    sum: number;
+    totalDays: number;
+  };
+  chart: MainAnalysisChartDataType[];
+  threshold: {
+    excessiveCount: number;
+    moderateCount: number;
+  };
+  ranking: RankingDataType[];
 }
 
 export interface MainAnalysisChartDataType {
-  label: number;
+  label: string;
   cups: number;
   caffeineMg: number;
 }
@@ -531,7 +541,11 @@ export interface circularChartSummaryDataTypes {
   excessive: number;
 }
 
-export type RankingDataType = [string, number[]];
+export interface RankingDataType {
+  brand: string;
+  cups: number;
+  caffeine: number;
+}
 
 // brand-page
 export interface productRankingItemTypes {

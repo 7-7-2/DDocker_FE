@@ -1,55 +1,21 @@
-import { statsNavigationState } from '@/atoms/atoms';
-import {
-  RankingDataType,
-  CaffeineHistoryTypes,
-  CaffeineIntakeTypes,
-  CalendarData
-} from '@/types/types';
-import { useRecoilValue } from 'recoil';
+import { useGetAnalysisData } from '@/hooks/coffee/useGetAnalysisData';
+import { RankingDataType, AnalysisDataTypes } from '@/types/types';
 
-export const useAnalysisData = (
-  data: CaffeineHistoryTypes,
-  signedIn: string
-) => {
-  const currentWeek = useRecoilValue(statsNavigationState);
-  const details = data ? data.details : [];
-  const summary = data ? data.summary : [];
-
-  const flatDetailsData = Object.values(details)?.flat();
-  const intakeDates = Object.keys(details).length;
-  // const currentMonth =
-  //   dayjs().format('YYYY-MM') === dayjs(activeMonth).format('YYYY-MM');
+export const useAnalysisData = (signedIn: string, selectedTab: string) => {
+  const { data } = useGetAnalysisData(signedIn, selectedTab);
+  const analysisData = data as AnalysisDataTypes;
+  const intakeDates = analysisData?.metrics.totalDays || 0;
 
   // CoffeeSum.tsx
-  const getCoffeeSumData = () => {
-    const monthlyAcc = flatDetailsData.length;
-    const dailyAverage = Math.round(monthlyAcc / intakeDates) || 0;
-    const intakeDays = summary.length;
-    return [dailyAverage, monthlyAcc, intakeDays];
-  };
+  const coffeeSumData = analysisData?.metrics;
 
-  // const getWeekCoffeeSumData = () => {
-  //   const weekPeriod = currentWeek.slice(3, 8).split('-');
-  //   console.log('🚀 ~ getWeekCoffeeSumData ~ weekPeriod:', weekPeriod);
-
-  //   const weeklyAcc = flatDetailsData.filter(
-  //     item =>
-  //       item.key > Number(weekPeriod[0]) || item.key < Number(weekPeriod[1])
-  //   );
-  //   console.log('🚀 ~ getWeekCoffeeSumData ~ weeklyAcc:', weeklyAcc);
-
-  // };
-  // getWeekCoffeeSumData();
+  // MainAnalysis.tsx
+  const mainAnalysisChartData = analysisData?.chart;
 
   // CircularChart.tsx
-  const handleFilteringData = (coffeeData: CalendarData[]) => {
-    const recommended = coffeeData?.filter(
-      item => item && Number(item.caffeineSum) <= 400
-    ).length;
-
-    const excessive = coffeeData?.filter(
-      item => item && Number(item.caffeineSum) > 401
-    ).length;
+  const handleFilteringData = () => {
+    const recommended = analysisData?.threshold.moderateCount || 0;
+    const excessive = analysisData?.threshold.excessiveCount || 0;
 
     const chartData = [
       { key: 'recommended', value: (recommended / intakeDates) * 100 },
@@ -64,56 +30,41 @@ export const useAnalysisData = (
 
     return { summaryData, chartData };
   };
-
   const {
     summaryData: circularChartSummaryData,
     chartData: circularChartData
-  } = handleFilteringData(summary);
+  } = handleFilteringData();
 
   // BrandRanking.tsx
   const getbrandRankingData = () => {
-    const accData = Object.entries(
-      flatDetailsData.reduce<Record<string, number[]>>((acc, item) => {
-        const intakeItem = item as CaffeineIntakeTypes;
-        const key = intakeItem.brand;
-
-        if (!acc[key]) {
-          acc[key] = [];
-        }
-
-        acc[key].push(intakeItem.caffeine);
-        return acc;
-      }, {})
-    );
-    const sortedData = [...accData].sort((a, b) => b[1].length - a[1].length);
-    const rankingData =
-      sortedData.length > 4 ? sortedData.slice(0, 4) : sortedData;
-
-    const notEnoughData = 4 - rankingData.length;
+    const notEnoughData = analysisData?.ranking
+      ? 4 - analysisData?.ranking.length
+      : 4;
+    const emptyData = { brand: '', cups: 0, caffeine: 0 };
+    const rankingData = analysisData?.ranking;
     if (!signedIn) {
-      const emptyRows: RankingDataType[] = Array.from({ length: 4 }, () => [
-        '',
-        []
-      ]);
+      const emptyRows: RankingDataType[] = Array.from(
+        { length: 4 },
+        () => emptyData
+      );
       return emptyRows;
     }
     if (notEnoughData >= 1) {
-      rankingData.push(
-        ...(Array.from({ length: notEnoughData }, () => [
-          '',
-          []
-        ]) as RankingDataType[])
+      rankingData?.push(
+        ...Array.from({ length: notEnoughData }, () => emptyData)
       );
 
       return rankingData;
     }
     return rankingData;
   };
+  const brandRankingData = getbrandRankingData();
 
   return {
-    getCoffeeSumData,
-    getbrandRankingData,
+    coffeeSumData,
+    mainAnalysisChartData,
     circularChartData,
-    circularChartSummaryData
+    circularChartSummaryData,
+    brandRankingData
   };
 };

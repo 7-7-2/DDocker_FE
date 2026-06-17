@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useSetRecoilState } from 'recoil';
+
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
-import { MainAnalysisChartDataType } from '@/types/types';
 import { statsNavigationState } from '@/atoms/atoms';
+
+import { MainAnalysisChartDataType } from '@/types/types';
 import { COFFEE_ANALYSIS_TEXTS } from '@/constants/coffee';
 
 export const useMainAnalysisChart = (
@@ -35,7 +37,9 @@ export const useMainAnalysisChart = (
 
   const setNavValue = () => {
     if (period === COFFEE_ANALYSIS_TEXTS.tabs[0]) {
-      const weekNum = String(analysisData[6].label).split(' -');
+      const weekNum = String(
+        analysisData[analysisData?.length - 1].label
+      ).split(' -');
       const navValue = `${weekNum[0]}-${weekNum[1].split('.')[1]}`;
       return setCurrentWeek(navValue);
     } else return setCurrentWeek('');

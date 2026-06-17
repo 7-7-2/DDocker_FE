@@ -25,48 +25,42 @@ const BrandRanking = ({
   data: RankingDataType;
   idx: number;
 }) => {
-  const caffeineSum = data[1].length
-    ? data[1].reduce((acc, cur) => {
-        return acc + cur;
-      })
-    : 0;
-
   return (
     <Container className={cx(Flex, Align, idx === 0 && MarginT24)}>
       <Rank
         className={cx(
           FlexCenter,
           Bold,
-          data[0] && idx === 0 ? BtnColorMain : defaultColor
+          data.cups && idx === 0 ? BtnColorMain : defaultColor
         )}>
         {idx + 1}
       </Rank>
-      {data[0] ? (
+      {data.brand ? (
         <img
           className={Brand}
-          src={`/png/${data[0]}.png`}
-          alt={data[0]}
+          src={`/png/${data.brand}.png`}
+          alt={data.brand}
         />
       ) : (
         <div className={Brand} />
       )}
       <div className={cx(Column, FlexGrow)}>
         <span className={cx(Medium, colorMainDark)}>
-          {data[0] ? brandMapToKor(data[0]) : brandRanking.emptyData}
+          {data.brand ? brandMapToKor(data.brand) : brandRanking.emptyData}
         </span>
-        {caffeineSum !== 0 && (
+        {data.caffeine !== 0 && (
           <span className={fontSizeXs}>
-            {caffeineSum}
+            {data.caffeine}
             {unit.mg}
           </span>
         )}
       </div>
       <span
         className={cx(
-          data[1].length !== 0 && idx === 0 ? Bold : Medium,
-          data[1].length !== 0 && idx === 0 && PointColor
+          data.cups !== 0 && idx === 0 ? Bold : Medium,
+          data.cups !== 0 && idx === 0 && PointColor
         )}>
-        {data[1].length}
+        {data.cups}
         {unit.cup}
       </span>
     </Container>

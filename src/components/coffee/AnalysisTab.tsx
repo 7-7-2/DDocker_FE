@@ -5,7 +5,6 @@ import CircularChartSummary from '@/components/coffee/ CircularChartSummary';
 import MainAnalysis from '@/components/coffee/MainAnalysis';
 import PillTabs from '@/components/common/PillTabs';
 
-import { useGetCalendarData } from '@/hooks/coffee/useGetCalendarData';
 import { useAnalysisData } from '@/hooks/coffee/useAnalysisData';
 import { useSelectTab } from '@/hooks/useSelectTab';
 import { brandMapToKor } from '@/utils/convertBrandName';
@@ -24,16 +23,14 @@ import {
 
 const { brandRanking, tabs } = COFFEE_ANALYSIS_TEXTS;
 const AnalysisTab = ({ signedIn }: { signedIn: string }) => {
-  const { data: calendarData } = useGetCalendarData(signedIn);
+  const { selectedTab, handleSelectTab } = useSelectTab(tabs[0]);
   const {
-    getCoffeeSumData,
-    getbrandRankingData,
+    coffeeSumData,
+    mainAnalysisChartData,
+    brandRankingData,
     circularChartData,
     circularChartSummaryData
-  } = useAnalysisData(calendarData, signedIn);
-  const { selectedTab, handleSelectTab } = useSelectTab(tabs[0]);
-  const coffeeSumData = getCoffeeSumData();
-  const brandRankingData = getbrandRankingData();
+  } = useAnalysisData(signedIn, selectedTab);
 
   return (
     <>
@@ -43,7 +40,7 @@ const AnalysisTab = ({ signedIn }: { signedIn: string }) => {
       />
       <ContentsBox>
         <MainAnalysis
-          signedIn={signedIn}
+          analysisData={mainAnalysisChartData}
           selectedTab={selectedTab}
         />
       </ContentsBox>
@@ -59,11 +56,11 @@ const AnalysisTab = ({ signedIn }: { signedIn: string }) => {
 
       <ContentsBox className={MarginB72}>
         <Summary className={Bold}>
-          {brandRankingData[0][0] ? (
+          {brandRankingData && brandRankingData[0]['cups'] ? (
             <>
               <span className={Flex}>
                 <span className={PointColor}>
-                  {brandMapToKor(brandRankingData[0][0])}
+                  {brandMapToKor(brandRankingData[0]['brand'])}
                 </span>
                 {brandRanking.summary[0]}
               </span>
@@ -73,7 +70,7 @@ const AnalysisTab = ({ signedIn }: { signedIn: string }) => {
             <>{brandRanking.guestUser}</>
           )}
         </Summary>
-        {brandRankingData.map((item, idx) => (
+        {brandRankingData?.map((item, idx) => (
           <BrandRanking
             key={idx}
             data={item}
