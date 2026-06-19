@@ -6,7 +6,7 @@ import { getCoffeeCaledar } from '@/api/coffee';
 export const useGetCalendarData = (signedIn: string) => {
   const activeMonth = useRecoilValue(activeMonthState);
   const { data } = useQuery({
-    queryKey: ['coffeeCalendar', activeMonth],
+    queryKey: ['coffeeCalendar', activeMonth, signedIn],
     queryFn: async () => {
       const data = await getCoffeeCaledar(activeMonth);
       return data;
