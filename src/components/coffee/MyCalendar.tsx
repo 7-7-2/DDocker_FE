@@ -17,7 +17,6 @@ import { COFFEE_CALENDAR_TEXTS } from '@/constants/coffee';
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import {
-  Blur,
   InputByteCheck,
   Excessive,
   Healthy,
@@ -26,7 +25,6 @@ import {
 import { Align, Between, Flex, FlexCenter, Justify } from '@/styles/layout';
 
 const { legend, weekView } = COFFEE_CALENDAR_TEXTS;
-
 const MyCalendar = ({
   signedIn,
   activeStartDate,
@@ -37,7 +35,7 @@ const MyCalendar = ({
   data: CalendarData[];
 }) => {
   const [value] = useState(dayjs(new Date()).format('M'));
-  const [isClosed, setIsClosed] = useState(true);
+  const [isClosed, setIsClosed] = useState(signedIn ? true : false);
 
   // Data 조회
   const activeMonth = useRecoilValue(activeMonthState);
@@ -74,8 +72,7 @@ const MyCalendar = ({
           className={cx(
             MyCoffeeCalendar,
             isClosed && DrawerClose,
-            checkMonth === Number(value) ? ActiveTile : DefaulitActiveTile,
-            !signedIn ? Blur : undefined
+            checkMonth === Number(value) ? ActiveTile : DefaulitActiveTile
           )}
           activeStartDate={activeStartDate}
           value={activeStartDate}
@@ -114,8 +111,7 @@ const MyCalendar = ({
           }}
         />
         {!isClosed && (
-          <MarkerLegend
-            className={cx(InputByteCheck, Flex, !signedIn ? Blur : undefined)}>
+          <MarkerLegend className={cx(InputByteCheck, Flex)}>
             {legend.map(item => (
               <MarkerKey
                 className={Align}
@@ -180,16 +176,15 @@ const MyCoffeeCalendar = css`
 
 const Container = styled.div`
   position: relative;
-  margin-right: -20px;
-  margin-left: -20px;
+  margin: 0 -20px;
 `;
 
 const WeekViewText = styled.div`
+  position: relative;
+  color: #959595;
   height: 48px;
   padding: 0 20px;
   font-size: var(--font-sizes-base);
-  color: #959595;
-  position: relative;
   background-color: #fff;
   z-index: 3;
 `;

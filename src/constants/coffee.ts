@@ -30,6 +30,7 @@ export const COFFEE_CALENDAR_TEXTS = {
 export const COFFEE_HISTORY_TEXTS = {
   filter: ['전체', '준수', '초과'],
   count: ['총 ', '건'],
+  empty: '마신 커피가 없어요',
   pre: '+',
   suf: 'mg',
   deleteModal: {

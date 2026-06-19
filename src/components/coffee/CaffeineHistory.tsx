@@ -17,7 +17,7 @@ import { BUTTON_TEXTS } from '@/constants/common';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { Column, Flex } from '@/styles/layout';
+import { Column, Flex, FlexCenter } from '@/styles/layout';
 import {
   BtnColorBorder,
   BtnColorMain,
@@ -25,7 +25,7 @@ import {
   Semibold
 } from '@/styles/styles';
 
-const { filter, count, deleteModal } = COFFEE_HISTORY_TEXTS;
+const { filter, count, empty, deleteModal } = COFFEE_HISTORY_TEXTS;
 const CaffieneHistory = ({
   data,
   activeMonth
@@ -55,7 +55,7 @@ const CaffieneHistory = ({
 
   return (
     <>
-      <Container>
+      <Container className={Column}>
         <FilterContainer className={Flex}>
           {filter.map(item => (
             <FilterBtn
@@ -70,13 +70,17 @@ const CaffieneHistory = ({
             </FilterBtn>
           ))}
         </FilterContainer>
-        <HistoryList>
+
+        <HistoryList className={Column}>
           <Count className={Medium}>
             <span>{count[0]}</span>
-            <CountNum className={Semibold}>{data?.summary.length}</CountNum>
+            <CountNum className={Semibold}>
+              {data?.summary.length || 0}
+            </CountNum>
             <span>{count[1]}</span>
           </Count>
-          {data &&
+
+          {data ? (
             handleFilteringData(data?.summary).map(dailyRecord => (
               <React.Fragment key={dailyRecord.day}>
                 <CaffeineHistoryHeader dailyRecord={dailyRecord} />
@@ -85,7 +89,7 @@ const CaffieneHistory = ({
                     (recodes: CaffeineIntakeTypes) => (
                       <SwipeActionContainer
                         key={recodes.intakeId}
-                        itemId={recodes.intakeId}
+                        itemId={recodes.intakeId || 0}
                         handleOnSwipe={handleOnSwipe}
                         handleOnClick={handleDeleteModal}>
                         <DailyRecordsItem recodes={recodes} />
@@ -94,11 +98,14 @@ const CaffieneHistory = ({
                   )}
                 </DailyRecords>
               </React.Fragment>
-            ))}
+            ))
+          ) : (
+            <EmptyRecodes className={FlexCenter}>{empty}</EmptyRecodes>
+          )}
         </HistoryList>
         <Toaster />
       </Container>
-      {isModal && (
+      {data && isModal && (
         <ModalCTA
           buttonText={[BUTTON_TEXTS.cancel, BUTTON_TEXTS.delete]}
           title={isPost ? deleteModal.title.post : deleteModal.title.intake}
@@ -117,6 +124,7 @@ const CaffieneHistory = ({
 const Container = styled.div`
   margin-top: 32px;
   max-width: 500px;
+  height: 100%;
 `;
 const FilterContainer = styled.div`
   gap: 6px;
@@ -129,7 +137,8 @@ const FilterBtn = styled.button`
   font-size: var(--font-sizes-sm);
 `;
 const HistoryList = styled.div`
-  margin-top: 24px;
+  margin: 24px 0;
+  flex-grow: 1;
 `;
 const Count = styled.div`
   height: 33px;
@@ -141,10 +150,14 @@ const Count = styled.div`
 const CountNum = styled.span`
   color: var(--colors-main-dark);
 `;
-
 const DailyRecords = styled.div`
   margin: 18px 0 30px 0;
   gap: 12px;
+`;
+const EmptyRecodes = styled.div`
+  flex-grow: 1;
+  font-size: var(--font-sizes-sm);
+  color: var(--colors-mid-grey);
 `;
 
 export default CaffieneHistory;
