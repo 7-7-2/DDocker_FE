@@ -33,7 +33,7 @@ const AnalysisTab = ({ signedIn }: { signedIn: string }) => {
   } = useAnalysisData(signedIn, selectedTab);
 
   return (
-    <>
+    <Container>
       <CoffeeSum
         data={coffeeSumData}
         selectedTab={selectedTab}
@@ -78,7 +78,6 @@ const AnalysisTab = ({ signedIn }: { signedIn: string }) => {
           />
         ))}
       </ContentsBox>
-
       <PillTabsContainer>
         <PillTabs
           tabs={tabs}
@@ -87,10 +86,12 @@ const AnalysisTab = ({ signedIn }: { signedIn: string }) => {
           type="stats-period"
         />
       </PillTabsContainer>
-    </>
+    </Container>
   );
 };
-
+const Container = styled.div`
+  height: 100%;
+`;
 const ContentsBox = styled.div`
   padding: 32px 0;
 `;

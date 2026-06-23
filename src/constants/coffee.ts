@@ -95,6 +95,31 @@ export const COFFEE_ANALYSIS_TEXTS = {
     guestUser: `가장 많이 마신
 브랜드를 확인해보세요`,
     emptyData: '기록없음'
+  },
+  gusetViewData: {
+    metrics: {
+      dailyAverage: 2,
+      sum: 13,
+      totalDays: 6
+    },
+    chart: [
+      { label: '05.11 - 05.17', cups: 0, caffeineMg: 0 },
+      { label: '05.18 - 05.24', cups: 2, caffeineMg: 378 },
+      { label: '05.25 - 05.31', cups: 7, caffeineMg: 1964 },
+      { label: '06.01 - 06.07', cups: 9, caffeineMg: 1759 },
+      { label: '06.08 - 06.14', cups: 2, caffeineMg: 456 },
+      { label: '06.15 - 06.21', cups: 1, caffeineMg: 234 },
+      { label: '06.22 - 06.28', cups: 6, caffeineMg: 2092 }
+    ],
+    threshold: {
+      excessiveCount: 4,
+      moderateCount: 2
+    },
+    ranking: [
+      { brand: 'starbucks', cups: 3, caffeine: 1042 },
+      { brand: 'banapresso', cups: 2, caffeine: 850 },
+      { brand: 'ediya', cups: 1, caffeine: 200 }
+    ]
   }
 };
 

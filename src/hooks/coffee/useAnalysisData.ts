@@ -1,9 +1,11 @@
 import { useGetAnalysisData } from '@/hooks/coffee/useGetAnalysisData';
 import { RankingDataType, AnalysisDataTypes } from '@/types/types';
+import { COFFEE_ANALYSIS_TEXTS } from '@/constants/coffee';
 
+const { gusetViewData } = COFFEE_ANALYSIS_TEXTS;
 export const useAnalysisData = (signedIn: string, selectedTab: string) => {
   const { data } = useGetAnalysisData(signedIn, selectedTab);
-  const analysisData = data as AnalysisDataTypes;
+  const analysisData = signedIn ? (data as AnalysisDataTypes) : gusetViewData;
   const intakeDates = analysisData?.metrics.totalDays || 0;
 
   // CoffeeSum.tsx
@@ -42,13 +44,7 @@ export const useAnalysisData = (signedIn: string, selectedTab: string) => {
       : 4;
     const emptyData = { brand: '', cups: 0, caffeine: 0 };
     const rankingData = analysisData?.ranking;
-    if (!signedIn) {
-      const emptyRows: RankingDataType[] = Array.from(
-        { length: 4 },
-        () => emptyData
-      );
-      return emptyRows;
-    }
+
     if (notEnoughData >= 1) {
       rankingData?.push(
         ...Array.from({ length: notEnoughData }, () => emptyData)

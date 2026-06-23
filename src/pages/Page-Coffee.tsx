@@ -20,7 +20,7 @@ import { COFFEE_TEXTS, COFFEE_CALENDAR_TEXTS } from '@/constants/coffee';
 import { css, cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { MarginS20, Medium, PaddingB12 } from '@/styles/styles';
-import { FlexCenter, Grid } from '@/styles/layout';
+import { Column, FlexCenter, FlexGrow, Grid } from '@/styles/layout';
 
 const LogInCTA = lazy(() => import('../components/coffee/LogInCTA'));
 const ScrollInducer = lazy(() => import('../components/coffee/ScrollInducer'));
@@ -69,7 +69,7 @@ const Coffee = () => {
         selectedTab={selectedTab}
       />
 
-      {isActionModal && (
+      {signedIn && isActionModal && (
         <ActionModal handleActionModal={handleActionModal}>
           <PickMonthContainer>
             <div className={cx(Medium, MarginS20, PaddingB12)}>
@@ -110,9 +110,9 @@ const Coffee = () => {
         </ActionModal>
       )}
 
-      <ScrollContainer>
+      <TabContainer className={Column}>
         {selectedTab === tabs[0] ? (
-          <TabContainer>
+          <div className={FlexGrow}>
             <HistoryTab
               signedIn={signedIn}
               activeStartDate={activeStartDate}
@@ -128,13 +128,11 @@ const Coffee = () => {
                 <ScrollInducer targetRef={targetRef} />
               </Suspense>
             )} */}
-          </TabContainer>
+          </div>
         ) : (
-          <TabContainer>
-            <AnalysisTab signedIn={signedIn} />
-          </TabContainer>
+          <AnalysisTab signedIn={signedIn} />
         )}
-      </ScrollContainer>
+      </TabContainer>
     </Container>
   );
 };
@@ -142,9 +140,7 @@ const Coffee = () => {
 const Target = styled.div`
   padding: 1px;
 `;
-const TabContainer = styled.div`
-  margin: 0 20px;
-`;
+
 const Container = styled.div`
   height: calc(100dvh - 120px);
   margin: 0 -20px;
@@ -174,9 +170,11 @@ const selectedTile = css`
 const Disabled = css`
   color: var(--colors-subtext);
 `;
-const ScrollContainer = styled.div`
-  height: calc(100% - 88px);
-  overflow-y: scroll !important;
+
+const TabContainer = styled.div`
+  height: calc(100% - 100px);
+  overflow-y: auto !important;
+  margin: 0 20px;
 `;
 
 export default Coffee;

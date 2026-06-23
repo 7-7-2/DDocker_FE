@@ -14,7 +14,6 @@ import PostDetailImg from '@/components/post/PostDetailImg';
 import { useVerifyOwner } from '@/hooks/post/useVerifyOwner';
 import { usePostOptions } from '@/hooks/post/usePostOptions';
 import { useRefIntoView } from '@/hooks/post/useRefIntoView';
-import { useShowFooter } from '@/hooks/useShowFooter';
 
 import { getPostDetail, getSocialCounts } from '@/api/post';
 import { PostDetailTypes } from '@/types/types';
