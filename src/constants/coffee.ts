@@ -96,7 +96,7 @@ export const COFFEE_ANALYSIS_TEXTS = {
 브랜드를 확인해보세요`,
     emptyData: '기록없음'
   },
-  gusetViewData: {
+  guestViewData: {
     metrics: {
       dailyAverage: 2,
       sum: 13,
@@ -120,7 +120,9 @@ export const COFFEE_ANALYSIS_TEXTS = {
       { brand: 'banapresso', cups: 2, caffeine: 850 },
       { brand: 'ediya', cups: 1, caffeine: 200 }
     ]
-  }
+  },
+  guestViewText: `섭취 분석 예시입니다
+오늘 마신 커피를 기록해보세요`
 };
 
 export const ANONYMOUS_TEXTS = {

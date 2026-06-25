@@ -137,6 +137,9 @@ export const MarginB12 = css`
 export const MarginB72 = css`
   margin-bottom: 72px;
 `;
+export const MarginB100 = css`
+  margin-bottom: 100px;
+`;
 
 // gap
 export const Gap8 = css`
@@ -239,16 +242,6 @@ export const DubbleShortBtn = cx(
   `
 );
 
-export const NoneBtn = cx(
-  Btn,
-  css`
-    font-size: var(--font-sizes-sm);
-    color: var(--colors-mid-grey);
-    line-height: 18px;
-    margin-top: 13px;
-  `
-);
-
 export const ThinBtn = css`
   border-radius: 10px;
   font-size: var(--font-sizes-sm);
@@ -262,6 +255,16 @@ export const TertiaryBtn = css`
   font-size: var(--font-sizes-xs);
   border-bottom: 1px solid var(--colors-mid-grey);
 `;
+
+export const MediumBtn = cx(
+  Semibold,
+  css`
+    height: 48px;
+    width: 168px;
+    margin: 0 auto;
+    border-radius: 10px;
+  `
+);
 
 // Button Color type
 export const BtnColorMain = css`
@@ -291,6 +294,16 @@ export const BtnColorSub = css`
 `;
 
 // Button Style
+export const TextBtn = cx(
+  Btn,
+  css`
+    font-size: var(--font-sizes-sm);
+    color: var(--colors-mid-grey);
+    line-height: 18px;
+    margin-top: 13px;
+  `
+);
+
 export const StartBtn = cx(
   Btn,
   css`
