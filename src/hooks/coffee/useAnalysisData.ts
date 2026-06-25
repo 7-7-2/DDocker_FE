@@ -1,11 +1,11 @@
 import { useGetAnalysisData } from '@/hooks/coffee/useGetAnalysisData';
-import { RankingDataType, AnalysisDataTypes } from '@/types/types';
+import { AnalysisDataTypes } from '@/types/types';
 import { COFFEE_ANALYSIS_TEXTS } from '@/constants/coffee';
 
-const { gusetViewData } = COFFEE_ANALYSIS_TEXTS;
+const { guestViewData } = COFFEE_ANALYSIS_TEXTS;
 export const useAnalysisData = (signedIn: string, selectedTab: string) => {
   const { data } = useGetAnalysisData(signedIn, selectedTab);
-  const analysisData = signedIn ? (data as AnalysisDataTypes) : gusetViewData;
+  const analysisData = signedIn ? (data as AnalysisDataTypes) : guestViewData;
   const intakeDates = analysisData?.metrics.totalDays || 0;
 
   // CoffeeSum.tsx

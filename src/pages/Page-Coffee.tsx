@@ -67,6 +67,7 @@ const Coffee = () => {
         prevBtnState={activePrevBtn}
         handleActionModal={handleActionModal}
         selectedTab={selectedTab}
+        signedIn={signedIn}
       />
 
       {signedIn && isActionModal && (
@@ -118,16 +119,6 @@ const Coffee = () => {
               activeStartDate={activeStartDate}
             />
             <Target ref={targetRef} />
-            {/* {!signedIn && (
-              <Suspense>
-                <LogInCTA />
-              </Suspense>
-            )}
-            {!signedIn && (
-              <Suspense>
-                <ScrollInducer targetRef={targetRef} />
-              </Suspense>
-            )} */}
           </div>
         ) : (
           <AnalysisTab signedIn={signedIn} />

@@ -4,6 +4,7 @@ import BrandRanking from '@/components/coffee/BrandRanking';
 import CircularChartSummary from '@/components/coffee/ CircularChartSummary';
 import MainAnalysis from '@/components/coffee/MainAnalysis';
 import PillTabs from '@/components/common/PillTabs';
+import AnalysisLoginCTA from '@/components/coffee/AnalysisLoginCTA';
 
 import { useAnalysisData } from '@/hooks/coffee/useAnalysisData';
 import { useSelectTab } from '@/hooks/useSelectTab';
@@ -15,6 +16,7 @@ import { styled } from 'styled-system/jsx';
 import { Flex } from '@/styles/layout';
 import {
   Bold,
+  MarginB100,
   MarginB72,
   PointColor,
   SectionDivier,
@@ -32,8 +34,11 @@ const AnalysisTab = ({ signedIn }: { signedIn: string }) => {
     circularChartSummaryData
   } = useAnalysisData(signedIn, selectedTab);
 
+  const PillTabsPosition = signedIn ? 'fixed' : 'relative';
+
   return (
-    <Container>
+    <Container className={signedIn ? MarginB72 : MarginB100}>
+      <AnalysisLoginCTA />
       <CoffeeSum
         data={coffeeSumData}
         selectedTab={selectedTab}
@@ -45,7 +50,6 @@ const AnalysisTab = ({ signedIn }: { signedIn: string }) => {
         />
       </ContentsBox>
       <div className={SectionDivier} />
-
       <ContentsBox>
         <CircularChartSummary
           circularChartSummaryData={circularChartSummaryData}
@@ -53,7 +57,6 @@ const AnalysisTab = ({ signedIn }: { signedIn: string }) => {
         <CircularChart circularChartData={circularChartData} />
       </ContentsBox>
       <div className={SectionDivier} />
-
       <ContentsBox className={MarginB72}>
         <Summary className={Bold}>
           {brandRankingData && brandRankingData[0]['cups'] ? (
@@ -78,7 +81,7 @@ const AnalysisTab = ({ signedIn }: { signedIn: string }) => {
           />
         ))}
       </ContentsBox>
-      <PillTabsContainer>
+      <PillTabsContainer style={{ position: `${PillTabsPosition}` }}>
         <PillTabs
           tabs={tabs}
           selectedTab={selectedTab}
@@ -89,15 +92,16 @@ const AnalysisTab = ({ signedIn }: { signedIn: string }) => {
     </Container>
   );
 };
+
 const Container = styled.div`
   height: 100%;
+  overflow-x: hidden;
 `;
 const ContentsBox = styled.div`
   padding: 32px 0;
 `;
 const PillTabsContainer = styled.div`
-  position: fixed;
   bottom: 80px;
-  width: calc(100% - 40px);
 `;
+
 export default AnalysisTab;

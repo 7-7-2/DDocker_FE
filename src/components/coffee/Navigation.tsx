@@ -19,7 +19,8 @@ const Navigation = ({
   handlePrevBtn,
   isActionModal,
   handleActionModal,
-  selectedTab
+  selectedTab,
+  signedIn
 }: {
   activeStartDate: Date;
   nextBtnState: boolean;
@@ -29,6 +30,7 @@ const Navigation = ({
   isActionModal?: boolean | undefined;
   handleActionModal?: () => void;
   selectedTab?: string;
+  signedIn?: string;
 }) => {
   const currentWeek = useRecoilValue(statsNavigationState);
   const weeklyAnalysis = selectedTab === COFFEE_TEXTS.tabs[1] && !!currentWeek;
@@ -39,7 +41,7 @@ const Navigation = ({
         <button
           onClick={handlePrevBtn}
           disabled={!prevBtnState}>
-          {prevBtnState ? (
+          {signedIn && prevBtnState ? (
             <Icon {...iconPropsGenerator('calendar-active-prev', '18')} />
           ) : (
             <Icon {...iconPropsGenerator('calendar-prev', '18')} />
