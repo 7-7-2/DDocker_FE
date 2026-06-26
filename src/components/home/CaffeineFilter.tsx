@@ -10,7 +10,6 @@ import { useCoffeeSelection } from '@/hooks/useCoffeeSelection';
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { DisabledBtn, MainRegisterBtn } from '@/styles/styles';
-import { Flex } from '@/styles/layout';
 
 const CaffeineInfo = lazy(() => import('@/components/home/CaffeineInfo'));
 const CoffeeSelection = lazy(() => import('@/components/home/CoffeeSelection'));
@@ -29,15 +28,13 @@ const CaffeineFilter = () => {
       <Suspense>
         <CaffeineInfo />
       </Suspense>
-      {signedIn && (
-        <div className={Flex}>
-          <Button
-            text={BUTTON_TEXTS.mainRegister}
-            onClick={registPage}
-            className={caffeineValue ? MainRegisterBtn : DisabledRegisterBtn}
-          />
-        </div>
-      )}
+      <Button
+        text={BUTTON_TEXTS.mainRegister}
+        onClick={registPage}
+        className={
+          signedIn && caffeineValue ? MainRegisterBtn : DisabledRegisterBtn
+        }
+      />
     </Container>
   );
 };

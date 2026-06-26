@@ -14,7 +14,7 @@ import {
   Flex,
   MarginAuto
 } from '@/styles/layout';
-import { StartBtn, NoneBtn, SignInBtn } from '@/styles/styles';
+import { StartBtn, TextBtn, SignInBtn } from '@/styles/styles';
 import { useMutation } from '@tanstack/react-query';
 
 const { signInBtn, startText } = SIGININ_TEXTS;
@@ -70,7 +70,7 @@ const SignIn = () => {
           <div>{signInBtn.google}</div>
         </GoogleBtn>
         <button
-          className={NoneBtn}
+          className={TextBtn}
           onClick={useNavigateTo('/')}>
           {signInBtn.none}
         </button>
