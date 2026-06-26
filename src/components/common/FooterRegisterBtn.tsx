@@ -18,12 +18,14 @@ import {
   Medium
 } from '@/styles/styles';
 import { Center, Flex } from '@/styles/layout';
+import { useGetSignedIn } from '@/hooks/useGetSignedIn';
 
+const { coffeeRegister, postRegister } = BUTTON_TEXTS;
 const FooterRegisterBtn = ({ icon }: { icon: string }) => {
   const [activeRegisterBtn, setActiveRegisterBtn] = useRecoilState(
     registerBtnActiveState
   );
-  const { coffeeRegister, postRegister } = BUTTON_TEXTS;
+  const { signedIn } = useGetSignedIn();
   const handleRegister = () => {
     setActiveRegisterBtn(!activeRegisterBtn);
   };
@@ -31,6 +33,7 @@ const FooterRegisterBtn = ({ icon }: { icon: string }) => {
   const registerBtnColor = !activeRegisterBtn ? BtnColorMain : BtnColorWhite;
   const registerPost = useNavigateTo('/post/register');
   const registerCoffee = useNavigateTo('/post/register/caffeine');
+  const guestUser = useNavigateTo('/start/1');
 
   return (
     <>
@@ -39,13 +42,13 @@ const FooterRegisterBtn = ({ icon }: { icon: string }) => {
           <ModalContainer className={Center}>
             <Button
               text={coffeeRegister}
-              onClick={registerCoffee}
+              onClick={signedIn ? registerCoffee : guestUser}
               className={cx(RegisterModalBtnTop, Medium)}>
               <Icon {...iconPropsGenerator(`coffeeRegister`)} />
             </Button>
             <Button
               text={postRegister}
-              onClick={registerPost}
+              onClick={signedIn ? registerPost : guestUser}
               className={cx(RegisterModalBtnBottom, Medium)}>
               <Icon {...iconPropsGenerator(`postRegister`)} />
             </Button>
