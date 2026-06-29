@@ -1,15 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 
-import FloatingBtn from '@/components/posts/trend/FloatingBtn';
-import PostsBrandPopular from '@/components/posts/trend/PostsBrandPopular';
-import PostsDailyPopular from '@/components/posts/trend/PostsDailyPopular';
+import DailyTrendSlider from '@/components/posts/trend/DailyTrendSlider';
 import BrandCarousel from '@/components/posts/trend/carousel/BrandCarousel';
+import PostsBrandPopular from '@/components/posts/trend/PostsBrandPopular';
+import FloatingBtn from '@/components/posts/trend/FloatingBtn';
 
 import SEOMeta from '@/components/common/SEOMeta';
 import SEO_DATA from '@/constants/SEOData';
+import { TREND_TEXTS } from '@/constants/texts';
 
 import { cx } from 'styled-system/css';
-import { PaddingB20, PaddingT20, TrendDivider } from '@/styles/styles';
+import { MarginT24, SectionHeaderText, TrendDivider } from '@/styles/styles';
 
 const PostsTrend = () => {
   const [viewFloat, setViewFloat] = useState(false);
@@ -30,16 +31,19 @@ const PostsTrend = () => {
   return (
     <>
       <SEOMeta pageData={SEO_DATA.postsTrend} />
-      <div className={cx(PaddingT20, PaddingB20)}>
-        <PostsDailyPopular />
-        <div
-          className={TrendDivider}
-          ref={ref}
-        />
-        <BrandCarousel />
-        <PostsBrandPopular />
-        {viewFloat && <FloatingBtn targetRef={ref} />}
+      <div>
+        <h3 className={cx(SectionHeaderText, MarginT24)}>
+          {TREND_TEXTS.daily}
+        </h3>
+        <DailyTrendSlider />
       </div>
+      <div
+        className={TrendDivider}
+        ref={ref}
+      />
+      <BrandCarousel />
+      <PostsBrandPopular />
+      {viewFloat && <FloatingBtn targetRef={ref} />}
     </>
   );
 };
