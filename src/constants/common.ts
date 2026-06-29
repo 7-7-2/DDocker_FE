@@ -11,7 +11,8 @@ export const HEADER_TEXTS = {
   },
   profile: {
     MyProfile: 'MY PAGE'
-  }
+  },
+  posts: 'FEED'
 };
 
 export const INPUT_TEXTS = {

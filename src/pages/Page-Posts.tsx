@@ -1,7 +1,10 @@
 import { useState, lazy, Suspense } from 'react';
+
 import PostTabs from '@/components/posts/PostsTabs';
 import { useComposeHeader } from '@/hooks/useComposeHeader';
-import { TABS_TEXTS } from '@/constants/common';
+import { useShowFooter } from '@/hooks/useShowFooter';
+
+import { TABS_TEXTS, HEADER_TEXTS } from '@/constants/common';
 import { Divider } from '@/styles/styles';
 
 const PostsTrend = lazy(() => import('../components/posts/trend/PostsTrend'));
@@ -10,7 +13,8 @@ const PostsFollowing = lazy(
 );
 
 export const Posts = () => {
-  useComposeHeader('logo', '', 'icons');
+  useShowFooter(true);
+  useComposeHeader('', HEADER_TEXTS.posts, 'icons');
   const [postsTab, setPostsTab] = useState(TABS_TEXTS.trend[0]);
 
   return (
