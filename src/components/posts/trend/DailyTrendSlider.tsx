@@ -1,15 +1,16 @@
 import { useId } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
-import PostDiscoveryCTA from '@/components/posts/trend/PostDiscoveryCTA';
 import DailyPopularPage from '@/components/posts/trend/carousel/DailyPopularPage';
 import Bullets from '@/components/posts/trend/carousel/Bullets';
 import { useCarousel } from '@/hooks/post/useCarousel';
 
 import { getDailyPopular } from '@/api/trend';
+import { TREND_TEXTS } from '@/constants/texts';
 
 import { styled } from 'styled-system/jsx';
-import { Column, Flex } from '@/styles/layout';
+import { Center, Column, Flex } from '@/styles/layout';
+import { cx } from 'styled-system/css';
 
 const DailyTrendSlider = () => {
   const { curPage, setCurPage, handleScroll, containerRef } = useCarousel();
@@ -41,14 +42,16 @@ const DailyTrendSlider = () => {
           setCurPage={setCurPage}
         />
       </Container>
-      {dailyPopular && dailyPopular.length === 0 && <PostDiscoveryCTA />}
+      {dailyPopular?.length === 0 && (
+        <EmptyContainer>
+          <span className={cx(Center, Flex)}>{TREND_TEXTS.emptyMessage}</span>
+        </EmptyContainer>
+      )}
     </>
   );
 };
 
 const Container = styled.div`
-  margin: 16px -20px 0;
-  padding: 0 20px;
   gap: 16px;
 `;
 const PostsContiner = styled.section`
@@ -56,6 +59,10 @@ const PostsContiner = styled.section`
   gap: 20px;
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
+`;
+const EmptyContainer = styled.div`
+  padding: 44px 0 28px;
+  color: var(--colors-mid-grey);
 `;
 
 export default DailyTrendSlider;

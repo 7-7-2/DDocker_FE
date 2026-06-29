@@ -23,8 +23,12 @@ export const COMMENT_TEXTS = {
 export const TREND_TEXTS = {
   daily: '오늘의 인기 게시글',
   weekly: ['이번 주 ', ' 게시물'],
-  WeeklyPopular: '이번 주 인기 메뉴는 ',
-  is: '입니다!'
+  weeklyPopular: {
+    pre: '이번 주 인기 메뉴는 ',
+    suf: '입니다!',
+    empty: '게시물을 등록하고 인기메뉴를 확인해보세요!'
+  },
+  emptyMessage: '게시물이 없어요'
 };
 
 export const CTA_TEXTS = {

@@ -4,6 +4,7 @@ import PostCard from '@/components/posts/following/PostCard';
 import SortBtn from '@/components/common/SortBtn';
 import AlertBubble from '@/components/common/AlertBubble';
 import TrendBubbleText from '@/components/posts/trend/TrendBubbleText';
+import PostDiscoveryCTA from '@/components/posts/trend/PostDiscoveryCTA';
 
 import { usePostBrandPopular } from '@/hooks/posts/usePostBrandPopular';
 import { generatePostCardProps } from '@/utils/manageProps';
@@ -13,8 +14,8 @@ import { TREND_TEXTS } from '@/constants/texts';
 
 import { styled } from 'styled-system/jsx';
 import { css, cx } from 'styled-system/css';
-import { SectionHeaderText } from '@/styles/styles';
-import { Align, Between, Flex } from '@/styles/layout';
+import { MarginT28, SectionHeaderText } from '@/styles/styles';
+import { Align, Between, Column, Flex } from '@/styles/layout';
 
 const PostsBrandPopular = () => {
   const {
@@ -30,7 +31,7 @@ const PostsBrandPopular = () => {
   const id = useId();
 
   return (
-    <div className={Container}>
+    <div className={cx(MarginT28, Column)}>
       <AlertBubble
         type="trends"
         location={location}
@@ -64,16 +65,13 @@ const PostsBrandPopular = () => {
               {...generatePostCardProps(post, id, idx, selectedBrand)}
             />
           ))}
+      {brandPopularPosts?.length === 0 && <PostDiscoveryCTA />}
     </div>
   );
 };
 
 const Selected = css`
   color: var(--colors-main);
-`;
-
-const Container = css`
-  margin-top: 28px;
 `;
 
 const SectionHeader = styled.div`

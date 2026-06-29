@@ -4,9 +4,15 @@ import { Semibold } from '@/styles/styles';
 const TrendBubbleText = ({ productName }: { productName: string }) => {
   return (
     <div>
-      {TREND_TEXTS.WeeklyPopular}
-      <span className={Semibold}>{productName}</span>
-      {TREND_TEXTS.is}
+      {productName ? (
+        <>
+          {TREND_TEXTS.weeklyPopular.pre}
+          <span className={Semibold}>{productName}</span>
+          {TREND_TEXTS.weeklyPopular.suf}
+        </>
+      ) : (
+        <span> {TREND_TEXTS.weeklyPopular.empty}</span>
+      )}
     </div>
   );
 };
