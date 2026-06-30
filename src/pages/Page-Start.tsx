@@ -1,10 +1,12 @@
 import { useEffect, lazy, Suspense } from 'react';
 import { useParams } from 'react-router-dom';
+
+import SEOMeta from '@/components/common/SEOMeta';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { useShowFooter } from '@/hooks/useShowFooter';
 import { useVerifyMembership } from '@/hooks/start/useVerifyMembership';
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
-import SEOMeta from '@/components/common/SEOMeta';
+
 import SEO_DATA from '@/constants/SEOData';
 
 const SignIn = lazy(() => import('../components/start/SignIn'));
@@ -23,8 +25,10 @@ const Start = () => {
   const goToStartPage = useNavigateTo('/start/1');
 
   useEffect(() => {
-    const hasTypeParam = new URLSearchParams(window.location.search).has('type');
-    if(hasTypeParam) return;
+    const hasTypeParam = new URLSearchParams(window.location.search).has(
+      'type'
+    );
+    if (hasTypeParam) return;
 
     notAllowedPages && goToStartPage();
     notSignUp ? goToStartPage() : goToHomePage();

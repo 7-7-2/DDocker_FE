@@ -1,16 +1,18 @@
 import { useRecoilValue } from 'recoil';
 import { useLocation } from 'react-router-dom';
 
-import { activeState, backToSearchState } from '@/atoms/atoms';
-import { routeMap } from '@/utils/getRoute';
 import { useNavigateTo } from '@/hooks/useNavigateTo';
 import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 import { useVerifyModalCTA } from '@/hooks/useVerifyModalCTA';
 import { useResetRegistInfo } from '@/hooks/post/useResetRegistInfo';
 
+import { routeMap } from '@/utils/getRoute';
+import { activeState, backToSearchState } from '@/atoms/atoms';
+import { useGetSignedIn } from '@/hooks/useGetSignedIn';
+
 export const useSmartBack = () => {
   const { pathname } = useLocation();
-
+  const { signedIn } = useGetSignedIn();
   //back
   const { userId } = useCachedUserInfo();
   const footerActiveState = useRecoilValue(activeState);
@@ -23,6 +25,7 @@ export const useSmartBack = () => {
 
   const myPageBack = useNavigateTo(`/profile/${userId}`);
   const navToBack = useNavigateTo('-1');
+  const navToHome = useNavigateTo(`/`);
   const navToFooterState = useNavigateTo(routeMap.get(footerActiveState));
 
   const smartBack = () => {
@@ -31,7 +34,7 @@ export const useSmartBack = () => {
       return navToBack();
     }
     if (footerActiveState === 'my') {
-      return myPageBack();
+      return signedIn ? myPageBack() : navToHome();
     } else {
       return navToFooterState();
     }
@@ -45,9 +48,6 @@ export const useSmartBack = () => {
   const { resetRegistInfo } = useResetRegistInfo();
 
   const updatePage = pathname.endsWith('/update');
-  // const updateClose = useNavigateTo(
-  //   `${routeMap.get(footerActiveState)}${userId}`
-  // );
 
   const smartClose = () => {
     if (registerPage) {

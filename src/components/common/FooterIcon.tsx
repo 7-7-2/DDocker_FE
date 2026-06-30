@@ -12,13 +12,13 @@ import { useCachedUserInfo } from '@/hooks/useCachedUserInfo';
 import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 import { pathMap, routeMap } from '@/utils/getRoute';
 
-import { Column, Center } from '@/styles/layout';
 import { cx } from 'styled-system/css';
+import { Column, Center } from '@/styles/layout';
 import { FooterTextMedium, FooterTextSelected } from '@/styles/styles';
 
 const FooterIcon = ({ icon }: { icon: string }) => {
-  const { userId: myId } = useCachedUserInfo();
   const { pathname } = useLocation();
+  const { userId: myId } = useCachedUserInfo();
   const path = pathname.split('/')[1];
   const [userId, setUserId] = useState('');
   const [active, setActive] = useRecoilState(activeState);
@@ -30,6 +30,8 @@ const FooterIcon = ({ icon }: { icon: string }) => {
   const isMyPage = pathname.split('/')[2] === myId;
   const register = icon === 'register';
 
+  const navigateTo = useNavigateTo(routeMap.get(icon));
+
   const getUserId = async () => {
     const data = await useGetCacheData('user', '/userInfo');
     data ? setUserId(data.cacheData.data.userId) : setUserId('nonMember');
@@ -40,12 +42,11 @@ const FooterIcon = ({ icon }: { icon: string }) => {
   }, []);
 
   useEffect(() => {
-    if (isProfile && !isMyPage) return setActive('feed');
+    if (myId && isProfile && !isMyPage) return setActive('feed');
     pathMap.get(path) && setActive(pathMap.get(path));
   }, [path]);
-  routeMap.set('my', `/profile/${userId}`);
 
-  const navigateTo = useNavigateTo(routeMap.get(icon));
+  routeMap.set('my', `/profile/${userId}`);
 
   const handleTouch = () => {
     setActive(icon);

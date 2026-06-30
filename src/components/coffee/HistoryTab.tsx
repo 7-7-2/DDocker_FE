@@ -28,7 +28,9 @@ const HistoryTab = ({
     </Container>
   );
 };
+
 const Container = styled.div`
   height: 100%;
 `;
+
 export default HistoryTab;
