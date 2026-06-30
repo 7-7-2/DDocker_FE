@@ -16,10 +16,12 @@ import {
 } from '@/styles/layout';
 import { StartBtn, TextBtn, SignInBtn } from '@/styles/styles';
 import { useMutation } from '@tanstack/react-query';
+import { useSmartBack } from '@/hooks/useSmartBack';
 
 const { signInBtn, startText } = SIGININ_TEXTS;
 
 const SignIn = () => {
+  const { smartBack } = useSmartBack();
   const { mutateAsync, isPending } = useMutation({
     mutationFn: async (social: string) => {
       await getSocialAuth(social);
@@ -71,7 +73,7 @@ const SignIn = () => {
         </GoogleBtn>
         <button
           className={TextBtn}
-          onClick={useNavigateTo('/')}>
+          onClick={() => smartBack()}>
           {signInBtn.none}
         </button>
       </SignInBtnContainer>

@@ -165,7 +165,7 @@ const Disabled = css`
 const TabContainer = styled.div`
   height: calc(100% - 100px);
   overflow-y: auto !important;
-  margin: 0 20px;
+  padding: 0 20px;
 `;
 
 export default Coffee;

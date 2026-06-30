@@ -7,8 +7,10 @@ import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Column } from '@/styles/layout';
 import { MediumBtn, BtnColorMain, Medium } from '@/styles/styles';
+import { useNavigateTo } from '@/hooks/useNavigateTo';
 
 const AnalysisLoginCTA = () => {
+  const toSignIn = useNavigateTo('/start/1');
   return (
     <BlurOverlay>
       <LoginCTASection className={Column}>
@@ -18,7 +20,7 @@ const AnalysisLoginCTA = () => {
         <Button
           className={cx(MediumBtn, BtnColorMain)}
           text={BUTTON_TEXTS.signIn2}
-          onClick={() => {}}
+          onClick={() => toSignIn()}
         />
       </LoginCTASection>
     </BlurOverlay>
@@ -46,6 +48,7 @@ const LoginCTASection = styled.div`
   justify-content: end;
   align-items: center;
   z-index: var(--z-index-action-btn);
+  pointer-events: visible;
   background: linear-gradient(
     to bottom,
     rgba(255, 255, 255, 0) 0%,
