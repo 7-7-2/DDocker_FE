@@ -9,14 +9,17 @@ import { BRAND_TEXTS } from '@/constants/texts';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
-import { Align, Column, Flex, FlexCenter } from '@/styles/layout';
+import { Align, Between, Column, Flex, FlexCenter } from '@/styles/layout';
 import {
   Gap22,
   Gap28,
   colorMainDark,
   SectionDivier,
-  Semibold
+  Semibold,
+  Medium
 } from '@/styles/styles';
+import Icon from '@/components/common/Icon';
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
 const { brandDetail } = BRAND_TEXTS;
 const BrandDetail = () => {
@@ -64,13 +67,19 @@ const BrandDetail = () => {
         <div className={SectionDivier} />
 
         <ProductList>
-          <span>
-            {brandDetail.list.pre}
-            <span className={cx(Semibold, colorMainDark)}>
-              {productData && productData.length}
+          <div className={cx(Flex, Between)}>
+            <span>
+              {brandDetail.list.pre}
+              <span className={cx(Semibold, colorMainDark)}>
+                {productData && productData.length}
+              </span>
+              {brandDetail.list.suf}
             </span>
-            {brandDetail.list.suf}
-          </span>
+            <SortBtn className={Flex}>
+              <span className={Medium}>{brandDetail.sort.lowest}</span>
+              <Icon {...iconPropsGenerator('sort', '20')} />
+            </SortBtn>
+          </div>
           <div className={cx(Column, Gap28)}>
             {productData &&
               productData.map(item => (
@@ -109,4 +118,7 @@ const ProductList = styled.div`
   color: var(--colors-mid-grey);
 `;
 
+const SortBtn = styled.div`
+  color: var(--colors-main-dark);
+`;
 export default BrandDetail;
