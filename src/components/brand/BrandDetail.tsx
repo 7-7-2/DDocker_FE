@@ -1,9 +1,14 @@
 import SearchBar from '@/components/search/SearchBar';
 import ProductItem from '@/components/brand/ProductItem';
 import ProductRankingItem from '@/components/brand/ProductRankingItem';
+import ActionModal from '@/components/common/ActionModal';
+import Icon from '@/components/common/Icon';
+import { Option } from '@/components/post/overlay/Option';
 
 import { useBrandDetail } from '@/hooks/brand/useBrandDetail';
 import { useShowFooter } from '@/hooks/useShowFooter';
+import { useSortOption } from '@/hooks/useSortOption';
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
 import { BRAND_TEXTS } from '@/constants/texts';
 
@@ -18,8 +23,6 @@ import {
   Semibold,
   Medium
 } from '@/styles/styles';
-import Icon from '@/components/common/Icon';
-import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
 const { brandDetail } = BRAND_TEXTS;
 const BrandDetail = () => {
@@ -33,6 +36,10 @@ const BrandDetail = () => {
     reset,
     handleChange
   } = useBrandDetail();
+  const { isSelected, selectSortOption, isModal, handleSortOption } =
+    useSortOption(brandDetail.sort.lowest);
+  const lowest = isSelected === brandDetail.sort.lowest;
+  const highest = isSelected === brandDetail.sort.highest;
 
   return (
     <>
@@ -75,8 +82,10 @@ const BrandDetail = () => {
               </span>
               {brandDetail.list.suf}
             </span>
-            <SortBtn className={Flex}>
-              <span className={Medium}>{brandDetail.sort.lowest}</span>
+            <SortBtn
+              className={Flex}
+              onClick={handleSortOption}>
+              <span className={Medium}>{isSelected}</span>
               <Icon {...iconPropsGenerator('sort', '20')} />
             </SortBtn>
           </div>
@@ -92,6 +101,22 @@ const BrandDetail = () => {
           </div>
         </ProductList>
       </Container>
+      {isModal && (
+        <ActionModal handleActionModal={handleSortOption}>
+          <Option
+            option={brandDetail.sort.lowest}
+            onClick={selectSortOption}
+            icon={lowest ? 'check-option' : undefined}
+            type={lowest ? 'left' : undefined}
+          />
+          <Option
+            option={brandDetail.sort.highest}
+            onClick={selectSortOption}
+            icon={highest ? 'check-option' : undefined}
+            type={highest ? 'left' : undefined}
+          />
+        </ActionModal>
+      )}
     </>
   );
 };
@@ -118,7 +143,7 @@ const ProductList = styled.div`
   color: var(--colors-mid-grey);
 `;
 
-const SortBtn = styled.div`
+const SortBtn = styled.button`
   color: var(--colors-main-dark);
 `;
 export default BrandDetail;
