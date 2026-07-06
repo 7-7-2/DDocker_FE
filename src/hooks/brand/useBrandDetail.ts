@@ -12,7 +12,7 @@ import {
   productRankingItemTypes
 } from '@/types/types';
 
-export const useBrandDetail = () => {
+export const useBrandDetail = (isLowest: boolean) => {
   const navigate = useNavigate();
   const { brandName } = useParams();
   const { search, reset, handleChange } = useSearchInput();
@@ -20,13 +20,23 @@ export const useBrandDetail = () => {
   // 메뉴 리스트 조회
   const coffeeData = useGetCoffeeList() as CoffeeDataTypes;
 
-  const getMenuList = () => {
-    const res = brandName && coffeeData?.[brandName]?.map(item => item);
-    return res;
+  // 카페인 함량별 정렬
+  const getMenuList = (isLowest: boolean) => {
+    const res: CoffeeItemTypes[] =
+      brandName && coffeeData?.[brandName]
+        ? coffeeData[brandName].map(item => item)
+        : [];
+    if (isLowest) {
+      const menuList = [...res].sort((a, b) => a.caffeine - b.caffeine);
+      return menuList;
+    } else {
+      const menuList = [...res].sort((a, b) => b.caffeine - a.caffeine);
+      return menuList;
+    }
   };
 
   const brand = brandName && brandMapToKor(brandName);
-  const menuList = coffeeData && getMenuList();
+  const menuList = coffeeData && getMenuList(isLowest);
   const searchMenuList =
     menuList && menuList.filter(item => item.menu.includes(search));
   const productData = searchMenuList ? searchMenuList : menuList;
