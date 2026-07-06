@@ -11,7 +11,7 @@ const PostOwnerOption = ({
   postId
 }: {
   cancleOptions: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-  confirmDelete: (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+  confirmDelete: (e: React.MouseEvent<HTMLButtonElement>) => void;
   postId: string;
 }) => {
   const goToUpdate = useNavigateTo(`/post/${postId}/update`);
