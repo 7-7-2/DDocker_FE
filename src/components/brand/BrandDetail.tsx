@@ -23,10 +23,16 @@ import {
   Semibold,
   Medium
 } from '@/styles/styles';
+import React from 'react';
 
 const { brandDetail } = BRAND_TEXTS;
 const BrandDetail = () => {
   useShowFooter(false);
+  const { isSelected, selectSortOption, isModal, handleSortOption } =
+    useSortOption(brandDetail.sort.lowest);
+  const lowest = isSelected === brandDetail.sort.lowest;
+  const highest = isSelected === brandDetail.sort.highest;
+
   const {
     brand,
     rankingData,
@@ -35,11 +41,7 @@ const BrandDetail = () => {
     search,
     reset,
     handleChange
-  } = useBrandDetail();
-  const { isSelected, selectSortOption, isModal, handleSortOption } =
-    useSortOption(brandDetail.sort.lowest);
-  const lowest = isSelected === brandDetail.sort.lowest;
-  const highest = isSelected === brandDetail.sort.highest;
+  } = useBrandDetail(lowest);
 
   return (
     <>
@@ -50,8 +52,9 @@ const BrandDetail = () => {
         type={'brand'}
         placeholder={`${brand} ${brandDetail.search}`}
       />
+
       <Container className={Column}>
-        <div>
+        <React.Fragment>
           <Label className={Semibold}>{brandDetail.chart.label}</Label>
           <div className={FlexCenter}>
             {rankingData && rankingData.length === 3 ? (
@@ -70,7 +73,7 @@ const BrandDetail = () => {
               </Description>
             )}
           </div>
-        </div>
+        </React.Fragment>
         <div className={SectionDivier} />
 
         <ProductList>
@@ -101,6 +104,7 @@ const BrandDetail = () => {
           </div>
         </ProductList>
       </Container>
+
       {isModal && (
         <ActionModal handleActionModal={handleSortOption}>
           <Option
