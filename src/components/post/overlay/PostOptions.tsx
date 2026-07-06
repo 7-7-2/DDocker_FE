@@ -9,7 +9,7 @@ export const PostOptions = ({ children }: { children: ReactNode }) => {
 
 const Container = styled.div`
   border-radius: 16px 16px 0 0;
-  padding: 30px 0 30px 20px;
+  padding: 30px 20px 30px 20px;
   background-color: white;
   width: 100%;
   left: 0;

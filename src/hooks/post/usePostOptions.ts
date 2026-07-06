@@ -20,9 +20,9 @@ export const usePostOptions = () => {
     isModal && setIsModal(!isModal);
   };
 
-  const confirmDelete = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const confirmDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    cancelOptions(e);
+    handleToggle();
     setIsPostOption(true);
     setIsModal(true);
   };

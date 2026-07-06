@@ -5,7 +5,6 @@ import { BackgroundLayer } from '@/components/post/overlay/BackgroundLayer';
 import { PostOptions } from '@/components/post/overlay/PostOptions';
 import { isModalState } from '@/atoms/atoms';
 
-import { styled } from 'styled-system/jsx';
 import { DVW } from '@/styles/layout';
 
 type NewType = React.ReactNode;
@@ -22,14 +21,14 @@ const ActionModal = ({
     handleActionModal ? handleActionModal() : setIsModal(!isModal);
   };
   return (
-    <Container className={DVW}>
+    <div className={DVW}>
       <BackgroundLayer onClick={handleModal}>
         <PostOptions>
           <>{children}</>
         </PostOptions>
       </BackgroundLayer>
-    </Container>
+    </div>
   );
 };
-const Container = styled.div``;
+
 export default ActionModal;
