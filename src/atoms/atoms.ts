@@ -216,3 +216,8 @@ export const statsNavigationState = atom({
   key: 'statsNavigationState',
   default: ''
 });
+
+export const searchSortState = atom({
+  key: 'searchSortState',
+  default: false
+});

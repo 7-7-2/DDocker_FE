@@ -9,6 +9,7 @@ export const useSortOption = (initial: string) => {
   };
   const selectSortOption = (e: React.MouseEvent<HTMLButtonElement>) => {
     setIsSelected(e.currentTarget?.value);
+    setIsModal(!isModal);
   };
 
   return { isSelected, selectSortOption, isModal, handleSortOption };
