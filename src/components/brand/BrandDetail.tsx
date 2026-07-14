@@ -1,16 +1,16 @@
+import React from 'react';
 import SearchBar from '@/components/search/SearchBar';
 import ProductItem from '@/components/brand/ProductItem';
 import ProductRankingItem from '@/components/brand/ProductRankingItem';
-import ActionModal from '@/components/common/ActionModal';
-import Icon from '@/components/common/Icon';
-import { Option } from '@/components/post/overlay/Option';
+import SortOptionModal from '@/components/common/SortOptionModal';
+import SortBtn from '@/components/common/SortBtn';
 
 import { useBrandDetail } from '@/hooks/brand/useBrandDetail';
 import { useShowFooter } from '@/hooks/useShowFooter';
 import { useSortOption } from '@/hooks/useSortOption';
-import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
 
 import { BRAND_TEXTS } from '@/constants/texts';
+import { SORT_TEXTS } from '@/constants/common';
 
 import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
@@ -20,18 +20,16 @@ import {
   Gap28,
   colorMainDark,
   SectionDivier,
-  Semibold,
-  Medium
+  Semibold
 } from '@/styles/styles';
-import React from 'react';
 
 const { brandDetail } = BRAND_TEXTS;
 const BrandDetail = () => {
   useShowFooter(false);
+
   const { isSelected, selectSortOption, isModal, handleSortOption } =
-    useSortOption(brandDetail.sort.lowest);
-  const lowest = isSelected === brandDetail.sort.lowest;
-  const highest = isSelected === brandDetail.sort.highest;
+    useSortOption(SORT_TEXTS.brandDetail[0]);
+  const lowest = isSelected === SORT_TEXTS.brandDetail[0];
 
   const {
     brand,
@@ -86,11 +84,9 @@ const BrandDetail = () => {
               {brandDetail.list.suf}
             </span>
             <SortBtn
-              className={Flex}
-              onClick={handleSortOption}>
-              <span className={Medium}>{isSelected}</span>
-              <Icon {...iconPropsGenerator('sort', '20')} />
-            </SortBtn>
+              handleSortOption={handleSortOption}
+              isSelected={isSelected}
+            />
           </div>
           <div className={cx(Column, Gap28)}>
             {productData &&
@@ -106,20 +102,12 @@ const BrandDetail = () => {
       </Container>
 
       {isModal && (
-        <ActionModal handleActionModal={handleSortOption}>
-          <Option
-            option={brandDetail.sort.lowest}
-            onClick={selectSortOption}
-            icon={lowest ? 'check-option' : undefined}
-            type={lowest ? 'left' : undefined}
-          />
-          <Option
-            option={brandDetail.sort.highest}
-            onClick={selectSortOption}
-            icon={highest ? 'check-option' : undefined}
-            type={highest ? 'left' : undefined}
-          />
-        </ActionModal>
+        <SortOptionModal
+          option={SORT_TEXTS.brandDetail}
+          isSelected={isSelected}
+          handleSortOption={handleSortOption}
+          selectSortOption={selectSortOption}
+        />
       )}
     </>
   );
@@ -147,7 +135,4 @@ const ProductList = styled.div`
   color: var(--colors-mid-grey);
 `;
 
-const SortBtn = styled.button`
-  color: var(--colors-main-dark);
-`;
 export default BrandDetail;

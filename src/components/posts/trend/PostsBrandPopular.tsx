@@ -17,13 +17,18 @@ import { css, cx } from 'styled-system/css';
 import { MarginT28, SectionHeaderText } from '@/styles/styles';
 import { Align, Between, Column, Flex } from '@/styles/layout';
 
-const PostsBrandPopular = () => {
+const PostsBrandPopular = ({
+  handleSortOption,
+  isSelected
+}: {
+  handleSortOption: () => void;
+  isSelected: string;
+}) => {
   const {
     bodyRef,
     location,
     selected: selectedBrand,
     sort,
-    handleSortBtn,
     weeklyPopularBrandMenu,
     brandPopularPosts,
     brandRecentPosts
@@ -39,6 +44,7 @@ const PostsBrandPopular = () => {
           <TrendBubbleText productName={weeklyPopularBrandMenu?.productName} />
         }
       />
+
       <SectionHeader className={cx(Flex, Between, Align)}>
         <h3 className={cx(SectionHeaderText)}>
           {TREND_TEXTS.weekly[0]}
@@ -50,10 +56,11 @@ const PostsBrandPopular = () => {
           {TREND_TEXTS.weekly[1]}
         </h3>
         <SortBtn
-          btnState={!sort}
-          handleOnClick={handleSortBtn}
+          handleSortOption={handleSortOption}
+          isSelected={isSelected}
         />
       </SectionHeader>
+
       {!sort
         ? brandPopularPosts?.map((post: FollowingPost, idx: number) => (
             <PostCard
