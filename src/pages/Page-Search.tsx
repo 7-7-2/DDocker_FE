@@ -24,8 +24,7 @@ const Search = () => {
     reset,
     setSearch,
     selectedTab,
-    setSelectedTab,
-    clickSortBtn
+    handleSelectTab
   } = useSearchInput();
 
   return (
@@ -39,25 +38,25 @@ const Search = () => {
         />
         <SearchArea />
       </Suspense>
-      {search && (
+      {search ? (
         <Suspense>
           <SearchList
             selectedTab={selectedTab}
-            setSelectedTab={setSelectedTab}
-            clickSortBtn={clickSortBtn}
+            handleSelectTab={handleSelectTab}
             results={results}
             initialCursor={initialCursor}
             search={search}
           />
         </Suspense>
-      )}
-      {!search && <div className={Divider} />}
-      {!search && (
-        <SearchContext.Provider value={{ setSearch }}>
-          <Suspense>
-            <SearchHistory />
-          </Suspense>
-        </SearchContext.Provider>
+      ) : (
+        <>
+          <div className={Divider} />
+          <SearchContext.Provider value={{ setSearch }}>
+            <Suspense>
+              <SearchHistory />
+            </Suspense>
+          </SearchContext.Provider>
+        </>
       )}
     </>
   );

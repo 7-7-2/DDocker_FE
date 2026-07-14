@@ -110,6 +110,11 @@ export const FILL_TABS_TEXTS = {
   register: ['전체메뉴', '즐겨찾는 메뉴']
 };
 
+export const SORT_TEXTS = {
+  posts: ['최신순', '좋아요순'],
+  brandDetail: ['카페인 낮은 순', '키페인 높은 순']
+};
+
 export const MODAL_CTA_TEXTS = {
   signIn: {
     text: `로그인 후

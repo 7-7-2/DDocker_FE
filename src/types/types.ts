@@ -413,12 +413,10 @@ export interface SearchPostListProps {
   posts: SearchPostListTypes[];
   search: string;
   initialCursor: string;
-  clickSortBtn: () => void;
 }
 export interface SearchListTypes {
   selectedTab: string;
-  setSelectedTab: Dispatch<SetStateAction<string>>;
-  clickSortBtn: () => void;
+  handleSelectTab: (e: React.MouseEvent<HTMLButtonElement>) => void;
   results: SimplifyUser[] | SearchPostListTypes[];
   initialCursor: string;
   search: string;

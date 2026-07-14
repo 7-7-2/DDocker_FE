@@ -17,16 +17,11 @@ const SearchUserList = lazy(() => import('@/components/search/SearchUserList'));
 
 const SearchList = ({
   selectedTab,
-  setSelectedTab,
-  clickSortBtn,
+  handleSelectTab,
   results,
   initialCursor,
   search
 }: SearchListTypes) => {
-  const handleSelectTab = (e: React.MouseEvent<HTMLButtonElement>) => {
-    setSelectedTab(e.currentTarget.value);
-  };
-
   return (
     <>
       <Tabs
@@ -45,7 +40,6 @@ const SearchList = ({
               <SearchPostList
                 posts={results as SearchPostListTypes[]}
                 search={search}
-                clickSortBtn={clickSortBtn}
                 initialCursor={initialCursor}
               />
             </Suspense>
