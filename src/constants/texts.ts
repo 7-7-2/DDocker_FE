@@ -93,8 +93,7 @@ export const BRAND_TEXTS = {
       label: '인기 메뉴 TOP 3',
       description: '인기 메뉴 데이터가 부족해요'
     },
-    list: { pre: '총 ', suf: '개' },
-    sort: { lowest: '카페인 낮은 순', highest: '키페인 높은 순' }
+    list: { pre: '총 ', suf: '개' }
   },
   productDetial: '다른 브랜드의'
 };

@@ -5,7 +5,6 @@ import BrandList from '@/components/brand/BrandList';
 import ProductDetail from '@/components/brand/ProductDetail';
 
 import { useComposeHeader } from '@/hooks/useComposeHeader';
-import { useShowFooter } from '@/hooks/useShowFooter';
 import { brandMapToKor } from '@/utils/convertBrandName';
 
 const Brand = () => {

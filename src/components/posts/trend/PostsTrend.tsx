@@ -4,10 +4,14 @@ import DailyTrendSlider from '@/components/posts/trend/DailyTrendSlider';
 import BrandCarousel from '@/components/posts/trend/carousel/BrandCarousel';
 import PostsBrandPopular from '@/components/posts/trend/PostsBrandPopular';
 import FloatingBtn from '@/components/posts/trend/FloatingBtn';
+import SortOptionModal from '@/components/common/SortOptionModal';
+
+import { useSortOption } from '@/hooks/useSortOption';
 
 import SEOMeta from '@/components/common/SEOMeta';
 import SEO_DATA from '@/constants/SEOData';
 import { TREND_TEXTS } from '@/constants/texts';
+import { SORT_TEXTS } from '@/constants/common';
 
 import { cx } from 'styled-system/css';
 import { MarginT24, SectionHeaderText, TrendDivider } from '@/styles/styles';
@@ -28,6 +32,9 @@ const PostsTrend = () => {
     return () => observer.disconnect();
   }, [ref, callback]);
 
+  const { isSelected, selectSortOption, isModal, handleSortOption } =
+    useSortOption(SORT_TEXTS.posts[0]);
+
   return (
     <>
       <SEOMeta pageData={SEO_DATA.postsTrend} />
@@ -42,8 +49,20 @@ const PostsTrend = () => {
         ref={ref}
       />
       <BrandCarousel />
-      <PostsBrandPopular />
+      <PostsBrandPopular
+        handleSortOption={handleSortOption}
+        isSelected={isSelected}
+      />
       {viewFloat && <FloatingBtn targetRef={ref} />}
+
+      {isModal && (
+        <SortOptionModal
+          option={SORT_TEXTS.posts}
+          isSelected={isSelected}
+          handleSortOption={handleSortOption}
+          selectSortOption={selectSortOption}
+        />
+      )}
     </>
   );
 };
