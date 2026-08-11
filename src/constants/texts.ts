@@ -95,5 +95,6 @@ export const BRAND_TEXTS = {
     },
     list: { pre: '총 ', suf: '개' }
   },
-  productDetial: '다른 브랜드의'
+  productDetial: '다른 브랜드의',
+  tooltip: '인기 순위는 최근 30일 기준으로 집계되며 하루마다 갱신돼요'
 };

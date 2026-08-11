@@ -1,6 +1,8 @@
 import { RefObject } from 'react';
 
-export const getAnchorPosition = (bodyRef: RefObject<HTMLDivElement>) => {
+export const getAnchorPosition = (
+  bodyRef: RefObject<HTMLDivElement | HTMLButtonElement>
+) => {
   const rect = bodyRef.current?.getBoundingClientRect();
   const left = (rect && rect.left - 20) || 0;
   const center = (rect && rect.width / 2) || 0;

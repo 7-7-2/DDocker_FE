@@ -2242,6 +2242,28 @@
       <path d="M4.18784 4.8764C3.7887 5.42946 2.9652 5.42946 2.56607 4.8764L0.19085 1.58521C-0.286449 0.923842 0.186126 2.37609e-07 1.00173 3.08912e-07L5.75217 7.24208e-07C6.56778 7.95511e-07 7.04035 0.923842 6.56306 1.58521L4.18784 4.8764Z" fill="#2DCD9D"/>
     </symbol>
 
+    <symbol   
+      id="icon-toolTip"  
+      width="20" 
+      height="20" 
+      viewBox="0 0 20 20" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg">
+     <circle cx="10" cy="10" r="7" stroke="#767676" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+     <rect x="10" y="6.88867" width="0.00777778" height="0.00777778" stroke="#767676" stroke-width="1.85" stroke-linejoin="round"/>
+      <path d="M10 10V13.1111" stroke="#767676" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    
+    <symbol   
+      id="icon-toolTip-tail" 
+       width="16" 
+       height="12" 
+       viewBox="0 0 16 12" 
+       fill="none" 
+       xmlns="http://www.w3.org/2000/svg">
+      <path d="M6.3359 0.890682C7.12754 -0.296785 8.87246 -0.296784 9.6641 0.890682L16 10.3945H0L6.3359 0.890682Z" fill="white"/>
+    </symbol>
+
 
   </defs>
 </svg>;

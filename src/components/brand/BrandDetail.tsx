@@ -1,13 +1,18 @@
 import React from 'react';
+
 import SearchBar from '@/components/search/SearchBar';
 import ProductItem from '@/components/brand/ProductItem';
 import ProductRankingItem from '@/components/brand/ProductRankingItem';
 import SortOptionModal from '@/components/common/SortOptionModal';
 import SortBtn from '@/components/common/SortBtn';
+import Icon from '@/components/common/Icon';
+import Tooltip from '@/components/brand/Tooltip';
 
 import { useBrandDetail } from '@/hooks/brand/useBrandDetail';
 import { useShowFooter } from '@/hooks/useShowFooter';
 import { useSortOption } from '@/hooks/useSortOption';
+import { iconPropsGenerator } from '@/utils/iconPropsGenerator';
+import { useTooltip } from '@/hooks/brand/useTooltip';
 
 import { BRAND_TEXTS } from '@/constants/texts';
 import { SORT_TEXTS } from '@/constants/common';
@@ -31,6 +36,9 @@ const BrandDetail = () => {
     useSortOption(SORT_TEXTS.brandDetail[0]);
   const lowest = isSelected === SORT_TEXTS.brandDetail[0];
 
+  const { isTooltipOpen, handleToggleTooltip, anchorRef, anchor } =
+    useTooltip();
+
   const {
     brand,
     rankingData,
@@ -53,7 +61,15 @@ const BrandDetail = () => {
 
       <Container className={Column}>
         <React.Fragment>
-          <Label className={Semibold}>{brandDetail.chart.label}</Label>
+          <Label className={cx(Flex, Align)}>
+            <span className={Semibold}>{brandDetail.chart.label}</span>
+            <button
+              ref={anchorRef}
+              onClick={handleToggleTooltip}>
+              <Icon {...iconPropsGenerator('toolTip', '20')} />
+            </button>
+          </Label>
+          {isTooltipOpen && <Tooltip anchor={anchor} />}
           <div className={FlexCenter}>
             {rankingData && rankingData.length === 3 ? (
               <Ranking className={cx(Flex, Gap22, Align)}>
@@ -114,11 +130,12 @@ const BrandDetail = () => {
 };
 
 const Container = styled.div`
-  margin: 20px 0 10px;
+  margin: 12px 0 10px;
 `;
 
-const Label = styled.span`
+const Label = styled.div`
   font-size: var(--font-sizes-lg);
+  gap: 4px;
 `;
 
 const Ranking = styled.div`
