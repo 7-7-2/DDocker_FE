@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
+import { nanoid } from 'nanoid';
 
 import { useGetTodayCoffeeData } from '@/hooks/home/useGetTodayCoffeeData';
 import { usePostDataFormatter } from '@/hooks/post/usePostDataFormatter';
@@ -18,6 +19,7 @@ import {
 import { getMyInfo } from '@/api/user';
 import { registerCaffeineIntake, registerPost, updatePost } from '@/api/post';
 import { FILL_TABS_TEXTS } from '@/constants/common';
+
 
 const { register } = FILL_TABS_TEXTS;
 
@@ -76,23 +78,23 @@ export const usePostMutation = (
   const isInvalid = validateButtonState();
 
   // caffieneIntake 등록 로직
-  const handleCaffeineRegister = async () => {
+  const handleCaffeineRegister = async (idepmotencyKey: string) => {
     const caffeineIntakeData = {
       ...caffeineIntake,
       ['caffeine']: caffeine || caffeineIntake.caffeine
     };
-    const registered = await registerCaffeineIntake(caffeineIntakeData);
+    const registered = await registerCaffeineIntake(caffeineIntakeData, idepmotencyKey);
     return registered;
   };
 
   //post 등록 로직
-  const handleRegister = async () => {
+  const handleRegister = async (idepmotencyKey: string) => {
     const { postId, newRegistData } = await dataFormatter(
       caffeine,
       nonImgPost,
       descriptions
     );
-    const registered = newRegistData && (await registerPost(newRegistData));
+    const registered = newRegistData && (await registerPost(newRegistData, idepmotencyKey));
     if (!nonImgPost) {
       const imgUploaded =
         (await registered) &&
@@ -133,15 +135,16 @@ export const usePostMutation = (
   const { mutate, isPending } = useMutation({
     mutationKey: ['postRegister', update, caffeineRegister],
     mutationFn: async () => {
+      const idepmotencyKey = nanoid();
       if (update && !caffeineRegister) {
         const res = await handleUpdate();
         return res.postId;
       }
       if (caffeineRegister) {
-        const res = await handleCaffeineRegister();
+        const res = await handleCaffeineRegister(idepmotencyKey);
         return;
       }
-      const res = await handleRegister();
+      const res = await handleRegister(idepmotencyKey);
       return res.postId;
     },
     onSuccess: (postId: string | null) => {
