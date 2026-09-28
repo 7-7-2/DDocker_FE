@@ -159,9 +159,9 @@ export const deleteImage = async (url: string) => {
 };
 
 // 15. 포스트 등록
-export const registerPost = async (postInfo: RegisterPostTypes) => {
+export const registerPost = async (postInfo: RegisterPostTypes, idempotencyKey: string) => {
   try {
-    const res = await authInstance.post('/posts/register', postInfo);
+    const res = await authInstance.post('/posts/register', postInfo, { headers: { 'Idempotency-Key': idempotencyKey }});
     return res.data.data;
   } catch (error) {
     console.log('Failed to regist post', error);
@@ -170,11 +170,11 @@ export const registerPost = async (postInfo: RegisterPostTypes) => {
 
 //16. 카페인 기록하기
 export const registerCaffeineIntake = async (
-  caffieneIntake: CaffeineIntakeTypes
+  caffieneIntake: CaffeineIntakeTypes, idempotencyKey: string
 ) => {
   const { brand, ...rest } = caffieneIntake;
   const res = await authInstance
-    .post('/caffeine/intake', { brandId: brand, ...rest })
+    .post('/caffeine/intake', { brandId: brand, ...rest }, { headers: { 'Idempotency-Key': idempotencyKey }})
     .catch(e => {
       console.log(e);
     });

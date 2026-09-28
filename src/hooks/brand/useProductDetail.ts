@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useParams, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { nanoid } from 'nanoid';
 
 import { useVerifyModalCTA } from '@/hooks/useVerifyModalCTA';
 import { useFavoriteMenu } from '@/hooks/post/useFavoriteMenu';
@@ -51,7 +52,8 @@ export const useProductDetail = () => {
   const { mutate } = useMutation({
     mutationKey: ['caffeineRegister'],
     mutationFn: async () => {
-      const res = await registerCaffeineIntake(caffeineIntake);
+      const idempotencyKey = nanoid();
+      const res = await registerCaffeineIntake(caffeineIntake, idempotencyKey);
       return res;
     },
     onSuccess: () => {
