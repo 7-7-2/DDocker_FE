@@ -126,6 +126,7 @@ export interface TodayCoffeeInfoItemTypes {
 
 export interface CoffeeItemTypes {
   menu: string;
+  type: string | null;
   brand: string;
   caffeine: number;
 }
