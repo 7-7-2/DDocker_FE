@@ -26,10 +26,13 @@ const BrandList = () => {
           className={cx(Flex, Between)}
           key={brand}>
           <div className={cx(Flex, Center, Gap16)}>
-            <BrandLogo
-              src={`/png/${brand}.png`}
-              alt={brand}
-            />
+            <BrandLogo>
+              <img
+                style={{ width: '100%', height: '100%', objectFit: 'fill' }}
+                alt={brand}
+                src={`/svg/brandIcons/${brand}.svg`}
+              />
+            </BrandLogo>
             <Label className={Medium}>{brandMapToKor(brand)}</Label>
           </div>
           <Button
@@ -42,7 +45,7 @@ const BrandList = () => {
     </div>
   );
 };
-const BrandLogo = styled.img`
+const BrandLogo = styled.div`
   width: 46px;
   height: 46px;
   border-radius: 50%;

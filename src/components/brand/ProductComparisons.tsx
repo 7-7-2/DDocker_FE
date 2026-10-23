@@ -28,7 +28,13 @@ const ProductComparisons = ({
       <List className={Flex}>
         {comparisonData?.map(item => (
           <Item>
-            <TemporaryImg />
+            <BrandLogo>
+              <img
+                style={{ width: '100%', height: '100%', objectFit: 'fill' }}
+                alt={productName}
+                src={`/svg/brandIcons/${item.brandName}.svg`}
+              />
+            </BrandLogo>
             <Info className={cx(Column, Align)}>
               <span className={colorMidGrey}>
                 {brandMapToKor(item.brandName)}
@@ -62,9 +68,10 @@ const ProductComparisons = ({
   );
 };
 
-const TemporaryImg = styled.div`
-  width: 72px;
+const BrandLogo = styled.div`
+  width: 70px;
   aspect-ratio: 1;
+
   border-radius: 50%;
   background-color: #f1f1f1;
 `;

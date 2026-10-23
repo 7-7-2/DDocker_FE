@@ -8,8 +8,10 @@ import { useVerifyModalCTA } from '@/hooks/useVerifyModalCTA';
 import { useFavoriteMenu } from '@/hooks/post/useFavoriteMenu';
 import { useCoffeeSelection } from '@/hooks/useCoffeeSelection';
 import { useGetTodayCoffeeData } from '@/hooks/home/useGetTodayCoffeeData';
+
 import { registerCaffeineIntake } from '@/api/post';
 import { getProductComparison } from '@/api/brand';
+
 import { caffeineFilterState, caffeineIntakeState } from '@/atoms/atoms';
 import { ProductComparisonTypes } from '@/types/types';
 
@@ -19,7 +21,7 @@ export const useProductDetail = () => {
   const navigate = useNavigate();
 
   const [isFavMenu, setIsFavMenu] = useState(false);
-  const [isfavId, setIsFavId] = useState('');
+  const [isFavId, setIsFavId] = useState('');
   const [caffeine, setCaffeine] = useRecoilState(caffeineFilterState);
   const [caffeineIntake, setCaffeineIntake] =
     useRecoilState(caffeineIntakeState);
@@ -74,7 +76,7 @@ export const useProductDetail = () => {
 
   const handleFavBtn = () => {
     if (isFavMenu) {
-      deleteFavMenu(Number(isfavId));
+      deleteFavMenu(Number(isFavId));
       setIsFavMenu(!isFavMenu);
       return;
     } else {
@@ -109,14 +111,16 @@ export const useProductDetail = () => {
     });
   }, [caffeine, isModal]);
 
-  // 브랜드 인기 메뉴 조회
+  // 동일 메뉴 타 브랜드 조회
+  const extraMenu = state.type === null || state.type === 'extra';
   const { data: comparisonData } = useQuery({
     queryKey: ['getProductComparison'],
     queryFn: async () => {
       const res =
         state && (await getProductComparison(state.brand, state.menu));
       return res ? (res as ProductComparisonTypes) : null;
-    }
+    },
+    enabled: !extraMenu
   });
 
   return {
