@@ -7,6 +7,7 @@ import CaffeineInfo from '@/components/home/CaffeineInfo';
 import FavoriteMenuAddModal from '@/components/post/postRegister/FavoriteMenuAddModal';
 import ModalCTA from '@/components/common/ModalCTA';
 import ProductComparisons from '@/components/brand/ProductComparisons';
+import ProductIcon from '@/components/brand/ProductIcon';
 
 import { useShowFooter } from '@/hooks/useShowFooter';
 import { useHandleHeaderBackGround } from '@/hooks/useHandleHeaderBackGround';
@@ -24,6 +25,7 @@ import { cx } from 'styled-system/css';
 import { styled } from 'styled-system/jsx';
 import { Column, FlexCenter } from '@/styles/layout';
 import {
+  Button1,
   DefaultBtn,
   DisabledBtn,
   Gap24,
@@ -49,19 +51,20 @@ const ProductDetail = () => {
   } = useProductDetail();
   const { isScrolled, scrollAnchor } = useHandleHeaderBackGround();
   const { handleOnClick, isfailed, moveFavoriteTab } = useFavoriteMenu();
-  const { userId } = useCachedUserInfo();
-
   const { coffeeInfo } = coffeeInfoFormatter(caffeineIntake);
+  const { userId } = useCachedUserInfo();
+  const isAuthorized = userId && isModal;
 
   return (
     <>
-      {isModal && !isfailed ? (
+      {isAuthorized && !isfailed && (
         <FavoriteMenuAddModal
           handleModal={handleModal}
           handleOnclick={handleOnClick}
           contents={coffeeInfo}
         />
-      ) : (
+      )}
+      {isAuthorized && isfailed && (
         <ModalCTA
           buttonText={[BUTTON_TEXTS.close, BUTTON_TEXTS.edit]}
           title={addFavoriteMenu.ModalText.max}
@@ -76,8 +79,14 @@ const ProductDetail = () => {
           backgroundColor: `${!isScrolled ? '#f1f1f1' : '#fff'}`
         }}
       />
+
       <Container>
-        <Img ref={scrollAnchor}></Img>
+        <Img
+          ref={scrollAnchor}
+          className={FlexCenter}>
+          <ProductIcon type={state.type || 'extra'} />
+        </Img>
+
         <ContentsBox>
           <div className={Column}>
             <Brand className={Medium}>
@@ -90,7 +99,7 @@ const ProductDetail = () => {
           <CoffeeOptionSelection />
           <div className={cx(SectionDivier, MarginT24)} />
 
-          {comparisonData && (
+          {state.type !== 'extra' && comparisonData && (
             <ProductComparisons
               productName={state.menu || caffeineIntake.productName}
               comparisonData={comparisonData?.comparisons}
@@ -103,15 +112,21 @@ const ProductDetail = () => {
               <CaffeineInfo />
             </div>
             <ButtonContainer className={cx(FlexCenter, Gap24)}>
-              <button onClick={handleFavBtn}>
-                <Icon
-                  {...iconPropsGenerator(isFavMenu ? 'fav-active' : 'fav')}
-                />
+              <button
+                onClick={handleFavBtn}
+                disabled={!userId}>
+                {userId ? (
+                  <Icon
+                    {...iconPropsGenerator(isFavMenu ? 'fav-active' : 'fav')}
+                  />
+                ) : (
+                  <Icon {...iconPropsGenerator('fav-disabled')} />
+                )}
               </button>
               <Button
                 text={BUTTON_TEXTS.register}
                 onClick={handleRegisterBtn}
-                className={userId ? DefaultBtn : DisabledBtn}
+                className={cx(Button1, userId ? DefaultBtn : DisabledBtn)}
               />
             </ButtonContainer>
           </BrandFooter>
