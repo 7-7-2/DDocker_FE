@@ -216,12 +216,42 @@ export const BottomBtnContainer = cx(
 );
 
 //Button Size type
+//long button
 export const Btn = cx(css`
   width: 100%;
   max-width: 460px;
   margin: 0 auto;
+  border-radius: 10px;
 `);
 
+export const Button1 = cx(
+  Btn,
+  css`
+    height: 52px;
+  `
+);
+
+export const Button2 = cx(
+  Btn,
+  css`
+    height: 48px;
+  `
+);
+
+export const Button3 = cx(
+  Btn,
+  css`
+    height: 42px;
+  `
+);
+
+export const ThinBtn = css`
+  border-radius: 10px;
+  font-size: var(--font-sizes-sm);
+  line-height: 22px;
+`;
+
+//short button
 export const ShortBtn = cx(
   Medium,
   css`
@@ -241,20 +271,6 @@ export const DubbleShortBtn = cx(
     font-size: var(--font-sizes-sm);
   `
 );
-
-export const ThinBtn = css`
-  border-radius: 10px;
-  font-size: var(--font-sizes-sm);
-  line-height: 22px;
-`;
-
-export const TertiaryBtn = css`
-  height: 21px;
-  line-height: 20px;
-  color: var(--colors-mid-grey);
-  font-size: var(--font-sizes-xs);
-  border-bottom: 1px solid var(--colors-mid-grey);
-`;
 
 export const MediumBtn = cx(
   Semibold,
@@ -303,6 +319,14 @@ export const TextBtn = cx(
     margin-top: 13px;
   `
 );
+
+export const TertiaryBtn = css`
+  height: 21px;
+  line-height: 20px;
+  color: var(--colors-mid-grey);
+  font-size: var(--font-sizes-xs);
+  border-bottom: 1px solid var(--colors-mid-grey);
+`;
 
 export const StartBtn = cx(
   Btn,
