@@ -1,3 +1,4 @@
+import ProductIcon from '@/components/brand/ProductIcon';
 import { productRankingItemTypes } from '@/types/types';
 
 import { cx } from 'styled-system/css';
@@ -46,6 +47,7 @@ const ProductRankingItem = ({
           style={{ ...rankingLabelStyle() }}>
           {ranking}
         </RakingLabel>
+        <ProductIcon type={'extra'} />
       </ImgContainer>
       <div className={cx(Column, Align)}>
         <ProductName className={Semibold}>
@@ -71,6 +73,7 @@ const ImgContainer = styled.div`
   border-radius: 50%;
   background-color: var(--colors-tertiary);
   position: relative;
+  padding: 10px;
 `;
 
 const RakingLabel = styled.div`

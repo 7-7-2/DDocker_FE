@@ -1,14 +1,21 @@
+import ProductIcon from '@/components/brand/ProductIcon';
 import { brandMapToKor } from '@/utils/convertBrandName';
 import { CoffeeItemTypes } from '@/types/types';
 import { BRAND_TEXTS } from '@/constants/texts';
 
 import { styled } from 'styled-system/jsx';
-import { Column, Flex } from '@/styles/layout';
+import { Column, Flex, FlexCenter } from '@/styles/layout';
 import { Bold, Semibold } from '@/styles/styles';
+
 const ProductItem = ({ data }: { data: CoffeeItemTypes }) => {
   return (
     <Container className={Flex}>
-      <Img></Img>
+      <Img className={FlexCenter}>
+        <ProductIcon
+          type={data.type || 'extra'}
+          size={'66'}
+        />
+      </Img>
       <ProductInfo className={Column}>
         <span>{brandMapToKor(data.brand)}</span>
         <Product className={Semibold}>{data.menu}</Product>

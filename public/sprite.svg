@@ -2222,6 +2222,16 @@
       <path d="M11.9997 2L15.1032 8.72839L22.4613 9.60081L17.0213 14.6316L18.4653 21.8992L11.9997 18.28L5.53407 21.8992L6.97813 14.6316L1.53809 9.60081L8.8962 8.72839L11.9997 2Z" fill="#FF701E" stroke="#FF701E" stroke-width="1.5" stroke-linejoin="round"/>
     </symbol>
 
+    <symbol 
+      id="icon-fav-disabled" 
+      width="24" 
+      height="24" 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg">
+      <path d="M11.9997 2L15.1032 8.72839L22.4613 9.60081L17.0213 14.6316L18.4653 21.8992L11.9997 18.28L5.53407 21.8992L6.97813 14.6316L1.53809 9.60081L8.8962 8.72839L11.9997 2Z" stroke="#EDECEC" stroke-width="1.5" stroke-linejoin="round"/>
+    </symbol>
+    
     <symbol
       id="icon-up" 
       width="7" 
@@ -2263,7 +2273,6 @@
        xmlns="http://www.w3.org/2000/svg">
       <path d="M6.3359 0.890682C7.12754 -0.296785 8.87246 -0.296784 9.6641 0.890682L16 10.3945H0L6.3359 0.890682Z" fill="white"/>
     </symbol>
-
 
   </defs>
 </svg>;
